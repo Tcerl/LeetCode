@@ -9,8 +9,8 @@
 1. [GIAI ĐOẠN 1: NỀN TẢNG TỐC ĐỘ](#giai-đoạn-1-nền-tảng-tốc-độ)
 2. [GIAI ĐOẠN 2: FULL STACK WEB](#giai-đoạn-2-full-stack-web)
 3. [GIAI ĐOẠN 3: MOBILE DEVELOPMENT](#giai-đoạn-3-mobile-development)
-4. [GIAI ĐOẠN 4: NÂNG CAO & CHUYÊN SÂU](#giai-đoạn-4-nâng-cao--chuyên-sâu)
-5. [GIAI ĐOẠN 5: PORTFOLIO & CHUYÊN NGHIỆP](#giai-đoạn-5-portfolio--chuyên-nghiệp)
+4. [GIAI ĐOẠN 4: NÂNG CAO &amp; CHUYÊN SÂU](#giai-đoạn-4-nâng-cao--chuyên-sâu)
+5. [GIAI ĐOẠN 5: PORTFOLIO &amp; CHUYÊN NGHIỆP](#giai-đoạn-5-portfolio--chuyên-nghiệp)
 
 ---
 
@@ -23,6 +23,7 @@
 #### Variables và Data Types
 
 **Kiến thức:**
+
 - **Định nghĩa:** Biến là tên tham chiếu tới giá trị trong bộ nhớ; kiểu dữ liệu (int/float/string/bool/None) mô tả dạng giá trị và cách thao tác với nó.
 - Variables: Biến lưu trữ dữ liệu
 - Data Types: int, float, string, bool, None
@@ -30,6 +31,7 @@
 - Dynamic typing: Python tự động xác định kiểu
 
 **Ví dụ code:**
+
 ```python
 # Variables
 name = "Nguyen Van A"
@@ -46,11 +48,13 @@ x, y, z = 1, 2, 3
 ```
 
 **Best Practices:**
+
 - Đặt tên biến có ý nghĩa (snake_case)
 - Sử dụng type hints khi có thể
 - Tránh đặt tên biến trùng với keywords
 
 **Bài tập:**
+
 1. Tạo biến lưu thông tin cá nhân (tên, tuổi, địa chỉ)
 2. Thực hiện các phép toán cơ bản
 3. Chuyển đổi giữa các kiểu dữ liệu
@@ -58,6 +62,7 @@ x, y, z = 1, 2, 3
 #### Operators
 
 **Kiến thức:**
+
 - **Định nghĩa:** Toán tử là ký hiệu thực hiện phép tính trên toán hạng (số/chuỗi/biến), trả về giá trị mới.
 - Arithmetic: +, -, *, /, //, %, **
 - Comparison: ==, !=, <, >, <=, >=
@@ -67,6 +72,7 @@ x, y, z = 1, 2, 3
 - Identity: is, is not
 
 **Ví dụ code:**
+
 ```python
 # Arithmetic
 result = 10 + 5  # 15
@@ -86,6 +92,7 @@ if "a" in "apple":
 #### Control Flow: If/Else và Loops
 
 **Kiến thức:**
+
 - **Định nghĩa:** Cấu trúc điều khiển quyết định đường đi của chương trình (rẽ nhánh if/else, lặp for/while) dựa trên điều kiện và số lần lặp.
 - if/elif/else: Điều kiện rẽ nhánh
 - for loop: Lặp qua iterable
@@ -94,6 +101,7 @@ if "a" in "apple":
 - range(): Tạo dãy số
 
 **Ví dụ code:**
+
 ```python
 # If/Else
 age = 20
@@ -127,11 +135,13 @@ for i in range(10):
 ```
 
 **Best Practices:**
+
 - Sử dụng list comprehension khi có thể
 - Tránh nested loops quá sâu
 - Sử dụng enumerate() khi cần index
 
 **Bài tập:**
+
 1. Viết chương trình kiểm tra số chẵn/lẻ
 2. Tính tổng từ 1 đến n
 3. Tìm số lớn nhất trong list
@@ -139,6 +149,7 @@ for i in range(10):
 #### Functions
 
 **Kiến thức:**
+
 - **Định nghĩa:** Hàm là khối mã có tên, nhận tham số, trả về giá trị, giúp tái sử dụng và đóng gói logic.
 - Function definition: def
 - Parameters và Arguments
@@ -149,6 +160,7 @@ for i in range(10):
 - Scope: local, global, nonlocal
 
 **Ví dụ code:**
+
 ```python
 # Basic function
 def greet(name):
@@ -181,12 +193,14 @@ print(x)  # 10
 ```
 
 **Best Practices:**
+
 - Một function chỉ làm một việc (Single Responsibility)
 - Đặt tên function mô tả rõ ràng
 - Sử dụng type hints
 - Giữ function ngắn gọn (< 50 dòng)
 
 **Bài tập:**
+
 1. Viết function tính giai thừa
 2. Viết function kiểm tra số nguyên tố
 3. Viết function tìm số lớn nhất trong list
@@ -194,6 +208,7 @@ print(x)  # 10
 #### Modules và Packages
 
 **Kiến thức:**
+
 - **Định nghĩa:** Module là file Python chứa hàm/lớp/biến; Package là tập hợp modules có `__init__.py`, giúp tổ chức và tái sử dụng code.
 - Import modules: import, from...import
 - Tạo module riêng
@@ -201,6 +216,7 @@ print(x)  # 10
 - Package structure
 
 **Ví dụ code:**
+
 ```python
 # Import
 import math
@@ -223,6 +239,7 @@ result = add(1, 2)
 ```
 
 **Best Practices:**
+
 - Tổ chức code thành modules hợp lý
 - Sử dụng __init__.py cho packages
 - Tránh circular imports
@@ -230,9 +247,11 @@ result = add(1, 2)
 #### List và Dictionary
 
 **Kiến thức:**
+
 - **Định nghĩa:** List là cấu trúc có thứ tự, thay đổi được; Dictionary là ánh xạ key → value (key duy nhất), tra cứu nhanh theo key.
 
 **List:**
+
 - Tạo list: [], list()
 - Indexing và slicing
 - Methods: append(), extend(), insert(), remove(), pop()
@@ -240,6 +259,7 @@ result = add(1, 2)
 - Nested lists
 
 **Dictionary:**
+
 - Tạo dict: {}, dict()
 - Keys và values
 - Methods: get(), keys(), values(), items()
@@ -247,6 +267,7 @@ result = add(1, 2)
 - Nested dictionaries
 
 **Ví dụ code:**
+
 ```python
 # List
 numbers = [1, 2, 3, 4, 5]
@@ -280,11 +301,13 @@ students = [
 ```
 
 **Best Practices:**
+
 - Sử dụng list comprehension cho code ngắn gọn
 - Sử dụng .get() thay vì [] để tránh KeyError
 - Hiểu về mutability của list và dict
 
 **Bài tập:**
+
 1. Tạo list và thực hiện các operations
 2. Tạo dictionary lưu thông tin sinh viên
 3. Sử dụng list/dict comprehension
@@ -292,6 +315,7 @@ students = [
 #### File I/O
 
 **Kiến thức:**
+
 - **Định nghĩa:** Đọc/ghi dữ liệu từ/đến file (text/binary) thông qua hàm open và các phương thức đọc/ghi; dùng context manager để tự động đóng file.
 - Mở file: open()
 - Đọc file: read(), readline(), readlines()
@@ -301,6 +325,7 @@ students = [
 - CSV: csv.reader(), csv.writer()
 
 **Ví dụ code:**
+
 ```python
 # Đọc file
 with open("file.txt", "r", encoding="utf-8") as f:
@@ -330,11 +355,13 @@ with open("data.csv", "r") as f:
 ```
 
 **Best Practices:**
+
 - Luôn sử dụng with statement
 - Chỉ định encoding (utf-8)
 - Xử lý exceptions khi đọc/ghi file
 
 **Bài tập:**
+
 1. Đọc file và đếm số dòng
 2. Ghi danh sách vào file JSON
 3. Đọc CSV và xử lý dữ liệu
@@ -342,6 +369,7 @@ with open("data.csv", "r") as f:
 #### Exception Handling
 
 **Kiến thức:**
+
 - **Định nghĩa:** Cơ chế bắt và xử lý lỗi runtime (exceptions) để chương trình không sập; có thể log, phục hồi, hoặc dừng an toàn.
 - try/except/else/finally
 - Các loại exceptions: ValueError, TypeError, FileNotFoundError, etc.
@@ -350,6 +378,7 @@ with open("data.csv", "r") as f:
 - Exception chaining
 
 **Ví dụ code:**
+
 ```python
 # Basic try/except
 try:
@@ -384,12 +413,14 @@ raise CustomError("Custom error message")
 ```
 
 **Best Practices:**
+
 - Cụ thể hóa exception types
 - Không bỏ qua exceptions (silent failures)
 - Log exceptions đầy đủ
 - Sử dụng finally cho cleanup
 
 **Bài tập:**
+
 1. Xử lý exception khi đọc file không tồn tại
 2. Validate input và raise custom exception
 3. Xử lý multiple exceptions
@@ -399,6 +430,7 @@ raise CustomError("Custom error message")
 **Mục tiêu:** Giải 20 bài LeetCode Easy
 
 **Các bài đề xuất:**
+
 1. Two Sum
 2. Reverse Integer
 3. Palindrome Number
@@ -421,6 +453,7 @@ raise CustomError("Custom error message")
 20. Single Number
 
 **Chiến lược:**
+
 - Đọc kỹ đề bài
 - Nghĩ về edge cases
 - Viết pseudocode trước
@@ -432,39 +465,41 @@ raise CustomError("Custom error message")
 #### Project 1: Calculator App
 
 **Yêu cầu:**
+
 - Cộng, trừ, nhân, chia
 - Xử lý lỗi (chia cho 0)
 - Lịch sử tính toán
 - Lưu vào file
 
 **Ví dụ code:**
+
 ```python
 class Calculator:
     def __init__(self):
         self.history = []
-    
+  
     def add(self, a, b):
         result = a + b
         self.history.append(f"{a} + {b} = {result}")
         return result
-    
+  
     def subtract(self, a, b):
         result = a - b
         self.history.append(f"{a} - {b} = {result}")
         return result
-    
+  
     def multiply(self, a, b):
         result = a * b
         self.history.append(f"{a} * {b} = {result}")
         return result
-    
+  
     def divide(self, a, b):
         if b == 0:
             raise ValueError("Cannot divide by zero")
         result = a / b
         self.history.append(f"{a} / {b} = {result}")
         return result
-    
+  
     def save_history(self, filename):
         with open(filename, "w") as f:
             for entry in self.history:
@@ -474,12 +509,14 @@ class Calculator:
 #### Project 2: Todo List
 
 **Yêu cầu:**
+
 - Thêm, xóa, sửa task
 - Đánh dấu hoàn thành
 - Lưu vào file JSON
 - Tìm kiếm task
 
 **Ví dụ code:**
+
 ```python
 import json
 from datetime import datetime
@@ -488,18 +525,18 @@ class TodoList:
     def __init__(self, filename="todos.json"):
         self.filename = filename
         self.todos = self.load_todos()
-    
+  
     def load_todos(self):
         try:
             with open(self.filename, "r") as f:
                 return json.load(f)
         except FileNotFoundError:
             return []
-    
+  
     def save_todos(self):
         with open(self.filename, "w") as f:
             json.dump(self.todos, f, indent=2)
-    
+  
     def add(self, task):
         todo = {
             "id": len(self.todos) + 1,
@@ -510,7 +547,7 @@ class TodoList:
         self.todos.append(todo)
         self.save_todos()
         return todo
-    
+  
     def complete(self, todo_id):
         for todo in self.todos:
             if todo["id"] == todo_id:
@@ -518,11 +555,11 @@ class TodoList:
                 self.save_todos()
                 return todo
         return None
-    
+  
     def delete(self, todo_id):
         self.todos = [t for t in self.todos if t["id"] != todo_id]
         self.save_todos()
-    
+  
     def search(self, keyword):
         return [t for t in self.todos if keyword.lower() in t["task"].lower()]
 ```
@@ -534,39 +571,64 @@ class TodoList:
 ### 2.1. Array (Mảng)
 
 **Kiến thức:**
+
 - Array là cấu trúc dữ liệu lưu trữ các phần tử liên tiếp trong bộ nhớ
 - Index bắt đầu từ 0
 - Time complexity:
-  - Access: O(1)
-  - Search: O(n)
-  - Insert: O(n)
-  - Delete: O(n)
+  - Access: O(1) - Truy cập trực tiếp qua index
+  - Search: O(n) - Phải duyệt từng phần tử
+  - Insert: O(n) - Phải dịch chuyển các phần tử sau vị trí chèn
+  - Delete: O(n) - Phải dịch chuyển các phần tử sau vị trí xóa
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Array lưu các phần tử ở các vị trí bộ nhớ liên tiếp
+   - Mỗi phần tử có địa chỉ = địa chỉ đầu + index × kích thước phần tử
+   - Truy cập O(1) vì tính toán trực tiếp địa chỉ, không cần duyệt
+
+2. **Khi nào dùng Array:**
+   - Cần truy cập nhanh qua index
+   - Kích thước cố định hoặc biết trước
+   - Dữ liệu đồng nhất (cùng kiểu)
+   - Không cần insert/delete thường xuyên
+
+3. **Ưu điểm:**
+   - Truy cập nhanh O(1)
+   - Cache-friendly (dữ liệu liên tiếp)
+   - Đơn giản, dễ hiểu
+
+4. **Nhược điểm:**
+   - Kích thước cố định (trong một số ngôn ngữ)
+   - Insert/Delete chậm O(n)
+   - Tốn bộ nhớ nếu không dùng hết
 
 **Implement từ đầu:**
+
 ```python
 class Array:
     def __init__(self, capacity=10):
         self.capacity = capacity
         self.size = 0
         self.data = [None] * capacity
-    
+  
     def __getitem__(self, index):
         if 0 <= index < self.size:
             return self.data[index]
         raise IndexError("Index out of range")
-    
+  
     def __setitem__(self, index, value):
         if 0 <= index < self.size:
             self.data[index] = value
         else:
             raise IndexError("Index out of range")
-    
+  
     def append(self, value):
         if self.size >= self.capacity:
             self._resize()
         self.data[self.size] = value
         self.size += 1
-    
+  
     def insert(self, index, value):
         if index < 0 or index > self.size:
             raise IndexError("Index out of range")
@@ -576,41 +638,193 @@ class Array:
             self.data[i] = self.data[i-1]
         self.data[index] = value
         self.size += 1
-    
+  
     def delete(self, index):
         if index < 0 or index >= self.size:
             raise IndexError("Index out of range")
         for i in range(index, self.size - 1):
             self.data[i] = self.data[i+1]
         self.size -= 1
-    
+  
     def _resize(self):
         self.capacity *= 2
         new_data = [None] * self.capacity
         for i in range(self.size):
             new_data[i] = self.data[i]
         self.data = new_data
-    
+  
     def __len__(self):
         return self.size
-    
+  
     def __str__(self):
         return str([self.data[i] for i in range(self.size)])
 ```
 
+**Hướng giải quyết bài toán với Array:**
+
+#### Bài toán 1: Two Sum (LeetCode 1)
+**Đề bài:** Tìm 2 số trong mảng có tổng bằng target.
+
+**Phân tích:**
+- Dùng hash map để lưu số đã xem và index của nó
+- Duyệt mảng, với mỗi số kiểm tra xem (target - số hiện tại) có trong map không
+
+**Giải pháp:**
+```python
+def two_sum(nums, target):
+    """
+    Time: O(n) - Duyệt mảng 1 lần
+    Space: O(n) - Hash map lưu tối đa n phần tử
+    """
+    seen = {}  # {value: index}
+    
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    
+    return []
+
+# Ví dụ
+nums = [2, 7, 11, 15]
+target = 9
+print(two_sum(nums, target))  # [0, 1] vì nums[0] + nums[1] = 2 + 7 = 9
+```
+
+**Giải thích từng bước:**
+1. Khởi tạo hash map `seen` để lưu số đã xem
+2. Duyệt từng phần tử trong mảng
+3. Với mỗi số, tính `complement = target - num`
+4. Nếu `complement` đã có trong map → tìm thấy cặp số
+5. Nếu chưa, lưu số hiện tại vào map để dùng sau
+
+#### Bài toán 2: Best Time to Buy and Sell Stock (LeetCode 121)
+**Đề bài:** Tìm lợi nhuận tối đa khi mua bán cổ phiếu (chỉ được mua 1 lần, bán 1 lần).
+
+**Phân tích:**
+- Duyệt mảng giá, lưu giá mua thấp nhất
+- Với mỗi giá, tính lợi nhuận nếu bán ở giá này
+- Cập nhật lợi nhuận tối đa
+
+**Giải pháp:**
+```python
+def max_profit(prices):
+    """
+    Time: O(n) - Duyệt mảng 1 lần
+    Space: O(1) - Chỉ dùng biến
+    """
+    if not prices:
+        return 0
+    
+    min_price = prices[0]  # Giá mua thấp nhất
+    max_profit = 0  # Lợi nhuận tối đa
+    
+    for price in prices[1:]:
+        # Cập nhật giá mua thấp nhất
+        min_price = min(min_price, price)
+        # Tính lợi nhuận nếu bán ở giá hiện tại
+        profit = price - min_price
+        # Cập nhật lợi nhuận tối đa
+        max_profit = max(max_profit, profit)
+    
+    return max_profit
+
+# Ví dụ
+prices = [7, 1, 5, 3, 6, 4]
+print(max_profit(prices))  # 5 (mua ở 1, bán ở 6)
+```
+
+**Giải thích từng bước:**
+1. Khởi tạo `min_price` = giá đầu tiên, `max_profit` = 0
+2. Duyệt từ giá thứ 2 trở đi
+3. Cập nhật `min_price` nếu giá hiện tại thấp hơn
+4. Tính lợi nhuận = giá hiện tại - min_price
+5. Cập nhật max_profit nếu lợi nhuận lớn hơn
+
+#### Bài toán 3: Container With Most Water (LeetCode 11)
+**Đề bài:** Tìm 2 cột nước tạo thành container có thể tích lớn nhất.
+
+**Phân tích:**
+- Dùng Two Pointers: bắt đầu từ 2 đầu mảng
+- Thể tích = min(height[left], height[right]) × (right - left)
+- Di chuyển pointer có chiều cao nhỏ hơn
+
+**Giải pháp:**
+```python
+def max_area(height):
+    """
+    Time: O(n) - Two pointers duyệt mảng 1 lần
+    Space: O(1) - Chỉ dùng biến
+    """
+    left, right = 0, len(height) - 1
+    max_area = 0
+    
+    while left < right:
+        # Tính diện tích hiện tại
+        width = right - left
+        current_area = min(height[left], height[right]) * width
+        max_area = max(max_area, current_area)
+        
+        # Di chuyển pointer có chiều cao nhỏ hơn
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    
+    return max_area
+
+# Ví dụ
+height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+print(max_area(height))  # 49
+```
+
+**Giải thích từng bước:**
+1. Khởi tạo 2 pointers ở đầu và cuối mảng
+2. Tính diện tích = min(2 cột) × khoảng cách
+3. Cập nhật max_area
+4. Di chuyển pointer có chiều cao nhỏ hơn (vì giữ cột cao hơn sẽ có cơ hội tạo diện tích lớn hơn)
+5. Lặp lại cho đến khi 2 pointers gặp nhau
+
 ### 2.2. Linked List
 
 **Kiến thức:**
+
 - Linked List là cấu trúc dữ liệu gồm các node liên kết với nhau
 - Mỗi node chứa data và pointer đến node tiếp theo
 - Types: Singly, Doubly, Circular
 - Time complexity:
-  - Access: O(n)
-  - Search: O(n)
-  - Insert: O(1) (nếu có pointer)
-  - Delete: O(1) (nếu có pointer)
+  - Access: O(n) - Phải duyệt từ đầu đến vị trí cần
+  - Search: O(n) - Phải duyệt từng node
+  - Insert: O(1) - Nếu đã có pointer đến vị trí chèn
+  - Delete: O(1) - Nếu đã có pointer đến node cần xóa
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Mỗi node chứa data và pointer (next) đến node tiếp theo
+   - Head pointer trỏ đến node đầu tiên
+   - Node cuối có next = None
+   - Không cần bộ nhớ liên tiếp như Array
+
+2. **Khi nào dùng Linked List:**
+   - Cần insert/delete thường xuyên ở giữa danh sách
+   - Kích thước không biết trước
+   - Không cần truy cập ngẫu nhiên qua index
+   - Cần implement Stack/Queue
+
+3. **Ưu điểm:**
+   - Insert/Delete nhanh O(1) nếu có pointer
+   - Kích thước động, không lãng phí bộ nhớ
+   - Dễ thêm/xóa phần tử
+
+4. **Nhược điểm:**
+   - Truy cập chậm O(n)
+   - Tốn thêm bộ nhớ cho pointers
+   - Không cache-friendly
 
 **Implement Singly Linked List:**
+
 ```python
 class Node:
     def __init__(self, data):
@@ -621,7 +835,7 @@ class LinkedList:
     def __init__(self):
         self.head = None
         self.size = 0
-    
+  
     def append(self, data):
         new_node = Node(data)
         if not self.head:
@@ -632,13 +846,13 @@ class LinkedList:
                 current = current.next
             current.next = new_node
         self.size += 1
-    
+  
     def prepend(self, data):
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
         self.size += 1
-    
+  
     def insert(self, index, data):
         if index < 0 or index > self.size:
             raise IndexError("Index out of range")
@@ -652,7 +866,7 @@ class LinkedList:
         new_node.next = current.next
         current.next = new_node
         self.size += 1
-    
+  
     def delete(self, data):
         if not self.head:
             return
@@ -667,7 +881,7 @@ class LinkedList:
                 self.size -= 1
                 return
             current = current.next
-    
+  
     def search(self, data):
         current = self.head
         index = 0
@@ -677,7 +891,7 @@ class LinkedList:
             current = current.next
             index += 1
         return -1
-    
+  
     def __str__(self):
         values = []
         current = self.head
@@ -687,59 +901,216 @@ class LinkedList:
         return " -> ".join(values)
 ```
 
+**Hướng giải quyết bài toán với Linked List:**
+
+#### Bài toán 1: Reverse Linked List (LeetCode 206)
+**Đề bài:** Đảo ngược linked list.
+
+**Phân tích:**
+- Dùng 3 pointers: prev, current, next
+- Lặp qua list, đảo ngược từng pointer
+
+**Giải pháp:**
+```python
+def reverse_list(head):
+    """
+    Time: O(n) - Duyệt list 1 lần
+    Space: O(1) - Chỉ dùng biến
+    """
+    prev = None
+    current = head
+    
+    while current:
+        # Lưu next node trước khi đảo pointer
+        next_node = current.next
+        # Đảo pointer
+        current.next = prev
+        # Di chuyển pointers
+        prev = current
+        current = next_node
+    
+    return prev  # prev là head mới
+
+# Ví dụ: 1 -> 2 -> 3 -> None
+# Sau khi reverse: None <- 1 <- 2 <- 3
+# Return: 3 -> 2 -> 1 -> None
+```
+
+**Giải thích từng bước:**
+1. Khởi tạo `prev = None`, `current = head`
+2. Lưu `next_node = current.next` trước khi đảo
+3. Đảo pointer: `current.next = prev`
+4. Di chuyển: `prev = current`, `current = next_node`
+5. Lặp cho đến khi `current = None`
+
+#### Bài toán 2: Merge Two Sorted Lists (LeetCode 21)
+**Đề bài:** Merge 2 linked list đã sắp xếp thành 1 list đã sắp xếp.
+
+**Phân tích:**
+- Dùng dummy node để đơn giản hóa code
+- So sánh 2 node hiện tại, chọn node nhỏ hơn
+- Di chuyển pointer tương ứng
+
+**Giải pháp:**
+```python
+def merge_two_lists(list1, list2):
+    """
+    Time: O(n + m) - Duyệt cả 2 list
+    Space: O(1) - Chỉ tạo nodes mới
+    """
+    # Dummy node để đơn giản hóa
+    dummy = Node(0)
+    current = dummy
+    
+    while list1 and list2:
+        if list1.data <= list2.data:
+            current.next = list1
+            list1 = list1.next
+        else:
+            current.next = list2
+            list2 = list2.next
+        current = current.next
+    
+    # Nối phần còn lại
+    current.next = list1 if list1 else list2
+    
+    return dummy.next
+
+# Ví dụ:
+# list1: 1 -> 2 -> 4
+# list2: 1 -> 3 -> 4
+# Kết quả: 1 -> 1 -> 2 -> 3 -> 4 -> 4
+```
+
+**Giải thích từng bước:**
+1. Tạo dummy node để tránh xử lý edge case
+2. So sánh 2 node đầu của 2 list
+3. Chọn node nhỏ hơn, nối vào result
+4. Di chuyển pointer của list vừa chọn
+5. Lặp cho đến khi 1 trong 2 list hết
+6. Nối phần còn lại của list chưa hết
+
+#### Bài toán 3: Detect Cycle (LeetCode 141)
+**Đề bài:** Kiểm tra linked list có cycle không.
+
+**Phân tích:**
+- Dùng Floyd's Cycle Detection (Tortoise and Hare)
+- 2 pointers: slow (1 bước), fast (2 bước)
+- Nếu có cycle, 2 pointers sẽ gặp nhau
+
+**Giải pháp:**
+```python
+def has_cycle(head):
+    """
+    Time: O(n) - Tối đa duyệt 1 lần
+    Space: O(1) - Chỉ dùng 2 pointers
+    """
+    if not head or not head.next:
+        return False
+    
+    slow = head
+    fast = head.next
+    
+    while fast and fast.next:
+        if slow == fast:
+            return True
+        slow = slow.next  # 1 bước
+        fast = fast.next.next  # 2 bước
+    
+    return False
+
+# Ví dụ:
+# 1 -> 2 -> 3 -> 4 -> 2 (cycle)
+# slow và fast sẽ gặp nhau tại node 2
+```
+
+**Giải thích từng bước:**
+1. Khởi tạo `slow` và `fast` pointers
+2. `slow` di chuyển 1 bước, `fast` di chuyển 2 bước
+3. Nếu có cycle, `fast` sẽ "đuổi kịp" `slow`
+4. Nếu `fast` đến None → không có cycle
+
 ### 2.3. Stack
 
 **Kiến thức:**
-- Stack là LIFO (Last In First Out)
-- Operations: push, pop, peek, isEmpty
-- Applications: Expression evaluation, Undo/Redo, Function calls
+
+- Stack là LIFO (Last In First Out) - Phần tử vào sau ra trước
+- Operations: push (thêm), pop (lấy ra), peek (xem), isEmpty (kiểm tra rỗng)
+- Applications: Expression evaluation, Undo/Redo, Function calls, Backtracking
 - Time complexity: O(1) cho tất cả operations
 
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Giống như chồng đĩa: đĩa trên cùng được lấy ra trước
+   - Push: Thêm phần tử vào đỉnh stack
+   - Pop: Lấy phần tử ở đỉnh stack ra
+   - Peek: Xem phần tử ở đỉnh mà không lấy ra
+
+2. **Khi nào dùng Stack:**
+   - Kiểm tra dấu ngoặc đúng
+   - Tính toán biểu thức (infix, postfix, prefix)
+   - Undo/Redo operations
+   - Backtracking algorithms
+   - Function call stack
+   - DFS (Depth-First Search)
+
+3. **Ưu điểm:**
+   - Tất cả operations đều O(1)
+   - Đơn giản, dễ implement
+   - Phù hợp cho backtracking
+
+4. **Nhược điểm:**
+   - Chỉ truy cập được phần tử trên cùng
+   - Không thể truy cập phần tử ở giữa
+
 **Implement Stack:**
+
 ```python
 class Stack:
     def __init__(self):
         self.items = []
-    
+  
     def push(self, item):
         self.items.append(item)
-    
+  
     def pop(self):
         if self.is_empty():
             raise IndexError("Stack is empty")
         return self.items.pop()
-    
+  
     def peek(self):
         if self.is_empty():
             raise IndexError("Stack is empty")
         return self.items[-1]
-    
+  
     def is_empty(self):
         return len(self.items) == 0
-    
+  
     def size(self):
         return len(self.items)
 ```
 
 **Ứng dụng: Expression Parser**
+
 ```python
 def is_balanced(expression):
     stack = Stack()
     pairs = {')': '(', '}': '{', ']': '['}
-    
+  
     for char in expression:
         if char in pairs.values():
             stack.push(char)
         elif char in pairs:
             if stack.is_empty() or stack.pop() != pairs[char]:
                 return False
-    
+  
     return stack.is_empty()
 
 def evaluate_postfix(expression):
     stack = Stack()
     operators = {'+', '-', '*', '/'}
-    
+  
     for token in expression.split():
         if token not in operators:
             stack.push(float(token))
@@ -754,46 +1125,201 @@ def evaluate_postfix(expression):
                 stack.push(a * b)
             elif token == '/':
                 stack.push(a / b)
-    
+  
     return stack.pop()
 ```
+
+**Hướng giải quyết bài toán với Stack:**
+
+#### Bài toán 1: Valid Parentheses (LeetCode 20)
+**Đề bài:** Kiểm tra chuỗi dấu ngoặc có hợp lệ không.
+
+**Phân tích:**
+- Dùng stack để lưu dấu ngoặc mở
+- Khi gặp dấu ngoặc đóng, kiểm tra xem có khớp với dấu mở trên cùng stack không
+- Stack phải rỗng sau khi duyệt xong
+
+**Giải pháp:**
+```python
+def is_valid(s):
+    """
+    Time: O(n) - Duyệt chuỗi 1 lần
+    Space: O(n) - Stack lưu tối đa n/2 phần tử
+    """
+    stack = []
+    pairs = {')': '(', '}': '{', ']': '['}
+    
+    for char in s:
+        if char in pairs.values():  # Dấu mở
+            stack.append(char)
+        elif char in pairs:  # Dấu đóng
+            if not stack or stack.pop() != pairs[char]:
+                return False
+    
+    return len(stack) == 0
+
+# Ví dụ
+print(is_valid("()[]{}"))  # True
+print(is_valid("([)]"))    # False
+print(is_valid("(]"))      # False
+```
+
+**Giải thích từng bước:**
+1. Tạo stack và map các cặp dấu ngoặc
+2. Duyệt từng ký tự trong chuỗi
+3. Nếu là dấu mở → push vào stack
+4. Nếu là dấu đóng → kiểm tra stack có rỗng không và phần tử trên cùng có khớp không
+5. Sau khi duyệt xong, stack phải rỗng
+
+#### Bài toán 2: Daily Temperatures (LeetCode 739)
+**Đề bài:** Với mỗi ngày, tìm số ngày phải đợi để có nhiệt độ cao hơn.
+
+**Phân tích:**
+- Dùng stack lưu index của các ngày chưa tìm được ngày nóng hơn
+- Khi gặp nhiệt độ cao hơn, pop các index trong stack và tính số ngày
+
+**Giải pháp:**
+```python
+def daily_temperatures(temperatures):
+    """
+    Time: O(n) - Mỗi phần tử vào/ra stack 1 lần
+    Space: O(n) - Stack và result array
+    """
+    stack = []  # Lưu index
+    result = [0] * len(temperatures)
+    
+    for i, temp in enumerate(temperatures):
+        # Nếu nhiệt độ hiện tại > nhiệt độ của index trong stack
+        while stack and temperatures[stack[-1]] < temp:
+            prev_index = stack.pop()
+            result[prev_index] = i - prev_index
+        stack.append(i)
+    
+    return result
+
+# Ví dụ
+temps = [73, 74, 75, 71, 69, 72, 76, 73]
+print(daily_temperatures(temps))  # [1, 1, 4, 2, 1, 1, 0, 0]
+```
+
+**Giải thích từng bước:**
+1. Tạo stack lưu index và result array
+2. Duyệt từng nhiệt độ
+3. Nếu nhiệt độ hiện tại > nhiệt độ của index trên cùng stack:
+   - Pop index đó ra
+   - Tính số ngày = index hiện tại - index đã pop
+   - Lưu vào result
+4. Push index hiện tại vào stack
+5. Lặp lại cho đến hết
+
+#### Bài toán 3: Largest Rectangle in Histogram (LeetCode 84)
+**Đề bài:** Tìm diện tích hình chữ nhật lớn nhất trong histogram.
+
+**Phân tích:**
+- Dùng stack để lưu index của các cột tăng dần
+- Khi gặp cột nhỏ hơn, tính diện tích với các cột trước đó
+
+**Giải pháp:**
+```python
+def largest_rectangle_area(heights):
+    """
+    Time: O(n) - Mỗi phần tử vào/ra stack 1 lần
+    Space: O(n) - Stack
+    """
+    stack = []
+    max_area = 0
+    
+    for i, height in enumerate(heights):
+        # Pop các cột cao hơn cột hiện tại
+        while stack and heights[stack[-1]] > height:
+            h = heights[stack.pop()]
+            width = i if not stack else i - stack[-1] - 1
+            max_area = max(max_area, h * width)
+        stack.append(i)
+    
+    # Xử lý các cột còn lại trong stack
+    while stack:
+        h = heights[stack.pop()]
+        width = len(heights) if not stack else len(heights) - stack[-1] - 1
+        max_area = max(max_area, h * width)
+    
+    return max_area
+
+# Ví dụ
+heights = [2, 1, 5, 6, 2, 3]
+print(largest_rectangle_area(heights))  # 10
+```
+
+**Giải thích từng bước:**
+1. Dùng stack lưu index của cột tăng dần
+2. Khi gặp cột nhỏ hơn:
+   - Pop cột cao hơn ra
+   - Tính diện tích = chiều cao × chiều rộng
+   - Chiều rộng = khoảng cách từ vị trí pop đến vị trí hiện tại
+3. Sau khi duyệt xong, xử lý các cột còn lại trong stack
 
 ### 2.4. Queue
 
 **Kiến thức:**
-- Queue là FIFO (First In First Out)
-- Operations: enqueue, dequeue, front, isEmpty
+
+- Queue là FIFO (First In First Out) - Phần tử vào trước ra trước
+- Operations: enqueue (thêm vào cuối), dequeue (lấy từ đầu), front (xem phần tử đầu), isEmpty (kiểm tra rỗng)
 - Types: Simple Queue, Circular Queue, Priority Queue
-- Applications: Task scheduling, BFS, Print queue
+- Applications: Task scheduling, BFS, Print queue, Message queue
 - Time complexity: O(1) cho enqueue/dequeue
 
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Giống như hàng đợi: người vào trước được phục vụ trước
+   - Enqueue: Thêm phần tử vào cuối queue
+   - Dequeue: Lấy phần tử ở đầu queue ra
+
+2. **Khi nào dùng Queue:**
+   - BFS (Breadth-First Search)
+   - Task scheduling
+   - Message queue
+   - Level-order traversal của tree
+   - Cache replacement (FIFO)
+
+3. **Ưu điểm:**
+   - Enqueue/Dequeue đều O(1)
+   - Đơn giản, dễ hiểu
+   - Phù hợp cho BFS
+
+4. **Nhược điểm:**
+   - Chỉ truy cập được phần tử đầu và cuối
+   - Không thể truy cập phần tử ở giữa
+
 **Implement Queue:**
+
 ```python
 class Queue:
     def __init__(self):
         self.items = []
-    
+  
     def enqueue(self, item):
         self.items.append(item)
-    
+  
     def dequeue(self):
         if self.is_empty():
             raise IndexError("Queue is empty")
         return self.items.pop(0)
-    
+  
     def front(self):
         if self.is_empty():
             raise IndexError("Queue is empty")
         return self.items[0]
-    
+  
     def is_empty(self):
         return len(self.items) == 0
-    
+  
     def size(self):
         return len(self.items)
 ```
 
 **Circular Queue:**
+
 ```python
 class CircularQueue:
     def __init__(self, capacity):
@@ -802,14 +1328,14 @@ class CircularQueue:
         self.front = 0
         self.rear = -1
         self.size = 0
-    
+  
     def enqueue(self, item):
         if self.is_full():
             raise OverflowError("Queue is full")
         self.rear = (self.rear + 1) % self.capacity
         self.items[self.rear] = item
         self.size += 1
-    
+  
     def dequeue(self):
         if self.is_empty():
             raise IndexError("Queue is empty")
@@ -817,6 +1343,111 @@ class CircularQueue:
         self.front = (self.front + 1) % self.capacity
         self.size -= 1
         return item
+  
+    def is_empty(self):
+        return self.size == 0
+  
+    def is_full(self):
+        return self.size == self.capacity
+```
+
+**Hướng giải quyết bài toán với Queue:**
+
+#### Bài toán 1: Binary Tree Level Order Traversal (LeetCode 102)
+**Đề bài:** Duyệt cây nhị phân theo từng level.
+
+**Phân tích:**
+- Dùng queue để lưu các node ở mỗi level
+- BFS: xử lý node hiện tại, thêm children vào queue
+
+**Giải pháp:**
+```python
+from collections import deque
+
+def level_order(root):
+    """
+    Time: O(n) - Duyệt tất cả nodes
+    Space: O(n) - Queue lưu tối đa n/2 nodes (level cuối)
+    """
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level_size = len(queue)
+        level = []
+        
+        # Xử lý tất cả nodes ở level hiện tại
+        for _ in range(level_size):
+            node = queue.popleft()
+            level.append(node.val)
+            
+            # Thêm children vào queue
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        
+        result.append(level)
+    
+    return result
+
+# Ví dụ:
+#     3
+#    / \
+#   9  20
+#     /  \
+#    15   7
+# Kết quả: [[3], [9, 20], [15, 7]]
+```
+
+**Giải thích từng bước:**
+1. Khởi tạo queue với root
+2. Lặp cho đến khi queue rỗng
+3. Xử lý tất cả nodes ở level hiện tại (theo kích thước queue)
+4. Với mỗi node, thêm giá trị vào level và thêm children vào queue
+5. Thêm level vào result
+
+#### Bài toán 2: Design Circular Queue (LeetCode 622)
+**Đề bài:** Implement circular queue với kích thước cố định.
+
+**Phân tích:**
+- Dùng array với 2 pointers: front và rear
+- Sử dụng modulo để tạo vòng tròn
+
+**Giải pháp:**
+```python
+class MyCircularQueue:
+    def __init__(self, k):
+        self.capacity = k
+        self.queue = [None] * k
+        self.front = 0
+        self.rear = -1
+        self.size = 0
+    
+    def enqueue(self, value):
+        if self.is_full():
+            return False
+        self.rear = (self.rear + 1) % self.capacity
+        self.queue[self.rear] = value
+        self.size += 1
+        return True
+    
+    def dequeue(self):
+        if self.is_empty():
+            return False
+        self.queue[self.front] = None
+        self.front = (self.front + 1) % self.capacity
+        self.size -= 1
+        return True
+    
+    def front(self):
+        return -1 if self.is_empty() else self.queue[self.front]
+    
+    def rear(self):
+        return -1 if self.is_empty() else self.queue[self.rear]
     
     def is_empty(self):
         return self.size == 0
@@ -825,61 +1456,93 @@ class CircularQueue:
         return self.size == self.capacity
 ```
 
+**Giải thích từng bước:**
+1. Khởi tạo array với kích thước cố định
+2. Dùng modulo để di chuyển pointers trong vòng tròn
+3. Enqueue: di chuyển rear, gán giá trị
+4. Dequeue: di chuyển front, xóa giá trị
+5. Kiểm tra full/empty dựa trên size
+
 ### 2.5. Hash Table
 
 **Kiến thức:**
+
 - Hash Table sử dụng hash function để map keys vào values
-- Collision handling: Chaining, Open Addressing
+- Collision handling: Chaining (danh sách liên kết), Open Addressing (linear probing, quadratic probing)
 - Time complexity:
   - Average: O(1) cho insert, delete, search
-  - Worst: O(n)
-- Load factor: số phần tử / số buckets
+  - Worst: O(n) khi tất cả keys hash vào cùng bucket
+- Load factor: số phần tử / số buckets (thường giữ < 0.75)
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Hash function chuyển key thành index trong array
+   - Nếu có collision (2 keys cùng index), dùng chaining hoặc probing
+   - Chaining: lưu danh sách các cặp (key, value) trong mỗi bucket
+   - Open Addressing: tìm bucket trống tiếp theo
+
+2. **Khi nào dùng Hash Table:**
+   - Cần tìm kiếm, insert, delete nhanh O(1)
+   - Lưu trữ key-value pairs
+   - Đếm tần suất xuất hiện
+   - Loại bỏ duplicates
+
+3. **Ưu điểm:**
+   - Tìm kiếm, insert, delete trung bình O(1)
+   - Linh hoạt, không cần sắp xếp
+
+4. **Nhược điểm:**
+   - Worst case O(n) khi hash function kém
+   - Tốn bộ nhớ hơn array
+   - Không giữ thứ tự (trong Python 3.7+ dict giữ thứ tự)
 
 **Implement Hash Table:**
+
 ```python
 class HashTable:
     def __init__(self, capacity=10):
         self.capacity = capacity
         self.buckets = [[] for _ in range(capacity)]
         self.size = 0
-    
+  
     def _hash(self, key):
         return hash(key) % self.capacity
-    
+  
     def put(self, key, value):
         index = self._hash(key)
         bucket = self.buckets[index]
-        
+      
         for i, (k, v) in enumerate(bucket):
             if k == key:
                 bucket[i] = (key, value)
                 return
-        
+      
         bucket.append((key, value))
         self.size += 1
-    
+  
     def get(self, key):
         index = self._hash(key)
         bucket = self.buckets[index]
-        
+      
         for k, v in bucket:
             if k == key:
                 return v
-        
+      
         raise KeyError(f"Key {key} not found")
-    
+  
     def delete(self, key):
         index = self._hash(key)
         bucket = self.buckets[index]
-        
+      
         for i, (k, v) in enumerate(bucket):
             if k == key:
                 bucket.pop(i)
                 self.size -= 1
                 return
-        
+      
         raise KeyError(f"Key {key} not found")
-    
+  
     def __contains__(self, key):
         try:
             self.get(key)
@@ -888,15 +1551,117 @@ class HashTable:
             return False
 ```
 
+**Hướng giải quyết bài toán với Hash Table:**
+
+#### Bài toán 1: Group Anagrams (LeetCode 49)
+**Đề bài:** Nhóm các từ là anagram của nhau.
+
+**Phân tích:**
+- Dùng hash map với key là sorted string
+- Các từ có cùng sorted string là anagram
+
+**Giải pháp:**
+```python
+def group_anagrams(strs):
+    """
+    Time: O(n * k log k) - n từ, mỗi từ sort k ký tự
+    Space: O(n * k) - Hash map lưu tất cả từ
+    """
+    groups = {}
+    
+    for word in strs:
+        # Sorted string làm key
+        key = ''.join(sorted(word))
+        if key not in groups:
+            groups[key] = []
+        groups[key].append(word)
+    
+    return list(groups.values())
+
+# Ví dụ
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(strs))
+# [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+```
+
+#### Bài toán 2: Longest Consecutive Sequence (LeetCode 128)
+**Đề bài:** Tìm độ dài dãy số liên tiếp dài nhất.
+
+**Phân tích:**
+- Dùng set để lưu tất cả số
+- Với mỗi số, tìm dãy liên tiếp bắt đầu từ số đó
+
+**Giải pháp:**
+```python
+def longest_consecutive(nums):
+    """
+    Time: O(n) - Mỗi số được xử lý tối đa 2 lần
+    Space: O(n) - Set lưu tất cả số
+    """
+    num_set = set(nums)
+    max_length = 0
+    
+    for num in num_set:
+        # Chỉ bắt đầu từ số đầu tiên của dãy
+        if num - 1 not in num_set:
+            current_num = num
+            current_length = 1
+            
+            # Tìm dãy liên tiếp
+            while current_num + 1 in num_set:
+                current_num += 1
+                current_length += 1
+            
+            max_length = max(max_length, current_length)
+    
+    return max_length
+
+# Ví dụ
+nums = [100, 4, 200, 1, 3, 2]
+print(longest_consecutive(nums))  # 4 (dãy 1, 2, 3, 4)
+```
+
 ### 2.6. Binary Tree
 
 **Kiến thức:**
-- Binary Tree: Mỗi node có tối đa 2 children
-- Types: Full, Complete, Perfect, Balanced
-- Traversal: Inorder, Preorder, Postorder, Level-order
-- Applications: Expression trees, Decision trees, Heap
+
+- Binary Tree: Mỗi node có tối đa 2 children (left và right)
+- Types: 
+  - Full: Mỗi node có 0 hoặc 2 children
+  - Complete: Tất cả levels đầy (trừ level cuối), level cuối lấp từ trái sang phải
+  - Perfect: Tất cả levels đầy
+  - Balanced: Chiều cao 2 subtree chênh lệch ≤ 1
+- Traversal: 
+  - Inorder (Left-Root-Right): Duyệt BST cho thứ tự tăng dần
+  - Preorder (Root-Left-Right): Copy cây, prefix expression
+  - Postorder (Left-Right-Root): Xóa cây, postfix expression
+  - Level-order: Duyệt theo từng level (BFS)
+- Applications: Expression trees, Decision trees, Heap, BST
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Mỗi node có data và 2 pointers (left, right)
+   - Root là node gốc
+   - Leaf là node không có children
+   - Height: số edges từ root đến node xa nhất
+
+2. **Khi nào dùng Binary Tree:**
+   - Biểu diễn cấu trúc phân cấp
+   - Tìm kiếm (BST)
+   - Sắp xếp (Heap)
+   - Expression evaluation
+
+3. **Ưu điểm:**
+   - Tìm kiếm nhanh O(log n) trong BST cân bằng
+   - Linh hoạt, dễ mở rộng
+
+4. **Nhược điểm:**
+   - Có thể mất cân bằng → O(n) worst case
+   - Phức tạp hơn array/linked list
 
 **Implement Binary Tree:**
+
 ```python
 class TreeNode:
     def __init__(self, data):
@@ -907,13 +1672,13 @@ class TreeNode:
 class BinaryTree:
     def __init__(self, root=None):
         self.root = root
-    
+  
     def insert(self, data):
         if not self.root:
             self.root = TreeNode(data)
         else:
             self._insert(self.root, data)
-    
+  
     def _insert(self, node, data):
         if data < node.data:
             if node.left:
@@ -925,7 +1690,7 @@ class BinaryTree:
                 self._insert(node.right, data)
             else:
                 node.right = TreeNode(data)
-    
+  
     def inorder(self, node=None):
         if node is None:
             node = self.root
@@ -933,7 +1698,7 @@ class BinaryTree:
             self.inorder(node.left)
             print(node.data, end=" ")
             self.inorder(node.right)
-    
+  
     def preorder(self, node=None):
         if node is None:
             node = self.root
@@ -941,7 +1706,7 @@ class BinaryTree:
             print(node.data, end=" ")
             self.preorder(node.left)
             self.preorder(node.right)
-    
+  
     def postorder(self, node=None):
         if node is None:
             node = self.root
@@ -949,7 +1714,7 @@ class BinaryTree:
             self.postorder(node.left)
             self.postorder(node.right)
             print(node.data, end=" ")
-    
+  
     def level_order(self):
         if not self.root:
             return
@@ -963,22 +1728,116 @@ class BinaryTree:
                 queue.append(node.right)
 ```
 
+**Hướng giải quyết bài toán với Binary Tree:**
+
+#### Bài toán 1: Maximum Depth of Binary Tree (LeetCode 104)
+**Đề bài:** Tìm chiều cao (depth) lớn nhất của cây nhị phân.
+
+**Phân tích:**
+- Dùng DFS (recursive hoặc iterative)
+- Chiều cao = 1 + max(chiều cao left, chiều cao right)
+
+**Giải pháp:**
+```python
+def max_depth(root):
+    """
+    Time: O(n) - Duyệt tất cả nodes
+    Space: O(h) - h là chiều cao cây (call stack)
+    """
+    if not root:
+        return 0
+    
+    return 1 + max(max_depth(root.left), max_depth(root.right))
+
+# Iterative với BFS
+def max_depth_bfs(root):
+    if not root:
+        return 0
+    
+    queue = [(root, 1)]
+    max_depth = 0
+    
+    while queue:
+        node, depth = queue.pop(0)
+        max_depth = max(max_depth, depth)
+        
+        if node.left:
+            queue.append((node.left, depth + 1))
+        if node.right:
+            queue.append((node.right, depth + 1))
+    
+    return max_depth
+```
+
+#### Bài toán 2: Same Tree (LeetCode 100)
+**Đề bài:** Kiểm tra 2 cây nhị phân có giống nhau không.
+
+**Phân tích:**
+- So sánh từng node: giá trị và 2 subtree
+
+**Giải pháp:**
+```python
+def is_same_tree(p, q):
+    """
+    Time: O(min(m, n)) - m, n là số nodes
+    Space: O(min(m, n)) - Call stack
+    """
+    # Cả 2 đều None
+    if not p and not q:
+        return True
+    
+    # Một trong 2 là None hoặc giá trị khác nhau
+    if not p or not q or p.val != q.val:
+        return False
+    
+    # So sánh 2 subtree
+    return is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
+```
+
+#### Bài toán 3: Invert Binary Tree (LeetCode 226)
+**Đề bài:** Đảo ngược cây nhị phân (swap left và right của mỗi node).
+
+**Phân tích:**
+- Duyệt cây, swap left và right của mỗi node
+
+**Giải pháp:**
+```python
+def invert_tree(root):
+    """
+    Time: O(n) - Duyệt tất cả nodes
+    Space: O(h) - Call stack
+    """
+    if not root:
+        return None
+    
+    # Swap left và right
+    root.left, root.right = root.right, root.left
+    
+    # Đệ quy cho 2 subtree
+    invert_tree(root.left)
+    invert_tree(root.right)
+    
+    return root
+```
+
 ### 2.7. Projects
 
 #### Project: Stack-based Calculator
 
 **Yêu cầu:**
+
 - Chuyển đổi infix sang postfix
 - Tính toán biểu thức sử dụng stack
 - Hỗ trợ +, -, *, /, (, )
 
 **Ví dụ code:**
+
 ```python
 def infix_to_postfix(expression):
     precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
     stack = Stack()
     output = []
-    
+  
     for token in expression:
         if token.isdigit():
             output.append(token)
@@ -994,10 +1853,10 @@ def infix_to_postfix(expression):
                    precedence.get(stack.peek(), 0) >= precedence.get(token, 0)):
                 output.append(stack.pop())
             stack.push(token)
-    
+  
     while not stack.is_empty():
         output.append(stack.pop())
-    
+  
     return ' '.join(output)
 ```
 
@@ -1010,11 +1869,34 @@ def infix_to_postfix(expression):
 #### Linear Search
 
 **Kiến thức:**
+
 - Duyệt tuần tự từ đầu đến cuối
-- Time complexity: O(n)
-- Space complexity: O(1)
+- Time complexity: O(n) - Trường hợp xấu nhất phải duyệt hết
+- Space complexity: O(1) - Chỉ dùng biến
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Duyệt từng phần tử trong mảng
+   - So sánh với giá trị cần tìm
+   - Trả về index nếu tìm thấy, -1 nếu không
+
+2. **Khi nào dùng:**
+   - Mảng chưa sắp xếp
+   - Mảng nhỏ
+   - Chỉ tìm kiếm 1 lần
+
+3. **Ưu điểm:**
+   - Đơn giản, dễ implement
+   - Không cần sắp xếp trước
+   - Hoạt động với mọi cấu trúc dữ liệu
+
+4. **Nhược điểm:**
+   - Chậm O(n) với mảng lớn
+   - Không tối ưu cho tìm kiếm nhiều lần
 
 **Ví dụ code:**
+
 ```python
 def linear_search(arr, target):
     for i, value in enumerate(arr):
@@ -1026,16 +1908,41 @@ def linear_search(arr, target):
 #### Binary Search
 
 **Kiến thức:**
+
 - Chỉ áp dụng cho mảng đã sắp xếp
 - Chia đôi mảng và so sánh với phần tử giữa
-- Time complexity: O(log n)
-- Space complexity: O(1) (iterative), O(log n) (recursive)
+- Time complexity: O(log n) - Mỗi lần giảm một nửa không gian tìm kiếm
+- Space complexity: O(1) (iterative), O(log n) (recursive - call stack)
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - So sánh target với phần tử giữa
+   - Nếu bằng → tìm thấy
+   - Nếu nhỏ hơn → tìm bên trái
+   - Nếu lớn hơn → tìm bên phải
+   - Lặp lại cho đến khi tìm thấy hoặc không còn phần tử
+
+2. **Khi nào dùng:**
+   - Mảng đã sắp xếp
+   - Cần tìm kiếm nhanh O(log n)
+   - Tìm kiếm nhiều lần
+
+3. **Ưu điểm:**
+   - Rất nhanh O(log n)
+   - Hiệu quả với mảng lớn
+
+4. **Nhược điểm:**
+   - Phải sắp xếp trước (O(n log n))
+   - Chỉ áp dụng cho mảng đã sắp xếp
+   - Không hiệu quả với mảng nhỏ
 
 **Ví dụ code:**
+
 ```python
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
-    
+  
     while left <= right:
         mid = (left + right) // 2
         if arr[mid] == target:
@@ -1044,17 +1951,17 @@ def binary_search(arr, target):
             left = mid + 1
         else:
             right = mid - 1
-    
+  
     return -1
 
 # Recursive
 def binary_search_recursive(arr, target, left=0, right=None):
     if right is None:
         right = len(arr) - 1
-    
+  
     if left > right:
         return -1
-    
+  
     mid = (left + right) // 2
     if arr[mid] == target:
         return mid
@@ -1064,17 +1971,94 @@ def binary_search_recursive(arr, target, left=0, right=None):
         return binary_search_recursive(arr, target, left, mid - 1)
 ```
 
+**Hướng giải quyết bài toán với Binary Search:**
+
+#### Bài toán 1: Search in Rotated Sorted Array (LeetCode 33)
+**Đề bài:** Tìm target trong mảng đã xoay (rotated).
+
+**Phân tích:**
+- Mảng xoay có 2 phần đã sắp xếp
+- Xác định phần nào đã sắp xếp, sau đó binary search trong phần đó
+
+**Giải pháp:**
+```python
+def search_rotated(nums, target):
+    """
+    Time: O(log n) - Binary search
+    Space: O(1)
+    """
+    left, right = 0, len(nums) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if nums[mid] == target:
+            return mid
+        
+        # Xác định phần nào đã sắp xếp
+        if nums[left] <= nums[mid]:  # Left half sorted
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:  # Right half sorted
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Ví dụ
+nums = [4, 5, 6, 7, 0, 1, 2]
+print(search_rotated(nums, 0))  # 4
+```
+
+#### Bài toán 2: Find Peak Element (LeetCode 162)
+**Đề bài:** Tìm peak element (lớn hơn neighbors).
+
+**Phân tích:**
+- Dùng binary search với điều kiện đặc biệt
+- Nếu mid < mid+1 → peak ở bên phải
+- Nếu mid > mid+1 → peak ở bên trái
+
+**Giải pháp:**
+```python
+def find_peak_element(nums):
+    """
+    Time: O(log n)
+    Space: O(1)
+    """
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        mid = (left + right) // 2
+        
+        if nums[mid] < nums[mid + 1]:
+            left = mid + 1
+        else:
+            right = mid
+    
+    return left
+
+# Ví dụ
+nums = [1, 2, 3, 1]
+print(find_peak_element(nums))  # 2 (index của 3)
+```
+
 ### 3.2. Sorting Algorithms
 
 #### Bubble Sort
 
 **Kiến thức:**
+
 - So sánh các phần tử liền kề và đổi chỗ nếu sai thứ tự
 - Time complexity: O(n²)
 - Space complexity: O(1)
 - Stable: Yes
 
 **Ví dụ code:**
+
 ```python
 def bubble_sort(arr):
     n = len(arr)
@@ -1092,12 +2076,14 @@ def bubble_sort(arr):
 #### Selection Sort
 
 **Kiến thức:**
+
 - Tìm phần tử nhỏ nhất và đặt ở đầu
 - Time complexity: O(n²)
 - Space complexity: O(1)
 - Stable: No
 
 **Ví dụ code:**
+
 ```python
 def selection_sort(arr):
     n = len(arr)
@@ -1113,12 +2099,14 @@ def selection_sort(arr):
 #### Insertion Sort
 
 **Kiến thức:**
+
 - Giống như sắp xếp bài trong tay
 - Time complexity: O(n²) worst, O(n) best
 - Space complexity: O(1)
 - Stable: Yes
 
 **Ví dụ code:**
+
 ```python
 def insertion_sort(arr):
     for i in range(1, len(arr)):
@@ -1134,28 +2122,51 @@ def insertion_sort(arr):
 #### Merge Sort
 
 **Kiến thức:**
-- Divide and Conquer
+
+- Divide and Conquer: Chia nhỏ bài toán, giải từng phần, kết hợp kết quả
 - Chia mảng thành 2 phần, sắp xếp từng phần, rồi merge
-- Time complexity: O(n log n)
-- Space complexity: O(n)
-- Stable: Yes
+- Time complexity: O(n log n) - Luôn luôn, kể cả worst case
+- Space complexity: O(n) - Cần mảng phụ để merge
+- Stable: Yes - Giữ nguyên thứ tự các phần tử bằng nhau
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Divide: Chia mảng thành 2 nửa
+   - Conquer: Sắp xếp đệ quy 2 nửa
+   - Combine: Merge 2 nửa đã sắp xếp
+
+2. **Khi nào dùng:**
+   - Cần stable sort
+   - Cần đảm bảo O(n log n) worst case
+   - Sắp xếp linked list (không cần random access)
+
+3. **Ưu điểm:**
+   - Luôn O(n log n)
+   - Stable
+   - Dễ parallelize
+
+4. **Nhược điểm:**
+   - Tốn bộ nhớ O(n)
+   - Không in-place
 
 **Ví dụ code:**
+
 ```python
 def merge_sort(arr):
     if len(arr) <= 1:
         return arr
-    
+  
     mid = len(arr) // 2
     left = merge_sort(arr[:mid])
     right = merge_sort(arr[mid:])
-    
+  
     return merge(left, right)
 
 def merge(left, right):
     result = []
     i = j = 0
-    
+  
     while i < len(left) and j < len(right):
         if left[i] <= right[j]:
             result.append(left[i])
@@ -1163,7 +2174,7 @@ def merge(left, right):
         else:
             result.append(right[j])
             j += 1
-    
+  
     result.extend(left[i:])
     result.extend(right[j:])
     return result
@@ -1172,30 +2183,56 @@ def merge(left, right):
 #### Quick Sort
 
 **Kiến thức:**
+
 - Divide and Conquer
-- Chọn pivot, chia mảng thành 2 phần, sắp xếp từng phần
-- Time complexity: O(n log n) average, O(n²) worst
-- Space complexity: O(log n)
-- Stable: No
+- Chọn pivot, chia mảng thành 2 phần (nhỏ hơn và lớn hơn pivot), sắp xếp từng phần
+- Time complexity: 
+  - Average: O(n log n) - Khi pivot chia đều
+  - Worst: O(n²) - Khi pivot luôn là phần tử nhỏ nhất/lớn nhất
+- Space complexity: O(log n) - Call stack
+- Stable: No - Có thể đổi thứ tự các phần tử bằng nhau
+
+**Giải thích chi tiết:**
+
+1. **Cách hoạt động:**
+   - Chọn pivot (thường là phần tử giữa hoặc random)
+   - Partition: Chia mảng thành 2 phần (≤ pivot và > pivot)
+   - Đệ quy sắp xếp 2 phần
+
+2. **Khi nào dùng:**
+   - Cần in-place sort
+   - Average case tốt
+   - Không cần stable
+
+3. **Ưu điểm:**
+   - Average O(n log n) nhanh
+   - In-place (tiết kiệm bộ nhớ)
+   - Cache-friendly
+
+4. **Nhược điểm:**
+   - Worst case O(n²)
+   - Không stable
+   - Phụ thuộc vào cách chọn pivot
 
 **Ví dụ code:**
+
 ```python
 def quick_sort(arr):
     if len(arr) <= 1:
         return arr
-    
+  
     pivot = arr[len(arr) // 2]
     left = [x for x in arr if x < pivot]
     middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
-    
+  
     return quick_sort(left) + middle + quick_sort(right)
 
 # In-place version
 def quick_sort_inplace(arr, low=0, high=None):
     if high is None:
         high = len(arr) - 1
-    
+  
     if low < high:
         pivot_idx = partition(arr, low, high)
         quick_sort_inplace(arr, low, pivot_idx - 1)
@@ -1204,12 +2241,12 @@ def quick_sort_inplace(arr, low=0, high=None):
 def partition(arr, low, high):
     pivot = arr[high]
     i = low - 1
-    
+  
     for j in range(low, high):
         if arr[j] <= pivot:
             i += 1
             arr[i], arr[j] = arr[j], arr[i]
-    
+  
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
     return i + 1
 ```
@@ -1217,12 +2254,14 @@ def partition(arr, low, high):
 ### 3.3. Recursion
 
 **Kiến thức:**
+
 - Function gọi chính nó
 - Base case: Điều kiện dừng
 - Recursive case: Gọi lại function với input nhỏ hơn
 - Call stack: Lưu trữ các function calls
 
 **Ví dụ code:**
+
 ```python
 # Factorial
 def factorial(n):
@@ -1256,14 +2295,95 @@ def hanoi(n, source, destination, auxiliary):
 ```
 
 **Best Practices:**
-- Luôn có base case
-- Đảm bảo recursive case tiến về base case
-- Sử dụng memoization để tránh tính toán lại
-- Cẩn thận với stack overflow
+
+- Luôn có base case - Điều kiện dừng đệ quy
+- Đảm bảo recursive case tiến về base case - Tránh vòng lặp vô hạn
+- Sử dụng memoization để tránh tính toán lại - Tối ưu performance
+- Cẩn thận với stack overflow - Giới hạn độ sâu đệ quy
+
+**Hướng giải quyết bài toán với Recursion:**
+
+#### Bài toán 1: Climbing Stairs (LeetCode 70)
+**Đề bài:** Có n bậc thang, mỗi lần bước 1 hoặc 2 bậc. Có bao nhiêu cách lên?
+
+**Phân tích:**
+- F(n) = F(n-1) + F(n-2) - Giống Fibonacci
+- Base case: F(1) = 1, F(2) = 2
+
+**Giải pháp:**
+```python
+def climb_stairs(n):
+    """
+    Time: O(n) với memoization
+    Space: O(n) - Memo và call stack
+    """
+    memo = {}
+    
+    def dp(i):
+        if i <= 2:
+            return i
+        if i in memo:
+            return memo[i]
+        memo[i] = dp(i-1) + dp(i-2)
+        return memo[i]
+    
+    return dp(n)
+
+# Iterative (tối ưu hơn)
+def climb_stairs_iterative(n):
+    if n <= 2:
+        return n
+    
+    prev2, prev1 = 1, 2
+    for i in range(3, n + 1):
+        current = prev1 + prev2
+        prev2, prev1 = prev1, current
+    
+    return prev1
+```
+
+#### Bài toán 2: Generate Parentheses (LeetCode 22)
+**Đề bài:** Tạo tất cả chuỗi ngoặc đơn hợp lệ với n cặp.
+
+**Phân tích:**
+- Dùng backtracking
+- Thêm '(' nếu số '(' < n
+- Thêm ')' nếu số ')' < số '('
+
+**Giải pháp:**
+```python
+def generate_parenthesis(n):
+    """
+    Time: O(4^n / sqrt(n)) - Số lượng Catalan
+    Space: O(n) - Call stack
+    """
+    result = []
+    
+    def backtrack(current, open_count, close_count):
+        # Base case: đủ n cặp
+        if len(current) == 2 * n:
+            result.append(current)
+            return
+        
+        # Thêm '(' nếu còn chỗ
+        if open_count < n:
+            backtrack(current + '(', open_count + 1, close_count)
+        
+        # Thêm ')' nếu số ')' < số '('
+        if close_count < open_count:
+            backtrack(current + ')', open_count, close_count + 1)
+    
+    backtrack('', 0, 0)
+    return result
+
+# Ví dụ: n = 3
+# ["((()))", "(()())", "(())()", "()(())", "()()()"]
+```
 
 ### 3.4. Big O Notation
 
 **Kiến thức:**
+
 - Mô tả độ phức tạp thời gian và không gian của thuật toán
 - Common complexities:
   - O(1): Constant
@@ -1274,6 +2394,7 @@ def hanoi(n, source, destination, auxiliary):
   - O(2ⁿ): Exponential
 
 **Ví dụ:**
+
 ```python
 # O(1)
 def get_first(arr):
@@ -1312,11 +2433,13 @@ def binary_search(arr, target):
 ### 3.5. Project: Sorting Visualizer
 
 **Yêu cầu:**
+
 - Visualize các thuật toán sắp xếp
 - So sánh performance
 - Hiển thị số lần so sánh và đổi chỗ
 
 **Gợi ý sử dụng:**
+
 - matplotlib hoặc pygame cho visualization
 - Tạo animation cho từng bước sắp xếp
 
@@ -1329,30 +2452,32 @@ def binary_search(arr, target):
 #### Class và Object
 
 **Kiến thức:**
+
 - Class: Blueprint cho objects
 - Object: Instance của class
 - Attributes: Biến của class/object
 - Methods: Functions của class/object
 
 **Ví dụ code:**
+
 ```python
 class Person:
     # Class attribute
     species = "Homo sapiens"
-    
+  
     def __init__(self, name, age):
         # Instance attributes
         self.name = name
         self.age = age
-    
+  
     def introduce(self):
         return f"I'm {self.name}, {self.age} years old"
-    
+  
     @classmethod
     def from_birth_year(cls, name, birth_year):
         age = 2024 - birth_year
         return cls(name, age)
-    
+  
     @staticmethod
     def is_adult(age):
         return age >= 18
@@ -1367,20 +2492,22 @@ print(Person.is_adult(20))
 #### Inheritance
 
 **Kiến thức:**
+
 - Class con kế thừa từ class cha
 - Method overriding: Ghi đè method của class cha
 - super(): Gọi method của class cha
 - Multiple inheritance: Kế thừa từ nhiều class
 
 **Ví dụ code:**
+
 ```python
 class Animal:
     def __init__(self, name):
         self.name = name
-    
+  
     def speak(self):
         raise NotImplementedError("Subclass must implement")
-    
+  
     def move(self):
         return f"{self.name} is moving"
 
@@ -1402,11 +2529,13 @@ print(cat.speak())
 #### Polymorphism
 
 **Kiến thức:**
+
 - Cùng một interface nhưng hành vi khác nhau
 - Method overriding
 - Duck typing: "If it walks like a duck and quacks like a duck, it's a duck"
 
 **Ví dụ code:**
+
 ```python
 class Shape:
     def area(self):
@@ -1416,14 +2545,14 @@ class Rectangle(Shape):
     def __init__(self, width, height):
         self.width = width
         self.height = height
-    
+  
     def area(self):
         return self.width * self.height
 
 class Circle(Shape):
     def __init__(self, radius):
         self.radius = radius
-    
+  
     def area(self):
         return 3.14159 * self.radius ** 2
 
@@ -1436,34 +2565,36 @@ for shape in shapes:
 #### Encapsulation
 
 **Kiến thức:**
+
 - Ẩn implementation details
 - Public, Protected (_), Private (__)
 - Getters và Setters
 - Properties
 
 **Ví dụ code:**
+
 ```python
 class BankAccount:
     def __init__(self, account_number, balance=0):
         self._account_number = account_number  # Protected
         self.__balance = balance  # Private
-    
+  
     def deposit(self, amount):
         if amount > 0:
             self.__balance += amount
             return True
         return False
-    
+  
     def withdraw(self, amount):
         if 0 < amount <= self.__balance:
             self.__balance -= amount
             return True
         return False
-    
+  
     @property
     def balance(self):
         return self.__balance
-    
+  
     @balance.setter
     def balance(self, value):
         if value >= 0:
@@ -1477,14 +2608,16 @@ class BankAccount:
 #### Singleton Pattern
 
 **Kiến thức:**
+
 - Đảm bảo chỉ có một instance của class
 - Sử dụng khi cần một điểm truy cập global
 
 **Ví dụ code:**
+
 ```python
 class Singleton:
     _instance = None
-    
+  
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
@@ -1499,10 +2632,12 @@ print(s1 is s2)  # True
 #### Factory Pattern
 
 **Kiến thức:**
+
 - Tạo objects mà không cần chỉ định class cụ thể
 - Tách logic tạo object khỏi code sử dụng
 
 **Ví dụ code:**
+
 ```python
 class AnimalFactory:
     @staticmethod
@@ -1522,21 +2657,23 @@ cat = AnimalFactory.create_animal("cat", "Whiskers")
 #### Observer Pattern
 
 **Kiến thức:**
+
 - Một object (subject) thông báo cho nhiều objects (observers) khi có thay đổi
 - Loose coupling giữa subject và observers
 
 **Ví dụ code:**
+
 ```python
 class Subject:
     def __init__(self):
         self._observers = []
-    
+  
     def attach(self, observer):
         self._observers.append(observer)
-    
+  
     def detach(self, observer):
         self._observers.remove(observer)
-    
+  
     def notify(self, event):
         for observer in self._observers:
             observer.update(event)
@@ -1563,6 +2700,7 @@ subject.notify("Order placed")
 ### 4.3. SOLID Principles
 
 **Kiến thức:**
+
 - **S**ingle Responsibility: Một class chỉ có một lý do để thay đổi
 - **O**pen/Closed: Mở để mở rộng, đóng để sửa đổi
 - **L**iskov Substitution: Objects của class con có thể thay thế objects của class cha
@@ -1570,6 +2708,7 @@ subject.notify("Order placed")
 - **D**ependency Inversion: Phụ thuộc vào abstractions, không phụ thuộc vào concretions
 
 **Ví dụ:**
+
 ```python
 # Single Responsibility
 class User:
@@ -1601,11 +2740,13 @@ class PayPalProcessor(PaymentProcessor):
 ### 4.4. Project: Library Management System
 
 **Yêu cầu:**
+
 - Quản lý sách, thành viên, mượn/trả
 - Sử dụng OOP principles
 - Implement design patterns phù hợp
 
 **Gợi ý cấu trúc:**
+
 ```python
 class Book:
     def __init__(self, isbn, title, author):
@@ -1624,17 +2765,17 @@ class Library:
     def __init__(self):
         self.books = {}
         self.members = {}
-    
+  
     def add_book(self, book):
         self.books[book.isbn] = book
-    
+  
     def register_member(self, member):
         self.members[member.member_id] = member
-    
+  
     def borrow_book(self, member_id, isbn):
         # Implementation
         pass
-    
+  
     def return_book(self, member_id, isbn):
         # Implementation
         pass
@@ -1649,6 +2790,7 @@ class Library:
 #### SELECT
 
 **Kiến thức:**
+
 - **Định nghĩa:** Câu lệnh truy vấn dữ liệu từ bảng; có thể lọc (WHERE), sắp xếp (ORDER BY), giới hạn (LIMIT).
 - SELECT: Lấy dữ liệu từ bảng
 - WHERE: Lọc dữ liệu
@@ -1656,6 +2798,7 @@ class Library:
 - LIMIT: Giới hạn số dòng
 
 **Ví dụ:**
+
 ```sql
 -- Basic SELECT
 SELECT * FROM users;
@@ -1673,12 +2816,14 @@ SELECT * FROM users LIMIT 10;
 #### INSERT, UPDATE, DELETE
 
 **Kiến thức:**
+
 - **Định nghĩa:** Bộ ba lệnh thao tác dữ liệu: INSERT (thêm), UPDATE (cập nhật), DELETE (xóa) trên bảng.
 - INSERT: Thêm dữ liệu mới
 - UPDATE: Cập nhật dữ liệu
 - DELETE: Xóa dữ liệu
 
 **Ví dụ:**
+
 ```sql
 -- INSERT
 INSERT INTO users (name, email, age) 
@@ -1697,6 +2842,7 @@ WHERE age < 18;
 #### JOIN
 
 **Kiến thức:**
+
 - **Định nghĩa:** Kết hợp nhiều bảng theo khóa liên quan để lấy dữ liệu liên quan; INNER/LEFT/RIGHT/FULL xác định cách giữ/từ bỏ các hàng không khớp.
 - INNER JOIN: Chỉ lấy dòng có match ở cả 2 bảng
 - LEFT JOIN: Lấy tất cả dòng từ bảng trái
@@ -1704,6 +2850,7 @@ WHERE age < 18;
 - FULL OUTER JOIN: Lấy tất cả dòng từ cả 2 bảng
 
 **Ví dụ:**
+
 ```sql
 -- INNER JOIN
 SELECT u.name, o.order_id, o.total
@@ -1719,6 +2866,7 @@ LEFT JOIN orders o ON u.user_id = o.user_id;
 #### Aggregate Functions
 
 **Kiến thức:**
+
 - **Định nghĩa:** Hàm tổng hợp (COUNT/SUM/AVG/MAX/MIN) tính toán trên nhiều dòng, thường kết hợp GROUP BY/HAVING để nhóm và lọc nhóm.
 - COUNT: Đếm số dòng
 - SUM: Tổng
@@ -1728,6 +2876,7 @@ LEFT JOIN orders o ON u.user_id = o.user_id;
 - HAVING: Lọc sau GROUP BY
 
 **Ví dụ:**
+
 ```sql
 -- Aggregate
 SELECT COUNT(*) FROM users;
@@ -1749,12 +2898,14 @@ HAVING AVG(salary) > 50000;
 #### Index
 
 **Kiến thức:**
+
 - **Định nghĩa:** Cấu trúc dữ liệu (thường B-Tree) giúp tăng tốc tìm kiếm/ORDER BY bằng cách tránh quét toàn bảng; trade-off: tăng chi phí ghi và tốn space.
 - Index tăng tốc độ truy vấn
 - Tạo index trên các cột thường được tìm kiếm
 - Trade-off: Tăng tốc đọc, giảm tốc ghi
 
 **Ví dụ:**
+
 ```sql
 -- Tạo index
 CREATE INDEX idx_email ON users(email);
@@ -1769,6 +2920,7 @@ CREATE UNIQUE INDEX idx_email_unique ON users(email);
 ### 5.2. PostgreSQL/MySQL
 
 **Kiến thức:**
+
 - **Định nghĩa:** Hệ quản trị CSDL quan hệ; PostgreSQL mạnh về tính năng, MySQL phổ biến, hiệu năng tốt; dùng để lưu trữ dữ liệu có cấu trúc, hỗ trợ ACID.
 - Setup database
 - Tạo bảng với constraints
@@ -1777,6 +2929,7 @@ CREATE UNIQUE INDEX idx_email_unique ON users(email);
 - Stored procedures (cơ bản)
 
 **Ví dụ:**
+
 ```sql
 -- Tạo database
 CREATE DATABASE myapp;
@@ -1808,18 +2961,21 @@ COMMIT;
 #### 1.1. Normalization vs Denormalization
 
 **Khi nào Normalize (3NF):**
+
 - Dữ liệu ít thay đổi
 - Cần data integrity cao
 - Write operations nhiều hơn read
 - Storage quan trọng
 
 **Khi nào Denormalize:**
+
 - Read operations nhiều hơn write
 - Cần performance cao cho queries
 - Có thể chấp nhận data inconsistency tạm thời
 - Cần giảm số lượng JOINs
 
 **Ví dụ thực tế:**
+
 ```sql
 -- ✅ Normalized (3NF) - Tốt cho write-heavy
 CREATE TABLE users (
@@ -1855,12 +3011,14 @@ CREATE TABLE users (
 Normalization là quá trình tổ chức database để giảm redundancy (trùng lặp) và dependency (phụ thuộc). Mục tiêu: Mỗi fact chỉ lưu ở một nơi.
 
 **Normal Forms:**
+
 - **1NF**: Mỗi cell chỉ chứa 1 value, không có duplicate rows
 - **2NF**: 1NF + không có partial dependencies
 - **3NF**: 2NF + không có transitive dependencies
 - **BCNF**: 3NF + mọi determinant là candidate key
 
 **Ví dụ Normalization:**
+
 ```sql
 -- ❌ Unnormalized (1NF violation)
 CREATE TABLE orders (
@@ -1896,6 +3054,7 @@ CREATE TABLE orders (
 **Trade-offs chi tiết:**
 
 **Normalized (3NF):**
+
 ```
 Ưu điểm:
 ✅ Data integrity cao (không duplicate)
@@ -1914,6 +3073,7 @@ Performance:
 ```
 
 **Denormalized:**
+
 ```
 Ưu điểm:
 ✅ Queries nhanh (ít JOINs)
@@ -1953,6 +3113,7 @@ Consistency Requirements:
 ```
 
 **Hybrid Approach (Best Practice):**
+
 ```sql
 -- Normalize cho write (source of truth)
 CREATE TABLE users (
@@ -1983,6 +3144,7 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY users_denormalized;
 ```
 
 **Lưu ý quan trọng:**
+
 - **Start với Normalized**: Dễ refactor sau
 - **Denormalize khi cần**: Khi có performance issues
 - **Document decisions**: Ghi lại lý do denormalize
@@ -1991,6 +3153,7 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY users_denormalized;
 #### 1.2. Partitioning Strategy
 
 **Range Partitioning:**
+
 ```sql
 -- Partition orders theo tháng
 CREATE TABLE orders (
@@ -2013,6 +3176,7 @@ CREATE TABLE orders_2024_02 PARTITION OF orders
 ```
 
 **Hash Partitioning:**
+
 ```sql
 -- Partition users theo user_id (distribute load)
 CREATE TABLE users (
@@ -2037,6 +3201,7 @@ CREATE TABLE users_3 PARTITION OF users
 #### 1.3. Materialized Views
 
 **Khi nào dùng:**
+
 - Aggregations phức tạp được query thường xuyên
 - Data không cần real-time
 - Có thể refresh định kỳ
@@ -2069,6 +3234,7 @@ SELECT * FROM user_stats WHERE date >= '2024-01-01';
 
 **B-Tree Index (Default):**
 **Định nghĩa:** Cấu trúc cây cân bằng, tối ưu cho so sánh phạm vi (=, <, >, BETWEEN, LIKE prefix).
+
 ```sql
 -- Tốt cho: =, <, >, <=, >=, BETWEEN, LIKE 'prefix%'
 CREATE INDEX idx_email ON users(email);
@@ -2083,6 +3249,7 @@ CREATE INDEX idx_user_status_created ON users(status, created_at DESC);
 
 **Partial Index:**
 **Định nghĩa:** Index chỉ trên một phần dữ liệu thỏa điều kiện WHERE, giảm size và tăng hiệu quả cho các truy vấn thường xuyên dùng filter đó.
+
 ```sql
 -- Chỉ index một phần data (tiết kiệm space)
 CREATE INDEX idx_active_users ON users(email) 
@@ -2095,6 +3262,7 @@ WHERE created_at > '2024-01-01';
 
 **Covering Index (Include columns):**
 **Định nghĩa:** Index chứa thêm các cột được SELECT, cho phép Index Only Scan (không cần đọc table).
+
 ```sql
 -- PostgreSQL: Include columns không cần sort nhưng cần select
 CREATE INDEX idx_user_email_covering ON users(email) 
@@ -2106,6 +3274,7 @@ SELECT name, avatar_url FROM users WHERE email = 'user@example.com';
 
 **GIN Index (Full-text search):**
 **Định nghĩa:** Generalized Inverted Index, tối ưu tìm kiếm full-text trên dữ liệu văn bản lớn.
+
 ```sql
 -- PostgreSQL: Full-text search
 CREATE INDEX idx_content_gin ON posts USING GIN(to_tsvector('english', content));
@@ -2116,6 +3285,7 @@ WHERE to_tsvector('english', content) @@ to_tsquery('english', 'search term');
 
 **GiST Index (Geospatial):**
 **Định nghĩa:** Generalized Search Tree, hỗ trợ dữ liệu không gian/địa lý, khoảng cách, hình học.
+
 ```sql
 -- PostgreSQL: Geospatial queries
 CREATE INDEX idx_location_gist ON users USING GIST(location);
@@ -2159,6 +3329,7 @@ AND indexname NOT LIKE 'pg_toast%';
 **Index hoạt động như thế nào?**
 
 **B-Tree Index Structure:**
+
 ```
         [50]
        /    \
@@ -2168,6 +3339,7 @@ AND indexname NOT LIKE 'pg_toast%';
 ```
 
 **Quá trình tìm kiếm:**
+
 1. Bắt đầu từ root node
 2. So sánh giá trị với root
 3. Nếu nhỏ hơn → đi left, lớn hơn → đi right
@@ -2175,6 +3347,7 @@ AND indexname NOT LIKE 'pg_toast%';
 5. Time complexity: O(log n) thay vì O(n)
 
 **Ví dụ: Tìm email = 'user@example.com'**
+
 ```
 Without Index:
 - Scan 1,000,000 rows
@@ -2187,11 +3360,13 @@ With Index:
 ```
 
 **Tại sao Composite Index order quan trọng?**
+
 ```sql
 CREATE INDEX idx_status_created ON users(status, created_at DESC);
 ```
 
 **Index được sắp xếp như:**
+
 ```
 (status='active', created_at='2024-01-01')
 (status='active', created_at='2024-01-02')
@@ -2200,6 +3375,7 @@ CREATE INDEX idx_status_created ON users(status, created_at DESC);
 ```
 
 **Query có thể dùng index:**
+
 - ✅ `WHERE status = 'active'` - Có thể dùng (prefix match)
 - ✅ `WHERE status = 'active' ORDER BY created_at DESC` - Perfect match
 - ❌ `WHERE created_at > '2024-01-01'` - Không dùng được (không có status)
@@ -2207,6 +3383,7 @@ CREATE INDEX idx_status_created ON users(status, created_at DESC);
 **Lý do:** Index được sort theo (status, created_at). Không có status, database không thể binary search hiệu quả.
 
 **Index Selectivity:**
+
 - **High Selectivity**: Ít duplicate values → Index hiệu quả
   - Ví dụ: email (unique), user_id (primary key)
 - **Low Selectivity**: Nhiều duplicate values → Index ít hiệu quả
@@ -2215,6 +3392,7 @@ CREATE INDEX idx_status_created ON users(status, created_at DESC);
 **Rule of thumb:** Chỉ index columns có selectivity > 10% (ít nhất 10 giá trị khác nhau trên 100 rows)
 
 **Index Maintenance Overhead:**
+
 ```
 Mỗi INSERT/UPDATE/DELETE:
 1. Update table data
@@ -2227,6 +3405,7 @@ Ví dụ: Table có 5 indexes
 ```
 
 **Khi nào không nên tạo index:**
+
 - ❌ Table nhỏ (< 1000 rows) - Sequential scan nhanh hơn
 - ❌ Column ít được query
 - ❌ Column thay đổi thường xuyên (write-heavy)
@@ -2258,6 +3437,7 @@ SELECT * FROM users WHERE email = 'user@example.com';
 ```
 
 **Đọc Execution Plan:**
+
 ```
 Seq Scan (Sequential Scan) - ❌ Chậm, scan toàn bộ table
 Index Scan - ✅ Tốt, dùng index
@@ -2273,6 +3453,7 @@ Merge Join - ✅ Tốt cho sorted data
 **Đọc Execution Plan như Senior:**
 
 **Ví dụ EXPLAIN ANALYZE:**
+
 ```sql
 EXPLAIN ANALYZE
 SELECT u.name, COUNT(o.id) as order_count
@@ -2283,6 +3464,7 @@ GROUP BY u.id, u.name;
 ```
 
 **Kết quả:**
+
 ```
 HashAggregate  (cost=1500.00..1600.00 rows=1000 width=64) (actual time=50.123..60.456 rows=500 loops=1)
   Group Key: u.id, u.name
@@ -2299,22 +3481,26 @@ Execution Time: 60.789 ms
 **Giải thích từng phần:**
 
 **1. HashAggregate:**
+
 - **cost**: Ước tính cost (không phải thời gian)
 - **actual time**: Thời gian thực tế (ms)
 - **rows**: Số rows được process
 - **loops**: Số lần operation được thực hiện
 
 **2. Hash Left Join:**
+
 - **Hash Cond**: Điều kiện JOIN
 - Tạo hash table từ một bên, probe từ bên kia
 - Tốt cho large datasets
 
 **3. Seq Scan:**
+
 - ❌ **Sequential Scan**: Scan toàn bộ table
 - Chậm với large tables
 - Cần optimize: Thêm index hoặc filter sớm hơn
 
 **4. Index Scan:**
+
 - ✅ Dùng index để tìm rows
 - Nhanh hơn Seq Scan nhiều lần
 - **Index Cond**: Điều kiện dùng index
@@ -2322,21 +3508,25 @@ Execution Time: 60.789 ms
 **Các loại Scan và khi nào dùng:**
 
 **Seq Scan:**
+
 - Khi: Table nhỏ, không có index phù hợp, scan toàn bộ nhanh hơn
 - Cost: O(n) - scan tất cả rows
 - Optimize: Thêm index hoặc filter
 
 **Index Scan:**
+
 - Khi: Có index phù hợp, cần đọc table data
 - Cost: O(log n) + số rows match
 - Tốt cho: Point queries, range queries
 
 **Index Only Scan:**
+
 - Khi: Tất cả columns cần thiết đều trong index
 - Cost: O(log n) - chỉ đọc index
 - Tốt nhất: Không cần đọc table
 
 **Bitmap Heap Scan:**
+
 - Khi: Multiple conditions, nhiều rows match
 - Cost: Tạo bitmap từ index, scan table theo bitmap
 - Tốt cho: OR conditions, multiple indexes
@@ -2344,34 +3534,41 @@ Execution Time: 60.789 ms
 **Các loại Join:**
 
 **Nested Loop:**
+
 ```
 For each row in outer table:
     For each row in inner table:
         If match: output
 ```
+
 - Tốt cho: Small datasets
 - Cost: O(n × m)
 - Khi: Một bên rất nhỏ
 
 **Hash Join:**
+
 ```
 1. Build hash table từ một bên
 2. Probe hash table với bên kia
 ```
+
 - Tốt cho: Large datasets
 - Cost: O(n + m)
 - Khi: Cả hai bên đều lớn
 
 **Merge Join:**
+
 ```
 1. Sort cả hai bên
 2. Merge như merge sort
 ```
+
 - Tốt cho: Sorted data
 - Cost: O(n log n + m log m)
 - Khi: Data đã sorted hoặc có index sorted
 
 **Red Flags trong Execution Plan:**
+
 - ❌ **Seq Scan trên large table**: Cần index
 - ❌ **Nested Loop với large datasets**: Cần Hash Join
 - ❌ **High cost nhưng low rows**: Query không efficient
@@ -2382,6 +3579,7 @@ For each row in outer table:
 **Định nghĩa:** Những mẫu truy vấn gây chậm/khó scale (SELECT *, N+1, hàm trên cột, OR không hiệu quả, subquery tệ), cần tránh hoặc viết lại tối ưu hơn.
 
 **Anti-pattern 1: SELECT ***
+
 ```sql
 -- ❌ Bad: Lấy tất cả columns
 SELECT * FROM users WHERE id = 1;
@@ -2396,6 +3594,7 @@ SELECT id, name, email FROM users WHERE id = 1;
 ```
 
 **Anti-pattern 2: N+1 Query Problem**
+
 ```sql
 -- ❌ Bad: N+1 queries
 -- Application code:
@@ -2415,11 +3614,13 @@ SELECT * FROM orders WHERE user_id IN (1, 2, 3, ...);
 **📚 GIẢI THÍCH CHI TIẾT - N+1 QUERY PROBLEM:**
 
 **Vấn đề:**
+
 - Query 1: Lấy danh sách users (1 query)
 - Query 2-N: Với mỗi user, query orders (N queries)
 - **Tổng: 1 + N queries**
 
 **Ví dụ thực tế:**
+
 ```javascript
 // ❌ Bad: N+1 queries
 const users = await db.query('SELECT * FROM users LIMIT 100');
@@ -2437,11 +3638,13 @@ for (const user of users) {
 ```
 
 **Tại sao chậm?**
+
 - **Network overhead**: Mỗi query = 1 round trip đến database
 - **Connection overhead**: Mỗi query cần connection từ pool
 - **Query parsing**: Database phải parse 100 queries riêng biệt
 
 **Giải pháp:**
+
 ```javascript
 // ✅ Good: 1 query với JOIN
 const result = await db.query(`
@@ -2474,11 +3677,13 @@ result.rows.forEach(row => {
 **Khi nào dùng JOIN vs Batch Query?**
 
 **Dùng JOIN khi:**
+
 - ✅ Cần tất cả data trong 1 query
 - ✅ Relationship 1-to-many không quá lớn
 - ✅ Cần filter/sort trên joined data
 
 **Dùng Batch Query khi:**
+
 - ✅ Relationship có thể rất lớn (nhiều orders per user)
 - ✅ Chỉ cần subset của related data
 - ✅ Cần pagination cho related data
@@ -2494,6 +3699,7 @@ const orders = await db.query(
 ```
 
 **Performance Comparison:**
+
 ```
 N+1 Queries:
 - 100 users × 1ms/query = 100ms
@@ -2507,6 +3713,7 @@ Speedup: 15x!
 ```
 
 **Anti-pattern 3: Functions trong WHERE**
+
 ```sql
 -- ❌ Bad: Function trên column (không dùng được index)
 SELECT * FROM users WHERE UPPER(email) = 'USER@EXAMPLE.COM';
@@ -2523,6 +3730,7 @@ SELECT * FROM users WHERE UPPER(email) = 'USER@EXAMPLE.COM';
 ```
 
 **Anti-pattern 4: OR trong WHERE**
+
 ```sql
 -- ❌ Bad: OR thường không dùng được index tốt
 SELECT * FROM users WHERE email = 'a@example.com' OR phone = '123456';
@@ -2536,6 +3744,7 @@ SELECT * FROM users WHERE phone = '123456';
 ```
 
 **Anti-pattern 5: Subquery không tối ưu**
+
 ```sql
 -- ❌ Bad: Correlated subquery (chậm)
 SELECT u.*, 
@@ -2552,6 +3761,7 @@ GROUP BY u.id;
 #### 3.3. Query Optimization Techniques
 
 **1. Use LIMIT early:**
+
 ```sql
 -- ❌ Bad: Sort toàn bộ rồi mới limit
 SELECT * FROM orders ORDER BY created_at DESC LIMIT 10;
@@ -2562,6 +3772,7 @@ SELECT * FROM orders ORDER BY created_at DESC LIMIT 10;
 ```
 
 **2. Pagination với Cursor:**
+
 ```sql
 -- ❌ Bad: OFFSET chậm với large datasets
 SELECT * FROM orders ORDER BY id LIMIT 10 OFFSET 10000;
@@ -2579,6 +3790,7 @@ LIMIT 10;
 **Tại sao OFFSET chậm?**
 
 **Cơ chế OFFSET:**
+
 ```
 Database phải:
 1. Sort toàn bộ result set
@@ -2594,6 +3806,7 @@ Time: O(n log n) + O(offset)
 ```
 
 **Vấn đề:**
+
 - OFFSET càng lớn → càng chậm
 - Không stable: Nếu có data mới, có thể skip hoặc duplicate
 - Không scalable với large datasets
@@ -2601,6 +3814,7 @@ Time: O(n log n) + O(offset)
 **Cursor-based Pagination:**
 
 **Cơ chế:**
+
 ```
 1. Query với WHERE id > cursor
 2. Return LIMIT rows
@@ -2612,30 +3826,33 @@ Time: O(log n) + O(limit)
 ```
 
 **Ưu điểm:**
+
 - ✅ Performance consistent (không phụ thuộc offset)
 - ✅ Stable (không bị ảnh hưởng bởi data mới)
 - ✅ Scalable với large datasets
 
 **Nhược điểm:**
+
 - ❌ Không thể jump đến page cụ thể
 - ❌ Cần unique, sequential cursor
 - ❌ Phức tạp hơn implement
 
 **Implementation:**
+
 ```javascript
 // Cursor-based pagination
 async function getOrders(cursor = null, limit = 20) {
     const query = cursor
         ? 'SELECT * FROM orders WHERE id > $1 ORDER BY id LIMIT $2'
         : 'SELECT * FROM orders ORDER BY id LIMIT $1';
-    
+  
     const params = cursor ? [cursor, limit] : [limit];
     const orders = await db.query(query, params);
-    
+  
     const nextCursor = orders.length === limit 
         ? orders[orders.length - 1].id 
         : null;
-    
+  
     return {
         orders,
         nextCursor,
@@ -2649,10 +3866,12 @@ const page2 = await getOrders(page1.nextCursor);
 ```
 
 **Khi nào dùng gì:**
+
 - **OFFSET**: Cần jump đến page cụ thể, dataset nhỏ
 - **Cursor**: Large datasets, infinite scroll, performance critical
 
 **3. Batch Operations:**
+
 ```sql
 -- ❌ Bad: Multiple individual inserts
 INSERT INTO orders (user_id, total) VALUES (1, 100);
@@ -2683,16 +3902,16 @@ const pool = new Pool({
     database: process.env.DB_NAME,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    
+  
     // Connection pool settings
     max: 20,                    // Maximum pool size
     min: 5,                     // Minimum pool size
     idleTimeoutMillis: 30000,   // Close idle connections after 30s
     connectionTimeoutMillis: 2000, // Timeout khi tạo connection mới
-    
+  
     // Statement timeout
     statement_timeout: 5000,    // Query timeout 5s
-    
+  
     // Application name (for monitoring)
     application_name: 'myapp-api'
 });
@@ -2719,15 +3938,15 @@ setInterval(() => {
         idle: pool.idleCount,
         waiting: pool.waitingCount
     };
-    
+  
     console.log('Pool stats:', stats);
-    
+  
     // Alert nếu có vấn đề
     if (stats.waiting > 10) {
         logger.warn('High number of waiting connections', stats);
         // Send alert
     }
-    
+  
     if (stats.idle === 0 && stats.total === pool.options.max) {
         logger.error('Connection pool exhausted!', stats);
         // Send critical alert
@@ -2740,6 +3959,7 @@ setInterval(() => {
 **Tại sao cần Connection Pool?**
 
 **Vấn đề không có Pool:**
+
 ```
 Mỗi request tạo connection mới:
 1. TCP handshake: ~10ms
@@ -2756,6 +3976,7 @@ Với 1000 requests/second:
 ```
 
 **Giải pháp: Connection Pool**
+
 ```
 Pool giữ sẵn connections:
 1. Reuse connections: 0ms overhead
@@ -2771,6 +3992,7 @@ Với 1000 requests/second:
 **Pool Size Calculation:**
 
 **Công thức cơ bản:**
+
 ```
 Pool Size = (Number of CPU cores × 2) + Effective spindle count
 
@@ -2781,11 +4003,13 @@ Ví dụ:
 ```
 
 **Thực tế:**
+
 - **Web applications**: 10-20 connections
 - **Heavy applications**: 20-50 connections
 - **Quá nhiều**: Context switching overhead, database overload
 
 **Pool States:**
+
 ```
 Pool có 3 states:
 1. Idle: Connection sẵn sàng, không được dùng
@@ -2799,12 +4023,14 @@ Ideal state:
 ```
 
 **Pool Exhaustion - Dấu hiệu:**
+
 - `waiting > 0`: Requests đang chờ
 - `idle = 0` và `total = max`: Pool đầy
 - Response time tăng đột ngột
 - Database connections tăng
 
 **Giải pháp khi Pool Exhausted:**
+
 1. Tăng pool size (nhưng không quá nhiều)
 2. Optimize queries (giảm thời gian query)
 3. Add read replicas (distribute load)
@@ -2831,7 +4057,7 @@ async function getUser(userId) {
     if (cached) {
         return cached;
     }
-    
+  
     // Level 2: Redis cache
     const redisCached = await redisClient.get(`user:${userId}`);
     if (redisCached) {
@@ -2839,10 +4065,10 @@ async function getUser(userId) {
         memoryCache.set(`user:${userId}`, user);
         return user;
     }
-    
+  
     // Level 3: Database
     const user = await db.query('SELECT * FROM users WHERE id = $1', [userId]);
-    
+  
     // Cache results
     memoryCache.set(`user:${userId}`, user);
     await redisClient.setEx(
@@ -2850,7 +4076,7 @@ async function getUser(userId) {
         3600, // 1 hour
         JSON.stringify(user)
     );
-    
+  
     return user;
 }
 ```
@@ -2865,7 +4091,7 @@ async function updateUser(userId, data) {
         'UPDATE users SET ... WHERE id = $1 RETURNING *',
         [userId]
     );
-    
+  
     // Update cache immediately
     await redisClient.setEx(
         `user:${userId}`,
@@ -2873,7 +4099,7 @@ async function updateUser(userId, data) {
         JSON.stringify(user)
     );
     memoryCache.set(`user:${userId}`, user);
-    
+  
     return user;
 }
 
@@ -2881,11 +4107,11 @@ async function updateUser(userId, data) {
 async function createOrder(orderData) {
     // Write to database
     const order = await db.query('INSERT INTO orders ...');
-    
+  
     // Invalidate related cache
     await redisClient.del(`user:${order.user_id}:orders`);
     await redisClient.del(`user:${order.user_id}:stats`);
-    
+  
     return order;
 }
 
@@ -2898,6 +4124,7 @@ async function createOrder(orderData) {
 **Tại sao cần Multi-level Caching?**
 
 **Latency Comparison:**
+
 ```
 Memory (L1): ~0.1ms
 Redis (L2): ~1ms
@@ -2909,6 +4136,7 @@ Speedup:
 ```
 
 **Cache Hit Rate:**
+
 ```
 Ideal: > 80% cache hit rate
 
@@ -2926,16 +4154,19 @@ Speedup: ~5x!
 **Cache-Aside Pattern:**
 
 **Cơ chế:**
+
 1. Application check cache
 2. Cache hit → Return
 3. Cache miss → Query DB → Store cache → Return
 
 **Ưu điểm:**
+
 - ✅ Đơn giản implement
 - ✅ Cache chỉ chứa data được đọc
 - ✅ Database là source of truth
 
 **Nhược điểm:**
+
 - ❌ Cache miss penalty (2 trips)
 - ❌ Có thể có stale data
 - ❌ Race condition nếu 2 requests cùng miss
@@ -2943,15 +4174,18 @@ Speedup: ~5x!
 **Write-Through Pattern:**
 
 **Cơ chế:**
+
 1. Write to database
 2. Write to cache immediately
 3. Return
 
 **Ưu điểm:**
+
 - ✅ Data luôn consistent
 - ✅ Cache luôn có latest data
 
 **Nhược điểm:**
+
 - ❌ Write chậm hơn (2 writes)
 - ❌ Cache có thể chứa data không được đọc
 - ❌ Wasted cache space
@@ -2959,20 +4193,24 @@ Speedup: ~5x!
 **Write-Behind Pattern:**
 
 **Cơ chế:**
+
 1. Write to cache immediately
 2. Return (fast!)
 3. Write to database async (background)
 
 **Ưu điểm:**
+
 - ✅ Write rất nhanh
 - ✅ Better user experience
 
 **Nhược điểm:**
+
 - ❌ Risk mất data nếu cache crash
 - ❌ Phức tạp implement
 - ❌ Cần handle failures
 
 **Khi nào dùng gì:**
+
 - **Cache-Aside**: Read-heavy, có thể chấp nhận stale data
 - **Write-Through**: Cần consistency cao
 - **Write-Behind**: Write-heavy, performance critical
@@ -2980,6 +4218,7 @@ Speedup: ~5x!
 **Cache Invalidation:**
 
 **Strategies:**
+
 1. **TTL-based**: Để cache expire tự nhiên
    - Đơn giản
    - Có thể có stale data
@@ -3041,13 +4280,13 @@ function getReplica() {
 async function createUserAndGet(userData) {
     // Write to master
     const user = await masterDB.query('INSERT INTO users ...');
-    
+  
     // Read from master (not replica) để đảm bảo consistency
     const createdUser = await masterDB.query(
         'SELECT * FROM users WHERE id = $1',
         [user.id]
     );
-    
+  
     return createdUser;
 }
 
@@ -3337,6 +4576,7 @@ pg_restore -h localhost -U user -d mydb backup.dump
 #### 12.2. Horizontal Scaling
 
 **Sharding:**
+
 ```sql
 -- Shard users theo user_id
 -- Shard 1: user_id % 4 = 0
@@ -3357,6 +4597,7 @@ async function getUser(userId) {
 ```
 
 **Database per Tenant (Multi-tenancy):**
+
 ```javascript
 // Mỗi tenant có database riêng
 async function getTenantDB(tenantId) {
@@ -3373,6 +4614,7 @@ async function getData(tenantId, dataId) {
 ### 13. COMMON MISTAKES VÀ CÁCH TRÁNH
 
 **Mistake 1: Không có indexes**
+
 ```sql
 -- ❌ Bad: Query chậm
 SELECT * FROM users WHERE email = 'user@example.com';
@@ -3385,6 +4627,7 @@ SELECT * FROM users WHERE email = 'user@example.com';
 ```
 
 **Mistake 2: Quá nhiều indexes**
+
 ```sql
 -- ❌ Bad: Index mọi column
 CREATE INDEX idx_name ON users(name);
@@ -3399,12 +4642,14 @@ CREATE INDEX idx_email ON users(email); -- Email thường query
 ```
 
 **Mistake 3: Không monitor slow queries**
+
 ```sql
 -- ✅ Good: Enable slow query log và monitor thường xuyên
 -- Tìm và optimize slow queries
 ```
 
 **Mistake 4: Không có connection pooling**
+
 ```javascript
 // ❌ Bad: Tạo connection mới mỗi request
 app.get('/users', async (req, res) => {
@@ -3424,6 +4669,7 @@ app.get('/users', async (req, res) => {
 ### 14. PERFORMANCE CHECKLIST
 
 **Pre-production:**
+
 - [ ] Tất cả queries có indexes phù hợp
 - [ ] Connection pooling được config
 - [ ] Slow query logging enabled
@@ -3433,6 +4679,7 @@ app.get('/users', async (req, res) => {
 - [ ] Caching strategy đã implement
 
 **Production:**
+
 - [ ] Monitor slow queries hàng ngày
 - [ ] Review index usage định kỳ
 - [ ] Vacuum/Analyze định kỳ
@@ -3446,6 +4693,7 @@ app.get('/users', async (req, res) => {
 #### 1. Git Basics - Khởi đầu
 
 **Kiến thức:**
+
 - **Định nghĩa:** Hệ thống quản lý phiên bản phân tán; lưu lịch sử thay đổi code, hỗ trợ branch/merge, cộng tác qua remote (GitHub/GitLab).
 - git init: Khởi tạo repository
 - git add: Thêm files vào staging area
@@ -3454,6 +4702,7 @@ app.get('/users', async (req, res) => {
 - git log: Xem lịch sử commits
 
 **Commands:**
+
 ```bash
 # Khởi tạo repository
 git init
@@ -3499,6 +4748,7 @@ git log file.txt            # Lịch sử của file cụ thể
 #### 2. Undo Changes - Các Tình Huống Thường Gặp
 
 **Tình huống 1: Chưa add, muốn undo changes trong working directory**
+
 ```bash
 # Xem thay đổi
 git diff
@@ -3517,6 +4767,7 @@ git clean -n                # Dry run (xem sẽ xóa gì)
 ```
 
 **Tình huống 2: Đã add nhưng chưa commit, muốn unstage**
+
 ```bash
 # Unstage file cụ thể
 git reset HEAD file.txt
@@ -3528,6 +4779,7 @@ git restore --staged .         # Git 2.23+
 ```
 
 **Tình huống 3: Đã commit, muốn sửa commit cuối**
+
 ```bash
 # Sửa commit message
 git commit --amend
@@ -3541,6 +4793,7 @@ git commit --amend -m "New message"
 ```
 
 **Tình huống 4: Muốn xóa commit cuối (giữ changes)**
+
 ```bash
 # Soft reset - giữ changes trong staging
 git reset --soft HEAD~1
@@ -3554,6 +4807,7 @@ git reset --hard HEAD~1
 ```
 
 **Tình huống 5: Muốn xóa nhiều commits**
+
 ```bash
 # Xóa 3 commits gần nhất (giữ changes)
 git reset HEAD~3
@@ -3566,6 +4820,7 @@ git reset --hard <initial-commit-hash>
 ```
 
 **Tình huống 6: Đã push, muốn undo (cần cẩn thận!)**
+
 ```bash
 # Tạo commit mới để revert (an toàn)
 git revert HEAD
@@ -3581,6 +4836,7 @@ git push --force-with-lease # An toàn hơn
 #### 3. Stash - Tạm thời lưu changes
 
 **Tình huống: Đang làm dở, cần switch branch**
+
 ```bash
 # Stash changes
 git stash
@@ -3616,6 +4872,7 @@ git stash show -p            # Với diff
 #### 4. Branching - Quản lý nhánh
 
 **Tạo và chuyển branch:**
+
 ```bash
 # Tạo branch mới
 git branch feature-branch
@@ -3635,6 +4892,7 @@ git switch -c local-branch origin/remote-branch
 ```
 
 **Quản lý branches:**
+
 ```bash
 # Xem tất cả branches
 git branch                    # Local only
@@ -3662,6 +4920,7 @@ git branch --no-merged
 #### 5. Merge - Gộp nhánh
 
 **Basic merge:**
+
 ```bash
 # Merge branch vào current branch
 git checkout main
@@ -3678,6 +4937,7 @@ git merge --abort
 ```
 
 **Merge strategies:**
+
 ```bash
 # Ours strategy (giữ code của branch hiện tại)
 git merge -s ours feature-branch
@@ -3693,6 +4953,7 @@ git commit -m "Squashed feature branch"
 #### 6. Conflict Resolution - Giải quyết xung đột
 
 **Khi có conflict:**
+
 ```bash
 # Xem files có conflict
 git status
@@ -3717,6 +4978,7 @@ git checkout --theirs file.txt   # Lấy code của họ
 ```
 
 **Conflict trong rebase:**
+
 ```bash
 # Khi rebase có conflict
 git rebase --continue      # Sau khi sửa conflict
@@ -3727,6 +4989,7 @@ git rebase --skip          # Bỏ qua commit này
 #### 7. Rebase - Làm phẳng lịch sử
 
 **Basic rebase:**
+
 ```bash
 # Rebase current branch lên main
 git checkout feature-branch
@@ -3749,6 +5012,7 @@ git rebase --onto main feature-branch~3 feature-branch
 ```
 
 **Rebase với remote (cẩn thận!):**
+
 ```bash
 # Rebase và force push
 git rebase main
@@ -3762,6 +5026,7 @@ git config pull.rebase true  # Set default
 #### 8. Cherry-pick - Lấy commit cụ thể
 
 **Tình huống: Cần lấy 1 commit từ branch khác**
+
 ```bash
 # Cherry-pick commit
 git cherry-pick <commit-hash>
@@ -3786,6 +5051,7 @@ git cherry-pick --abort
 #### 9. Remote - Làm việc với GitHub/GitLab
 
 **Quản lý remotes:**
+
 ```bash
 # Xem remotes
 git remote
@@ -3809,6 +5075,7 @@ git remote show origin
 ```
 
 **Push và Pull:**
+
 ```bash
 # Push
 git push origin main
@@ -3831,6 +5098,7 @@ git fetch origin main      # Fetch branch cụ thể
 ```
 
 **Sync với remote:**
+
 ```bash
 # Xem khác biệt với remote
 git fetch origin
@@ -3873,6 +5141,7 @@ git checkout v1.0.0
 #### 11. Reflog - Cứu dữ liệu
 
 **Tình huống: Xóa nhầm commit/branch**
+
 ```bash
 # Xem reflog (lịch sử tất cả thao tác)
 git reflog
@@ -3935,6 +5204,7 @@ git rm path/to/submodule
 #### 14. Worktrees - Nhiều working directories
 
 **Tình huống: Cần làm việc trên nhiều branches cùng lúc**
+
 ```bash
 # Tạo worktree
 git worktree add ../project-feature feature-branch
@@ -3949,6 +5219,7 @@ git worktree remove ../project-feature
 #### 15. Các Tình Huống Thực Tế Thường Gặp
 
 **Tình huống 1: Commit nhầm vào main, cần chuyển sang branch khác**
+
 ```bash
 # Tạo branch mới từ commit hiện tại
 git branch feature-branch
@@ -3961,17 +5232,20 @@ git checkout feature-branch
 ```
 
 **Tình huống 2: Commit message sai, chưa push**
+
 ```bash
 git commit --amend -m "Correct message"
 ```
 
 **Tình huống 3: Quên add file vào commit cuối**
+
 ```bash
 git add forgotten-file.txt
 git commit --amend --no-edit
 ```
 
 **Tình huống 4: Muốn tách commit lớn thành nhiều commits nhỏ**
+
 ```bash
 git reset HEAD~1              # Undo commit, giữ changes
 git add file1.txt
@@ -3981,18 +5255,21 @@ git commit -m "Add file2"
 ```
 
 **Tình huống 5: Muốn gộp nhiều commits thành 1**
+
 ```bash
 git reset --soft HEAD~3       # Gộp 3 commits
 git commit -m "Combined commits"
 ```
 
 **Tình huống 6: Cần xóa file khỏi Git nhưng giữ trong working directory**
+
 ```bash
 git rm --cached file.txt
 git commit -m "Remove file from tracking"
 ```
 
 **Tình huống 7: Cần xóa file khỏi Git history (có sensitive data)**
+
 ```bash
 # Sử dụng git filter-branch hoặc BFG Repo-Cleaner
 git filter-branch --force --index-filter \
@@ -4004,12 +5281,14 @@ git push --force --all
 ```
 
 **Tình huống 8: Cần tìm commit đã xóa file**
+
 ```bash
 git log --all --full-history -- file.txt
 git log --diff-filter=D --summary
 ```
 
 **Tình huống 9: Cần tìm commit gây ra bug**
+
 ```bash
 # Binary search với git bisect
 git bisect start
@@ -4022,6 +5301,7 @@ git bisect reset              # Khi tìm thấy
 ```
 
 **Tình huống 10: Cần backup trước khi làm thao tác nguy hiểm**
+
 ```bash
 # Tạo backup branch
 git branch backup-before-reset
@@ -4031,12 +5311,14 @@ git tag backup-$(date +%Y%m%d)
 ```
 
 **Tình huống 11: Cần xem ai đã sửa dòng code này**
+
 ```bash
 git blame file.txt
 git blame -L 10,20 file.txt   # Dòng 10-20
 ```
 
 **Tình huống 12: Cần tìm commit có chứa text cụ thể**
+
 ```bash
 git log -S "search text"      # Tìm trong code
 git log -G "regex pattern"    # Tìm với regex
@@ -4044,18 +5326,21 @@ git log --all --grep="text"   # Tìm trong messages
 ```
 
 **Tình huống 13: Cần xem file ở commit cụ thể**
+
 ```bash
 git show <commit-hash>:file.txt
 git checkout <commit-hash> -- file.txt
 ```
 
 **Tình huống 14: Cần xem commit sẽ được push**
+
 ```bash
 git log origin/main..HEAD
 git diff origin/main..HEAD
 ```
 
 **Tình huống 15: Cần cleanup branches đã merge**
+
 ```bash
 # Xóa local branches đã merge vào main
 git branch --merged main | grep -v "main" | xargs git branch -d
@@ -4067,6 +5352,7 @@ git branch -r --merged main | grep -v "main" | sed 's/origin\///' | xargs -n 1 g
 #### 16. GitHub - Pull Requests và Collaboration
 
 **Workflow với Pull Request:**
+
 ```bash
 # 1. Fork hoặc clone repo
 git clone https://github.com/user/repo.git
@@ -4096,6 +5382,7 @@ git push origin --delete feature-branch
 ```
 
 **Sync fork với upstream:**
+
 ```bash
 # Thêm upstream remote
 git remote add upstream https://github.com/original/repo.git
@@ -4112,6 +5399,7 @@ git push origin main
 ```
 
 **Best Practices:**
+
 ```bash
 # 1. Commit messages rõ ràng
 git commit -m "feat: add user authentication"
@@ -4136,12 +5424,14 @@ hotfix/security-patch
 ### 5.4. Project: Blog với CRUD + Database
 
 **Yêu cầu:**
+
 - Tạo database schema
 - CRUD operations cho posts
 - User authentication (cơ bản)
 - Deploy lên Heroku/Vercel
 
 **Database Schema:**
+
 ```sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -4172,10 +5462,12 @@ CREATE TABLE posts (
 #### Semantic Elements
 
 **Kiến thức:**
+
 - `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`
 - Semantic HTML giúp SEO và accessibility
 
 **Ví dụ:**
+
 ```html
 <!DOCTYPE html>
 <html lang="vi">
@@ -4193,16 +5485,16 @@ CREATE TABLE posts (
             </ul>
         </nav>
     </header>
-    
+  
     <main>
         <article>
             <h1>Article Title</h1>
             <p>Content...</p>
         </article>
     </main>
-    
+  
     <footer>
-        <p>&copy; 2024</p>
+        <p>© 2024</p>
     </footer>
 </body>
 </html>
@@ -4211,22 +5503,24 @@ CREATE TABLE posts (
 #### Forms
 
 **Kiến thức:**
+
 - Form elements: input, textarea, select, button
 - Input types: text, email, password, number, date, etc.
 - Validation: required, pattern, min, max
 
 **Ví dụ:**
+
 ```html
 <form action="/submit" method="POST">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required>
-    
+  
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
-    
+  
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" min="18" max="100">
-    
+  
     <button type="submit">Submit</button>
 </form>
 ```
@@ -4236,10 +5530,12 @@ CREATE TABLE posts (
 #### Flexbox
 
 **Kiến thức:**
+
 - Container properties: display, flex-direction, justify-content, align-items, flex-wrap
 - Item properties: flex, align-self, order
 
 **Ví dụ:**
+
 ```css
 .container {
     display: flex;
@@ -4258,10 +5554,12 @@ CREATE TABLE posts (
 #### Grid
 
 **Kiến thức:**
+
 - Grid container: display, grid-template-columns, grid-template-rows, gap
 - Grid items: grid-column, grid-row, grid-area
 
 **Ví dụ:**
+
 ```css
 .container {
     display: grid;
@@ -4279,11 +5577,13 @@ CREATE TABLE posts (
 #### Responsive Design
 
 **Kiến thức:**
+
 - Media queries
 - Mobile-first approach
 - Breakpoints
 
 **Ví dụ:**
+
 ```css
 /* Mobile first */
 .container {
@@ -4312,11 +5612,13 @@ CREATE TABLE posts (
 #### 1. Variables: let, const, var
 
 **Kiến thức:**
+
 - `var`: Function-scoped, có hoisting
 - `let`: Block-scoped, có thể reassign
 - `const`: Block-scoped, không thể reassign (nhưng object/array bên trong có thể thay đổi)
 
 **Ví dụ code:**
+
 ```javascript
 // var - Function scoped
 function exampleVar() {
@@ -4366,12 +5668,14 @@ function example() {
 #### 2. Arrow Functions
 
 **Kiến thức:**
+
 - Cú pháp ngắn gọn
 - Không có `this` binding riêng (lexical this)
 - Không có `arguments` object
 - Không thể dùng làm constructor
 
 **Ví dụ code:**
+
 ```javascript
 // Basic syntax
 const add = (a, b) => a + b;
@@ -4389,14 +5693,14 @@ class Counter {
     constructor() {
         this.count = 0;
     }
-    
+  
     // ❌ Regular function - this is lost
     incrementBad() {
         setTimeout(function() {
             this.count++; // this is undefined
         }, 1000);
     }
-    
+  
     // ✅ Arrow function - this is preserved
     incrementGood() {
         setTimeout(() => {
@@ -4422,11 +5726,13 @@ const sum = numbers.reduce((acc, n) => acc + n, 0);
 #### 3. Template Literals
 
 **Kiến thức:**
+
 - Multi-line strings
 - String interpolation
 - Tagged templates
 
 **Ví dụ code:**
+
 ```javascript
 // Basic interpolation
 const name = 'John';
@@ -4471,6 +5777,7 @@ const output = highlight`Hello, ${name2}! You are ${age2} years old.`;
 #### 4. Destructuring
 
 **Kiến thức:**
+
 - Array destructuring
 - Object destructuring
 - Nested destructuring
@@ -4478,6 +5785,7 @@ const output = highlight`Hello, ${name2}! You are ${age2} years old.`;
 - Rest operator trong destructuring
 
 **Ví dụ code:**
+
 ```javascript
 // Array destructuring
 const numbers = [1, 2, 3, 4, 5];
@@ -4566,12 +5874,14 @@ console.log(x, y); // 10 20
 #### 5. Spread Operator
 
 **Kiến thức:**
+
 - Spread trong arrays
 - Spread trong objects
 - Spread trong function calls
 - Copy arrays/objects
 
 **Ví dụ code:**
+
 ```javascript
 // Spread trong arrays
 const arr1 = [1, 2, 3];
@@ -4643,11 +5953,13 @@ console.log(nested.user.name); // 'Jane' - unchanged
 #### 6. Default Parameters
 
 **Kiến thức:**
+
 - Default values cho function parameters
 - Default values có thể là expressions
 - Default values được evaluate mỗi lần gọi
 
 **Ví dụ code:**
+
 ```javascript
 // Basic default parameters
 function greet(name = 'Guest') {
@@ -4695,11 +6007,13 @@ processUser({ name: 'John' }); // { name: 'John', age: 0, email: '' }
 #### 7. Rest Parameters
 
 **Kiến thức:**
+
 - Thu thập remaining arguments
 - Phải là parameter cuối cùng
 - Tạo array từ arguments
 
 **Ví dụ code:**
+
 ```javascript
 // Rest parameters
 function sum(...numbers) {
@@ -4732,11 +6046,13 @@ function newWay(...args) {
 #### 8. Enhanced Object Literals
 
 **Kiến thức:**
+
 - Shorthand property names
 - Shorthand method names
 - Computed property names
 
 **Ví dụ code:**
+
 ```javascript
 // Shorthand property names
 const name = 'John';
@@ -4757,12 +6073,12 @@ const calculator = {
     add: function(a, b) {
         return a + b;
     },
-    
+  
     // New way
     subtract(a, b) {
         return a - b;
     },
-    
+  
     // Arrow function (không có this)
     multiply: (a, b) => a * b
 };
@@ -4789,6 +6105,7 @@ createObject('email', 'john@example.com'); // { email: 'john@example.com' }
 #### 9. Classes
 
 **Kiến thức:**
+
 - Class syntax
 - Constructor
 - Methods
@@ -4798,6 +6115,7 @@ createObject('email', 'john@example.com'); // { email: 'john@example.com' }
 - Private fields (ES2022)
 
 **Ví dụ code:**
+
 ```javascript
 // Basic class
 class Person {
@@ -4805,11 +6123,11 @@ class Person {
         this.name = name;
         this.age = age;
     }
-    
+  
     greet() {
         return `Hello, I'm ${this.name}`;
     }
-    
+  
     getInfo() {
         return `${this.name} is ${this.age} years old`;
     }
@@ -4823,7 +6141,7 @@ class MathUtils {
     static add(a, b) {
         return a + b;
     }
-    
+  
     static multiply(a, b) {
         return a * b;
     }
@@ -4838,11 +6156,11 @@ class Rectangle {
         this.width = width;
         this.height = height;
     }
-    
+  
     get area() {
         return this.width * this.height;
     }
-    
+  
     set area(value) {
         this.width = Math.sqrt(value);
         this.height = Math.sqrt(value);
@@ -4859,7 +6177,7 @@ class Animal {
     constructor(name) {
         this.name = name;
     }
-    
+  
     speak() {
         return `${this.name} makes a sound`;
     }
@@ -4870,11 +6188,11 @@ class Dog extends Animal {
         super(name); // Call parent constructor
         this.breed = breed;
     }
-    
+  
     speak() {
         return `${this.name} barks`;
     }
-    
+  
     getInfo() {
         return `${super.speak()}. It's a ${this.breed}`;
     }
@@ -4887,23 +6205,23 @@ console.log(dog.getInfo()); // "Buddy makes a sound. It's a Golden Retriever"
 // Private fields (ES2022)
 class BankAccount {
     #balance = 0; // Private field
-    
+  
     constructor(initialBalance = 0) {
         this.#balance = initialBalance;
     }
-    
+  
     deposit(amount) {
         if (amount > 0) {
             this.#balance += amount;
         }
     }
-    
+  
     withdraw(amount) {
         if (amount > 0 && amount <= this.#balance) {
             this.#balance -= amount;
         }
     }
-    
+  
     getBalance() {
         return this.#balance;
     }
@@ -4918,6 +6236,7 @@ console.log(account.getBalance()); // 150
 #### 10. Promises - Chi tiết
 
 **Kiến thức:**
+
 - Promise states: pending, fulfilled, rejected
 - then, catch, finally
 - Promise.all, Promise.allSettled, Promise.race
@@ -4925,11 +6244,12 @@ console.log(account.getBalance()); // 150
 - Error handling
 
 **Ví dụ code:**
+
 ```javascript
 // Tạo Promise
 const myPromise = new Promise((resolve, reject) => {
     const success = true;
-    
+  
     if (success) {
         resolve('Operation successful');
     } else {
@@ -5035,6 +6355,7 @@ function readFilePromise(filename) {
 #### 11. Async/Await - Chi tiết
 
 **Kiến thức:**
+
 - async functions luôn return Promise
 - await chỉ dùng trong async functions
 - Error handling với try/catch
@@ -5042,6 +6363,7 @@ function readFilePromise(filename) {
 - Sequential execution
 
 **Ví dụ code:**
+
 ```javascript
 // Basic async/await
 async function fetchUserData(userId) {
@@ -5059,10 +6381,10 @@ async function fetchUserData(userId) {
 async function processSequentially() {
     const user1 = await fetchUser(1);
     console.log('User 1:', user1);
-    
+  
     const user2 = await fetchUser(2);
     console.log('User 2:', user2);
-    
+  
     const user3 = await fetchUser(3);
     console.log('User 3:', user3);
 }
@@ -5074,7 +6396,7 @@ async function processParallel() {
         fetchUser(2),
         fetchUser(3)
     ]);
-    
+  
     console.log('All users:', user1, user2, user3);
 }
 
@@ -5097,10 +6419,10 @@ async function fetchMultipleUsers(userIds) {
     const results = await Promise.allSettled(
         userIds.map(id => fetchUser(id))
     );
-    
+  
     const users = [];
     const errors = [];
-    
+  
     results.forEach((result, index) => {
         if (result.status === 'fulfilled') {
             users.push(result.value);
@@ -5108,7 +6430,7 @@ async function fetchMultipleUsers(userIds) {
             errors.push({ userId: userIds[index], error: result.reason });
         }
     });
-    
+  
     return { users, errors };
 }
 
@@ -5119,7 +6441,7 @@ async function processUsers(userIds) {
         const user = await fetchUser(id);
         console.log(user);
     }
-    
+  
     // ✅ Parallel - nhanh
     const users = await Promise.all(
         userIds.map(id => fetchUser(id))
@@ -5139,7 +6461,7 @@ class UserService {
         const response = await fetch(`/api/users/${userId}`);
         return response.json();
     }
-    
+  
     async getUsers(userIds) {
         return Promise.all(
             userIds.map(id => this.getUser(id))
@@ -5156,23 +6478,25 @@ console.log(data);
 #### 12. Closures và Scope
 
 **Kiến thức:**
+
 - Lexical scoping
 - Closure là function có access đến outer scope
 - Module pattern
 - IIFE (Immediately Invoked Function Expression)
 
 **Ví dụ code:**
+
 ```javascript
 // Basic closure
 function outerFunction(x) {
     // Outer function's variable
     const outerVariable = x;
-    
+  
     // Inner function (closure)
     function innerFunction(y) {
         console.log(outerVariable + y); // Access outer variable
     }
-    
+  
     return innerFunction;
 }
 
@@ -5182,7 +6506,7 @@ addFive(10); // 15
 // Closure với private variables
 function createCounter() {
     let count = 0; // Private variable
-    
+  
     return {
         increment: () => ++count,
         decrement: () => --count,
@@ -5200,12 +6524,12 @@ console.log(counter.getCount()); // 2
 const UserModule = (function() {
     // Private variables
     let users = [];
-    
+  
     // Private functions
     function validateUser(user) {
         return user.name && user.email;
     }
-    
+  
     // Public API
     return {
         addUser(user) {
@@ -5215,11 +6539,11 @@ const UserModule = (function() {
             }
             return false;
         },
-        
+      
         getUsers() {
             return [...users]; // Return copy
         },
-        
+      
         getUserCount() {
             return users.length;
         }
@@ -5256,7 +6580,7 @@ for (var i = 0; i < 3; i++) {
 // Closure với event handlers
 function setupButtons() {
     const buttons = document.querySelectorAll('button');
-    
+  
     buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
             console.log(`Button ${index} clicked`);
@@ -5267,15 +6591,15 @@ function setupButtons() {
 // Memoization với closure
 function memoize(fn) {
     const cache = {};
-    
+  
     return function(...args) {
         const key = JSON.stringify(args);
-        
+      
         if (cache[key]) {
             console.log('Cache hit');
             return cache[key];
         }
-        
+      
         console.log('Cache miss');
         const result = fn(...args);
         cache[key] = result;
@@ -5299,11 +6623,13 @@ console.log(memoized(5)); // Cache hit, returns cached
 Closure cho phép inner function truy cập variables của outer function ngay cả sau khi outer function đã return. Đây là một trong những tính năng mạnh mẽ nhất của JavaScript.
 
 **Cơ chế hoạt động:**
+
 1. Khi function được tạo, nó "nhớ" lexical environment (scope) nơi nó được định nghĩa
 2. Inner function giữ reference đến outer function's variables
 3. Ngay cả khi outer function đã return, inner function vẫn có thể truy cập variables đó
 
 **Tại sao closure trong loop với var lại sai?**
+
 ```javascript
 // Vấn đề: var có function scope, không phải block scope
 for (var i = 0; i < 3; i++) {
@@ -5324,11 +6650,12 @@ for (var i = 0; i < 3; i++) {
 ```
 
 **Memory Leak với Closures:**
+
 ```javascript
 // ⚠️ Cẩn thận: Closure giữ reference, không phải value
 function createHandlers() {
     const largeData = new Array(1000000).fill('data');
-    
+  
     return function() {
         // Closure giữ reference đến largeData
         // largeData không bao giờ được garbage collected!
@@ -5340,7 +6667,7 @@ function createHandlers() {
 function createHandlers() {
     const largeData = new Array(1000000).fill('data');
     const neededData = largeData[0]; // Chỉ lấy cần thiết
-    
+  
     return function() {
         console.log(neededData); // Closure chỉ giữ neededData
     };
@@ -5348,6 +6675,7 @@ function createHandlers() {
 ```
 
 **Use Cases thực tế:**
+
 - **Data Privacy**: Tạo private variables (JS không có private keyword)
 - **Function Factories**: Tạo functions với behavior khác nhau
 - **Event Handlers**: Giữ context khi xử lý events
@@ -5357,12 +6685,14 @@ function createHandlers() {
 #### 13. this Binding
 
 **Kiến thức:**
+
 - this trong different contexts
 - call, apply, bind
 - Arrow functions và this
 - this trong classes
 
 **Ví dụ code:**
+
 ```javascript
 // this trong global context
 console.log(this); // Window (browser) hoặc global (Node.js)
@@ -5386,17 +6716,17 @@ const person2 = {
         this.hobbies.forEach(function(hobby) {
             console.log(`${this.name} likes ${hobby}`); // this is undefined
         });
-        
+      
         // ✅ Fix 1: Arrow function
         this.hobbies.forEach(hobby => {
             console.log(`${this.name} likes ${hobby}`); // this refers to person2
         });
-        
+      
         // ✅ Fix 2: bind
         this.hobbies.forEach(function(hobby) {
             console.log(`${this.name} likes ${hobby}`);
         }.bind(this));
-        
+      
         // ✅ Fix 3: Store this
         const self = this;
         this.hobbies.forEach(function(hobby) {
@@ -5432,17 +6762,17 @@ class Counter {
     constructor() {
         this.count = 0;
     }
-    
+  
     increment() {
         this.count++;
         return this; // Return this for chaining
     }
-    
+  
     decrement() {
         this.count--;
         return this;
     }
-    
+  
     getValue() {
         return this.count;
     }
@@ -5461,6 +6791,7 @@ console.log(counter.getValue()); // 1
 **4 Quy tắc xác định this (theo thứ tự ưu tiên):**
 
 **1. New Binding (Ưu tiên cao nhất):**
+
 ```javascript
 function Person(name) {
     // Khi dùng 'new', this = {} (object mới)
@@ -5473,6 +6804,7 @@ const john = new Person('John');
 ```
 
 **2. Explicit Binding (call/apply/bind):**
+
 ```javascript
 function greet() {
     return this.name;
@@ -5486,6 +6818,7 @@ bound();          // this = obj (luôn luôn)
 ```
 
 **3. Implicit Binding (object method):**
+
 ```javascript
 const obj = {
     name: 'John',
@@ -5498,6 +6831,7 @@ obj.greet(); // this = obj
 ```
 
 **4. Default Binding (thấp nhất):**
+
 ```javascript
 function greet() {
     // this = global object (window/global)
@@ -5507,30 +6841,32 @@ greet(); // this = window (browser) hoặc global (Node.js)
 ```
 
 **Arrow Functions và this:**
+
 - Arrow functions KHÔNG có `this` riêng
 - `this` trong arrow function = `this` của scope bên ngoài (lexical this)
 - Arrow functions không thể bind `this` (call/apply/bind không work)
 - Arrow functions không thể dùng làm constructor
 
 **Ví dụ minh họa:**
+
 ```javascript
 const obj = {
     name: 'John',
-    
+  
     // Regular function
     regular: function() {
         console.log(this.name); // "John"
-        
+      
         setTimeout(function() {
             // this = global (vì setTimeout gọi function)
             console.log(this.name); // undefined
         }, 100);
     },
-    
+  
     // Arrow function
     arrow: function() {
         console.log(this.name); // "John"
-        
+      
         setTimeout(() => {
             // this = obj (lexical this từ arrow function)
             console.log(this.name); // "John"
@@ -5540,6 +6876,7 @@ const obj = {
 ```
 
 **Lưu ý quan trọng:**
+
 - `this` không phải là variable, không thể assign
 - `this` chỉ có giá trị khi function được gọi
 - Arrow functions "lock" `this` tại thời điểm định nghĩa
@@ -5548,6 +6885,7 @@ const obj = {
 #### 14. Array Methods - Nâng cao
 
 **Kiến thức:**
+
 - map, filter, reduce
 - find, findIndex, some, every
 - forEach, for...of
@@ -5555,6 +6893,7 @@ const obj = {
 - sort, reverse
 
 **Ví dụ code:**
+
 ```javascript
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const users = [
@@ -5633,12 +6972,14 @@ const result = users
 #### 15. ES6 Modules
 
 **Kiến thức:**
+
 - export, import
 - Default exports
 - Named exports
 - Dynamic imports
 
 **Ví dụ code:**
+
 ```javascript
 // math.js - Named exports
 export function add(a, b) {
@@ -5693,6 +7034,7 @@ export { default } from './user.js';
 #### 16. Error Handling Patterns
 
 **Kiến thức:**
+
 - try/catch/finally
 - Error objects
 - Custom errors
@@ -5700,6 +7042,7 @@ export { default } from './user.js';
 - Async error handling
 
 **Ví dụ code:**
+
 ```javascript
 // Basic try/catch
 try {
@@ -5797,6 +7140,7 @@ app.get('/api/users/:id', asyncHandler(async (req, res) => {
 #### 17. Functional Programming Concepts
 
 **Kiến thức:**
+
 - Pure functions
 - Higher-order functions
 - Function composition
@@ -5804,6 +7148,7 @@ app.get('/api/users/:id', asyncHandler(async (req, res) => {
 - Immutability
 
 **Ví dụ code:**
+
 ```javascript
 // Pure functions - no side effects
 // ✅ Pure
@@ -5874,6 +7219,7 @@ const updatedUsers = users.map(u =>
 #### 18. DOM Manipulation - Nâng cao
 
 **Kiến thức:**
+
 - Query selectors
 - Element manipulation
 - Event delegation
@@ -5881,6 +7227,7 @@ const updatedUsers = users.map(u =>
 - Creating và manipulating DOM
 
 **Ví dụ code:**
+
 ```javascript
 // Query selectors
 const element = document.querySelector('#myId');
@@ -5955,7 +7302,7 @@ async function loadUsers() {
     try {
         const response = await fetch('/api/users');
         const users = await response.json();
-        
+      
         const container = document.querySelector('#users');
         container.innerHTML = users.map(user => `
             <div class="user">
@@ -5972,6 +7319,7 @@ async function loadUsers() {
 #### 19. Browser APIs
 
 **Kiến thức:**
+
 - LocalStorage, SessionStorage
 - Fetch API
 - WebSocket
@@ -5979,6 +7327,7 @@ async function loadUsers() {
 - Intersection Observer
 
 **Ví dụ code:**
+
 ```javascript
 // LocalStorage
 localStorage.setItem('key', 'value');
@@ -6005,11 +7354,11 @@ async function fetchData() {
             },
             body: JSON.stringify({ key: 'value' })
         });
-        
+      
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+      
         const data = await response.json();
         return data;
     } catch (error) {
@@ -6071,6 +7420,7 @@ document.querySelectorAll('.observe').forEach(el => {
 #### 20. Node.js Specific JavaScript
 
 **Kiến thức:**
+
 - CommonJS modules
 - File system operations
 - Streams
@@ -6078,6 +7428,7 @@ document.querySelectorAll('.observe').forEach(el => {
 - Buffer
 
 **Ví dụ code:**
+
 ```javascript
 // CommonJS modules
 // math.js
@@ -6150,12 +7501,14 @@ console.log(buf.toString('base64'));
 #### Components
 
 **Kiến thức:**
+
 - Functional components
 - JSX syntax
 - Props: Truyền dữ liệu từ parent xuống child
 - Component composition
 
 **Ví dụ:**
+
 ```jsx
 // Functional component
 function Welcome({ name }) {
@@ -6182,25 +7535,27 @@ function Card({ title, children }) {
 #### State với useState
 
 **Kiến thức:**
+
 - useState hook
 - State updates
 - Functional updates
 
 **Ví dụ:**
+
 ```jsx
 import { useState } from 'react';
 
 function Counter() {
     const [count, setCount] = useState(0);
-    
+  
     const increment = () => {
         setCount(count + 1);
     };
-    
+  
     const incrementBy = (amount) => {
         setCount(prev => prev + amount);
     };
-    
+  
     return (
         <div>
             <p>Count: {count}</p>
@@ -6214,31 +7569,33 @@ function Counter() {
 #### useEffect
 
 **Kiến thức:**
+
 - Side effects: API calls, subscriptions, DOM manipulation
 - Dependency array
 - Cleanup function
 
 **Ví dụ:**
+
 ```jsx
 import { useState, useEffect } from 'react';
 
 function UserProfile({ userId }) {
     const [user, setUser] = useState(null);
-    
+  
     useEffect(() => {
         // Fetch data
         fetch(`/api/users/${userId}`)
             .then(res => res.json())
             .then(data => setUser(data));
-        
+      
         // Cleanup (optional)
         return () => {
             // Cleanup code
         };
     }, [userId]); // Dependency array
-    
+  
     if (!user) return <div>Loading...</div>;
-    
+  
     return <div>{user.name}</div>;
 }
 ```
@@ -6246,12 +7603,14 @@ function UserProfile({ userId }) {
 #### React Router
 
 **Kiến thức:**
+
 - BrowserRouter, Routes, Route
 - Link, NavLink
 - useNavigate, useParams
 - Nested routes
 
 **Ví dụ:**
+
 ```jsx
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
@@ -6262,7 +7621,7 @@ function App() {
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
             </nav>
-            
+          
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -6283,6 +7642,7 @@ function UserProfile() {
 #### Project: Todo App với React
 
 **Yêu cầu:**
+
 - Thêm, xóa, sửa todos
 - Đánh dấu hoàn thành
 - Lọc todos (all, active, completed)
@@ -6291,6 +7651,7 @@ function UserProfile() {
 #### Project: Blog Frontend với React Router
 
 **Yêu cầu:**
+
 - Trang danh sách bài viết
 - Trang chi tiết bài viết
 - Trang tạo/sửa bài viết
@@ -6303,6 +7664,7 @@ function UserProfile() {
 ### 7.1. Node.js Basics
 
 **Kiến thức:**
+
 - Node.js runtime
 - NPM: Package management
 - Modules: require, module.exports, ES6 imports
@@ -6310,6 +7672,7 @@ function UserProfile() {
 - HTTP: http module
 
 **Ví dụ:**
+
 ```javascript
 // Basic server
 const http = require('http');
@@ -6335,6 +7698,7 @@ fs.readFile('file.txt', 'utf8', (err, data) => {
 ### 7.2. Express Framework
 
 **Kiến thức:**
+
 - Express setup
 - Routes: GET, POST, PUT, DELETE
 - Middleware: app.use()
@@ -6342,6 +7706,7 @@ fs.readFile('file.txt', 'utf8', (err, data) => {
 - Error handling
 
 **Ví dụ:**
+
 ```javascript
 const express = require('express');
 const app = express();
@@ -6380,6 +7745,7 @@ app.listen(3000, () => {
 ### 7.3. RESTful API Design
 
 **Kiến thức:**
+
 - REST principles
 - HTTP methods: GET, POST, PUT, PATCH, DELETE
 - Status codes: 200, 201, 400, 404, 500
@@ -6387,6 +7753,7 @@ app.listen(3000, () => {
 - API versioning
 
 **Ví dụ:**
+
 ```javascript
 // RESTful routes
 // GET    /api/users        - Get all users
@@ -6420,6 +7787,7 @@ app.post('/api/users', async (req, res) => {
 #### MongoDB với Mongoose
 
 **Kiến thức:**
+
 - Mongoose ODM
 - Schema definition
 - Models
@@ -6427,6 +7795,7 @@ app.post('/api/users', async (req, res) => {
 - Relationships
 
 **Ví dụ:**
+
 ```javascript
 const mongoose = require('mongoose');
 
@@ -6461,12 +7830,14 @@ await User.findByIdAndDelete(id);
 #### PostgreSQL với Sequelize
 
 **Kiến thức:**
+
 - Sequelize ORM
 - Models
 - Migrations
 - Associations
 
 **Ví dụ:**
+
 ```javascript
 const { Sequelize, DataTypes } = require('sequelize');
 
@@ -6497,12 +7868,14 @@ await User.destroy({ where: { id: 1 } });
 ### 7.5. Authentication với JWT
 
 **Kiến thức:**
+
 - JWT (JSON Web Tokens)
 - Password hashing: bcrypt
 - Token generation và verification
 - Middleware để protect routes
 
 **Ví dụ:**
+
 ```javascript
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -6519,26 +7892,26 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    
+  
     if (!user || !await bcrypt.compare(password, user.password)) {
         return res.status(401).json({ error: 'Invalid credentials' });
     }
-    
+  
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: '24h'
     });
-    
+  
     res.json({ token });
 });
 
 // Middleware
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
-    
+  
     if (!token) {
         return res.status(401).json({ error: 'No token provided' });
     }
-    
+  
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return res.status(403).json({ error: 'Invalid token' });
         req.user = user;
@@ -6556,6 +7929,7 @@ app.get('/api/profile', authenticateToken, async (req, res) => {
 ### 7.6. Project: REST API cho Blog
 
 **Yêu cầu:**
+
 - CRUD cho posts
 - User authentication
 - Comments system
@@ -6569,12 +7943,14 @@ app.get('/api/profile', authenticateToken, async (req, res) => {
 ### 8.1. Connect Frontend + Backend
 
 **Kiến thức:**
+
 - API integration với fetch/axios
 - CORS configuration
 - Error handling
 - Loading states
 
 **Ví dụ:**
+
 ```javascript
 // Frontend - API service
 const API_URL = 'http://localhost:3000/api';
@@ -6585,7 +7961,7 @@ export const api = {
         if (!response.ok) throw new Error('Failed to fetch');
         return response.json();
     },
-    
+  
     async post(endpoint, data) {
         const response = await fetch(`${API_URL}${endpoint}`, {
             method: 'POST',
@@ -6602,7 +7978,7 @@ function PostsList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+  
     useEffect(() => {
         api.get('/posts')
             .then(data => {
@@ -6614,10 +7990,10 @@ function PostsList() {
                 setLoading(false);
             });
     }, []);
-    
+  
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    
+  
     return (
         <div>
             {posts.map(post => (
@@ -6633,29 +8009,31 @@ function PostsList() {
 #### Context API
 
 **Kiến thức:**
+
 - createContext
 - useContext
 - Provider pattern
 
 **Ví dụ:**
+
 ```jsx
 // Context
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    
+  
     const login = async (email, password) => {
         const response = await api.post('/login', { email, password });
         setUser(response.user);
         localStorage.setItem('token', response.token);
     };
-    
+  
     const logout = () => {
         setUser(null);
         localStorage.removeItem('token');
     };
-    
+  
     return (
         <AuthContext.Provider value={{ user, login, logout }}>
             {children}
@@ -6688,6 +8066,7 @@ function Profile() {
 #### Redux (Optional)
 
 **Kiến thức:**
+
 - Store: Nơi lưu trữ global state
 - Actions: Objects mô tả điều gì đã xảy ra
 - Reducers: Pure functions xác định state thay đổi như thế nào
@@ -6695,6 +8074,7 @@ function Profile() {
 - Redux Toolkit: Công cụ giúp viết Redux code dễ dàng hơn
 
 **Ví dụ Redux cơ bản:**
+
 ```jsx
 // actions.js
 export const increment = () => ({
@@ -6748,7 +8128,7 @@ import { increment, decrement } from './actions';
 function Counter() {
     const count = useSelector(state => state.counter);
     const dispatch = useDispatch();
-    
+  
     return (
         <div>
             <p>Count: {count}</p>
@@ -6760,6 +8140,7 @@ function Counter() {
 ```
 
 **Redux Toolkit (Modern approach):**
+
 ```jsx
 // store.js
 import { configureStore, createSlice } from '@reduxjs/toolkit';
@@ -6805,7 +8186,7 @@ import { increment, decrement } from './store';
 function Counter() {
     const count = useSelector(state => state.counter);
     const dispatch = useDispatch();
-    
+  
     return (
         <div>
             <p>Count: {count}</p>
@@ -6817,6 +8198,7 @@ function Counter() {
 ```
 
 **Async Actions với Redux Thunk:**
+
 ```jsx
 // thunk actions
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -6854,6 +8236,7 @@ const userSlice = createSlice({
 ### 8.3. Project: Full Stack E-commerce (MVP)
 
 **Yêu cầu:**
+
 - User authentication
 - Product catalog
 - Shopping cart
@@ -6861,6 +8244,7 @@ const userSlice = createSlice({
 - Order management
 
 **Database Schema:**
+
 ```sql
 -- Users table
 CREATE TABLE users (
@@ -6911,6 +8295,7 @@ CREATE TABLE order_items (
 ```
 
 **Backend API Structure:**
+
 ```javascript
 // routes/auth.js
 router.post('/register', async (req, res) => {
@@ -6963,16 +8348,16 @@ router.post('/', authenticateToken, async (req, res) => {
 router.post('/', authenticateToken, async (req, res) => {
     const cartItems = await CartItem.find({ user_id: req.user.userId })
         .populate('product_id');
-    
+  
     const total = cartItems.reduce((sum, item) => {
         return sum + (item.product_id.price * item.quantity);
     }, 0);
-    
+  
     const order = await Order.create({
         user_id: req.user.userId,
         total
     });
-    
+  
     for (const item of cartItems) {
         await OrderItem.create({
             order_id: order.id,
@@ -6981,23 +8366,24 @@ router.post('/', authenticateToken, async (req, res) => {
             price: item.product_id.price
         });
     }
-    
+  
     await CartItem.deleteMany({ user_id: req.user.userId });
-    
+  
     res.json(order);
 });
 ```
 
 **Frontend Components:**
+
 ```jsx
 // ProductList.jsx
 function ProductList() {
     const [products, setProducts] = useState([]);
-    
+  
     useEffect(() => {
         api.get('/products').then(setProducts);
     }, []);
-    
+  
     return (
         <div className="product-grid">
             {products.map(product => (
@@ -7011,27 +8397,27 @@ function ProductList() {
 function ShoppingCart() {
     const { user } = useAuth();
     const [cartItems, setCartItems] = useState([]);
-    
+  
     useEffect(() => {
         if (user) {
             api.get('/cart').then(setCartItems);
         }
     }, [user]);
-    
+  
     const removeItem = async (itemId) => {
         await api.delete(`/cart/${itemId}`);
         setCartItems(items => items.filter(item => item.id !== itemId));
     };
-    
+  
     const checkout = async () => {
         const order = await api.post('/orders');
         navigate(`/orders/${order.id}`);
     };
-    
+  
     const total = cartItems.reduce((sum, item) => {
         return sum + (item.product_id.price * item.quantity);
     }, 0);
-    
+  
     return (
         <div>
             <h2>Shopping Cart</h2>
@@ -7058,18 +8444,20 @@ function ShoppingCart() {
 #### Custom Hooks
 
 **Kiến thức:**
+
 - Tạo custom hooks để tái sử dụng logic
 - Naming convention: Bắt đầu với "use"
 - Có thể sử dụng các hooks khác bên trong
 
 **Ví dụ:**
+
 ```jsx
 // Custom hook: useFetch
 function useFetch(url) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+  
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
@@ -7082,17 +8470,17 @@ function useFetch(url) {
                 setLoading(false);
             });
     }, [url]);
-    
+  
     return { data, loading, error };
 }
 
 // Usage
 function UserProfile({ userId }) {
     const { data: user, loading, error } = useFetch(`/api/users/${userId}`);
-    
+  
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    
+  
     return <div>{user.name}</div>;
 }
 
@@ -7106,7 +8494,7 @@ function useLocalStorage(key, initialValue) {
             return initialValue;
         }
     });
-    
+  
     const setValue = (value) => {
         try {
             setStoredValue(value);
@@ -7115,7 +8503,7 @@ function useLocalStorage(key, initialValue) {
             console.error(error);
         }
     };
-    
+  
     return [storedValue, setValue];
 }
 ```
@@ -7123,23 +8511,25 @@ function useLocalStorage(key, initialValue) {
 #### useMemo và useCallback
 
 **Kiến thức:**
+
 - useMemo: Memoize giá trị tính toán
 - useCallback: Memoize function
 - Tránh re-render không cần thiết
 
 **Ví dụ:**
+
 ```jsx
 function ExpensiveComponent({ items, filter }) {
     // Memoize filtered items
     const filteredItems = useMemo(() => {
         return items.filter(item => item.category === filter);
     }, [items, filter]);
-    
+  
     // Memoize callback
     const handleClick = useCallback((id) => {
         console.log('Clicked:', id);
     }, []);
-    
+  
     return (
         <div>
             {filteredItems.map(item => (
@@ -7153,12 +8543,14 @@ function ExpensiveComponent({ items, filter }) {
 #### Performance Optimization
 
 **Kiến thức:**
+
 - React.memo: Memoize components
 - Code splitting: React.lazy, Suspense
 - Virtual scrolling cho lists lớn
 - Debounce/Throttle cho events
 
 **Ví dụ:**
+
 ```jsx
 // React.memo
 const MemoizedComponent = React.memo(function Component({ name }) {
@@ -7179,15 +8571,15 @@ function App() {
 // Debounce hook
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
-    
+  
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedValue(value);
         }, delay);
-        
+      
         return () => clearTimeout(handler);
     }, [value, delay]);
-    
+  
     return debouncedValue;
 }
 ```
@@ -7197,12 +8589,14 @@ function useDebounce(value, delay) {
 #### Jest + React Testing Library
 
 **Kiến thức:**
+
 - Unit testing
 - Component testing
 - Snapshot testing
 - Mocking
 
 **Ví dụ:**
+
 ```javascript
 // Component test
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -7212,7 +8606,7 @@ test('increments counter on button click', () => {
     render(<Counter />);
     const button = screen.getByText('+1');
     const count = screen.getByText(/count/i);
-    
+  
     expect(count).toHaveTextContent('0');
     fireEvent.click(button);
     expect(count).toHaveTextContent('1');
@@ -7225,7 +8619,7 @@ test('fetches and displays user data', async () => {
             json: () => Promise.resolve({ name: 'John' })
         })
     );
-    
+  
     render(<UserProfile userId={1} />);
     expect(await screen.findByText('John')).toBeInTheDocument();
 });
@@ -7234,11 +8628,13 @@ test('fetches and displays user data', async () => {
 #### E2E Testing với Cypress
 
 **Kiến thức:**
+
 - Cypress setup
 - Writing E2E tests
 - Best practices
 
 **Ví dụ:**
+
 ```javascript
 describe('Login Flow', () => {
     it('should login successfully', () => {
@@ -7256,12 +8652,14 @@ describe('Login Flow', () => {
 #### Webpack/Vite Basics
 
 **Kiến thức:**
+
 - Module bundling
 - Loaders và plugins
 - Development vs Production builds
 - Code splitting
 
 **Ví dụ Vite config:**
+
 ```javascript
 // vite.config.js
 export default {
@@ -7287,25 +8685,27 @@ export default {
 #### Pagination
 
 **Kiến thức:**
+
 - Offset-based pagination
 - Cursor-based pagination
 - Page size limits
 
 **Ví dụ:**
+
 ```javascript
 // Offset-based
 app.get('/api/posts', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    
+  
     const posts = await Post.find()
         .skip(skip)
         .limit(limit)
         .sort({ createdAt: -1 });
-    
+  
     const total = await Post.countDocuments();
-    
+  
     res.json({
         posts,
         pagination: {
@@ -7321,15 +8721,15 @@ app.get('/api/posts', async (req, res) => {
 app.get('/api/posts', async (req, res) => {
     const cursor = req.query.cursor;
     const limit = parseInt(req.query.limit) || 10;
-    
+  
     const query = cursor ? { _id: { $gt: cursor } } : {};
     const posts = await Post.find(query)
         .limit(limit + 1)
         .sort({ _id: 1 });
-    
+  
     const hasMore = posts.length > limit;
     if (hasMore) posts.pop();
-    
+  
     res.json({
         posts,
         nextCursor: hasMore ? posts[posts.length - 1]._id : null
@@ -7340,10 +8740,11 @@ app.get('/api/posts', async (req, res) => {
 #### Filtering và Sorting
 
 **Ví dụ:**
+
 ```javascript
 app.get('/api/products', async (req, res) => {
     const { category, minPrice, maxPrice, sortBy, order } = req.query;
-    
+  
     let query = {};
     if (category) query.category = category;
     if (minPrice || maxPrice) {
@@ -7351,12 +8752,12 @@ app.get('/api/products', async (req, res) => {
         if (minPrice) query.price.$gte = parseFloat(minPrice);
         if (maxPrice) query.price.$lte = parseFloat(maxPrice);
     }
-    
+  
     let sortOptions = {};
     if (sortBy) {
         sortOptions[sortBy] = order === 'desc' ? -1 : 1;
     }
-    
+  
     const products = await Product.find(query).sort(sortOptions);
     res.json(products);
 });
@@ -7365,28 +8766,29 @@ app.get('/api/products', async (req, res) => {
 #### Search Functionality
 
 **Ví dụ:**
+
 ```javascript
 // Full-text search với MongoDB
 app.get('/api/posts/search', async (req, res) => {
     const { q } = req.query;
-    
+  
     const posts = await Post.find({
         $text: { $search: q }
     }, {
         score: { $meta: 'textScore' }
     }).sort({ score: { $meta: 'textScore' } });
-    
+  
     res.json(posts);
 });
 
 // Regex search
 app.get('/api/users/search', async (req, res) => {
     const { name } = req.query;
-    
+  
     const users = await User.find({
         name: { $regex: name, $options: 'i' }
     });
-    
+  
     res.json(users);
 });
 ```
@@ -7394,6 +8796,7 @@ app.get('/api/users/search', async (req, res) => {
 #### File Upload
 
 **Ví dụ:**
+
 ```javascript
 const multer = require('multer');
 const path = require('path');
@@ -7414,7 +8817,7 @@ const upload = multer({
         const allowedTypes = /jpeg|jpg|png|gif/;
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
-        
+      
         if (extname && mimetype) {
             cb(null, true);
         } else {
@@ -7431,11 +8834,13 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 #### Caching với Redis
 
 **Kiến thức:**
+
 - Redis basics
 - Cache strategies: Cache-aside, Write-through, Write-back
 - TTL (Time To Live)
 
 **Ví dụ:**
+
 ```javascript
 const redis = require('redis');
 const client = redis.createClient();
@@ -7455,10 +8860,10 @@ async function setCachedData(key, data, ttl = 3600) {
 app.get('/api/posts/:id', async (req, res) => {
     const { id } = req.params;
     const cacheKey = `post:${id}`;
-    
+  
     // Try cache first
     let post = await getCachedData(cacheKey);
-    
+  
     if (!post) {
         // Cache miss - fetch from database
         post = await Post.findById(id);
@@ -7466,11 +8871,11 @@ app.get('/api/posts/:id', async (req, res) => {
             await setCachedData(cacheKey, post, 3600); // Cache for 1 hour
         }
     }
-    
+  
     if (!post) {
         return res.status(404).json({ error: 'Post not found' });
     }
-    
+  
     res.json(post);
 });
 ```
@@ -7478,12 +8883,14 @@ app.get('/api/posts/:id', async (req, res) => {
 ### 10.2. Microservices Basics
 
 **Kiến thức:**
+
 - Service separation
 - API Gateway
 - Service communication
 - Message queues
 
 **Ví dụ Architecture:**
+
 ```
 ┌─────────────┐
 │   Client    │
@@ -7500,6 +8907,7 @@ app.get('/api/posts/:id', async (req, res) => {
 ```
 
 **API Gateway Example:**
+
 ```javascript
 // API Gateway
 const express = require('express');
@@ -7521,6 +8929,7 @@ app.listen(3000);
 ```
 
 **Message Queue với RabbitMQ:**
+
 ```javascript
 const amqp = require('amqplib');
 
@@ -7528,12 +8937,12 @@ const amqp = require('amqplib');
 async function sendMessage(queue, message) {
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
-    
+  
     await channel.assertQueue(queue, { durable: true });
     channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)), {
         persistent: true
     });
-    
+  
     await channel.close();
     await connection.close();
 }
@@ -7542,9 +8951,9 @@ async function sendMessage(queue, message) {
 async function consumeMessages(queue) {
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
-    
+  
     await channel.assertQueue(queue, { durable: true });
-    
+  
     channel.consume(queue, (msg) => {
         if (msg) {
             const message = JSON.parse(msg.content.toString());
@@ -7564,11 +8973,13 @@ async function consumeMessages(queue) {
 #### Dockerfile
 
 **Kiến thức:**
+
 - Dockerfile syntax
 - Multi-stage builds
 - Best practices
 
 **Ví dụ:**
+
 ```dockerfile
 # Node.js app
 FROM node:18-alpine AS builder
@@ -7594,6 +9005,7 @@ CMD ["node", "dist/index.js"]
 #### Docker Compose
 
 **Ví dụ:**
+
 ```yaml
 version: '3.8'
 
@@ -7632,6 +9044,7 @@ volumes:
 #### GitHub Actions
 
 **Ví dụ:**
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI/CD Pipeline
@@ -7645,21 +9058,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+  
     steps:
     - uses: actions/checkout@v3
-    
+  
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-    
+  
     - name: Install dependencies
       run: npm ci
-    
+  
     - name: Run tests
       run: npm test
-    
+  
     - name: Build
       run: npm run build
   
@@ -7667,10 +9080,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+  
     steps:
     - uses: actions/checkout@v3
-    
+  
     - name: Deploy to production
       run: |
         # Deployment commands
@@ -7680,18 +9093,21 @@ jobs:
 #### Deployment
 
 **Vercel (Frontend):**
+
 ```bash
 npm i -g vercel
 vercel
 ```
 
 **Heroku (Backend):**
+
 ```bash
 heroku create myapp
 git push heroku main
 ```
 
 **AWS (Full Stack):**
+
 - EC2 cho servers
 - RDS cho database
 - S3 cho static files
@@ -7708,12 +9124,14 @@ git push heroku main
 #### Setup Environment
 
 **Kiến thức:**
+
 - Node.js, npm/yarn
 - React Native CLI hoặc Expo
 - Android Studio (cho Android)
 - Xcode (cho iOS - macOS only)
 
 **Commands:**
+
 ```bash
 # Expo (Recommended for beginners)
 npx create-expo-app MyApp
@@ -7729,6 +9147,7 @@ npm run android  # hoặc npm run ios
 #### Components
 
 **Kiến thức:**
+
 - View: Container component
 - Text: Hiển thị text
 - Button: Button component
@@ -7737,13 +9156,14 @@ npm run android  # hoặc npm run ios
 - Image: Hiển thị images
 
 **Ví dụ:**
+
 ```jsx
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+  
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
@@ -7790,12 +9210,14 @@ const styles = StyleSheet.create({
 #### Navigation
 
 **Kiến thức:**
+
 - React Navigation
 - Stack Navigator
 - Tab Navigator
 - Drawer Navigator
 
 **Ví dụ:**
+
 ```jsx
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7828,6 +9250,7 @@ function App() {
 ### 12.2. API Integration & State
 
 **Ví dụ:**
+
 ```jsx
 // API service
 const API_URL = 'https://api.example.com';
@@ -7837,7 +9260,7 @@ export const api = {
         const response = await fetch(`${API_URL}${endpoint}`);
         return response.json();
     },
-    
+  
     async post(endpoint, data) {
         const response = await fetch(`${API_URL}${endpoint}`, {
             method: 'POST',
@@ -7870,6 +9293,7 @@ await AsyncStorage.removeItem('token');
 #### Camera
 
 **Ví dụ:**
+
 ```jsx
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -7898,6 +9322,7 @@ launchImageLibrary(options, (response) => {
 #### Geolocation
 
 **Ví dụ:**
+
 ```jsx
 import Geolocation from '@react-native-community/geolocation';
 
@@ -7914,6 +9339,7 @@ Geolocation.getCurrentPosition(
 #### Push Notifications
 
 **Ví dụ:**
+
 ```jsx
 import messaging from '@react-native-firebase/messaging';
 
@@ -7941,12 +9367,14 @@ messaging().onMessage(async remoteMessage => {
 #### Dart Basics
 
 **Kiến thức:**
+
 - Dart là ngôn ngữ lập trình của Flutter
 - Strongly typed language
 - Null safety
 - Async/await
 
 **Ví dụ:**
+
 ```dart
 // Variables
 String name = "John";
@@ -7975,12 +9403,14 @@ Future<String> fetchData() async {
 #### Widgets
 
 **Kiến thức:**
+
 - Flutter sử dụng widgets cho mọi thứ
 - StatelessWidget: Widget không có state
 - StatefulWidget: Widget có state
 - Material và Cupertino widgets
 
 **Ví dụ:**
+
 ```dart
 // StatelessWidget
 class MyApp extends StatelessWidget {
@@ -8001,13 +9431,13 @@ class Counter extends StatefulWidget {
 
 class _CounterState extends State<Counter> {
     int _count = 0;
-    
+  
     void _increment() {
         setState(() {
             _count++;
         });
     }
-    
+  
     @override
     Widget build(BuildContext context) {
         return Scaffold(
@@ -8032,18 +9462,20 @@ class _CounterState extends State<Counter> {
 #### State Management
 
 **Kiến thức:**
+
 - setState cho local state
 - Provider cho global state
 - Bloc pattern (advanced)
 
 **Ví dụ với Provider:**
+
 ```dart
 // Provider setup
 class CounterProvider extends ChangeNotifier {
     int _count = 0;
-    
+  
     int get count => _count;
-    
+  
     void increment() {
         _count++;
         notifyListeners();
@@ -8067,7 +9499,7 @@ class CounterPage extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         final counter = Provider.of<CounterProvider>(context);
-        
+      
         return Scaffold(
             body: Center(
                 child: Column(
@@ -8088,6 +9520,7 @@ class CounterPage extends StatelessWidget {
 #### Navigation
 
 **Ví dụ:**
+
 ```dart
 // Navigate to new screen
 Navigator.push(
@@ -8116,6 +9549,7 @@ Navigator.pushNamed(context, '/details');
 #### Build APK/IPA
 
 **Android (APK):**
+
 ```bash
 cd android
 ./gradlew assembleRelease
@@ -8123,6 +9557,7 @@ cd android
 ```
 
 **iOS (IPA):**
+
 - Mở project trong Xcode
 - Archive
 - Distribute App
@@ -8130,6 +9565,7 @@ cd android
 #### App Store Submission
 
 **Checklist:**
+
 - App icons (various sizes)
 - Screenshots
 - App description
@@ -8147,6 +9583,7 @@ cd android
 ### 15.1. Scalability Concepts
 
 **Kiến thức:**
+
 - Vertical scaling vs Horizontal scaling
 - Load balancing
 - Database sharding
@@ -8155,6 +9592,7 @@ cd android
 - CAP Theorem
 
 **Load Balancing:**
+
 ```
 ┌─────────┐
 │ Client  │
@@ -8170,6 +9608,7 @@ cd android
 ```
 
 **Database Sharding:**
+
 ```
 User ID 1-1000   → Shard 1
 User ID 1001-2000 → Shard 2
@@ -8181,11 +9620,13 @@ User ID 2001-3000 → Shard 3
 #### URL Shortener (bit.ly)
 
 **Requirements:**
+
 - Shorten long URLs
 - Redirect to original URL
 - Analytics
 
 **Design:**
+
 ```
 ┌──────┐     ┌──────────┐     ┌─────────┐
 │Client│────▶│API Server│────▶│Database │
@@ -8198,6 +9639,7 @@ User ID 2001-3000 → Shard 3
 ```
 
 **Key Components:**
+
 - Base62 encoding cho short URL
 - Distributed ID generation
 - Caching popular URLs
@@ -8206,12 +9648,14 @@ User ID 2001-3000 → Shard 3
 #### Twitter Clone
 
 **Requirements:**
+
 - Post tweets
 - Follow users
 - Timeline feed
 - Real-time updates
 
 **Design:**
+
 - Fan-out on write vs Fan-out on read
 - Message queue cho real-time
 - Caching cho feeds
@@ -8220,6 +9664,7 @@ User ID 2001-3000 → Shard 3
 **Chi tiết Implementation:**
 
 **Database Schema:**
+
 ```sql
 -- Users
 CREATE TABLE users (
@@ -8251,19 +9696,20 @@ CREATE TABLE follows (
 ```
 
 **Fan-out on Write (Push Model):**
+
 ```javascript
 // Khi user post tweet
 async function postTweet(userId, content) {
     const tweet = await Tweet.create({ user_id: userId, content });
-    
+  
     // Push vào timeline của tất cả followers
     const followers = await Follow.find({ followee_id: userId });
-    
+  
     for (const follower of followers) {
         await redis.lpush(`timeline:${follower.follower_id}`, tweet.id);
         await redis.ltrim(`timeline:${follower.follower_id}`, 0, 800); // Giữ 800 tweets mới nhất
     }
-    
+  
     return tweet;
 }
 
@@ -8273,12 +9719,13 @@ async function getTimeline(userId) {
     const tweets = await Tweet.find({ id: { $in: tweetIds } })
         .populate('user_id')
         .sort({ created_at: -1 });
-    
+  
     return tweets;
 }
 ```
 
 **Fan-out on Read (Pull Model):**
+
 ```javascript
 // Khi user post tweet - chỉ lưu vào database
 async function postTweet(userId, content) {
@@ -8290,19 +9737,20 @@ async function getTimeline(userId) {
     const following = await Follow.find({ follower_id: userId })
         .select('followee_id');
     const followingIds = following.map(f => f.followee_id);
-    
+  
     const tweets = await Tweet.find({
         user_id: { $in: followingIds }
     })
     .populate('user_id')
     .sort({ created_at: -1 })
     .limit(20);
-    
+  
     return tweets;
 }
 ```
 
 **Hybrid Approach (Recommended):**
+
 ```javascript
 // Push cho users có nhiều followers (celebrity)
 // Pull cho users có ít followers (normal users)
@@ -8310,7 +9758,7 @@ async function getTimeline(userId) {
 async function postTweet(userId, content) {
     const tweet = await Tweet.create({ user_id: userId, content });
     const followerCount = await Follow.count({ followee_id: userId });
-    
+  
     if (followerCount > 1000) {
         // Push model cho celebrity
         const followers = await Follow.find({ followee_id: userId });
@@ -8318,7 +9766,7 @@ async function postTweet(userId, content) {
             await redis.lpush(`timeline:${follower.follower_id}`, tweet.id);
         }
     }
-    
+  
     return tweet;
 }
 
@@ -8330,7 +9778,7 @@ async function getTimeline(userId) {
             .populate('user_id')
             .sort({ created_at: -1 });
     }
-    
+  
     // Fallback to pull model
     return getTimelinePull(userId);
 }
@@ -8339,12 +9787,14 @@ async function getTimeline(userId) {
 #### Uber Clone
 
 **Requirements:**
+
 - Match riders với drivers
 - Real-time location tracking
 - Payment processing
 - Rating system
 
 **Design:**
+
 ```
 ┌─────────┐
 │  Rider  │
@@ -8362,12 +9812,14 @@ async function getTimeline(userId) {
 ```
 
 **Key Components:**
+
 - Geospatial database (MongoDB với geospatial indexes)
 - Real-time matching algorithm
 - WebSocket cho real-time updates
 - Payment gateway integration
 
 **Implementation:**
+
 ```javascript
 // Geospatial query để tìm drivers gần nhất
 async function findNearbyDrivers(latitude, longitude, radius = 5) {
@@ -8383,7 +9835,7 @@ async function findNearbyDrivers(latitude, longitude, radius = 5) {
         },
         status: 'available'
     }).limit(10);
-    
+  
     return drivers;
 }
 
@@ -8393,14 +9845,14 @@ async function matchRide(riderId, pickupLocation, dropoffLocation) {
         pickupLocation.latitude,
         pickupLocation.longitude
     );
-    
+  
     if (nearbyDrivers.length === 0) {
         return { error: 'No drivers available' };
     }
-    
+  
     // Chọn driver gần nhất
     const selectedDriver = nearbyDrivers[0];
-    
+  
     // Tạo ride request
     const ride = await Ride.create({
         rider_id: riderId,
@@ -8409,10 +9861,10 @@ async function matchRide(riderId, pickupLocation, dropoffLocation) {
         dropoff_location: dropoffLocation,
         status: 'matched'
     });
-    
+  
     // Notify driver qua WebSocket
     io.to(`driver:${selectedDriver.id}`).emit('ride_request', ride);
-    
+  
     return ride;
 }
 ```
@@ -8424,11 +9876,13 @@ async function matchRide(riderId, pickupLocation, dropoffLocation) {
 ### 16.1. Dynamic Programming
 
 **Kiến thức:**
+
 - Memoization
 - Tabulation
 - Common patterns: Fibonacci, Knapsack, LCS
 
 **Ví dụ:**
+
 ```python
 # Fibonacci với DP
 def fibonacci(n, memo={}):
@@ -8451,6 +9905,7 @@ def fibonacci_tab(n):
 ### 16.2. Graph Algorithms
 
 **BFS (Breadth-First Search):**
+
 ```python
 from collections import deque
 
@@ -8458,11 +9913,11 @@ def bfs(graph, start):
     visited = set()
     queue = deque([start])
     visited.add(start)
-    
+  
     while queue:
         node = queue.popleft()
         print(node)
-        
+      
         for neighbor in graph[node]:
             if neighbor not in visited:
                 visited.add(neighbor)
@@ -8470,20 +9925,22 @@ def bfs(graph, start):
 ```
 
 **DFS (Depth-First Search):**
+
 ```python
 def dfs(graph, start, visited=None):
     if visited is None:
         visited = set()
-    
+  
     visited.add(start)
     print(start)
-    
+  
     for neighbor in graph[start]:
         if neighbor not in visited:
             dfs(graph, neighbor, visited)
 ```
 
 **Dijkstra's Algorithm:**
+
 ```python
 import heapq
 
@@ -8491,20 +9948,20 @@ def dijkstra(graph, start):
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
     pq = [(0, start)]
-    
+  
     while pq:
         current_dist, current = heapq.heappop(pq)
-        
+      
         if current_dist > distances[current]:
             continue
-        
+      
         for neighbor, weight in graph[current].items():
             distance = current_dist + weight
-            
+          
             if distance < distances[neighbor]:
                 distances[neighbor] = distance
                 heapq.heappush(pq, (distance, neighbor))
-    
+  
     return distances
 ```
 
@@ -8515,6 +9972,7 @@ def dijkstra(graph, start):
 ### 17.1. Microservices Architecture
 
 **Patterns:**
+
 - API Gateway
 - Service Discovery
 - Circuit Breaker
@@ -8525,6 +9983,7 @@ def dijkstra(graph, start):
 #### Service Discovery
 
 **Consul Example:**
+
 ```javascript
 const consul = require('consul')();
 
@@ -8566,7 +10025,7 @@ class CircuitBreaker {
         this.state = 'CLOSED'; // CLOSED, OPEN, HALF_OPEN
         this.nextAttempt = Date.now();
     }
-    
+  
     async call(...args) {
         if (this.state === 'OPEN') {
             if (Date.now() < this.nextAttempt) {
@@ -8574,7 +10033,7 @@ class CircuitBreaker {
             }
             this.state = 'HALF_OPEN';
         }
-        
+      
         try {
             const result = await this.service(...args);
             this.onSuccess();
@@ -8584,12 +10043,12 @@ class CircuitBreaker {
             throw error;
         }
     }
-    
+  
     onSuccess() {
         this.failureCount = 0;
         this.state = 'CLOSED';
     }
-    
+  
     onFailure() {
         this.failureCount++;
         if (this.failureCount >= this.threshold) {
@@ -8622,16 +10081,16 @@ class OrderSaga {
         try {
             // Step 1: Reserve inventory
             await this.reserveInventory(orderData.items);
-            
+          
             // Step 2: Process payment
             await this.processPayment(orderData.payment);
-            
+          
             // Step 3: Create order
             const order = await this.createOrderRecord(orderData);
-            
+          
             // Step 4: Send notification
             await this.sendNotification(order.userId, order.id);
-            
+          
             return order;
         } catch (error) {
             // Compensating transactions
@@ -8639,14 +10098,14 @@ class OrderSaga {
             throw error;
         }
     }
-    
+  
     async compensate(orderData) {
         // Rollback inventory
         await this.releaseInventory(orderData.items);
-        
+      
         // Refund payment
         await this.refundPayment(orderData.payment);
-        
+      
         // Cancel order if created
         if (orderData.orderId) {
             await this.cancelOrder(orderData.orderId);
@@ -8658,6 +10117,7 @@ class OrderSaga {
 ### 17.2. Event-Driven Architecture
 
 **Concepts:**
+
 - Event sourcing
 - CQRS (Command Query Responsibility Segregation)
 - Message queues
@@ -8673,7 +10133,7 @@ class EventStore {
     constructor() {
         this.events = [];
     }
-    
+  
     append(aggregateId, event) {
         this.events.push({
             aggregateId,
@@ -8681,7 +10141,7 @@ class EventStore {
             timestamp: Date.now()
         });
     }
-    
+  
     getEvents(aggregateId) {
         return this.events.filter(e => e.aggregateId === aggregateId);
     }
@@ -8694,7 +10154,7 @@ class Order {
         this.status = 'pending';
         this.items = [];
     }
-    
+  
     apply(event) {
         switch (event.type) {
             case 'ORDER_CREATED':
@@ -8709,7 +10169,7 @@ class Order {
                 break;
         }
     }
-    
+  
     static fromEvents(events) {
         const order = new Order(events[0].aggregateId);
         events.forEach(event => order.apply(event));
@@ -8749,17 +10209,17 @@ class OrderCommandHandler {
             type: 'ORDER_CREATED',
             ...command
         });
-        
+      
         // Publish event
         await eventBus.publish('order.created', command);
     }
-    
+  
     async payOrder(command) {
         await eventStore.append(command.orderId, {
             type: 'ORDER_PAID',
             ...command
         });
-        
+      
         await eventBus.publish('order.paid', command);
     }
 }
@@ -8769,11 +10229,11 @@ class OrderQueryHandler {
     constructor(readModel) {
         this.readModel = readModel; // Optimized read database
     }
-    
+  
     async getOrder(orderId) {
         return await this.readModel.findById(orderId);
     }
-    
+  
     async getOrdersByUser(userId) {
         return await this.readModel.find({ userId });
     }
@@ -8836,7 +10296,7 @@ await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
         const event = JSON.parse(message.value.toString());
         console.log('Received event:', event);
-        
+      
         // Handle event
         await handleEvent(event);
     }
@@ -8876,6 +10336,7 @@ async function handleEvent(event) {
 10. **Insufficient Logging & Monitoring**
 
 **Prevention:**
+
 ```javascript
 // SQL Injection prevention
 // ❌ Bad
@@ -8897,12 +10358,14 @@ const hashedPassword = await bcrypt.hash(password, 10);
 ### 18.2. Performance Optimization
 
 **Database:**
+
 - Indexes
 - Query optimization
 - Connection pooling
 - Read replicas
 
 **Application:**
+
 - Caching
 - Code optimization
 - Lazy loading
@@ -8913,6 +10376,7 @@ const hashedPassword = await bcrypt.hash(password, 10);
 #### Database Optimization
 
 **Indexes:**
+
 ```sql
 -- Tạo index cho queries thường dùng
 CREATE INDEX idx_user_email ON users(email);
@@ -8927,6 +10391,7 @@ CREATE INDEX idx_active_users ON users(email) WHERE status = 'active';
 ```
 
 **Query Optimization:**
+
 ```javascript
 // ❌ Bad: N+1 query problem
 const orders = await Order.find();
@@ -8953,6 +10418,7 @@ const products = await Product.find()
 ```
 
 **Connection Pooling:**
+
 ```javascript
 // PostgreSQL với pg-pool
 const { Pool } = require('pg');
@@ -8980,6 +10446,7 @@ async function query(text, params) {
 ```
 
 **Read Replicas:**
+
 ```javascript
 // Write to master
 const masterDB = new Sequelize('postgres://master-host/db');
@@ -9004,6 +10471,7 @@ async function createUser(userData) {
 #### Application Optimization
 
 **Caching Strategies:**
+
 ```javascript
 // Cache-aside pattern
 async function getProduct(productId) {
@@ -9012,17 +10480,17 @@ async function getProduct(productId) {
     if (cached) {
         return JSON.parse(cached);
     }
-    
+  
     // Cache miss - fetch from database
     const product = await Product.findById(productId);
-    
+  
     // Store in cache
     await redis.setEx(
         `product:${productId}`,
         3600, // TTL: 1 hour
         JSON.stringify(product)
     );
-    
+  
     return product;
 }
 
@@ -9030,14 +10498,14 @@ async function getProduct(productId) {
 async function updateProduct(productId, data) {
     // Update database
     const product = await Product.update(productId, data);
-    
+  
     // Update cache immediately
     await redis.setEx(
         `product:${productId}`,
         3600,
         JSON.stringify(product)
     );
-    
+  
     return product;
 }
 
@@ -9049,6 +10517,7 @@ async function deleteProduct(productId) {
 ```
 
 **Code Optimization:**
+
 ```javascript
 // ❌ Bad: Synchronous operations
 function processData(data) {
@@ -9082,6 +10551,7 @@ function Component({ items }) {
 ```
 
 **Lazy Loading:**
+
 ```javascript
 // React lazy loading
 const HeavyComponent = React.lazy(() => import('./HeavyComponent'));
@@ -9098,7 +10568,7 @@ function App() {
 function LazyImage({ src, alt }) {
     const [loaded, setLoaded] = useState(false);
     const imgRef = useRef();
-    
+  
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
@@ -9106,14 +10576,14 @@ function LazyImage({ src, alt }) {
                 observer.disconnect();
             }
         });
-        
+      
         if (imgRef.current) {
             observer.observe(imgRef.current);
         }
-        
+      
         return () => observer.disconnect();
     }, []);
-    
+  
     return (
         <img
             ref={imgRef}
@@ -9125,6 +10595,7 @@ function LazyImage({ src, alt }) {
 ```
 
 **Compression:**
+
 ```javascript
 // Express compression middleware
 const compression = require('compression');
@@ -9154,10 +10625,10 @@ const performance = require('perf_hooks');
 
 async function monitoredFunction() {
     const start = performance.now();
-    
+  
     // Your code here
     await doSomething();
-    
+  
     const end = performance.now();
     console.log(`Execution time: ${end - start}ms`);
 }
@@ -9190,6 +10661,7 @@ mongoose.set('debug', (collectionName, method, query, doc) => {
 ### 19.1. Clean Code
 
 **Principles:**
+
 - Meaningful names
 - Functions should do one thing
 - Small functions
@@ -9200,6 +10672,7 @@ mongoose.set('debug', (collectionName, method, query, doc) => {
 ### 19.2. Code Review
 
 **Checklist:**
+
 - Code quality
 - Functionality
 - Performance
@@ -9210,6 +10683,7 @@ mongoose.set('debug', (collectionName, method, query, doc) => {
 ### 19.3. TDD (Test-Driven Development)
 
 **Process:**
+
 1. Write failing test
 2. Write minimal code to pass
 3. Refactor
@@ -9224,6 +10698,7 @@ mongoose.set('debug', (collectionName, method, query, doc) => {
 ### 20.1. Enterprise E-commerce Platform
 
 **Features:**
+
 - Full stack (React + Node.js)
 - Microservices
 - Payment (Stripe)
@@ -9233,6 +10708,7 @@ mongoose.set('debug', (collectionName, method, query, doc) => {
 - AWS deployment
 
 **Architecture:**
+
 ```
 ┌─────────────┐
 │   Client     │
@@ -9251,19 +10727,20 @@ mongoose.set('debug', (collectionName, method, query, doc) => {
 **Key Components:**
 
 **Payment Integration (Stripe):**
+
 ```javascript
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Create payment intent
 app.post('/api/payments/create-intent', async (req, res) => {
     const { amount, currency = 'usd' } = req.body;
-    
+  
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amount * 100, // Convert to cents
         currency,
         metadata: { orderId: req.body.orderId }
     });
-    
+  
     res.json({ clientSecret: paymentIntent.client_secret });
 });
 
@@ -9271,13 +10748,13 @@ app.post('/api/payments/create-intent', async (req, res) => {
 app.post('/api/payments/webhook', express.raw({type: 'application/json'}), (req, res) => {
     const sig = req.headers['stripe-signature'];
     let event;
-    
+  
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
         return res.status(400).send(`Webhook Error: ${err.message}`);
     }
-    
+  
     if (event.type === 'payment_intent.succeeded') {
         const paymentIntent = event.data.object;
         // Update order status
@@ -9286,12 +10763,13 @@ app.post('/api/payments/webhook', express.raw({type: 'application/json'}), (req,
             { status: 'paid' }
         );
     }
-    
+  
     res.json({ received: true });
 });
 ```
 
 **Real-time Notifications:**
+
 ```javascript
 // WebSocket server
 const io = require('socket.io')(server);
@@ -9316,25 +10794,26 @@ notifyUser(userId, {
 ```
 
 **Analytics:**
+
 ```javascript
 // Track events
 app.post('/api/analytics/track', async (req, res) => {
     const { event, properties, userId } = req.body;
-    
+  
     await Analytics.create({
         event,
         properties,
         userId,
         timestamp: new Date()
     });
-    
+  
     res.json({ success: true });
 });
 
 // Get analytics
 app.get('/api/analytics/dashboard', async (req, res) => {
     const { startDate, endDate } = req.query;
-    
+  
     const stats = {
         totalOrders: await Order.count({
             createdAt: { $gte: startDate, $lte: endDate }
@@ -9350,7 +10829,7 @@ app.get('/api/analytics/dashboard', async (req, res) => {
             { $limit: 10 }
         ])
     };
-    
+  
     res.json(stats);
 });
 ```
@@ -9358,6 +10837,7 @@ app.get('/api/analytics/dashboard', async (req, res) => {
 ### 20.2. Social Media Platform
 
 **Features:**
+
 - Full stack
 - WebSocket cho real-time chat
 - Image/video upload
@@ -9368,13 +10848,14 @@ app.get('/api/analytics/dashboard', async (req, res) => {
 **Key Components:**
 
 **Real-time Chat:**
+
 ```javascript
 // Chat service với Socket.io
 io.on('connection', (socket) => {
     socket.on('join-room', (roomId) => {
         socket.join(`room:${roomId}`);
     });
-    
+  
     socket.on('send-message', async (data) => {
         const message = await Message.create({
             roomId: data.roomId,
@@ -9382,10 +10863,10 @@ io.on('connection', (socket) => {
             content: data.content,
             timestamp: new Date()
         });
-        
+      
         io.to(`room:${data.roomId}`).emit('new-message', message);
     });
-    
+  
     socket.on('typing', (data) => {
         socket.to(`room:${data.roomId}`).emit('user-typing', {
             userId: data.userId,
@@ -9396,6 +10877,7 @@ io.on('connection', (socket) => {
 ```
 
 **Image/Video Upload:**
+
 ```javascript
 const multer = require('multer');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -9406,7 +10888,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 app.post('/api/upload', upload.single('file'), async (req, res) => {
     const file = req.file;
     const key = `uploads/${Date.now()}-${file.originalname}`;
-    
+  
     const command = new PutObjectCommand({
         Bucket: process.env.S3_BUCKET,
         Key: key,
@@ -9414,15 +10896,16 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
         ContentType: file.mimetype,
         ACL: 'public-read'
     });
-    
+  
     await s3Client.send(command);
-    
+  
     const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${key}`;
     res.json({ url });
 });
 ```
 
 **Feed Algorithm:**
+
 ```javascript
 // Ranking algorithm
 async function getFeed(userId, page = 1, limit = 20) {
@@ -9430,7 +10913,7 @@ async function getFeed(userId, page = 1, limit = 20) {
     const following = await Follow.find({ followerId: userId })
         .select('followeeId');
     const followingIds = following.map(f => f.followeeId);
-    
+  
     // Get posts from following
     const posts = await Post.find({
         userId: { $in: followingIds }
@@ -9438,37 +10921,37 @@ async function getFeed(userId, page = 1, limit = 20) {
     .populate('userId')
     .sort({ createdAt: -1 })
     .limit(limit * 2);
-    
+  
     // Score posts
     const scoredPosts = posts.map(post => ({
         post,
         score: calculateScore(post, user)
     }));
-    
+  
     // Sort by score
     scoredPosts.sort((a, b) => b.score - a.score);
-    
+  
     // Return top posts
     return scoredPosts.slice(0, limit).map(item => item.post);
 }
 
 function calculateScore(post, user) {
     let score = 0;
-    
+  
     // Recency (newer posts score higher)
     const hoursAgo = (Date.now() - post.createdAt) / (1000 * 60 * 60);
     score += Math.max(0, 100 - hoursAgo);
-    
+  
     // Engagement
     score += post.likes.length * 2;
     score += post.comments.length * 3;
     score += post.shares.length * 5;
-    
+  
     // User preferences
     if (user.preferredCategories.includes(post.category)) {
         score += 20;
     }
-    
+  
     return score;
 }
 ```
@@ -9476,6 +10959,7 @@ function calculateScore(post, user) {
 ### 20.3. SaaS Application
 
 **Features:**
+
 - Multi-tenancy
 - Subscription management
 - Third-party API
@@ -9483,6 +10967,7 @@ function calculateScore(post, user) {
 - Mobile app
 
 **Multi-tenancy Implementation:**
+
 ```javascript
 // Tenant isolation
 class TenantAwareModel {
@@ -9492,7 +10977,7 @@ class TenantAwareModel {
             ...query
         });
     }
-    
+  
     static async create(tenantId, data) {
         return await this.model.create({
             tenantId,
@@ -9506,11 +10991,11 @@ function tenantMiddleware(req, res, next) {
     const tenantId = req.headers['x-tenant-id'] || 
                      req.subdomain || 
                      req.query.tenantId;
-    
+  
     if (!tenantId) {
         return res.status(400).json({ error: 'Tenant ID required' });
     }
-    
+  
     req.tenantId = tenantId;
     next();
 }
@@ -9525,6 +11010,7 @@ app.get('/api/data', async (req, res) => {
 ```
 
 **Subscription Management:**
+
 ```javascript
 // Subscription service
 class SubscriptionService {
@@ -9537,27 +11023,27 @@ class SubscriptionService {
             currentPeriodStart: new Date(),
             currentPeriodEnd: new Date(Date.now() + plan.duration * 24 * 60 * 60 * 1000)
         });
-        
+      
         // Create Stripe subscription
         const stripeSubscription = await stripe.subscriptions.create({
             customer: userId,
             items: [{ price: plan.stripePriceId }]
         });
-        
+      
         subscription.stripeSubscriptionId = stripeSubscription.id;
         await subscription.save();
-        
+      
         return subscription;
     }
-    
+  
     async checkAccess(userId, feature) {
         const subscription = await Subscription.findOne({
             userId,
             status: 'active'
         }).populate('planId');
-        
+      
         if (!subscription) return false;
-        
+      
         return subscription.planId.features.includes(feature);
     }
 }
@@ -9569,14 +11055,14 @@ async function requireSubscription(feature) {
             req.user.id,
             feature
         );
-        
+      
         if (!hasAccess) {
             return res.status(403).json({
                 error: 'Subscription required',
                 upgradeUrl: '/pricing'
             });
         }
-        
+      
         next();
     };
 }
@@ -9598,6 +11084,7 @@ app.get('/api/premium-feature',
 ### 21.1. Contributing to Open Source
 
 **Steps:**
+
 1. Find projects (GitHub, good first issues)
 2. Fork repository
 3. Create branch
@@ -9609,6 +11096,7 @@ app.get('/api/premium-feature',
 ### 21.2. Technical Blogging
 
 **Topics:**
+
 - Tutorials
 - Problem-solving
 - Architecture decisions
@@ -9616,6 +11104,7 @@ app.get('/api/premium-feature',
 - Code reviews
 
 **Platforms:**
+
 - Medium
 - Dev.to
 - Personal blog
@@ -9628,6 +11117,7 @@ app.get('/api/premium-feature',
 ### 22.1. System Design Interview
 
 **Framework:**
+
 1. Requirements clarification
 2. Capacity estimation
 3. System interface design
@@ -9640,6 +11130,7 @@ app.get('/api/premium-feature',
 ### 22.2. Coding Interview
 
 **Patterns:**
+
 - Two pointers
 - Sliding window
 - Hash maps
@@ -9649,6 +11140,7 @@ app.get('/api/premium-feature',
 - Backtracking
 
 **Practice:**
+
 - LeetCode (150+ problems)
 - Mock interviews
 - Time management
@@ -9657,12 +11149,14 @@ app.get('/api/premium-feature',
 ### 22.3. Behavioral Interview
 
 **STAR Method:**
+
 - Situation
 - Task
 - Action
 - Result
 
 **Common Questions:**
+
 - Tell me about yourself
 - Why do you want this job?
 - Describe a challenging project
@@ -9673,6 +11167,7 @@ app.get('/api/premium-feature',
 # CHECKLIST TỔNG THỂ
 
 ## Kiến thức
+
 - [ ] Thành thạo Python/JavaScript
 - [ ] Thành thạo React và một backend framework
 - [ ] Thành thạo React Native
@@ -9682,12 +11177,14 @@ app.get('/api/premium-feature',
 - [ ] Hiểu về Security best practices
 
 ## Projects
+
 - [ ] 5+ Full Stack Web Applications
 - [ ] 2+ Mobile Applications
 - [ ] 1+ Microservices Project
 - [ ] Tất cả đều deploy được và có tests
 
 ## Skills
+
 - [ ] Code Review
 - [ ] Refactoring
 - [ ] Testing (Unit, Integration)
@@ -9697,12 +11194,14 @@ app.get('/api/premium-feature',
 - [ ] CI/CD
 
 ## Community
+
 - [ ] Contribute to 5+ open source projects
 - [ ] Write 10+ technical blog posts
 - [ ] Có GitHub profile impressive
 - [ ] Có thể mentor junior developers
 
 ## Interview
+
 - [ ] Sẵn sàng System Design Interview
 - [ ] Sẵn sàng Coding Interview
 - [ ] Sẵn sàng Behavioral Interview
@@ -9719,6 +11218,7 @@ app.get('/api/premium-feature',
 ### 1.1. Debugging Strategies
 
 **Kiến thức:**
+
 - Logging strategies
 - Error tracking
 - Distributed tracing
@@ -9726,6 +11226,7 @@ app.get('/api/premium-feature',
 - Memory leak detection
 
 **Logging Best Practices:**
+
 ```javascript
 // Structured logging
 const winston = require('winston');
@@ -9768,6 +11269,7 @@ try {
 ```
 
 **Error Tracking với Sentry:**
+
 ```javascript
 const Sentry = require('@sentry/node');
 
@@ -9802,6 +11304,7 @@ Sentry.captureMessage('Something went wrong', {
 ```
 
 **Distributed Tracing:**
+
 ```javascript
 const { trace, context } = require('@opentelemetry/api');
 
@@ -9810,23 +11313,23 @@ const tracer = trace.getTracer('user-service');
 
 async function createUser(userData) {
     const span = tracer.startSpan('createUser');
-    
+  
     try {
         span.setAttribute('user.email', userData.email);
-        
+      
         // Child span
         const dbSpan = tracer.startSpan('db.insert', {
             parent: span
         });
-        
+      
         const user = await db.insert(userData);
         dbSpan.setAttribute('db.operation', 'insert');
         dbSpan.setAttribute('db.table', 'users');
         dbSpan.end();
-        
+      
         span.setAttribute('user.id', user.id);
         span.setStatus({ code: 1 }); // OK
-        
+      
         return user;
     } catch (error) {
         span.setStatus({
@@ -9844,13 +11347,14 @@ async function createUser(userData) {
 ### 1.2. Common Production Issues và Solutions
 
 **Memory Leaks:**
+
 ```javascript
 // ❌ Memory leak: Event listeners không được cleanup
 class UserService {
     constructor() {
         this.eventEmitter = new EventEmitter();
     }
-    
+  
     subscribe(userId, callback) {
         this.eventEmitter.on('user-updated', callback);
         // ❌ Không có cách unsubscribe
@@ -9863,18 +11367,18 @@ class UserService {
         this.eventEmitter = new EventEmitter();
         this.listeners = new Map();
     }
-    
+  
     subscribe(userId, callback) {
         const listener = (data) => {
             if (data.userId === userId) {
                 callback(data);
             }
         };
-        
+      
         this.eventEmitter.on('user-updated', listener);
         this.listeners.set(userId, listener);
     }
-    
+  
     unsubscribe(userId) {
         const listener = this.listeners.get(userId);
         if (listener) {
@@ -9898,6 +11402,7 @@ setInterval(() => {
 ```
 
 **Database Connection Issues:**
+
 ```javascript
 // Connection pool monitoring
 const pool = new Pool({
@@ -9912,7 +11417,7 @@ setInterval(() => {
         idle: pool.idleCount,
         waiting: pool.waitingCount
     });
-    
+  
     if (pool.waitingCount > 10) {
         logger.warn('High number of waiting connections', {
             waiting: pool.waitingCount,
@@ -9927,13 +11432,14 @@ pool.on('error', (err) => {
         error: err.message,
         stack: err.stack
     });
-    
+  
     // Alert team
     sendAlert('Database connection error', err);
 });
 ```
 
 **Slow Queries:**
+
 ```javascript
 // Query timeout
 const queryWithTimeout = async (query, params, timeout = 5000) => {
@@ -9952,7 +11458,7 @@ db.query = async function(query, params) {
     try {
         const result = await originalQuery(query, params);
         const duration = Date.now() - start;
-        
+      
         if (duration > 1000) {
             logger.warn('Slow query detected', {
                 query,
@@ -9960,7 +11466,7 @@ db.query = async function(query, params) {
                 params
             });
         }
-        
+      
         return result;
     } catch (error) {
         logger.error('Query failed', {
@@ -9978,6 +11484,7 @@ db.query = async function(query, params) {
 ### 2.1. Application Monitoring
 
 **Metrics Collection:**
+
 ```javascript
 const prometheus = require('prom-client');
 
@@ -10003,7 +11510,7 @@ const activeConnections = new prometheus.Gauge({
 // Middleware để collect metrics
 app.use((req, res, next) => {
     const start = Date.now();
-    
+  
     res.on('finish', () => {
         const duration = (Date.now() - start) / 1000;
         httpRequestDuration.observe(
@@ -10016,7 +11523,7 @@ app.use((req, res, next) => {
             status_code: res.statusCode
         });
     });
-    
+  
     next();
 });
 
@@ -10028,6 +11535,7 @@ app.get('/metrics', async (req, res) => {
 ```
 
 **Health Checks:**
+
 ```javascript
 // Health check endpoint
 app.get('/health', async (req, res) => {
@@ -10036,7 +11544,7 @@ app.get('/health', async (req, res) => {
         timestamp: new Date().toISOString(),
         checks: {}
     };
-    
+  
     // Check database
     try {
         await db.query('SELECT 1');
@@ -10045,7 +11553,7 @@ app.get('/health', async (req, res) => {
         health.checks.database = 'unhealthy';
         health.status = 'unhealthy';
     }
-    
+  
     // Check Redis
     try {
         await redis.ping();
@@ -10054,7 +11562,7 @@ app.get('/health', async (req, res) => {
         health.checks.redis = 'unhealthy';
         health.status = 'unhealthy';
     }
-    
+  
     // Check external API
     try {
         const response = await fetch('https://api.example.com/health');
@@ -10068,13 +11576,14 @@ app.get('/health', async (req, res) => {
         health.checks.externalApi = 'unhealthy';
         health.status = 'unhealthy';
     }
-    
+  
     const statusCode = health.status === 'healthy' ? 200 : 503;
     res.status(statusCode).json(health);
 });
 ```
 
 **Alerting:**
+
 ```javascript
 // Alert system
 class AlertManager {
@@ -10086,19 +11595,19 @@ class AlertManager {
             timestamp: new Date().toISOString(),
             service: process.env.SERVICE_NAME
         };
-        
+      
         // Send to Slack
         await this.sendToSlack(alert);
-        
+      
         // Send to PagerDuty for critical alerts
         if (severity === 'critical') {
             await this.sendToPagerDuty(alert);
         }
-        
+      
         // Log
         logger.error('Alert sent', alert);
     }
-    
+  
     async sendToSlack(alert) {
         const webhook = process.env.SLACK_WEBHOOK;
         await fetch(webhook, {
@@ -10138,6 +11647,7 @@ setInterval(() => {
 ### 2.2. Log Aggregation
 
 **ELK Stack (Elasticsearch, Logstash, Kibana):**
+
 ```javascript
 // Winston transport for ELK
 const { ElasticsearchTransport } = require('winston-elasticsearch');
@@ -10175,6 +11685,7 @@ logger.info('User action', {
 ### 3.1. Incident Response Process
 
 **Runbook Template:**
+
 ```markdown
 # Incident: High Error Rate
 
@@ -10210,36 +11721,37 @@ logger.info('User action', {
 ```
 
 **Incident Response Code:**
+
 ```javascript
 // Circuit breaker for external APIs
 class IncidentHandler {
     async handleIncident(incident) {
         // Log incident
         logger.error('Incident detected', incident);
-        
+      
         // Auto-remediation attempts
         if (incident.type === 'high_error_rate') {
             await this.scaleUp();
             await this.clearCache();
         }
-        
+      
         if (incident.type === 'database_connection_pool_exhausted') {
             await this.restartConnectionPool();
         }
-        
+      
         // Alert on-call engineer
         await this.pageOnCall(incident);
-        
+      
         // Create incident ticket
         await this.createIncidentTicket(incident);
     }
-    
+  
     async scaleUp() {
         // Auto-scale logic
         logger.info('Auto-scaling triggered');
         // Call your orchestration API (Kubernetes, AWS Auto Scaling, etc.)
     }
-    
+  
     async pageOnCall(incident) {
         // Page on-call engineer via PagerDuty, Opsgenie, etc.
         await fetch(process.env.PAGERDUTY_WEBHOOK, {
@@ -10263,6 +11775,7 @@ class IncidentHandler {
 ### 4.1. Code Review Checklist
 
 **Security Review:**
+
 ```javascript
 // ❌ Security issues to catch in review
 
@@ -10307,6 +11820,7 @@ app.post('/api/login', rateLimiter, async (req, res) => {
 ```
 
 **Performance Review:**
+
 ```javascript
 // ❌ Performance issues
 
@@ -10342,6 +11856,7 @@ async function processData(data) {
 ```
 
 **Code Quality Review:**
+
 ```javascript
 // ❌ Code quality issues
 
@@ -10417,6 +11932,7 @@ async function getUser(id) {
 ### 5.1. Identifying và Managing Technical Debt
 
 **Technical Debt Tracking:**
+
 ```javascript
 // Technical debt registry
 const technicalDebt = {
@@ -10475,6 +11991,7 @@ const codeMetrics = {
 ```
 
 **Refactoring Strategy:**
+
 ```javascript
 // Strangler Fig Pattern - Gradually replace old code
 class LegacyPaymentService {
@@ -10496,7 +12013,7 @@ class PaymentService {
         this.legacyService = new LegacyPaymentService();
         this.newService = new NewPaymentService();
     }
-    
+  
     async processPayment(order) {
         if (this.useNewService) {
             return await this.newService.processPayment(order);
@@ -10518,6 +12035,7 @@ class PaymentService {
 ### 6.1. Architecture Decision Records (ADR)
 
 **ADR Template:**
+
 ```markdown
 # ADR-001: Chọn Database cho User Service
 
@@ -10557,6 +12075,7 @@ Chuyển sang PostgreSQL với Sequelize ORM.
 ```
 
 **Decision Making Framework:**
+
 ```javascript
 // Decision matrix
 const decisionMatrix = {
@@ -10608,6 +12127,7 @@ function calculateScore(option) {
 ### 7.1. Effective Communication
 
 **Code Comments và Documentation:**
+
 ```javascript
 /**
  * Calculates the total price of an order including taxes and discounts.
@@ -10662,6 +12182,7 @@ Brief description of changes
 ## 8. PRODUCTION READINESS CHECKLIST
 
 **Pre-Deployment Checklist:**
+
 ```javascript
 const productionReadiness = {
     code: [
@@ -10711,9 +12232,10 @@ const productionReadiness = {
 
 # KẾT LUẬN
 
-Giáo trình này cung cấp một lộ trình đầy đủ và chi tiết để trở thành Senior Full Stack Developer trong 18-24 tháng. 
+Giáo trình này cung cấp một lộ trình đầy đủ và chi tiết để trở thành Senior Full Stack Developer trong 18-24 tháng.
 
 **Lưu ý quan trọng:**
+
 1. **Thực hành là chìa khóa**: Code mỗi ngày, không bỏ qua
 2. **Build real projects**: Đừng chỉ làm tutorials
 3. **LeetCode mỗi ngày**: Ít nhất 1-2 bài
@@ -10729,12 +12251,14 @@ Giáo trình này cung cấp một lộ trình đầy đủ và chi tiết để
 # TÀI LIỆU THAM KHẢO
 
 ## Sách
+
 1. "Clean Code" - Robert C. Martin
 2. "System Design Interview" - Alex Xu
 3. "You Don't Know JS" - Kyle Simpson
 4. "Eloquent JavaScript" - Marijn Haverbeke
 
 ## Websites
+
 1. LeetCode: https://leetcode.com
 2. freeCodeCamp: https://www.freecodecamp.org
 3. MDN Web Docs: https://developer.mozilla.org
@@ -10742,6 +12266,7 @@ Giáo trình này cung cấp một lộ trình đầy đủ và chi tiết để
 5. Node.js Documentation: https://nodejs.org/docs
 
 ## Video Courses
+
 1. freeCodeCamp Full Stack courses
 2. Traversy Media
 3. The Net Ninja
@@ -10769,24 +12294,26 @@ Giáo trình này cung cấp một lộ trình đầy đủ và chi tiết để
 Closure là khả năng của một function bên trong (inner function) có thể truy cập và "nhớ" các biến của function bên ngoài (outer function) ngay cả sau khi outer function đã thực thi xong.
 
 **Tại sao Closure quan trọng?**
+
 - **Data Privacy**: Tạo private variables trong JavaScript (vì JS không có private như Java/C++)
 - **Function Factories**: Tạo functions động với behavior khác nhau
 - **Event Handlers**: Giữ context khi xử lý events
 - **Module Pattern**: Tạo modules với public/private API
 
 **Cơ chế hoạt động:**
+
 ```javascript
 function outerFunction(x) {
     // Biến này thuộc về outer function's scope
     const outerVariable = x;
-    
+  
     // Inner function tạo closure
     function innerFunction(y) {
         // Inner function có thể truy cập outerVariable
         // Ngay cả khi outerFunction đã return
         console.log(outerVariable + y);
     }
-    
+  
     // Return inner function (không gọi nó)
     return innerFunction;
 }
@@ -10800,16 +12327,18 @@ addFive(10); // 15
 ```
 
 **Lưu ý quan trọng:**
+
 - Closure giữ reference đến biến, không phải giá trị
 - Nếu biến thay đổi, closure sẽ thấy giá trị mới
 - Closure có thể gây memory leak nếu không cẩn thận
 
 **Ví dụ thực tế - Memory Leak:**
+
 ```javascript
 // ❌ Bad: Memory leak với closures
 function attachHandlers() {
     const buttons = document.querySelectorAll('button');
-    
+  
     buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
             // Closure giữ reference đến buttons array
@@ -10822,14 +12351,14 @@ function attachHandlers() {
 // ✅ Good: Không giữ reference không cần thiết
 function attachHandlers() {
     const buttons = document.querySelectorAll('button');
-    
+  
     buttons.forEach((button, index) => {
         // Chỉ giữ index (primitive value), không giữ buttons array
         button.addEventListener('click', function() {
             console.log(`Button ${index} clicked`);
         });
     });
-    
+  
     // Hoặc remove listeners khi không cần
     buttons.forEach(button => {
         button.removeEventListener('click', handler);
@@ -10840,17 +12369,18 @@ function attachHandlers() {
 **Use Cases thực tế:**
 
 1. **Module Pattern:**
+
 ```javascript
 const UserModule = (function() {
     // Private variables (không thể truy cập từ bên ngoài)
     let users = [];
     let nextId = 1;
-    
+  
     // Private function
     function validateUser(user) {
         return user.name && user.email;
     }
-    
+  
     // Public API (return object với methods)
     return {
         addUser(user) {
@@ -10860,12 +12390,12 @@ const UserModule = (function() {
             }
             return false;
         },
-        
+      
         getUsers() {
             // Return copy để không thể modify trực tiếp
             return [...users];
         },
-        
+      
         getUserCount() {
             return users.length;
         }
@@ -10879,6 +12409,7 @@ console.log(UserModule.getUsers()); // [{ id: 1, name: 'John', ... }]
 ```
 
 2. **Function Factory:**
+
 ```javascript
 function createMultiplier(multiplier) {
     // Closure giữ multiplier
@@ -10897,14 +12428,15 @@ console.log(triple(5)); // 15
 ```
 
 3. **Debounce/Throttle:**
+
 ```javascript
 function debounce(func, delay) {
     let timeoutId; // Closure giữ timeoutId
-    
+  
     return function(...args) {
         // Clear timeout cũ
         clearTimeout(timeoutId);
-        
+      
         // Set timeout mới
         timeoutId = setTimeout(() => {
             func.apply(this, args);
@@ -10939,6 +12471,7 @@ const debouncedSearch = debounce((query) => {
 **Chi tiết từng quy tắc:**
 
 **1. New Binding:**
+
 ```javascript
 function Person(name) {
     // this = {} (object mới được tạo)
@@ -10952,6 +12485,7 @@ console.log(john.name); // "John"
 ```
 
 **2. Explicit Binding:**
+
 ```javascript
 function greet() {
     return `Hello, ${this.name}`;
@@ -10971,6 +12505,7 @@ greetJohn(); // "Hello, John"
 ```
 
 **3. Implicit Binding:**
+
 ```javascript
 const person = {
     name: 'John',
@@ -10985,6 +12520,7 @@ person.greet(); // "Hello, John"
 ```
 
 **4. Default Binding:**
+
 ```javascript
 function greet() {
     // this = global object (window trong browser, global trong Node.js)
@@ -10996,13 +12532,14 @@ greet(); // "Hello, undefined" (nếu window.name không tồn tại)
 ```
 
 **Arrow Functions và this:**
+
 ```javascript
 // Arrow functions KHÔNG có this riêng
 // this trong arrow function = this của scope bên ngoài (lexical this)
 
 const person = {
     name: 'John',
-    
+  
     // Regular function - this thay đổi
     greetRegular: function() {
         setTimeout(function() {
@@ -11010,7 +12547,7 @@ const person = {
             console.log(this.name); // undefined
         }, 100);
     },
-    
+  
     // Arrow function - this giữ nguyên
     greetArrow: function() {
         setTimeout(() => {
@@ -11022,6 +12559,7 @@ const person = {
 ```
 
 **Lưu ý quan trọng:**
+
 - Arrow functions không thể dùng làm constructor (không có this riêng)
 - Arrow functions không thể bind this (call/apply/bind không work)
 - Arrow functions không có arguments object
@@ -11029,6 +12567,7 @@ const person = {
 **Common Mistakes:**
 
 **Mistake 1: Losing this trong callbacks**
+
 ```javascript
 // ❌ Bad
 const button = {
@@ -11079,16 +12618,19 @@ const button = {
 #### Giải thích chi tiết:
 
 **Tại sao cần Promises?**
+
 - **Callback Hell**: Callbacks lồng nhau khó đọc và maintain
 - **Error Handling**: Khó xử lý lỗi với callbacks
 - **Parallel Execution**: Khó chạy nhiều async operations song song
 
 **Promise States:**
+
 1. **Pending**: Chưa hoàn thành
 2. **Fulfilled**: Thành công (resolve)
 3. **Rejected**: Thất bại (reject)
 
 **Promise Chain:**
+
 ```javascript
 fetch('/api/user')
     .then(response => {
@@ -11110,6 +12652,7 @@ fetch('/api/user')
 ```
 
 **Async/Await - Syntactic Sugar:**
+
 ```javascript
 // Async/await làm code trông như synchronous
 async function getUserPosts() {
@@ -11128,12 +12671,14 @@ async function getUserPosts() {
 ```
 
 **Lưu ý quan trọng:**
+
 - `async function` luôn return Promise
 - `await` chỉ dùng trong `async function`
 - `await` pause execution cho đến khi Promise resolve
 - Errors trong async function được wrap trong rejected Promise
 
 **Parallel Execution:**
+
 ```javascript
 // ❌ Sequential (chậm)
 async function fetchSequential() {
@@ -11166,6 +12711,7 @@ async function fetchParallel() {
 Index là cấu trúc dữ liệu giúp database tìm kiếm nhanh hơn, tương tự như index trong sách giúp tìm trang nhanh hơn.
 
 **Cơ chế hoạt động:**
+
 ```
 Không có index:
 - Database phải scan toàn bộ table (Sequential Scan)
@@ -11179,6 +12725,7 @@ Có index:
 ```
 
 **B-Tree Index Structure:**
+
 ```
         [50]
        /    \
@@ -11193,6 +12740,7 @@ Có index:
 ```
 
 **Khi nào cần Index:**
+
 - ✅ Columns thường dùng trong WHERE
 - ✅ Columns dùng trong JOIN
 - ✅ Columns dùng trong ORDER BY
@@ -11201,6 +12749,7 @@ Có index:
 - ❌ Columns thay đổi thường xuyên (trade-off)
 
 **Composite Index - Order Matters:**
+
 ```sql
 CREATE INDEX idx_status_created ON users(status, created_at DESC);
 
@@ -11216,6 +12765,7 @@ ORDER BY created_at DESC          -- Không dùng được index
 **Lý do:** Index được sắp xếp theo (status, created_at). Nếu không có status, database không thể dùng index hiệu quả.
 
 **Index Selectivity:**
+
 ```sql
 -- Low selectivity (nhiều duplicate values)
 CREATE INDEX idx_gender ON users(gender);
@@ -11227,8 +12777,9 @@ CREATE INDEX idx_email ON users(email);
 ```
 
 **Trade-offs:**
+
 - ✅ **Pros**: Tăng tốc đọc (SELECT)
-- ❌ **Cons**: 
+- ❌ **Cons**:
   - Tốn storage space
   - Chậm INSERT/UPDATE/DELETE (phải update index)
   - Tốn memory khi load index
@@ -11249,6 +12800,7 @@ GROUP BY u.id, u.name;
 ```
 
 **Đọc kết quả:**
+
 ```
 Hash Left Join  (cost=1000.00..2000.00 rows=1000 width=64) (actual time=10.123..50.456 rows=500 loops=1)
   Hash Cond: (o.user_id = u.id)
@@ -11259,18 +12811,21 @@ Hash Left Join  (cost=1000.00..2000.00 rows=1000 width=64) (actual time=10.123..
 ```
 
 **Giải thích:**
+
 - **cost**: Ước tính cost (không phải thời gian thực)
 - **actual time**: Thời gian thực tế (ms)
 - **rows**: Số rows được scan/return
 - **loops**: Số lần operation được thực hiện
 
 **Các loại Scan:**
+
 - **Seq Scan**: Scan toàn bộ table (chậm) ❌
 - **Index Scan**: Dùng index để tìm rows ✅
 - **Index Only Scan**: Chỉ đọc index, không đọc table ✅✅
 - **Bitmap Heap Scan**: Dùng bitmap index ✅
 
 **Các loại Join:**
+
 - **Nested Loop**: Tốt cho small datasets
 - **Hash Join**: Tốt cho large datasets, cần memory
 - **Merge Join**: Tốt cho sorted data
@@ -11282,17 +12837,20 @@ Hash Left Join  (cost=1000.00..2000.00 rows=1000 width=64) (actual time=10.123..
 #### Normalization (3NF):
 
 **Ưu điểm:**
+
 - ✅ Data integrity cao (không duplicate)
 - ✅ Tiết kiệm storage
 - ✅ Dễ update (chỉ update 1 chỗ)
 - ✅ Phù hợp write-heavy
 
 **Nhược điểm:**
+
 - ❌ Cần nhiều JOINs (chậm)
 - ❌ Phức tạp queries
 - ❌ Không phù hợp read-heavy
 
 **Ví dụ:**
+
 ```sql
 -- Normalized
 users: id, name, email
@@ -11309,17 +12867,20 @@ JOIN user_addresses a ON u.id = a.user_id;
 #### Denormalization:
 
 **Ưu điểm:**
+
 - ✅ Queries nhanh (ít JOINs)
 - ✅ Đơn giản queries
 - ✅ Phù hợp read-heavy
 
 **Nhược điểm:**
+
 - ❌ Data duplication
 - ❌ Khó maintain consistency
 - ❌ Tốn storage
 - ❌ Update phức tạp (phải update nhiều chỗ)
 
 **Ví dụ:**
+
 ```sql
 -- Denormalized
 users: id, name, email, bio, avatar, city
@@ -11329,6 +12890,7 @@ SELECT name, bio, city FROM users WHERE id = 1;
 ```
 
 **Khi nào dùng gì:**
+
 - **Normalize**: Write > Read, Data integrity quan trọng
 - **Denormalize**: Read >> Write, Performance quan trọng
 - **Hybrid**: Normalize cho write, Denormalize cho read (Materialized Views)
@@ -11374,6 +12936,7 @@ app.get('/users', async (req, res) => {
 ```
 
 **Pool Size Calculation:**
+
 ```
 Pool size = (Number of cores * 2) + Effective spindle count
 
@@ -11397,17 +12960,20 @@ Nhưng thực tế:
 #### Cache-Aside (Lazy Loading):
 
 **Cơ chế:**
+
 1. Check cache
 2. Nếu miss → Query database
 3. Store vào cache
 4. Return data
 
 **Khi nào dùng:**
+
 - ✅ Data không thay đổi thường xuyên
 - ✅ Có thể chấp nhận stale data
 - ✅ Read-heavy workloads
 
 **Trade-offs:**
+
 - ✅ Đơn giản implement
 - ❌ Cache miss penalty (2 trips: cache + DB)
 - ❌ Có thể có stale data
@@ -11415,15 +12981,18 @@ Nhưng thực tế:
 #### Write-Through:
 
 **Cơ chế:**
+
 1. Write to database
 2. Write to cache immediately
 3. Return
 
 **Khi nào dùng:**
+
 - ✅ Cần data consistency cao
 - ✅ Write không quá nhiều
 
 **Trade-offs:**
+
 - ✅ Data luôn consistent
 - ❌ Write chậm hơn (2 writes)
 - ❌ Cache có thể chứa data không được đọc
@@ -11431,15 +13000,18 @@ Nhưng thực tế:
 #### Write-Behind (Write-Back):
 
 **Cơ chế:**
+
 1. Write to cache immediately
 2. Return (fast!)
 3. Write to database async (background)
 
 **Khi nào dùng:**
+
 - ✅ Write-heavy workloads
 - ✅ Có thể mất data nếu cache crash
 
 **Trade-offs:**
+
 - ✅ Write rất nhanh
 - ❌ Risk mất data
 - ❌ Phức tạp implement
@@ -11453,10 +13025,12 @@ Nhưng thực tế:
 **Cơ chế:** Request 1 → Server 1, Request 2 → Server 2, ...
 
 **Khi nào dùng:**
+
 - ✅ Servers có cùng capacity
 - ✅ Requests đơn giản
 
 **Trade-offs:**
+
 - ✅ Đơn giản
 - ❌ Không tính đến server load
 
@@ -11465,10 +13039,12 @@ Nhưng thực tế:
 **Cơ chế:** Route đến server có ít connections nhất
 
 **Khi nào dùng:**
+
 - ✅ Long-lived connections
 - ✅ Servers có capacity khác nhau
 
 **Trade-offs:**
+
 - ✅ Cân bằng tốt hơn
 - ❌ Cần track connections
 
@@ -11477,10 +13053,12 @@ Nhưng thực tế:
 **Cơ chế:** Hash client IP → Route đến server cố định
 
 **Khi nào dùng:**
+
 - ✅ Cần session affinity
 - ✅ Stateful applications
 
 **Trade-offs:**
+
 - ✅ Session consistency
 - ❌ Không cân bằng tốt nếu IP distribution không đều
 
@@ -11491,21 +13069,25 @@ Nhưng thực tế:
 ### 1. PREMATURE OPTIMIZATION - Khi Nào?
 
 **Quy tắc:**
+
 > "Premature optimization is the root of all evil" - Donald Knuth
 
 **Nhưng khi nào thì optimize?**
 
 **✅ Optimize khi:**
+
 - Có metrics chứng minh bottleneck
 - Performance issue ảnh hưởng user experience
 - Scalability requirements rõ ràng
 
 **❌ Không optimize khi:**
+
 - Chưa có data/metrics
 - Code chưa hoạt động đúng
 - "Có thể sẽ chậm" (speculation)
 
 **Process:**
+
 1. **Measure**: Profile và identify bottlenecks
 2. **Optimize**: Fix bottlenecks
 3. **Measure again**: Verify improvement
@@ -11519,11 +13101,13 @@ Nhưng thực tế:
 Chia database thành nhiều shards nhỏ hơn, mỗi shard chứa subset của data.
 
 **Khi nào cần:**
+
 - ✅ Database quá lớn (> 100GB)
 - ✅ Single server không đủ capacity
 - ✅ Queries chậm dù đã optimize
 
 **Khi nào không cần:**
+
 - ❌ Database < 10GB
 - ❌ Có thể scale vertical
 - ❌ Queries cần JOIN across shards
@@ -11531,24 +13115,30 @@ Chia database thành nhiều shards nhỏ hơn, mỗi shard chứa subset của 
 **Sharding Strategies:**
 
 **1. Range-based:**
+
 ```
 Shard 1: user_id 1-1000
 Shard 2: user_id 1001-2000
 ```
+
 - ✅ Đơn giản
 - ❌ Hot spots (một shard có thể quá tải)
 
 **2. Hash-based:**
+
 ```
 Shard = hash(user_id) % num_shards
 ```
+
 - ✅ Cân bằng tốt
 - ❌ Khó re-sharding
 
 **3. Directory-based:**
+
 ```
 Lookup table: user_id → shard
 ```
+
 - ✅ Flexible
 - ❌ Single point of failure
 
@@ -11559,6 +13149,7 @@ Lookup table: user_id → shard
 ### BACKEND (Python - FastAPI/Django)
 
 #### 1) Auth JWT + Refresh (FastAPI)
+
 ```python
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
@@ -11601,6 +13192,7 @@ def me(token: str = Depends(oauth2)):
 ```
 
 #### 2) Pagination chuẩn REST
+
 ```python
 from fastapi import Query
 
@@ -11624,6 +13216,7 @@ async def list_items(
 ```
 
 #### 3) Cursor-based pagination (hiệu năng cao)
+
 ```python
 @app.get("/items/cursor")
 async def list_items(cursor: int | None = None, limit: int = 20):
@@ -11640,6 +13233,7 @@ async def list_items(cursor: int | None = None, limit: int = 20):
 ```
 
 #### 4) Upload file + validate (FastAPI)
+
 ```python
 from fastapi import File, UploadFile
 
@@ -11655,6 +13249,7 @@ async def upload(file: UploadFile = File(...)):
 ```
 
 #### 5) Background task + retry (Celery)
+
 ```python
 from celery import Celery
 
@@ -11670,6 +13265,7 @@ def send_email(self, to, subject, body):
 ```
 
 #### 6) Caching với Redis + TTL
+
 ```python
 import aioredis, json
 
@@ -11690,6 +13286,7 @@ async def get_user(user_id: int):
 ### FRONTEND (React)
 
 #### 1) Data fetching + caching (react-query)
+
 ```tsx
 import { useQuery } from "@tanstack/react-query";
 
@@ -11718,6 +13315,7 @@ export function Users() {
 ```
 
 #### 2) Form validation (React Hook Form + Zod)
+
 ```tsx
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11750,6 +13348,7 @@ export function LoginForm() {
 ```
 
 #### 3) Infinite scroll (IntersectionObserver)
+
 ```tsx
 import { useEffect, useRef } from "react";
 
@@ -11770,6 +13369,7 @@ export function InfiniteList({ loadMore, hasMore }: any) {
 ```
 
 #### 4) File upload với progress
+
 ```tsx
 export async function upload(file: File, onProgress: (p: number) => void) {
   const form = new FormData();
@@ -11784,6 +13384,7 @@ export async function upload(file: File, onProgress: (p: number) => void) {
 ### FRONTEND (Vue 3 + Composition API)
 
 #### 1) Fetch + state
+
 ```ts
 import { ref, onMounted } from "vue";
 
@@ -11806,6 +13407,7 @@ export default {
 ```
 
 #### 2) Form validation (VeeValidate + Yup)
+
 ```ts
 import { useForm, useField } from "vee-validate";
 import * as yup from "yup";
@@ -11831,6 +13433,7 @@ export default {
 ```
 
 #### 3) Debounce search
+
 ```ts
 import { ref, watch } from "vue";
 
@@ -11848,6 +13451,7 @@ watch(query, (val) => {
 ```
 
 #### 4) WebSocket (native)
+
 ```ts
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
@@ -11872,6 +13476,7 @@ export default {
 ## BẢNG SO SÁNH NHANH & GHI CHÚ TỐI ƯU (TỔNG HỢP)
 
 ### BẢNG ĐỊNH NGHĨA NGẮN (TRA CỨU NHANH)
+
 - **Callback**: Hàm được truyền vào hàm khác và được gọi lại khi xong việc.
 - **Promise**: Giá trị đại diện cho kết quả bất đồng bộ (pending → fulfilled/rejected).
 - **Async/Await**: Cú pháp sugar trên Promise giúp code bất đồng bộ nhìn như đồng bộ.
@@ -11902,31 +13507,37 @@ export default {
 - **Blue/Green, Canary**: Chiến lược deploy an toàn, có rollback nhanh.
 
 ### 1. Bất đồng bộ JavaScript
+
 - **Callback**: đơn giản nhưng dễ “callback hell”; khó bắt lỗi/chạy song song.
 - **Promise**: chain `.then/.catch`, có `Promise.all`; code gọn hơn callback.
 - **Async/Await**: sugar trên Promise, dễ đọc/try-catch; vẫn nên dùng `Promise.all` cho song song; tránh `await` trong loop nếu muốn song song.
 
 ### 2. Khai báo biến
+
 - **var**: function-scope, hoisting; dễ bug → tránh.
 - **let**: block-scope, dùng khi cần thay đổi.
 - **const**: block-scope, mặc định dùng; chỉ đổi sang let khi cần reassign.
 
 ### 3. Normalization vs Denormalization (DB)
+
 - **Normalize (3NF)**: integrity cao, tiết kiệm storage; phù hợp write-heavy; read nhiều JOIN → chậm.
 - **Denormalize**: đọc nhanh, ít JOIN; phù hợp read-heavy; trùng lặp, dễ lệch data; update phức tạp.
 - **Best practice**: thiết kế normalize, denormalize (materialized view/cache) khi có bottleneck đọc.
 
 ### 4. Pagination
+
 - **OFFSET**: dễ nhảy tới page N; OFFSET lớn → chậm, không ổn định khi data thay đổi.
 - **Cursor**: hiệu năng ổn định, phù hợp infinite scroll/big data; không nhảy page N truyền thống; cần cột cursor tăng dần/unique.
 
 ### 5. Caching Patterns
+
 - **Cache-Aside**: đơn giản, cache chỉ chứa data đọc; miss penalty, có thể stale.
 - **Write-Through**: consistent, cache luôn mới; mỗi write = 2 lần ghi.
 - **Write-Behind**: write rất nhanh; rủi ro mất dữ liệu nếu cache chết; logic phức tạp.
 - **Chọn**: web app thường → cache-aside; cần nhất quán → write-through; write-heavy & chấp nhận rủi ro → write-behind.
 
 ### 6. Indexing (DB)
+
 - **Single**: cho cột hay lọc một mình.
 - **Composite**: theo thứ tự prefix (a,b) → WHERE a AND b dùng tốt; WHERE b đơn lẻ không.
 - **Partial**: index subset (vd. status='active') tiết kiệm space, nhanh.
@@ -11934,46 +13545,56 @@ export default {
 - **Lưu ý**: quá nhiều index làm INSERT/UPDATE/DELETE chậm.
 
 ### 7. EXPLAIN / Query Plan (DB)
+
 - Ưu tiên: Index Scan / Index Only Scan > Bitmap > Seq Scan.
 - Join: small → Nested Loop; large → Hash Join; sorted data → Merge Join.
 - Red flags: Seq Scan trên bảng lớn; Nested Loop với tập lớn; cost cao rows thấp.
 
 ### 8. N+1 Query Problem
+
 - **Vấn đề**: 1 query lấy danh sách + N query cho từng phần tử.
 - **Giải pháp**: JOIN một lần hoặc batch `WHERE id IN (...)`; hoặc dùng data loader/batching.
 
 ### 9. Connection Pooling (DB)
+
 - Không pool: mỗi request mở/đóng connection → overhead lớn.
 - Pool: reuse; theo dõi `waiting`, `idle=0 & total=max` để tránh cạn pool.
 - Pool size thực tế: web app 10–20; heavy 20–50 (đo và điều chỉnh).
 
 ### 10. Caching Multi-level
+
 - L1 (memory) ~0.1ms, L2 (Redis) ~1ms, DB ~10ms.
 - Mục tiêu hit-rate > 80% để giảm tải DB.
 
 ### 11. Data Fetching Frontend
+
 - **Fetch thủ công**: nhẹ, nhưng dễ lặp code, thiếu cache/retry.
 - **React Query / SWR**: có cache, staleTime, retry, refetch, pagination, optimistic update → nên dùng cho app trung/lớn.
 
 ### 12. Form Validation Frontend
+
 - **React**: React Hook Form + Zod/Yup → tối ưu re-render, schema rõ ràng.
 - **Vue**: VeeValidate + Yup → dễ khai báo schema, error state rõ.
 
 ### 13. WebSocket vs Polling vs SSE
+
 - **WebSocket**: 2 chiều, realtime chat/notification; cần giữ kết nối.
 - **Polling**: đơn giản, tốn tài nguyên nếu interval ngắn.
 - **SSE**: 1 chiều từ server → client, nhẹ hơn WebSocket nếu chỉ push.
 
 ### 14. Git Workflows (nhanh)
+
 - **feature branch + PR**: chuẩn cho team; review trước merge.
 - **rebase vs merge**: rebase để lịch sử phẳng; merge giữ lịch sử gốc; đã push chung → hạn chế rebase public history.
 - **revert vs reset**: public branch → dùng revert; local chưa push → có thể reset.
 
 ### 15. Deployment & Rollback
+
 - Blue/Green hoặc Canary: giảm rủi ro; luôn có kế hoạch rollback.
 - Checklists: tests, migrations, env vars, monitoring, health checks.
 
 ### 16. Security Nhanh
+
 - SQLi: luôn dùng parameterized queries/ORM.
 - XSS: sanitize/escape output; CSP khi cần.
 - AuthZ/AuthN: bảo vệ routes; least privilege DB users.
@@ -11987,21 +13608,25 @@ export default {
 ### 1. CODE REVIEW CHECKLIST
 
 **Functionality:**
+
 - [ ] Code hoạt động đúng requirements?
 - [ ] Edge cases được handle?
 - [ ] Error handling đầy đủ?
 
 **Performance:**
+
 - [ ] Có N+1 queries?
 - [ ] Có unnecessary loops?
 - [ ] Có memory leaks?
 
 **Security:**
+
 - [ ] SQL injection prevention?
 - [ ] XSS prevention?
 - [ ] Authentication/Authorization?
 
 **Code Quality:**
+
 - [ ] Code dễ đọc?
 - [ ] Functions nhỏ và focused?
 - [ ] Có comments cho complex logic?
@@ -12011,6 +13636,7 @@ export default {
 ### 2. DEPLOYMENT CHECKLIST
 
 **Pre-deployment:**
+
 - [ ] Tests pass?
 - [ ] Code reviewed?
 - [ ] Database migrations ready?
@@ -12018,6 +13644,7 @@ export default {
 - [ ] Monitoring configured?
 
 **Post-deployment:**
+
 - [ ] Health checks passing?
 - [ ] No errors in logs?
 - [ ] Performance metrics normal?

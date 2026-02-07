@@ -3,9 +3,10 @@
 
 ## MỤC LỤC
 1. [Hàm Built-in Quan Trọng của Python](#1-hàm-built-in-quan-trọng-của-python)
-2. [Kiến Thức Về Hàm Trong Python](#2-kiến-thức-về-hàm-trong-python)
-3. [Các Hàm Quan Trọng Trong Flask](#3-các-hàm-quan-trọng-trong-flask)
-4. [Các Hàm Quan Trọng Trong Django](#4-các-hàm-quan-trọng-trong-django)
+2. [Standard Library của Python](#2-standard-library-của-python)
+3. [Kiến Thức Về Hàm Trong Python](#3-kiến-thức-về-hàm-trong-python)
+4. [Các Hàm Quan Trọng Trong Flask](#4-các-hàm-quan-trọng-trong-flask)
+5. [Các Hàm Quan Trọng Trong Django](#5-các-hàm-quan-trọng-trong-django)
 
 ---
 
@@ -832,7 +833,1376 @@ else:
 
 ---
 
-## 2. KIẾN THỨC VỀ HÀM TRONG PYTHON
+## 2. STANDARD LIBRARY CỦA PYTHON
+
+Standard Library là tập hợp các module được cài đặt sẵn cùng với Python, cung cấp nhiều chức năng hữu ích mà không cần cài đặt thêm package nào. Dưới đây là danh sách các thư viện quan trọng và cách sử dụng chúng.
+
+### 2.1. os - Tương Tác Với Hệ Điều Hành
+
+**Mô tả**: Module `os` cung cấp các chức năng để tương tác với hệ điều hành, bao gồm thao tác với file system, biến môi trường, và quản lý tiến trình.
+
+**Các hàm quan trọng**:
+```python
+import os
+
+# Làm việc với đường dẫn
+path = os.path.join('folder', 'subfolder', 'file.txt')  # Tạo đường dẫn an toàn
+print(os.path.exists(path))  # Kiểm tra file/folder có tồn tại
+print(os.path.isdir('folder'))  # Kiểm tra có phải thư mục
+print(os.path.isfile('file.txt'))  # Kiểm tra có phải file
+print(os.path.basename(path))  # Lấy tên file
+print(os.path.dirname(path))  # Lấy thư mục chứa file
+print(os.path.splitext('file.txt'))  # Tách tên và extension: ('file', '.txt')
+
+# Liệt kê nội dung thư mục
+files = os.listdir('.')  # Liệt kê tất cả file/folder trong thư mục hiện tại
+for item in os.listdir('.'):
+    print(item)
+
+# Tạo và xóa thư mục
+os.mkdir('new_folder')  # Tạo thư mục (phải tồn tại thư mục cha)
+os.makedirs('path/to/folder', exist_ok=True)  # Tạo thư mục đệ quy
+os.rmdir('empty_folder')  # Xóa thư mục rỗng
+os.removedirs('path/to/folder')  # Xóa thư mục đệ quy
+
+# Xóa file
+os.remove('file.txt')  # Xóa file
+
+# Đổi tên/di chuyển
+os.rename('old.txt', 'new.txt')  # Đổi tên hoặc di chuyển file
+
+# Lấy thông tin
+print(os.getcwd())  # Thư mục làm việc hiện tại
+os.chdir('/path/to/dir')  # Đổi thư mục làm việc
+print(os.path.getsize('file.txt'))  # Kích thước file (bytes)
+
+# Biến môi trường
+print(os.getenv('HOME'))  # Lấy biến môi trường
+os.environ['MY_VAR'] = 'value'  # Set biến môi trường
+print(os.environ.get('PATH', 'default'))  # Lấy với giá trị mặc định
+
+# Thông tin hệ thống
+print(os.name)  # Tên hệ điều hành: 'posix', 'nt', 'java'
+print(os.sep)  # Ký tự phân cách đường dẫn: '/' hoặc '\\'
+print(os.pathsep)  # Ký tự phân cách PATH: ':' hoặc ';'
+```
+
+### 2.2. sys - Tham Số và Hàm Hệ Thống
+
+**Mô tả**: Module `sys` cung cấp quyền truy cập vào các tham số và hàm đặc thù của hệ thống, liên quan trực tiếp đến trình thông dịch Python.
+
+**Các hàm quan trọng**:
+```python
+import sys
+
+# Command line arguments
+print(sys.argv)  # Danh sách tham số dòng lệnh
+# python script.py arg1 arg2 -> ['script.py', 'arg1', 'arg2']
+if len(sys.argv) > 1:
+    print(f"Tham số đầu tiên: {sys.argv[1]}")
+
+# Đường dẫn module
+print(sys.path)  # Danh sách đường dẫn tìm kiếm module
+sys.path.append('/custom/path')  # Thêm đường dẫn mới
+
+# Thoát chương trình
+sys.exit(0)  # Thoát với mã 0 (thành công)
+sys.exit(1)  # Thoát với mã 1 (lỗi)
+
+# Thông tin Python
+print(sys.version)  # Phiên bản Python
+print(sys.version_info)  # Tuple thông tin phiên bản
+print(sys.platform)  # Nền tảng: 'linux', 'win32', 'darwin'
+
+# I/O streams
+sys.stdout.write('Hello\n')  # Ghi ra stdout
+sys.stderr.write('Error\n')  # Ghi ra stderr
+data = sys.stdin.read()  # Đọc từ stdin
+
+# Kích thước đối tượng
+print(sys.getsizeof([1, 2, 3]))  # Kích thước object trong bytes
+
+# Recursion limit
+print(sys.getrecursionlimit())  # Giới hạn đệ quy (mặc định 1000)
+sys.setrecursionlimit(2000)  # Thay đổi giới hạn
+```
+
+### 2.3. datetime - Làm Việc Với Ngày Giờ
+
+**Mô tả**: Module `datetime` cung cấp các lớp để làm việc với ngày và giờ, bao gồm tạo, thao tác, định dạng và tính toán thời gian.
+
+**Các lớp quan trọng**:
+```python
+from datetime import datetime, date, time, timedelta, timezone
+
+# datetime - Ngày và giờ
+now = datetime.now()  # Thời gian hiện tại
+print(now)  # 2024-01-15 10:30:45.123456
+
+today = datetime.today()  # Ngày giờ hiện tại
+utc_now = datetime.utcnow()  # UTC time
+
+# Tạo datetime cụ thể
+dt = datetime(2024, 1, 15, 10, 30, 45)
+print(dt.year, dt.month, dt.day)  # 2024 1 15
+print(dt.hour, dt.minute, dt.second)  # 10 30 45
+
+# Định dạng
+formatted = now.strftime('%Y-%m-%d %H:%M:%S')  # '2024-01-15 10:30:45'
+parsed = datetime.strptime('2024-01-15', '%Y-%m-%d')  # Parse từ string
+
+# date - Chỉ ngày
+today = date.today()  # Ngày hiện tại
+d = date(2024, 1, 15)
+print(d.year, d.month, d.day)  # 2024 1 15
+
+# time - Chỉ giờ
+t = time(10, 30, 45)
+print(t.hour, t.minute, t.second)  # 10 30 45
+
+# timedelta - Khoảng thời gian
+delta = timedelta(days=7, hours=2, minutes=30)
+future = now + delta  # Cộng thời gian
+past = now - timedelta(days=30)  # Trừ thời gian
+
+# So sánh
+if datetime.now() > datetime(2024, 1, 1):
+    print("Đã qua năm mới")
+
+# Timezone
+utc = timezone.utc
+local = datetime.now(utc)
+```
+
+### 2.4. json - Xử Lý JSON
+
+**Mô tả**: Module `json` cung cấp các công cụ để mã hóa (encode) đối tượng Python thành chuỗi JSON và giải mã (decode) chuỗi JSON thành đối tượng Python.
+
+**Các hàm quan trọng**:
+```python
+import json
+
+# Chuyển Python -> JSON string
+data = {
+    'name': 'John',
+    'age': 30,
+    'cities': ['Hanoi', 'HCMC'],
+    'active': True
+}
+json_str = json.dumps(data)  # Chuyển dict thành JSON string
+print(json_str)  # {"name": "John", "age": 30, ...}
+
+# Format đẹp
+pretty_json = json.dumps(data, indent=2, ensure_ascii=False)
+print(pretty_json)
+
+# Chuyển JSON string -> Python
+json_data = '{"name": "John", "age": 30}'
+python_obj = json.loads(json_data)  # Parse JSON string
+print(python_obj['name'])  # John
+
+# Làm việc với file
+# Ghi vào file
+with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
+
+# Đọc từ file
+with open('data.json', 'r', encoding='utf-8') as f:
+    loaded_data = json.load(f)
+    print(loaded_data)
+
+# Xử lý lỗi
+try:
+    data = json.loads('invalid json')
+except json.JSONDecodeError as e:
+    print(f"Lỗi JSON: {e}")
+```
+
+### 2.5. re - Regular Expressions
+
+**Mô tả**: Module `re` cung cấp các hàm để làm việc với biểu thức chính quy (regular expressions) để tìm kiếm, thay thế và phân tích chuỗi.
+
+**Các hàm quan trọng**:
+```python
+import re
+
+# Tìm kiếm
+text = "Email: john@example.com hoặc jane@test.org"
+pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+match = re.search(pattern, text)  # Tìm lần đầu tiên
+if match:
+    print(match.group())  # john@example.com
+
+# Tìm tất cả
+emails = re.findall(pattern, text)  # ['john@example.com', 'jane@test.org']
+
+# Match từ đầu chuỗi
+if re.match(r'Hello', 'Hello World'):
+    print("Bắt đầu bằng Hello")
+
+# Thay thế
+new_text = re.sub(r'\d+', 'NUMBER', 'Có 3 quả táo và 5 quả cam')
+print(new_text)  # Có NUMBER quả táo và NUMBER quả cam
+
+# Split
+words = re.split(r'\s+', 'Hello    World   Python')
+print(words)  # ['Hello', 'World', 'Python']
+
+# Compile pattern (tối ưu khi dùng nhiều lần)
+pattern = re.compile(r'\d+')
+matches = pattern.findall('Có 3 quả và 5 quả')
+print(matches)  # ['3', '5']
+
+# Groups
+text = "Ngày: 15/01/2024"
+match = re.search(r'(\d+)/(\d+)/(\d+)', text)
+if match:
+    print(match.group(0))  # 15/01/2024 (toàn bộ match)
+    print(match.group(1))  # 15 (group 1)
+    print(match.group(2))  # 01 (group 2)
+    print(match.groups())  # ('15', '01', '2024')
+```
+
+### 2.6. collections - Cấu Trúc Dữ Liệu Nâng Cao
+
+**Mô tả**: Module `collections` cung cấp các cấu trúc dữ liệu đặc biệt như Counter, defaultdict, deque, OrderedDict, và namedtuple.
+
+**Các lớp quan trọng**:
+```python
+from collections import Counter, defaultdict, deque, OrderedDict, namedtuple
+
+# Counter - Đếm phần tử
+counter = Counter(['a', 'b', 'a', 'c', 'b', 'a'])
+print(counter)  # Counter({'a': 3, 'b': 2, 'c': 1})
+print(counter.most_common(2))  # [('a', 3), ('b', 2)]
+
+# defaultdict - Dict với giá trị mặc định
+dd = defaultdict(int)  # Mặc định là 0
+dd['a'] += 1  # Không cần kiểm tra key có tồn tại
+print(dd['b'])  # 0 (tự động tạo)
+
+dd_list = defaultdict(list)
+dd_list['fruits'].append('apple')  # Tự động tạo list nếu chưa có
+
+# deque - Queue hai đầu
+dq = deque([1, 2, 3])
+dq.append(4)  # Thêm vào cuối
+dq.appendleft(0)  # Thêm vào đầu
+print(dq)  # deque([0, 1, 2, 3, 4])
+dq.pop()  # Lấy từ cuối
+dq.popleft()  # Lấy từ đầu
+
+# namedtuple - Tuple có tên
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(1, 2)
+print(p.x, p.y)  # 1 2
+print(p[0], p[1])  # 1 2 (vẫn dùng index được)
+
+# OrderedDict - Dict giữ thứ tự (Python 3.7+ dict đã giữ thứ tự)
+od = OrderedDict()
+od['first'] = 1
+od['second'] = 2
+print(list(od.keys()))  # ['first', 'second']
+```
+
+### 2.7. itertools - Iterator Tools
+
+**Mô tả**: Module `itertools` cung cấp các hàm để tạo và làm việc với iterators, giúp xử lý dữ liệu hiệu quả hơn.
+
+**Các hàm quan trọng**:
+```python
+from itertools import count, cycle, repeat, chain, combinations, permutations, product
+
+# count - Đếm vô hạn
+for i in count(10, 2):  # Bắt đầu từ 10, tăng 2
+    if i > 20:
+        break
+    print(i)  # 10, 12, 14, 16, 18, 20
+
+# cycle - Lặp vô hạn
+colors = cycle(['red', 'green', 'blue'])
+for i, color in enumerate(colors):
+    if i >= 5:
+        break
+    print(color)  # red, green, blue, red, green
+
+# repeat - Lặp lại giá trị
+for i in repeat('hello', 3):  # Lặp 3 lần
+    print(i)  # hello, hello, hello
+
+# chain - Nối nhiều iterable
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+combined = list(chain(list1, list2))  # [1, 2, 3, 4, 5, 6]
+
+# combinations - Tổ hợp
+items = ['a', 'b', 'c']
+combs = list(combinations(items, 2))  # [('a', 'b'), ('a', 'c'), ('b', 'c')]
+
+# permutations - Hoán vị
+perms = list(permutations(items, 2))  # [('a', 'b'), ('a', 'c'), ('b', 'a'), ...]
+
+# product - Tích Descartes
+result = list(product([1, 2], [3, 4]))  # [(1, 3), (1, 4), (2, 3), (2, 4)]
+```
+
+### 2.8. functools - Higher-Order Functions
+
+**Mô tả**: Module `functools` cung cấp các hàm bậc cao để làm việc với functions, bao gồm decorators và caching.
+
+**Các hàm quan trọng**:
+```python
+from functools import reduce, partial, lru_cache, wraps
+
+# reduce - Giảm iterable thành một giá trị
+numbers = [1, 2, 3, 4, 5]
+total = reduce(lambda x, y: x + y, numbers)  # 15
+product = reduce(lambda x, y: x * y, numbers)  # 120
+
+# partial - Tạo hàm với tham số mặc định
+def multiply(x, y):
+    return x * y
+
+double = partial(multiply, 2)  # Hàm nhân với 2
+print(double(5))  # 10
+
+# lru_cache - Cache kết quả hàm
+@lru_cache(maxsize=128)
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(30))  # Nhanh hơn nhiều nhờ cache
+
+# wraps - Giữ metadata của hàm gốc khi dùng decorator
+from functools import wraps
+
+def my_decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+```
+
+### 2.9. pathlib - Xử Lý Đường Dẫn Hiện Đại
+
+**Mô tả**: Module `pathlib` cung cấp cách hiện đại và hướng đối tượng để làm việc với đường dẫn file system (Python 3.4+).
+
+**Các lớp quan trọng**:
+```python
+from pathlib import Path
+
+# Tạo Path object
+p = Path('folder/file.txt')
+p = Path.cwd() / 'folder' / 'file.txt'  # Dùng toán tử /
+
+# Kiểm tra
+print(p.exists())  # File có tồn tại
+print(p.is_file())  # Có phải file
+print(p.is_dir())  # Có phải thư mục
+
+# Thông tin
+print(p.name)  # 'file.txt'
+print(p.stem)  # 'file' (tên không có extension)
+print(p.suffix)  # '.txt'
+print(p.parent)  # Thư mục cha
+print(p.parts)  # ('folder', 'file.txt')
+
+# Thao tác
+p.mkdir(parents=True, exist_ok=True)  # Tạo thư mục
+p.touch()  # Tạo file rỗng
+p.unlink()  # Xóa file
+p.rmdir()  # Xóa thư mục rỗng
+
+# Đọc/ghi
+content = p.read_text(encoding='utf-8')  # Đọc text
+p.write_text('Hello', encoding='utf-8')  # Ghi text
+data = p.read_bytes()  # Đọc binary
+p.write_bytes(b'data')  # Ghi binary
+
+# Liệt kê
+for item in Path('.').iterdir():  # Liệt kê trong thư mục
+    print(item)
+
+# Tìm kiếm
+for py_file in Path('.').glob('*.py'):  # Tìm file .py
+    print(py_file)
+
+for py_file in Path('.').rglob('*.py'):  # Tìm đệ quy
+    print(py_file)
+```
+
+### 2.10. random - Số Ngẫu Nhiên
+
+**Mô tả**: Module `random` cung cấp các hàm để tạo số ngẫu nhiên, chọn phần tử ngẫu nhiên từ sequence.
+
+**Các hàm quan trọng**:
+```python
+import random
+
+# Số ngẫu nhiên
+print(random.random())  # Số thực từ 0.0 đến 1.0
+print(random.randint(1, 10))  # Số nguyên từ 1 đến 10
+print(random.uniform(1.0, 10.0))  # Số thực từ 1.0 đến 10.0
+
+# Chọn phần tử
+items = ['a', 'b', 'c', 'd']
+print(random.choice(items))  # Chọn 1 phần tử ngẫu nhiên
+print(random.choices(items, k=2))  # Chọn k phần tử (có thể trùng)
+print(random.sample(items, 2))  # Chọn k phần tử (không trùng)
+
+# Xáo trộn
+numbers = [1, 2, 3, 4, 5]
+random.shuffle(numbers)  # Xáo trộn tại chỗ
+print(numbers)
+
+# Seed - Để tái tạo kết quả
+random.seed(42)
+print(random.randint(1, 10))  # Luôn cho cùng kết quả với seed 42
+```
+
+### 2.11. time - Thời Gian
+
+**Mô tả**: Module `time` cung cấp các hàm để làm việc với thời gian, bao gồm sleep, timestamp, và format thời gian.
+
+**Các hàm quan trọng**:
+```python
+import time
+
+# Thời gian hiện tại
+print(time.time())  # Timestamp (số giây từ epoch)
+print(time.ctime())  # String dễ đọc: 'Mon Jan 15 10:30:45 2024'
+print(time.localtime())  # Struct time object
+
+# Sleep - Tạm dừng
+time.sleep(1)  # Dừng 1 giây
+
+# Format thời gian
+t = time.localtime()
+formatted = time.strftime('%Y-%m-%d %H:%M:%S', t)
+print(formatted)  # '2024-01-15 10:30:45'
+
+# Parse thời gian
+parsed = time.strptime('2024-01-15', '%Y-%m-%d')
+
+# Đo thời gian thực thi
+start = time.time()
+# Code cần đo
+time.sleep(0.1)
+end = time.time()
+print(f"Thời gian: {end - start:.2f} giây")
+```
+
+### 2.12. math - Toán Học
+
+**Mô tả**: Module `math` cung cấp các hàm toán học cơ bản và nâng cao.
+
+**Các hàm quan trọng**:
+```python
+import math
+
+# Hằng số
+print(math.pi)  # 3.141592653589793
+print(math.e)  # 2.718281828459045
+
+# Làm tròn
+print(math.ceil(4.3))  # 5 (làm tròn lên)
+print(math.floor(4.7))  # 4 (làm tròn xuống)
+print(math.trunc(4.7))  # 4 (bỏ phần thập phân)
+
+# Lũy thừa và logarit
+print(math.pow(2, 3))  # 8.0
+print(math.sqrt(16))  # 4.0
+print(math.log(10))  # Logarit tự nhiên
+print(math.log10(100))  # Logarit cơ số 10
+
+# Lượng giác
+print(math.sin(math.pi/2))  # 1.0
+print(math.cos(0))  # 1.0
+print(math.degrees(math.pi))  # 180.0
+print(math.radians(180))  # 3.14159...
+
+# Khác
+print(math.factorial(5))  # 120
+print(math.gcd(48, 18))  # 6 (ước chung lớn nhất)
+```
+
+### 2.13. statistics - Thống Kê
+
+**Mô tả**: Module `statistics` cung cấp các hàm để tính toán thống kê cơ bản.
+
+**Các hàm quan trọng**:
+```python
+import statistics
+
+data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+print(statistics.mean(data))  # 5.5 (trung bình)
+print(statistics.median(data))  # 5.5 (trung vị)
+print(statistics.mode([1, 2, 2, 3, 3, 3]))  # 3 (mode)
+print(statistics.stdev(data))  # Độ lệch chuẩn
+print(statistics.variance(data))  # Phương sai
+```
+
+### 2.14. urllib - URL Handling
+
+**Mô tả**: Module `urllib` cung cấp các hàm để mở và đọc URLs, parse URLs, và làm việc với HTTP requests.
+
+**Các hàm quan trọng**:
+```python
+from urllib.request import urlopen, urlretrieve
+from urllib.parse import urlparse, urljoin, quote, unquote
+from urllib.error import URLError
+
+# Mở URL
+try:
+    response = urlopen('https://www.example.com')
+    content = response.read().decode('utf-8')
+    print(content[:100])
+except URLError as e:
+    print(f"Lỗi: {e}")
+
+# Tải file
+urlretrieve('https://example.com/image.jpg', 'image.jpg')
+
+# Parse URL
+url = 'https://example.com/path?param=value#fragment'
+parsed = urlparse(url)
+print(parsed.scheme)  # 'https'
+print(parsed.netloc)  # 'example.com'
+print(parsed.path)  # '/path'
+print(parsed.query)  # 'param=value'
+
+# Encode/Decode URL
+encoded = quote('hello world')  # 'hello%20world'
+decoded = unquote('hello%20world')  # 'hello world'
+
+# Join URL
+base = 'https://example.com'
+path = urljoin(base, '/new/path')  # 'https://example.com/new/path'
+```
+
+### 2.15. http - HTTP Server và Client
+
+**Mô tả**: Module `http` cung cấp các lớp để tạo HTTP server và client.
+
+**Ví dụ đơn giản**:
+```python
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+class MyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(b'<h1>Hello World</h1>')
+
+# server = HTTPServer(('localhost', 8000), MyHandler)
+# server.serve_forever()
+```
+
+### 2.16. csv - Xử Lý CSV
+
+**Mô tả**: Module `csv` cung cấp các hàm để đọc và ghi file CSV.
+
+**Các hàm quan trọng**:
+```python
+import csv
+
+# Ghi CSV
+with open('data.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(['Name', 'Age', 'City'])
+    writer.writerow(['John', 30, 'Hanoi'])
+    writer.writerow(['Jane', 25, 'HCMC'])
+
+# Ghi với DictWriter
+with open('data.csv', 'w', newline='', encoding='utf-8') as f:
+    fieldnames = ['Name', 'Age', 'City']
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerow({'Name': 'John', 'Age': 30, 'City': 'Hanoi'})
+
+# Đọc CSV
+with open('data.csv', 'r', encoding='utf-8') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)
+
+# Đọc với DictReader
+with open('data.csv', 'r', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row['Name'], row['Age'])
+```
+
+### 2.17. xml - Xử Lý XML
+
+**Mô tả**: Module `xml` cung cấp các công cụ để parse và tạo XML.
+
+**Ví dụ với ElementTree**:
+```python
+import xml.etree.ElementTree as ET
+
+# Parse XML
+xml_string = '''<root>
+    <person>
+        <name>John</name>
+        <age>30</age>
+    </person>
+</root>'''
+
+root = ET.fromstring(xml_string)
+name = root.find('person/name').text  # 'John'
+
+# Tạo XML
+root = ET.Element('root')
+person = ET.SubElement(root, 'person')
+name = ET.SubElement(person, 'name')
+name.text = 'John'
+tree = ET.ElementTree(root)
+tree.write('output.xml')
+```
+
+### 2.18. sqlite3 - SQLite Database
+
+**Mô tả**: Module `sqlite3` cung cấp interface để làm việc với SQLite database.
+
+**Các hàm quan trọng**:
+```python
+import sqlite3
+
+# Kết nối database
+conn = sqlite3.connect('example.db')
+cursor = conn.cursor()
+
+# Tạo bảng
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        age INTEGER
+    )
+''')
+
+# Insert
+cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", ('John', 30))
+conn.commit()
+
+# Select
+cursor.execute("SELECT * FROM users WHERE age > ?", (25,))
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+# Context manager
+with sqlite3.connect('example.db') as conn:
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    print(cursor.fetchall())
+```
+
+### 2.19. hashlib - Hash Functions
+
+**Mô tả**: Module `hashlib` cung cấp các hàm hash như MD5, SHA1, SHA256.
+
+**Các hàm quan trọng**:
+```python
+import hashlib
+
+# MD5
+md5 = hashlib.md5()
+md5.update(b'Hello World')
+print(md5.hexdigest())  # 'b10a8db164e0754105b7a99be72e3fe5'
+
+# SHA256
+sha256 = hashlib.sha256()
+sha256.update(b'Hello World')
+print(sha256.hexdigest())
+
+# Hash file
+def hash_file(filename):
+    sha256 = hashlib.sha256()
+    with open(filename, 'rb') as f:
+        for chunk in iter(lambda: f.read(4096), b''):
+            sha256.update(chunk)
+    return sha256.hexdigest()
+```
+
+### 2.20. base64 - Base64 Encoding
+
+**Mô tả**: Module `base64` cung cấp các hàm để encode và decode dữ liệu base64.
+
+**Các hàm quan trọng**:
+```python
+import base64
+
+# Encode
+data = b'Hello World'
+encoded = base64.b64encode(data)
+print(encoded)  # b'SGVsbG8gV29ybGQ='
+
+# Decode
+decoded = base64.b64decode(encoded)
+print(decoded)  # b'Hello World'
+
+# URL-safe encoding
+url_safe = base64.urlsafe_b64encode(data)
+```
+
+### 2.21. zlib - Compression
+
+**Mô tả**: Module `zlib` cung cấp các hàm để nén và giải nén dữ liệu.
+
+**Các hàm quan trọng**:
+```python
+import zlib
+
+# Nén
+data = b'Hello World' * 100
+compressed = zlib.compress(data)
+print(f"Kích thước gốc: {len(data)}")
+print(f"Kích thước nén: {len(compressed)}")
+
+# Giải nén
+decompressed = zlib.decompress(compressed)
+print(decompressed == data)  # True
+```
+
+### 2.22. gzip - Gzip Files
+
+**Mô tả**: Module `gzip` cung cấp interface để làm việc với file .gz.
+
+**Các hàm quan trọng**:
+```python
+import gzip
+
+# Ghi file nén
+with gzip.open('file.txt.gz', 'wt', encoding='utf-8') as f:
+    f.write('Hello World')
+
+# Đọc file nén
+with gzip.open('file.txt.gz', 'rt', encoding='utf-8') as f:
+    content = f.read()
+    print(content)
+```
+
+### 2.23. pickle - Serialization
+
+**Mô tả**: Module `pickle` cung cấp các hàm để serialize và deserialize Python objects.
+
+**Các hàm quan trọng**:
+```python
+import pickle
+
+# Serialize
+data = {'name': 'John', 'age': 30, 'cities': ['Hanoi', 'HCMC']}
+with open('data.pkl', 'wb') as f:
+    pickle.dump(data, f)
+
+# Deserialize
+with open('data.pkl', 'rb') as f:
+    loaded_data = pickle.load(f)
+    print(loaded_data)
+
+# Dumps/Loads (làm việc với string)
+pickled = pickle.dumps(data)
+unpickled = pickle.loads(pickled)
+```
+
+### 2.24. shutil - File Operations
+
+**Mô tả**: Module `shutil` cung cấp các hàm cấp cao để thao tác với files và directories.
+
+**Các hàm quan trọng**:
+```python
+import shutil
+
+# Copy
+shutil.copy('source.txt', 'dest.txt')  # Copy file
+shutil.copytree('src_dir', 'dst_dir')  # Copy thư mục đệ quy
+
+# Move/Rename
+shutil.move('old.txt', 'new.txt')
+
+# Xóa
+shutil.rmtree('directory')  # Xóa thư mục và nội dung
+
+# Archive
+shutil.make_archive('backup', 'zip', 'folder')  # Tạo file zip
+shutil.unpack_archive('backup.zip', 'extract_folder')  # Giải nén
+```
+
+### 2.25. glob - File Pattern Matching
+
+**Mô tả**: Module `glob` cung cấp các hàm để tìm file theo pattern.
+
+**Các hàm quan trọng**:
+```python
+import glob
+
+# Tìm file .py
+py_files = glob.glob('*.py')
+print(py_files)
+
+# Tìm đệ quy
+all_py = glob.glob('**/*.py', recursive=True)
+
+# Pattern
+files = glob.glob('data[0-9].txt')  # data0.txt, data1.txt, ...
+```
+
+### 2.26. tempfile - Temporary Files
+
+**Mô tả**: Module `tempfile` cung cấp các hàm để tạo file và thư mục tạm thời.
+
+**Các hàm quan trọng**:
+```python
+import tempfile
+import os
+
+# Temporary file
+with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+    f.write('Temporary data')
+    temp_name = f.name
+
+# Temporary directory
+with tempfile.TemporaryDirectory() as tmpdir:
+    print(f"Thư mục tạm: {tmpdir}")
+    # Tự động xóa khi ra khỏi context
+```
+
+### 2.27. logging - Logging
+
+**Mô tả**: Module `logging` cung cấp hệ thống logging mạnh mẽ cho ứng dụng.
+
+**Các hàm quan trọng**:
+```python
+import logging
+
+# Cấu hình
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log'),
+        logging.StreamHandler()
+    ]
+)
+
+# Sử dụng
+logging.debug('Debug message')
+logging.info('Info message')
+logging.warning('Warning message')
+logging.error('Error message')
+logging.critical('Critical message')
+
+# Logger riêng
+logger = logging.getLogger('my_module')
+logger.info('Module message')
+```
+
+### 2.28. unittest - Unit Testing
+
+**Mô tả**: Module `unittest` cung cấp framework để viết và chạy unit tests.
+
+**Ví dụ**:
+```python
+import unittest
+
+class TestMath(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(1 + 1, 2)
+    
+    def test_multiply(self):
+        self.assertEqual(2 * 3, 6)
+    
+    def setUp(self):
+        # Chạy trước mỗi test
+        pass
+    
+    def tearDown(self):
+        # Chạy sau mỗi test
+        pass
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+### 2.29. doctest - Documentation Testing
+
+**Mô tả**: Module `doctest` cho phép test code thông qua docstrings.
+
+**Ví dụ**:
+```python
+def add(a, b):
+    """
+    Cộng hai số.
+    
+    >>> add(2, 3)
+    5
+    >>> add(-1, 1)
+    0
+    """
+    return a + b
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
+```
+
+### 2.30. argparse - Command Line Parsing
+
+**Mô tả**: Module `argparse` cung cấp cách dễ dàng để parse command line arguments.
+
+**Ví dụ**:
+```python
+import argparse
+
+parser = argparse.ArgumentParser(description='Mô tả chương trình')
+parser.add_argument('--name', type=str, required=True, help='Tên người dùng')
+parser.add_argument('--age', type=int, default=0, help='Tuổi')
+parser.add_argument('--verbose', action='store_true', help='Chế độ verbose')
+
+args = parser.parse_args()
+print(f"Tên: {args.name}, Tuổi: {args.age}")
+```
+
+### 2.31. configparser - Configuration Files
+
+**Mô tả**: Module `configparser` cung cấp cách đọc và ghi file cấu hình INI.
+
+**Ví dụ**:
+```python
+import configparser
+
+# Tạo config
+config = configparser.ConfigParser()
+config['DEFAULT'] = {'Server': 'localhost', 'Port': '8080'}
+config['database'] = {'host': 'localhost', 'port': '5432'}
+
+# Ghi file
+with open('config.ini', 'w') as f:
+    config.write(f)
+
+# Đọc file
+config.read('config.ini')
+print(config['database']['host'])  # 'localhost'
+```
+
+### 2.32. email - Email Handling
+
+**Mô tả**: Module `email` cung cấp các lớp để tạo và parse email messages.
+
+**Ví dụ**:
+```python
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Tạo email
+msg = MIMEMultipart()
+msg['From'] = 'sender@example.com'
+msg['To'] = 'receiver@example.com'
+msg['Subject'] = 'Test Email'
+msg.attach(MIMEText('Body của email', 'plain'))
+```
+
+### 2.33. smtplib - SMTP Client
+
+**Mô tả**: Module `smtplib` cung cấp client SMTP để gửi email.
+
+**Ví dụ**:
+```python
+import smtplib
+from email.mime.text import MIMEText
+
+msg = MIMEText('Nội dung email')
+msg['Subject'] = 'Subject'
+msg['From'] = 'sender@example.com'
+msg['To'] = 'receiver@example.com'
+
+# Gửi email
+# server = smtplib.SMTP('smtp.example.com', 587)
+# server.starttls()
+# server.login('user', 'password')
+# server.send_message(msg)
+# server.quit()
+```
+
+### 2.34. socket - Network Programming
+
+**Mô tả**: Module `socket` cung cấp interface cho network programming.
+
+**Ví dụ server đơn giản**:
+```python
+import socket
+
+# Server
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 8080))
+server.listen(1)
+
+conn, addr = server.accept()
+data = conn.recv(1024)
+conn.send(b'Response')
+conn.close()
+```
+
+### 2.35. threading - Threading
+
+**Mô tả**: Module `threading` cung cấp các lớp để làm việc với threads.
+
+**Ví dụ**:
+```python
+import threading
+import time
+
+def worker(name):
+    print(f"Thread {name} bắt đầu")
+    time.sleep(2)
+    print(f"Thread {name} kết thúc")
+
+# Tạo threads
+t1 = threading.Thread(target=worker, args=('Thread-1',))
+t2 = threading.Thread(target=worker, args=('Thread-2',))
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+```
+
+### 2.36. multiprocessing - Multiprocessing
+
+**Mô tả**: Module `multiprocessing` cung cấp cách chạy code song song với processes.
+
+**Ví dụ**:
+```python
+from multiprocessing import Process
+
+def worker(name):
+    print(f"Process {name}")
+
+if __name__ == '__main__':
+    p1 = Process(target=worker, args=('Process-1',))
+    p2 = Process(target=worker, args=('Process-2',))
+    
+    p1.start()
+    p2.start()
+    
+    p1.join()
+    p2.join()
+```
+
+### 2.37. queue - Queue
+
+**Mô tả**: Module `queue` cung cấp các lớp queue để giao tiếp giữa threads.
+
+**Ví dụ**:
+```python
+import queue
+import threading
+
+q = queue.Queue()
+
+def worker():
+    while True:
+        item = q.get()
+        if item is None:
+            break
+        print(f"Xử lý: {item}")
+        q.task_done()
+
+# Tạo worker thread
+t = threading.Thread(target=worker)
+t.start()
+
+# Thêm items
+for i in range(5):
+    q.put(i)
+
+q.join()  # Đợi tất cả tasks hoàn thành
+q.put(None)  # Dừng worker
+t.join()
+```
+
+### 2.38. asyncio - Asynchronous I/O
+
+**Mô tả**: Module `asyncio` cung cấp framework cho asynchronous programming (Python 3.4+).
+
+**Ví dụ**:
+```python
+import asyncio
+
+async def fetch_data(url):
+    await asyncio.sleep(1)  # Giả lập I/O
+    return f"Data from {url}"
+
+async def main():
+    tasks = [fetch_data(f"url{i}") for i in range(3)]
+    results = await asyncio.gather(*tasks)
+    print(results)
+
+asyncio.run(main())
+```
+
+### 2.39. contextlib - Context Managers
+
+**Mô tả**: Module `contextlib` cung cấp các utilities để làm việc với context managers.
+
+**Ví dụ**:
+```python
+from contextlib import contextmanager, suppress
+
+# Tạo context manager
+@contextmanager
+def my_context():
+    print("Vào context")
+    yield
+    print("Ra khỏi context")
+
+with my_context():
+    print("Trong context")
+
+# Suppress exceptions
+with suppress(FileNotFoundError):
+    os.remove('nonexistent.txt')
+```
+
+### 2.40. dataclasses - Data Classes
+
+**Mô tả**: Module `dataclasses` cung cấp decorator để tạo data classes dễ dàng (Python 3.7+).
+
+**Ví dụ**:
+```python
+from dataclasses import dataclass, field
+
+@dataclass
+class Person:
+    name: str
+    age: int
+    city: str = "Hanoi"
+    hobbies: list = field(default_factory=list)
+
+p = Person("John", 30)
+print(p)  # Person(name='John', age=30, city='Hanoi', hobbies=[])
+```
+
+### 2.41. typing - Type Hints
+
+**Mô tả**: Module `typing` cung cấp các type hints để hỗ trợ static type checking.
+
+**Ví dụ**:
+```python
+from typing import List, Dict, Optional, Union, Tuple, Callable
+
+def process_items(items: List[str]) -> List[str]:
+    return [item.upper() for item in items]
+
+def get_user(id: int) -> Optional[Dict[str, str]]:
+    if id > 0:
+        return {"id": id, "name": "John"}
+    return None
+
+def process(value: Union[int, str]) -> str:
+    return str(value)
+```
+
+### 2.42. enum - Enumerations
+
+**Mô tả**: Module `enum` cung cấp cách tạo enumerations.
+
+**Ví dụ**:
+```python
+from enum import Enum, IntEnum, auto
+
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+
+class Status(IntEnum):
+    PENDING = 1
+    APPROVED = 2
+    REJECTED = 3
+
+class Direction(Enum):
+    NORTH = auto()
+    SOUTH = auto()
+    EAST = auto()
+    WEST = auto()
+
+print(Color.RED)  # Color.RED
+print(Color.RED.value)  # 1
+```
+
+### 2.43. secrets - Secure Random
+
+**Mô tả**: Module `secrets` cung cấp các hàm để tạo số ngẫu nhiên an toàn cho mật khẩu, tokens (Python 3.6+).
+
+**Ví dụ**:
+```python
+import secrets
+
+# Token an toàn
+token = secrets.token_hex(32)  # 64 ký tự hex
+print(token)
+
+# Token URL-safe
+url_token = secrets.token_urlsafe(32)
+
+# So sánh an toàn
+if secrets.compare_digest(token1, token2):
+    print("Tokens khớp")
+```
+
+### 2.44. string - String Constants
+
+**Mô tả**: Module `string` cung cấp các hằng số và utilities cho strings.
+
+**Ví dụ**:
+```python
+import string
+
+print(string.ascii_letters)  # 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+print(string.ascii_lowercase)  # 'abcdefghijklmnopqrstuvwxyz'
+print(string.ascii_uppercase)  # 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+print(string.digits)  # '0123456789'
+print(string.punctuation)  # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+
+# Template
+template = string.Template('$name is $age years old')
+result = template.substitute(name='John', age=30)
+print(result)  # 'John is 30 years old'
+```
+
+### 2.45. difflib - Diff Tools
+
+**Mô tả**: Module `difflib` cung cấp các công cụ để so sánh sequences.
+
+**Ví dụ**:
+```python
+import difflib
+
+text1 = ['line1', 'line2', 'line3']
+text2 = ['line1', 'line2a', 'line3']
+
+diff = difflib.unified_diff(text1, text2, lineterm='')
+for line in diff:
+    print(line)
+```
+
+### 2.46. textwrap - Text Wrapping
+
+**Mô tả**: Module `textwrap` cung cấp các hàm để format và wrap text.
+
+**Ví dụ**:
+```python
+import textwrap
+
+text = "Đây là một đoạn văn bản rất dài cần được wrap để hiển thị đẹp hơn."
+
+# Wrap text
+wrapped = textwrap.wrap(text, width=30)
+for line in wrapped:
+    print(line)
+
+# Fill
+filled = textwrap.fill(text, width=30)
+print(filled)
+
+# Dedent
+code = """
+    def hello():
+        print("Hello")
+"""
+dedented = textwrap.dedent(code)
+print(dedented)
+```
+
+### 2.47. calendar - Calendar Functions
+
+**Mô tả**: Module `calendar` cung cấp các hàm để làm việc với lịch.
+
+**Ví dụ**:
+```python
+import calendar
+
+# Lịch tháng
+print(calendar.month(2024, 1))
+
+# Lịch năm
+print(calendar.calendar(2024))
+
+# Kiểm tra năm nhuận
+print(calendar.isleap(2024))  # True
+
+# Số ngày trong tháng
+print(calendar.monthrange(2024, 2))  # (3, 29) - Thứ 3, 29 ngày
+```
+
+### 2.48. locale - Locale
+
+**Mô tả**: Module `locale` cung cấp các hàm để làm việc với locale (ngôn ngữ, định dạng số, tiền tệ).
+
+**Ví dụ**:
+```python
+import locale
+
+# Set locale
+locale.setlocale(locale.LC_ALL, 'vi_VN.UTF-8')
+
+# Format số
+formatted = locale.format_string('%.2f', 1234.56, grouping=True)
+print(formatted)  # '1.234,56' (tùy locale)
+```
+
+### 2.49. copy - Shallow và Deep Copy
+
+**Mô tả**: Module `copy` cung cấp các hàm để copy objects.
+
+**Ví dụ**:
+```python
+import copy
+
+original = [[1, 2, 3], [4, 5, 6]]
+
+# Shallow copy
+shallow = copy.copy(original)
+shallow[0][0] = 999
+print(original)  # [[999, 2, 3], [4, 5, 6]] - Thay đổi!
+
+# Deep copy
+deep = copy.deepcopy(original)
+deep[0][0] = 111
+print(original)  # [[999, 2, 3], [4, 5, 6]] - Không thay đổi
+```
+
+### 2.50. pprint - Pretty Print
+
+**Mô tả**: Module `pprint` cung cấp cách in dữ liệu đẹp hơn, dễ đọc hơn.
+
+**Ví dụ**:
+```python
+from pprint import pprint
+
+data = {
+    'users': [
+        {'name': 'John', 'age': 30, 'cities': ['Hanoi', 'HCMC']},
+        {'name': 'Jane', 'age': 25, 'cities': ['Da Nang']}
+    ],
+    'settings': {'theme': 'dark', 'language': 'vi'}
+}
+
+# In đẹp
+pprint(data, indent=2, width=40)
+```
+
+---
+
+## 3. KIẾN THỨC VỀ HÀM TRONG PYTHON
 
 ### 2.1. Định Nghĩa Hàm Cơ Bản
 
@@ -1136,7 +2506,7 @@ def binary_search(arr, target, left=0, right=None):
 
 ---
 
-## 3. CÁC HÀM QUAN TRỌNG TRONG FLASK
+## 4. CÁC HÀM QUAN TRỌNG TRONG FLASK
 
 ### 3.1. Flask Application Setup
 
@@ -1524,7 +2894,7 @@ user = User.query.filter_by(username='John').first()
 
 ---
 
-## 4. CÁC HÀM QUAN TRỌNG TRONG DJANGO
+## 5. CÁC HÀM QUAN TRỌNG TRONG DJANGO
 
 ### 4.1. Views và URL Routing
 
@@ -2003,6 +3373,7 @@ def update_post_slug(sender, instance, **kwargs):
 
 Tài liệu này đã trình bày chi tiết về:
 - Các hàm built-in quan trọng của Python
+- Standard Library của Python (50+ thư viện quan trọng như os, sys, datetime, json, re, collections, itertools, và nhiều thư viện khác)
 - Kiến thức về hàm trong Python (decorators, lambda, generators, closures)
 - Các hàm quan trọng trong Flask
 - Các hàm quan trọng trong Django

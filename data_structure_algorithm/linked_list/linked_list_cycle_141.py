@@ -1,3 +1,19 @@
+"""
+**Đề bài:** Kiểm tra linked list có cycle không.
+
+**Phân tích:**
+
+- Dùng Floyd's Cycle Detection (Tortoise and Hare)
+- 2 pointers: slow (1 bước), fast (2 bước)
+- Nếu có cycle, 2 pointers sẽ gặp nhau
+**Giải thích từng bước:**
+
+1. Khởi tạo `slow` và `fast` pointers
+2. `slow` di chuyển 1 bước, `fast` di chuyển 2 bước
+3. Nếu có cycle, `fast` sẽ "đuổi kịp" `slow`
+4. Nếu `fast` đến None → không có cycle
+"""
+
 from typing import Optional
 
 

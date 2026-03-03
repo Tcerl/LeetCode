@@ -583,22 +583,23 @@ class TodoList:
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Array lưu các phần tử ở các vị trí bộ nhớ liên tiếp
    - Mỗi phần tử có địa chỉ = địa chỉ đầu + index × kích thước phần tử
    - Truy cập O(1) vì tính toán trực tiếp địa chỉ, không cần duyệt
-
 2. **Khi nào dùng Array:**
+
    - Cần truy cập nhanh qua index
    - Kích thước cố định hoặc biết trước
    - Dữ liệu đồng nhất (cùng kiểu)
    - Không cần insert/delete thường xuyên
-
 3. **Ưu điểm:**
+
    - Truy cập nhanh O(1)
    - Cache-friendly (dữ liệu liên tiếp)
    - Đơn giản, dễ hiểu
-
 4. **Nhược điểm:**
+
    - Kích thước cố định (trong một số ngôn ngữ)
    - Insert/Delete chậm O(n)
    - Tốn bộ nhớ nếu không dùng hết
@@ -663,13 +664,16 @@ class Array:
 **Hướng giải quyết bài toán với Array:**
 
 #### Bài toán 1: Two Sum (LeetCode 1)
+
 **Đề bài:** Tìm 2 số trong mảng có tổng bằng target.
 
 **Phân tích:**
+
 - Dùng hash map để lưu số đã xem và index của nó
 - Duyệt mảng, với mỗi số kiểm tra xem (target - số hiện tại) có trong map không
 
 **Giải pháp:**
+
 ```python
 def two_sum(nums, target):
     """
@@ -677,13 +681,13 @@ def two_sum(nums, target):
     Space: O(n) - Hash map lưu tối đa n phần tử
     """
     seen = {}  # {value: index}
-    
+  
     for i, num in enumerate(nums):
         complement = target - num
         if complement in seen:
             return [seen[complement], i]
         seen[num] = i
-    
+  
     return []
 
 # Ví dụ
@@ -693,6 +697,7 @@ print(two_sum(nums, target))  # [0, 1] vì nums[0] + nums[1] = 2 + 7 = 9
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo hash map `seen` để lưu số đã xem
 2. Duyệt từng phần tử trong mảng
 3. Với mỗi số, tính `complement = target - num`
@@ -700,14 +705,17 @@ print(two_sum(nums, target))  # [0, 1] vì nums[0] + nums[1] = 2 + 7 = 9
 5. Nếu chưa, lưu số hiện tại vào map để dùng sau
 
 #### Bài toán 2: Best Time to Buy and Sell Stock (LeetCode 121)
+
 **Đề bài:** Tìm lợi nhuận tối đa khi mua bán cổ phiếu (chỉ được mua 1 lần, bán 1 lần).
 
 **Phân tích:**
+
 - Duyệt mảng giá, lưu giá mua thấp nhất
 - Với mỗi giá, tính lợi nhuận nếu bán ở giá này
 - Cập nhật lợi nhuận tối đa
 
 **Giải pháp:**
+
 ```python
 def max_profit(prices):
     """
@@ -716,10 +724,10 @@ def max_profit(prices):
     """
     if not prices:
         return 0
-    
+  
     min_price = prices[0]  # Giá mua thấp nhất
     max_profit = 0  # Lợi nhuận tối đa
-    
+  
     for price in prices[1:]:
         # Cập nhật giá mua thấp nhất
         min_price = min(min_price, price)
@@ -727,7 +735,7 @@ def max_profit(prices):
         profit = price - min_price
         # Cập nhật lợi nhuận tối đa
         max_profit = max(max_profit, profit)
-    
+  
     return max_profit
 
 # Ví dụ
@@ -736,6 +744,7 @@ print(max_profit(prices))  # 5 (mua ở 1, bán ở 6)
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo `min_price` = giá đầu tiên, `max_profit` = 0
 2. Duyệt từ giá thứ 2 trở đi
 3. Cập nhật `min_price` nếu giá hiện tại thấp hơn
@@ -743,14 +752,17 @@ print(max_profit(prices))  # 5 (mua ở 1, bán ở 6)
 5. Cập nhật max_profit nếu lợi nhuận lớn hơn
 
 #### Bài toán 3: Container With Most Water (LeetCode 11)
+
 **Đề bài:** Tìm 2 cột nước tạo thành container có thể tích lớn nhất.
 
 **Phân tích:**
+
 - Dùng Two Pointers: bắt đầu từ 2 đầu mảng
 - Thể tích = min(height[left], height[right]) × (right - left)
 - Di chuyển pointer có chiều cao nhỏ hơn
 
 **Giải pháp:**
+
 ```python
 def max_area(height):
     """
@@ -759,19 +771,19 @@ def max_area(height):
     """
     left, right = 0, len(height) - 1
     max_area = 0
-    
+  
     while left < right:
         # Tính diện tích hiện tại
         width = right - left
         current_area = min(height[left], height[right]) * width
         max_area = max(max_area, current_area)
-        
+      
         # Di chuyển pointer có chiều cao nhỏ hơn
         if height[left] < height[right]:
             left += 1
         else:
             right -= 1
-    
+  
     return max_area
 
 # Ví dụ
@@ -780,6 +792,7 @@ print(max_area(height))  # 49
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo 2 pointers ở đầu và cuối mảng
 2. Tính diện tích = min(2 cột) × khoảng cách
 3. Cập nhật max_area
@@ -802,23 +815,24 @@ print(max_area(height))  # 49
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Mỗi node chứa data và pointer (next) đến node tiếp theo
    - Head pointer trỏ đến node đầu tiên
    - Node cuối có next = None
    - Không cần bộ nhớ liên tiếp như Array
-
 2. **Khi nào dùng Linked List:**
+
    - Cần insert/delete thường xuyên ở giữa danh sách
    - Kích thước không biết trước
    - Không cần truy cập ngẫu nhiên qua index
    - Cần implement Stack/Queue
-
 3. **Ưu điểm:**
+
    - Insert/Delete nhanh O(1) nếu có pointer
    - Kích thước động, không lãng phí bộ nhớ
    - Dễ thêm/xóa phần tử
-
 4. **Nhược điểm:**
+
    - Truy cập chậm O(n)
    - Tốn thêm bộ nhớ cho pointers
    - Không cache-friendly
@@ -904,13 +918,16 @@ class LinkedList:
 **Hướng giải quyết bài toán với Linked List:**
 
 #### Bài toán 1: Reverse Linked List (LeetCode 206)
+
 **Đề bài:** Đảo ngược linked list.
 
 **Phân tích:**
+
 - Dùng 3 pointers: prev, current, next
 - Lặp qua list, đảo ngược từng pointer
 
 **Giải pháp:**
+
 ```python
 def reverse_list(head):
     """
@@ -919,7 +936,7 @@ def reverse_list(head):
     """
     prev = None
     current = head
-    
+  
     while current:
         # Lưu next node trước khi đảo pointer
         next_node = current.next
@@ -928,7 +945,7 @@ def reverse_list(head):
         # Di chuyển pointers
         prev = current
         current = next_node
-    
+  
     return prev  # prev là head mới
 
 # Ví dụ: 1 -> 2 -> 3 -> None
@@ -937,6 +954,7 @@ def reverse_list(head):
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo `prev = None`, `current = head`
 2. Lưu `next_node = current.next` trước khi đảo
 3. Đảo pointer: `current.next = prev`
@@ -944,14 +962,17 @@ def reverse_list(head):
 5. Lặp cho đến khi `current = None`
 
 #### Bài toán 2: Merge Two Sorted Lists (LeetCode 21)
+
 **Đề bài:** Merge 2 linked list đã sắp xếp thành 1 list đã sắp xếp.
 
 **Phân tích:**
+
 - Dùng dummy node để đơn giản hóa code
 - So sánh 2 node hiện tại, chọn node nhỏ hơn
 - Di chuyển pointer tương ứng
 
 **Giải pháp:**
+
 ```python
 def merge_two_lists(list1, list2):
     """
@@ -961,7 +982,7 @@ def merge_two_lists(list1, list2):
     # Dummy node để đơn giản hóa
     dummy = Node(0)
     current = dummy
-    
+  
     while list1 and list2:
         if list1.data <= list2.data:
             current.next = list1
@@ -970,10 +991,10 @@ def merge_two_lists(list1, list2):
             current.next = list2
             list2 = list2.next
         current = current.next
-    
+  
     # Nối phần còn lại
     current.next = list1 if list1 else list2
-    
+  
     return dummy.next
 
 # Ví dụ:
@@ -983,6 +1004,7 @@ def merge_two_lists(list1, list2):
 ```
 
 **Giải thích từng bước:**
+
 1. Tạo dummy node để tránh xử lý edge case
 2. So sánh 2 node đầu của 2 list
 3. Chọn node nhỏ hơn, nối vào result
@@ -991,14 +1013,17 @@ def merge_two_lists(list1, list2):
 6. Nối phần còn lại của list chưa hết
 
 #### Bài toán 3: Detect Cycle (LeetCode 141)
+
 **Đề bài:** Kiểm tra linked list có cycle không.
 
 **Phân tích:**
+
 - Dùng Floyd's Cycle Detection (Tortoise and Hare)
 - 2 pointers: slow (1 bước), fast (2 bước)
 - Nếu có cycle, 2 pointers sẽ gặp nhau
 
 **Giải pháp:**
+
 ```python
 def has_cycle(head):
     """
@@ -1007,16 +1032,16 @@ def has_cycle(head):
     """
     if not head or not head.next:
         return False
-    
+  
     slow = head
     fast = head.next
-    
+  
     while fast and fast.next:
         if slow == fast:
             return True
         slow = slow.next  # 1 bước
         fast = fast.next.next  # 2 bước
-    
+  
     return False
 
 # Ví dụ:
@@ -1025,6 +1050,7 @@ def has_cycle(head):
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo `slow` và `fast` pointers
 2. `slow` di chuyển 1 bước, `fast` di chuyển 2 bước
 3. Nếu có cycle, `fast` sẽ "đuổi kịp" `slow`
@@ -1042,25 +1068,26 @@ def has_cycle(head):
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Giống như chồng đĩa: đĩa trên cùng được lấy ra trước
    - Push: Thêm phần tử vào đỉnh stack
    - Pop: Lấy phần tử ở đỉnh stack ra
    - Peek: Xem phần tử ở đỉnh mà không lấy ra
-
 2. **Khi nào dùng Stack:**
+
    - Kiểm tra dấu ngoặc đúng
    - Tính toán biểu thức (infix, postfix, prefix)
    - Undo/Redo operations
    - Backtracking algorithms
    - Function call stack
    - DFS (Depth-First Search)
-
 3. **Ưu điểm:**
+
    - Tất cả operations đều O(1)
    - Đơn giản, dễ implement
    - Phù hợp cho backtracking
-
 4. **Nhược điểm:**
+
    - Chỉ truy cập được phần tử trên cùng
    - Không thể truy cập phần tử ở giữa
 
@@ -1132,14 +1159,17 @@ def evaluate_postfix(expression):
 **Hướng giải quyết bài toán với Stack:**
 
 #### Bài toán 1: Valid Parentheses (LeetCode 20)
+
 **Đề bài:** Kiểm tra chuỗi dấu ngoặc có hợp lệ không.
 
 **Phân tích:**
+
 - Dùng stack để lưu dấu ngoặc mở
 - Khi gặp dấu ngoặc đóng, kiểm tra xem có khớp với dấu mở trên cùng stack không
 - Stack phải rỗng sau khi duyệt xong
 
 **Giải pháp:**
+
 ```python
 def is_valid(s):
     """
@@ -1148,14 +1178,14 @@ def is_valid(s):
     """
     stack = []
     pairs = {')': '(', '}': '{', ']': '['}
-    
+  
     for char in s:
         if char in pairs.values():  # Dấu mở
             stack.append(char)
         elif char in pairs:  # Dấu đóng
             if not stack or stack.pop() != pairs[char]:
                 return False
-    
+  
     return len(stack) == 0
 
 # Ví dụ
@@ -1165,6 +1195,7 @@ print(is_valid("(]"))      # False
 ```
 
 **Giải thích từng bước:**
+
 1. Tạo stack và map các cặp dấu ngoặc
 2. Duyệt từng ký tự trong chuỗi
 3. Nếu là dấu mở → push vào stack
@@ -1172,13 +1203,16 @@ print(is_valid("(]"))      # False
 5. Sau khi duyệt xong, stack phải rỗng
 
 #### Bài toán 2: Daily Temperatures (LeetCode 739)
+
 **Đề bài:** Với mỗi ngày, tìm số ngày phải đợi để có nhiệt độ cao hơn.
 
 **Phân tích:**
+
 - Dùng stack lưu index của các ngày chưa tìm được ngày nóng hơn
 - Khi gặp nhiệt độ cao hơn, pop các index trong stack và tính số ngày
 
 **Giải pháp:**
+
 ```python
 def daily_temperatures(temperatures):
     """
@@ -1187,14 +1221,14 @@ def daily_temperatures(temperatures):
     """
     stack = []  # Lưu index
     result = [0] * len(temperatures)
-    
+  
     for i, temp in enumerate(temperatures):
         # Nếu nhiệt độ hiện tại > nhiệt độ của index trong stack
         while stack and temperatures[stack[-1]] < temp:
             prev_index = stack.pop()
             result[prev_index] = i - prev_index
         stack.append(i)
-    
+  
     return result
 
 # Ví dụ
@@ -1203,6 +1237,7 @@ print(daily_temperatures(temps))  # [1, 1, 4, 2, 1, 1, 0, 0]
 ```
 
 **Giải thích từng bước:**
+
 1. Tạo stack lưu index và result array
 2. Duyệt từng nhiệt độ
 3. Nếu nhiệt độ hiện tại > nhiệt độ của index trên cùng stack:
@@ -1213,13 +1248,16 @@ print(daily_temperatures(temps))  # [1, 1, 4, 2, 1, 1, 0, 0]
 5. Lặp lại cho đến hết
 
 #### Bài toán 3: Largest Rectangle in Histogram (LeetCode 84)
+
 **Đề bài:** Tìm diện tích hình chữ nhật lớn nhất trong histogram.
 
 **Phân tích:**
+
 - Dùng stack để lưu index của các cột tăng dần
 - Khi gặp cột nhỏ hơn, tính diện tích với các cột trước đó
 
 **Giải pháp:**
+
 ```python
 def largest_rectangle_area(heights):
     """
@@ -1228,7 +1266,7 @@ def largest_rectangle_area(heights):
     """
     stack = []
     max_area = 0
-    
+  
     for i, height in enumerate(heights):
         # Pop các cột cao hơn cột hiện tại
         while stack and heights[stack[-1]] > height:
@@ -1236,13 +1274,13 @@ def largest_rectangle_area(heights):
             width = i if not stack else i - stack[-1] - 1
             max_area = max(max_area, h * width)
         stack.append(i)
-    
+  
     # Xử lý các cột còn lại trong stack
     while stack:
         h = heights[stack.pop()]
         width = len(heights) if not stack else len(heights) - stack[-1] - 1
         max_area = max(max_area, h * width)
-    
+  
     return max_area
 
 # Ví dụ
@@ -1251,6 +1289,7 @@ print(largest_rectangle_area(heights))  # 10
 ```
 
 **Giải thích từng bước:**
+
 1. Dùng stack lưu index của cột tăng dần
 2. Khi gặp cột nhỏ hơn:
    - Pop cột cao hơn ra
@@ -1271,23 +1310,24 @@ print(largest_rectangle_area(heights))  # 10
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Giống như hàng đợi: người vào trước được phục vụ trước
    - Enqueue: Thêm phần tử vào cuối queue
    - Dequeue: Lấy phần tử ở đầu queue ra
-
 2. **Khi nào dùng Queue:**
+
    - BFS (Breadth-First Search)
    - Task scheduling
    - Message queue
    - Level-order traversal của tree
    - Cache replacement (FIFO)
-
 3. **Ưu điểm:**
+
    - Enqueue/Dequeue đều O(1)
    - Đơn giản, dễ hiểu
    - Phù hợp cho BFS
-
 4. **Nhược điểm:**
+
    - Chỉ truy cập được phần tử đầu và cuối
    - Không thể truy cập phần tử ở giữa
 
@@ -1354,13 +1394,16 @@ class CircularQueue:
 **Hướng giải quyết bài toán với Queue:**
 
 #### Bài toán 1: Binary Tree Level Order Traversal (LeetCode 102)
+
 **Đề bài:** Duyệt cây nhị phân theo từng level.
 
 **Phân tích:**
+
 - Dùng queue để lưu các node ở mỗi level
 - BFS: xử lý node hiện tại, thêm children vào queue
 
 **Giải pháp:**
+
 ```python
 from collections import deque
 
@@ -1371,27 +1414,27 @@ def level_order(root):
     """
     if not root:
         return []
-    
+  
     result = []
     queue = deque([root])
-    
+  
     while queue:
         level_size = len(queue)
         level = []
-        
+      
         # Xử lý tất cả nodes ở level hiện tại
         for _ in range(level_size):
             node = queue.popleft()
             level.append(node.val)
-            
+          
             # Thêm children vào queue
             if node.left:
                 queue.append(node.left)
             if node.right:
                 queue.append(node.right)
-        
+      
         result.append(level)
-    
+  
     return result
 
 # Ví dụ:
@@ -1404,6 +1447,7 @@ def level_order(root):
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo queue với root
 2. Lặp cho đến khi queue rỗng
 3. Xử lý tất cả nodes ở level hiện tại (theo kích thước queue)
@@ -1411,13 +1455,16 @@ def level_order(root):
 5. Thêm level vào result
 
 #### Bài toán 2: Design Circular Queue (LeetCode 622)
+
 **Đề bài:** Implement circular queue với kích thước cố định.
 
 **Phân tích:**
+
 - Dùng array với 2 pointers: front và rear
 - Sử dụng modulo để tạo vòng tròn
 
 **Giải pháp:**
+
 ```python
 class MyCircularQueue:
     def __init__(self, k):
@@ -1426,7 +1473,7 @@ class MyCircularQueue:
         self.front = 0
         self.rear = -1
         self.size = 0
-    
+  
     def enqueue(self, value):
         if self.is_full():
             return False
@@ -1434,7 +1481,7 @@ class MyCircularQueue:
         self.queue[self.rear] = value
         self.size += 1
         return True
-    
+  
     def dequeue(self):
         if self.is_empty():
             return False
@@ -1442,21 +1489,22 @@ class MyCircularQueue:
         self.front = (self.front + 1) % self.capacity
         self.size -= 1
         return True
-    
+  
     def front(self):
         return -1 if self.is_empty() else self.queue[self.front]
-    
+  
     def rear(self):
         return -1 if self.is_empty() else self.queue[self.rear]
-    
+  
     def is_empty(self):
         return self.size == 0
-    
+  
     def is_full(self):
         return self.size == self.capacity
 ```
 
 **Giải thích từng bước:**
+
 1. Khởi tạo array với kích thước cố định
 2. Dùng modulo để di chuyển pointers trong vòng tròn
 3. Enqueue: di chuyển rear, gán giá trị
@@ -1477,22 +1525,23 @@ class MyCircularQueue:
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Hash function chuyển key thành index trong array
    - Nếu có collision (2 keys cùng index), dùng chaining hoặc probing
    - Chaining: lưu danh sách các cặp (key, value) trong mỗi bucket
    - Open Addressing: tìm bucket trống tiếp theo
-
 2. **Khi nào dùng Hash Table:**
+
    - Cần tìm kiếm, insert, delete nhanh O(1)
    - Lưu trữ key-value pairs
    - Đếm tần suất xuất hiện
    - Loại bỏ duplicates
-
 3. **Ưu điểm:**
+
    - Tìm kiếm, insert, delete trung bình O(1)
    - Linh hoạt, không cần sắp xếp
-
 4. **Nhược điểm:**
+
    - Worst case O(n) khi hash function kém
    - Tốn bộ nhớ hơn array
    - Không giữ thứ tự (trong Python 3.7+ dict giữ thứ tự)
@@ -1512,35 +1561,35 @@ class HashTable:
     def put(self, key, value):
         index = self._hash(key)
         bucket = self.buckets[index]
-      
+    
         for i, (k, v) in enumerate(bucket):
             if k == key:
                 bucket[i] = (key, value)
                 return
-      
+    
         bucket.append((key, value))
         self.size += 1
   
     def get(self, key):
         index = self._hash(key)
         bucket = self.buckets[index]
-      
+    
         for k, v in bucket:
             if k == key:
                 return v
-      
+    
         raise KeyError(f"Key {key} not found")
   
     def delete(self, key):
         index = self._hash(key)
         bucket = self.buckets[index]
-      
+    
         for i, (k, v) in enumerate(bucket):
             if k == key:
                 bucket.pop(i)
                 self.size -= 1
                 return
-      
+    
         raise KeyError(f"Key {key} not found")
   
     def __contains__(self, key):
@@ -1554,13 +1603,16 @@ class HashTable:
 **Hướng giải quyết bài toán với Hash Table:**
 
 #### Bài toán 1: Group Anagrams (LeetCode 49)
+
 **Đề bài:** Nhóm các từ là anagram của nhau.
 
 **Phân tích:**
+
 - Dùng hash map với key là sorted string
 - Các từ có cùng sorted string là anagram
 
 **Giải pháp:**
+
 ```python
 def group_anagrams(strs):
     """
@@ -1568,14 +1620,14 @@ def group_anagrams(strs):
     Space: O(n * k) - Hash map lưu tất cả từ
     """
     groups = {}
-    
+  
     for word in strs:
         # Sorted string làm key
         key = ''.join(sorted(word))
         if key not in groups:
             groups[key] = []
         groups[key].append(word)
-    
+  
     return list(groups.values())
 
 # Ví dụ
@@ -1585,13 +1637,16 @@ print(group_anagrams(strs))
 ```
 
 #### Bài toán 2: Longest Consecutive Sequence (LeetCode 128)
+
 **Đề bài:** Tìm độ dài dãy số liên tiếp dài nhất.
 
 **Phân tích:**
+
 - Dùng set để lưu tất cả số
 - Với mỗi số, tìm dãy liên tiếp bắt đầu từ số đó
 
 **Giải pháp:**
+
 ```python
 def longest_consecutive(nums):
     """
@@ -1600,20 +1655,20 @@ def longest_consecutive(nums):
     """
     num_set = set(nums)
     max_length = 0
-    
+  
     for num in num_set:
         # Chỉ bắt đầu từ số đầu tiên của dãy
         if num - 1 not in num_set:
             current_num = num
             current_length = 1
-            
+          
             # Tìm dãy liên tiếp
             while current_num + 1 in num_set:
                 current_num += 1
                 current_length += 1
-            
+          
             max_length = max(max_length, current_length)
-    
+  
     return max_length
 
 # Ví dụ
@@ -1626,12 +1681,12 @@ print(longest_consecutive(nums))  # 4 (dãy 1, 2, 3, 4)
 **Kiến thức:**
 
 - Binary Tree: Mỗi node có tối đa 2 children (left và right)
-- Types: 
+- Types:
   - Full: Mỗi node có 0 hoặc 2 children
   - Complete: Tất cả levels đầy (trừ level cuối), level cuối lấp từ trái sang phải
   - Perfect: Tất cả levels đầy
   - Balanced: Chiều cao 2 subtree chênh lệch ≤ 1
-- Traversal: 
+- Traversal:
   - Inorder (Left-Root-Right): Duyệt BST cho thứ tự tăng dần
   - Preorder (Root-Left-Right): Copy cây, prefix expression
   - Postorder (Left-Right-Root): Xóa cây, postfix expression
@@ -1641,22 +1696,23 @@ print(longest_consecutive(nums))  # 4 (dãy 1, 2, 3, 4)
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Mỗi node có data và 2 pointers (left, right)
    - Root là node gốc
    - Leaf là node không có children
    - Height: số edges từ root đến node xa nhất
-
 2. **Khi nào dùng Binary Tree:**
+
    - Biểu diễn cấu trúc phân cấp
    - Tìm kiếm (BST)
    - Sắp xếp (Heap)
    - Expression evaluation
-
 3. **Ưu điểm:**
+
    - Tìm kiếm nhanh O(log n) trong BST cân bằng
    - Linh hoạt, dễ mở rộng
-
 4. **Nhược điểm:**
+
    - Có thể mất cân bằng → O(n) worst case
    - Phức tạp hơn array/linked list
 
@@ -1731,13 +1787,16 @@ class BinaryTree:
 **Hướng giải quyết bài toán với Binary Tree:**
 
 #### Bài toán 1: Maximum Depth of Binary Tree (LeetCode 104)
+
 **Đề bài:** Tìm chiều cao (depth) lớn nhất của cây nhị phân.
 
 **Phân tích:**
+
 - Dùng DFS (recursive hoặc iterative)
 - Chiều cao = 1 + max(chiều cao left, chiều cao right)
 
 **Giải pháp:**
+
 ```python
 def max_depth(root):
     """
@@ -1746,36 +1805,39 @@ def max_depth(root):
     """
     if not root:
         return 0
-    
+  
     return 1 + max(max_depth(root.left), max_depth(root.right))
 
 # Iterative với BFS
 def max_depth_bfs(root):
     if not root:
         return 0
-    
+  
     queue = [(root, 1)]
     max_depth = 0
-    
+  
     while queue:
         node, depth = queue.pop(0)
         max_depth = max(max_depth, depth)
-        
+      
         if node.left:
             queue.append((node.left, depth + 1))
         if node.right:
             queue.append((node.right, depth + 1))
-    
+  
     return max_depth
 ```
 
 #### Bài toán 2: Same Tree (LeetCode 100)
+
 **Đề bài:** Kiểm tra 2 cây nhị phân có giống nhau không.
 
 **Phân tích:**
+
 - So sánh từng node: giá trị và 2 subtree
 
 **Giải pháp:**
+
 ```python
 def is_same_tree(p, q):
     """
@@ -1785,22 +1847,25 @@ def is_same_tree(p, q):
     # Cả 2 đều None
     if not p and not q:
         return True
-    
+  
     # Một trong 2 là None hoặc giá trị khác nhau
     if not p or not q or p.val != q.val:
         return False
-    
+  
     # So sánh 2 subtree
     return is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
 ```
 
 #### Bài toán 3: Invert Binary Tree (LeetCode 226)
+
 **Đề bài:** Đảo ngược cây nhị phân (swap left và right của mỗi node).
 
 **Phân tích:**
+
 - Duyệt cây, swap left và right của mỗi node
 
 **Giải pháp:**
+
 ```python
 def invert_tree(root):
     """
@@ -1809,14 +1874,14 @@ def invert_tree(root):
     """
     if not root:
         return None
-    
+  
     # Swap left và right
     root.left, root.right = root.right, root.left
-    
+  
     # Đệ quy cho 2 subtree
     invert_tree(root.left)
     invert_tree(root.right)
-    
+  
     return root
 ```
 
@@ -1877,21 +1942,22 @@ def infix_to_postfix(expression):
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Duyệt từng phần tử trong mảng
    - So sánh với giá trị cần tìm
    - Trả về index nếu tìm thấy, -1 nếu không
-
 2. **Khi nào dùng:**
+
    - Mảng chưa sắp xếp
    - Mảng nhỏ
    - Chỉ tìm kiếm 1 lần
-
 3. **Ưu điểm:**
+
    - Đơn giản, dễ implement
    - Không cần sắp xếp trước
    - Hoạt động với mọi cấu trúc dữ liệu
-
 4. **Nhược điểm:**
+
    - Chậm O(n) với mảng lớn
    - Không tối ưu cho tìm kiếm nhiều lần
 
@@ -1917,22 +1983,23 @@ def linear_search(arr, target):
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - So sánh target với phần tử giữa
    - Nếu bằng → tìm thấy
    - Nếu nhỏ hơn → tìm bên trái
    - Nếu lớn hơn → tìm bên phải
    - Lặp lại cho đến khi tìm thấy hoặc không còn phần tử
-
 2. **Khi nào dùng:**
+
    - Mảng đã sắp xếp
    - Cần tìm kiếm nhanh O(log n)
    - Tìm kiếm nhiều lần
-
 3. **Ưu điểm:**
+
    - Rất nhanh O(log n)
    - Hiệu quả với mảng lớn
-
 4. **Nhược điểm:**
+
    - Phải sắp xếp trước (O(n log n))
    - Chỉ áp dụng cho mảng đã sắp xếp
    - Không hiệu quả với mảng nhỏ
@@ -1974,13 +2041,16 @@ def binary_search_recursive(arr, target, left=0, right=None):
 **Hướng giải quyết bài toán với Binary Search:**
 
 #### Bài toán 1: Search in Rotated Sorted Array (LeetCode 33)
+
 **Đề bài:** Tìm target trong mảng đã xoay (rotated).
 
 **Phân tích:**
+
 - Mảng xoay có 2 phần đã sắp xếp
 - Xác định phần nào đã sắp xếp, sau đó binary search trong phần đó
 
 **Giải pháp:**
+
 ```python
 def search_rotated(nums, target):
     """
@@ -1988,13 +2058,13 @@ def search_rotated(nums, target):
     Space: O(1)
     """
     left, right = 0, len(nums) - 1
-    
+  
     while left <= right:
         mid = (left + right) // 2
-        
+      
         if nums[mid] == target:
             return mid
-        
+      
         # Xác định phần nào đã sắp xếp
         if nums[left] <= nums[mid]:  # Left half sorted
             if nums[left] <= target < nums[mid]:
@@ -2006,7 +2076,7 @@ def search_rotated(nums, target):
                 left = mid + 1
             else:
                 right = mid - 1
-    
+  
     return -1
 
 # Ví dụ
@@ -2015,14 +2085,17 @@ print(search_rotated(nums, 0))  # 4
 ```
 
 #### Bài toán 2: Find Peak Element (LeetCode 162)
+
 **Đề bài:** Tìm peak element (lớn hơn neighbors).
 
 **Phân tích:**
+
 - Dùng binary search với điều kiện đặc biệt
 - Nếu mid < mid+1 → peak ở bên phải
 - Nếu mid > mid+1 → peak ở bên trái
 
 **Giải pháp:**
+
 ```python
 def find_peak_element(nums):
     """
@@ -2030,15 +2103,15 @@ def find_peak_element(nums):
     Space: O(1)
     """
     left, right = 0, len(nums) - 1
-    
+  
     while left < right:
         mid = (left + right) // 2
-        
+      
         if nums[mid] < nums[mid + 1]:
             left = mid + 1
         else:
             right = mid
-    
+  
     return left
 
 # Ví dụ
@@ -2132,21 +2205,22 @@ def insertion_sort(arr):
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Divide: Chia mảng thành 2 nửa
    - Conquer: Sắp xếp đệ quy 2 nửa
    - Combine: Merge 2 nửa đã sắp xếp
-
 2. **Khi nào dùng:**
+
    - Cần stable sort
    - Cần đảm bảo O(n log n) worst case
    - Sắp xếp linked list (không cần random access)
-
 3. **Ưu điểm:**
+
    - Luôn O(n log n)
    - Stable
    - Dễ parallelize
-
 4. **Nhược điểm:**
+
    - Tốn bộ nhớ O(n)
    - Không in-place
 
@@ -2186,7 +2260,7 @@ def merge(left, right):
 
 - Divide and Conquer
 - Chọn pivot, chia mảng thành 2 phần (nhỏ hơn và lớn hơn pivot), sắp xếp từng phần
-- Time complexity: 
+- Time complexity:
   - Average: O(n log n) - Khi pivot chia đều
   - Worst: O(n²) - Khi pivot luôn là phần tử nhỏ nhất/lớn nhất
 - Space complexity: O(log n) - Call stack
@@ -2195,21 +2269,22 @@ def merge(left, right):
 **Giải thích chi tiết:**
 
 1. **Cách hoạt động:**
+
    - Chọn pivot (thường là phần tử giữa hoặc random)
    - Partition: Chia mảng thành 2 phần (≤ pivot và > pivot)
    - Đệ quy sắp xếp 2 phần
-
 2. **Khi nào dùng:**
+
    - Cần in-place sort
    - Average case tốt
    - Không cần stable
-
 3. **Ưu điểm:**
+
    - Average O(n log n) nhanh
    - In-place (tiết kiệm bộ nhớ)
    - Cache-friendly
-
 4. **Nhược điểm:**
+
    - Worst case O(n²)
    - Không stable
    - Phụ thuộc vào cách chọn pivot
@@ -2304,13 +2379,16 @@ def hanoi(n, source, destination, auxiliary):
 **Hướng giải quyết bài toán với Recursion:**
 
 #### Bài toán 1: Climbing Stairs (LeetCode 70)
+
 **Đề bài:** Có n bậc thang, mỗi lần bước 1 hoặc 2 bậc. Có bao nhiêu cách lên?
 
 **Phân tích:**
+
 - F(n) = F(n-1) + F(n-2) - Giống Fibonacci
 - Base case: F(1) = 1, F(2) = 2
 
 **Giải pháp:**
+
 ```python
 def climb_stairs(n):
     """
@@ -2318,7 +2396,7 @@ def climb_stairs(n):
     Space: O(n) - Memo và call stack
     """
     memo = {}
-    
+  
     def dp(i):
         if i <= 2:
             return i
@@ -2326,31 +2404,34 @@ def climb_stairs(n):
             return memo[i]
         memo[i] = dp(i-1) + dp(i-2)
         return memo[i]
-    
+  
     return dp(n)
 
 # Iterative (tối ưu hơn)
 def climb_stairs_iterative(n):
     if n <= 2:
         return n
-    
+  
     prev2, prev1 = 1, 2
     for i in range(3, n + 1):
         current = prev1 + prev2
         prev2, prev1 = prev1, current
-    
+  
     return prev1
 ```
 
 #### Bài toán 2: Generate Parentheses (LeetCode 22)
+
 **Đề bài:** Tạo tất cả chuỗi ngoặc đơn hợp lệ với n cặp.
 
 **Phân tích:**
+
 - Dùng backtracking
 - Thêm '(' nếu số '(' < n
 - Thêm ')' nếu số ')' < số '('
 
 **Giải pháp:**
+
 ```python
 def generate_parenthesis(n):
     """
@@ -2358,21 +2439,21 @@ def generate_parenthesis(n):
     Space: O(n) - Call stack
     """
     result = []
-    
+  
     def backtrack(current, open_count, close_count):
         # Base case: đủ n cặp
         if len(current) == 2 * n:
             result.append(current)
             return
-        
+      
         # Thêm '(' nếu còn chỗ
         if open_count < n:
             backtrack(current + '(', open_count + 1, close_count)
-        
+      
         # Thêm ')' nếu số ')' < số '('
         if close_count < open_count:
             backtrack(current + ')', open_count, close_count + 1)
-    
+  
     backtrack('', 0, 0)
     return result
 
@@ -6539,11 +6620,11 @@ const UserModule = (function() {
             }
             return false;
         },
-      
+    
         getUsers() {
             return [...users]; // Return copy
         },
-      
+    
         getUserCount() {
             return users.length;
         }
@@ -6594,12 +6675,12 @@ function memoize(fn) {
   
     return function(...args) {
         const key = JSON.stringify(args);
-      
+    
         if (cache[key]) {
             console.log('Cache hit');
             return cache[key];
         }
-      
+    
         console.log('Cache miss');
         const result = fn(...args);
         cache[key] = result;
@@ -6716,17 +6797,17 @@ const person2 = {
         this.hobbies.forEach(function(hobby) {
             console.log(`${this.name} likes ${hobby}`); // this is undefined
         });
-      
+    
         // ✅ Fix 1: Arrow function
         this.hobbies.forEach(hobby => {
             console.log(`${this.name} likes ${hobby}`); // this refers to person2
         });
-      
+    
         // ✅ Fix 2: bind
         this.hobbies.forEach(function(hobby) {
             console.log(`${this.name} likes ${hobby}`);
         }.bind(this));
-      
+    
         // ✅ Fix 3: Store this
         const self = this;
         this.hobbies.forEach(function(hobby) {
@@ -6856,7 +6937,7 @@ const obj = {
     // Regular function
     regular: function() {
         console.log(this.name); // "John"
-      
+    
         setTimeout(function() {
             // this = global (vì setTimeout gọi function)
             console.log(this.name); // undefined
@@ -6866,7 +6947,7 @@ const obj = {
     // Arrow function
     arrow: function() {
         console.log(this.name); // "John"
-      
+    
         setTimeout(() => {
             // this = obj (lexical this từ arrow function)
             console.log(this.name); // "John"
@@ -7302,7 +7383,7 @@ async function loadUsers() {
     try {
         const response = await fetch('/api/users');
         const users = await response.json();
-      
+    
         const container = document.querySelector('#users');
         container.innerHTML = users.map(user => `
             <div class="user">
@@ -7354,11 +7435,11 @@ async function fetchData() {
             },
             body: JSON.stringify({ key: 'value' })
         });
-      
+    
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-      
+    
         const data = await response.json();
         return data;
     } catch (error) {
@@ -7587,7 +7668,7 @@ function UserProfile({ userId }) {
         fetch(`/api/users/${userId}`)
             .then(res => res.json())
             .then(data => setUser(data));
-      
+    
         // Cleanup (optional)
         return () => {
             // Cleanup code
@@ -7621,7 +7702,7 @@ function App() {
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
             </nav>
-          
+        
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -8576,7 +8657,7 @@ function useDebounce(value, delay) {
         const handler = setTimeout(() => {
             setDebouncedValue(value);
         }, delay);
-      
+    
         return () => clearTimeout(handler);
     }, [value, delay]);
   
@@ -8817,7 +8898,7 @@ const upload = multer({
         const allowedTypes = /jpeg|jpg|png|gif/;
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
-      
+    
         if (extname && mimetype) {
             cb(null, true);
         } else {
@@ -9499,7 +9580,7 @@ class CounterPage extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         final counter = Provider.of<CounterProvider>(context);
-      
+    
         return Scaffold(
             body: Center(
                 child: Column(
@@ -9917,7 +9998,7 @@ def bfs(graph, start):
     while queue:
         node = queue.popleft()
         print(node)
-      
+    
         for neighbor in graph[node]:
             if neighbor not in visited:
                 visited.add(neighbor)
@@ -9951,13 +10032,13 @@ def dijkstra(graph, start):
   
     while pq:
         current_dist, current = heapq.heappop(pq)
-      
+    
         if current_dist > distances[current]:
             continue
-      
+    
         for neighbor, weight in graph[current].items():
             distance = current_dist + weight
-          
+        
             if distance < distances[neighbor]:
                 distances[neighbor] = distance
                 heapq.heappush(pq, (distance, neighbor))
@@ -10033,7 +10114,7 @@ class CircuitBreaker {
             }
             this.state = 'HALF_OPEN';
         }
-      
+    
         try {
             const result = await this.service(...args);
             this.onSuccess();
@@ -10081,16 +10162,16 @@ class OrderSaga {
         try {
             // Step 1: Reserve inventory
             await this.reserveInventory(orderData.items);
-          
+        
             // Step 2: Process payment
             await this.processPayment(orderData.payment);
-          
+        
             // Step 3: Create order
             const order = await this.createOrderRecord(orderData);
-          
+        
             // Step 4: Send notification
             await this.sendNotification(order.userId, order.id);
-          
+        
             return order;
         } catch (error) {
             // Compensating transactions
@@ -10102,10 +10183,10 @@ class OrderSaga {
     async compensate(orderData) {
         // Rollback inventory
         await this.releaseInventory(orderData.items);
-      
+    
         // Refund payment
         await this.refundPayment(orderData.payment);
-      
+    
         // Cancel order if created
         if (orderData.orderId) {
             await this.cancelOrder(orderData.orderId);
@@ -10209,7 +10290,7 @@ class OrderCommandHandler {
             type: 'ORDER_CREATED',
             ...command
         });
-      
+    
         // Publish event
         await eventBus.publish('order.created', command);
     }
@@ -10219,7 +10300,7 @@ class OrderCommandHandler {
             type: 'ORDER_PAID',
             ...command
         });
-      
+    
         await eventBus.publish('order.paid', command);
     }
 }
@@ -10296,7 +10377,7 @@ await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
         const event = JSON.parse(message.value.toString());
         console.log('Received event:', event);
-      
+    
         // Handle event
         await handleEvent(event);
     }
@@ -10576,11 +10657,11 @@ function LazyImage({ src, alt }) {
                 observer.disconnect();
             }
         });
-      
+    
         if (imgRef.current) {
             observer.observe(imgRef.current);
         }
-      
+    
         return () => observer.disconnect();
     }, []);
   
@@ -10863,7 +10944,7 @@ io.on('connection', (socket) => {
             content: data.content,
             timestamp: new Date()
         });
-      
+    
         io.to(`room:${data.roomId}`).emit('new-message', message);
     });
   
@@ -11023,16 +11104,16 @@ class SubscriptionService {
             currentPeriodStart: new Date(),
             currentPeriodEnd: new Date(Date.now() + plan.duration * 24 * 60 * 60 * 1000)
         });
-      
+    
         // Create Stripe subscription
         const stripeSubscription = await stripe.subscriptions.create({
             customer: userId,
             items: [{ price: plan.stripePriceId }]
         });
-      
+    
         subscription.stripeSubscriptionId = stripeSubscription.id;
         await subscription.save();
-      
+    
         return subscription;
     }
   
@@ -11041,9 +11122,9 @@ class SubscriptionService {
             userId,
             status: 'active'
         }).populate('planId');
-      
+    
         if (!subscription) return false;
-      
+    
         return subscription.planId.features.includes(feature);
     }
 }
@@ -11055,14 +11136,14 @@ async function requireSubscription(feature) {
             req.user.id,
             feature
         );
-      
+    
         if (!hasAccess) {
             return res.status(403).json({
                 error: 'Subscription required',
                 upgradeUrl: '/pricing'
             });
         }
-      
+    
         next();
     };
 }
@@ -11316,20 +11397,20 @@ async function createUser(userData) {
   
     try {
         span.setAttribute('user.email', userData.email);
-      
+    
         // Child span
         const dbSpan = tracer.startSpan('db.insert', {
             parent: span
         });
-      
+    
         const user = await db.insert(userData);
         dbSpan.setAttribute('db.operation', 'insert');
         dbSpan.setAttribute('db.table', 'users');
         dbSpan.end();
-      
+    
         span.setAttribute('user.id', user.id);
         span.setStatus({ code: 1 }); // OK
-      
+    
         return user;
     } catch (error) {
         span.setStatus({
@@ -11374,7 +11455,7 @@ class UserService {
                 callback(data);
             }
         };
-      
+    
         this.eventEmitter.on('user-updated', listener);
         this.listeners.set(userId, listener);
     }
@@ -11458,7 +11539,7 @@ db.query = async function(query, params) {
     try {
         const result = await originalQuery(query, params);
         const duration = Date.now() - start;
-      
+    
         if (duration > 1000) {
             logger.warn('Slow query detected', {
                 query,
@@ -11466,7 +11547,7 @@ db.query = async function(query, params) {
                 params
             });
         }
-      
+    
         return result;
     } catch (error) {
         logger.error('Query failed', {
@@ -11595,15 +11676,15 @@ class AlertManager {
             timestamp: new Date().toISOString(),
             service: process.env.SERVICE_NAME
         };
-      
+    
         // Send to Slack
         await this.sendToSlack(alert);
-      
+    
         // Send to PagerDuty for critical alerts
         if (severity === 'critical') {
             await this.sendToPagerDuty(alert);
         }
-      
+    
         // Log
         logger.error('Alert sent', alert);
     }
@@ -11728,20 +11809,20 @@ class IncidentHandler {
     async handleIncident(incident) {
         // Log incident
         logger.error('Incident detected', incident);
-      
+    
         // Auto-remediation attempts
         if (incident.type === 'high_error_rate') {
             await this.scaleUp();
             await this.clearCache();
         }
-      
+    
         if (incident.type === 'database_connection_pool_exhausted') {
             await this.restartConnectionPool();
         }
-      
+    
         // Alert on-call engineer
         await this.pageOnCall(incident);
-      
+    
         // Create incident ticket
         await this.createIncidentTicket(incident);
     }
@@ -12390,12 +12471,12 @@ const UserModule = (function() {
             }
             return false;
         },
-      
+    
         getUsers() {
             // Return copy để không thể modify trực tiếp
             return [...users];
         },
-      
+    
         getUserCount() {
             return users.length;
         }
@@ -12436,7 +12517,7 @@ function debounce(func, delay) {
     return function(...args) {
         // Clear timeout cũ
         clearTimeout(timeoutId);
-      
+    
         // Set timeout mới
         timeoutId = setTimeout(() => {
             func.apply(this, args);

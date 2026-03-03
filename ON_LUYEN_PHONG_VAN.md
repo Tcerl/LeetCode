@@ -3022,3 +3022,1564 @@ this.$toast.error('Có lỗi xảy ra!')
 ---
 
 > **📝 Lưu ý cuối:** File `CODE_EXERCISES.md` chứa bài tập thực hành với code đầy đủ. Đọc lý thuyết ở file này → làm bài tập → tự kiểm tra!
+# 🚀 ÔN LUYỆN PHỎNG VẤN – Vue.js + Laravel Fullstack (Nâng Cao)
+
+> **Vị trí:** Frontend (Vue.js / Nuxt.js) | Fullstack (Vue.js + Laravel) | Cập nhật: 2026-03-03
+
+---
+
+## 📋 MỤC LỤC
+
+| # | Chủ đề | Độ ưu tiên |
+|---|---|---|
+| [1](#1-vuejs-core--nâng-cao) | Vue.js Core & Nâng Cao | ⭐⭐⭐⭐⭐ |
+| [2](#2-pinia--vuex) | Pinia / Vuex | ⭐⭐⭐⭐⭐ |
+| [3](#3-component-patterns--performance) | Component Patterns & Performance | ⭐⭐⭐⭐ |
+| [4](#4-nuxtjs--ssr--seo) | Nuxt.js + SSR + SEO | ⭐⭐⭐⭐ |
+| [5](#5-figma--code) | Figma → Code (CSS Tokens + Responsive) | ⭐⭐⭐ |
+| [6](#6-laravel-framework--nâng-cao) | Laravel Framework & Nâng Cao | ⭐⭐⭐⭐⭐ |
+| [7](#7-restful-api--bảo-mật) | RESTful API + JWT + Bảo Mật | ⭐⭐⭐⭐ |
+| [8](#8-câu-hỏi-phỏng-vấn--đáp-án-chi-tiết) | Q&A Phỏng Vấn Chi Tiết | ⭐⭐⭐⭐⭐ |
+| [9](#9-typescript--vue-3) | TypeScript + Vue 3 | ⭐⭐⭐⭐ |
+| [10](#10-testing) | Testing (Vue + Laravel) | ⭐⭐⭐⭐ |
+| [11](#11-laravel-architecture-patterns) | Laravel Architecture Patterns | ⭐⭐⭐⭐ |
+| [12](#12-css-nâng-cao--dark-mode--a11y) | CSS Nâng Cao + Dark Mode + A11y | ⭐⭐⭐ |
+| [13](#13-câu-hỏi-senior--quick-reference) | Senior Q&A + Quick Reference | ⭐⭐⭐⭐⭐ |
+| [14](#14-checklist--lộ-trình) | Checklist & Lộ Trình | — |
+
+---
+
+## 1. Vue.js Core & Nâng Cao
+
+> 💡 **Vue 3 dùng Proxy** (khác Vue 2 dùng `Object.defineProperty`) → track dynamic properties, array mutations tự động reactive.
+
+### 1.1 Reactivity System – Hiểu Sâu
+
+```javascript
+import { ref, reactive, computed, toRefs, shallowRef, markRaw } from 'vue'
+
+// ref: primitive + object, cần .value
+const count = ref(0)
+const user  = ref({ name: 'Tín', age: 25 })
+count.value++
+user.value.name = 'Duy'  // reactive
+
+// reactive: object/array, không cần .value
+const state = reactive({ name: 'Tín', address: { city: 'HCM' } })
+state.name = 'Bảo'           // reactive
+state.address.city = 'HN'   // deep reactive
+
+// MẤT reactivity khi destructure reactive
+const { name } = state          // name là string thường
+const { name: nameRef } = toRefs(state)  // name.value vẫn reactive
+
+// shallowRef: chỉ track cấp 1 (hiệu năng tốt cho big object)
+const bigList = shallowRef([])  // Chỉ reactive khi replace: bigList.value = []
+
+// markRaw: không track (Chart.js, Map, 3rd-party objects)
+const chart = shallowRef(markRaw(new SomeHeavyClass()))
+
+// computed writable
+const fullName = computed({
+  get: () => `${state.first} ${state.last}`,
+  set: (val) => {
+    const [first, last] = val.split(' ')
+    state.first = first
+    state.last  = last
+  }
+})
+```
+
+---
+
+### 1.2 watch vs watchEffect
+
+```javascript
+// watch: explicit source, LAZY (không chạy ngay)
+watch(count, (newVal, oldVal) => {
+  console.log(`${oldVal} → ${newVal}`)
+}, {
+  immediate: true,  // Chạy ngay lần đầu
+  deep: true,       // Watch deep object changes
+  flush: 'post',    // Chạy SAU khi DOM update
+  once: true,       // Vue 3.4+: chỉ chạy 1 lần
+})
+
+// watch nhiều sources
+watch([count, name], ([newCount, newName], [oldCount, oldName]) => {
+  console.log(newCount, newName)
+})
+
+// watchEffect: auto track dependency, EAGER (chạy ngay)
+const stop = watchEffect((onCleanup) => {
+  const controller = new AbortController()
+  fetch('/api/data?q=' + query.value, { signal: controller.signal })
+  onCleanup(() => controller.abort())  // Cleanup trước khi re-run
+})
+stop()  // Dừng watch thủ công
+```
+
+> **Nhớ:** `watch` = cần biết oldVal/newVal, lazy. `watchEffect` = auto deps, eager, dùng `onCleanup`.
+
+---
+
+### 1.3 Lifecycle Hooks
+
+```javascript
+import { onMounted, onUnmounted, onErrorCaptured, onActivated, onDeactivated,
+         onRenderTracked, onRenderTriggered } from 'vue'
+
+onMounted(() => {
+  // DOM đã có, gọi API, khởi tạo 3rd party (Chart.js, etc.)
+})
+
+onUnmounted(() => {
+  // Cleanup: clearInterval, removeEventListener, hủy subscription
+  clearInterval(timer)
+  window.removeEventListener('resize', handleResize)
+})
+
+// Với KeepAlive
+onActivated(() => { /* component được kích hoạt từ cache */ })
+onDeactivated(() => { /* component vào cache, không bị destroy */ })
+
+// Error Boundary
+onErrorCaptured((err, instance, info) => {
+  console.error(err)
+  return false  // Ngăn lỗi lan lên component cha
+})
+
+// Debug re-renders
+onRenderTriggered((e) => {
+  console.log('Re-render triggered by:', e)
+})
+```
+
+---
+
+### 1.4 Component Communication
+
+```vue
+<script setup>
+// Props với validation
+const props = defineProps({
+  title:  { type: String, required: true },
+  items:  { type: Array,  default: () => [] },
+  config: { type: Object, default: () => ({}) },
+})
+
+// Emits với validation
+const emit = defineEmits({
+  update: (payload) => typeof payload.id === 'number',
+  delete: null,
+})
+
+// defineExpose: expose API cho parent
+const inputRef = ref(null)
+defineExpose({
+  focus: () => inputRef.value?.focus(),
+  reset: () => { /* ... */ }
+})
+
+// Provide/Inject: tránh prop drilling
+import { provide, inject, readonly } from 'vue'
+
+const theme = ref('dark')
+provide('theme', readonly(theme))          // readonly tránh mutation từ child
+provide('updateTheme', (val) => { theme.value = val })
+
+// Child (bất kỳ cấp nào):
+const theme = inject('theme')
+const updateTheme = inject('updateTheme')
+const themeWithDefault = inject('theme', 'light')
+</script>
+```
+
+---
+
+### 1.5 Custom Directives
+
+```javascript
+// v-click-outside
+const vClickOutside = {
+  mounted(el, binding) {
+    el._clickHandler = (e) => {
+      if (!el.contains(e.target)) binding.value(e)
+    }
+    document.addEventListener('click', el._clickHandler)
+  },
+  unmounted(el) {
+    document.removeEventListener('click', el._clickHandler)
+  }
+}
+
+// v-debounce
+const vDebounce = {
+  mounted(el, binding) {
+    let timer = null
+    el._debounceHandler = (e) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => binding.value(e), binding.arg || 300)
+    }
+    el.addEventListener('input', el._debounceHandler)
+  },
+  unmounted(el) {
+    el.removeEventListener('input', el._debounceHandler)
+  }
+}
+```
+
+---
+
+### 1.6 Teleport, Transition & Suspense
+
+```vue
+<template>
+  <!-- Teleport: render vào ngoài DOM tree (modal, tooltip) -->
+  <Teleport to="body">
+    <div class="modal" v-if="showModal" role="dialog" aria-modal="true">
+      Modal content
+    </div>
+  </Teleport>
+
+  <!-- Transition: animate mount/unmount -->
+  <Transition name="fade" mode="out-in">
+    <component :is="activeView" :key="activeView" />
+  </Transition>
+
+  <!-- TransitionGroup: animate list -->
+  <TransitionGroup name="list" tag="ul">
+    <li v-for="item in list" :key="item.id">{{ item.name }}</li>
+  </TransitionGroup>
+
+  <!-- Suspense: async component loading -->
+  <Suspense>
+    <template #default>
+      <AsyncDashboard />
+    </template>
+    <template #fallback>
+      <div class="skeleton" />
+    </template>
+  </Suspense>
+</template>
+
+<style>
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+.list-enter-from, .list-leave-to { opacity: 0; transform: translateX(-20px); }
+.list-enter-active, .list-leave-active { transition: all 0.3s; }
+</style>
+```
+
+---
+
+### 1.7 Vue Router – Navigation Guards
+
+```javascript
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/dashboard',
+      component: () => import('@/views/Dashboard.vue'),
+      meta: { requiresAuth: true, requiresAdmin: false },
+      children: [
+        { path: 'profile',  component: () => import('@/views/Profile.vue') },
+        { path: 'settings', component: () => import('@/views/Settings.vue') },
+      ]
+    },
+    { path: '/:pathMatch(.*)*', component: NotFound }
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition
+    if (to.hash)       return { el: to.hash, behavior: 'smooth' }
+    return { top: 0, behavior: 'smooth' }
+  }
+})
+
+router.beforeEach(async (to, from) => {
+  const auth = useAuthStore()
+
+  // Ensure user loaded on page refresh
+  if (!auth.user && auth.token) await auth.fetchCurrentUser()
+
+  // Redirect về intended URL sau khi login
+  if (to.meta.guest && auth.isLoggedIn) return { path: '/dashboard' }
+
+  if (to.meta.requiresAuth && !auth.isLoggedIn) {
+    return { path: '/login', query: { redirect: to.fullPath } }
+  }
+
+  if (to.meta.requiresAdmin && !auth.isAdmin) {
+    return { path: '/dashboard', query: { error: 'forbidden' } }
+  }
+})
+```
+
+---
+
+## 2. Pinia / Vuex
+
+### 2.1 Pinia – Option Store
+
+```javascript
+export const useCartStore = defineStore('cart', {
+  state: () => ({ items: [], discount: 0 }),
+
+  getters: {
+    totalItems: (state) => state.items.reduce((sum, i) => sum + i.qty, 0),
+    totalPrice: (state) => {
+      const sub = state.items.reduce((s, i) => s + i.price * i.qty, 0)
+      return sub * (1 - state.discount / 100)
+    },
+  },
+
+  actions: {
+    addItem(product) {
+      const existing = this.items.find(i => i.id === product.id)
+      existing ? existing.qty++ : this.items.push({ ...product, qty: 1 })
+    },
+    removeItem(id) {
+      this.items = this.items.filter(i => i.id !== id)
+    },
+    async checkout() {
+      const order = await api.post('/orders', { items: this.items })
+      this.$reset()  // Reset state về initial
+      return order.data
+    }
+  }
+})
+```
+
+---
+
+### 2.2 Pinia – Composition Store
+
+```javascript
+export const useAuthStore = defineStore('auth', () => {
+  const user    = ref(null)
+  const token   = ref(localStorage.getItem('token'))
+  const loading = ref(false)
+
+  const isLoggedIn = computed(() => !!token.value)
+  const isAdmin    = computed(() => user.value?.role === 'admin')
+
+  async function login(credentials) {
+    loading.value = true
+    try {
+      const res = await api.post('/auth/login', credentials)
+      token.value = res.data.token
+      user.value  = res.data.user
+      localStorage.setItem('token', token.value)
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err.response?.data?.message }
+    } finally {
+      loading.value = false
+    }
+  }
+
+  function logout() {
+    token.value = null
+    user.value  = null
+    localStorage.removeItem('token')
+  }
+
+  return { user, token, loading, isLoggedIn, isAdmin, login, logout }
+})
+```
+
+---
+
+### 2.3 storeToRefs & Pinia Plugin
+
+```vue
+<script setup>
+import { storeToRefs } from 'pinia'
+
+const cartStore = useCartStore()
+
+// storeToRefs: destructure state + getters giữ reactivity
+const { items, totalItems, totalPrice } = storeToRefs(cartStore)
+// Actions lấy trực tiếp (reference stable, không cần storeToRefs)
+const { addItem, removeItem, checkout } = cartStore
+
+// $patch: update nhiều state cùng lúc
+cartStore.$patch({ discount: 10 })
+cartStore.$patch((state) => {
+  state.items.push(newItem)
+  state.discount = 15
+})
+</script>
+```
+
+```javascript
+// Pinia persist plugin
+export const useSettingStore = defineStore('setting', {
+  state: () => ({ theme: 'light', lang: 'vi' }),
+  persist: {
+    storage: localStorage,
+    paths: ['theme', 'lang'],
+  }
+})
+
+// Custom logging plugin
+pinia.use(({ store }) => {
+  store.$onAction(({ name, args, after, onError }) => {
+    console.log(`[${store.$id}] Action: ${name}`, args)
+    after((result) => console.log(`Result:`, result))
+    onError((error) => console.error(`Error:`, error))
+  })
+})
+```
+
+---
+
+### 2.4 Vuex (Legacy – Cần Biết)
+
+```javascript
+const authModule = {
+  namespaced: true,
+  state: () => ({ user: null, token: null }),
+  mutations: {
+    SET_USER(state, user) { state.user = user }     // Phải sync
+  },
+  actions: {
+    async login({ commit }, credentials) {
+      const res = await api.post('/login', credentials)
+      commit('SET_USER', res.data.user)             // Actions gọi mutations
+    }
+  },
+  getters: {
+    isAdmin: (state) => state.user?.role === 'admin'
+  }
+}
+
+// Usage
+store.dispatch('auth/login', credentials)
+store.getters['auth/isAdmin']
+
+// Pinia ưu việt hơn: không cần mutations, TypeScript tốt hơn, nhẹ hơn (~1KB vs ~4KB)
+```
+
+---
+
+## 3. Component Patterns & Performance
+
+### 3.1 Composables – Patterns Thực Tế
+
+```javascript
+// useDebounce
+export function useDebounce(fn, delay = 300) {
+  let timer = null
+  const debouncedFn = (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), delay)
+  }
+  onUnmounted(() => clearTimeout(timer))
+  return debouncedFn
+}
+
+// usePagination
+export function usePagination(fetchFn, { pageSize = 10 } = {}) {
+  const page      = ref(1)
+  const data      = ref([])
+  const total     = ref(0)
+  const loading   = ref(false)
+  const totalPages = computed(() => Math.ceil(total.value / pageSize))
+
+  async function load() {
+    loading.value = true
+    try {
+      const res   = await fetchFn({ page: page.value, limit: pageSize })
+      data.value  = res.data
+      total.value = res.total
+    } finally {
+      loading.value = false
+    }
+  }
+
+  onMounted(load)
+  return { data, page, total, totalPages, loading,
+    nextPage: () => { if (page.value < totalPages.value) { page.value++; load() } },
+    prevPage: () => { if (page.value > 1) { page.value--; load() } },
+    goTo:     (p) => { page.value = p; load() }
+  }
+}
+
+// useLocalStorage
+export function useLocalStorage(key, defaultValue) {
+  const stored = localStorage.getItem(key)
+  const data   = ref(stored ? JSON.parse(stored) : defaultValue)
+  watch(data, (val) => localStorage.setItem(key, JSON.stringify(val)), { deep: true })
+  return data
+}
+```
+
+---
+
+### 3.2 Performance Optimization
+
+```vue
+<template>
+  <!-- v-once: render 1 lần, không re-render -->
+  <AppHeader v-once />
+
+  <!-- v-memo: chỉ re-render khi deps thay đổi -->
+  <div v-for="item in bigList" :key="item.id" v-memo="[item.id, item.selected]">
+    <ExpensiveItem :item="item" />
+  </div>
+
+  <!-- KeepAlive với include và max -->
+  <KeepAlive :include="['Dashboard', 'Users']" :max="3">
+    <component :is="currentPage" />
+  </KeepAlive>
+</template>
+
+<script setup>
+import { defineAsyncComponent, shallowRef, markRaw } from 'vue'
+
+// defineAsyncComponent: code splitting
+const AsyncTable = defineAsyncComponent({
+  loader: () => import('./DataTable.vue'),
+  loadingComponent: LoadingSpinner,
+  errorComponent: ErrorDisplay,
+  delay: 200,
+  timeout: 10000,
+})
+
+// markRaw: không track 3rd party objects
+const chartInstance = shallowRef(markRaw(new Chart(...)))
+</script>
+```
+
+---
+
+### 3.3 Advanced Slots & Renderless
+
+```vue
+<!-- Renderless DataTable: logic trong component, UI do parent quyết định -->
+<script setup>
+const props = defineProps({ data: Array, pageSize: { type: Number, default: 10 } })
+
+const page  = ref(1)
+const query = ref('')
+const sortKey = ref(null)
+const sortDir = ref('asc')
+
+const filtered = computed(() =>
+  props.data.filter(row => JSON.stringify(row).toLowerCase().includes(query.value.toLowerCase()))
+)
+const sorted = computed(() => {
+  if (!sortKey.value) return filtered.value
+  return [...filtered.value].sort((a, b) => {
+    const f = sortDir.value === 'asc' ? 1 : -1
+    return f * String(a[sortKey.value]).localeCompare(String(b[sortKey.value]))
+  })
+})
+const totalPages = computed(() => Math.ceil(sorted.value.length / props.pageSize))
+const rows = computed(() => sorted.value.slice((page.value - 1) * props.pageSize, page.value * props.pageSize))
+
+function sortBy(key) {
+  if (sortKey.value === key) sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+  else { sortKey.value = key; sortDir.value = 'asc' }
+}
+</script>
+
+<template>
+  <slot :rows="rows" :page="page" :totalPages="totalPages" :sortKey="sortKey"
+        :sortDir="sortDir" :sortBy="sortBy" :onSearch="(q) => { query = q; page = 1 }"
+        :goToPage="(p) => page = p" />
+</template>
+```
+
+---
+
+## 4. Nuxt.js – SSR & SEO
+
+### 4.1 Rendering Modes & routeRules
+
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  ssr: true,
+
+  routeRules: {
+    '/':             { prerender: true },      // SSG
+    '/blog/**':      { prerender: true },      // SSG
+    '/products/**':  { swr: 3600 },           // ISR: cache 1h, revalidate background
+    '/dashboard/**': { ssr: false },           // CSR (no SEO needed)
+    '/admin/**':     { ssr: false },
+    '/old-page':     { redirect: '/new-page' },
+  },
+
+  runtimeConfig: {
+    apiSecret: '',             // Server only
+    public: {
+      apiBase: '/api',         // Client + server
+      siteUrl: 'https://myapp.com'
+    }
+  }
+})
+```
+
+---
+
+### 4.2 Data Fetching
+
+```vue
+<script setup>
+// useFetch: SSR + cache + reactive (dùng URL làm cache key)
+const { data: products, pending, error, refresh } = await useFetch('/api/products', {
+  query: { page: currentPage },
+  transform: (res) => res.data,
+  watch: [currentPage],             // Auto re-fetch khi thay đổi
+  key: `products-${currentPage.value}`,
+  lazy: true,                       // Không block render
+})
+
+// useAsyncData: multiple fetches, custom logic
+const { data: dashboard } = await useAsyncData('dashboard', async () => {
+  const [stats, orders, products] = await Promise.all([
+    $fetch('/api/stats'),
+    $fetch('/api/orders?limit=5'),
+    $fetch('/api/products?sort=sales'),
+  ])
+  return { stats, orders, products }
+})
+
+// $fetch: trong event handlers (không SSR, không cache)
+async function save(data) {
+  const result = await $fetch('/api/products', { method: 'POST', body: data })
+  await refreshNuxtData('products-list')  // Invalidate cache
+}
+</script>
+```
+
+> **Bảng so sánh:**
+> | | `useFetch` | `useAsyncData` | `$fetch` |
+> |---|---|---|---|
+> | SSR | ✅ | ✅ | ❌ |
+> | Cache | ✅ auto | ✅ custom key | ❌ |
+> | Reactive | ✅ | ✅ | ❌ |
+> | Dùng khi | Simple API | Complex/parallel | Event handlers |
+
+---
+
+### 4.3 SEO – useSeoMeta
+
+```vue
+<script setup>
+const { data: product } = await useFetch(`/api/products/${route.params.id}`)
+
+useSeoMeta({
+  title:           () => `${product.value?.name} | Shop`,
+  description:     () => product.value?.description?.slice(0, 160),
+  ogTitle:         () => product.value?.name,
+  ogDescription:   () => product.value?.description?.slice(0, 160),
+  ogImage:         () => product.value?.thumbnail,
+  twitterCard:     'summary_large_image',
+})
+
+// Canonical
+useHead({
+  link: [{ rel: 'canonical', href: `https://myapp.com/products/${route.params.id}` }]
+})
+</script>
+```
+
+---
+
+### 4.4 Middleware & Plugins
+
+```typescript
+// middleware/auth.ts
+export default defineNuxtRouteMiddleware((to) => {
+  const { isLoggedIn } = useAuthStore()
+  if (!isLoggedIn) return navigateTo('/login?redirect=' + to.fullPath)
+})
+
+// middleware/logger.global.ts (áp dụng tất cả routes)
+export default defineNuxtRouteMiddleware((to) => {
+  console.log('Navigating to:', to.path)
+})
+
+// plugins/api.ts
+export default defineNuxtPlugin((nuxtApp) => {
+  const config = useRuntimeConfig()
+  const api = axios.create({ baseURL: config.public.apiBase })
+
+  api.interceptors.request.use((config) => {
+    const token = useCookie('token').value
+    if (token) config.headers.Authorization = `Bearer ${token}`
+    return config
+  })
+
+  return { provide: { api } }
+})
+```
+
+---
+
+## 5. Figma → Code
+
+### 5.1 CSS Design Tokens
+
+```css
+:root {
+  /* Colors */
+  --color-primary:        #6366f1;
+  --color-primary-hover:  #4f46e5;
+  --color-primary-light:  #e0e7ff;
+  --color-text-primary:   #111827;
+  --color-text-secondary: #6b7280;
+  --color-bg:             #ffffff;
+  --color-bg-subtle:      #f9fafb;
+  --color-border:         #e5e7eb;
+  --color-success:        #10b981;
+  --color-warning:        #f59e0b;
+  --color-error:          #ef4444;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.25rem;   /* 20px */
+  --text-2xl:  1.5rem;    /* 24px */
+  --text-4xl:  2.25rem;   /* 36px */
+  --font-medium:  500;
+  --font-semibold: 600;
+  --font-bold:    700;
+
+  /* Spacing (8px base grid) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* Border radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:           #111827;
+    --color-bg-subtle:    #1f2937;
+    --color-text-primary: #f9fafb;
+    --color-border:       #374151;
+  }
+}
+```
+
+---
+
+### 5.2 Flexbox & Grid Patterns
+
+```css
+/* Flex utilities */
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+
+/* Auto-fit grid (responsive cards) */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Holy Grail layout */
+.app-layout {
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-areas: "header" "main" "footer";
+    grid-template-columns: 1fr;
+  }
+  .sidebar { display: none; }
+}
+
+/* Animation */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: var(--radius-sm);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; }
+}
+```
+
+
+---
+
+## 6. Laravel Framework & Nâng Cao
+
+### 6.1 Request Lifecycle
+
+
+
+---
+
+### 6.2 Eloquent Relationships
+
+
+
+---
+
+### 6.3 FormRequest & Resource
+
+
+
+---
+
+### 6.4 Service Container & Dependency Injection
+
+
+
+---
+
+### 6.5 Middleware
+
+
+
+---
+
+### 6.6 Migrations Best Practices
+
+
+
+> **cascade vs restrict vs nullOnDelete:**
+> - : xóa parent → xóa con (pivot tables)
+> - : block nếu còn con (tài chính, lịch sử đơn hàng)
+> - : xóa parent → con.FK = null (category hierarchy)
+
+---
+
+### 6.7 Queue & Job & Event
+
+
+
+---
+
+### 6.8 Observer Pattern
+
+
+
+---
+
+## 7. RESTful API & Bảo Mật
+
+### 7.1 JWT Strategy
+
+
+
+---
+
+### 7.2 Axios Interceptors với Queue
+
+Bearer ${token}Bearer ${newToken}
+
+---
+
+### 7.3 Laravel Sanctum & Policy
+
+
+
+---
+
+### 7.4 Security Checklist
+
+
+
+---
+
+## 8. Q&A Phỏng Vấn Chi Tiết
+
+### Vue.js
+
+**Q: ref vs reactive?**
+>  dùng cho mọi kiểu, cần .  chỉ cho object/array, không cần  nhưng mất reactivity khi destructure → dùng .
+
+**Q: v-show vs v-if?**
+>  = CSS  (DOM vẫn tồn tại, mount một lần).  = mount/unmount thật sự (tốt hơn nếu thường xuyên hidden, tệ hơn nếu toggle liên tục).
+
+**Q: computed vs method?**
+>  = cached, chỉ tính lại khi dependency thay đổi.  = tính lại mỗi render. Dùng  cho derived state,  cho actions.
+
+**Q: KeepAlive hoạt động thế nào?**
+> Cache component instance trong memory thay vì destroy khi ẩn. Thêm hai lifecycle:  (kích hoạt) và  (ẩn). Giới hạn bằng , , .
+
+**Q: Tại sao dùng Composition API thay Options API?**
+> Logic reuse tốt hơn (composables vs mixins). TypeScript inference tốt hơn. Code theo feature thay vì theo option type. Tree-shaking tốt hơn.
+
+---
+
+### Pinia / State
+
+**Q: storeToRefs dùng khi nào?**
+> Khi destructure store để dùng trong template. State và getters cần  để giữ reactivity. Actions lấy trực tiếp (không cần).
+
+**Q: Pinia vs Vuex?**
+> Pinia: không cần mutations, TypeScript tốt hơn, nhẹ hơn (~1KB vs ~4KB), modular tự nhiên, devtools tốt hơn.
+
+---
+
+### Nuxt.js
+
+**Q: SSR vs SSG vs ISR vs CSR?**
+> SSR: server render mỗi request (SEO + data fresh). SSG: build time render (nhanh nhất, không dynamic). ISR: SSG + background revalidate sau TTL. CSR: client render (không SEO, dùng để dashboard).
+
+**Q: useFetch vs ?**
+>  = SSR-aware, cached, reactive.  = raw HTTP, không cache, dùng trong event handlers.
+
+---
+
+### Laravel
+
+**Q: Service Container là gì?**
+> IoC container quản lý dependency injection. Bind interface → implementation. Controller nhận interface qua constructor, Container auto-resolve đúng implementation. Dễ swap (StripeGateway → VNPayGateway) và mock trong tests.
+
+**Q: N+1 là gì và fix thế nào?**
+> N+1: 1 query lấy N records, sau đó N thêm queries cho quan hệ. Fix:  eager loading, , . Detect với Laravel Telescope hoặc .
+
+**Q: cascade vs restrict trong FK?**
+> : xóa parent → tự xóa con (pivot). : block xóa nếu còn con (tài chính). : con.FK = null (category hierarchy).
+
+**Q: Job vs Event/Listener?**
+> Job: 1 async task cụ thể. Event: fire business event → nhiều Listeners. Event tốt cho loose coupling (1 event, nhiều side effects).
+
+---
+
+### API & Security
+
+**Q: 401 vs 403?**
+> 401 = Unauthorized (chưa xác thực, không biết bạn là ai). 403 = Forbidden (biết bạn là ai, nhưng không có quyền).
+
+**Q: Tại sao không dùng localStorage cho JWT?**
+> XSS attack có thể đọc localStorage. httpOnly cookie không thể đọc bằng JavaScript. Tradeoff: cookie dễ bị CSRF hơn → cần CSRF token hoặc SameSite=Strict.
+
+---
+---
+
+## 9. TypeScript + Vue 3
+
+### 9.1 Props & Emits với TypeScript
+
+```vue
+<script setup lang="ts">
+interface Product {
+  id: number
+  name: string
+  price: number
+  status: 'active' | 'inactive' | 'draft'
+  tags?: string[]
+}
+
+// Props với TypeScript
+const props = withDefaults(defineProps<{
+  product: Product
+  isLoading?: boolean
+  pageSize?: number
+}>(), {
+  isLoading: false,
+  pageSize: 10,
+})
+
+// Emits với TypeScript (Vue 3.3+ shorthand)
+const emit = defineEmits<{
+  update: [id: number, data: Partial<Product>]
+  delete: [id: number]
+  'update:modelValue': [value: string]
+}>()
+
+// defineExpose
+const inputRef = ref<HTMLInputElement | null>(null)
+defineExpose({ focus: () => inputRef.value?.focus() })
+</script>
+```
+
+---
+
+### 9.2 Composable Generic với TS
+
+```typescript
+// composables/useApiFetch.ts
+interface FetchState<T> {
+  data: Ref<T | null>
+  loading: Ref<boolean>
+  error: Ref<Error | null>
+  refresh: () => Promise<void>
+}
+
+export function useApiFetch<T>(url: string | Ref<string>): FetchState<T> {
+  const data    = ref<T | null>(null) as Ref<T | null>
+  const loading = ref(false)
+  const error   = ref<Error | null>(null)
+
+  async function load() {
+    loading.value = true
+    error.value   = null
+    try {
+      const res = await fetch(unref(url))
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      data.value = await res.json() as T
+    } catch (e) {
+      error.value = e instanceof Error ? e : new Error(String(e))
+    } finally {
+      loading.value = false
+    }
+  }
+
+  watchEffect(() => { unref(url); load() })
+
+  return { data, loading, error, refresh: load }
+}
+
+// Usage: TypeScript biết đầy đủ types
+const { data: products } = useApiFetch<Product[]>('/api/products')
+// products: Ref<Product[] | null>
+```
+
+---
+
+### 9.3 Pinia + TypeScript
+
+```typescript
+interface AuthState {
+  user: User | null
+  token: string | null
+}
+
+export const useAuthStore = defineStore('auth', {
+  state: (): AuthState => ({ user: null, token: null }),
+
+  getters: {
+    isLoggedIn: (state): boolean => !!state.token,
+    isAdmin:    (state): boolean => state.user?.role === 'admin',
+  },
+
+  actions: {
+    async login(creds: { email: string; password: string }): Promise<void> {
+      const res = await api.post<{ token: string; user: User }>('/auth/login', creds)
+      this.token = res.data.token
+      this.user  = res.data.user
+    },
+    logout(): void { this.$patch({ user: null, token: null }) }
+  }
+})
+```
+
+---
+
+### 9.4 Vue Router TypeScript
+
+```typescript
+// Extend RouteMeta
+declare module 'vue-router' {
+  interface RouteMeta {
+    requiresAuth?: boolean
+    layout?: 'default' | 'auth' | 'admin'
+    title?: string
+  }
+}
+
+const routes: RouteRecordRaw[] = [{
+  path: '/dashboard',
+  component: () => import('@/pages/Dashboard.vue'),
+  meta: { requiresAuth: true, layout: 'default', title: 'Dashboard' }
+}]
+
+// Type-safe params
+const route = useRoute()
+const id = Number(route.params.id)        // Cast needed
+route.meta.requiresAuth                    // boolean | undefined
+```
+
+---
+
+## 10. Testing
+
+### 10.1 Vue Component Testing – Vitest + Vue Test Utils
+
+```typescript
+import { describe, it, expect, vi } from 'vitest'
+import { mount } from '@vue/test-utils'
+import { createPinia } from 'pinia'
+import ProductCard from '@/components/ProductCard.vue'
+
+const mockProduct = { id: 1, name: 'Nike Air Max', price: 2500000, status: 'active' }
+
+describe('ProductCard', () => {
+  it('renders product name', () => {
+    const wrapper = mount(ProductCard, {
+      props: { product: mockProduct },
+      global: { plugins: [createPinia()] }
+    })
+    expect(wrapper.find('[data-testid="product-name"]').text()).toBe('Nike Air Max')
+  })
+
+  it('emits add-to-cart with product on button click', async () => {
+    const wrapper = mount(ProductCard, { props: { product: mockProduct } })
+    await wrapper.find('[data-testid="add-to-cart"]').trigger('click')
+    expect(wrapper.emitted('add-to-cart')?.[0]).toEqual([mockProduct])
+  })
+
+  it('button disabled when isLoading=true', () => {
+    const wrapper = mount(ProductCard, { props: { product: mockProduct, isLoading: true } })
+    expect(wrapper.find('[data-testid="add-to-cart"]').attributes('disabled')).toBeDefined()
+  })
+})
+```
+
+---
+
+### 10.2 Pinia Store Testing
+
+```typescript
+import { setActivePinia, createPinia } from 'pinia'
+import { useCartStore } from '@/stores/useCartStore'
+
+describe('useCartStore', () => {
+  beforeEach(() => { setActivePinia(createPinia()) })  // Fresh pinia per test
+
+  it('increments qty for duplicate items', () => {
+    const cart = useCartStore()
+    cart.addItem(mockProduct)
+    cart.addItem(mockProduct)
+    expect(cart.items).toHaveLength(1)
+    expect(cart.items[0].qty).toBe(2)
+  })
+
+  it('calculates totalPrice correctly', () => {
+    const cart = useCartStore()
+    cart.addItem({ id: 1, price: 100_000 })
+    cart.addItem({ id: 1, price: 100_000 })  // qty → 2
+    expect(cart.totalPrice).toBe(200_000)
+  })
+})
+```
+
+---
+
+### 10.3 Laravel Feature Testing
+
+```php
+class OrderTest extends TestCase {
+    use RefreshDatabase;
+
+    public function test_checkout_decrements_stock(): void {
+        $user    = User::factory()->create();
+        $product = Product::factory()->create(['stock' => 10]);
+
+        $this->actingAs($user)
+             ->postJson('/api/checkout', ['items' => [['product_id' => $product->id, 'qty' => 3]]])
+             ->assertCreated();
+
+        $this->assertDatabaseHas('products', ['id' => $product->id, 'stock' => 7]);
+    }
+
+    public function test_checkout_fails_when_stock_insufficient(): void {
+        $user    = User::factory()->create();
+        $product = Product::factory()->create(['stock' => 2]);
+
+        $this->actingAs($user)
+             ->postJson('/api/checkout', ['items' => [['product_id' => $product->id, 'qty' => 5]]])
+             ->assertUnprocessable()
+             ->assertJsonValidationErrorFor('items.0.qty');
+    }
+
+    public function test_checkout_sends_email(): void {
+        Mail::fake();
+        $user    = User::factory()->create();
+        $product = Product::factory()->create(['stock' => 10]);
+
+        $this->actingAs($user)
+             ->postJson('/api/checkout', ['items' => [['product_id' => $product->id, 'qty' => 1]]])
+             ->assertCreated();
+
+        Mail::assertSent(OrderConfirmationMail::class, fn($mail) => $mail->hasTo($user->email));
+    }
+
+    public function test_checkout_dispatches_processing_job(): void {
+        Queue::fake();
+        $user    = User::factory()->create();
+        $product = Product::factory()->create(['stock' => 10]);
+
+        $this->actingAs($user)
+             ->postJson('/api/checkout', ['items' => [['product_id' => $product->id, 'qty' => 1]]])
+             ->assertCreated();
+
+        Queue::assertPushed(ProcessOrderJob::class);
+    }
+}
+```
+
+---
+
+## 11. Laravel Architecture Patterns
+
+### 11.1 Repository Pattern
+
+```php
+interface ProductRepositoryInterface {
+    public function all(array $filters = []): LengthAwarePaginator;
+    public function findById(int $id): Product;
+    public function create(array $data): Product;
+    public function update(int $id, array $data): Product;
+    public function delete(int $id): bool;
+}
+
+class EloquentProductRepository implements ProductRepositoryInterface {
+    public function all(array $filters = []): LengthAwarePaginator {
+        return Product::query()
+            ->when($filters['search'] ?? null, fn($q, $s) => $q->where('name', 'like', "%{$s}%"))
+            ->when($filters['category_id'] ?? null, fn($q, $id) => $q->where('category_id', $id))
+            ->with('category')
+            ->orderBy($filters['sort'] ?? 'created_at', $filters['dir'] ?? 'desc')
+            ->paginate($filters['per_page'] ?? 15);
+    }
+
+    public function create(array $data): Product { return Product::create($data); }
+
+    public function update(int $id, array $data): Product {
+        return tap(Product::findOrFail($id), fn($p) => $p->update($data))->fresh();
+    }
+}
+
+// ServiceProvider bind
+$this->app->bind(ProductRepositoryInterface::class, EloquentProductRepository::class);
+```
+
+---
+
+### 11.2 Service Layer Pattern
+
+```php
+class OrderService {
+    public function __construct(
+        private OrderRepository   $orders,
+        private ProductRepository $products,
+    ) {}
+
+    public function checkout(User $user, array $items): Order {
+        // Validate stock first
+        foreach ($items as $item) {
+            $product = $this->products->findById($item['product_id']);
+            if ($product->stock < $item['qty']) {
+                throw new InsufficientStockException($product, $item['qty']);
+            }
+        }
+
+        return DB::transaction(function () use ($user, $items) {
+            $order = $this->orders->create(['user_id' => $user->id, 'status' => 'pending']);
+            foreach ($items as $item) {
+                $order->items()->create($item);
+                Product::find($item['product_id'])->decrement('stock', $item['qty']);
+            }
+            OrderPlaced::dispatch($order);
+            return $order;
+        });
+    }
+}
+
+// Thin controller
+class OrderController extends Controller {
+    public function __construct(private OrderService $service) {}
+
+    public function store(CheckoutRequest $request): JsonResponse {
+        try {
+            $order = $this->service->checkout(auth()->user(), $request->validated('items'));
+            return response()->json(new OrderResource($order), 201);
+        } catch (InsufficientStockException $e) {
+            return response()->json(['error' => $e->getMessage()], 422);
+        }
+    }
+}
+```
+
+---
+
+## 12. CSS Nâng Cao – Dark Mode & A11y
+
+### 12.1 Dark Mode
+
+```css
+/* Class-based (user toggle) */
+:root {
+  --bg:   #ffffff;
+  --text: #111827;
+  --card: #f9fafb;
+}
+.dark {
+  --bg:   #0f172a;
+  --text: #f1f5f9;
+  --card: #1e293b;
+}
+```
+
+```javascript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@nuxtjs/color-mode'],
+  colorMode: {
+    preference: 'system',  // 'system' | 'light' | 'dark'
+    classSuffix: '',        // dùng class 'dark' không phải 'dark-mode'
+  }
+})
+```
+
+---
+
+### 12.2 Accessibility (a11y)
+
+```vue
+<template>
+  <!-- Semantic HTML -->
+  <nav aria-label="Main navigation">
+    <a href="/dashboard" aria-current="page">Dashboard</a>
+  </nav>
+
+  <!-- Icon buttons: luôn cần aria-label -->
+  <button aria-label="Xóa sản phẩm Nike Air Max" @click="deleteProduct">
+    🗑️
+  </button>
+
+  <!-- Modal -->
+  <Teleport to="body">
+    <div v-if="isOpen" role="dialog" aria-modal="true"
+         aria-labelledby="modal-title" @keydown.esc="isOpen = false">
+      <h2 id="modal-title">Xác nhận xóa</h2>
+    </div>
+  </Teleport>
+
+  <!-- Live region: screen reader tự đọc khi content thay đổi -->
+  <div aria-live="polite" class="sr-only">{{ statusMessage }}</div>
+</template>
+
+<style>
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;
+}
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+</style>
+```
+
+---
+
+## 13. Câu Hỏi Senior & Quick Reference
+
+### 13.1 Vue 3 Proxy vs Vue 2 defineProperty
+
+```javascript
+// Vue 2: Object.defineProperty – không detect thêm/xóa property
+const data = { name: 'A' }
+// Không detect: data.newKey = 'val'  → cần Vue.set()
+// Không detect: arr[0] = 'x'         → cần Vue.set(arr, 0, 'x')
+
+// Vue 3: Proxy – intercepts mọi operation
+const proxy = new Proxy({ name: 'A' }, {
+  get(target, key)  { track(target, key); return target[key]; },
+  set(target, key, val) { target[key] = val; trigger(target, key); return true; },
+  deleteProperty(target, key) { delete target[key]; trigger(target, key); return true; }
+})
+// Vue 3 detect: data.newKey = 'val'   → reactive tự động!
+// Vue 3 detect: delete data.name       → reactive tự động!
+```
+
+---
+
+### 13.2 Câu Hỏi Nhanh – Quick Reference Table
+
+| Câu hỏi | Trả lời cốt lõi |
+|---|---|
+| `ref` vs `reactive` | `ref` = primitive + `.value`; `reactive` = object, mất reactive khi destructure |
+| `watch` vs `watchEffect` | `watch` = explicit source, lazy; `watchEffect` = auto deps, eager |
+| `v-show` vs `v-if` | `v-show` = CSS display; `v-if` = mount/unmount thật |
+| `computed` vs `method` | `computed` = cached; `method` = tính mỗi render |
+| KeepAlive | Cache component instance; `onActivated`/`onDeactivated` |
+| Teleport | Render ra ngoài DOM tree (modal, tooltip) |
+| Pinia vs Vuex | Pinia: không mutations, TS tốt hơn, nhẹ hơn, modular |
+| `useFetch` vs `$fetch` Nuxt | `useFetch` = SSR + cached + reactive; `$fetch` = raw, event handlers |
+| JWT vs Session | JWT = stateless client-side; Session = stateful server-side |
+| `hasMany` vs `belongsTo` | `hasMany` ở owner; `belongsTo` ở bảng có FK |
+| N+1 fix | `with()`, `withCount()`, `withAvg()` eager loading |
+| `cascade` vs `restrict` | cascade = xóa con; restrict = block xóa |
+| 401 vs 403 | 401 = chưa xác thực; 403 = không đủ quyền |
+| `once` Vue 3.4+ | `watch(..., { once: true })` = chạy 1 lần rồi dừng |
+| XSS prevention Vue | Không dùng `v-html` với user data; dùng DOMPurify |
+| Hydration mismatch | Server render khác client → `ClientOnly`, `useState` |
+| CSRF Laravel | `VerifyCsrfToken` web routes; SameSite cookie API |
+
+---
+
+### 13.3 WebSocket vs SSE vs Polling
+
+| | Polling | SSE | WebSocket |
+|---|---|---|---|
+| Hướng | Client → Server (pull) | Server → Client (push) | 2 chiều |
+| Complexity | Thấp | Trung bình | Cao |
+| Reconnect | Tự cài | Tự động | Cần xử lý |
+| Dùng khi | Đơn giản, delay OK | Notifications, live feed, progress | Chat, game, collaborative |
+
+---
+
+### 13.4 Take-Home Test Tips
+
+```
+Code quality > số lượng features:
+- TypeScript interfaces cho tất cả types
+- Composables tách biệt logic
+- Error handling đầy đủ (loading, error, empty states)
+- Ít nhất 1 test (happy path)
+- README với setup + assumptions
+
+Điểm cộng:
+- Pagination (không load all data)
+- Loading skeleton (không chỉ spinner)
+- Optimistic updates
+- a11y cơ bản (aria-label, keyboard nav)
+- Git history rõ ràng
+
+Tránh:
+- Console.log còn sót
+- Không có README
+- N+1 queries
+- Không validate input
+- Hard-coded data
+```
+
+---
+
+### 13.5 STAR Method & Hỏi Ngược
+
+```
+STAR Method:
+S – Situation: Bối cảnh, vấn đề gặp phải
+T – Task: Nhiệm vụ của BẠN cụ thể
+A – Action: Hành động BẠN đã làm (không phải "team")
+R – Result: Kết quả đo được (%, số, thời gian)
+
+Ví dụ: "Dashboard realtime cho 200 users đồng thời"
+S: Cần show live data, polling 30s gây lag
+T: Tôi chịu trách nhiệm thiết kế realtime layer
+A: Thử WebSocket → reconnect issue trên mobile
+   → Chuyển sang SSE + polling hybrid
+   → Redis pub/sub cho Laravel broadcast
+   → Vue composable useRealtimeData()
+R: Latency từ 2s → 200ms, bundle giảm 40KB
+
+Hỏi ngược HR:
+- "Tech stack và kế hoạch migration?"
+- "Quy trình code review? PR size target?"
+- "Deploy frequency?"
+- "Work-life balance ở đây như thế nào?"
+- "Trong 6 tháng đầu tôi làm dự án nào?"
+```
+
+---
+
+## 14. Checklist & Lộ Trình
+
+### 14.1 Self-Assessment Checklist
+
+```
+Vue.js Core:
+[ ] ref, reactive, computed, watch, watchEffect
+[ ] Lifecycle hooks (mounted, unmounted, activated)
+[ ] Props, Emits, Provide/Inject, Scoped Slots
+[ ] Custom Directives
+[ ] Performance: KeepAlive, defineAsyncComponent, v-memo
+
+Pinia:
+[ ] State, Getters, Actions
+[ ] storeToRefs vs direct destructure
+[ ] $patch, $reset, persisted state
+
+Nuxt.js:
+[ ] SSR/SSG/ISR/CSR – khi nào dùng gì
+[ ] useFetch, useAsyncData, $fetch
+[ ] useSeoMeta, useHead
+[ ] Middleware, Plugins, routeRules
+
+Laravel:
+[ ] Eloquent: relationships, N+1, scopes, accessors
+[ ] Request lifecycle & middleware
+[ ] FormRequest + Resource
+[ ] Auth: Sanctum, Policy, Gate
+[ ] Queue, Job, Event/Listener
+[ ] Testing: Feature tests, factories, fakes
+[ ] Service Container & DI
+
+API & Security:
+[ ] JWT access + refresh token flow
+[ ] Axios interceptors với queue
+[ ] OWASP Top 10 API
+[ ] Rate limiting
+
+TypeScript:
+[ ] Props/Emits với interface
+[ ] Generic composables
+[ ] Pinia typed store
+```
+
+---
+
+### 14.2 Lộ Trình 5 Tuần
+
+| Tuần | Chủ đề | Làm gì |
+|---|---|---|
+| **1** | Vue.js Foundation | Đọc Section 1-3; tự tạo component phức tạp (form + validation) |
+| **2** | Pinia + Nuxt | Đọc Section 2, 4; tạo Nuxt page + Pinia store + useFetch |
+| **3** | Laravel Core | Đọc Section 6 + 11; xây CRUD API đơn giản |
+| **4** | Advanced + Security | Đọc Section 7, 9, 10, 12; tích hợp JWT, tests |
+| **5** | Tổng ôn | Đọc lại toàn bộ; mock interview; code exercises |
+
+---
+
+### 14.3 Tài Liệu Chính Thống
+
+- [Vue 3 Docs](https://vuejs.org/guide/)
+- [Pinia Docs](https://pinia.vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Nuxt 3 Docs](https://nuxt.com/docs)
+- [Laravel Docs](https://laravel.com/docs)
+- [Laravel Sanctum](https://laravel.com/docs/sanctum)
+- [JWT.io](https://jwt.io/)
+- [OWASP API Security](https://owasp.org/API-Security/)
+- [VueUse](https://vueuse.org/)
+- [Vitest](https://vitest.dev/)

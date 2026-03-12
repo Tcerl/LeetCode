@@ -1940,6 +1940,391 @@ touch my_module/models/__init__.py
 
 ---
 
+## 🦁 PHẦN 12: ĐA KẾ THỪA TRONG ODOO — NHỮNG ĐIỀU PHẢI NHỚ
+
+> Odoo có **3 kiểu kế thừa** hoàn toàn khác nhau — dùng sai là bug khó tìm!
+
+### 12.1 Tổng Quan 3 Kiểu Kế Thừa
+
+| Cơ chế | Cú pháp | Mục đích | Bảng DB |
+|---|---|---|---|
+| **Classical** | `_inherit = 'model'` (không có `_name`) | Mở rộng model có sẵn | Cùng bảng |
+| **Prototype** | `_inherit = 'model'` + `_name = 'new.model'` | Copy & tạo model mới | Bảng mới |
+| **Delegation** | `_inherits = {'model': 'field_id'}` | Nhúng model khác qua FK | Bảng riêng, dùng JOIN |
+
+---
+
+### 12.2 Classical Inheritance — Mở Rộng Model Có Sẵn
+
+> **"IS-A"** — Thêm field/method vào model gốc, **không tạo bảng mới**
+
+```python
+# Mở rộng res.partner có sẵn của Odoo
+class ResPartner(models.Model):
+    _inherit = 'res.partner'  # ✅ Không có _name → Classical
+
+    # Thêm field mới vào bảng res_partner (ALTER TABLE ngầm)
+    loyalty_points = fields.Integer(string="Loyalty Points", default=0)
+    customer_rank_custom = fields.Selection([
+        ('bronze', 'Bronze'),
+        ('silver', 'Silver'),
+        ('gold', 'Gold'),
+    ], default='bronze')
+
+    # Override method có sẵn — LUÔN gọi super()
+    def write(self, vals):
+        result = super().write(vals)          # ✅ Gọi logic gốc trước
+        if 'loyalty_points' in vals:
+            self._check_rank_upgrade()
+        return result
+
+    def _check_rank_upgrade(self):
+        for rec in self:
+            if rec.loyalty_points >= 1000:
+                rec.customer_rank_custom = 'gold'
+            elif rec.loyalty_points >= 500:
+                rec.customer_rank_custom = 'silver'
+```
+
+**⚠️ Lưu ý quan trọng:**
+- **Không có `_name`** → Odoo tìm theo `_inherit` và **sửa trực tiếp class gốc** trong registry
+- Mọi thay đổi ảnh hưởng đến tất cả nơi dùng `res.partner`
+- Field được thêm vào **cùng bảng DB** `res_partner` (Odoo tự chạy ALTER TABLE khi install/upgrade module)
+- Dùng phổ biến nhất khi **customize module Odoo có sẵn**
+
+---
+
+### 12.3 Prototype Inheritance — Tạo Model Mới Từ Model Cũ
+
+> Tạo **bảng DB mới**, copy toàn bộ fields từ model cha
+
+```python
+# Tạo model mới kế thừa từ mail.thread để có chức năng Chatter
+class ProjectTask(models.Model):
+    _name = 'project.task'           # ✅ Có _name riêng → Prototype
+    _description = 'Project Task'
+    _inherit = ['mail.thread',       # Copy từ nhiều model (dùng list)
+                'mail.activity.mixin']
+
+    name = fields.Char(string='Task Name', required=True,
+                       tracking=True)  # tracking nhờ mail.thread
+    description = fields.Text()
+    deadline = fields.Date()
+    user_id = fields.Many2one('res.users', string='Assigned To')
+
+    # Tự động có từ mail.thread:
+    # - message_ids (Chatter messages)
+    # - message_follower_ids
+    # - activity_ids (từ mail.activity.mixin)
+```
+
+**⚠️ Lưu ý quan trọng:**
+- `_inherit` là **list** `[...]` khi kế thừa nhiều model — hoặc string nếu chỉ 1
+- Tạo **bảng riêng** `project_task`, không liên quan bảng của `mail.thread`
+- Dùng phổ biến nhất với `mail.thread` để có **Chatter (hộp thoại nội bộ)**
+- Dùng khi muốn **tạo model hoàn toàn mới** dựa trên template có sẵn
+
+#### Các mixin thường dùng trong Odoo:
+
+| Mixin | Chức năng thêm |
+|---|---|
+| `mail.thread` | Chatter, theo dõi thay đổi field (`tracking=True`) |
+| `mail.activity.mixin` | Activity (lịch hẹn, task, cuộc gọi) |
+| `portal.mixin` | Cho phép khách hàng xem qua portal |
+| `website.published.mixin` | Published/Unpublished trên website |
+
+---
+
+### 12.4 Delegation Inheritance — Nhúng Model (Composition)
+
+> **"HAS-A"** — Model con có **foreign key** trỏ đến model cha, dùng JOIN
+
+```python
+class HrEmployee(models.Model):
+    _name = 'hr.employee'
+    _description = 'Employee'
+    _inherits = {
+        'res.partner': 'address_home_id',   # FK bắt buộc phải khai báo
+        'resource.resource': 'resource_id',  # Có thể nhúng nhiều model
+    }
+    # ✅ Dùng _inherits (có 's'), không phải _inherit
+
+    # ⚠️ PHẢI khai báo FK field tương ứng trong class
+    address_home_id = fields.Many2one(
+        'res.partner',
+        string='Private Address',
+        required=True,
+        ondelete='restrict'   # Không xóa partner nếu còn employee
+    )
+    resource_id = fields.Many2one(
+        'resource.resource',
+        required=True,
+        ondelete='cascade'    # Xóa resource khi xóa employee
+    )
+
+    # Fields riêng của hr.employee (trong bảng hr_employee)
+    department_id = fields.Many2one('hr.department')
+    job_id = fields.Many2one('hr.job')
+    employee_number = fields.Char()
+
+# Cách Odoo xử lý khi ghi field delegate:
+# employee.name = "Alice"   → ghi vào bảng res_partner (JOIN)
+# employee.email = "a@b.c"  → ghi vào bảng res_partner (JOIN)
+# employee.department_id = X → ghi vào bảng hr_employee (local)
+```
+
+**⚠️ Lưu ý quan trọng:**
+- `_inherits` (có **s**) vs `_inherit` (không có **s**) — **hay nhầm nhất**
+- FK field (`address_home_id`) **bắt buộc phải khai báo** trong cùng class
+- Cẩn thận với `ondelete`: `'cascade'` xóa cả cha, `'restrict'` ngăn xóa
+- Search/Filter trên delegated field → Odoo tự JOIN — **có thể chậm hơn** nếu không có index
+
+---
+
+### 12.5 View Inheritance — Kế Thừa Giao Diện
+
+Không chỉ model, **view cũng có cơ chế inheritance riêng**:
+
+```xml
+<!-- Thêm field loyalty_points vào form res.partner có sẵn -->
+<record id="view_partner_form_inherit_loyalty" model="ir.ui.view">
+    <field name="name">res.partner.form.loyalty</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>  <!-- Kế thừa view gốc -->
+    <field name="priority">20</field>  <!-- Số nhỏ hơn = ưu tiên cao hơn -->
+    <field name="arch" type="xml">
+
+        <!-- XPATH: tìm element và chèn vào vị trí -->
+        <xpath expr="//field[@name='phone']" position="after">
+            <field name="loyalty_points" widget="integer"/>
+            <field name="customer_rank_custom"/>
+        </xpath>
+
+        <!-- Sửa thuộc tính của element -->
+        <xpath expr="//field[@name='email']" position="attributes">
+            <attribute name="required">1</attribute>
+        </xpath>
+
+        <!-- Thay thế element hoàn toàn -->
+        <xpath expr="//button[@name='action_open_website']" position="replace">
+            <button name="action_custom" string="Custom Action" type="object"/>
+        </xpath>
+
+    </field>
+</record>
+```
+
+#### Giá trị `position` trong xpath:
+
+| position | Tác dụng | Dùng khi |
+|---|---|---|
+| `after` | Thêm sau element | Chèn field mới |
+| `before` | Thêm trước element | Chèn field mới |
+| `inside` | Thêm vào trong element (cuối) | Thêm vào group/page |
+| `replace` | Thay thế element hoàn toàn | Override UI element |
+| `attributes` | Sửa thuộc tính XML | Thay đổi `required`, `invisible`, `string` |
+
+#### Cú pháp xpath hay dùng:
+
+```xml
+<!-- Tìm theo tên field -->
+<xpath expr="//field[@name='partner_id']" position="after">
+
+<!-- Tìm theo tên button -->
+<xpath expr="//button[@name='action_confirm']" position="before">
+
+<!-- Tìm theo class CSS -->
+<xpath expr="//div[@class='o_setting_box']" position="inside">
+
+<!-- Tìm notebook page -->
+<xpath expr="//notebook/page[@name='general']" position="after">
+    <page string="Loyalty" name="loyalty">
+        <field name="loyalty_points"/>
+    </page>
+</xpath>
+
+<!-- Dùng shorthand thay vì xpath (nếu name duy nhất) -->
+<field name="phone" position="after">
+    <field name="loyalty_points"/>
+</field>
+```
+
+---
+
+### 12.6 `super()` trong Odoo — Quan Trọng Nhất
+
+```python
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    # ── Override action (button) ──
+    def action_confirm(self):
+        # ✅ LUÔN gọi super() để không break logic gốc
+        result = super().action_confirm()
+        # Logic thêm của bạn chạy SAU
+        for order in self:
+            order._send_custom_notification()
+        return result   # ✅ Return kết quả của super()
+
+    # ── Override create ──
+    @api.model
+    def create(self, vals):
+        # Logic TRƯỚC khi tạo
+        if not vals.get('client_order_ref'):
+            vals['client_order_ref'] = self._generate_ref()
+        # ✅ Gọi super() để thực sự tạo record
+        record = super().create(vals)
+        # Logic SAU khi tạo
+        record._post_create_hook()
+        return record   # ✅ Phải return record
+
+    # ── Override write ──
+    def write(self, vals):
+        # Lưu giá trị cũ trước khi ghi
+        old_states = {rec.id: rec.state for rec in self}
+        result = super().write(vals)
+        # Xử lý sau khi ghi
+        if 'state' in vals:
+            for rec in self:
+                if old_states[rec.id] != rec.state:
+                    rec._on_state_change(old_states[rec.id])
+        return result   # ✅ Phải return result (True/False)
+
+    # ── Override unlink (xóa) ──
+    def unlink(self):
+        # Ngăn xóa nếu đã confirm
+        for rec in self:
+            if rec.state == 'sale':
+                raise UserError("Không thể xóa đơn hàng đã xác nhận!")
+        return super().unlink()
+```
+
+**⛔ Anti-patterns phải tránh:**
+
+```python
+# ❌ KHÔNG gọi super() → break tất cả modules khác cùng override
+def write(self, vals):
+    self.env.cr.execute("UPDATE ...")  # Bypass ORM
+    return True
+
+# ❌ KHÔNG return sai kiểu
+def create(self, vals):
+    record = super().create(vals)
+    return True   # ❌ Phải return record, không phải True
+
+# ✅ ĐÚNG
+def create(self, vals):
+    record = super().create(vals)
+    return record
+```
+
+---
+
+### 12.7 MRO trong Odoo — Cách Registry Xếp Class
+
+```python
+# Odoo Registry xếp class theo thứ tự addon load
+# Addon của bạn load SAU → nằm TRƯỚC trong MRO
+
+# Trong base addon (load trước):
+class ResPartner(models.Model):
+    _name = 'res.partner'
+    def write(self, vals):
+        print("Base write")
+        return super().write(vals)
+
+# Trong your_addon (load sau):
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+    def write(self, vals):
+        print("Your write")  # Được gọi TRƯỚC
+        return super().write(vals)
+
+# MRO thực tế trong Odoo registry:
+# [your_addon.ResPartner → base.ResPartner → models.Model → object]
+
+# Khi gọi partner.write(vals):
+# 1. your_addon.ResPartner.write()  → print "Your write"
+# 2. super() → base.ResPartner.write()  → print "Base write"
+# 3. super() → models.Model.write()  → thực sự ghi DB
+```
+
+#### Khi có nhiều addon cùng override:
+
+```
+Thứ tự load:   base → mail → sale → your_addon
+MRO:           your_addon.SO → sale.SO → mail.thread → base.SO → Model
+
+Khi gọi action_confirm():
+your_addon → (super) → sale → (super) → base → (super) → models.Model
+```
+
+> **Bí quyết**: Luôn gọi `super()` để chain hoạt động đúng với tất cả addons!
+
+---
+
+### 12.8 Sơ Đồ Chọn Kiểu Kế Thừa
+
+```
+Bạn muốn làm gì?
+│
+├─ Thêm field/method vào model Odoo có sẵn?
+│   └─► _inherit = 'model' (Classical — cùng bảng DB)
+│       Ví dụ: Thêm field vào res.partner, sale.order
+│
+├─ Tạo model mới cần chức năng của model kia?
+│   └─► _name = 'new.model' + _inherit = ['model'] (Prototype — bảng mới)
+│       Ví dụ: Model mới cần Chatter, Activity,...
+│
+├─ Module cần Chatter/Log/Activity trên form?
+│   └─► _inherit = ['mail.thread', 'mail.activity.mixin'] (Prototype)
+│
+└─ Model cần nhúng data từ model khác (tái dùng toàn bộ)?
+    └─► _inherits = {'model': 'fk_field_id'} (Delegation — JOIN)
+        Ví dụ: hr.employee nhúng res.partner, resource.resource
+```
+
+---
+
+### 12.9 Checklist Phỏng Vấn — Câu Hỏi Hay Gặp
+
+```
+Q: Sự khác nhau giữa _inherit và _inherits?
+A: _inherit  = mở rộng/copy model (Classical hoặc Prototype)
+   _inherits = delegation inheritance, dùng FK, có 's' ở cuối
+
+Q: Khi nào có _name, khi nào không?
+A: Không có _name + có _inherit → Classical (sửa model gốc, cùng bảng)
+   Có _name + có _inherit     → Prototype (model mới, bảng mới)
+
+Q: mail.thread dùng kiểu inheritance nào?
+A: Prototype — class con có _name riêng + _inherit = ['mail.thread']
+   mail.thread không tạo bảng, nó là mixin cung cấp fields và methods
+
+Q: _inherits có tạo bảng DB mới không?
+A: Có — model con có bảng riêng, Odoo dùng JOIN để lấy field từ model cha
+   Khi ghi field delegate → Odoo ghi vào bảng của model cha
+
+Q: Tại sao phải gọi super() trong override?
+A: Để chạy logic của tất cả các class trong MRO chain,
+   tránh break các module Odoo khác cùng override method đó
+
+Q: Delegation inheritance có nhược điểm gì?
+A: 1. Query chậm hơn do JOIN
+   2. ondelete phải cẩn thận (cascade vs restrict)
+   3. Khó debug hơn (field nằm ở bảng khác)
+
+Q: View inheritance dùng gì để tìm element?
+A: xpath với expr — tìm theo field name, button name, class CSS
+   position: after/before/inside/replace/attributes
+
+Q: Priority trong view inheritance là gì?
+A: Số nhỏ hơn = ưu tiên cao hơn (load trước)
+   Base views thường là priority 16, custom nên dùng 20-99
+```
+
+---
+
 ## 📚 TÀI LIỆU THAM KHẢO
 
 | Tài liệu | Link | Ưu tiên |

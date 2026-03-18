@@ -1,52 +1,61 @@
 # 🧠 GIÁO TRÌNH CẤU TRÚC DỮ LIỆU & GIẢI THUẬT (DSA)
+
 ## Từ Cơ Bản Đến Thành Thạo – Python Focused
 
-> **Cập nhật:** 2026-03-17  
-> **Mục tiêu:** Chinh phục phỏng vấn kỹ thuật & tư duy lập trình chuyên sâu  
-> **Ngôn ngữ thực hành:** Python 3  
+> **Cập nhật:** 2026-03-17
+> **Mục tiêu:** Chinh phục phỏng vấn kỹ thuật & tư duy lập trình chuyên sâu
+> **Ngôn ngữ thực hành:** Python 3
 
 ---
 
 ## 📋 MỤC LỤC
 
-| # | Chủ đề | Level | Tuần |
-|---|--------|-------|------|
-| [1](#1-big-o-notation--tư-duy-tối-ưu) | Big O Notation & Tư duy tối ưu | 🟢 Cơ bản | Tuần 1 |
-| [2](#2-đệ-quy-recursion) | Đệ quy (Recursion) | 🟢 Cơ bản | Tuần 1 |
-| [3](#3-mảng-array--kỹ-thuật-cốt-lõi) | Mảng (Array) & Kỹ thuật cốt lõi | 🟢 Cơ bản | Tuần 2 |
-| [4](#4-danh-sách-liên-kết-linked-list) | Danh sách liên kết (Linked List) | 🟡 Trung bình | Tuần 2 |
-| [5](#5-ngăn-xếp-stack) | Ngăn xếp (Stack) | 🟡 Trung bình | Tuần 3 |
-| [6](#6-hàng-đợi-queue) | Hàng đợi (Queue) | 🟡 Trung bình | Tuần 3 |
-| [7](#7-bảng-băm-hash-table) | Bảng băm (Hash Table) | 🟡 Trung bình | Tuần 4 |
-| [8](#8-cây-nhị-phân--bst) | Cây nhị phân & BST | 🔴 Nâng cao | Tuần 5 |
-| [9](#9-heap--priority-queue) | Heap & Priority Queue | 🔴 Nâng cao | Tuần 5 |
-| [10](#10-đồ-thị-graph) | Đồ thị (Graph) | 🔴 Nâng cao | Tuần 6 |
-| [11](#11-trie) | Trie (Cây tiền tố) | 🔴 Nâng cao | Tuần 6 |
-| [12](#12-sắp-xếp-sorting-algorithms) | Các thuật toán sắp xếp | 🟡 Trung bình | Tuần 3 |
-| [13](#13-tìm-kiếm-nhị-phân-binary-search) | Tìm kiếm nhị phân | 🟡 Trung bình | Tuần 3 |
-| [14](#14-pattern-sliding-window) | Pattern: Sliding Window | 🔴 Nâng cao | Tuần 7 |
-| [15](#15-pattern-two-pointers) | Pattern: Two Pointers | 🔴 Nâng cao | Tuần 7 |
-| [16](#16-quy-hoạch-động-dynamic-programming) | Quy hoạch động (DP) | 🔴 Nâng cao | Tuần 8 |
-| [17](#17-greedy-algorithms) | Greedy Algorithms | 🔴 Nâng cao | Tuần 8 |
+| #                                            | Chủ đề                            | Level          | Tuần   |
+| -------------------------------------------- | ------------------------------------ | -------------- | ------- |
+| [1](#1-big-o-notation--tư-duy-tối-ưu)        | Big O Notation & Tư duy tối ưu    | 🟢 Cơ bản    | Tuần 1 |
+| [2](#2-đệ-quy-recursion)                      | Đệ quy (Recursion)                 | 🟢 Cơ bản    | Tuần 1 |
+| [3](#3-mảng-array--kỹ-thuật-cốt-lõi)       | Mảng (Array) & Kỹ thuật cốt lõi | 🟢 Cơ bản    | Tuần 2 |
+| [4](#4-danh-sách-liên-kết-linked-list)       | Danh sách liên kết (Linked List)  | 🟡 Trung bình | Tuần 2 |
+| [5](#5-ngăn-xếp-stack)                        | Ngăn xếp (Stack)                   | 🟡 Trung bình | Tuần 3 |
+| [6](#6-hàng-đợi-queue)                       | Hàng đợi (Queue)                  | 🟡 Trung bình | Tuần 3 |
+| [7](#7-bảng-băm-hash-table)                   | Bảng băm (Hash Table)              | 🟡 Trung bình | Tuần 4 |
+| [8](#8-cây-nhị-phân--bst)                    | Cây nhị phân & BST                | 🔴 Nâng cao   | Tuần 5 |
+| [9](#9-heap--priority-queue)                    | Heap & Priority Queue                | 🔴 Nâng cao   | Tuần 5 |
+| [10](#10-đồ-thị-graph)                       | Đồ thị (Graph)                    | 🔴 Nâng cao   | Tuần 6 |
+| [11](#11-trie)                                  | Trie (Cây tiền tố)                | 🔴 Nâng cao   | Tuần 6 |
+| [12](#12-sắp-xếp-sorting-algorithms)          | Các thuật toán sắp xếp          | 🟡 Trung bình | Tuần 3 |
+| [13](#13-tìm-kiếm-nhị-phân-binary-search)   | Tìm kiếm nhị phân                | 🟡 Trung bình | Tuần 3 |
+| [14](#14-pattern-sliding-window)                | Pattern: Sliding Window              | 🔴 Nâng cao   | Tuần 7 |
+| [15](#15-pattern-two-pointers)                  | Pattern: Two Pointers                | 🔴 Nâng cao   | Tuần 7 |
+| [16](#16-quy-hoạch-động-dynamic-programming) | Quy hoạch động (DP)               | 🔴 Nâng cao   | Tuần 8 |
+| [17](#17-greedy-algorithms)                     | Greedy Algorithms                    | 🔴 Nâng cao   | Tuần 8 |
+| [18](#18-backtracking-quay-lui)                | Quay lui (Backtracking)            | 🔴 Nâng cao   | Tuần 9 |
+| [19](#19-union-find-dsu)                      | Union-Find (DSU)                   | 🔴 Nâng cao   | Tuần 9 |
+| [20](#20-bit-manipulation-thao-tác-bit)     | Thao tác Bit (Bit Manipulation)    | 🟡 Trung bình | Tuần 4 |
+| [21](#21-pattern-recognition-guide)           | Hướng dẫn nhận diện Pattern        | ⭐ QUAN TRỌNG | Mọi lúc |
+| [22](#22-neetcode-75-curated-list)             | List NeetCode 75 (Chọn lọc)       | 🚀 Chiến thực | -       |
+| [23](#23-advanced-learning-strategies)         | Chiến lược học tập (Advanced)      | 🧠 Tư duy      | -       |
 
 ---
 
 ## 1. Big O Notation & Tư Duy Tối Ưu
 
 ### 📚 Khái niệm
+
 Big O là cách đánh giá **hiệu năng** (thời gian và bộ nhớ) của thuật toán khi dữ liệu đầu vào tăng lên.
 
-| Ký hiệu | Tên | Ví dụ thực tế |
-|---------|-----|---------------|
-| O(1) | Constant | Truy cập phần tử mảng qua index |
-| O(log n) | Logarithmic | Binary Search |
-| O(n) | Linear | Duyệt toàn bộ mảng |
-| O(n log n) | Linearithmic | Merge Sort, Quick Sort |
-| O(n²) | Quadratic | Bubble Sort, vòng lặp lồng nhau |
-| O(2ⁿ) | Exponential | Fibonacci đệ quy không tối ưu |
-| O(n!) | Factorial | Sinh tất cả hoán vị |
+| Ký hiệu  | Tên         | Ví dụ thực tế                   |
+| ---------- | ------------ | ----------------------------------- |
+| O(1)       | Constant     | Truy cập phần tử mảng qua index |
+| O(log n)   | Logarithmic  | Binary Search                       |
+| O(n)       | Linear       | Duyệt toàn bộ mảng              |
+| O(n log n) | Linearithmic | Merge Sort, Quick Sort              |
+| O(n²)     | Quadratic    | Bubble Sort, vòng lặp lồng nhau  |
+| O(2ⁿ)     | Exponential  | Fibonacci đệ quy không tối ưu  |
+| O(n!)      | Factorial    | Sinh tất cả hoán vị             |
 
 ### 💡 Quy tắc phân tích nhanh
+
 1. **Bỏ hằng số:** `O(2n)` → `O(n)`
 2. **Bỏ số hạng nhỏ hơn:** `O(n² + n)` → `O(n²)`
 3. **Hai vòng lặp nối tiếp:** `O(n + m)`
@@ -91,6 +100,7 @@ print(f"O(n):  {time.time() - start:.6f}s")
 ```
 
 ### 📝 Space Complexity (Độ phức tạp không gian)
+
 ```python
 # O(1) space - không dùng thêm bộ nhớ
 def reverse_in_place(arr):
@@ -107,6 +117,7 @@ def reverse_new_array(arr):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#1** – Two Sum → O(n) bằng HashMap
 2. LeetCode **#217** – Contains Duplicate → O(n) bằng Set
 3. LeetCode **#121** – Best Time to Buy and Sell Stock → O(n) một lượt duyệt
@@ -116,9 +127,11 @@ def reverse_new_array(arr):
 ## 2. Đệ Quy (Recursion)
 
 ### 📚 Khái niệm
+
 Hàm gọi chính nó để giải quyết bài toán con nhỏ hơn.
 
 **3 thành phần bắt buộc:**
+
 1. **Base case:** Điều kiện dừng (tránh infinite loop).
 2. **Recursive case:** Gọi đệ quy với bài toán nhỏ hơn.
 3. **Trust the recursion:** Tin rằng lời gọi đệ quy sẽ trả về đúng.
@@ -147,7 +160,12 @@ def fibonacci(n, memo={}):
 # Fibonacci CÓ memoization: O(n) → NHANH
 ```
 
-### 🌳 Đệ quy và Call Stack
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Divide & Conquer (Chia để trị):** Chia bài toán lớn thành các bài toán con độc lập (vd: Merge Sort, Quick Sort).
+2.  **Memoization (Ghi nhớ):** Lưu kết quả các lời gọi hàm trùng lặp để tránh tính toán lại (vd: Fibonacci).
+3.  **Backtracking (Quay lui):** Thử tất cả các nhánh và quay lại khi gặp nhánh cụ thể không thỏa mãn (xem thêm chương 18).
+4.  **Xác định Base Case:** Luôn bắt đầu bằng việc xác định điều kiện dừng để tránh lỗi Stack Overflow.
 
 ```
 factorial(4)
@@ -163,6 +181,7 @@ factorial(4)
 > ⚠️ **Lỗi thường gặp:** Quên Base case → Stack Overflow (đệ quy vô hạn)!
 
 ### 🎯 Bài tập
+
 1. LeetCode **#206** – Reverse Linked List (đệ quy)
 2. LeetCode **#104** – Maximum Depth of Binary Tree
 3. LeetCode **#21** – Merge Two Sorted Lists (đệ quy)
@@ -172,6 +191,7 @@ factorial(4)
 ## 3. Mảng (Array) & Kỹ Thuật Cốt Lõi
 
 ### 📚 Khái niệm
+
 Dữ liệu lưu **liên tiếp trong bộ nhớ**, truy cập `O(1)` qua index.
 
 ```
@@ -180,15 +200,21 @@ Value:  [10] [20] [30] [40] [50]
 Memory: 100  104  108  112  116   ← Địa chỉ liên tiếp
 ```
 
-| Thao tác | Độ phức tạp | Ghi chú |
-|----------|-------------|---------|
-| Access | O(1) | Tính địa chỉ trực tiếp |
-| Search | O(n) | Phải duyệt từng phần tử |
-| Insert (end) | O(1) amortized | Dynamic Array |
-| Insert (middle) | O(n) | Phải dịch phần tử |
-| Delete | O(n) | Phải dịch phần tử |
+| Thao tác       | Độ phức tạp | Ghi chú                     |
+| --------------- | --------------- | ---------------------------- |
+| Access          | O(1)            | Tính địa chỉ trực tiếp |
+| Search          | O(n)            | Phải duyệt từng phần tử |
+| Insert (end)    | O(1) amortized  | Dynamic Array                |
+| Insert (middle) | O(n)            | Phải dịch phần tử        |
+| Delete          | O(n)            | Phải dịch phần tử        |
 
-### 🔧 Kỹ thuật Prefix Sum
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Two Pointers (Hai con trỏ):** Dùng cho mảng đã sắp xếp hoặc tìm cặp phần tử (xem chương 15).
+2.  **Sliding Window (Cửa sổ trượt):** Dùng cho dãy con liên tiếp (xem chương 14).
+3.  **Prefix Sum (Cộng dồn):** Tính nhanh tổng đoạn [L, R] trong O(1).
+4.  **Kadane's Algorithm:** Tìm dãy con có tổng lớn nhất trong O(n).
+5.  **Dutch National Flag:** Sắp xếp mảng chỉ có 3 loại phần tử (vd: 0, 1, 2) trong O(n).
 
 ```python
 # Tính tổng bất kỳ đoạn [l, r] trong O(1)
@@ -231,6 +257,7 @@ def max_subarray(nums):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#53** – Maximum Subarray (Kadane)
 2. LeetCode **#238** – Product of Array Except Self (Prefix/Suffix)
 3. LeetCode **#11** – Container With Most Water (Two Pointers)
@@ -241,6 +268,7 @@ def max_subarray(nums):
 ## 4. Danh Sách Liên Kết (Linked List)
 
 ### 📚 Khái niệm
+
 Dữ liệu lưu **rải rác trong bộ nhớ**, mỗi node chứa giá trị và con trỏ sang node tiếp theo.
 
 ```
@@ -248,13 +276,13 @@ Dữ liệu lưu **rải rác trong bộ nhớ**, mỗi node chứa giá trị v
   head
 ```
 
-| Thao tác | Độ phức tạp | So sánh với Array |
-|----------|-------------|-------------------|
-| Access | O(n) | Array: O(1) ❌ |
-| Search | O(n) | Array: O(n) = |
-| Insert (head) | O(1) | Array: O(n) ✅ |
-| Insert (middle) | O(n) | Array: O(n) = |
-| Delete (head) | O(1) | Array: O(n) ✅ |
+| Thao tác       | Độ phức tạp | So sánh với Array |
+| --------------- | --------------- | ------------------- |
+| Access          | O(n)            | Array: O(1) ❌      |
+| Search          | O(n)            | Array: O(n) =       |
+| Insert (head)   | O(1)            | Array: O(n) ✅      |
+| Insert (middle) | O(n)            | Array: O(n) =       |
+| Delete (head)   | O(1)            | Array: O(n) ✅      |
 
 ### 🔧 Implement từ đầu
 
@@ -319,7 +347,12 @@ class LinkedList:
         return " → ".join(nodes) + " → NULL"
 ```
 
-### 🔧 Kỹ thuật Fast & Slow Pointers
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Dummy Node (Node giả):** Tạo một node phụ đứng trước `head` để xử lý các trường hợp xóa node đầu hoặc thêm vào đầu dễ dàng hơn.
+2.  **Fast & Slow Pointers:** Tìm điểm giữa, tìm chu trình (Cycle detection).
+3.  **Reverse Linked List:** Đảo ngược thứ tự node (Kỹ thuật nền tảng cho nhiều bài khó).
+4.  **Hai con trỏ cách nhau K bước:** Tìm node thứ N từ cuối lên.
 
 ```python
 def find_middle(head):
@@ -342,6 +375,7 @@ def has_cycle(head):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#206** – Reverse Linked List
 2. LeetCode **#141** – Linked List Cycle
 3. LeetCode **#876** – Middle of the Linked List
@@ -353,6 +387,7 @@ def has_cycle(head):
 ## 5. Ngăn Xếp (Stack)
 
 ### 📚 Khái niệm
+
 **LIFO** (Last In, First Out) – Vào sau ra trước. Giống như chồng sách.
 
 ```
@@ -361,7 +396,12 @@ Thêm:  PUSH →  [TOP: 30]   POP → Lấy 30
                      [10]
 ```
 
-### 🔧 Implement và ứng dụng
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Monotonic Stack (Ngăn xếp đơn điệu):** Tìm phần tử lớn hơn/nhỏ hơn gần nhất (xem ví dụ dưới).
+2.  **Valid Parentheses (Kiểm tra ngoặc):** Dùng Stack để lưu các dấu mở, pop khi gặp dấu đóng tương ứng.
+3.  **Reverse Data (Đảo ngược dữ liệu):** Tận dụng tính chất LIFO để đảo ngược chuỗi hoặc danh sách.
+4.  **Evaluate Expression:** Tính toán biểu thức toán học (vd: Postfix/Prefix notation).
 
 ```python
 class Stack:
@@ -411,6 +451,7 @@ def next_greater_element(nums):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#20** – Valid Parentheses
 2. LeetCode **#155** – Min Stack
 3. LeetCode **#739** – Daily Temperatures (Monotonic Stack)
@@ -421,6 +462,7 @@ def next_greater_element(nums):
 ## 6. Hàng Đợi (Queue)
 
 ### 📚 Khái niệm
+
 **FIFO** (First In, First Out) – Vào trước ra trước. Giống như hàng đợi người mua vé.
 
 ```
@@ -428,7 +470,12 @@ Enqueue →  [10] [20] [30]  → Dequeue
                  FRONT          BACK
 ```
 
-### 🔧 Implement và ứng dụng
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **BFS (Breadth First Search):** Tìm đường đi ngắn nhất trong đồ thị không trọng số hoặc duyệt cây theo từng mức.
+2.  **Sliding Window (Fixed Size):** Dùng Queue để duy trì các phần tử trong cửa sổ trượt.
+3.  **Level Order Traversal:** Duyệt cây nhị phân theo từng tầng (Level by level).
+4.  **Priority Queue:** Luôn lấy ra phần tử có ưu tiên cao nhất trong O(log n) (vd: Dijkstra, K-largest).
 
 ```python
 from collections import deque
@@ -506,6 +553,7 @@ bfs(graph, 'A')  # A B C D E F
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#232** – Implement Queue using Stacks
 2. LeetCode **#102** – Binary Tree Level Order Traversal (BFS)
 3. LeetCode **#200** – Number of Islands (BFS)
@@ -516,6 +564,7 @@ bfs(graph, 'A')  # A B C D E F
 ## 7. Bảng Băm (Hash Table)
 
 ### 📚 Khái niệm
+
 Ánh xạ **key → value** với thao tác trung bình O(1).
 
 ```
@@ -526,7 +575,12 @@ Table:  [0][ ][...]  [3]["apple" → 5]  [...]
                      Bucket
 ```
 
-### 🔧 Ứng dụng thực tế
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Frequency Counter (Đếm tần suất):** Đếm số lần xuất hiện của các phần tử để giải quyết bài toán Anagram, Phân loại.
+2.  **Two Sum Pattern:** Dùng Hash Map để lưu `value: index`, giúp tìm cặp phần tử trong O(n).
+3.  **Grouping (Nhóm phần tử):** Dùng key là giá trị đã được chuẩn hóa (vd: sort chuỗi) để nhóm các phần tử liên quan (vd: Group Anagrams).
+4.  **Caching / Memoization:** Lưu kết quả trung gian để tối ưu tốc độ.
 
 ```python
 # 1. Đếm tần suất
@@ -558,6 +612,7 @@ def group_anagrams(strs):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#1** – Two Sum
 2. LeetCode **#242** – Valid Anagram
 3. LeetCode **#49** – Group Anagrams
@@ -581,7 +636,13 @@ def group_anagrams(strs):
 
 **BST Property:** Node trái < Node hiện tại < Node phải
 
-### 🔧 Implement & Duyệt cây
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **DFS (Pre/In/Post Order):** Duyệt cây theo chiều sâu. Inorder trên BST giúp lấy phần tử theo thứ tự tăng dần.
+2.  **BFS (Level Order):** Duyệt cây theo chiều rộng, tìm khoảng cách ngắn nhất từ gốc.
+3.  **Recursion on Trees:** Hầu hết các bài toán cây đều giải bằng đệ quy (vd: tính chiều cao, kiểm tra cây đối xứng).
+4.  **Lowest Common Ancestor (LCA):** Tìm tổ tiên chung gần nhất của hai node.
+5.  **Path Sum:** Duyệt và tính tổng các giá trị trên đường đi từ gốc đến lá.
 
 ```python
 class TreeNode:
@@ -639,6 +700,7 @@ def search_bst(root, val):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#104** – Maximum Depth of Binary Tree
 2. LeetCode **#226** – Invert Binary Tree
 3. LeetCode **#102** – Binary Tree Level Order Traversal
@@ -650,7 +712,8 @@ def search_bst(root, val):
 ## 9. Heap & Priority Queue
 
 ### 📚 Khái niệm
-**Min Heap:** Phần tử nhỏ nhất luôn ở gốc.  
+
+**Min Heap:** Phần tử nhỏ nhất luôn ở gốc.
 **Max Heap:** Phần tử lớn nhất luôn ở gốc.
 
 ```
@@ -662,7 +725,11 @@ Min Heap:        Max Heap:
  7   4  6         7   6  3
 ```
 
-### 🔧 Sử dụng heapq trong Python
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Top K Elements:** Duy trì một Heap kích thước K để tìm K phần tử lớn nhất/nhỏ nhất trong O(n log k).
+2.  **Median Finding:** Dùng 2 Heap (Max-Heap cho nửa dưới, Min-Heap cho nửa trên) để tìm trung vị trong dòng dữ liệu.
+3.  **Merge K Sorted Lists:** Dùng Min-Heap để lấy phần tử nhỏ nhất từ K danh sách đã sắp xếp.
 
 ```python
 import heapq
@@ -693,6 +760,7 @@ def top_k_frequent(nums, k):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#703** – Kth Largest Element in a Stream
 2. LeetCode **#347** – Top K Frequent Elements
 3. LeetCode **#295** – Find Median from Data Stream
@@ -700,18 +768,29 @@ def top_k_frequent(nums, k):
 
 ---
 
+---
+
 ## 10. Đồ Thị (Graph)
 
 ### 📚 Khái niệm
+
 Tập các **đỉnh (vertices)** và **cạnh (edges)** nối chúng.
 
-| Loại | Mô tả |
-|------|-------|
-| **Directed** | Cạnh có hướng (A → B, nhưng không phải B → A) |
-| **Undirected** | Cạnh không hướng (A — B) |
-| **Weighted** | Cạnh có trọng số (A --(5)--> B) |
-| **Cyclic** | Có chu trình |
-| **Acyclic (DAG)** | Không có chu trình (dùng trong Topological Sort) |
+| Loại                   | Mô tả                                                |
+| ----------------------- | ------------------------------------------------------ |
+| **Directed**      | Cạnh có hướng (A → B, nhưng không phải B → A) |
+| **Undirected**    | Cạnh không hướng (A — B)                          |
+| **Weighted**      | Cạnh có trọng số (A --(5)--> B)                    |
+| **Cyclic**        | Có chu trình                                         |
+| **Acyclic (DAG)** | Không có chu trình (dùng trong Topological Sort)   |
+
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Dijkstra's Algorithm:** Tìm đường đi ngắn nhất trong đồ thị có trọng số dương.
+2.  **Topological Sort:** Sắp xếp thứ tự thực hiện công việc (vd: Course Schedule). Dùng cho Đồ thị có hướng không chu trình (DAG).
+3.  **Cycle Detection:** Kiểm tra chu trình trong đồ thị (Dùng DFS với mảng `visited` 3 trạng thái hoặc DSU).
+4.  **Island / Flood Fill:** Dùng DFS/BFS để loang và đếm số vùng liên thông trong ma trận 2D.
+5.  **Multi-source BFS:** Bắt đầu BFS từ nhiều điểm cùng lúc để tìm đường đi ngắn nhất đồng thời.
 
 ### 🔧 Biểu diễn đồ thị
 
@@ -791,6 +870,7 @@ print(dijkstra(graph, 'A'))
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#200** – Number of Islands (DFS/BFS)
 2. LeetCode **#133** – Clone Graph
 3. LeetCode **#207** – Course Schedule (Cycle Detection)
@@ -801,7 +881,13 @@ print(dijkstra(graph, 'A'))
 
 ## 11. Trie
 
-### 📚 Khái niệm
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Prefix Search (Tìm kiếm tiền tố):** Kiểm tra xem một tập hợp từ có bắt đầu bằng một chuỗi cho trước không.
+2.  **Autocomplete / Word Suggestion:** Tìm tất cả các từ trong Trie có chung tiền tố.
+3.  **Word Matrix / Crossword:** Kết hợp Trie + Backtracking để tìm từ trong một bảng chữ cái.
+4.  **XOR Maximum:** Dùng Trie để lưu dạng nhị phân của số, giúp tìm cặp số có XOR lớn nhất trong O(bit_count).
+
 Cây đặc biệt lưu **chuỗi ký tự**, tối ưu cho tìm kiếm prefix.
 
 ```
@@ -868,6 +954,7 @@ print(trie.starts_with("app")) # True
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#208** – Implement Trie (Prefix Tree)
 2. LeetCode **#212** – Word Search II
 3. LeetCode **#211** – Design Add and Search Words
@@ -876,19 +963,78 @@ print(trie.starts_with("app")) # True
 
 ## 12. Sắp Xếp (Sorting Algorithms)
 
-### 📊 So sánh tổng quan
+### 💡 Kỹ thuật giải quyết thường gặp
 
-| Thuật toán | Time (Avg) | Time (Worst) | Space | Stable? |
-|-----------|-----------|-------------|-------|---------|
-| Bubble Sort | O(n²) | O(n²) | O(1) | ✅ |
-| Insertion Sort | O(n²) | O(n²) | O(1) | ✅ |
-| Merge Sort | O(n log n) | O(n log n) | O(n) | ✅ |
-| Quick Sort | O(n log n) | O(n²) | O(log n) | ❌ |
-| Heap Sort | O(n log n) | O(n log n) | O(1) | ❌ |
-| Python `sorted()` | O(n log n) | O(n log n) | O(n) | ✅ (Timsort) |
+1.  **Dutch National Flag (3-way partition):** Dùng trong Quick Sort hoặc bài toán sắp xếp 3 loại phần tử.
+2.  **K-th Smallest / Largest:** Dùng Quick Select (biến thể của Quick Sort) để tìm trong O(n) average.
+3.  **External Sorting:** Kỹ thuật dùng khi dữ liệu quá lớn không thể nạp hết vào RAM (dùng Merge Sort).
+4.  **Custom Sorting:** Sắp xếp theo nhiều tiêu chí (vd: theo điểm số, nếu bằng điểm thì theo tên).
 
-### 🔧 Merge Sort & Quick Sort
+| Thuật toán        | Time (Avg) | Time (Worst) | Space    | Stable?      |
+| ------------------- | ---------- | ------------ | -------- | ------------ |
+| Bubble Sort         | O(n²)     | O(n²)       | O(1)     | ✅           |
+| Selection Sort      | O(n²)     | O(n²)       | O(1)     | ❌           |
+| Insertion Sort      | O(n²)     | O(n²)       | O(1)     | ✅           |
+| Merge Sort          | O(n log n) | O(n log n)   | O(n)     | ✅           |
+| Quick Sort          | O(n log n) | O(n²)       | O(log n) | ❌           |
+| Heap Sort           | O(n log n) | O(n log n)   | O(1)     | ❌           |
+| Counting Sort       | O(n + k)   | O(n + k)     | O(k)     | ✅           |
+| Python `sorted()` | O(n log n) | O(n log n)   | O(n)     | ✅ (Timsort) |
 
+### 🔧 1. Bubble Sort (Sắp xếp nổi bọt)
+```python
+def bubble_sort(arr):
+    """
+    Ý tưởng: Đưa phần tử lớn nhất về cuối mảng sau mỗi vòng lặp.
+    O(n^2), Space O(1). Phù hợp cho mảng nhỏ hoặc đã gần sắp xếp.
+    """
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped: # Tối ưu: Nếu không có swap nào, mảng đã xong
+            break
+    return arr
+```
+
+### 🔧 2. Selection Sort (Sắp xếp chọn)
+```python
+def selection_sort(arr):
+    """
+    Ý tưởng: Tìm phần tử nhỏ nhất trong phần chưa sắp xếp và đưa lên đầu.
+    O(n^2), Space O(1). Luôn chạy O(n^2) bất kể dữ liệu.
+    """
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+```
+
+### 🔧 3. Insertion Sort (Sắp xếp chèn)
+```python
+def insertion_sort(arr):
+    """
+    Ý tưởng: Lấy từng phần tử và 'chèn' vào đúng vị trí trong phần đã sắp xếp.
+    O(n^2), Space O(1). Cực nhanh cho mảng nhỏ hoặc mảng gần sắp xếp (O(n)).
+    """
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
+```
+
+### 🔧 4. Merge Sort (Sắp xếp trộn)
 ```python
 def merge_sort(arr):
     """Stable, O(n log n) guaranteed. Tốt cho Linked List"""
@@ -910,8 +1056,10 @@ def merge_sort(arr):
     result.extend(left[i:])
     result.extend(right[j:])
     return result
+```
 
-
+### 🔧 5. Quick Sort (Sắp xếp nhanh)
+```python
 def quick_sort(arr, low=0, high=None):
     """In-place, O(n log n) average. Tốt cho Array"""
     if high is None:
@@ -934,11 +1082,49 @@ def partition(arr, low, high):
     return i + 1
 ```
 
+### 🔧 6. Heap Sort (Sắp xếp dựa trên Heap)
+```python
+import heapq
+
+def heap_sort(arr):
+    """O(n log n), Space O(1) nếu implement in-place chân chính."""
+    # Bản Python dùng thêm bộ nhớ O(n)
+    heapq.heapify(arr)
+    return [heapq.heappop(arr) for _ in range(len(arr))]
+```
+
+### 🔧 7. Counting Sort (Sắp xếp đếm - Không so sánh)
+```python
+def counting_sort(arr):
+    """
+    O(n + k) với k là khoảng giá trị. 
+    Chỉ dùng khi biết khoảng giá trị nhỏ (vd: sắp xếp tuổi, điểm số).
+    """
+    if not arr: return arr
+    max_val = max(arr)
+    min_val = min(arr)
+    count = [0] * (max_val - min_val + 1)
+    
+    for x in arr:
+        count[x - min_val] += 1
+        
+    res = []
+    for i, val in enumerate(count):
+        res.extend([i + min_val] * val)
+    return res
+```
+
 ---
 
 ## 13. Tìm Kiếm Nhị Phân (Binary Search)
 
-### 📚 Khái niệm
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Binary Search on Answer (Tìm kiếm trên khoảng đáp án):** Thay vì tìm trong mảng, ta tìm giá trị đáp án tối ưu trong khoảng [min, max].
+2.  **Searching in Rotated Array:** Áp dụng BS cho mảng đã bị xoay (vd: [4,5,6,7,0,1,2]).
+3.  **Find Peak Element:** Tìm phần tử cực đại trong mảng không sắp xếp hoàn toàn (Dùng BS để quyết định hướng đi).
+4.  **Square Root / Powers:** Tính căn bậc hai hoặc lũy thừa bằng BS.
+
 Tìm kiếm trong mảng **đã sắp xếp** bằng cách chia đôi không gian tìm kiếm. O(log n).
 
 ### 🔧 Template chuẩn (3 biến thể)
@@ -1006,6 +1192,7 @@ def min_days_to_bloom(bloomDay, m, k):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#704** – Binary Search
 2. LeetCode **#153** – Find Minimum in Rotated Sorted Array
 3. LeetCode **#33** – Search in Rotated Sorted Array
@@ -1014,12 +1201,22 @@ def min_days_to_bloom(bloomDay, m, k):
 
 ---
 
+---
+
 ## 14. Pattern: Sliding Window
 
 ### 📚 Khi nào dùng?
+
 - Bài toán liên quan đến **dãy con liên tiếp** (subarray/substring).
 - Tìm length, sum, hoặc property của một window.
 - Có thể tối ưu từ O(n²) brute force → O(n).
+
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Fixed Size Window:** Dùng khi đề bài yêu cầu dãy con có độ dài K cố định. Chỉ cần `window_sum += nums[i] - nums[i-k]`.
+2.  **Variable Size Window:** Dùng khi tìm dãy con thỏa mãn điều kiện (vd: tổng >= S). Mở rộng `right`, thu hẹp `left` khi vi phạm điều kiện.
+3.  **Frequency Dictionary:** Dùng kèm để lưu số lần xuất hiện của ký tự trong cửa sổ hiện tại (vd: Longest substring with K distinct characters).
+4.  **At Most K --> Exactly K:** Một số bài khó yêu cầu "Exactly K", thường được giải bằng `Solution(At Most K) - Solution(At Most K-1)`.
 
 ### 🔧 Template chuẩn
 
@@ -1064,6 +1261,7 @@ def longest_substring_k_distinct(s, k):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#3** – Longest Substring Without Repeating Characters
 2. LeetCode **#76** – Minimum Window Substring ⭐
 3. LeetCode **#424** – Longest Repeating Character Replacement
@@ -1071,12 +1269,22 @@ def longest_substring_k_distinct(s, k):
 
 ---
 
+---
+
 ## 15. Pattern: Two Pointers
 
 ### 📚 Khi nào dùng?
+
 - Mảng/chuỗi **đã sắp xếp**.
 - Tìm cặp/bộ phần tử thỏa điều kiện.
 - So sánh hai mảng.
+
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Opposite Direction (Hai đầu ngược nhau):** Dùng cho mảng đã sắp xếp (vd: Two Sum II, 3Sum, Trapping Rain Water).
+2.  **Same Direction (Hai con trỏ cùng chiều):** Thường gọi là Fast & Slow pointers, dùng để khử trùng lặp hoặc tìm dãy con.
+3.  **Two Arrays:** Dùng hai con trỏ trên hai mảng khác nhau (vd: Merge Sorted Arrays).
+4.  **Cycle Detection:** Floyd's Tortoise and Hare (Rùa và Thỏ) dùng cho Linked List hoặc dãy số có chu trình.
 
 ### 🔧 Ví dụ kinh điển
 
@@ -1134,6 +1342,7 @@ def trap(height):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#167** – Two Sum II (Sorted Array)
 2. LeetCode **#15** – 3Sum
 3. LeetCode **#42** – Trapping Rain Water ⭐
@@ -1141,14 +1350,25 @@ def trap(height):
 
 ---
 
+---
+
 ## 16. Quy Hoạch Động (Dynamic Programming)
 
 ### 📚 Khái niệm
+
 DP giải bài toán bằng cách chia thành **bài toán con chồng lấp** và **lưu kết quả** (memoization/tabulation).
 
 **Dấu hiệu nhận biết DP:**
+
 - "Tối đa / tối thiểu / đếm số cách..."
 - Bài toán có bài toán con trùng lặp
+
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Iterative with Tabulation (Bottom-Up):** Thường nhanh hơn và tránh Stack Overflow. Xây dựng bảng từ các trường hợp cơ sở đi lên.
+2.  **Recursive with Memoization (Top-Down):** Dễ tư duy hơn từ bài toán lớn xuống bài toán nhỏ.
+3.  **State Compression (Tối ưu không gian):** Nếu `dp[i]` chỉ phụ thuộc vào `dp[i-1]`, ta có thể dùng biến lẻ thay vì mảng để đạt O(1) space.
+4.  **Decision Making:** Tại mỗi bước có các lựa chọn (vd: Chọn hoặc Không chọn phần tử hiện tại - bài toán Cái Túi / Knapsack).
 
 ### 🔧 Framework giải DP
 
@@ -1202,6 +1422,7 @@ def longest_common_subsequence(text1, text2):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#70** – Climbing Stairs
 2. LeetCode **#198** – House Robber
 3. LeetCode **#300** – Longest Increasing Subsequence
@@ -1210,12 +1431,21 @@ def longest_common_subsequence(text1, text2):
 
 ---
 
+---
+
 ## 17. Greedy Algorithms
 
 ### 📚 Khái niệm
+
 Ở mỗi bước, chọn lựa **tối ưu cục bộ** với hy vọng đạt được **tối ưu toàn cục**.
 
 **Khác DP:** Greedy không cần xem xét lại quyết định cũ.
+
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Sorting First:** Rất nhiều bài Greedy yêu cầu phải sắp xếp dữ liệu trước (vd: Sắp xếp theo thời gian kết thúc của công việc).
+2.  **Local vs Global:** Luôn đặt câu hỏi: "Nếu tôi chọn cái tốt nhất bây giờ, liệu nó có dẫn đến kết quả tốt nhất cuối cùng không?".
+3.  **Priority Queue:** Dùng để luôn lấy ra phần tử "tốt nhất" hiện tại trong quá trình cập nhật liên tục.
 
 ### 🔧 Ví dụ
 
@@ -1251,6 +1481,7 @@ def merge_intervals(intervals):
 ```
 
 ### 🎯 Bài tập
+
 1. LeetCode **#55** – Jump Game
 2. LeetCode **#45** – Jump Game II
 3. LeetCode **#56** – Merge Intervals ⭐
@@ -1261,6 +1492,7 @@ def merge_intervals(intervals):
 ## 🗺️ LỘ TRÌNH THỰC HÀNH TỔNG HỢP
 
 ### Checklist 8 tuần
+
 ```
 Tuần 1: Big O + Recursion
   ☐ Phân tích Big O của 5 đoạn code bất kỳ mỗi ngày
@@ -1301,11 +1533,12 @@ Tuần 8: Dynamic Programming + Greedy
 ```
 
 ### Mục tiêu LeetCode
-| Giai đoạn | Số bài | Trọng tâm |
-|-----------|--------|-----------|
-| Sau 8 tuần | 80+ Easy | Hiểu patterns cơ bản |
-| Sau 16 tuần | 100+ Medium | Tư duy tối ưu |
-| Sẵn sàng phỏng vấn | 20+ Hard | Áp lực thực chiến |
+
+| Giai đoạn            | Số bài    | Trọng tâm             |
+| ---------------------- | ----------- | ----------------------- |
+| Sau 8 tuần            | 80+ Easy    | Hiểu patterns cơ bản |
+| Sau 16 tuần           | 100+ Medium | Tư duy tối ưu        |
+| Sẵn sàng phỏng vấn | 20+ Hard    | Áp lực thực chiến   |
 
 ---
 
@@ -1313,863 +1546,285 @@ Tuần 8: Dynamic Programming + Greedy
 
 ---
 
-## 18. Backtracking (Quay Lui)
+---
+
+## 18. Backtracking (Quay lui)
 
 ### 📚 Khái niệm
-Backtracking là kỹ thuật **thử từng lựa chọn, nếu không hợp lệ thì quay lui** và thử lựa chọn khác. Đây là nền tảng của nhiều bài toán tối ưu hóa và tổ hợp.
 
-```
-                    []
-          /          |          \
-        [1]         [2]         [3]
-       /   \       /   \       /   \
-     [1,2] [1,3] [2,1] [2,3] [3,1] [3,2]
-      |      |     |      |     |      |
-  [1,2,3] [1,3,2] ...           ...  [3,2,1]
-```
+Backtracking là một biến thể của đệ quy, dùng để giải quyết các bài toán **tìm tất cả (HOẶC một)** cấu hình thỏa mãn điều kiện (Hoán vị, Tổ hợp, Tìm đường trong mê cung).
 
-**Template chuẩn:**
+**Triết lý:** "Thử - Sai - Sửa". Nếu đi vào một nhánh không khả thi, ta bước ngược lại (backtrack) và thử nhánh khác.
+
+### 💡 Kỹ thuật giải quyết thường gặp
+
+1.  **Pruning (Cắt tỉa):** Loại bỏ ngay các nhánh chắc chắn không dẫn đến đáp án để giảm độ phức tạp (vd: Nếu tổng hiện tại đã lớn hơn target).
+2.  **State Management:** Đảm bảo "Undo" (trả lại trạng thái cũ) sau mỗi lời gọi đệ quy.
+3.  **Search Space:** Hình dung bài toán dưới dạng cây tìm kiếm (Decision Tree).
+
+### 🔧 Template Backtracking chuẩn
+
 ```python
-def backtrack(state, choices):
-    # 1. Base case: nếu đã đủ điều kiện → lưu kết quả
-    if is_complete(state):
-        result.append(state[:])  # Copy tránh reference
+def backtrack(candidate, choices):
+    if is_solution(candidate):
+        output(candidate)
         return
 
-    for choice in choices:
-        # 2. Kiểm tra ràng buộc (pruning - cắt tỉa)
-        if is_valid(state, choice):
-            # 3. Thực hiện lựa chọn
-            state.append(choice)
-            # 4. Đệ quy với state mới
-            backtrack(state, remaining_choices)
-            # 5. Hoàn tác lựa chọn (QUAN TRỌNG!)
-            state.pop()
+    for next_choice in choices:
+        if is_valid(next_choice):
+            make_choice(next_choice)      # CHỌN
+            backtrack(candidate, choices) # ĐỆ QUY
+            undo_choice(next_choice)      # BỎ CHỌN (Backtrack)
 ```
 
-### 🔧 Ví dụ kinh điển
+### 🔍 Ví dụ: Liệt kê Hoán vị (Permutations)
 
 ```python
-# ── Permutations (Hoán vị) – O(n * n!) ───────────────────
 def permute(nums):
-    """LeetCode #46 – Tất cả hoán vị của nums"""
-    result = []
-
-    def backtrack(current, remaining):
-        if not remaining:          # Base case: hết phần tử
-            result.append(current[:])
+    """LeetCode #46 - Permutations"""
+    res = []
+    
+    def backtrack(curr, used):
+        if len(curr) == len(nums):
+            res.append(curr[:])
             return
-        for i in range(len(remaining)):
-            current.append(remaining[i])
-            backtrack(current, remaining[:i] + remaining[i+1:])
-            current.pop()         # Hoàn tác
-
-    backtrack([], nums)
-    return result
-
-# permute([1,2,3]) → [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-
-
-# ── Subsets (Tập con) – O(2ⁿ) ────────────────────────────
-def subsets(nums):
-    """LeetCode #78 – Tất cả tập con"""
-    result = []
-
-    def backtrack(start, current):
-        result.append(current[:])   # Mọi trạng thái đều là tập con hợp lệ
-        for i in range(start, len(nums)):
-            current.append(nums[i])
-            backtrack(i + 1, current)
-            current.pop()
-
-    backtrack(0, [])
-    return result
-
-
-# ── N-Queens – O(n!) ─────────────────────────────────────
-def solve_n_queens(n):
-    """LeetCode #51 – Bài toán N quân Hậu (Classic Hard)"""
-    result = []
-    cols = set()           # Cột đã có quân hậu
-    pos_diag = set()       # Đường chéo thuận (row + col)
-    neg_diag = set()       # Đường chéo nghịch (row - col)
-
-    board = [['.' for _ in range(n)] for _ in range(n)]
-
-    def backtrack(row):
-        if row == n:
-            result.append([''.join(r) for r in board])
-            return
-
-        for col in range(n):
-            # Kiểm tra ràng buộc: cùng cột, cùng đường chéo
-            if col in cols or (row + col) in pos_diag or (row - col) in neg_diag:
-                continue
-
-            # Thực hiện lựa chọn
-            cols.add(col)
-            pos_diag.add(row + col)
-            neg_diag.add(row - col)
-            board[row][col] = 'Q'
-
-            backtrack(row + 1)
-
-            # Hoàn tác
-            cols.remove(col)
-            pos_diag.remove(row + col)
-            neg_diag.remove(row - col)
-            board[row][col] = '.'
-
-    backtrack(0)
-    return result
-
-
-# ── Word Search – O(4^(m*n)) ──────────────────────────────
-def exist(board, word):
-    """LeetCode #79 – Tìm từ trong ma trận ký tự"""
-    rows, cols = len(board), len(board[0])
-
-    def dfs(r, c, idx):
-        if idx == len(word):
-            return True
-        if r < 0 or r >= rows or c < 0 or c >= cols:
-            return False
-        if board[r][c] != word[idx]:
-            return False
-
-        # Đánh dấu đã thăm (tránh dùng lại)
-        temp = board[r][c]
-        board[r][c] = '#'
-
-        # Thử 4 hướng
-        found = (dfs(r+1, c, idx+1) or dfs(r-1, c, idx+1) or
-                 dfs(r, c+1, idx+1) or dfs(r, c-1, idx+1))
-
-        # Khôi phục
-        board[r][c] = temp
-        return found
-
-    for r in range(rows):
-        for c in range(cols):
-            if dfs(r, c, 0):
-                return True
-    return False
-```
-
-### 💡 Kỹ thuật Pruning (Cắt tỉa)
-```python
-# ── Combination Sum với Pruning – O(2^(t/c)) ─────────────
-def combination_sum(candidates, target):
-    """LeetCode #39 – Tìm tổ hợp có tổng = target"""
-    candidates.sort()   # Sắp xếp để pruning hiệu quả
-    result = []
-
-    def backtrack(start, current, remaining):
-        if remaining == 0:
-            result.append(current[:])
-            return
-
-        for i in range(start, len(candidates)):
-            # ✅ PRUNING: nếu candidates[i] > remaining → bỏ qua tất cả phía sau
-            if candidates[i] > remaining:
-                break
-
-            current.append(candidates[i])
-            backtrack(i, current, remaining - candidates[i])  # i (không phải i+1) vì có thể dùng lại
-            current.pop()
-
-    backtrack(0, [], target)
-    return result
+            
+        for i in range(len(nums)):
+            if used[i]: continue
+            
+            # 1. Chọn
+            used[i] = True
+            curr.append(nums[i])
+            
+            # 2. Đệ quy
+            backtrack(curr, used)
+            
+            # 3. Bỏ chọn (Backtrack)
+            curr.pop()
+            used[i] = False
+            
+    backtrack([], [False] * len(nums))
+    return res
 ```
 
 ### 🎯 Bài tập
-1. LeetCode **#46** – Permutations ⭐
-2. LeetCode **#78** – Subsets ⭐
+1. LeetCode **#46** – Permutations
+2. LeetCode **#78** – Subsets
 3. LeetCode **#39** – Combination Sum
-4. LeetCode **#79** – Word Search
-5. LeetCode **#51** – N-Queens (Hard) ⭐⭐
+4. LeetCode **#51** – N-Queens (Kinh điển)
+5. LeetCode **#79** – Word Search
 
 ---
 
-## 19. Union-Find (Disjoint Set Union)
+---
+
+## 19. Union-Find (DSU)
 
 ### 📚 Khái niệm
-Cấu trúc dữ liệu quản lý các **tập hợp rời nhau** (disjoint sets). Hỗ trợ 2 thao tác cực nhanh:
-- `find(x)`: Tìm "đại diện" (root) của tập chứa x → O(α(n)) ≈ O(1)
-- `union(x, y)`: Gộp tập chứa x và tập chứa y → O(α(n)) ≈ O(1)
 
-**Ứng dụng:** Tìm connected components, cycle detection, Kruskal's MST.
+Disjoint Set Union (DSU) giúp quản lý các tập hợp không giao nhau và kiểm tra xem hai phần tử có thuộc cùng một tập hợp hay không.
 
-```
-Ban đầu: {1} {2} {3} {4} {5}
+**Thao tác chính:**
+- `find(x)`: Tìm root của x.
+- `union(x, y)`: Gộp nhóm chứa x và nhóm chứa y.
 
-union(1,2): {1,2} {3} {4} {5}
-union(3,4): {1,2} {3,4} {5}
-union(1,3): {1,2,3,4} {5}
+### 💡 Kỹ thuật giải quyết thường gặp
 
-find(2) → 1 (root của {1,2,3,4})
-find(4) → 1 (cùng root → cùng tập!)
-```
+1.  **Path Compression:** Gán trực tiếp cha của node là root để các lần tìm sau nhanh hơn (O(1)).
+2.  **Union by Rank/Size:** Gộp cây thấp vào cây cao hơn để giữ chiều cao cây tối ưu.
+3.  **Connect Components:** Đếm số vùng liên thông bằng cách đếm số root khác nhau.
 
-### 🔧 Implement với Path Compression + Union by Rank
+### 🔧 Implement tối ưu (Path Compression + Rank)
 
 ```python
-class UnionFind:
+class DSU:
     def __init__(self, n):
-        self.parent = list(range(n))   # parent[i] = i ban đầu
-        self.rank = [0] * n            # Dùng để cân bằng cây
-        self.components = n            # Số thành phần liên thông
+        self.parent = list(range(n))
+        self.rank = [0] * n
 
     def find(self, x):
-        """Path Compression: làm cây phẳng hơn"""
+        """O(α(n)) - Gần như O(1) nhờ Path Compression"""
         if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])  # Đệ quy + flatten
+            self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def union(self, x, y):
-        """Union by Rank: cây thấp hơn gắn vào cây cao hơn"""
+        """O(α(n)) - Gộp theo Rank"""
         root_x = self.find(x)
         root_y = self.find(y)
+        if root_x != root_y:
+            if self.rank[root_x] < self.rank[root_y]:
+                self.parent[root_x] = root_y
+            elif self.rank[root_x] > self.rank[root_y]:
+                self.parent[root_y] = root_x
+            else:
+                self.parent[root_y] = root_x
+                self.rank[root_x] += 1
+            return True # Đã gộp
+        return False # Đã cùng nhóm
 
-        if root_x == root_y:
-            return False  # Đã cùng tập → có cycle!
-
-        # Gắn cây nhỏ vào cây lớn
-        if self.rank[root_x] < self.rank[root_y]:
-            root_x, root_y = root_y, root_x
-        self.parent[root_y] = root_x
-        if self.rank[root_x] == self.rank[root_y]:
-            self.rank[root_x] += 1
-
-        self.components -= 1
-        return True
-
-    def connected(self, x, y):
-        return self.find(x) == self.find(y)
-
-
-# ── Ứng dụng: Number of Connected Components ─────────────
-def count_components(n, edges):
-    """LeetCode #323"""
-    uf = UnionFind(n)
-    for u, v in edges:
-        uf.union(u, v)
-    return uf.components
-
-
-# ── Ứng dụng: Redundant Connection (Cycle Detection) ─────
-def find_redundant_connection(edges):
-    """LeetCode #684 – Tìm cạnh thừa tạo ra chu trình"""
-    uf = UnionFind(len(edges) + 1)
-    for u, v in edges:
-        if not uf.union(u, v):
-            return [u, v]   # Cạnh này tạo cycle
-    return []
-
-
-# ── Kruskal's Minimum Spanning Tree ──────────────────────
-def kruskal_mst(n, edges):
-    """
-    Tìm cây khung nhỏ nhất.
-    edges: [(weight, u, v), ...]
-    """
-    edges.sort()  # Sắp xếp theo trọng số tăng dần
-    uf = UnionFind(n)
-    mst_weight = 0
-    mst_edges = []
-
-    for weight, u, v in edges:
-        if uf.union(u, v):  # Nếu không tạo cycle
-            mst_weight += weight
-            mst_edges.append((u, v))
-            if len(mst_edges) == n - 1:  # MST có đúng n-1 cạnh
-                break
-
-    return mst_weight, mst_edges
+# Ứng dụng: Đếm số thành phần liên thông
+dsu = DSU(5)
+dsu.union(0, 1)
+dsu.union(1, 2)
+print(dsu.find(0) == dsu.find(2)) # True
 ```
 
 ### 🎯 Bài tập
 1. LeetCode **#547** – Number of Provinces
-2. LeetCode **#684** – Redundant Connection
-3. LeetCode **#200** – Number of Islands (có thể dùng Union-Find)
-4. LeetCode **#1091** – Shortest Path in Binary Matrix
+2. LeetCode **#684** – Redundant Connection (Detect Cycle)
+3. LeetCode **#990** – Satisfiability of Equality Equations
 
 ---
 
-## 20. Segment Tree (Cây Phân Đoạn)
-
-### 📚 Khái niệm
-Segment Tree cho phép thực hiện **range queries** (tổng, min, max trên đoạn [l,r]) và **point updates** trong O(log n).
-
-```
-Mảng:  [1, 3, 5, 7, 9, 11]
-
-Segment Tree:
-              [36]           ← tổng toàn bộ
-           /         \
-        [9]           [27]   ← tổng nửa trái / nửa phải
-       /   \         /   \
-    [4]    [5]    [16]  [11]
-   /  \   /  \   /   \
-  [1] [3][5] [7][9] [11]
-```
-
-### 🔧 Implement
-
-```python
-class SegmentTree:
-    def __init__(self, nums):
-        self.n = len(nums)
-        self.tree = [0] * (4 * self.n)  # Cần gấp 4 lần kích thước mảng
-        self._build(nums, 0, 0, self.n - 1)
-
-    def _build(self, nums, node, start, end):
-        if start == end:
-            self.tree[node] = nums[start]
-        else:
-            mid = (start + end) // 2
-            left_child = 2 * node + 1
-            right_child = 2 * node + 2
-            self._build(nums, left_child, start, mid)
-            self._build(nums, right_child, mid + 1, end)
-            self.tree[node] = self.tree[left_child] + self.tree[right_child]
-
-    def update(self, idx, val, node=0, start=0, end=None):
-        """Cập nhật nums[idx] = val – O(log n)"""
-        if end is None:
-            end = self.n - 1
-        if start == end:
-            self.tree[node] = val
-        else:
-            mid = (start + end) // 2
-            left_child = 2 * node + 1
-            right_child = 2 * node + 2
-            if idx <= mid:
-                self.update(idx, val, left_child, start, mid)
-            else:
-                self.update(idx, val, right_child, mid + 1, end)
-            self.tree[node] = self.tree[left_child] + self.tree[right_child]
-
-    def query(self, l, r, node=0, start=0, end=None):
-        """Tổng đoạn [l, r] – O(log n)"""
-        if end is None:
-            end = self.n - 1
-        if r < start or end < l:
-            return 0   # Ngoài phạm vi
-        if l <= start and end <= r:
-            return self.tree[node]  # Nằm hoàn toàn trong phạm vi
-        mid = (start + end) // 2
-        left_sum = self.query(l, r, 2*node+1, start, mid)
-        right_sum = self.query(l, r, 2*node+2, mid+1, end)
-        return left_sum + right_sum
-
-# Sử dụng
-nums = [1, 3, 5, 7, 9, 11]
-st = SegmentTree(nums)
-print(st.query(1, 3))   # 3+5+7 = 15
-st.update(2, 10)        # nums[2] = 10
-print(st.query(1, 3))   # 3+10+7 = 20
-```
-
-### 🎯 Bài tập
-1. LeetCode **#307** – Range Sum Query - Mutable ⭐
-2. LeetCode **#315** – Count of Smaller Numbers After Self
-3. LeetCode **#493** – Reverse Pairs (Hard)
-
 ---
 
-## 21. Topological Sort (Sắp Xếp Topo)
+## 20. Bit Manipulation (Thao tác Bit)
 
-### 📚 Khái niệm
-Sắp xếp các đỉnh của **DAG** (Directed Acyclic Graph) sao cho mọi cạnh (u → v) thì u đứng trước v. Ứng dụng: phụ thuộc task, build systems, course prerequisites.
+### 📚 Các phép toán cơ bản
 
-```
-Đồ thị:  5 → 0 ← 4
-          ↓   ↓
-          2 → 3 → 1
+- `&` (AND): 1 & 1 = 1
+- `|` (OR): 0 | 1 = 1
+- `^` (XOR): Khác nhau là 1, giống nhau là 0. (Tính chất: `x ^ x = 0`, `x ^ 0 = x`)
+- `~` (NOT)
+- `<<`, `>>` (Dịch trái/phải - tương đương nhân/chia 2)
 
-Topological order: 4 5 2 0 3 1
-(Nhiều đáp án đúng có thể tồn tại)
-```
+### 💡 Kỹ thuật giải quyết thường gặp
 
-### 🔧 Hai cách implement
+1.  **XOR Trick:** `a ^ a = 0`, `a ^ 0 = a`. Dùng để tìm phần tử xuất hiện lẻ lần hoặc triệt tiêu các cặp trùng.
+2.  **Bitmasking:** Dùng một số nguyên để đại diện cho một tập hợp (vd: 5 = 101 đại diện cho tập có phần tử 0 và 2). Thường dùng trong DP trên bitmask.
+3.  **Power of 2:** Kiểm tra `(n & (n-1)) == 0`.
+4.  **Extract Rightmost Bit:** `n & -n` giúp lấy bit 1 cuối cùng.
 
+### 🔧 Thủ thuật hay dùng
 ```python
-from collections import deque
+# 1. Kiểm tra bit thứ i có bật không?
+(n >> i) & 1
 
-# ── Cách 1: Kahn's Algorithm (BFS-based) ─────────────────
-def topological_sort_bfs(n, edges):
-    """
-    Dùng in-degree: đỉnh nào in-degree = 0 thì xử lý trước.
-    Phát hiện cycle: nếu kết quả không đủ n đỉnh → có cycle.
-    """
-    graph = [[] for _ in range(n)]
-    in_degree = [0] * n
+# 2. Bật bit thứ i
+n | (1 << i)
 
-    for u, v in edges:
-        graph[u].append(v)
-        in_degree[v] += 1
+# 3. Tắt bit thứ i
+n & ~(1 << i)
 
-    # Bắt đầu từ các đỉnh không có tiên quyết (in-degree = 0)
-    queue = deque([i for i in range(n) if in_degree[i] == 0])
-    result = []
+# 4. Kiểm tra số chẵn/lẻ
+(n & 1) == 0 # Chẵn
 
-    while queue:
-        node = queue.popleft()
-        result.append(node)
+# 5. Kiểm tra lũy thừa của 2 (Power of 2)
+n > 0 and (n & (n - 1)) == 0
 
-        for neighbor in graph[node]:
-            in_degree[neighbor] -= 1
-            if in_degree[neighbor] == 0:
-                queue.append(neighbor)
-
-    # Nếu result không có đủ n đỉnh → graph có cycle
-    return result if len(result) == n else []
-
-
-# ── Cách 2: DFS-based ─────────────────────────────────────
-def topological_sort_dfs(n, edges):
-    graph = [[] for _ in range(n)]
-    for u, v in edges:
-        graph[u].append(v)
-
-    visited = [0] * n  # 0: chưa thăm, 1: đang thăm, 2: đã xong
-    result = []
-    has_cycle = [False]
-
-    def dfs(node):
-        if visited[node] == 1:   # Đang trong DFS path → cycle!
-            has_cycle[0] = True
-            return
-        if visited[node] == 2:   # Đã xử lý rồi
-            return
-
-        visited[node] = 1
-        for neighbor in graph[node]:
-            dfs(neighbor)
-        visited[node] = 2
-        result.append(node)      # Thêm vào CUỐI (reverse postorder)
-
-    for i in range(n):
-        if visited[i] == 0:
-            dfs(i)
-
-    return [] if has_cycle[0] else result[::-1]
-
-
-# ── Ứng dụng: Course Schedule ─────────────────────────────
-def can_finish(num_courses, prerequisites):
-    """LeetCode #207 – Có thể hoàn thành tất cả môn học không?"""
-    result = topological_sort_bfs(num_courses, prerequisites)
-    return len(result) == num_courses
-```
-
-### 🎯 Bài tập
-1. LeetCode **#207** – Course Schedule ⭐
-2. LeetCode **#210** – Course Schedule II ⭐
-3. LeetCode **#269** – Alien Dictionary (Hard)
-
----
-
-## 22. Bit Manipulation
-
-### 📚 Khái niệm
-Thao tác trực tiếp trên **bit nhị phân** để tối ưu tốc độ và bộ nhớ. Thường xuất hiện trong phỏng vấn embedded/systems và các bài toán về tập hợp.
-
-| Phép toán | Ký hiệu | Ví dụ (5 & 3) | Kết quả |
-|-----------|---------|----------------|---------|
-| AND | `&` | 101 & 011 | 001 = 1 |
-| OR | `\|` | 101 \| 011 | 111 = 7 |
-| XOR | `^` | 101 ^ 011 | 110 = 6 |
-| NOT | `~` | ~101 | ...010 |
-| Left Shift | `<<` | 1 << 3 | 8 |
-| Right Shift | `>>` | 8 >> 2 | 2 |
-
-### 🔧 Các trick quan trọng
-
-```python
-# ── Trick thường gặp trong phỏng vấn ─────────────────────
-
-# 1. Kiểm tra bit thứ i có = 1 không
-def is_bit_set(n, i):
-    return (n >> i) & 1 == 1
-
-# 2. Đếm số bit 1 (Hamming Weight)
+# 6. Đếm số bit 1 (Hamming Weight)
 def count_bits(n):
     count = 0
     while n:
-        count += n & 1   # Kiểm tra bit cuối
-        n >>= 1          # Dịch phải 1 bit
-    return count
-
-# 3. Brian Kernighan's trick – O(số bit 1)
-def count_bits_fast(n):
-    count = 0
-    while n:
-        n &= (n - 1)  # Xóa bit 1 thấp nhất
+        n &= (n - 1) # Xóa bit 1 cuối cùng
         count += 1
     return count
-
-# 4. Kiểm tra số là lũy thừa của 2
-def is_power_of_two(n):
-    return n > 0 and (n & (n - 1)) == 0
-# Giải thích: 8 = 1000, 7 = 0111 → 1000 & 0111 = 0000
-
-# 5. XOR để tìm số duy nhất (các số khác xuất hiện 2 lần)
-def single_number(nums):
-    """LeetCode #136 – O(n) time, O(1) space"""
-    result = 0
-    for num in nums:
-        result ^= num   # a ^ a = 0, a ^ 0 = a
-    return result
-# [4,1,2,1,2] → 4^1^2^1^2 = 4^(1^1)^(2^2) = 4^0^0 = 4
-
-# 6. Swap không dùng biến tạm
-def swap(a, b):
-    a ^= b  # a = a^b
-    b ^= a  # b = b^(a^b) = a
-    a ^= b  # a = (a^b)^a = b
-    return a, b
-
-# 7. Bit Masking – đại diện tập hợp bằng số nguyên
-# Tập con của {A, B, C, D} (4 phần tử) → dùng số 4-bit
-# 1010 → tập {B, D} (bit 1 = có, bit 0 = không có)
-mask = 0b1010  # = 10
-element_b = 1  # index 1
-has_b = (mask >> element_b) & 1  # = 1 → có B trong tập
 ```
 
 ### 🎯 Bài tập
-1. LeetCode **#136** – Single Number ⭐
+1. LeetCode **#136** – Single Number (Dùng XOR)
 2. LeetCode **#191** – Number of 1 Bits
 3. LeetCode **#338** – Counting Bits
-4. LeetCode **#268** – Missing Number (XOR trick)
-5. LeetCode **#190** – Reverse Bits
 
 ---
 
-## 🗺️ BẢNG NHẬN DIỆN PATTERN (PATTERN RECOGNITION GUIDE)
+## 21. Pattern Recognition Guide
 
-> **Đây là bảng quan trọng nhất để chinh phục LeetCode!**  
-> Khi đọc đề bài, hãy tìm **dấu hiệu** để chọn đúng pattern.
+Làm sao để biết bài này dùng thuật toán gì? Dựa vào **Dữ liệu đầu vào (N)** và **Câu hỏi**:
 
-### 🔍 Dấu hiệu nhận biết
-
-| Dấu hiệu trong đề | Pattern nên dùng | Ví dụ |
-|-------------------|-----------------|-------|
-| "Dãy con liên tiếp" (subarray/substring) | **Sliding Window** | Longest Substring Without Repeating |
-| Mảng đã sắp xếp + tìm cặp | **Two Pointers** | Two Sum II, 3Sum |
-| "Lớn nhất / nhỏ nhất" trong đoạn | **Monotonic Stack/Queue** | Largest Rectangle |
-| "K phần tử lớn/nhỏ nhất" | **Heap** | Top K Frequent |
-| "Đường đi ngắn nhất" (unweighted) | **BFS** | Word Ladder |
-| "Đường đi ngắn nhất" (weighted) | **Dijkstra** | Network Delay Time |
-| "Tất cả tổ hợp / hoán vị" | **Backtracking** | Permutations, Subsets |
-| "Tối đa / tối thiểu / đếm cách" | **Dynamic Programming** | Coin Change, LCS |
-| "Mua sớm nhất, tối ưu từng bước" | **Greedy** | Jump Game, Merge Intervals |
-| "Tìm kiếm trong mảng sắp xếp" | **Binary Search** | Search in Rotated Array |
-| "Prefix sum / Range sum" | **Prefix Sum** | Subarray Sum Equals K |
-| "Connected components / Cycle" | **Union-Find hoặc DFS** | Number of Islands |
-| "Thứ tự phụ thuộc" (prerequisites) | **Topological Sort** | Course Schedule |
-| "Số lần xuất hiện / tần suất" | **Hash Map** | Group Anagrams |
-| "Từ bắt đầu bằng... / prefix" | **Trie** | Implement Trie |
-
-### ⏱️ Bảng Big O nhanh
-
-```
-Khi cần O(1)     → Hash Map, Array indexing
-Khi cần O(log n) → Binary Search, Heap operations
-Khi cần O(n)     → Two Pointers, Sliding Window, Prefix Sum
-Khi cần O(n log n) → Sorting, Merge Sort, Heap sort
-Khi cần O(n²)    → Nested loops (Brute Force) – cần tối ưu
-Khi có O(2ⁿ)     → Backtracking (thường kết hợp pruning)
-```
+| Đặc điểm câu hỏi | Pattern thường gặp |
+| :--- | :--- |
+| Tìm cặp phần tử trong mảng ĐÃ SẮP XẾP | **Two Pointers** |
+| Tìm dãy con liên tiếp (dài nhất, ngắn nhất, tổng k) | **Sliding Window** |
+| Tìm tất cả các cách, hoán vị, tổ hợp | **Backtracking** |
+| Đồ thị, tìm đường đi ngắn nhất (không trọng số) | **BFS** |
+| Đồ thị, tìm đường đi ngắn nhất (có trọng số dương) | **Dijkstra** |
+| "Tối đa", "Tối thiểu", "Có bao nhiêu cách..." + Bài toán con trùng nhau | **Dynamic Programming** |
+| Tìm phần tử lớn nhất/nhỏ nhất trong cửa sổ trượt, hoặc phần tử lớn hơn tiếp theo | **Monotonic Stack/Queue** |
+| Tìm K phần tử lớn nhất/nhỏ nhất | **Heap** |
+| Tìm kiếm trong mảng đã sắp xếp hoặc tìm giá trị tối ưu (BS on Answer) | **Binary Search** |
+| Quản lý các nhóm liên thông, quan hệ bạn bè | **Union-Find** |
 
 ---
 
-## 💼 Q&A PHỎNG VẤN THỰC CHIẾN
+## 22. NeetCode 75 (Curated List)
 
-### Phần 1: Câu hỏi lý thuyết thường gặp
+Nếu bạn không có thời gian luyện 1000+ bài, hãy tập trung vào 75 bài này để bao quát 90% kiến thức phỏng vấn.
 
-**Q1: Khi nào dùng Array, khi nào dùng Linked List?**
-> **Array:** Khi cần truy cập ngẫu nhiên nhanh (O(1)), kích thước biết trước hoặc ít thay đổi.  
-> **Linked List:** Khi insert/delete đầu danh sách thường xuyên (O(1)), kích thước thay đổi liên tục, không cần truy cập ngẫu nhiên.
+### 📂 Arrays & Hashing
+- [x] #1 Two Sum
+- [x] #242 Valid Anagram
+- [x] #217 Contains Duplicate
+- [x] #238 Product of Array Except Self
+- [x] #128 Longest Consecutive Sequence
 
----
+### 📂 Linked List
+- [ ] #206 Reverse Linked List
+- [ ] #141 Linked List Cycle
+- [ ] #21 Merge Two Sorted Lists
+- [ ] #143 Reorder List
 
-**Q2: Giải thích sự khác biệt giữa Stack và Queue?**
-> **Stack (LIFO):** Phần tử thêm vào sau được lấy ra trước. Dùng cho: hàm đệ quy (call stack), undo/redo, backtracking, kiểm tra ngoặc.  
-> **Queue (FIFO):** Phần tử thêm vào trước được lấy ra trước. Dùng cho: BFS, xử lý tác vụ theo thứ tự, print queue.
+### 📂 Sliding Window
+- [ ] #121 Best Time to Buy & Sell Stock
+- [ ] #3 Longest Substring Without Repeating Characters
+- [ ] #424 Longest Repeating Character Replacement
 
----
+### 📂 Dynamic Programming
+- [ ] #70 Climbing Stairs
+- [ ] #198 House Robber
+- [ ] #322 Coin Change
+- [ ] #300 Longest Increasing Subsequence
+- [ ] #1143 Longest Common Subsequence
 
-**Q3: Hash Map hoạt động như thế nào? Xử lý collision ra sao?**
-> Hash Map dùng **hash function** để ánh xạ key → index trong mảng.
-> 
-> **Xử lý collision:**
-> - **Chaining:** Mỗi bucket là một linked list (Python dict dùng cách này).
-> - **Open Addressing:** Nếu bucket bị chiếm, tìm bucket trống tiếp theo (linear probing, quadratic probing).
-> 
-> **Worst case:** O(n) khi mọi key hash ra cùng bucket. **Average case:** O(1).
-
----
-
-**Q4: Tại sao Quick Sort nhanh hơn Merge Sort trong thực tế dù cùng O(n log n)?**
-> - Quick Sort hoạt động **in-place** (O(log n) space cho call stack), cache-friendly.
-> - Merge Sort cần O(n) space phụ để merge.
-> - Tuy nhiên, Quick Sort có worst case O(n²) nếu chọn pivot tệ (mảng đã sắp xếp). Python's `sorted()` dùng **Timsort** – kết hợp Merge Sort và Insertion Sort, ổn định với O(n log n) guaranteed.
-
----
-
-**Q5: DFS vs BFS – khi nào dùng loại nào?**
-> **DFS (stack/đệ quy):**
-> - Cần duyệt toàn bộ đồ thị/cây
-> - Backtracking (tìm tất cả đường đi)
-> - Phát hiện cycle
-> - Topological sort
-> 
-> **BFS (queue):**
-> - Tìm đường đi **ngắn nhất** (unweighted graph)
-> - Duyệt theo tầng (level-order)
-> - Multi-source problems (Rotting Oranges)
+*(Bạn có thể xem đầy đủ tại [NeetCode.io](https://neetcode.io/practice))*
 
 ---
 
-**Q6: Dynamic Programming khác Recursion ở điểm gì?**
-> **Recursion thường:** Giải bài toán con trùng lặp nhiều lần → **O(2ⁿ)** (Fibonacci naive).
-> 
-> **DP = Recursion + Memoization (hoặc Tabulation):** Lưu kết quả bài toán con → mỗi bài toán con chỉ giải **1 lần** → **O(n)**.
-> 
-> **Key insight:** DP chỉ áp dụng được khi bài toán có **optimal substructure** (đáp án tối ưu chứa đáp án tối ưu của bài toán con).
+## 23. Advanced Learning Strategies
+
+Để nhớ lâu và hiểu sâu DSA, đừng chỉ "đọc" code. Hãy áp dụng:
+
+### 🧠 1. Spaced Repetition (Lặp lại cách quãng)
+Đừng làm 1 bài rồi thôi. Hãy làm lại theo lịch:
+- Lần 1: Ngay sau khi hiểu lời giải.
+- Lần 2: Sau 3 ngày.
+- Lần 3: Sau 1 tuần.
+- Lần 4: Sau 1 tháng.
+*Dùng công cụ như Anki để quản lý list bài tập cần ôn.*
+
+### 📝 2. Active Recall (Gợi nhớ chủ động)
+Trước khi xem lời giải, hãy cố gắng:
+- Vẽ sơ đồ luồng dữ liệu (trace).
+- Viết pseudocode (mã giả) ra giấy.
+- Giải thích thuật toán cho một người khác (Rubber Duck Debugging).
+
+### 템 3. Note-taking Template
+Khi làm xong 1 bài, hãy ghi chú lại:
+1. **Tên bài & Link**
+2. **Key Insight:** Câu nói hay nhất giúp giải bài này là gì? (Ví dụ: "Dùng XOR để triệt tiêu các cặp trùng")
+3. **Mã giả:** Các bước chính.
+4. **Sai lầm thường gặp:** Điều gì làm mình tốn thời gian nhất?
 
 ---
 
-### Phần 2: Coding Interview Tips
-
-**🎯 Quy trình giải bài trong phỏng vấn (UMPIRE Method):**
-```
-U – Understand  : Đọc kỹ đề, hỏi lại constraints. Input/Output là gì? Edge cases?
-M – Match       : Liên hệ với pattern đã biết. Dấu hiệu nào trong đề gợi ý pattern?
-P – Plan        : Nêu thuật toán bằng lời (pseudo-code) trước khi code.
-I – Implement   : Code sạch, đặt tên biến rõ ràng.
-R – Review      : Debug trace qua ví dụ đơn giản.
-E – Evaluate    : Phân tích Big O time & space complexity.
-```
-
-**⚠️ Edge cases cần kiểm tra:**
-```python
-# Luôn hỏi/kiểm tra:
-# - Mảng rỗng: []
-# - Một phần tử: [1]
-# - Tất cả cùng giá trị: [3, 3, 3]
-# - Số âm trong mảng
-# - Overflow với số nguyên lớn
-# - Chuỗi rỗng ""
-# - n = 0, n = 1
-# - Graph không liên thông
-```
-
-**💬 Cách giao tiếp khi bị stuck:**
-```
-1. "Để tôi bắt đầu với brute force O(n²) trước..."
-2. "Tôi thấy đây có pattern của Sliding Window vì..."
-3. "Trade-off ở đây là: nếu dùng HashMap thì tốn thêm O(n) space nhưng đổi lại O(n) time..."
-4. "Cho tôi trace qua example này để verify..."
-```
+*📌 Ghi chú cuối: DSA là một cuộc chạy Marathon, không phải Sprint. Hãy kiên trì mỗi ngày ít nhất 1 bài.*
 
 ---
 
-## 📊 DANH SÁCH 75 BÀI LEETCODE PHẢI BIẾT (NeetCode 75)
+## 🚀 TOP INTERVIEW TIPS (Mẹo thực chiến)
 
-> Đây là danh sách bài tập được tuyển chọn, bao phủ đủ mọi pattern quan trọng.
-
-### Arrays & Hashing (9 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 217 | Contains Duplicate | Easy | HashSet |
-| 242 | Valid Anagram | Easy | HashMap |
-| 1 | Two Sum | Easy | HashMap |
-| 49 | Group Anagrams | Medium | HashMap |
-| 347 | Top K Frequent Elements | Medium | Heap/Bucket Sort |
-| 238 | Product of Array Except Self | Medium | Prefix/Suffix |
-| 36 | Valid Sudoku | Medium | HashSet |
-| 128 | Longest Consecutive Sequence | Medium | HashSet |
-| 271 | Encode and Decode Strings | Medium | Design |
-
-### Two Pointers (5 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 125 | Valid Palindrome | Easy | Two Pointers |
-| 167 | Two Sum II | Medium | Two Pointers |
-| 15 | 3Sum | Medium | Sort + Two Pointers |
-| 11 | Container With Most Water | Medium | Two Pointers |
-| 42 | Trapping Rain Water | Hard | Two Pointers |
-
-### Sliding Window (4 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 121 | Best Time to Buy and Sell Stock | Easy | Sliding Window |
-| 3 | Longest Substring Without Repeating Chars | Medium | Sliding Window |
-| 424 | Longest Repeating Character Replacement | Medium | Sliding Window |
-| 76 | Minimum Window Substring | Hard | Sliding Window |
-
-### Stack (7 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 20 | Valid Parentheses | Easy | Stack |
-| 155 | Min Stack | Medium | Stack |
-| 150 | Evaluate Reverse Polish Notation | Medium | Stack |
-| 22 | Generate Parentheses | Medium | Backtracking |
-| 739 | Daily Temperatures | Medium | Monotonic Stack |
-| 853 | Car Fleet | Medium | Monotonic Stack |
-| 84 | Largest Rectangle in Histogram | Hard | Monotonic Stack |
-
-### Binary Search (7 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 704 | Binary Search | Easy | Binary Search |
-| 74 | Search a 2D Matrix | Medium | Binary Search |
-| 875 | Koko Eating Bananas | Medium | BS on Value |
-| 153 | Find Minimum in Rotated Sorted Array | Medium | Binary Search |
-| 33 | Search in Rotated Sorted Array | Medium | Binary Search |
-| 981 | Time Based Key-Value Store | Medium | Binary Search |
-| 4 | Median of Two Sorted Arrays | Hard | Binary Search |
-
-### Linked List (6 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 206 | Reverse Linked List | Easy | Iterative/Recursive |
-| 21 | Merge Two Sorted Lists | Easy | Two Pointers |
-| 143 | Reorder List | Medium | Fast & Slow |
-| 19 | Remove Nth Node From End | Medium | Two Pointers |
-| 141 | Linked List Cycle | Easy | Fast & Slow |
-| 23 | Merge K Sorted Lists | Hard | Heap |
-
-### Trees (11 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 226 | Invert Binary Tree | Easy | DFS |
-| 104 | Maximum Depth of Binary Tree | Easy | DFS |
-| 100 | Same Tree | Easy | DFS |
-| 572 | Subtree of Another Tree | Easy | DFS |
-| 235 | Lowest Common Ancestor of BST | Medium | DFS |
-| 102 | Binary Tree Level Order Traversal | Medium | BFS |
-| 199 | Binary Tree Right Side View | Medium | BFS |
-| 1448 | Count Good Nodes in Binary Tree | Medium | DFS |
-| 98 | Validate Binary Search Tree | Medium | DFS |
-| 230 | Kth Smallest Element in BST | Medium | DFS Inorder |
-| 105 | Construct Binary Tree from Preorder+Inorder | Medium | DFS |
-
-### Graphs (9 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 200 | Number of Islands | Medium | DFS/BFS |
-| 133 | Clone Graph | Medium | DFS/BFS |
-| 695 | Max Area of Island | Medium | DFS |
-| 417 | Pacific Atlantic Water Flow | Medium | DFS/BFS |
-| 130 | Surrounded Regions | Medium | DFS |
-| 994 | Rotting Oranges | Medium | Multi-source BFS |
-| 207 | Course Schedule | Medium | Topological Sort |
-| 210 | Course Schedule II | Medium | Topological Sort |
-| 743 | Network Delay Time | Medium | Dijkstra |
-
-### Dynamic Programming (15 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 70 | Climbing Stairs | Easy | 1D DP |
-| 746 | Min Cost Climbing Stairs | Easy | 1D DP |
-| 198 | House Robber | Medium | 1D DP |
-| 213 | House Robber II | Medium | 1D DP |
-| 5 | Longest Palindromic Substring | Medium | 2D DP |
-| 647 | Palindromic Substrings | Medium | 2D DP |
-| 91 | Decode Ways | Medium | 1D DP |
-| 322 | Coin Change | Medium | 1D DP |
-| 152 | Maximum Product Subarray | Medium | 1D DP |
-| 139 | Word Break | Medium | 1D DP |
-| 300 | Longest Increasing Subsequence | Medium | 1D DP |
-| 416 | Partition Equal Subset Sum | Medium | 0/1 Knapsack |
-| 1143 | Longest Common Subsequence | Medium | 2D DP |
-| 309 | Best Time Buy+Sell Stock w/ Cooldown | Medium | State Machine DP |
-| 312 | Burst Balloons | Hard | Interval DP |
-
-### Greedy & Intervals (5 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 53 | Maximum Subarray | Medium | Kadane / Greedy |
-| 55 | Jump Game | Medium | Greedy |
-| 45 | Jump Game II | Medium | Greedy |
-| 134 | Gas Station | Medium | Greedy |
-| 56 | Merge Intervals | Medium | Sort + Greedy |
-
-### Backtracking (7 bài)
-| # | Bài | Difficulty | Pattern |
-|---|-----|-----------|---------|
-| 78 | Subsets | Medium | Backtracking |
-| 39 | Combination Sum | Medium | Backtracking |
-| 40 | Combination Sum II | Medium | Backtracking |
-| 46 | Permutations | Medium | Backtracking |
-| 90 | Subsets II | Medium | Backtracking |
-| 79 | Word Search | Medium | DFS + Backtracking |
-| 51 | N-Queens | Hard | Backtracking |
+1. **Đừng code ngay lập tức:** Hãy dành 5-10 phút đầu để trao đổi hướng giải với interviewer. Code sai hướng là "tử huyệt".
+2. **Nói ra suy nghĩ (Think out loud):** Interviewer quan tâm đến **cách bạn giải quyết vấn đề** hơn là đáp án cuối cùng.
+3. **Kiểm tra Edge Cases:**
+   - Mảng rỗng hoặc có 1 phần tử.
+   - Số âm, số 0, số cực lớn.
+   - Đồ thị có chu trình hoặc bị ngắt kết nối.
+   - String có ký tự đặc biệt/khoảng trắng.
+4. **Viết code sạch:** Đặt tên biến rõ ràng (`left`, `right`, `curr_max` thay vì `i`, `j`, `m`).
+5. **Tự tin với Big O:** Luôn chủ động phân tích Time & Space Complexity sau khi xong code.
 
 ---
 
-## 🏆 PHƯƠNG PHÁP HỌC HIỆU QUẢ NHẤT
+Chúc bạn sớm chinh phục được công việc mơ ước! 🎯🚀
 
-### Chu trình học 1 chủ đề (áp dụng cho mỗi mục trong giáo trình này)
-
-```
-Ngày 1: Học lý thuyết (đọc tài liệu, xem hình ảnh minh họa)
-            ↓
-Ngày 2: Implement từ đầu (không nhìn đáp án)
-            ↓
-Ngày 3: Giải 3-5 bài Easy trên LeetCode liên quan
-            ↓
-Ngày 4: Giải 2-3 bài Medium (chấp nhận bị mắc kẹt)
-            ↓
-Ngày 5: Review lại code, so sánh với best solution, note lại pattern
-            ↓
-Ngày 7+: Ôn lại (spaced repetition)
-```
-
-### Hệ thống Spaced Repetition cho LeetCode
-```
-Lần 1: Làm lần đầu (dù nhìn đáp án cũng OK)
-Lần 2: Làm lại sau 1 ngày (không nhìn đáp án)
-Lần 3: Làm lại sau 1 tuần
-Lần 4: Làm lại sau 2 tuần
-→ Sau lần 4: Bài đã "vào não", không cần ôn nữa
-```
-
-### Template ghi chú mỗi bài LeetCode
-
-```markdown
-## #[số] - [Tên bài]
-
-**Pattern:** Sliding Window / Two Pointers / DP / ...
-**Difficulty:** Easy / Medium / Hard
-**Time:** O(?)  |  **Space:** O(?)
-
-**Ý tưởng chính:**
-- Bước 1: ...
-- Bước 2: ...
-
-**Edge cases:**
-- []
-- [1]
-- Số âm?
-
-**Code:**
-```python
-def solution(...):
-    ...
-```
-
-**Nhận xét:**
-- Điểm khó: ...
-- Lần sau nhớ: ...
-```
-
----
-
-*📌 Cập nhật: 2026-03-17 | Tác giả: Antigravity AI*  
-*🔗 Thực hành tại: [LeetCode](https://leetcode.com) | [NeetCode](https://neetcode.io)*

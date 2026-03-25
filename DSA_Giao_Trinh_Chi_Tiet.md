@@ -1,4 +1,4 @@
-# 🧠 GIÁO TRÌNH CẤU TRÚC DỮ LIỆU & GIẢI THUẬT (DSA)
+    # 🧠 GIÁO TRÌNH CẤU TRÚC DỮ LIỆU & GIẢI THUẬT (DSA)
 
 ## Từ Cơ Bản Đến Thành Thạo – Python Focused
 
@@ -35,6 +35,8 @@
 | [21](#21-pattern-recognition-guide)           | Hướng dẫn nhận diện Pattern        | ⭐ QUAN TRỌNG | Mọi lúc |
 | [22](#22-neetcode-75-curated-list)             | List NeetCode 75 (Chọn lọc)       | 🚀 Chiến thực | -       |
 | [23](#23-advanced-learning-strategies)         | Chiến lược học tập (Advanced)      | 🧠 Tư duy      | -       |
+| [24](#24-lộ-trình-ôn-luyện-4-trạm-thực-chiến)   | Lộ trình Ôn luyện 4 Trạm           | 🔥 Tối thượng | -       |
+| [25](#25-phụ-lục-thư-viện-code-mẫu-boilerplate-templates) | Thư viện Code Mẫu (Boilerplate) | 🛠️ Công cụ    | -       |
 
 ---
 
@@ -1746,6 +1748,88 @@ Làm sao để biết bài này dùng thuật toán gì? Dựa vào **Dữ liệ
 | Tìm kiếm trong mảng đã sắp xếp hoặc tìm giá trị tối ưu (BS on Answer) | **Binary Search** |
 | Quản lý các nhóm liên thông, quan hệ bạn bè | **Union-Find** |
 
+<br>
+
+### 🌟 BẢNG CHI TIẾT: DẤU HIỆU & LOGIC XỬ LÝ (KÈM BÀI TẬP CỤ THỂ)
+
+Dưới đây là tổng hợp tư duy logic và các mẫu giải pháp phổ biến nhất cho từng loại CTDL, giúp bạn ôn lại nhanh trước khi làm bài hoặc đi phỏng vấn:
+
+#### 1. Mảng (Array) / Chuỗi (String)
+- **Dấu hiệu:** Xử lý tập hợp tuần tự, tìm chuỗi/mảng con, truy vấn tổng.
+- **Logic áp dụng:**
+  - **Hai con trỏ (Two Pointers):** Ngược chiều (mảng đã sắp xếp, chuỗi đối xứng), hoặc cùng chiều (xóa trùng lặp/Fast & Slow).
+  - **Cửa sổ trượt (Sliding Window):** Tìm chuỗi con/mảng con liên tiếp thỏa mãn điều kiện.
+  - **Mảng cộng dồn (Prefix Sum):** Truy vấn tổng khoảng liên tục $O(1)$.
+  - **Tìm kiếm nhị phân (Binary Search):** Tìm giá trị tối ưu trên không gian mẫu có tính đơn điệu.
+- **📌 Bài toán thực hành:**
+  - *Sliding Window:* LeetCode #3, #76, #424, #567
+  - *Two Pointers:* LeetCode #11, #15, #42
+  - *Prefix Sum:* LeetCode #238, #560
+  - *Binary Search:* LeetCode #33, #153, #704
+
+#### 2. Bảng băm (Hash Table)
+- **Dấu hiệu:** Cần tìm kiếm cực nhanh $O(1)$ hoặc bài toán đếm tần suất, gom nhóm.
+- **Logic áp dụng:**
+  - **Lưu vết (Memoization/Tracking):** Vừa duyệt vừa lưu thông tin để đối chiếu sau này (như tìm phần bù của Two Sum).
+  - **Đếm tần suất (Frequency Map):** Tìm phần tử đa số, hay ký tự trùng lặp.
+- **📌 Bài toán thực hành:** LeetCode #1 (Two Sum), #49 (Group Anagrams), #242 (Valid Anagram), #128 (Longest Consecutive Sequence)
+
+#### 3. Ngăn xếp (Stack)
+- **Dấu hiệu:** Bài toán có tính chất "đảo chiều", lịch sử thao tác, lồng nhau (ngoặc), hoặc tìm phần tử lớn hơn/nhỏ hơn tiếp theo.
+- **Logic áp dụng:**
+  - **Vào sau Ra trước (LIFO):** Ghép cặp ngoặc, tính toán chuỗi biểu thức.
+  - **Ngăn xếp đơn điệu (Monotonic Stack):** Duy trì stack luôn tăng/giảm dần để tìm "Next Greater/Smaller Element". Khi phần tử mới làm vỡ quy luật thì `pop` để xử lý.
+- **📌 Bài toán thực hành:** LeetCode #20 (Valid Parentheses), #84 (Largest Rectangle), #739 (Daily Temperatures)
+
+#### 4. Hàng đợi (Queue)
+- **Dấu hiệu:** Mô phỏng tuần tự hoặc khám phá theo lớp/tầng.
+- **Logic áp dụng:**
+  - **Vào trước Ra trước (FIFO):** Xử lý luân phiên.
+  - **Duyệt theo chiều rộng (BFS):** Tìm "đường đi ngắn nhất" trên đồ thị không trọng số.
+- **📌 Bài toán thực hành:** LeetCode #102 (Level Order), #200 (Number of Islands), #994 (Rotting Oranges)
+
+#### 5. Danh sách liên kết (Linked List)
+- **Dấu hiệu:** Không thể Index một cách độc lập, thao tác xoay quanh việc nối và ngắt con trỏ.
+- **Logic áp dụng:**
+  - **Rùa & Thỏ (Fast / Slow pointers):** Một chạy nhanh, một chầm chậm để tìm chu trình hoặc điểm chính giữa.
+  - **Con trỏ giả (Dummy Head):** Tạo Node giả ở trước `head` để tránh exception khi tác động đến ngay Node đầu tiên.
+  - **Đảo ngược (Reverse):** Kỹ thuật luân chuyển ba con trỏ `prev`, `curr`, `next`.
+- **📌 Bài toán thực hành:** LeetCode #206 (Reverse LL), #141 (Cycle), #876 (Middle Node), #21 (Merge Lists)
+
+#### 6. Cây (Tree) / BST
+- **Dấu hiệu:** Dữ liệu phân nhánh, đệ quy liên tục, tìm kiếm/chèn siêu tốc ($O(\log N)$).
+- **Logic áp dụng:**
+  - **Đệ quy (DFS):** Duyệt Tiền tố (Pre), Trung tố (In) hoặc Hậu tố (Post). Đặc biệt: Duyệt In-order của BST sinh ra mảng *tăng dần*.
+  - **Duyệt tầng (BFS):** Dùng Queue khảo sát từng độ sâu một.
+- **📌 Bài toán thực hành:** LeetCode #104 (Max Depth), #235 (LCA of BST), #98 (Validate BST), #102 (Level Order)
+
+#### 7. Hàng đợi ưu tiên (Heap / Priority Queue)
+- **Dấu hiệu:** Cần trả lời liên tục đâu là Min/Max hiện thời, luồng dữ liệu biến thiên, Top K phần tử.
+- **Logic áp dụng:** 
+  - **Top K Elements:** K phần tử lớn nhất $\rightarrow$ dùng Min Heap (giữ size $K$); K phần tử nhỏ nhất $\rightarrow$ dùng Max Heap.
+- **📌 Bài toán thực hành:** LeetCode #347 (Top K Frequent), #295 (Find Median of Data Stream), #23 (Merge K Sorted Lists)
+
+#### 8. Đồ thị (Graph)
+- **Dấu hiệu:** Dữ liệu kết nối dạng điểm - cạnh, mê cung, mô hình lây nhiễm, tính phụ thuộc.
+- **Logic áp dụng:**
+  - **DFS:** Loang vết dầu để tìm vùng liên thông (Islands), đếm chu trình.
+  - **BFS:** Từng bước tỏa đều để tìm **số bước nhỏ nhất** / đường đi cực tiểu.
+  - **Sắp xếp Topology:** Giải quyết tiến trình "việc này phải làm trước việc kia".
+  - **Dijkstra:** Tìm đường đi ngắn nhất khi các con đường có trọng số chi phí khác nhau.
+- **📌 Bài toán thực hành:** LeetCode #200 (Islands), #207 (Course Schedule), #743 (Network Delay Time)
+
+#### 9. Disjoint Set / Union-Find (Tập hợp rời rạc)
+- **Dấu hiệu:** Có tính "kết bạn", "gom mạng" và liên tục hỏi "Anh A có quen chung anh B không?".
+- **Logic áp dụng:**
+  - **Find** (tìm tổ tiên) và **Union** (gộp dòng họ). Tối ưu bằng Path Compression giúp thao tác chạy tức thì trong $O(1)$.
+- **📌 Bài toán thực hành:** LeetCode #547 (Number of Provinces), #684 (Redundant Connection)
+
+#### 10. Cây tiền tố (Trie)
+- **Dấu hiệu:** Tìm prefix (tiền tố), Auto-complete, kiểm tra chuỗi có tồn tại trong bộ từ điển siêu khổng lồ.
+- **Logic áp dụng:**
+  - Từ điển được dàn thành một cây theo từng ký tự. Truy xuất một từ chỉ mất số bước bằng đúng chiều dài từ đó ($O(\text{len}))$, không phụ thuộc lượng từ trong tự điển.
+- **📌 Bài toán thực hành:** LeetCode #208 (Implement Trie), #211 (Design Add and Search Words)
+
 ---
 
 ## 22. NeetCode 75 (Curated List)
@@ -1809,6 +1893,205 @@ Khi làm xong 1 bài, hãy ghi chú lại:
 ---
 
 *📌 Ghi chú cuối: DSA là một cuộc chạy Marathon, không phải Sprint. Hãy kiên trì mỗi ngày ít nhất 1 bài.*
+
+---
+
+## 24. Lộ Trình Ôn Luyện 4 Trạm Thực Chiến
+
+> **Mục tiêu:** Nâng cấp tư duy thuật toán từ mức độ giải bài tập (Junior/Mid) lên kiến trúc phân tích, phản biện mã nguồn và thiết kế hệ thống nền tảng (Senior).
+> **Cách sử dụng:** Đối với mỗi chủ đề, hãy tự suy nghĩ nháp ra giấy trước. Sau đó, bạn có thể copy yêu cầu của từng trạm và gửi cho mình (AI) để mình kiểm tra, review đáp án hoặc đóng vai trò người phỏng vấn.
+
+### 📌 CHỦ ĐỀ 1: MẢNG (ARRAY) & HAI CON TRỎ / CỬA SỔ TRƯỢT
+**Trạm 1 (Code Review):** Đoạn code Python xóa phần tử trùng lặp trong mảng đã sắp xếp: `for i in nums: while nums.count(i)>1: nums.remove(i)`. Tại sao đoạn code này lại là thảm họa hiệu năng $O(N^2)$? Hãy viết lại nó đạt mốc $O(N)$ Time và $O(1)$ Space.
+**Trạm 2 (Problem Solving):** Subarray Sum Equals K. Hãy viết thuật toán Prefix Sum kết hợp Hash Map để tìm số lượng mảng con liên tiếp có tổng bằng `K` trong danh sách có số âm. Tại sao Sliding Window thông thường lại thất bại ở bài toán này?
+**Trạm 3 (Deep Dive):** Giải phẫu `Dynamic Array` (`list` trong Python, `ArrayList` trong Java/C++). Nó thu xếp bộ nhớ dưới nền gốc RAM như thế nào? "Amortized $O(1)$ Time" (thời gian O(1) khấu hao) khi append/thêm dữ liệu nghĩa là sao?
+**Trạm 4 (Mock Interview):** Bạn cần xây dựng bộ API xử lý dữ liệu biểu đồ nến (Stock Candlestick). Làm sao để truy vấn "Giá lớn nhất trong 3 ngày liên tiếp bất kì trong 10 năm qua" với độ phức tạp $O(N)$ thời gian? (Hint: Sliding Window Maximum).
+
+### 📌 CHỦ ĐỀ 2: BẢNG BĂM (HASH TABLE)
+**Trạm 1 (Code Review):** Junior dev viết code kiểm tra Anagram bằng cách: `return sorted(s) == sorted(t)`. Điều này chạy hết $O(N \log N)$. Bạn hãy tái cấu trúc thành $O(N)$ sử dụng mảng phụ hoặc Hash Table.
+**Trạm 2 (Problem Solving):** (Biến thể Two Sum) Cho mảng số và `Target`. Hãy trả ra **tất cả các cặp giá trị** phân biệt (không bị trùng bộ số) có tổng bằng Target.
+**Trạm 3 (Deep Dive):** "Đụng độ băm" (Hash Collision) là nỗi ám ảnh. Chuyện gì xảy ra ở mức bộ nhớ khi 2 keys khác nhau đẻ ra cùng 1 Hash Code? Phân tích ưu nhược điểm giữa *Separate Chaining (Danh sách liên kết nối đuôi)* và *Open Addressing (Dò tìm địa chỉ mở)*.
+**Trạm 4 (Mock Interview):** Thiết kế cấu trúc dữ liệu `LRU Cache` (Least Recently Used) nổi tiếng. Yêu cầu `get` và `put` đều thao tác dưới ngưỡng $O(1)$. Bạn sẽ mix Hash Map với Cấu trúc dữ liệu nào? Tại sao?
+
+### 📌 CHỦ ĐỀ 3: NGĂN XẾP (STACK) & HÀNG ĐỢI (QUEUE)
+**Trạm 1 (Code Review):** Dev mới dùng danh sách `[]` của Python làm Queue. Hàm enqueue họ dùng `.append()`, hàm dequeue gọi `.pop(0)`. Bạn hãy chỉ ra sự tổn hao bộ nhớ và cách dùng thư viện chuẩn để xử lý tác vụ này với $O(1)$.
+**Trạm 2 (Problem Solving):** (Monotonic Stack). Cho mảng `[73, 74, 75, 71, 69, 72, 76, 73]`. Tính xem sau bao nhiêu ngày (sự chênh lệch index) thì nhiệt độ mới cao hơn ngày hôm qua. Làm bài này trong $O(N)$.
+**Trạm 3 (Deep Dive):** Stack lưu trữ ở đâu trên RAM của hệ điều hành? Lỗi kinh điển `StackOverflow` là gì và điều kiện vật lý nào nảy sinh ra nó?
+**Trạm 4 (Mock Interview):** Hệ thống web Chat của bạn phải xử lý dấu ngoặc, thẻ HTML lồng nhau. Hãy xây dựng bộ Parser bằng Stack để phát hiện xem một đoạn văn bản HTML có hợp lệ hay bị thiếu thẻ đóng không?
+
+### 📌 CHỦ ĐỀ 4: DANH SÁCH LIÊN KẾT (LINKED LIST)
+**Trạm 1 (Code Review):** Đoạn code đảo ngược Linked List bị rơi vào vòng lặp vô hạn do đan chéo con trỏ `next`. Bạn phải chỉ ra lý do tại sao phải dùng 3 con trỏ `prev`, `curr`, `next` để dời lịch sử.
+**Trạm 2 (Problem Solving):** Thuật toán [Rùa và Thỏ - Floyd's Cycle Detection]. Hãy chứng minh bằng toán/logic tại sao con trỏ đi 2 bước và con trỏ đi 1 bước **chắc chắn sẽ gặp nhau** nếu Linked List có vòng lặp (Cycle).
+**Trạm 3 (Deep Dive):** Arrays vs Linked Lists ở cấp độ CPU Caching. Tại sao dù duyệt tuần tự $O(N)$, Arrays lại chạy thực tế phi mã so với Linked List nhờ vào cơ chế "Spatial Locality" của Cache L1/L2?
+**Trạm 4 (Mock Interview):** Bài toán Browser History. Làm sao chỉ với thao tác $O(1)$ dung lượng và $O(1)$ thời gian, thiết kế được hệ thống bấm Back/Forward/Go-To-URL y hệt Google Chrome? (Gợi ý: Doubly Linked List).
+
+### 📌 CHỦ ĐỀ 5: CÂY NHỊ PHÂN (TREES) & CÂY TÌM KIẾM NHỊ PHÂN (BST)
+**Trạm 1 (Code Review):** Đoạn code tìm kiếm phần tử trên BST không có base case (điều kiện dừng) sinh lỗi `RecursionError`. Khắc phục và thiết lập ranh giới an toàn.
+**Trạm 2 (Problem Solving):** Đảo ngược Cây Nhị Phân (Invert Binary Tree) - Câu hỏi nổi tiếng đã đánh trượt creator của Homebrew tại Google. Viết code DFS để làm trong 3 dòng.
+**Trạm 3 (Deep Dive):** Nếu ta chèn dữ liệu tăng dần `[1, 2, 3, 4, 5]` vào BST, cây sẽ bị "Thoái hóa" thành Linked List dẫn tới $O(N)$. Nhắc đến khái niệm Cây cân bằng (AVL / Red-Black Tree) và cách chúng tự động xoay (rotate).
+**Trạm 4 (Mock Interview):** Thiết kế Autocomplete cho thanh Search Bar. Bạn sẽ sử dụng cấu trúc Tree gì? (Trie). Tối ưu việc gợi ý 10 từ khóa tìm kiếm chung nhất nhanh nhất có thể.
+
+### 📌 CHỦ ĐỀ 6: ĐỒ THỊ (GRAPHS) - DFS / BFS
+**Trạm 1 (Code Review):** Code duyệt DFS trên Đồ thị bị Infinite Loop vì quên đánh dấu `visited`. Sửa nó bằng cấu trúc chuẩn của Set trong Python.
+**Trạm 2 (Problem Solving):** Phát hiện chu trình (Cycle) trong đồ thị CÓ HƯỚNG. Tại sao mảng `visited` thông thường là không đủ kiện? (Phải dùng mảng trạng thái `visited` 3 biến: chưa thăm, đang thăm, đã duyệt xong).
+**Trạm 3 (Deep Dive):** Khi nào dùng BFS (Theo chiều rộng)? Khi nào DFS (Theo chiều sâu)? Liên hệ với bài toán tìm đường ngắn nhất trong không gian mê cung đồng nhất (weight = 1).
+**Trạm 4 (Mock Interview):** Hệ thống Build Tool (như npm, maven, docker engine) cần cài đặt một danh sách hàng nghìn package bị ràng buộc (Dependencies) lẫn nhau. Sử dụng Graph và thuật toán **Topological Sorting** để lập luồng xử lý (Cái nào cài trước, cái nào cài sau).
+
+### 📌 CHỦ ĐỀ 7: HÀNG ĐỢI ƯU TIÊN (HEAP / PRIORITY QUEUE)
+**Trạm 1 (Code Review):** Việc dùng `.sort()` mỗi khi thêm 1 phần tử mới vào mảng để lấy Top K. Chỉ ra tại sao nó là $O(N \log N)$ và cách Heap giảm thiểu nó xuống $O(\log N)$.
+**Trạm 2 (Problem Solving):** Tìm trung vị (Median) trên luồng dữ liệu thời gian thực (Data Stream) dài vô hạn. Việc duy trì 1 Min-Heap và 1 Max-Heap song song giải quyết bài toán này ra sao? 
+**Trạm 3 (Deep Dive):** Bản chất của một Binary Heap là một hoàn hảo biểu diễn dưới cấu trúc mảng 1 chiều (Array). Giải nghĩa công thức con Trái/Phải nằm ở `2*i + 1` và `2*i + 2`.
+**Trạm 4 (Mock Interview):** Thuật toán dẫn đường Navigation. Bạn được bản đồ thành phố dạng Graph với chiều dài các đường thẳng, thiết kế **Thuật toán Dijkstra** với Min-Heap để tìm đường đi mất ít chặng / khoảng cách nhất.
+
+### 📌 CHỦ ĐỀ 8: QUY HOẠCH ĐỘNG (DYNAMIC PROGRAMMING)
+**Trạm 1 (Code Review):** Hàm đệ quy tính số Fibonacci siêu cồng kềnh với độ phức tạp $O(2^N)$. Bằng cách nào chỉ thêm đúng 2 dòng dùng Hash Map (Memoization) ta cứu được chương trình về $O(N)$?
+**Trạm 2 (Problem Solving):** Longest Common Subsequence (Chuỗi con chung dài nhất) hoặc bài toán Knapsack (Cái ba lô). Xây dựng bảng quy hoạch động 2D (Tabulation).
+**Trạm 3 (Deep Dive):** Bắt mạch "Khi nào thì dùng DP?". Định hình 2 chỉ dấu bắt buộc: Overlapping Subproblems (bài toán con trùng lặp) + Optimal Substructure (Cấu trúc tối ưu nội bộ).
+**Trạm 4 (Mock Interview):** Phỏng vấn System Design: Viết thuật toán Text Justification giống Microsoft Word (chia dòng cho chữ để căn lề hai bên sao cho chi phí - số lượng khoảng trắng dư thừa tính theo hàm bình phương - là MIN nhất).
+
+---
+
+## 25. Phụ Lục: Thư Viện Code Mẫu (Boilerplate Templates)
+
+Phần này tổng hợp các Mẫu Code Chuẩn (Templates) cho các Kỹ thuật giải quyết thường gặp nhất. Khi đi phỏng vấn hoặc giải thuật toán, bạn thường chỉ cần tải lại khung code này từ trong tiềm thức và điều chỉnh các điểm neo logic.
+
+### 1. Kỹ thuật Cửa sổ trượt động (Dynamic Sliding Window)
+Dùng để tìm mảng con liên tiếp (Subarray/Substring) thỏa mãn một điều kiện (Ví dụ: Tổng nhỏ hơn K, Dài nhất không lặp ký tự).
+
+```python
+def sliding_window_template(nums):
+    left = 0
+    max_len = 0     # Hoặc min_len, tùy bài toán
+    window_state = 0 # Có thể là tổng, đếm số lượng, set() hoặc dict()
+
+    for right in range(len(nums)):
+        # 1. Thêm phần tử ở 'right' vào window_state
+        window_state += nums[right] # Ví dụ tính tổng
+        
+        # 2. Kiểm tra điều kiện vi phạm. Nếu vi phạm, phải thu hẹp cửa sổ từ bên trái
+        while condition_is_violated(window_state):
+            # Cập nhật lại state khi vứt bỏ phần tử ở 'left'
+            window_state -= nums[left]
+            left += 1
+            
+        # 3. Cập nhật kết quả tốt nhất khi cửa sổ đang hợp lệ
+        max_len = max(max_len, right - left + 1)
+        
+    return max_len
+```
+
+### 2. Kỹ thuật Hai con trỏ (Two Pointers)
+Dùng trong xóa phần tử, hợp nhất mảng, hoặc hai đầu ngược chiều cho mảng đã sắp xếp.
+
+**Hai con trỏ ngược chiều (Opposite Direction):**
+```python
+def two_pointers_opposite(nums, target):
+    nums.sort() # Mảng PHẢI DUY TRÌ TÍNH SẮP XẾP
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        current_sum = nums[left] + nums[right]
+        
+        if current_sum == target:
+            return [left, right] # Đã tìm thấy
+        elif current_sum < target:
+            left += 1   # Tổng đang nhỏ -> Cần tăng tổng
+        else:
+            right -= 1  # Tổng đang lớn -> Cần giảm tổng
+            
+    return []
+```
+
+**Con trỏ Nhanh/Chậm (Fast & Slow Pointers):**
+```python
+def remove_elements_in_place(nums):
+    slow = 0 # Trỏ vào vị trí "chốt" để thay thế
+    
+    for fast in range(len(nums)):
+        if nums[fast] != 0: # Điều kiện giữ lại phần tử
+            nums[slow] = nums[fast]
+            slow += 1
+            
+    # Phần còn lại gán bằng 0 (nếu bài toán Move Zeroes)
+    for i in range(slow, len(nums)):
+        nums[i] = 0
+        
+    return slow
+```
+
+### 3. Kỹ thuật Dummy Node trên Danh sách liên kết (Linked List)
+Giúp tránh lỗi Exception khi thao tác (Thêm/Xóa) ngay tại Node Đầu Tiên (Head).
+
+```python
+def linked_list_template(head):
+    # 1. Tạo một Node rỗng đứng trước Head
+    dummy = ListNode(0)
+    dummy.next = head
+    
+    curr = dummy
+    
+    while curr and curr.next:
+        if curr.next.val == 'Gia_tri_can_xoa':
+            # 2. Xóa bằng cách nhảy cóc
+            curr.next = curr.next.next 
+        else:
+            # 3. Tiến tới
+            curr = curr.next
+            
+    # Trả về dummy.next (Head thật sự sau khi đã biến đổi)
+    return dummy.next
+```
+
+### 4. Ngăn xếp đơn điệu (Monotonic Stack)
+Chuyên trị các bài bắt tìm **"Phần tử Lớn hơn/Nhỏ hơn NGAY KẾ TIẾP"**. Lưu các giá trị index trong Stack luôn tăng dần hoặc giảm dần.
+
+```python
+def next_greater_element(nums):
+    res = [-1] * len(nums) # Khởi tạo giá trị mặc định
+    stack = [] # Stack lưu index
+    
+    for i in range(len(nums)):
+        # Nếu phần tử hiện tại lớn hơn phần tử trên đỉnh Stack
+        # Nó là "Kẻ Lớn Hơn Kế Tiếp" làm vỡ quy luật Stack
+        while stack and nums[i] > nums[stack[-1]]:
+            idx = stack.pop()
+            res[idx] = nums[i]
+            
+        stack.append(i) # Đẩy index đợi
+        
+    return res
+```
+
+### 5. DFS & BFS trên Lưới (Grid / Matrix / Mê cung)
+Rẽ nhánh dựa trên 4 hướng cơ bản và đếm số vùng liên thông (Islands).
+
+```python
+def solve_grid(grid):
+    num_rows = len(grid)
+    num_cols = len(grid[0])
+    visited = set()
+    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)] # Lên, Xuống, Trái, Phải
+    
+    def dfs(r, c):
+        # 1. Điều kiện ranh giới (Out of bounds) và đã đi qua
+        if r < 0 or c < 0 or r >= num_rows or c >= num_cols or (r, c) in visited or grid[r][c] == 0:
+            return
+            
+        visited.add((r, c)) # Đánh dấu đã đi qua
+        
+        # 2. Loang 4 hướng
+        for dr, dc in directions:
+            dfs(r + dr, c + dc)
+
+    count = 0 
+    for r in range(num_rows):
+        for c in range(num_cols):
+            if grid[r][c] == 1 and (r, c) not in visited:
+                dfs(r, c) # Bắt đầu loang 1 hòn đảo
+                count += 1
+                
+    return count
+```
 
 ---
 

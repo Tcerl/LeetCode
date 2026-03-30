@@ -14,6 +14,8 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 7. [Phần 7: Tích hợp hệ thống & Flask](#phần-7-tích-hợp-hệ-thống--flask)
 8. [Phần 8: Git & Quy trình làm việc](#phần-8-git--quy-trình-làm-việc)
 9. [Phần 9: Tình huống thực tế & Debugging](#phần-9-tình-huống-thực-tế--debugging)
+10. [Phần 10: Testing & Automation](#phần-10-testing--automation)
+11. [Phần 11: Odoo 17/18 Specifics](#phần-11-odoo-1718-specifics)
 
 ---
 
@@ -37,8 +39,14 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 - `==`: So sánh giá trị.
 - `is`: So sánh địa chỉ ô nhớ (identity).
 
-### Q6: Ý nghĩa của `*args` và `**kwargs`?
-- Giúp nhận số lượng tham số không xác định. Phải dùng khi override method để không làm mất tham số của các module khác trong chuỗi kế thừa.
+### Q6: Phân biệt `*args` và `**kwargs` và khi nào sử dụng?
+- **Sự khác biệt:**
+    - `*args`: Nhận các tham số không định danh (positional arguments) dưới dạng một **Tuple**.
+    - `**kwargs`: Nhận các tham số có định danh (keyword arguments) dưới dạng một **Dictionary**.
+- **Khi nào sử dụng:**
+    - **Khi override method (Odoo):** Bắt buộc dùng cả hai để chuyển tiếp toàn bộ tham số cho hàm `super()`, đảm bảo không làm mất dữ liệu của các module kế thừa khác trong chuỗi.
+    - **Khi viết Decorators:** Dùng để bọc các hàm có số lượng tham số bất kỳ.
+    - **Khi viết hàm linh hoạt:** Cho phép truyền vào nhiều giá trị mà không cần định nghĩa trước số lượng tham số (VD: Hàm tính tổng nhiều số, hàm format message).
 
 ### Q7: Hàm `__call__` của một Class?
 - Cho phép gọi một instance của class như thể nó là một hàm.
@@ -113,6 +121,25 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 ### Q87: `_inherit_children` dùng để làm gì?
 - Dùng trong kế thừa để biết model nào đang kế thừa từ model này. Thường dùng trong các xử lý logic cấp thấp của hệ thống.
 
+### Q106: Giải thích vòng đời của một HTTP Request trong Odoo (Request Lifecycle)?
+1. **Client Request**: Browser gửi request tới Odoo (thường qua Nginx).
+2. **Werkzeug Layer**: Thư viện Werkzeug nhận request, phân tích URL.
+3. **Root Dispatching**: `Root.dispatch` thiết lập session, chọn database.
+4. **IR HTTP Routing**: Model `ir.http` tìm kiếm route phù hợp (Controller hoặc Action).
+5. **Security & Context**: Kiểm tra quyền truy cập, thiết lập context (`self.env`).
+6. **Execution**: Chạy code xử lý (Controller method hoặc ORM).
+7. **Response**: Trả về dữ liệu (JSON cho RPC hoặc QWeb/HTML cho Website).
+
+### Q108: Phân biệt chi tiết `_inherit` và `_inherits`?
+*   **`_inherit` (Classical/Prototype Inheritance):**
+    *   **Mục đích:** Mở rộng tính năng của một model có sẵn hoặc tạo model mới dựa trên template cũ.
+    *   **Cơ chế DB:** Thêm cột trực tiếp vào bảng cũ (nếu không có `_name`) hoặc tạo bảng mới hoàn toàn (nếu có `_name`).
+    *   **Sử dụng:** `_inherit = 'res.partner'`.
+*   **`_inherits` (Delegation Inheritance):**
+    *   **Mục đích:** Kết nối hai model khác nhau theo dạng "kế thừa thuộc tính" (giống Composition trong OOP).
+    *   **Cơ chế DB:** Không thêm cột của model cha vào model con. Thay vào đó, nó tạo một trường Many2one (Foreign Key) kết nối 2 bảng. Khi truy cập field của cha từ con, Odoo sẽ tự động "proxy" qua.
+    *   **Sử dụng:** `_inherits = {'res.partner': 'partner_id'}` (Ví dụ: Model `res.users` kế thừa delegation từ `res.partner`).
+
 ---
 ## 🏗 PHẦN 3: ODOO ORM & DATA HANDLING
 
@@ -165,20 +192,35 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 - **read():** Trả về giá trị của các trường theo đúng kiểu dữ liệu Python (list, dict).
 - **export_data():** Trả về dữ liệu dạng list of lists, đã được định dạng chuỗi sẵn sàng để xuất ra CSV/Excel.
 
+### Q94: `compute_sudo=True` là gì và khi nào nên dùng?
+- **Ý nghĩa:** Cho phép Odoo tính toán một computed field với quyền Admin (root), bỏ qua các kiểm tra phân quyền (Record Rules).
+- **Khi nào dùng:** Khi field đó cần lấy dữ liệu từ các model mà user hiện tại không có quyền truy cập (VD: Tổng doanh thu công ty hiển thị cho nhân viên bán hàng).
+
+### Q95: Phương thức `inverse` trong computed field dùng để làm gì?
+- **Tác dụng:** Cho phép người dùng chỉnh sửa trực tiếp trên computed field. Khi field bị sửa, hàm `inverse` sẽ chạy để cập nhật giá trị ngược lại cho các trường phụ thuộc.
+- **Ví dụ:** Computed field `total` = `price` * `qty`. Nếu sửa `total`, hàm `inverse` có thể tính lại `price = total / qty`.
+
+### Q96: Phân biệt `search_read()` và `search_fetch()` trong Odoo 17+?
+- **search_read():** Trình ORM sẽ thực hiện search và trả về một list các dict chứa data của fields được yêu cầu.
+- **search_fetch():** (Mới từ Odoo 17) Trả về một Recordset đã được pre-fetch dữ liệu. Nó tối ưu hơn về bộ nhớ và hiệu năng khi xử lý tập dữ liệu lớn vì không cần chuyển toàn bộ thành list/dict ngay lập tức.
+
 ---
 ## ⚡ PHẦN 4: HIỆU NĂNG & CƠ SỞ DỮ LIỆU
 
-### Q27: Vấn đề N+1 Query?
-- Gọi query trong vòng lặp. Xử lý bằng cách dùng `mapped()` để Prefetch dữ liệu.
+### Q27: Vấn đề N+1 Query là gì và cách xử lý?
+- **Vấn đề**: Xảy ra khi bạn duyệt một recordset (N bản ghi) và bên trong vòng lặp thực hiện truy cập vào một trường relational (Many2one/One2many). ORM sẽ bắn ra N câu query SELECT riêng lẻ xuống DB, gây chậm hệ thống trầm trọng.
+- **Cách xử lý**: Dùng cơ chế **Prefetching** của Odoo (thường tự động nếu dùng recordset đúng cách). Hoặc dùng hàm `mapped()` để đọc giá trị hàng loạt trước khi vào loop, hoặc sử dụng `read()`/`search_read()` với danh sách fields cụ thể.
 
 ### Q28: `store=True` trong Computed Field?
 - Lưu giá trị vào DB. Giúp search/sort nhanh nhưng làm chậm tốc độ ghi (`write`).
 
-### Q29: Cơ chế "Lazy Update" (Lazy Flush)?
-- `write()` không bắn UPDATE ngay. Odoo gộp các lệnh và đẩy xuống DB sau cùng để tối ưu.
+### Q29: Cơ chế "Lazy Update" (Lazy Flush) của Odoo?
+- **Cơ chế**: Khi gọi `write()`, Odoo không lập tức bắn UPDATE xuống Postgres. Nó lưu thay đổi vào **ORM Cache**. 
+- **Khi nào Flush**: Dữ liệu chỉ được đẩy xuống DB khi: Giao dịch kết thúc (Commit), khi có lệnh `search()`/`read()` liên quan đến trường đó, hoặc khi gọi `self.env.flush_all()` (Odoo 16+) để đảm bảo tính nhất quán dữ liệu trước khi chạy SQL thô.
 
-### Q30: Sequence & Rollback?
-- Khi lỗi xảy ra, ID đã cấp (từ Sequence) sẽ bị mất (Gap). Postgres không thu hồi ID để đảm bảo hiệu năng.
+### Q30: Giải thích hiện tượng Gap ID (Mất số) sau khi Rollback?
+- **Hiện tượng**: Bạn gọi `create()`, Odoo lấy ID = 15 từ Sequence. Sau đó gặp lỗi `ValidationError`. Lần lưu sau, bản ghi nhận ID = 16 (mất số 15).
+- **Lý do**: PostgreSQL Sequence hoạt động **độc lập** với Transaction. Một khi ID đã được lấy ra ("consumed"), nó sẽ không bao giờ được trả lại dù giao dịch có bị Rollback. Điều này giúp tránh hiện tượng "Lock" hàng đợi khi nhiều người cùng tạo bản ghi đồng thời, đảm bảo hiệu năng cao.
 
 ### Q31: Many2many ở tầng Database?
 - Tạo một bảng trung gian kết nối 2 ID. Cần đánh INDEX bảng này khi dữ liệu lớn.
@@ -259,6 +301,20 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 ### Q90: `search_panel` là gì?
 - Là thanh lọc phía bên trái màn hình (thường thấy trong model Nhân viên hoặc Sản phẩm), giúp user lọc nhanh theo danh mục mà không cần gõ search. Khai báo bên trong thẻ `<search>`.
 
+### Q97: Giải thích vòng đời (Lifecycle) của một component OWL?
+- **setup():** Khởi tạo state, hooks. Chạy trước khi render.
+- **willStart():** Chạy trước khi component được mount, dùng để load data từ server (async).
+- **mounted():** Chạy sau khi DOM đã được tạo. Dùng để tương tác với thư viện bên ngoài.
+- **willUpdateProps():** Chạy khi component nhận props mới từ cha.
+- **willUnmount():** Chạy trước khi bị hủy để cleanup.
+
+### Q98: Phân biệt `useState` và `reactive` trong OWL?
+- **useState:** Dùng để theo dõi sự thay đổi của một object/array đơn giản trong component. Khi state đổi, component sẽ re-render.
+- **reactive:** Cấp thấp hơn, dùng cho các object phức tạp hoặc chia sẻ state giữa nhiều component. Nó không tự động buộc render nếu không được bọc bởi `useState` hoặc dùng trong template.
+
+### Q99: Cách thay đổi hành vi của một Class JS hoặc Object có sẵn trong Odoo?
+- Dùng **Patching** (hàm `patch` từ `@web/core/utils/patch`). Nó cho phép thêm mới hoặc override method của một Object/Class mà không làm hỏng logic gốc (tương tự `_inherit` ở Python).
+
 ---
 ## 🌐 PHẦN 7: TÍCH HỢP HỆ THỐNG & FLASK
 
@@ -319,8 +375,21 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 ---
 ## 🐞 PHẦN 9: TÌNH HUỐNG THỰC TẾ & DEBUGGING
 
-### Q56: Cron Job xử lý 1 triệu bản ghi?
-- Chia batch nhỏ (limit 1000), dùng `cr.commit()` và tự gọi lại (re-enqueue).
+### Q56: Cách xử lý Cron Job cập nhật 1 triệu bản ghi tránh Timeout?
+- **Chiến lược**:
+    1. **Chia batch nhỏ**: Sử dụng `limit` (ví dụ 1000 bản ghi mỗi lần).
+    2. **Commit từng phần**: Dùng `self.env.cr.commit()` sau mỗi batch để lưu ngay vào DB, giải phóng bộ nhớ và tránh mất dữ liệu nếu crash giữa chừng.
+    3. **Tự động gọi lại**: Set Cron chạy lặp lại liên tục, hoặc dùng cơ chế `re-enqueue` (check xem còn data không để set `nextcall` ngay lập tức).
+    4. **Duyệt ID**: Tránh dùng `offset` (chậm khi data lớn), hãy dùng điều kiện `WHERE id > last_seen_id`.
+
+### Q107: Cách thiết lập một Scheduled Action (Cron) qua file XML?
+- Khai báo record trong model `ir.cron`. Các thuộc tính quan trọng:
+    - `model_id`: Model chứa hàm xử lý.
+    - `state`: Luôn là `code`.
+    - `code`: Đoạn mã gọi hàm, ví dụ `model._cron_my_task()`.
+    - `interval_number` & `interval_type`: Tần suất chạy (phút, giờ, ngày).
+    - `numbercall`: Số lần chạy (-1 là vô hạn).
+    - `doall`: Nếu Server tắt lúc đến lịch, khi bật lại có chạy bù không.
 
 ### Q57: `active=False` vs `unlink()`?
 - `active=False`: Ẩn dữ liệu (Soft delete). `unlink`: Xóa vĩnh viễn (Hard delete).
@@ -357,3 +426,31 @@ Tài liệu này đã được phân loại chi tiết theo từng mảng kiến
 
 ### Q93: Tại sao nên dùng Docker khi phát triển Odoo?
 - Đảm bảo môi trường (Python version, thư viện, Postgres) giống hệt nhau giữa máy Developer và máy Server, tránh lỗi "máy em chạy được nhưng máy kia không chạy".
+
+---
+## 🧪 PHẦN 10: TESTING & AUTOMATION
+
+### Q100: Phân biệt `TransactionCase`, `SavepointCase` và `HttpCase`?
+- **TransactionCase:** Mỗi test method chạy trong một transaction riêng và bị rollback sau khi xong. Chậm hơn SavepointCase.
+- **SavepointCase:** (Odoo 12-16, 17+ dùng subtests) Dùng savepoint để rollback từng test. Toàn bộ class chung 1 trang thái DB trước khi test.
+- **HttpCase:** Dùng để test các logic liên quan đến Controller, Website, Tours (JS). Nó mở một server HTTP thật để chạy test.
+
+### Q101: Odoo Tour (JS Test) là gì và tại sao nó quan trọng?
+- Là kịch bản test tự động mô phỏng click/type của người dùng trên trình duyệt. Rất quan trọng để đảm bảo logic frontend (OWL, JS) và UI không bị break sau khi update code.
+
+### Q102: Cách dùng `unittest.mock` để giả lập (Mocking) trong kiểm thử Odoo?
+- Dùng `@patch` hoặc `MagicMock` để thay thế các hàm gọi bên thứ 3 (Gửi mail, gọi API ngân hàng) bằng các hàm giả. Giúp test chạy nhanh và không phụ thuộc vào internet hay hệ thống bên ngoài.
+
+---
+## 🚀 PHẦN 11: ODOO 17/18 SPECIFICS
+
+### Q103: Những thay đổi kỹ thuật lớn nhất trong Odoo 17 là gì?
+- **New Registry:** Cải thiện tốc độ load module.
+- **UI/UX:** Thiết kế lại hoàn toàn icons, dark mode mặc định, thanh tìm kiếm (Search bar) cải tiến.
+- **Performance:** Tối ưu hóa prefetching ORM và giảm kích thước assets bundle.
+
+### Q104: Cơ chế "Direct Print" mới trong Odoo 17 hoạt động như thế nào?
+- Cho phép in hóa đơn/phiếu kho thẳng ra máy in mà không cần tải file PDF về trình duyệt rồi mới bấm in, giúp đẩy nhanh tốc độ tại quầy POS hoặc kho hàng.
+
+### Q105: Cách bật và tùy chỉnh chế độ Dark Mode trong Odoo 17+?
+- Odoo 17 hỗ trợ Dark Mode "out-of-the-box". User có thể switch trong menu User Profile. Developer có thể tùy chỉnh màu sắc qua các biến CSS variables trong hệ thống assets.

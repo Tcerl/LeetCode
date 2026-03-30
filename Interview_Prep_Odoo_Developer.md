@@ -1946,11 +1946,11 @@ touch my_module/models/__init__.py
 
 ### 12.1 Tổng Quan 3 Kiểu Kế Thừa
 
-| Cơ chế | Cú pháp | Mục đích | Bảng DB |
-|---|---|---|---|
-| **Classical** | `_inherit = 'model'` (không có `_name`) | Mở rộng model có sẵn | Cùng bảng |
-| **Prototype** | `_inherit = 'model'` + `_name = 'new.model'` | Copy & tạo model mới | Bảng mới |
-| **Delegation** | `_inherits = {'model': 'field_id'}` | Nhúng model khác qua FK | Bảng riêng, dùng JOIN |
+| Cơ chế          | Cú pháp                                     | Mục đích                                     | Bảng DB   |
+|-----------------|---------------------------------------------|----------------------------------------------|-----------|
+| **Classical**   | `_inherit = 'model'` (không có `_name`)     | Mở rộng model có sẵn                         | Cùng bảng |
+| **Prototype**   | `_inherit = 'model'` + `_name = 'new.model'`| Copy & tạo model mới                         | Bảng mới  |
+| **Delegation**  | `_inherits = {'model': 'field_id'}`         | Nhúng model khác qua FK                      | Bảng riêng, dùng JOIN |
 
 ---
 

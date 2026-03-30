@@ -400,3 +400,42 @@ validate input
 
 tính trung bình của tất cả những tham số với từng vị trí trong matrix
 
+##### QUESTION & ANSWER
+
+**Q1. GIL(Global Interpreter Lock) trong Python là gì?**
+GIL là mutex lock ngăn nhiều threads Python chạy bytecode cùng lúc trong cùng process.
+> - Hệ quả: Threading không giúp tăng tốc CPU-bound tasks
+> - Giải pháp: Dùng `multiprocessing` cho CPU-bound, `asyncio`/`threading` cho I/O-bound
+> - Khi bỏ qua GIL: Numpy operation, C extensions
+
+**Q2. giải thích `@staticmethod` và `classmethod` và `@property`**
+> - `@staticmethod`: Không nhận `self` hay `cls`, utility function thuần túy
+> - `classmethod`: Nhận `cls` (class reference), dùng làm factory methods
+> - `@property`: Biến method thành attribute, có getter/setter/deleter
+> - Ví dụ thực tế: `Temperature.from_fahrenhit(98.6)` dùng `@classmethod`
+
+
+**Q3. Generator vs List comprehension - khi nào dùng cái nào**
+> - List: Cần random access, dùng nhiều lần, datáet nhỏ/vừa
+> - Generator: Dataset lớn , streaming, một lần duyệt, pipeline transforms
+
+**Q4. Decorator là gì? viết 1 decorator logging từ đầu**
+
+```python
+
+import functiontools, logging
+
+def log_calls(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        logging.info(f"Calling {func.__name__} with {args}, {kwargs}")
+        result = func(*args, **kwargs)
+        logging.info(f"{func.__name} returned {result}")
+        return result
+    return wrapper
+```
+
+**Q5. `__init__` vs `__new__` khác nhau như thế nào?**
+> - `__new__`: Tạo object mới (allocate memory) - ít dùng
+> - `__init__`: Khởi tạo object đã tạo (initalize attributes)
+> - Dùng `__new__` khi: Singleton pattern, immutable types(init, str)

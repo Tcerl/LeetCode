@@ -65,6 +65,13 @@ class FileHandler:
             print("File closed")
 
 # Khi object bị garbage collected, __del__ được gọi
+
+> [!IMPORTANT]
+> **Góc nhìn Framework & So sánh:**
+> - **Object Lifecycle (Python)**: `__init__` là constructor phổ biến. `__del__` ít được dùng hơn do cơ chế Garbage Collection của Python không đảm bảo thời điểm gọi chính xác.
+> - **Django/SQLAlchemy**: Sử dụng `__init__` để "hydrating" objects (đổ dữ liệu từ DB vào instance).
+> - **Spring Boot (Java)**: Sử dụng **Annotation-based Lifecycle**. Thay vì `__init__`, bạn dùng `@PostConstruct`. Việc khởi tạo được quản lý bởi IoC Container (Inversion of Control), giúp tách biệt logic khởi tạo và business logic.
+> - **React (Frontend)**: `useEffect(() => ..., [])` đóng vai trò gần giống `__init__` và `__del__` (thông qua cleanup function) cho vòng đời của component.
 ```
 
 ### 1.2. String Representation
@@ -128,6 +135,12 @@ class Money:
 money = Money(1000000)
 print(f"{money:USD}")  # Output: $1,000,000.00
 print(f"{money:VND}")  # Output: 1,000,000 VND
+
+> [!TIP]
+> **Góc nhìn Framework & So sánh:**
+> - **Django Admin**: Tự động gọi `__str__` để hiển thị tên bản ghi trong bảng quản trị. Nếu bạn quên định nghĩa, admin sẽ hiện `MyModel object (1)`.
+> - **Ruby on Rails**: Sử dụng `to_s`. Trong Ruby, mọi thứ đều là object và việc ghi đè `to_s` là văn hóa bắt buộc để debug hiệu quả.
+> - **Java**: Hàm `toString()` của class `Object` thường được override trong mọi POJO (Plain Old Java Object).
 ```
 
 ### 1.3. Comparison Operators
@@ -184,10 +197,14 @@ class Person:
         return hash((self.name, self.age))
 
 # Bây giờ có thể dùng trong set và dict
-p1 = Person("John", 30)
 p2 = Person("John", 30)
 people = {p1, p2}  # Chỉ có 1 phần tử vì p1 == p2
 print(len(people))  # Output: 1
+
+> [!NOTE]
+> **Góc nhìn Framework & So sánh:**
+> - **SQLAlchemy/Django ORM**: `__eq__` được thiết kế để so sánh dựa trên Primary Key của DB. Hai object khác instance nhưng nếu cùng ID thì được coi là bằng nhau.
+> - **Java**: Việc override cặp bài trùng `equals()` và `hashCode()` là bắt buộc nếu muốn object hoạt động đúng trong `HashMap` (tương đương `__eq__` và `__hash__`).
 ```
 
 ### 1.4. Arithmetic Operators
@@ -362,6 +379,11 @@ class CountDown:
 
 for num in CountDown(5):
     print(num)  # Output: 5, 4, 3, 2, 1
+
+> [!TIP]
+> **Góc nhìn Framework & So sánh:**
+> - **Pandas/NumPy**: Ứng dụng cực mạnh `__getitem__` và `__setitem__` để thực hiện *Slicing* (`df[0:10]`) và *Masking* (`df[df['age'] > 20]`).
+> - **Javascript (ES6+)**: Sử dụng `Proxy` để "bẫy" các thao tác truy cập item, tương đương với việc tùy biến Container methods trong Python.
 ```
 
 ### 1.6. Callable Objects
@@ -397,6 +419,11 @@ def greet(name):
     return f"Hello, {name}!"
 
 print(greet("John"))  # Output: Function called 1 times\nHello, John!
+
+> [!IMPORTANT]
+> **Góc nhìn Framework & So sánh:**
+> - **FastAPI**: Cơ chế *Dependency Injection* của FastAPI dựa trên "Callables". Bạn có thể truyền một Class có hàm `__call__` vào `Depends()`, giúp class đó vừa lưu được state vừa có thể thực thi như một hàm.
+> - **React (Hooks)**: Các hàm như `useMemo`, `useCallback` trong React cũng có tư tưởng tương tự: biến một logic phức tạp thành một thứ có thể "gọi" được đơn giản vào lần sau.
 ```
 
 ### 1.7. Context Managers
@@ -425,6 +452,11 @@ class FileManager:
 with FileManager('test.txt', 'w') as f:
     f.write('Hello World')
 # File tự động đóng khi ra khỏi with block
+
+> [!TIP]
+> **Góc nhìn Framework & So sánh:**
+> - **Flask/FastAPI**: Sử dụng Context Managers để quản lý Database Session (ví dụ: `with get_db() as db:`). Điều này đảm bảo connection luôn được đóng/trả về pool kể cả khi code gặp lỗi.
+> - **Go (Golang)**: Dùng từ khóa `defer`. Thay vì bọc trong block, Go gọi `defer file.Close()` ngay sau khi mở. Cách này trực quan nhưng Python's `with` an toàn hơn vì nó ép buộc phạm vi (scope).
 ```
 
 ### 1.8. Attribute Access
@@ -507,6 +539,11 @@ class Person:
 p = Person()
 p.age = 30      # OK
 p.height = -5   # ValueError: Value must be positive
+
+> [!IMPORTANT]
+> **Góc nhìn Framework & So sánh:**
+> - **SQLAlchemy**: Sử dụng Descriptors để thực hiện **Lazy Loading**. Khi bạn gọi `user.posts`, một Descriptor sẽ chặn lại, thực hiện câu lệnh SQL để lấy posts, rồi mới trả về dữ liệu.
+> - **Vue 3**: Hệ thống *Reactivity* sử dụng `Proxy` hoàn toàn thay thế cho `Object.defineProperty` (tương đương Descriptor), giúp theo dõi sự thay đổi của data một cách tự động.
 ```
 
 ---
@@ -708,6 +745,11 @@ print(result)  # Output: 8
 
 # Class method - nhận class làm tham số đầu tiên
 obj = Math.create_from_string("10")
+
+> [!NOTE]
+> **Góc nhìn Framework & So sánh:**
+> - **FastAPI (Pydantic)**: Sử dụng `isinstance` và `issubclass` cực kỳ nhiều để thực hiện *Type Validation*. Dựa vào kiểu dữ liệu bạn khai báo, nó quyết định cách parse dữ liệu từ Request.
+> - **Java**: Sử dụng **Reflection API** để kiểm tra type tại runtime, mạnh mẽ hơn nhưng chậm hơn so với cách check trực tiếp của Python.
 ```
 
 ---
@@ -1152,6 +1194,11 @@ s1 = Singleton(1)
 s2 = Singleton(2)
 print(s1 is s2)  # Output: True
 print(s1.value)  # Output: 1 (vì s2 không tạo instance mới)
+
+> [!IMPORTANT]
+> **Góc nhìn Framework & So sánh:**
+> - **Django**: Toàn bộ hệ thống Model của Django dựa trên Metaclasses. `ModelBase` (metaclass của `models.Model`) quét toàn bộ các attributes của bạn (như `CharField`) và đăng ký chúng vào schema của database khi server khởi động.
+> - **Ruby**: Có khái niệm "Eigenclasses" tương tự, cho phép thay đổi định nghĩa class ngay khi đang chạy (Monkey patching).
 ```
 
 ---

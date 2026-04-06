@@ -1750,9 +1750,64 @@ Làm sao để biết bài này dùng thuật toán gì? Dựa vào **Dữ liệ
 
 <br>
 
-### 🌟 BẢNG CHI TIẾT: DẤU HIỆU & LOGIC XỬ LÝ (KÈM BÀI TẬP CỤ THỂ)
+### 🌟 1. CHIẾN LƯỢC NHẬN DIỆN "SIÊU TỐC"
 
-Dưới đây là tổng hợp tư duy logic và các mẫu giải pháp phổ biến nhất cho từng loại CTDL, giúp bạn ôn lại nhanh trước khi làm bài hoặc đi phỏng vấn:
+Để chọn đúng thuật toán trong 30-60 giây đầu tiên khi đọc đề bài, hãy áp dụng quy trình 3 bước sau:
+
+#### 🟢 Bước A: Phân tích dựa trên Kích thước đầu vào (Big O Strategy)
+
+Đây là mẹo "đoán" thuật toán dựa trên ràng buộc thời gian (Với $N$ là số lượng dữ liệu):
+
+| Kích thước dữ liệu ($N$) | Độ phức tạp mục tiêu | Thuật toán thường dùng |
+| :--- | :--- | :--- |
+| $N \le 10 \sim 15$ | $O(2^N)$ hoặc $O(N!)$ | **Backtracking** (Tổ hợp, hoán vị) |
+| $N \le 100 \sim 500$ | $O(N^3)$ | **Dynamic Programming**, Floyd-Warshall |
+| $N \le 10^3 \sim 10^4$ | $O(N^2)$ | **DP**, Vòng lặp lồng nhau, Sorting đơn giản |
+| $N \le 10^5 \sim 10^6$ | $O(N \log N)$ hoặc $O(N)$ | **Sorting, Heap, Binary Search, Sliding Window, Hash Map** |
+| $N \ge 10^9$ | $O(\log N)$ hoặc $O(1)$ | **Binary Search**, Toán học, Bit Manipulation |
+
+#### 🟡 Bước B: Bảng phản xạ Từ khóa (Key Signals)
+
+| Nếu đề bài nhắc đến... | Hãy nghĩ ngay đến "Vũ khí" này |
+| :--- | :--- |
+| **"Top K"**, **"Lớn/Nhỏ thứ K"** | **Heap (Min/Max)** |
+| **"Đường đi ngắn nhất"** (ko trọng số) | **BFS** (Queue) |
+| **"Mảng con liên tiếp"** (thỏa mãn tổng/độ dài) | **Sliding Window / Prefix Sum** |
+| **"Phần tử lớn hơn gần nhất"** | **Monotonic Stack** |
+| **"Tìm kiếm"** trên mảng đã **sắp xếp** | **Binary Search** |
+| **"Tổ hợp"**, **"Tìm mọi cách"** | **Backtracking** (Đệ quy) |
+| **"Giá trị tối ưu"** + **"Bài toán con trùng lặp"** | **Dynamic Programming (DP)** |
+| **"Tiền tố"** (Prefix) | **Trie** |
+| **"Vùng liên thông"**, **"Số hòn đảo"** | **DFS / BFS / Union-Find** |
+
+#### 🔴 Bước C: Cây quyết định chiến thuật (Decision Flowchart)
+
+```mermaid
+graph TD
+    Start[Bắt đầu đọc đề] --> Input{Dữ liệu là gì?}
+    
+    Input -- Mảng/Chuỗi --> Sorted{Đã sắp xếp chưa?}
+    Sorted -- Rồi --> Search[Binary Search / Two Pointers]
+    Sorted -- Chưa --> Subarray{Hỏi về mảng con?}
+    Subarray -- Liên tiếp --> SW[Sliding Window / Prefix Sum]
+    Subarray -- Không liên tiếp --> DP[Dynamic Programming / Hash Map]
+    
+    Input -- Đồ thị/Cây --> Task{Nhiệm vụ?}
+    Task -- Ngắn nhất --> BFS[Breadth First Search]
+    Task -- Khám phá sâu --> DFS[Depth First Search]
+    Task -- Có trọng số --> Dijkstra[Dijkstra with Heap]
+    Task -- Phụ thuộc/Thứ tự --> Topo[Topological Sort]
+    
+    Input -- Tìm Max/Min liên tục --> Heap[Priority Queue / Heap]
+    Input -- Tìm tổ hợp/hoán vị --> Back[Backtracking]
+    Input -- Ghép đôi/Ngoặc/Lịch sử --> Stack[Stack]
+```
+
+---
+
+### 🌟 2. BẢNG CHI TIẾT: LOGIC XỬ LÝ THEO CTDL
+
+Dưới đây là tổng hợp tư duy và các mẫu giải pháp cho từng loại:
 
 #### 1. Mảng (Array) / Chuỗi (String)
 - **Dấu hiệu:** Xử lý tập hợp tuần tự, tìm chuỗi/mảng con, truy vấn tổng.

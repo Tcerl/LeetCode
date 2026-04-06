@@ -1,590 +1,329 @@
-# ROADMAP TĂNG TỐC - SENIOR FULL STACK DEVELOPER
+# 🚀 ROADMAP: TĂNG TỐC TỪ INTERN ĐẾN SENIOR FULLSTACK (PYTHON - VUE - ODOO)
 
-Thời gian: 18-24 tháng (thay vì 3-6 năm)
-Mục tiêu: Đạt trình độ Senior Full Stack Web + Mobile với nền tảng vững chắc
-
-NGUYÊN TẮC TĂNG TỐC:
-
-- Tập trung vào thực hành (80%) thay vì lý thuyết (20%)
-- Học song song nhiều kỹ năng
-- Build projects thực tế ngay từ đầu
-- Code mỗi ngày ít nhất 4-6 giờ
-- Review code của senior developers
-- Contribute to open source
+Hành trình này giúp bạn nhìn lại chặng đường đã qua và chuẩn bị cho các câu hỏi phỏng vấn về "Sự phát triển cá nhân".
 
 ---
 
-# GIAI ĐOẠN 1: NỀN TẢNG TỐC ĐỘ (Tháng 1-3)
+## 🟢 GIAI ĐOẠN 1: INTERN & JUNIOR (XÂY DỰNG NỀN TẢNG)
+*Mục tiêu: Chạy đúng yêu cầu, hiểu quy trình.*
 
-## TUẦN 1-2: Tư duy lập trình + Python cơ bản
+- **Python Core:** Nắm vững biến, vòng lặp, hàm, làm quen với List/Dict/Set.
+- **Frontend Basics:** Thuần thục HTML, CSS (Flexbox, Grid), Javascript ES6 cơ bản.
+- **Odoo:** Biết cách cài đặt, sử dụng các module cơ bản như Sales, Purchase, CRM. Hiểu cấu trúc file `__manifest__.py`.
+- **Database:** Thực hiện được các câu lệnh SQL cơ bản (SELECT, INSERT, UPDATE, DELETE).
+- **Git:** Biết clone, commit, push và pull code.
 
-- [ ] Học Python cơ bản (không cần quá sâu)
-
-  - Variables, data types, operators
-  - If/else, loops
-  - Functions, modules
-  - List, Dictionary
-  - File I/O
-  - Exception handling
-- [ ] Giải 20 bài LeetCode Easy
-- [ ] Build: Calculator App, Todo List
-
-Tài liệu: Python Crash Course (đọc nhanh, tập trung thực hành)
-
-## TUẦN 3-4: Cấu trúc dữ liệu cơ bản
-
-- [ ] Array, Linked List, Stack, Queue
-- [ ] Hash Table/Dictionary
-- [ ] Binary Tree cơ bản
-- [ ] Implement từ đầu (không dùng built-in)
-- [ ] Giải 30 bài LeetCode Easy
-- [ ] Build: Stack-based Calculator, Expression Parser
-
-## TUẦN 5-6: Thuật toán cơ bản
-
-- [ ] Linear Search, Binary Search
-- [ ] Bubble, Selection, Insertion Sort
-- [ ] Merge Sort, Quick Sort (hiểu concept, không cần implement perfect)
-- [ ] Recursion cơ bản
-- [ ] Big O Notation (hiểu cơ bản)
-- [ ] Giải 30 bài LeetCode Easy
-- [ ] Build: Sorting Visualizer
-
-## TUẦN 7-8: OOP và Design Patterns cơ bản
-
-- [ ] OOP: Class, Object, Inheritance, Polymorphism
-- [ ] Encapsulation (public/private)
-- [ ] 3 Design Patterns: Singleton, Factory, Observer
-- [ ] SOLID Principles (hiểu concept, áp dụng sau)
-- [ ] Refactor projects cũ với OOP
-- [ ] Build: Library Management System với OOP
-
-## TUẦN 9-12: Database và Git
-
-- [ ] SQL cơ bản: SELECT, INSERT, UPDATE, DELETE
-- [ ] JOIN (INNER, LEFT)
-- [ ] Aggregate functions
-- [ ] Index cơ bản
-- [ ] PostgreSQL hoặc MySQL
-- [ ] Git: add, commit, push, pull, branch, merge
-- [ ] GitHub: Pull Request, Code Review
-- [ ] Build: Blog với CRUD + Database
-- [ ] Deploy lên Heroku/Vercel
-
-CHECKLIST GIAI ĐOẠN 1:
-
-- [ ] Giải được 80+ bài LeetCode Easy
-- [ ] Build được 3-4 projects nhỏ
-- [ ] Thành thạo Git và GitHub
-- [ ] Có thể viết SQL queries cơ bản
-- [ ] Hiểu OOP và áp dụng được
+> **💡 Trả lời phỏng vấn:** "Thời kỳ đầu, tôi tập trung vào việc hiểu đúng yêu cầu và học cách vận hành dự án theo quy trình Git Flow của team."
 
 ---
 
-# GIAI ĐOẠN 2: FULL STACK WEB (Tháng 4-9)
+## 🟡 GIAI ĐOẠN 2: MIDDLE DEVELOPER (TỰ CHỦ & TỐI ƯU)
+*Mục tiêu: Tự code tính năng phức tạp, chú trọng User Experience.*
 
-## THÁNG 4: Frontend Foundation
+- **Python Frameworks:** Bắt đầu dùng Django/FastAPI để viết API. Hiểu về ORM và cách Migration dữ liệu.
+- **Vue.js:** Chuyển từ Vue 2 sang Vue 3, sử dụng Components, Props, Events, và bắt đầu dùng Pinia để quản lý state.
+- **Odoo Customization:** Biết viết `Inheritance` (kế thừa) để mở rộng các model có sẵn. Viết được các XML Views phức tạp.
+- **Clean Code:** Bắt đầu áp dụng đặt tên biến rõ ràng, tách hàm để dễ bảo trì.
+- **Soft Skills:** Biết đặt câu hỏi đúng trọng tâm khi nhận task và hỗ trợ các bạn Intern mới.
 
-TUẦN 1-2: HTML5, CSS3, JavaScript ES6+
-
-- [ ] HTML5 semantic elements
-- [ ] CSS3: Flexbox, Grid
-- [ ] Responsive design
-- [ ] JavaScript: ES6+, async/await, promises
-- [ ] DOM manipulation
-
-TUẦN 3-4: React Basics
-
-- [ ] Components, Props, State
-- [ ] Hooks: useState, useEffect, useContext
-- [ ] React Router
-- [ ] Forms và validation
-- [ ] Build: Todo App với React
-- [ ] Build: Blog Frontend với React Router
-
-## THÁNG 5: Backend Foundation
-
-TUẦN 1-2: Node.js + Express
-
-- [ ] Node.js basics
-- [ ] Express framework
-- [ ] RESTful API design
-- [ ] Middleware
-- [ ] Error handling
-
-TUẦN 3-4: Database Integration
-
-- [ ] MongoDB với Mongoose HOẶC PostgreSQL với Sequelize
-- [ ] CRUD operations
-- [ ] Relationships
-- [ ] Query optimization cơ bản
-- [ ] Build: REST API cho Blog
-- [ ] Implement: Authentication với JWT
-
-## THÁNG 6: Full Stack Integration
-
-TUẦN 1-2: Connect Frontend + Backend
-
-- [ ] API integration
-- [ ] State management (Context API hoặc Redux)
-- [ ] Error handling
-- [ ] Loading states
-
-TUẦN 3-4: Authentication & Authorization
-
-- [ ] JWT tokens
-- [ ] Protected routes
-- [ ] Role-based access
-- [ ] Password hashing
-- [ ] Build: Full Stack E-commerce (MVP)
-
-  - User auth
-  - Product catalog
-  - Shopping cart
-  - Checkout
-
-## THÁNG 7: Advanced Frontend
-
-TUẦN 1-2: React Advanced
-
-- [ ] Custom hooks
-- [ ] useMemo, useCallback
-- [ ] Performance optimization
-- [ ] Code splitting
-
-TUẦN 3-4: Testing & Tools
-
-- [ ] Jest + React Testing Library
-- [ ] Component testing
-- [ ] E2E testing với Cypress (cơ bản)
-- [ ] Webpack/Vite basics
-- [ ] Build: Component Library
-- [ ] Write tests cho projects
-
-## THÁNG 8: Advanced Backend
-
-TUẦN 1-2: Advanced API
-
-- [ ] Pagination
-- [ ] Filtering, Sorting
-- [ ] Search functionality
-- [ ] File upload
-- [ ] Caching với Redis (cơ bản)
-
-TUẦN 3-4: Microservices Basics
-
-- [ ] Service separation
-- [ ] API Gateway concept
-- [ ] Message Queue (RabbitMQ/Kafka - cơ bản)
-- [ ] Refactor E-commerce thành microservices
-- [ ] Add Redis caching
-
-## THÁNG 9: DevOps & Deployment
-
-TUẦN 1-2: Docker
-
-- [ ] Dockerfile
-- [ ] Docker Compose
-- [ ] Containerization
-
-TUẦN 3-4: CI/CD & Deployment
-
-- [ ] GitHub Actions
-- [ ] Deploy to AWS/Vercel/Netlify
-- [ ] Environment variables
-- [ ] Monitoring cơ bản
-- [ ] Deploy full stack app
-- [ ] Setup CI/CD pipeline
-
-CHECKLIST GIAI ĐOẠN 2:
-
-- [ ] Build được 2-3 full stack applications
-- [ ] Thành thạo React và một backend framework
-- [ ] Implement được authentication
-- [ ] Deploy được ứng dụng
-- [ ] Viết được tests
-- [ ] Hiểu về microservices
+> **💡 Trả lời phỏng vấn:** "Ở giai đoạn này, tôi đã tự chủ được việc xây dựng các module hoàn chỉnh và bắt đầu quan tâm đến cấu trúc code để người sau dễ đọc."
 
 ---
 
-# GIAI ĐOẠN 3: MOBILE DEVELOPMENT (Tháng 10-12)
+## 🔴 GIAI ĐOẠN 3: SENIOR FULLSTACK (KIẾN TRÚC & NGHIỆP VỤ)
+*Mục tiêu: Giải quyết bài toán quy mô lớn, tối ưu hệ thống.*
 
-## THÁNG 10: React Native Foundation
+- **System Design:** Biết cách thiết kế Database có tính mở rộng cao (indexing, normalization vs denormalization).
+- **Advanced Python:** Dùng Decorators, Metaclasses, Concurrency (Threading/Asyncio) để tối ưu các tác vụ nặng.
+- **Advanced Vue 3:** Sử dụng Composition API chuyên sâu, viết các Composables để tái sử dụng logic cực kỳ linh hoạt.
+- **Odoo Expert:** Hiểu sâu về `Registry`, `Environment`, xử lý `Performance` khi hệ thống có hàng triệu bản ghi, tích hợp Odoo với bên thứ 3 via RPC/API.
+- **DevOps:** Cấu hình Docker, viết script CI/CD tự động deploy.
+- **Soft Skills:** Dẫn dắt technical discussion, review code cho đồng nghiệp, đảm bảo chất lượng code của toàn team.
+---
 
-TUẦN 1-2: React Native Basics
+# 🎓 HƯỚNG DẪN GIẢI CHI TIẾT CÁC BÀI TẬP THỰC CHIẾN
 
-- [ ] Setup environment
-- [ ] Components: View, Text, Button, TextInput
-- [ ] Navigation với React Navigation
-- [ ] Styling
+Dưới đây là cách giải khoa học giúp bạn ghi điểm tuyệt đối trong buổi phỏng vấn.
 
-TUẦN 3-4: API Integration & State
+## 🟢 ÔN LUYỆN JUNIOR: HIỂU LOGIC CĂN BẢN
+- **Bài tập Python (Đếm từ):** Đừng chỉ dùng vòng lặp. Hãy dùng `collections.Counter(words)` hoặc `dict_counts = {word: words.count(word) for word in set(words)}`. 
+    - **Tại sao?** Cách dùng `set()` giúp giảm số lượt đếm, tối ưu hơn.
+- **Bài tập Vue 3 (To-do List):** Sử dụng `ref` cho list các tasks. Dùng `v-model.trim` để loại bỏ khoảng trắng rác khi nhập. Khi xóa, dùng `.filter()` để tạo mảng mới thay vì trực tiếp `splice` (Vue thích tính bất biến của dữ liệu).
 
-- [ ] Fetch API
-- [ ] AsyncStorage
-- [ ] State management (Context hoặc Redux)
-- [ ] Build: Todo App Mobile
-- [ ] Build: News App với API
+## 🟡 ÔN LUYỆN MIDDLE: REUSABLE & OPTIMIZATION
+- **Bài tập Vue 3 (useFetch Composable):** Sử dụng `axios` bên trong một hàm `export function useFetch(url)`. Đừng quên dùng `onUnmounted` để hủy (cancel) các request nếu user rời trang sớm.
+- **Bài tập Odoo (Compute fields):** `total_amount = fields.Monetary(compute='_compute_total')`. 
+    - **Logic:** Trong hàm `_compute_total`, bạn phải lặp qua `self` (cho dù chỉ có 1 record) vì Odoo ORM là tập hợp (Collection-based). Dùng `@api.depends('order_line.price_subtotal')` để trigger tính toán lại khi dòng đơn hàng thay đổi.
 
-## THÁNG 11: Advanced React Native
+## 🔴 ÔN LUYỆN SENIOR: SYSTEM DESIGN & SCALE
+- **Bài toán Database (Commerce):** Dùng bảng `product_attribute` riêng biệt liên kết với `product_template`. 
+    - **Tại sao?** Để tránh bảng Sản phẩm chính bị phình to (Fat tables) và dễ dàng lọc sản phẩm linh hoạt.
+- **Bài tập Vue 3 (Virtual Scroll):** Giải thích rằng trình duyệt chỉ có thể xử lý mượt khoảng 1,500 DOM nodes. Với 10k hàng, Virtual Scroll chỉ render 20 hàng đang hiển thị và dùng `transform: translateY()` để tạo hiệu ứng cuộn ảo.
+- **Tình huống trễ deadline:** Đừng trả lời là "tôi sẽ OT". Hãy nói: "Tôi sẽ họp team, xác định các **Must-have features** (Tính năng sống còn) để bàn giao đúng hạn, và đưa các tính năng Nice-to-have vào giai đoạn 2. Tôi ưu tiên sự ổn định của hệ thống lõi."
 
-TUẦN 1-2: Native Features
+---
+> [!IMPORTANT] 
+> **Mẹo Senior:** Khi trả lời về các bài tập này, đừng chỉ nói về code. Hãy nói về **Trade-off** (Sự đánh đổi). Ví dụ: "Cách này nhanh nhưng tốn bộ nhớ, cách kia chậm hơn một chút nhưng an toàn hơn về lâu dài."
 
-- [ ] Camera
-- [ ] Geolocation
-- [ ] Push notifications
-- [ ] File system
-
-TUẦN 3-4: Performance & Optimization
-
-- [ ] Performance optimization
-- [ ] Image optimization
-- [ ] Code splitting
-- [ ] Testing mobile apps
-- [ ] Build: Social Media App (MVP)
-
-  - Posts
-  - Comments
-  - User profiles
-  - Image upload
-
-## THÁNG 12: Cross-platform & Deployment
-
-TUẦN 1-2: Flutter Basics (Tùy chọn)
-
-- [ ] Dart basics
-- [ ] Widgets
-- [ ] State management
-- [ ] Navigation
-
-TUẦN 3-4: App Deployment
-
-- [ ] Build APK/IPA
-- [ ] App Store/Play Store submission
-- [ ] CI/CD cho mobile
-- [ ] Beta testing
-- [ ] Deploy app lên stores
-- [ ] Setup CI/CD cho mobile
-
-CHECKLIST GIAI ĐOẠN 3:
-
-- [ ] Build được 2 mobile apps
-- [ ] Deploy được lên App Store/Play Store
-- [ ] Hiểu về native features
-- [ ] Có thể optimize performance
+Chúc bạn có một buổi phỏng vấn rực rỡ và bứt phá sự nghiệp! 🚀🔥
 
 ---
 
-# GIAI ĐOẠN 4: NÂNG CAO & CHUYÊN SÂU (Tháng 13-18)
+## 🏆 CÁC KỸ NĂNG "LEVEL UP" CHO VỊ TRÍ SENIOR CỦA BẠN:
 
-## THÁNG 13-14: System Design
-
-- [ ] Scalability concepts
-- [ ] Load balancing
-- [ ] Database sharding
-- [ ] Caching strategies
-- [ ] CDN
-- [ ] CAP Theorem
-- [ ] Design: URL Shortener (like bit.ly)
-- [ ] Design: Twitter clone
-- [ ] Design: Uber clone
-
-## THÁNG 15: Advanced Algorithms
-
-- [ ] Dynamic Programming (20 bài LeetCode Medium)
-- [ ] Graph Algorithms: BFS, DFS, Dijkstra
-- [ ] Greedy Algorithms
-- [ ] Backtracking
-- [ ] Giải 50+ bài LeetCode Medium
-- [ ] Giải 10+ bài LeetCode Hard
-
-## THÁNG 16: Distributed Systems
-
-- [ ] Microservices architecture
-- [ ] Event-driven architecture
-- [ ] Message queues (RabbitMQ, Kafka)
-- [ ] Service discovery
-- [ ] Distributed transactions
-- [ ] Event Sourcing (cơ bản)
-- [ ] Build: Microservices application
-- [ ] Implement: Event-driven system
-
-## THÁNG 17: Security & Performance
-
-- [ ] Web Security: OWASP Top 10
-- [ ] Authentication best practices
-- [ ] Encryption basics
-- [ ] SQL Injection prevention
-- [ ] XSS prevention
-- [ ] Performance profiling
-- [ ] Database optimization
-- [ ] Caching strategies
-- [ ] Security audit cho projects
-- [ ] Optimize performance
-
-## THÁNG 18: Best Practices & Soft Skills
-
-- [ ] Clean Code principles
-- [ ] Code Review skills
-- [ ] Refactoring techniques
-- [ ] TDD (Test-Driven Development)
-- [ ] Documentation
-- [ ] Git workflow
-- [ ] Agile/Scrum
-- [ ] Pair Programming
-- [ ] Refactor tất cả projects
-- [ ] Write comprehensive tests
-- [ ] Document APIs
-- [ ] Contribute to open source
-
-CHECKLIST GIAI ĐOẠN 4:
-
-- [ ] Design được hệ thống phức tạp
-- [ ] Giải được 100+ LeetCode Medium/Hard
-- [ ] Hiểu về distributed systems
-- [ ] Implement security best practices
-- [ ] Code clean và maintainable
-- [ ] Có thể mentor người khác
+| Lĩnh vực | Kỹ năng định danh Senior |
+| :--- | :--- |
+| **Python** | Tối ưu hóa truy vấn Database (N+1 problem), Caching chiến thuật. |
+| **Vue.js** | Xây dựng hệ thống Component phức tạp, tối ưu Bundle Size, SSR. |
+| **Odoo** | Tùy chỉnh sâu lõi Odoo, chuyển đổi dữ liệu kế toán phức tạp. |
+| **Hệ thống** | Biết cách debug hệ thống trên môi trường Production (Log monitoring, Sentry). |
+| **Product** | Hiểu nghiệp vụ Real Estate, Sales để tư vấn ngược lại cho khách hàng. |
 
 ---
 
-# GIAI ĐOẠN 5: PORTFOLIO & CHUYÊN NGHIỆP (Tháng 19-24)
+## 📈 CÁCH "SHOW" ROADMAP NÀY TRONG PHỎNG VẤN:
 
-## THÁNG 19-20: Portfolio Projects
+Khi được hỏi: **"Hãy giới thiệu về bản thân và quá trình trưởng thành của bạn"**, hãy sử dụng công thức 3 bước:
 
-Dự án 1: Enterprise E-commerce Platform
-
-- [ ] Full stack (React + Node.js/Django)
-- [ ] Microservices architecture
-- [ ] Payment integration (Stripe)
-- [ ] Real-time notifications
-- [ ] Admin dashboard
-- [ ] Analytics
-- [ ] Deploy trên AWS/Vercel
-
-Dự án 2: Social Media Platform
-
-- [ ] Full stack
-- [ ] Real-time chat (WebSocket)
-- [ ] Image/video upload
-- [ ] Feed algorithm
-- [ ] Mobile app (React Native)
-- [ ] Deploy trên cloud
-
-Dự án 3: SaaS Application
-
-- [ ] Multi-tenancy
-- [ ] Subscription management
-- [ ] API for third-party
-- [ ] Advanced features
-- [ ] Mobile app
-
-## THÁNG 21-22: Open Source & Community
-
-- [ ] Contribute to 5+ open source projects
-- [ ] Fix bugs
-- [ ] Add features
-- [ ] Write documentation
-- [ ] Review PRs
-- [ ] Write technical blog posts (10+ articles)
-- [ ] Share knowledge
-- [ ] Build personal brand
-
-## THÁNG 23-24: Interview Preparation
-
-- [ ] System Design Interview prep
-- [ ] LeetCode patterns (150+ problems)
-- [ ] Behavioral questions
-- [ ] Mock interviews
-- [ ] Portfolio review
-- [ ] Resume optimization
-
-CHECKLIST GIAI ĐOẠN 5:
-
-- [ ] Có 3+ impressive projects
-- [ ] Contribute to open source
-- [ ] Có technical blog
-- [ ] Sẵn sàng interview Senior position
+1.  **Bắt đầu (Xuất phát điểm):** "Tôi bắt đầu với vị trí Intern Python, nắm vững nền tảng về backend và học cách làm việc trong môi trường thực tế."
+2.  **Quá trình (Sự bứt phá):** "Sau đó, tôi chuyển hướng Fullstack với Vue 3 và Odoo. Tôi đã dành hơn 3 năm để giải quyết các bài toán về quản trị doanh nghiệp, từ những module đơn giản đến việc tích hợp các hệ thống lớn."
+3.  **Hiện tại (Giá trị mang lại):** "Hiện nay, tôi tự tin ở trình độ Senior, có khả năng kiến trúc hệ thống từ đầu, tối ưu hóa hiệu năng Database và dẫn dắt team vượt qua các thách thức kỹ thuật khó nhằn."
 
 ---
 
-# LỊCH HỌC HÀNG NGÀY (TĂNG TỐC)
+# 🎯 CHƯƠNG TRÌNH ÔN LUYỆN THỰC CHIẾN THEO TỪNG CẤP ĐỘ
 
-NGÀY THƯỜNG (Thứ 2-6):
+Dưới đây là các bài toán bạn cần tự giải (hoặc mô phỏng trong đầu) để sẵn sàng cho bất kỳ câu hỏi nào từ cơ bản đến nâng cao.
 
-- 6:00-8:00: Học lý thuyết mới (2h)
-- 8:00-9:00: Nghỉ
-- 9:00-12:00: Code projects (3h)
-- 12:00-13:00: Nghỉ trưa
-- 13:00-16:00: LeetCode/Algorithm practice (3h)
-- 16:00-17:00: Review code của người khác (1h)
-- 17:00-18:00: Tổng kết và ghi chú (1h)
+## 🟢 ÔN LUYỆN CẤP ĐỘ INTERN/JUNIOR (NỀN TẢNG)
+*Trọng tâm: Cú pháp chắc chắn, logic mạch lạc.*
 
-Tổng: 10 giờ/ngày
+- **Bài tập Python:** Viết một hàm nhận vào một danh sách các từ và trả về một Dict đếm số lần xuất hiện của từng từ. (Sử dụng `collections.Counter` hoặc Dict comprehension).
+- **Bài tập Vue 3:** Tạo một component "To-do List" đơn giản. Yêu cầu: Dùng `v-model` để nhập, hiển thị danh sách bằng `v-for` và có nút xóa.
+- **Bài tập Odoo:** Tạo một model mới `MBW.Task` với các trường: tên task, ngày bắt đầu, trạng thái (mới, đang làm, xong). Hiểu cách tạo menu cho model này.
+- **Tình huống:** "Bạn commit code nhưng bị lỗi `conflict`. Bạn sẽ làm gì để giải quyết an toàn nhất?"
 
-CUỐI TUẦN (Thứ 7, CN):
+## 🟡 ÔN LUYỆN CẤP ĐỘ MIDDLE (TỰ CHỦ & CHUYÊN NGHIỆP)
+*Trọng tâm: Reusable code, tối ưu hóa tính năng.*
 
-- Sáng: Build projects lớn (4-5h)
-- Chiều: Review và refactor (2-3h)
-- Tối: Nghỉ ngơi hoặc đọc sách (1-2h)
+- **Bài tập Backend (Django/FastAPI):** Viết một API thực hiện CRUD một đối tài liệu văn bản. Yêu cầu: Có phân trang (pagination) và lọc theo ngày tạo.
+- **Bài tập Vue 3 (Composition API):** Viết một `Composable` tên là `useFetch` để gọi API từ một URL và trả về các trạng thái: `data`, `loading`, `error`.
+- **Bài tập Odoo (ORM):** Viết một hàm `_compute_total_amount` để tính tổng số tiền của các dòng đơn hàng. Yêu cầu: Hiểu cách dùng `@api.depends`.
+- **Tình huống:** "Một API đang chạy rất chậm (mất > 3 giây). Bạn sẽ dùng công cụ nào để tìm ra dòng code gây chậm?" (Gợi ý: Python Profiler, SQL Log).
 
-Tổng: 6-8 giờ/ngày
+## 🔴 ÔN LUYỆN CẤP ĐỘ SENIOR (KIẾN TRÚC & LÃNH ĐẠO)
+*Trọng tâm: Cấu trúc hệ thống, xử lý bài toán khó.*
 
-TỔNG THỜI GIAN/TUẦN: ~60 giờ
-
----
-
-# CÁC KỸ NĂNG BỎ QUA (ĐỂ TĂNG TỐC)
-
-KHÔNG CẦN HỌC SÂU:
-❌ Advanced Data Structures (AVL Tree, Red-Black Tree) - chỉ cần hiểu concept
-❌ Advanced Algorithms (A*, Network Flow) - chỉ cần biết khi nào dùng
-❌ Low-level programming (Assembly, C) - không cần cho Full Stack
-❌ Advanced OS concepts - chỉ cần hiểu cơ bản
-❌ Cryptography chi tiết - chỉ cần biết cách dùng
-❌ Machine Learning - không cần cho Full Stack
-❌ Advanced Math - chỉ cần toán cơ bản
-
-TẬP TRUNG VÀO:
-✅ Thực hành code nhiều nhất có thể
-✅ Build real projects
-✅ LeetCode practice
-✅ Code Review
-✅ Open Source contribution
+- **Bài toán System Design:** Thiết kế DB cho một trang thương mại điện tử lớn. Làm thế nào để lưu trữ thuộc tính sản phẩm (kích thước, màu sắc, chất liệu) một cách linh hoạt mà vẫn truy vấn nhanh?
+- **Bài tập Vue 3 (Performance):** Làm thế nào để render một bảng dữ liệu có 10,000 hàng mà không làm đơ trình duyệt? (Gợi ý: Virtual Scrolling).
+- **Bài tập Odoo (Performance):** Phân biệt sự khác nhau khi dùng `search` rồi `for browse` vs `search_read`. Tại sao `search_read` lại nhanh hơn khi cần lấy dữ liệu lớn?
+- **Tình huống:** "Dự án đang trong giai đoạn nước rút, nhưng bạn phát hiện ra kiến trúc hiện tại của team sẽ bị nghẽn cổ chai khi số lượng người dùng tăng lên gấp đôi. Bạn sẽ đề xuất giải pháp và thuyết phục Lead/Khách hàng như thế nào?"
 
 ---
 
-# TÀI NGUYÊN TỐI ƯU
+## 📈 CÁCH TỰ KIỂM TRA BẢN THÂN:
 
-SÁCH (Chỉ đọc những phần cần):
-
-1. "Clean Code" - Robert C. Martin (đọc chọn lọc)
-2. "System Design Interview" - Alex Xu (quan trọng!)
-3. "You Don't Know JS" - Kyle Simpson (tham khảo)
-
-WEBSITE (Ưu tiên):
-
-1. LeetCode: https://leetcode.com (quan trọng nhất!)
-2. freeCodeCamp: https://www.freecodecamp.org
-3. MDN Web Docs: https://developer.mozilla.org
-4. React Documentation: https://react.dev
-5. Node.js Documentation: https://nodejs.org/docs
-
-VIDEO (Xem tốc độ 1.5x-2x):
-
-1. freeCodeCamp Full Stack courses
-2. Traversy Media
-3. The Net Ninja
-4. NeetCode (Algorithms)
+Hãy chọn một bài tập bất kỳ ở mỗi cấp độ và dành 5-10 phút để phác thảo giải pháp trong đầu (hoặc ra giấy). Nếu bạn có thể giải thích được **"Tại sao tôi chọn cách này thay vì cách kia"**, bạn đã thực sự đạt đến trình độ đó.
 
 ---
 
-# CHECKLIST TỔNG THỂ (18-24 THÁNG)
+# 📚 HỆ THỐNG LÝ THUYẾT THEO CẤP ĐỘ (THEORETICAL CORE)
 
-KIẾN THỨC:
+Để trở thành Senior, bạn cần nắm vững lý thuyết từ gốc đến ngọn. Hãy tự rà soát xem mình đã hiểu rõ các khái niệm này chưa nhé!
 
-- [ ] Thành thạo Python/JavaScript
-- [ ] Thành thạo React và một backend framework
-- [ ] Thành thạo React Native
-- [ ] Hiểu về System Design
-- [ ] Giải được 200+ LeetCode problems
-- [ ] Hiểu về Microservices
-- [ ] Hiểu về Security best practices
+## 🟢 LÝ THUYẾT CẤP ĐỘ INTERN (NHỮNG KHÁI NIỆM CƠ BẢN - MUST KNOW)
 
-PROJECTS:
+### 1. Backend (Python):
+- **Kiểu dữ liệu & Cấu trúc dữ liệu:** Sự khác biệt giữa `List` (Mutable) và `Tuple` (Immutable). Khi nào nên dùng `Set` thay vì `List`?
+- **Scope & Namespace:** Biến cục bộ (local) và biến toàn cục (global) hoạt động như thế nào trong Python?
 
-- [ ] 5+ Full Stack Web Applications
-- [ ] 2+ Mobile Applications
-- [ ] 1+ Microservices Project
-- [ ] Tất cả đều deploy được và có tests
+### 2. Frontend (HTML/CSS/JS):
+- **DOM (Document Object Model):** Cách trình duyệt render một trang web.
+- **CSS Box Model:** Padding, Margin, Border và sự ảnh hưởng của `box-sizing`.
+- **Javascript Basics:** Biến (`var`, `let`, `const`), Arrow function và cách xử lý `this`.
 
-SKILLS:
-
-- [ ] Code Review
-- [ ] Refactoring
-- [ ] Testing (Unit, Integration)
-- [ ] Debugging
-- [ ] Documentation
-- [ ] Git workflow
-- [ ] CI/CD
-
-COMMUNITY:
-
-- [ ] Contribute to 5+ open source projects
-- [ ] Write 10+ technical blog posts
-- [ ] Có GitHub profile impressive
-- [ ] Có thể mentor junior developers
-
-INTERVIEW:
-
-- [ ] Sẵn sàng System Design Interview
-- [ ] Sẵn sàng Coding Interview
-- [ ] Sẵn sàng Behavioral Interview
-- [ ] Có portfolio projects tốt
+### 3. ERP (Odoo):
+- **Cấu trúc Folder:** Ý nghĩa của các file `__init__.py`, `__manifest__.py`, thư mục `models`, `views`, `data`.
+- **Cơ chế Field cơ bản:** String, Boolean, Char, Integer, Float.
 
 ---
 
-# LỜI KHUYÊN QUAN TRỌNG
+## 🟡 LÝ THUYẾT CẤP ĐỘ MIDDLE (HIỂU BẢN CHẤT & QUY TRÌNH)
 
-1. CODE MỖI NGÀY
+### 1. Backend (Python Advance):
+- **OOP (Object-Oriented Programming):** Nắm vững 4 tính chất (Encapsulation, Inheritance, Polymorphism, Abstraction).
+- **Decorators & Closures:** Hiểu cách hàm lồng hàm và cách dùng `@decorator` để bổ sung tính năng cho hàm.
+- **RESTful Principles:** Hiểu các phương thức GET, POST, PUT, DELETE và các HTTP Status Codes (200, 201, 400, 404, 500).
 
-   - Không bỏ một ngày nào
-   - Dù chỉ 1 giờ cũng phải code
-2. BUILD PROJECTS THỰC TẾ
+### 2. Frontend (Vue 3 Architecture):
+- **Vue Reactivity System:** Hiểu về `Reactive` vs `Ref`. Tại sao Vue 3 lại dùng `Proxy` (ES6)?
+- **Life Cycle Hooks:** Nắm rõ thời điểm nào code chạy trong `onMounted`, `onUpdated`, `onUnmounted`.
+- **State Management (Pinia):** Hiểu cơ chế Actions, Getters và State chạy đồng bộ/bất đồng bộ như thế nào.
 
-   - Đừng chỉ làm tutorial
-   - Build cái gì đó có thể dùng được
-3. LEETCODE MỖI NGÀY
+### 3. Databases (SQL):
+- **ACID Properties:** Hiểu về Atomicity, Consistency, Isolation, Durability trong Transaction.
+- **Indexes:** Tại sao Index lại làm tăng tốc độ đọc nhưng làm chậm tốc độ ghi?
 
-   - Ít nhất 1-2 bài/ngày
-   - Focus vào patterns, không phải số lượng
-4. CODE REVIEW
-
-   - Review code của senior developers
-   - Học từ code tốt
-   - Tránh code xấu
-5. ĐỪNG PERFECTIONISM
-
-   - Hoàn thành tốt hơn hoàn hảo
-   - Ship fast, iterate later
-6. NETWORKING
-
-   - Tham gia communities
-   - Kết nối với developers khác
-   - Học từ người khác
-7. NGHỈ NGƠI
-
-   - Đừng burnout
-   - Nghỉ ngơi đều đặn
-   - Giữ sức khỏe
+### 4. Odoo (Logic Nghiệp vụ):
+- **Computed & Related Fields:** Phân biệt khi nào nên dùng `compute` (tính toán động) và `related` (lấy dữ liệu từ model liên quan).
+- **Context & Domain:** Cách truyền dữ liệu thông qua bộ lọc `domain` và biến môi trường `context`.
 
 ---
 
-# MỤC TIÊU CUỐI CÙNG
+## 🔴 LÝ THUYẾT CẤP ĐỘ SENIOR (KIẾN TRÚC & HỆ THỐNG QUY MÔ LỚN)
 
-Sau 18-24 tháng, bạn sẽ có:
+### 1. Backend expert:
+- **Python Meta-programming:** Hiểu về `Metaclass` - cách Python tạo ra các Class (Đây là "vũ khí" cực mạnh trong Django/Odoo source code).
+- **Design Patterns chuyên sâu:** Khi nào dùng `Strategy Pattern` để xử lý nhiều loại thanh toán, hay `Factory Pattern` để tạo ra nhiều loại báo cáo ERP khác nhau.
+- **Global Interpreter Lock (GIL):** Hiểu về giới hạn của Python trong đa luồng (Multi-threading) và cách vượt qua bằng Multi-processing.
 
-✅ Kiến thức ngang bằng Senior Full Stack Developer
-✅ Có thể build và deploy full stack applications
-✅ Có thể build mobile applications
-✅ Hiểu về System Design
-✅ Giải được coding interview problems
-✅ Có portfolio projects impressive
-✅ Có thể mentor junior developers
-✅ Sẵn sàng apply Senior positions
+### 2. Frontend Modern (Vue 3 Performance):
+- **Virtual DOM vs Actual DOM:** Cách Vue tính toán sự khác biệt và tối ưu hóa việc cập nhật UI.
+- **SSR (Server-Side Rendering) vs Client-Side:** Ưu nhược điểm cho SEO và Performance.
+- **Memory Leak:** Cách phát hiện và xử lý việc rò rỉ bộ nhớ trong các ứng dụng SPA (Single Page Apps).
+
+### 3. Odoo Internals & Business Strategy:
+- **The Registry & Environment:** Hiểu sâu cách Odoo nạp module vào bộ nhớ (Registry) và cách `env` quản lý phiên người dùng, quyền hạn.
+- **OWC (Odoo Web Component):** Kiến trúc của hệ thống Frontend mới trong Odoo (OWL).
+- **Scalability in ERP:** Lý thuyết về Sharding, Replication cho Postgres khi dữ liệu lên tới hàng chục Terabyte.
+- **Security:** Hiểu về SQL Injection (ngay cả khi dùng ORM), XSS, và cách thiết lập Access Rules chặt chẽ cho dữ liệu nhân sự/tài chính.
+
+### 4. DevOps & Cloud:
+- **CI/CD Lifecycle:** Hiểu về Build, Test, Deploy pipeline. Chiến thuật Zero Down-time deployment.
 
 ---
 
-# BẮT ĐẦU NGAY HÔM NAY!
+# 📖 GIẢI THÍCH CHI TIẾT CÁC KHÁI NIỆM CỐT LÕI (DETAILED EXPLANATIONS)
 
-Tuần 1 - Ngày 1:
+Phần này đi sâu vào "cỗ máy" bên trong của từng công nghệ để bạn có thể giải thích như một chuyên gia.
 
-- [ ] Setup môi trường (Python, VS Code, Git)
-- [ ] Đọc Python Crash Course (chương 1-5)
-- [ ] Code: Hello World + Calculator
-- [ ] Giải 3 bài LeetCode Easy
-- [ ] Tạo GitHub account và push code đầu tiên
+## 🐍 1. PYTHON: NHỮNG "BÁNH RĂNG" BÊN TRONG
 
-Bắt đầu ngay và không dừng lại!
+### **A. Metaclasses - "Class của Class":**
+- **Giải thích:** Trong Python, mọi thứ đều là Object, kể cả Class. Metaclass chính là thứ tạo ra Class.
+- **Tại sao Senior cần biết:** Odoo sử dụng Metaclass để thực hiện phép màu `_inherit`. Khi bạn khai báo một model kế thừa, Metaclass của Odoo sẽ can thiệp vào quá trình khởi tạo Class để trộn (merge) các trường và phương thức từ module cũ sang module mới.
+- **Tư duy:** "Hiểu về Metaclass giúp tôi biết tại sao Odoo lại có thể linh hoạt mở rộng tính năng mà không cần sửa code lõi."
 
-Chúc bạn thành công! 🚀
+### **B. Generators & Iterators - "Tiết kiệm RAM":**
+- **Giải thích:** Thay vì trả về một List khổng lồ gây tốn bộ nhớ, Generator (`yield`) trả về từng phần tử một khi được yêu cầu.
+- **Bản chất:** Nó lưu lại trạng thái thực thi của hàm. 
+- **Ứng dụng:** Xử lý dữ liệu hàng triệu record từ CSV sang Odoo. Nếu dùng List, server sẽ sập (Out of Memory). Dùng Generator, server chỉ tốn một lượng RAM cực nhỏ.
+
+---
+
+## 🎨 2. VUE 3: CƠ CHẾ PHẢN XẠ HIỆN ĐẠI
+
+### **A. Shadow DOM & Virtual DOM:**
+- **Giải thích:** Vue không làm việc trực tiếp với trình duyệt (vì rất chậm). Nó tạo ra một "bản nháp" bằng Javascript (Virtual DOM). Khi dữ liệu thay đổi, nó so sánh bản nháp cũ với bản nháp mới (Diffing) và chỉ cập nhật đúng chỗ cần thiết lên trình duyệt.
+- **Tư duy Senior:** "Tôi hiểu rằng việc giữ cho Component nhỏ gọn giúp cho quá trình so sánh Virtual DOM diễn ra nhanh hơn, từ đó tăng hiệu năng UI."
+
+### **B. Provide / Inject - "Giải pháp cho Prop Drilling":**
+- **Giải thích:** Khi bạn có một cây component quá sâu, việc truyền dữ liệu từ Cha xuống Chắt (Prop Drilling) rất cực. `Provide` ở cấp trên và `Inject` ở bất kỳ cấp nào bên dưới giúp lấy dữ liệu trực tiếp.
+- **Bản chất:** Giống như một "Global Store" nhỏ gọn phục vụ cho một nhóm component liên quan mà không cần dùng đến Pinia.
+
+---
+
+## 🏗️ 3. ODOO/ERP: VÒNG ĐỜI GIAO DỊCH (TRANSACTION)
+
+### **A. ORM Lifecycle - "Từ Model đến Postgres":**
+- **Giải thích:** Khi bạn gọi `self.write({'name': 'New Name'})`, Odoo sẽ làm hàng loạt việc:
+    1.  **Validation:** Kiểm tra định dạng dữ liệu.
+    2.  **Access Rights:** Kiểm tra user có quyền sửa không.
+    3.  **ORM Cache:** Cập nhật dữ liệu vào bộ nhớ tạm (Cache) của hệ thống.
+    4.  **SQL Execution:** Chuyển câu lệnh thành `UPDATE table SET name = ...` và gửi vào Postgres.
+    5.  **Commit/Rollback:** Nếu có lỗi ở bất kỳ bước nào, toàn bộ giao dịch sẽ bị hủy bỏ (Rollback).
+
+### **B. ACL vs Record Rules - "Bảo mật hai lớp":**
+- **Access Control List (ACL):** Quyết định bạn có được Đọc, Ghi, Tạo, Xóa một **loại đối tượng** (Model) hay không (Ví dụ: Nhân viên Sales được quyền Đọc Invoice).
+- **Record Rules:** Quyết định bạn được xem **bản ghi cụ thể** nào (Ví dụ: Nhân viên Sales chỉ được xem Invoice **của chính mình**).
+- **Tư duy:** "Tôi luôn thiết lập bảo mật theo nguyên tắc **Quyền hạn tối thiểu (Principle of Least Privilege)**."
+
+---
+
+# 🌐 CHUYÊN SÂU HỆ THỐNG (SYSTEM ARCHITECTURE)
+
+- **RESTful API vs GraphQL:** 
+    - REST dùng URL làm định danh tài nguyên (Resource). 
+    - GraphQL cho phép Client yêu cầu đúng những gì họ cần. 
+    - *Senior Decision:* "Trong ERP, chúng tôi thường dùng REST vì tính ổn định, dễ caching và phù hợp với các hệ thống báo cáo chuẩn."
+- **JSON Web Token (JWT):** Hiểu cơ chế Stateless của JWT giúp bạn thiết kế hệ thống Login cho Mobile App hoặc bên thứ ba tích hợp vào Odoo một cách an toàn.
+
+---
+
+---
+
+# 🔍 CHUYÊN SÂU KHÁI NIỆM & TƯ DUY KỸ THUẬT (CONCEPTUAL DEEP DIVE)
+
+Đây là những kiến thức giúp bạn "chốt hạ" trình độ Senior. Hãy hiểu sâu bản chất thay vì chỉ nhớ tên công cụ.
+
+## 🐍 1. PYTHON BACKEND: TƯ DUY VỀ HIỆU NĂNG & CONCURRENCY
+
+- **Asyncio & Event Loop:** 
+    - *Bản chất:* Python chạy đơn luồng. Asyncio giúp xử lý I/O Bound (chờ mạng, DB) mà không làm nghẽn CPU. 
+    - *Tư duy Senior:* "Tôi dùng Asyncio không phải để chạy nhanh hơn, mà để **chờ đợi thông minh hơn**. Với các tác vụ nặng về CPU, tôi sẽ dùng `Multiprocessing` để tận dụng đa nhân (bypass GIL)."
+- **GIL (Global Interpreter Lock):** 
+    - *Bản chất:* Cơ chế ngăn cản nhiều thread chạy bytecode cùng lúc để an toàn bộ nhớ. 
+    - *Tư duy Senior:* "GIL chỉ là vấn đề với CPU-bound tasks. Với Web Apps thông thường, GIL không phải là rào cản quá lớn nếu ta biết thiết kế hệ thống bất đồng bộ."
+- **Garbage Collection (GC):** 
+    - *Bản chất:* Python dùng `Reference Counting`. Senior cần hiểu về **Circular References** để tránh rò rỉ bộ nhớ trong các ứng dụng Odoo chạy lâu dài.
+
+## 🎨 2. VUE 3: TƯ DUY TÁI SỬ DỤNG & REACTIVITY INTERNALS
+
+- **Proxy-based Reactivity:** 
+    - *Bản chất:* Vue 3 dùng `ES6 Proxy` để "bẫy" các thao tác trên Object. Khác với Vue 2, nó tự động phát hiện khi thêm/xóa thuộc tính mới. 
+    - *Tư duy Senior:* "Hiểu về Proxy giúp tôi kiểm soát tốt việc khi nào dữ liệu thực sự cần reactivity để tránh lãng phí tài nguyên trình duyệt."
+- **Composition API vs Options API:** 
+    - *Tư duy Senior:* "Tôi chọn Composition API vì khả năng **Logic Extraction** (tách logic ra các Composables). Code sẽ là các module độc lập, dễ test hơn là một Options Object khổng lồ."
+- **Virtual DOM & Diffing:** 
+    - *Bản chất:* Vue tính toán sự khác biệt (Patching) giữa các trạng thái. Senior nắm được: "Sử dụng `:key` chuẩn xác là chìa khóa để tối ưu hiệu năng render danh sách lớn."
+
+## 🏗️ 3. ODOO/ERP: TƯ DUY NGHIỆP VỤ & KIẾN TRÚC DỮ LIỆU
+
+- **The Registry:** Hiểu cách Odoo quét module và xây dựng Class nạp vào bộ nhớ để thực thi kế thừa (`_inherit`). 
+- **Environment (env):** Mỗi `env` là một "cửa sổ" nhìn vào DB. Senior luôn cẩn trọng với `sudo()` vì nó phá vỡ mọi hàng rào bảo mật Record Rule.
+- **ORM Cache & Prefetching:** Odoo tự động fetch thêm bản ghi cùng loại để giảm query vào DB. 
+    - *Tư duy Senior:* "Tôi tránh dùng vòng lặp lồng nhau hoặc đọc từng bản ghi rời rạc. Tôi dùng `mapped()` hoặc `filtered()` để tận dụng tối đa cache của ORM."
+
+---
+
+# 🧠 NHỮNG LỖI TƯ DUY CẦN TRÁNH (COMMON MENTAL PITFALLS)
+
+Để trở thành Senior, bạn cần vượt qua những lỗi tư duy sau đây. Hãy chuẩn bị tinh thần để thảo luận về chúng trong phỏng vấn.
+
+## 🚧 1. LỖI TƯ DUY CẤP ĐỘ INTERN/JUNIOR (THIẾU QUAN SÁT)
+- **Copy-Paste Code (Cargo Culting):** Chép code từ Stack Overflow mà không hiểu bản chất. **Hệ quả:** Code chạy nhưng gây lỗi bảo mật hoặc hiệu năng về sau.
+- **Sợ đặt câu hỏi:** Giấu diếm lỗi vì sợ bị đánh giá. **Hệ quả:** Làm trễ tiến độ của cả team.
+- **Bỏ qua Edge Cases:** Chỉ code cho trường hợp chạy đúng (Happy Path). **Hệ quả:** Hệ thống sập khi người dùng nhập sai dữ liệu.
+
+## 🏗️ 2. LỖI TƯ DUY CẤP ĐỘ MIDDLE (OVER-ENGINEERING)
+- **Tối ưu hóa sớm (Premature Optimization):** Dành quá nhiều thời gian tối ưu những thứ chưa cần thiết. **Hệ quả:** Lãng phí nguồn lực công ty.
+- **Phức tạp hóa vấn đề:** Áp dụng Design Patterns hoặc Micro-services vào những bài toán cực kỳ đơn giản. **Hệ quả:** Code khó bảo trì, khó debug.
+- **Tư duy "Bạc Nhược" về Refactoring:** Cứ thấy code cũ là muốn đập đi xây lại mà không đánh giá rủi ro nghiệp vụ.
+
+## 👔 3. LỖI TƯ DUY CẤP ĐỘ SENIOR (THIẾU CÁI NHÌN TỔNG THỂ)
+- **Mù quáng vì Công nghệ (Tech-driven):** Chọn công nghệ mới nhất chỉ vì nó "Hot" mà không quan tâm nó có phù hợp với team và dự án lâu dài hay không.
+- **Quên mất Business Value:** Chỉ quan tâm đến code đẹp mà quên mất sản phẩm cần ra mắt để giải quyết vấn đề của khách hàng.
+- **Thiếu sự Empathy (Thấu cảm):** Code khó đọc, không có comment hoặc đặt tên biến tùy tiện khiến người kế nhiệm vất vả.
+
+---
+
+# 🚀 NÂNG CẤP "SENIOR MINDSET" - PHONG THÁI PHỎNG VẤN
+
+Để nhà tuyển dụng thấy bạn thực sự ở trình độ Senior, hãy áp dụng các tư duy này vào câu trả lời:
+
+1.  **Tư duy Thực dụng (Pragmatic):** "Tôi chọn giải pháp A vì nó cân bằng được giữa thời gian phát triển và hiệu năng thực tế cho 500 người dùng."
+2.  **Tư duy Chịu trách nhiệm (Ownership):** "Khi hệ thống gặp lỗi, ưu tiên số 1 của tôi là khôi phục dịch vụ, sau đó mới tìm nguyên nhân gốc rễ (Root Cause) để ngăn chặn tái phát."
+3.  **Tư duy Huấn luyện (Mentoring):** "Tôi thường xuyên dành thời gian hướng dẫn các bạn Junior và xây dựng tài liệu kỹ thuật để kiến thức không bị phân mảnh trong team."
+4.  **Tư duy Hệ thống:** Luôn hỏi về luồng dữ liệu (Data flow), Bảo mật (Security) và Khả năng mở rộng (Scalability) trước khi bắt tay vào code.
+
+---
+
+## 📋 CHECKLIST TỰ TIN TRƯỚC PHÒNG PHỎNG VẤN:
+
+- [ ] Bạn đã có 1 câu chuyện về **"Lỗi sai lớn nhất"** và bài học rút ra chưa?
+- [ ] Bạn đã sẵn sàng để nói **"Tôi chưa biết, nhưng tôi sẽ tìm hiểu theo hướng X, Y, Z"** chưa?
+- [ ] Bạn đã chuẩn bị các câu hỏi về **Quy trình Engineering** của công ty (Code review, CI/CD, Testing) chưa?
+
+---
+> [!TIP]
+> **Lời kết:** Phỏng vấn là cuộc trao đổi giữa hai người chuyên nghiệp. Hãy tự tin vào giá trị bạn mang lại và giữ một tâm trí cởi mở để học hỏi!

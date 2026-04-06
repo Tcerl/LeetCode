@@ -161,17 +161,34 @@ Phần này giúp bạn nắm vững bản chất (**Định nghĩa**) và vai t
     - **Chuyên sâu:** Phân biệt được khi nào dùng **`with_user`**, **`with_context`**, và **`sudo`** (để vượt quyền bảo mật).
   - **Compute & Onchange:**
     - **Định nghĩa:** Các decorators `@api.depends` và `@api.onchange` để tính toán dữ liệu tự động.
-    - **Công dụng:** Tăng trải nghiệm người dùng bằng cách tự điền thông tin và đảm bảo logic nghiệp vụ chính xác.
-    - **Chuyên sâu:** Phân biệt được **`store=True`** (lưu vào database) vs không lưu, và lý do tại sao nên ưu tiên Compute hơn Onchange trong các phiên bản Odoo mới.
+    - **Công dụng:** Tự động hóa điền thông tin, giảm bớt thao tác thủ công và đảm bảo tính nhất quán dữ liệu.
+    - **Chuyên sâu:** 
+      1. Phân biệt **`store=True`** (Lưu vào Database) vs không lưu:
+         - **Mặc định (Không lưu):** Tính toán "nóng" mỗi khi được gọi tới. Không tốn dung lượng ổ cứng nhưng không thể dùng để tìm kiếm (Search), lọc (Filter) trực tiếp qua SQL được.
+         - **`store=True`:** Giá trị được tính xong rồi "đóng băng" lưu vào bảng SQL. Chỉ tính lại khi các trường phụ thuộc (`@api.depends`) thay đổi. Giúp tăng tốc độ tìm kiếm và tạo báo cáo cực nhanh.
+      2. Tại sao **Compute** lại "soán ngôi" **Onchange** (từ Odoo 13+)?
+         - **Onchange:** Chỉ chạy khi người dùng thao tác trên giao diện (UI). Nếu bạn tạo bản ghi bằng code Python hay gọi API, Onchange sẽ **không chạy**!
+         - **Compute:** Chạy ở mọi nơi (UI, Code, API). Hiện nay Odoo cho phép trường Compute có thể chỉnh sửa (`readonly=False`), giúp nó bao phủ hoàn toàn vai trò của Onchange nhưng an toàn và đồng bộ hơn nhiều.
+  - **ORM Lifecycle Methods:**
+    - **Định nghĩa:** Các hàm hệ thống gọi tới khi một bản ghi (Record) được tạo, sửa, hoặc xóa (`create`, `write`, `unlink`).
+    - **Công dụng:** Can thiệp logic nghiệp vụ tự động ngay khi dữ liệu thay đổi (VD: tự động gửi mail khi đơn hàng được tạo).
+    - **Chuyên sâu:** 
+      1. Luôn dùng **`super()`** để đảm bảo logic gốc của hệ thống vẫn chạy. 
+      2. Hiểu bản chất của **`unlink`**: bạn không nên xóa dữ liệu thật mà nên dùng trường `active=False` (Archive) để dễ dàng khôi phục.
 * **Cấp độ Senior (Chuyên sâu):**
   - **Batch Processing:**
     - **Định nghĩa:** Kỹ thuật gom nhiều bản ghi để xử lý trong một lệnh SQL duy nhất.
     - **Công dụng:** Tối ưu hóa hiệu năng, tránh tình trạng "treo" server khi xử lý hàng nghìn đơn hàng.
     - **Chuyên sâu:** Nắm được quy tắc "Don't browse in a loop" - Tuyệt đối không query lẻ tẻ trong vòng lặp `for`.
   - **Owl Framework:**
-    - **Định nghĩa:** Framework Frontend hiện đại dựa trên Class/Component của chính Odoo.
-    - **Công dụng:** Cho phép bạn viết các Widget và Dashboard linh động như Vue/React.
-    - **Chuyên sâu:** Hiểu về **Hooks (useState, onWillStart)** và cơ chế **Reactivity** trong Owl để can thiệp sâu vào Web Client.
+    - **Định nghĩa:** Framework Javascript chuyên biệt cho Odoo, dựa trên cơ chế Class-base và Hooks (Tương đồng với Vue 3/React).
+    - **Công dụng:** Xây dựng các tính năng nâng cao trên giao diện Odoo như Kanban, Dashboard, và các Widget tùy biến.
+    - **Chuyên sâu:** 
+      1. Cơ chế **Reactivity**: Owl sử dụng **ES6 Proxy** để theo dõi (track) sự thay đổi của dữ liệu. Khi bạn gán giá trị mới cho một biến được bao bọc bởi Proxy, Owl sẽ tự động tính toán lại và vẽ lại (Re-render) chỉ những phần giao diện bị ảnh hưởng.
+      2. Các **Hooks** quan trọng:
+         - **`useState`:** Khai báo một Object phản ứng (Reactive state). Mọi thay đổi trong object này đều khiến component render lại màn hình.
+         - **`onWillStart`:** Một Hook bất đồng bộ (Async), chạy ngay TRƯỚC khi component bắt đầu render lần đầu. Đây là nơi lý tưởng để gọi `rpc` (API) lấy dữ liệu từ Backend Odoo.
+         - **`onMounted`:** Chạy sau khi component đã gắn thực sự vào cây DOM (thích hợp để khởi tạo thư viện ngoài như Chart.js).
   - **Registry & Pool:**
     - **Định nghĩa:** Hệ thống quản lý các Models tập trung trong bộ nhớ RAM của Odoo.
     - **Công dụng:** Giúp Odoo duy trì sự kế thừa chồng chéo giữa hàng trăm module.

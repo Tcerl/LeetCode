@@ -95,6 +95,6 @@ Bản kế hoạch này kết hợp giữa việc phát triển phần mềm chu
 ---
 ---
 🚀 **TIẾN TRÌNH CÁ NHÂN:**
-Bạn có thể bắt đầu rèn luyện kỹ năng lập trình tại: [Python Mastery Challenges (Tier 1-4)](file:///home/mbw25/leetcode/repo/Python_Mastery_Challenges.md)
+Bạn có thể bắt đầu rèn luyện kỹ năng lập trình tại: [Python Mastery Challenges (Tier 1-4)](file:///home/mbw25/leetcode/repo/03-Python-Expert/Python_Mastery_Challenges.md)
 
 *Lộ trình và dự án được tổng hợp bởi Antigravity AI Assistant.*

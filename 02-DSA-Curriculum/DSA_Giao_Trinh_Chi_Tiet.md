@@ -8,6 +8,29 @@
 
 ---
 
+## 🧠 0. MÔ HÌNH TƯ DUY: DSA LÀ GÌ CHO "TAY MƠ"?
+
+Chào bạn! Đừng để các thuật toán làm bạn sợ. Hãy coi **Cấu trúc dữ liệu (DS)** và **Giải thuật (A)** là một phần của cuộc sống:
+
+### 🏠 1. Cấu trúc dữ liệu (Data Structures)
+Nó là **Cách bạn sắp xếp đồ đạc trong nhà**:
+*   **Mảng (Array):** Một dãy tủ locker có số thự tự. Tìm số 10? Đến tủ số 10.
+*   **Danh sách liên kết (Linked List):** Một chuỗi người nắm tay nhau. Muốn tìm người số 5? Bạn phải hỏi người số 1, người số 2... cho đến người số 5.
+*   **Ngăn xếp (Stack):** Chồng đĩa. Cái nào bỏ vào sau cùng thì lấy ra đầu tiên (LIFO).
+*   **Hàng đợi (Queue):** Hàng người mua vé. Ai đến trước mua trước (FIFO).
+*   **Cây (Tree):** Cây gia phả. Có ông bà, cha mẹ, con cái.
+
+### 📜 2. Giải thuật (Algorithms)
+Nó là **Bản hướng dẫn các bước thực hiện**:
+*   **Ví dụ:** Cách bạn nấu một bát mì tôm. (Bước 1: Đun nước, Bước 2: Bỏ mì, Bước 3: Đợi 3 phút...).
+*   **Giải thuật tốt:** Nấu nhanh nhất và tốn ít điện nhất.
+*   **Giải thuật tệ:** Đun cả bể nước chỉ để nấu 1 bát mì. (Logic Big O đó!).
+
+### 💡 Tại sao phải học DSA?
+Để khi dữ liệu của bạn từ "1 bát mì" trở thành "1 triệu bát mì", chương trình của bạn không bị cháy nổ!
+
+---
+
 ## 📋 MỤC LỤC
 
 | #                                            | Chủ đề                            | Level          | Tuần   |
@@ -2164,5 +2187,42 @@ def solve_grid(grid):
 
 ---
 
-Chúc bạn sớm chinh phục được công việc mơ ước! 🎯🚀
+## 26. Expert Level: DSA trong Thiết kế Hệ thống (System Design)
 
+Ở cấp độ Expert/Architect, bạn không chỉ giải bài toán trên LeetCode mà phải biết áp dụng DSA để xây dựng hệ thống quy mô lớn.
+
+### 🏗️ 1. Caching Strategies (Chiến lược bộ nhớ đệm)
+*   **Logic:** Kết hợp **Hash Map** + **Doubly Linked List** để tạo ra **LRU Cache** ($O(1)$ cho cả `get` và `put`).
+*   **Ứng dụng:** Dùng trong Redis, bộ nhớ đệm của Database, hoặc quản lý session người dùng trong dự án **NexusFlow**.
+
+### 🏗️ 2. Rate Limiting (Giới hạn lưu lượng)
+*   **Thuật toán Token Bucket / Leaky Bucket:** Dùng Queue hoặc biến đếm thời gian.
+*   **Logic:** Đảm bảo hệ thống không bị sập khi có hàng triệu request đồng thời (Dùng Redis làm backend lưu trữ trạng thái).
+
+### 🏗️ 3. Bloom Filters (Kiểm tra tồn tại siêu tốc)
+*   **Logic:** Sử dụng Bit Manipulation và nhiều hàm Hash để kiểm tra một phần tử *có thể* tồn tại trong tập hợp khổng lồ hay không với bộ nhớ cực thấp.
+*   **Ứng dụng:** Kiểm tra username đã tồn tại chưa, ngăn chặn spam tin nhắn trong hệ thống chat.
+
+---
+
+## 27. Python Internals (Cơ chế hoạt động của Python)
+
+Hiểu cách Python xử lý DSA ở mức độ máy thực thi:
+
+### 🐍 1. Memory Management & Garbage Collection
+*   **Reference Counting:** Mỗi object có một biến đếm số lượng tham chiếu. Khi đếm về 0, object bị xóa.
+*   **Generational GC:** Python chia object thành 3 thế hệ (Generation 0, 1, 2) để quét và dọn RAM hiệu quả hơn.
+
+### 🐍 2. Global Interpreter Lock (GIL)
+*   **Logic:** Tại một thời điểm, chỉ một Thread có thể thực thi Python Bytecode.
+*   **Hệ quả:** Multithreading trong Python không thể tận dụng đa nhân CPU cho các tác vụ nặng (CPU-bound). Hãy dùng **Multiprocessing** (như đã ghi trong Roadmap của bạn).
+
+---
+
+## 🚀 LỜI KẾT TỪ ANTIGRAVITY
+
+DSA không chỉ là về việc vượt qua các cuộc phỏng vấn. Đó là về việc rèn luyện tư duy để viết ra những đoạn mã sạch nhất, nhanh nhất và có khả năng mở rộng tốt nhất. Hãy kiên trì rèn luyện mỗi ngày!
+
+---
+
+Chúc bạn sớm chinh phục được công việc mơ ước! 🎯🚀

@@ -30,6 +30,8 @@ Chào bạn! Đừng lo lắng nếu những thuật ngữ như "VPC" hay "Dijks
 9.  **[Communication Flow: Luồng dữ liệu](#9-co-che-giao-tiep-luong-du-lieu-communication-flow)**
 10. **[Security Expert: Bảo mật tối thượng](#10-security-expert-bao-mat-toi-thuong)**
 11. **[CI/CD Flow: Tự động hóa quy trình](#11-cicd-flow-tu-dong-hoa-quy-trinh)**
+12. **[Well-Architected: 6 Cột trụ của hệ thống đỉnh cao](#12-well-architected-6-cot-tru-cua-he-thong-dinh-cao)**
+13. **[Troubleshooting: Khi mọi thứ không chạy như ý](#13-troubleshooting-khi-moi-thu-khong-chay-nhu-y)**
 
 ---
 
@@ -307,7 +309,37 @@ graph LR
 
 ---
 
-## 🚀 TIẾN TỚI TƯƠNG LAI
-Bộ tài liệu này đã hoàn thiện đầy đủ các khía cạnh: **Kiến trúc - Lệnh thực chiến - Thư viện - Bảo mật - Tự động hóa.** 
+## 🏗️ 12. WELL-ARCHITECTED: 6 CỘT TRỤ CỦA HỆ THỐNG ĐỈNH CAO
 
-Giới hạn tiếp theo chính là **khả năng thực thi** của bạn. Hãy bắt đầu xây dựng **Dự án NexusFlow** ngay hôm nay!
+Để trở thành một Architect thực thụ, bạn không được thiết kế "theo bản năng", mà phải bám sát 6 cột trụ của AWS:
+
+1.  **Operational Excellence (Vận hành xuất sắc):** Mọi thứ phải được tự động hóa (IaC) và có thể quan sát được (Monitoring).
+2.  **Security (Bảo mật):** Áp dụng bảo mật đa lớp (Defense in Depth) và quyền tối thiểu (Least Privilege).
+3.  **Reliability (Độ tin cậy):** Hệ thống phải có khả năng tự phục hồi (Self-healing) khi có sự cố.
+4.  **Performance Efficiency (Hiệu suất):** Chọn đúng loại server (Instance Type) và xử lý dữ liệu ở nơi gần người dùng nhất (CDN).
+5.  **Cost Optimization (Tối ưu chi phí):** Không trả tiền cho những tài nguyên không dùng đến (như tắt server dev vào cuối tuần).
+6.  **Sustainability (Bền vững):** Giảm thiểu tác động môi trường bằng cách tối ưu hóa việc tiêu thụ năng lượng của server.
+
+---
+
+## 🛠️ 13. TROUBLESHOOTING: KHI MỌI THỨ KHÔNG CHẠY NHƯ Ý
+
+Kiến trúc sư giỏi là người biết "bắt bệnh" nhanh nhất khi hệ thống gặp sự cố:
+
+| Triệu chứng | Kiểm tra ngay | Logic "bắt bệnh" |
+| :--- | :--- | :--- |
+| **Timeout (408/504)** | Security Group / NACL | Kiểm tra xem cổng (Port) đã được mở chưa? |
+| **Access Denied (403)** | IAM Policy | User/Role có quyền thực hiện hành động đó không? |
+| **Database Connection Error** | VPC / Subnet | Database và App có nằm chung VPC? Có bị chặn bởi Tường lửa không? |
+| **Website chạy cực chậm** | CloudWatch / X-Ray | Xem bước nào trong "Luồng giao tiếp" đang bị tắc nghẽn (Lambda xử lý lâu or DB chậm)? |
+| **Lỗi 5xx (Server Error)** | CloudWatch Logs | Đọc log của ứng dụng để tìm nguyên nhân cụ thể (Exception trong Python). |
+
+### 💡 Tuyệt chiêu "Bắt mạch" chuyên sâu: AWS X-Ray
+Dùng X-Ray để tạo ra một **Service Map** trực quan. Bạn sẽ thấy dữ liệu đi từ API Gateway mất bao nhiêu ms, đến Lambda mất bao lâu... Từ đó tìm ra chính xác "con sâu làm rầu nồi canh".
+
+---
+
+## 🏁 KẾT LUẬN: HÀNH TRÌNH KHÔNG ĐIỂM DỪNG
+Đến đây, bạn đã đi từ một **"Tay mơ"** hiểu về Cloud qua phép ẩn dụ thành phố, đến một **"Cấp độ Associate"** biết dùng CLI/Boto3, và kết thúc ở một **"Kiến trúc sư"** nắm giữ các cột trụ của hệ thống.
+
+*Thành phố AWS của bạn không bao giờ đứng yên, nó sẽ luôn được nâng cấp. Chúc bạn thành công với dự án NexusFlow!*

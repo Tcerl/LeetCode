@@ -20,6 +20,7 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 ### 🐍 [03-Python-Expert/](./03-Python-Expert/)
 *Kiến thức chuyên sâu về ngôn ngữ Python.*
 - `Python_Mastery_Challenges.md`: Danh sách thử thách từ Tier 1 đến Tier 4.
+- `Python_Backend_Professional_Guide.md`: **(Mới)** Hướng dẫn rút gọn code, AsyncIO & FastAPI chuyên nghiệp.
 - `Python_Special_Functions.md`: Các hàm đặc biệt và nâng cao trong Python.
 - `Python_Functions_Flask_Django_Guide.md`: Hướng dẫn Python cho Web Frameworks.
 
@@ -37,6 +38,12 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 *Chuyên đề xây dựng kiến trúc hệ thống đám mây.*
 - `AWS_Architecture_Deep_Dive.md`: **(Mới)** Kiến thức chuyên sâu về VPC, IAM, Compute, Storage kèm ví dụ thực tế.
 - `AWS_90Days_Mastery_Plan.md`: Kế hoạch 90 ngày chinh phục AWS.
+
+### 🖖 [08-Frontend-Mastery/](./08-Frontend-Mastery/)
+*Chuyên sâu kiến trúc giao diện hiện đại.*
+- `VueJS_Professional_Guide.md`: **(Mới)** Composition API, Pinia, Composables & Performance.
+
+### 🛠️ [06-Exercises/](./06-Exercises/)
 *Kho bài tập và thực hành.*
 - `CODE_EXERCISES.md`: Tổng hợp các bài tập code.
 - `20_exam_exercies/`: Các bài tập kiểm tra.
@@ -46,9 +53,10 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 
 ## 🎯 CÁCH SỬ DỤNG HIỆU QUẢ
 1. **Bắt đầu từ Roadmaps:** Luôn bám sát lộ trình trong `01-Roadmaps` để không bị lạc hướng.
-2. **Học DSA mỗi ngày:** Dành ít nhất 1-2 tiếng mỗi ngày cho các bài tập trong `02-DSA-Curriculum`.
-3. **Thực hành Challenges:** Giải quyết các bài tập trong `03-Python-Expert` để nâng cao tư duy ngôn ngữ.
-4. **Mock Interview:** Sử dụng tài liệu trong `04-Interview-Prep` để tự kiểm tra kiến thức trước kỳ phỏng vấn.
+2. **Học DSA/Python:** Sử dụng giáo trình tại `02` và `03` để nắm vững tư duy backend.
+3. **Làm chủ Cloud:** Đào sâu kiến trúc tại `07` để hiểu cách hệ thống vận hành.
+4. **Trình diễn Frontend:** Dùng tài liệu tại `08` để xây dựng UI đẳng cấp cho NexusFlow.
+5. **Mock Interview:** Sử dụng tài liệu trong `04` để chuẩn bị cho kỳ phỏng vấn.
 
 ---
 *Hệ thống được cấu trúc và quản lý bởi Antigravity AI Assistant.*

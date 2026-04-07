@@ -46,7 +46,10 @@ Thay vì dùng `LIKE '%keyword%'` (rất chậm), Senior dùng `tsvector` và `t
 ### 🔒 B. Locking (Khóa dữ liệu)
 - **Row-level Lock:** Khóa 1 dòng.
 - **Table-level Lock:** Khóa cả bảng (rất nguy hiểm, dễ gây treo hệ thống).
-- **Deadlock:** Khi 2 tiến trình đợi nhau mở khóa. Senior luôn thiết kế để truy cập dữ liệu theo một thứ tự nhất định nhằm tránh Deadlock.
+#### 💡 TÁC ĐỘNG THỰC TẾ (IMPACT):
+- **Tính toàn vẹn (Integrity):** Ràng buộc (Constraints) là "hàng rào thép" cuối cùng bảo vệ dữ liệu khỏi các lỗi logic từ App.
+- **Tốc độ (Speed):** Một Index đúng chỗ có thể biến một câu query chạy 10 giây thành 0.01 giây. Đây là bí mật của các hệ thống Real-time.
+- **An toàn (Safety):** Transactions (ACID) đảm bảo tiền của khách hàng không bao giờ bị "mất tích" giữa chừng khi chuyển khoản.
 
 ---
 

@@ -46,8 +46,10 @@ Khi hệ thống của bạn quá lớn cho một Server đơn lẻ, K8s sẽ gi
 
 Đây là kỹ thuật đỉnh cao:
 1. Giai đoạn 1: Dùng Image nặng để cài đặt thư viện và build code.
-2. Giai đoạn 2: Chỉ copy file đã build sang một Image siêu nhẹ để chạy.
-=> Kết quả: Image của bạn sẽ cực kỳ bảo mật (vì không có mã nguồn gốc) và tải cực nhanh lên Server.
+#### 💡 TÁC ĐỘNG THỰC TẾ (IMPACT):
+- **Đồng nhất (Consistency):** Loại bỏ hoàn toàn lỗi "ở máy em chạy được mà server không chạy được". Toàn bộ team Dev và Prod dùng chung 1 môi trường.
+- **Tự động (Automation):** K8s Auto-healing giúp bạn "ngủ ngon" vì hệ thống tự phục hồi mà không cần can thiệp thủ công.
+- **Tiền bạc (Cost):** Multi-stage builds giúp Image nhẹ hơn, tải nhanh hơn và tiết kiệm hàng nghìn USD chi phí lưu trữ/băng thông.
 
 ---
 🚀 **Triết lý DevOps:** Hãy coi Server là gia súc (Cattle), không phải thú cưng (Pet). Nếu cái nào hỏng, hãy tự động thay thế cái mới!

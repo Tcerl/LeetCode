@@ -37,8 +37,10 @@ def senior_function(*args, **kwargs):
     print(f"Args: {args}")
     print(f"Kwargs: {kwargs}")
 
-senior_function(1, 2, 3, name="Python", level="Expert")
-```
+#### 💡 TÁC ĐỘNG THỰC TẾ (IMPACT):
+- **Hiệu năng:** Comprehensions chạy nhanh hơn vòng lặp `for` thông thường vì nó được tối ưu hóa ở tầng C-Level của Python.
+- **Duy trì (Maintenance):** Viết code trên 1 dòng giúp giảm "độ loãng" của file code, giúp đồng nghiệp nắm bắt logic nhanh hơn.
+- **Linh hoạt:** `*args/**kwargs` cho phép bạn viết các hàm Wrapper hoặc Decorator cực kỳ mạnh mẽ mà không cần biết hàm gốc nhận bao nhiêu tham số.
 
 ---
 
@@ -93,9 +95,10 @@ class DatabaseConnection:
     def __exit__(self, exc_type, exc_val, exc_tb):
         print("Đóng kết nối an toàn.")
 
-with DatabaseConnection() as db:
-    print("Đang xử lý dữ liệu...")
-```
+#### 💡 TÁC ĐỘNG THỰC TẾ (IMPACT):
+- **Kiến trúc (Architecture):** OOP giúp bạn đóng gói các logic nghiệp vụ phức tạp. `@property` giúp bạn thay đổi logic tính toán bên trong mà không làm hỏng giao thức bên ngoài.
+- **Tái sử dụng (Reusability):** Decorators cho phép bạn "cấy" các tính năng như Logging, Auth, Caching vào hàng trăm hàm chỉ bằng 1 dòng code. Đây là đỉnh cao của DRY (Don't Repeat Yourself).
+- **An toàn (Safety):** Context Managers đảm bảo file/kết nối DB luôn được đóng kể cả khi có lỗi xảy ra (Exception). Đây là cách Senior ngăn chặn lỗi rò rỉ bộ nhớ (Memory Leak).
 
 ---
 
@@ -115,8 +118,10 @@ async def main():
     results = await asyncio.gather(fetch_data(1), fetch_data(2))
     print(results)
 
-asyncio.run(main())
-```
+#### 💡 TÁC ĐỘNG THỰC TẾ (IMPACT):
+- **Khả năng mở rộng (Scalability):** AsyncIO là sự khác biệt giữa một hệ thống phục vụ 100 người và một hệ thống phục vụ 100,000 người. Nó biến Python từ "chậm chân" thành "vận động viên marathon" trong thế giới Web.
+- **Tự động hóa (Automation):** Metaclass cho phép bạn thực thi logic ngay khi bạn *viết* code (compile time/import time). Nó giúp xây dựng các hệ thống tự động kiểm tra lỗi cấu trúc trước khi app chạy.
+- **Đóng gói (Encapsulation):** Magic methods giúp các đối tượng của bạn cư xử như tệp tin, như mảng, hoặc như hàm, tạo ra một giao thức (interface) cực kỳ thân thiện cho người dùng thư viện của bạn.
 
 ---
 

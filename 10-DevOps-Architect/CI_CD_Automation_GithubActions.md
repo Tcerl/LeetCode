@@ -39,7 +39,10 @@ Mẫu tệp `.github/workflows/deploy.yml`:
 ## 🚀 4. SENIOR CI/CD: CẢNH BÁO THÔNG MINH
 Senior không đợi đến khi hệ thống sập mới biết. Họ tích hợp:
 - **Telegram/Slack Notification:** Robot nhắn tin cho bạn ngay lập tức nếu "Build failed" hoặc "Deploy finished".
-- **Sentry/Elasticsearch:** Tự động bắt lỗi runtime ngay trên server và báo về trung tâm điều khiển.
+#### 💡 TÁC ĐỘNG THỰC TẾ (IMPACT):
+- **Tự tin (Confidence):** Với CI, bạn có thể đẩy code 10 lần 1 ngày mà không sợ làm sập hệ thống (vì Robot đã test hết rồi).
+- **Tốc độ (Agility):** Rút ngắn thời gian đưa tính năng mới tới khách hàng từ vài tuần xuống còn vài phút.
+- **Kiểm soát (Observability):** Cảnh báo Telegram giúp bạn là người đầu tiên biết lỗi trước khi khách hàng kịp phàn nàn.
 
 ---
 🚀 **Triết lý CI/CD:** Nếu một việc phải làm 2 lần, hãy tự động hóa nó! Giải phóng sức lao động để sáng tạo.

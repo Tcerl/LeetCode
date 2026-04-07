@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Custom Project Tree View -->
+    <record id="view_custom_project_tree" model="ir.ui.view">
+        <field name="name">custom.project.tree</field>
+        <field name="model">custom.project</field>
+        <field name="arch" type="xml">
+            <tree string="Projects" decoration-info="status == 'active'" decoration-success="status == 'done'">
+                <field name="name"/>
+                <field name="responsible_id"/>
+                <field name="start_date"/>
+                <field name="duration"/>
+                <field name="status" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Custom Project Form View -->
+    <record id="view_custom_project_form" model="ir.ui.view">
+        <field name="name">custom.project.form</field>
+        <field name="model">custom.project</field>
+        <field name="arch" type="xml">
+            <form string="Project Detail">
+                <header>
+                    <button name="%(base.action_res_users)d" string="Assign User" type="action" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,active,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Project Name..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="responsible_id"/>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                            <field name="duration"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action & Menu -->
+    <record id="action_custom_project" model="ir.actions.act_window">
+        <field name="name">Project Management</field>
+        <field name="res_model">custom.project</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_custom_project_root" name="Project Core" sequence="10"/>
+    <menuitem id="menu_custom_project_list" name="Projects" parent="menu_custom_project_root" action="action_custom_project" sequence="1"/>
+</odoo>

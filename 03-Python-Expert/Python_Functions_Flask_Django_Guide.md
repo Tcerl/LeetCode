@@ -3378,5 +3378,8 @@ Tài liệu này đã trình bày chi tiết về:
 - Các hàm quan trọng trong Flask
 - Các hàm quan trọng trong Django
 
+**🔥 Để nâng cao kỹ năng thực chiến, hãy tham khảo:**
+👉 [**Flask Mastery**](./Flask_Mastery_Guide.md) | [**Django Mastery**](./Django_Mastery_Guide.md) | [**Odoo Mastery**](./Odoo_Mastery_Guide.md)
+
 Mỗi hàm đều có ví dụ cụ thể để bạn có thể thực hành ngay. Hãy thử nghiệm với các ví dụ này để hiểu rõ hơn về cách sử dụng từng hàm!
 

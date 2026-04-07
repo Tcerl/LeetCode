@@ -19,10 +19,14 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 
 ### 🐍 [03-Python-Expert/](./03-Python-Expert/)
 *Kiến thức chuyên sâu về ngôn ngữ Python.*
+- `Python_Core_Mastery.md`: **(Mới)** Từ cơ bản đến nâng cao (AsyncIO, OOP, Metaclass).
 - `Python_Mastery_Challenges.md`: Danh sách thử thách từ Tier 1 đến Tier 4.
 - `Python_Backend_Professional_Guide.md`: **(Mới)** Hướng dẫn rút gọn code, AsyncIO & FastAPI chuyên nghiệp.
 - `Python_Special_Functions.md`: Các hàm đặc biệt và nâng cao trong Python.
-- `Python_Functions_Flask_Django_Guide.md`: Hướng dẫn Python cho Web Frameworks.
+- `Python_Functions_Flask_Django_Guide.md`: Hướng dẫn các hàm Python cho Web Frameworks.
+- `Flask_Mastery_Guide.md`: **(Mới)** Lộ trình ôn luyện Flask chuyên sâu.
+- `Django_Mastery_Guide.md`: **(Mới)** Lộ trình ôn luyện Django chuyên sâu.
+- `Odoo_Mastery_Guide.md`: **(Mới)** Lộ trình ôn luyện Odoo Framework.
 
 ### 💼 [04-Interview-Prep/](./04-Interview-Prep/)
 *Tài liệu ôn luyện phỏng vấn thực chiến.*
@@ -42,6 +46,10 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 ### 🖖 [08-Frontend-Mastery/](./08-Frontend-Mastery/)
 *Chuyên sâu kiến trúc giao diện hiện đại.*
 - `VueJS_Professional_Guide.md`: **(Mới)** Composition API, Pinia, Composables & Performance.
+
+### 🚀 [10-DevOps-Architect/](./10-DevOps-Architect/)
+*Chuyên sâu về hạ tầng và tự động hóa.*
+- `Docker_K8s_CI_CD_Guide.md`: Docker, K8s, AWS và CI/CD Automation.
 
 ### 🛠️ [06-Exercises/](./06-Exercises/)
 *Kho bài tập và thực hành.*

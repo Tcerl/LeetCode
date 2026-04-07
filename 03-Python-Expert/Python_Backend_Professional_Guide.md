@@ -256,4 +256,5 @@ def process_payment(payment_strategy: PaymentStrategy, amount: float):
 🚀 **Tài nguyên học Expert:**
 - Sách: **Fluent Python** (Luciano Ramalho).
 - Framework: [FastAPI Best Practices](https://github.com/zhanymkanov/fastapi-best-practices).
+- Lộ trình Framework: [**Flask**](./Flask_Mastery_Guide.md) | [**Django**](./Django_Mastery_Guide.md) | [**Odoo**](./Odoo_Mastery_Guide.md)
 - Dự án NexusFlow: Áp dụng Pydantic v2 cho mọi API.

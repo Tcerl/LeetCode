@@ -20,13 +20,16 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 ### 🐍 [03-Python-Expert/](./03-Python-Expert/)
 *Kiến thức chuyên sâu về ngôn ngữ Python.*
 - `Python_Core_Mastery.md`: **(Mới)** Từ cơ bản đến nâng cao (AsyncIO, OOP, Metaclass).
-- `Python_Mastery_Challenges.md`: Danh sách thử thách từ Tier 1 đến Tier 4.
-- `Python_Backend_Professional_Guide.md`: **(Mới)** Hướng dẫn rút gọn code, AsyncIO & FastAPI chuyên nghiệp.
-- `Python_Special_Functions.md`: Các hàm đặc biệt và nâng cao trong Python.
-- `Python_Functions_Flask_Django_Guide.md`: Hướng dẫn các hàm Python cho Web Frameworks.
-- `Flask_Mastery_Guide.md`: **(Mới)** Lộ trình ôn luyện Flask chuyên sâu.
-- `Django_Mastery_Guide.md`: **(Mới)** Lộ trình ôn luyện Django chuyên sâu.
-- `Odoo_Mastery_Guide.md`: **(Mới)** Lộ trình ôn luyện Odoo Framework.
+- `Python_Standard_Library_Guide.md`: **(Mới)** Danh mục các Module "Batteries Included" cần biết.
+- `Pythonic_Code_Shortening_Guide.md`: **(Mới)** Nghệ thuật rút gọn code (Walrus, Comprehensions, Lambda).
+- `Flask_Mastery_Guide.md`: **(Mới)** Lộ trình Flask chuyên sâu.
+- `Django_Mastery_Guide.md`: **(Mới)** Lộ trình Django chuyên sâu.
+- `Odoo_Mastery_Guide.md`: **(Mới)** Lộ trình Odoo Framework chuyên sâu.
+
+### 🗄️ [04-Database-Mastery/](./04-Database-Mastery/)
+*Làm chủ linh hồn của hệ thống: SQL & NoSQL.*
+- `PostgreSQL_Expert_Guide.md`: **(Mới)** Tối ưu hóa SQL, Indexing, Partitioning.
+- `MongoDB_Expert_Guide.md`: **(Mới)** Linh hoạt với NoSQL, Sharding & Aggregation.
 
 ### 💼 [04-Interview-Prep/](./04-Interview-Prep/)
 *Tài liệu ôn luyện phỏng vấn thực chiến.*
@@ -43,9 +46,15 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 - `AWS_Architecture_Deep_Dive.md`: **(Mới)** Kiến thức chuyên sâu về VPC, IAM, Compute, Storage kèm ví dụ thực tế.
 - `AWS_90Days_Mastery_Plan.md`: Kế hoạch 90 ngày chinh phục AWS.
 
-### 🖖 [08-Frontend-Mastery/](./08-Frontend-Mastery/)
+### 🎨 [08-Frontend-Mastery/](./08-Frontend-Mastery/)
 *Chuyên sâu kiến trúc giao diện hiện đại.*
 - `VueJS_Professional_Guide.md`: **(Mới)** Composition API, Pinia, Composables & Performance.
+
+### 🚀 [09-Example-Projects/](./09-Example-Projects/)
+*Kho dự án mẫu Boilerplate "chuẩn Senior".*
+- `Flask_SaaS_Boilerplate`: Dự án mẫu Flask SaaS.
+- `Django_Rest_Pro`: Dự án mẫu Django REST.
+- `Odoo_Advanced_Module`: Dự án mẫu Odoo.
 
 ### 🚀 [10-DevOps-Architect/](./10-DevOps-Architect/)
 *Chuyên sâu về hạ tầng và tự động hóa.*

@@ -61,4 +61,25 @@ Tài liệu này hướng dẫn bạn cách sử dụng các tài liệu đã c�
 4.  **Review (Quan trọng nhất):** Sau mỗi đề, phải dành ít nhất 2 tiếng để xem lại các câu sai, tra từ mới và ghi chú lại.
 
 ---
+
+## 5. VÍ DỤ ÁP DỤNG THỰC TẾ (Practical Application)
+
+**Tình huống:** Bạn gặp câu hỏi Part 5 sau:
+*"The manager is responsible ------- overseeing the new marketing campaign."*
+(A) to
+(B) for
+(C) with
+(D) about
+
+**Cách áp dụng quy trình:**
+1.  **Bước 1 (Phân tích):** Nhìn thấy từ **responsible**.
+2.  **Bước 2 (Kiến thức):** Nhớ lại tệp `English_Prepositions_Collocations.md` -> Cụm **"Responsible for"**.
+3.  **Bước 3 (Chọn đáp án):** Chọn ngay (B) trong vòng 5 giây.
+
+**Tình huống Reading Part 7:**
+*Câu hỏi: "What is the purpose of the email?"*
+1.  **Bước 1 (Skimming):** Đọc dòng đầu của email: *"I am writing to inform you about the upcoming changes to our office policy."*
+2.  **Bước 2 (Kết luận):** Đáp án sẽ là "To announce a change in policy".
+
+---
 *Lưu ý: Sự kiên trì mỗi ngày là chìa khóa để nâng điểm TOEIC!*

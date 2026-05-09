@@ -22,7 +22,10 @@ Cụm danh từ là một nhóm từ đóng vai trò như một danh từ trong 
 
 ### 1.2. Danh từ ghép (Compound Nouns)
 Trong TOEIC, danh từ ghép rất phổ biến. Đôi khi từ đứng trước bổ nghĩa cho danh từ sau cũng là một danh từ.
-*   *Ví dụ:* **Safety** standards (Tiêu chuẩn an toàn), **Application** form (Mẫu đơn đăng ký), **Customer** satisfaction (Sự hài lòng của khách hàng).
+*   **Safety** standards (Tiêu chuẩn an toàn). *Ví dụ:* Our factory meets all **safety standards**.
+*   **Application** form (Mẫu đơn đăng ký). *Ví dụ:* Please fill out the **application form**.
+*   **Customer** satisfaction (Sự hài lòng của khách hàng). *Ví dụ:* We prioritize **customer satisfaction**.
+*   **Job** opening (Vị trí công việc đang trống). *Ví dụ:* There is a **job opening** in the marketing department.
 
 ---
 
@@ -40,10 +43,15 @@ Cụm danh động từ bắt đầu bằng một `V-ing` và theo sau là các 
 
 ### 2.2. Các cụm đi kèm với Gerund phổ biến (TOEIC)
 *   **Be used to / Be accustomed to + V-ing:** Quen với việc gì.
+    *   *Ví dụ:* I am **used to working** under pressure.
 *   **Look forward to + V-ing:** Mong đợi việc gì.
+    *   *Ví dụ:* We **look forward to meeting** you next week.
 *   **It's no use / It's no good + V-ing:** Vô ích khi làm gì.
+    *   *Ví dụ:* **It's no use complaining** about the results.
 *   **Have difficulty (in) + V-ing:** Gặp khó khăn khi làm gì.
+    *   *Ví dụ:* He **had difficulty finding** the office.
 *   **Spend time/money + V-ing:** Dành thời gian/tiền bạc làm gì.
+    *   *Ví dụ:* She **spends a lot of time researching** the market.
 
 ---
 

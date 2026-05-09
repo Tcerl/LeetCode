@@ -9,13 +9,17 @@ Tài liệu này đã được nâng cấp với các giải thích chi tiết, 
 ### 1.1. Nhóm Hiện tại
 *   **Hiện tại đơn:** Diễn tả chân lý, thói quen hoặc lịch trình (máy bay, tàu hỏa).
     *   *Ví dụ:* The flight to London **departs** at 7 PM.
+    *   *Ví dụ thực tế:* Our company **provides** high-quality services to all clients.
 *   **Hiện tại hoàn thành:** Hành động xảy ra trong quá khứ nhưng không rõ thời gian hoặc để lại kết quả ở hiện tại.
     *   **Phân biệt Since/For:** `Since + mốc thời gian` (Since 2010), `For + khoảng thời gian` (For 10 years).
+    *   *Ví dụ thực tế:* Mr. John **has worked** here **since** he graduated.
     *   **Lưu ý TOEIC:** Rất hay đi kèm với "over the past/last + thời gian" (trong suốt ... vừa qua).
+    *   *Ví dụ:* Profits **have increased** significantly over the last three months.
 
 ### 1.2. Nhóm Quá khứ
 *   **Quá khứ hoàn thành (`Had + V3`):** Dùng để diễn tả một hành động xảy ra **trước** một hành động khác trong quá khứ.
     *   *Ví dụ:* By the time the manager arrived, the meeting **had started**.
+    *   *Ví dụ thực tế:* We **had already sent** the invoice before they called us.
 
 ---
 
@@ -23,23 +27,30 @@ Tài liệu này đã được nâng cấp với các giải thích chi tiết, 
 
 Trong TOEIC Part 5, bạn cần xác định vị trí trống cần từ loại gì:
 1.  **Tính từ sở hữu/Tính từ + Danh từ:** *Their **innovative** (adj) **strategy** (n)*.
+    *   *Ví dụ:* Please review the **attached** (adj) **document** (n).
 2.  **Trạng từ bổ nghĩa cho Tính từ/Động từ:** *The result was **extremely** (adv) **satisfactory** (adj)*.
+    *   *Ví dụ:* The new system works **efficiently** (adv).
 3.  **Nội động từ vs Ngoại động từ:**
     *   *Ngoại động từ:* Cần tân ngữ đi kèm (e.g., *provide information*).
+    *   *Ví dụ:* The company **provides** (v) **training** (n) for new employees.
     *   *Nội động từ:* Không cần tân ngữ (e.g., *rise, arrive, occur*). Trạng từ thường đứng ngay sau nội động từ.
+    *   *Ví dụ:* Oil prices **rose** (v) **sharply** (adv) last month.
 
 ---
 
 ## 3. CÂU BỊ ĐỘNG NÂNG CAO (ADVANCED PASSIVE)
 
 *   **Bị động với động từ khuyết thiếu:** `Model Verb + be + V3` (e.g., *must be submitted*).
+    *   *Ví dụ thực tế:* All applications **must be received** by the deadline.
 *   **Bị động với 2 tân ngữ:**
     *   *Chủ động:* She gave me a book.
     *   *Bị động:* I was given a book **hoặc** A book was given to me.
+    *   *Ví dụ thực tế:* He **was offered** a promotion after his hard work.
 *   **Thể nhờ vả (Causative Form):**
     *   `Have someone DO something` -> `Have something DONE (by someone)`.
     *   `Get someone TO DO something` -> `Get something DONE (by someone)`.
-    *   *Ví dụ:* I had the mechanic fix my car. = I **had my car fixed**. (Rất hay thi).
+    *   *Ví dụ:* I had the mechanic fix my car. = I **had my car fixed**.
+    *   *Ví dụ thực tế:* The manager **had the report typed** by his assistant.
 
 ---
 
@@ -52,8 +63,11 @@ Diễn tả giả thiết trái với quá khứ nhưng kết quả để lại 
 
 ### 4.2. Đảo ngữ câu điều kiện (Inversion) - Cực kỳ quan trọng
 *   Loại 1: `Should + S + V-inf, S + will + V-inf`.
+    *   *Ví dụ:* **Should you have** any questions, please contact us.
 *   Loại 2: `Were + S + (to V), S + would + V-inf`.
+    *   *Ví dụ:* **Were I you**, I would accept the offer.
 *   Loại 3: `Had + S + V3, S + would have + V3`.
+    *   *Ví dụ:* **Had we known** about the traffic, we would have left earlier.
 
 ---
 
@@ -90,6 +104,7 @@ Dùng sau các động từ/tính từ mang tính chất đề nghị, quan tr�
 *   **Tính từ:** *essential, important, mandatory, vital...*
 *   **Cấu trúc:** `S + V/Adj + that + S' + (should) + V-inf` (Động từ luôn ở dạng nguyên mẫu không "to").
     *   *Ví dụ:* It is essential that he **arrive** on time. (Không phải "arrives").
+    *   *Ví dụ thực tế:* The doctor recommended that she **take** a few days off.
 
 ---
 
@@ -107,12 +122,15 @@ Mệnh đề đóng vai trò như một danh từ (làm chủ ngữ hoặc tân 
 1.  **During vs While:**
     *   *During + Danh từ* (During the meeting).
     *   *While + Clause/V-ing* (While I was waiting).
+    *   *Ví dụ:* Please remain silent **during** the performance.
 2.  **Despite vs Although:**
     *   *Despite/In spite of + N/V-ing*.
     *   *Although/Even though + Clause*.
+    *   *Ví dụ:* **Despite** the heavy rain, the event was a success.
 3.  **Unless = If ... not:** (Trừ khi).
     *   *Ví dụ:* We will be late **unless** we hurry.
 4.  **Provided that / As long as:** (Miễn là/Với điều kiện là).
+    *   *Ví dụ:* You can borrow the car **provided that** you drive carefully.
 
 ---
 

@@ -32,41 +32,41 @@ Giới từ là một phần khó trong tiếng Anh vì chúng không có quy t�
 ## 3. TÍNH TỪ + GIỚI TỪ (ADJECTIVE + PREPOSITION)
 
 Đây là phần thường xuyên xuất hiện trong TOEIC Part 5:
-*   **Interested in:** Quan tâm đến.
-*   **Famous for:** Nổi tiếng về.
-*   **Responsible for:** Chịu trách nhiệm cho.
-*   **Proud of:** Tự hào về.
-*   **Aware of:** Nhận thức về.
-*   **Similar to:** Tương tự với.
-*   **Different from:** Khác với.
-*   **Consistent with:** Nhất quán với.
-*   **Eligible for:** Đủ điều kiện cho.
+*   **Interested in:** Quan tâm đến. *Ex:* She is **interested in** the marketing position.
+*   **Famous for:** Nổi tiếng về. *Ex:* Japan is **famous for** its advanced technology.
+*   **Responsible for:** Chịu trách nhiệm cho. *Ex:* You are **responsible for** finishing the report.
+*   **Proud of:** Tự hào về. *Ex:* We are **proud of** our team's achievements.
+*   **Aware of:** Nhận thức về. *Ex:* Please be **aware of** the new office rules.
+*   **Similar to:** Tương tự với. *Ex:* This model is **similar to** the one we saw yesterday.
+*   **Different from:** Khác với. *Ex:* My ideas are **different from** yours.
+*   **Consistent with:** Nhất quán với. *Ex:* The results are **consistent with** our expectations.
+*   **Eligible for:** Đủ điều kiện cho. *Ex:* Only full-time employees are **eligible for** the bonus.
 
 ---
 
 ## 4. DANH TỪ + GIỚI TỪ (NOUN + PREPOSITION)
 
-*   **Reason for:** Lý do cho.
-*   **Solution to:** Giải pháp cho.
-*   **Increase / Decrease in:** Sự tăng/giảm về cái gì.
-*   **Access to:** Sự tiếp cận vào.
-*   **Influence on:** Sự ảnh hưởng lên.
-*   **Requirement for:** Yêu cầu cho.
+*   **Reason for:** Lý do cho. *Ex:* What is the **reason for** the delay?
+*   **Solution to:** Giải pháp cho. *Ex:* We need a **solution to** this technical problem.
+*   **Increase / Decrease in:** Sự tăng/giảm về cái gì. *Ex:* There was an **increase in** sales last month.
+*   **Access to:** Sự tiếp cận vào. *Ex:* Do you have **access to** the database?
+*   **Influence on:** Sự ảnh hưởng lên. *Ex:* His speech had a great **influence on** the audience.
+*   **Requirement for:** Yêu cầu cho. *Ex:* Fluency in English is a **requirement for** this job.
 
 ---
 
 ## 5. CÁC CỤM GIỚI TỪ CỐ ĐỊNH (PREPOSITIONAL PHRASES)
 
 Học thuộc các cụm này để chọn đáp án ngay lập tức:
-*   **In charge of:** Chịu trách nhiệm/Phụ trách.
-*   **On behalf of:** Thay mặt cho.
-*   **In addition to:** Thêm vào đó.
-*   **In favor of:** Ủng hộ cái gì.
-*   **According to:** Theo như.
-*   **Regardless of:** Bất chấp, bất kể.
-*   **By means of:** Bằng cách.
-*   **In accordance with:** Phù hợp với, theo đúng (quy định).
-*   **With regard to:** Liên quan đến.
+*   **In charge of:** Chịu trách nhiệm/Phụ trách. *Ex:* Who is **in charge of** the project?
+*   **On behalf of:** Thay mặt cho. *Ex:* I am signing this **on behalf of** the manager.
+*   **In addition to:** Thêm vào đó. *Ex:* **In addition to** his salary, he gets a bonus.
+*   **In favor of:** Ủng hộ cái gì. *Ex:* Most people are **in favor of** the new policy.
+*   **According to:** Theo như. *Ex:* **According to** the report, sales have dropped.
+*   **Regardless of:** Bất chấp, bất kể. *Ex:* We will proceed **regardless of** the cost.
+*   **By means of:** Bằng cách. *Ex:* He succeeded **by means of** hard work.
+*   **In accordance with:** Phù hợp với, theo đúng (quy định). *Ex:* The work was done **in accordance with** the contract.
+*   **With regard to:** Liên quan đến. *Ex:* I am writing **with regard to** your inquiry.
 
 ---
 

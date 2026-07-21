@@ -68,6 +68,21 @@ Chào mừng bạn đến với kho lưu trữ kiến thức đã được tối
 
 ---
 
+## 🗺️ LỘ TRÌNH HỌC TẬP ZERO TO HERO (CHINH PHỤC FULLSTACK & CLOUD)
+
+Dưới đây là kế hoạch học tập được tối ưu hóa dựa trên kho tài liệu hiện có:
+
+| Giai đoạn | Mục tiêu chính | Tài liệu trọng tâm | Thời gian dự kiến |
+| :--- | :--- | :--- | :--- |
+| **01. Khởi động** | Python Cơ bản & DSA | [Python_Core_Mastery.md](./03-Python-Expert/Python_Core_Mastery.md), [DSA_Giao_Trinh_Chi_Tiet.md](./02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) | 2 tháng |
+| **02. Backend** | Frameworks & SQL Expert | [Flask_Mastery_Guide.md](./03-Python-Expert/Flask_Mastery_Guide.md), [PostgreSQL_Expert_Guide.md](./04-Database-Mastery/PostgreSQL_Expert_Guide.md) | 2 tháng |
+| **03. Frontend** | VueJS Modern Development | [VueJS_Professional_Guide.md](./08-Frontend-Mastery/VueJS_Professional_Guide.md) | 1.5 tháng |
+| **04. Cloud/Ops** | AWS Architect & DevOps | [AWS_Architecture_Deep_Dive.md](./07-AWS-Mastery/AWS_Architecture_Deep_Dive.md), [Docker_K8s_CI_CD_Guide.md](./10-DevOps-Architect/Docker_K8s_CI_CD_Guide.md) | 2.5 tháng |
+| **05. Pro Project** | Fullstack SaaS/Odoo | [09-Example-Projects/](./09-Example-Projects/), [Odoo_Mastery_Guide.md](./03-Python-Expert/Odoo_Mastery_Guide.md) | 2 tháng |
+| **06. Interview** | Sẵn sàng cho Senior | [ON_LUYEN_PHONG_VAN.md](./04-Interview-Prep/ON_LUYEN_PHONG_VAN.md) | Liên tục |
+
+---
+
 ## 🎯 CÁCH SỬ DỤNG HIỆU QUẢ
 1. **Bắt đầu từ Roadmaps:** Luôn bám sát lộ trình trong `01-Roadmaps` để không bị lạc hướng.
 2. **Học DSA/Python:** Sử dụng giáo trình tại `02` và `03` để nắm vững tư duy backend.

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_custom_project_card" model="ir.actions.report">
+        <field name="name">Project Progress Card</field>
+        <field name="model">custom.project</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">Odoo_Advanced_Module.report_project_card_view</field>
+        <field name="binding_model_id" ref="model_custom_project"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_project_card_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="border: 2px solid #000; padding: 20px;">
+                    <h2 class="text-center">PROJECT STATUS REPORT</h2>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-6"><strong>Project Name:</strong> <span t-field="doc.name"/></div>
+                        <div class="col-6"><strong>Status:</strong> <span t-field="doc.status"/></div>
+                    </div>
+                    <div class="mt-4">
+                        <p><strong>Responsible:</strong> <span t-field="doc.responsible_id.name"/></p>
+                        <p><strong>Duration:</strong> <span t-field="doc.duration"/> Days</p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

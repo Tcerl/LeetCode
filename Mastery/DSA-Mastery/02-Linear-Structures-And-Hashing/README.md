@@ -1,6 +1,6 @@
 # 02. Cấu Trúc Tuyến Tính & Bảng Băm (Góc nhìn Senior)
 
-> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 3 (Array), 4 (Linked List), 5 (Stack), 6 (Queue), 7 (Hash Table).
+> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 3 (Array), 4 (Linked List), 5 (Stack), 6 (Queue), 7 (Hash Table).
 
 ---
 

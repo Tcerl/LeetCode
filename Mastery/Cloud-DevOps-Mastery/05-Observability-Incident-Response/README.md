@@ -1,6 +1,6 @@
 # 05. Giám Sát Hạ Tầng & Xử Lý Sự Cố (Incident Response)
 
-> CloudWatch/CloudTrail đã có ở [`AWS_Knowledge_Handbook_VN.md`](../../07-AWS-Mastery/AWS_Knowledge_Handbook_VN.md) mục 8. File này bổ sung **quy trình vận hành khi có sự cố thật** — mảng kiến thức thực chiến nhất của một senior/on-call engineer.
+> CloudWatch/CloudTrail đã có ở [`AWS_Knowledge_Handbook_VN.md`](../../../07-AWS-Mastery/AWS_Knowledge_Handbook_VN.md) mục 8. File này bổ sung **quy trình vận hành khi có sự cố thật** — mảng kiến thức thực chiến nhất của một senior/on-call engineer.
 
 ---
 

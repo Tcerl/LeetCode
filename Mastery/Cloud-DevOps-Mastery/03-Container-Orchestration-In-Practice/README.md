@@ -1,6 +1,6 @@
 # 03. Docker & Kubernetes — Vận Hành Thật, Không Chỉ Cú Pháp
 
-> Cú pháp Dockerfile/K8s manifest đã có ở [`Docker_Kubernetes_Mastery.md`](../../10-DevOps-Architect/Docker_Kubernetes_Mastery.md). File này tập trung vào **cách container vỡ trận trên production và cách senior phòng tránh**.
+> Cú pháp Dockerfile/K8s manifest đã có ở [`Docker_Kubernetes_Mastery.md`](../../../10-DevOps-Architect/Docker_Kubernetes_Mastery.md). File này tập trung vào **cách container vỡ trận trên production và cách senior phòng tránh**.
 
 ---
 

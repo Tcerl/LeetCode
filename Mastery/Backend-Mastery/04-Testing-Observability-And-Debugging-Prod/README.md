@@ -1,6 +1,6 @@
 # 04. Testing, Observability & Debug Trên Production
 
-> Lý thuyết testing đã có ở [`Python_Backend_Professional_Guide.md`](../../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 9. File này bổ sung phần **quan sát hệ thống khi nó đã chạy thật** — mảng kiến thức mà tài liệu theo công nghệ đơn lẻ thường thiếu.
+> Lý thuyết testing đã có ở [`Python_Backend_Professional_Guide.md`](../../../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 9. File này bổ sung phần **quan sát hệ thống khi nó đã chạy thật** — mảng kiến thức mà tài liệu theo công nghệ đơn lẻ thường thiếu.
 
 ---
 

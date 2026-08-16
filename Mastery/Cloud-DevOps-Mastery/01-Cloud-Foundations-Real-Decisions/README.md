@@ -1,6 +1,6 @@
 # 01. Nền Tảng Cloud — Quyết Định Thật, Không Chỉ Định Nghĩa Dịch Vụ
 
-> Lý thuyết VPC/IAM/S3/RDS chi tiết đã có ở [`AWS_Architecture_Deep_Dive.md`](../../07-AWS-Mastery/AWS_Architecture_Deep_Dive.md) và [`AWS_Knowledge_Handbook_VN.md`](../../07-AWS-Mastery/AWS_Knowledge_Handbook_VN.md). File này bổ sung **tại sao chọn cấu hình này chứ không phải cấu hình khác**, và các sự cố thật khi cấu hình sai.
+> Lý thuyết VPC/IAM/S3/RDS chi tiết đã có ở [`AWS_Architecture_Deep_Dive.md`](../../../07-AWS-Mastery/AWS_Architecture_Deep_Dive.md) và [`AWS_Knowledge_Handbook_VN.md`](../../../07-AWS-Mastery/AWS_Knowledge_Handbook_VN.md). File này bổ sung **tại sao chọn cấu hình này chứ không phải cấu hình khác**, và các sự cố thật khi cấu hình sai.
 
 ---
 

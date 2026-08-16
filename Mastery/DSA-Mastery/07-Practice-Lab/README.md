@@ -1,6 +1,6 @@
 # 07. Practice Lab — Review Code Thật Trong Repo & Lộ Trình Luyện Tập
 
-> Nguồn tham khảo gốc: [`02-DSA-Curriculum/DSA_Lo_Trinh_On_Luyen_4_Tram.md`](../../02-DSA-Curriculum/DSA_Lo_Trinh_On_Luyen_4_Tram.md), [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 21-25, và code thực hành tại [`06-Exercises/20_exam_exercies/`](../../06-Exercises/20_exam_exercies/).
+> Nguồn tham khảo gốc: [`02-DSA-Curriculum/DSA_Lo_Trinh_On_Luyen_4_Tram.md`](../../../02-DSA-Curriculum/DSA_Lo_Trinh_On_Luyen_4_Tram.md), [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 21-25, và code thực hành tại [`06-Exercises/20_exam_exercies/`](../../../06-Exercises/20_exam_exercies/).
 
 Phần này review **code bạn đã tự viết** trong `20_exam_exercies/` bằng con mắt senior — không chỉ "đúng/sai" mà "sẽ ra sao nếu chạy trên production".
 
@@ -78,9 +78,9 @@ def save_tasks(self):
 
 ## 2. Lộ trình luyện tập — không lặp lại, chỉ dẫn hướng dùng
 
-- **Roadmap chi tiết theo tuần:** xem [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#-lộ-trình-thực-hành-tổng-hợp) và [`DSA_Lo_Trinh_On_Luyen_4_Tram.md`](../../02-DSA-Curriculum/DSA_Lo_Trinh_On_Luyen_4_Tram.md) — 4 trạm thực chiến theo pattern.
-- **Pattern Recognition Guide** (cách nhìn đề bài đoán ngay kỹ thuật cần dùng): [`DSA_Giao_Trinh_Chi_Tiet.md` mục 21](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#21-pattern-recognition-guide).
-- **NeetCode 75 (list bài chọn lọc):** [`DSA_Giao_Trinh_Chi_Tiet.md` mục 22](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#22-neetcode-75-curated-list).
+- **Roadmap chi tiết theo tuần:** xem [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#-lộ-trình-thực-hành-tổng-hợp) và [`DSA_Lo_Trinh_On_Luyen_4_Tram.md`](../../../02-DSA-Curriculum/DSA_Lo_Trinh_On_Luyen_4_Tram.md) — 4 trạm thực chiến theo pattern.
+- **Pattern Recognition Guide** (cách nhìn đề bài đoán ngay kỹ thuật cần dùng): [`DSA_Giao_Trinh_Chi_Tiet.md` mục 21](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#21-pattern-recognition-guide).
+- **NeetCode 75 (list bài chọn lọc):** [`DSA_Giao_Trinh_Chi_Tiet.md` mục 22](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#22-neetcode-75-curated-list).
 
 ### 🧭 Cách senior luyện tập khác junior thế nào
 

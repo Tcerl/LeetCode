@@ -1,6 +1,6 @@
 # 05. Practice Lab — Cách Khai Thác Kho Bài Tập Vue/Laravel Đã Có
 
-> Kho bài tập gốc: [`CODE_EXERCISES.md`](../../06-Exercises/CODE_EXERCISES.md) (4000+ dòng: Vue, Pinia, Nuxt, Laravel, Axios, Testing, Mock Interview, Security Checklist đã có sẵn rất đầy đủ). File này không lặp lại nội dung — chỉ bổ sung **cách luyện tập hiệu quả** và liên kết các bài tập với đúng module senior tương ứng.
+> Kho bài tập gốc: [`CODE_EXERCISES.md`](../../../06-Exercises/CODE_EXERCISES.md) (4000+ dòng: Vue, Pinia, Nuxt, Laravel, Axios, Testing, Mock Interview, Security Checklist đã có sẵn rất đầy đủ). File này không lặp lại nội dung — chỉ bổ sung **cách luyện tập hiệu quả** và liên kết các bài tập với đúng module senior tương ứng.
 
 ---
 

@@ -1,6 +1,6 @@
 # 🌳 DSA-Mastery — Cây Kiến Thức Cấu Trúc Dữ Liệu & Giải Thuật (Senior Companion)
 
-> **Mục đích:** Đây là lớp kiến thức **bổ sung** cho giáo trình gốc tại [`02-DSA-Curriculum/`](../02-DSA-Curriculum/), giúp bạn hiểu **vì sao hệ thống thật cần từng cấu trúc dữ liệu/thuật toán**, chúng đang chạy ở đâu trong các sản phẩm bạn dùng hàng ngày (Redis, Postgres, Kubernetes, Git, npm...), và senior dev xử lý các vấn đề thực tế liên quan như thế nào.
+> **Mục đích:** Đây là lớp kiến thức **bổ sung** cho giáo trình gốc tại [`02-DSA-Curriculum/`](../../02-DSA-Curriculum/), giúp bạn hiểu **vì sao hệ thống thật cần từng cấu trúc dữ liệu/thuật toán**, chúng đang chạy ở đâu trong các sản phẩm bạn dùng hàng ngày (Redis, Postgres, Kubernetes, Git, npm...), và senior dev xử lý các vấn đề thực tế liên quan như thế nào.
 >
 > **Không lặp lại** lý thuyết cơ bản đã có sẵn — mỗi file đều trỏ ngược về đúng mục tương ứng trong giáo trình gốc.
 >
@@ -26,7 +26,7 @@
 
 ## Cách sử dụng cây kiến thức này
 
-1. **Học lý thuyết** ở [`02-DSA-Curriculum/`](../02-DSA-Curriculum/) trước — nắm vững cú pháp, cấu trúc, độ phức tạp cơ bản.
+1. **Học lý thuyết** ở [`02-DSA-Curriculum/`](../../02-DSA-Curriculum/) trước — nắm vững cú pháp, cấu trúc, độ phức tạp cơ bản.
 2. **Đọc module tương ứng** trong `DSA-Mastery/` để hiểu ứng dụng thật, bẫy production, và câu hỏi senior sẽ hỏi khi review code/thiết kế của bạn.
 3. **Thực hành** theo [`07-Practice-Lab`](07-Practice-Lab/README.md) — vừa luyện đề, vừa tự review code của chính mình theo tiêu chuẩn senior.
 4. Mỗi module đều có mục **🔗 Liên kết module khác** ở cuối — dùng để di chuyển giữa các chủ đề liên quan thay vì đọc tuyến tính.

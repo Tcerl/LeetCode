@@ -1,6 +1,6 @@
 # 🌳 Backend-Mastery — Cây Kiến Thức Backend & Database (Senior Companion)
 
-> **Mục đích:** Lớp kiến thức bổ sung cho [`03-Python-Expert/`](../03-Python-Expert/) và [`04-Database-Mastery/`](../04-Database-Mastery/) — 2 thư mục đó đã rất chi tiết theo từng công nghệ (Flask/Django/FastAPI, Postgres/Mongo). Cây này **nối các công nghệ đó lại thành 1 luồng hệ thống hoàn chỉnh**, tập trung vào quyết định kiến trúc thật và sự cố production thật.
+> **Mục đích:** Lớp kiến thức bổ sung cho [`03-Python-Expert/`](../../03-Python-Expert/) và [`04-Database-Mastery/`](../../04-Database-Mastery/) — 2 thư mục đó đã rất chi tiết theo từng công nghệ (Flask/Django/FastAPI, Postgres/Mongo). Cây này **nối các công nghệ đó lại thành 1 luồng hệ thống hoàn chỉnh**, tập trung vào quyết định kiến trúc thật và sự cố production thật.
 
 ---
 

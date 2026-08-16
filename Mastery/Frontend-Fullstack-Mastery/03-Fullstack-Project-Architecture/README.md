@@ -1,6 +1,6 @@
 # 03. Kiến Trúc Dự Án Fullstack — Review Code Thật Trong `09-Example-Projects/`
 
-> Đây là review trực tiếp code mẫu trong [`09-Example-Projects/`](../../09-Example-Projects/) bằng con mắt senior — chỉ ra pattern nào đúng, pattern nào cần bổ sung để "chuẩn production" thật sự chứ không chỉ là boilerplate demo.
+> Đây là review trực tiếp code mẫu trong [`09-Example-Projects/`](../../../09-Example-Projects/) bằng con mắt senior — chỉ ra pattern nào đúng, pattern nào cần bổ sung để "chuẩn production" thật sự chứ không chỉ là boilerplate demo.
 
 ---
 

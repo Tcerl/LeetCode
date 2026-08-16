@@ -1,6 +1,6 @@
 # 02. Xử Lý Tín Hiệu & Machine Learning Ứng Dụng (Góc nhìn Senior)
 
-> Lý thuyết chi tiết đã có ở [`03_Nang_Cao.md`](../../06-Exercises/MATLAB/03_Nang_Cao.md) (OOP, Signal Processing, Parallel Computing) và [`04_Ung_Dung.md`](../../06-Exercises/MATLAB/04_Ung_Dung.md) (Machine Learning, Image Processing, Deep Learning, Simulink, Control System). File này bổ sung **cạm bẫy thực tế khi đưa mô hình nghiên cứu ra ứng dụng thật**.
+> Lý thuyết chi tiết đã có ở [`03_Nang_Cao.md`](../../../06-Exercises/MATLAB/03_Nang_Cao.md) (OOP, Signal Processing, Parallel Computing) và [`04_Ung_Dung.md`](../../../06-Exercises/MATLAB/04_Ung_Dung.md) (Machine Learning, Image Processing, Deep Learning, Simulink, Control System). File này bổ sung **cạm bẫy thực tế khi đưa mô hình nghiên cứu ra ứng dụng thật**.
 
 ---
 

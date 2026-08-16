@@ -1,6 +1,6 @@
 # 01. Vòng Đời Một Request — Cách Backend Thật Sự Vận Hành
 
-> Lý thuyết framework/ORM chi tiết đã có ở [`03-Python-Expert/`](../../03-Python-Expert/) (Flask/Django/FastAPI) và [`04-Database-Mastery/`](../../04-Database-Mastery/). File này nối các mảnh rời rạc đó thành **một luồng dữ liệu hoàn chỉnh** — điều mà tài liệu theo từng công nghệ riêng lẻ không thể hiện được.
+> Lý thuyết framework/ORM chi tiết đã có ở [`03-Python-Expert/`](../../../03-Python-Expert/) (Flask/Django/FastAPI) và [`04-Database-Mastery/`](../../../04-Database-Mastery/). File này nối các mảnh rời rạc đó thành **một luồng dữ liệu hoàn chỉnh** — điều mà tài liệu theo từng công nghệ riêng lẻ không thể hiện được.
 
 ---
 

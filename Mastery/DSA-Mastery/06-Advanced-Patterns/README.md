@@ -1,6 +1,6 @@
 # 06. Pattern Nâng Cao (Góc nhìn Senior)
 
-> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 14 (Sliding Window), 15 (Two Pointers), 16 (DP), 17 (Greedy), 18 (Backtracking), 20 (Bit Manipulation).
+> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 14 (Sliding Window), 15 (Two Pointers), 16 (DP), 17 (Greedy), 18 (Backtracking), 20 (Bit Manipulation).
 
 ---
 

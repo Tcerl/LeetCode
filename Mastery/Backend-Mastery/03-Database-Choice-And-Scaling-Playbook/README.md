@@ -1,6 +1,6 @@
 # 03. Chọn & Mở Rộng Database — Playbook Quyết Định Thật
 
-> Lý thuyết Postgres/Mongo chi tiết đã có ở [`PostgreSQL_Expert_Guide.md`](../../04-Database-Mastery/PostgreSQL_Expert_Guide.md) và [`MongoDB_Expert_Guide.md`](../../04-Database-Mastery/MongoDB_Expert_Guide.md) (đặc biệt mục "Khi nào dùng SQL vs NoSQL" đã có sẵn). File này bổ sung **khung ra quyết định** và các sự cố thật khi hệ thống scale.
+> Lý thuyết Postgres/Mongo chi tiết đã có ở [`PostgreSQL_Expert_Guide.md`](../../../04-Database-Mastery/PostgreSQL_Expert_Guide.md) và [`MongoDB_Expert_Guide.md`](../../../04-Database-Mastery/MongoDB_Expert_Guide.md) (đặc biệt mục "Khi nào dùng SQL vs NoSQL" đã có sẵn). File này bổ sung **khung ra quyết định** và các sự cố thật khi hệ thống scale.
 
 ---
 

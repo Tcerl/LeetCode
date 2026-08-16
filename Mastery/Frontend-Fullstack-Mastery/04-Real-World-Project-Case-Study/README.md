@@ -1,6 +1,6 @@
 # 04. Case Study Dự Án Thật — Review Kiến Trúc NexusFlow
 
-> Toàn bộ tài liệu thiết kế gốc: [`Huong_Dan_Du_An_Chi_Tiet_Va_Mo_Rong.md`](../../05-Projects-Docs/Huong_Dan_Du_An_Chi_Tiet_Va_Mo_Rong.md) (2700+ dòng — kiến trúc, DB design, API design, AI/ML, task breakdown). File này review kiến trúc tổng thể bằng góc nhìn senior thật: **cái gì đúng, cái gì có dấu hiệu "over-engineering" cần cảnh giác**.
+> Toàn bộ tài liệu thiết kế gốc: [`Huong_Dan_Du_An_Chi_Tiet_Va_Mo_Rong.md`](../../../05-Projects-Docs/Huong_Dan_Du_An_Chi_Tiet_Va_Mo_Rong.md) (2700+ dòng — kiến trúc, DB design, API design, AI/ML, task breakdown). File này review kiến trúc tổng thể bằng góc nhìn senior thật: **cái gì đúng, cái gì có dấu hiệu "over-engineering" cần cảnh giác**.
 
 ---
 

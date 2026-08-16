@@ -1,6 +1,6 @@
 # 03. Cây, Heap & Trie (Góc nhìn Senior)
 
-> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 8 (Binary Tree/BST), 9 (Heap), 11 (Trie).
+> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 8 (Binary Tree/BST), 9 (Heap), 11 (Trie).
 
 ---
 

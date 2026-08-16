@@ -1,6 +1,6 @@
 # 03. Lộ Trình Vấn Đề Thật: Từ Junior Đến Senior (Tính Toán Khoa Học/Kỹ Thuật)
 
-> Tổng hợp lại các vấn đề đã nhắc ở Module 01-02, kèm tham chiếu [`Du_An_Ca_Nhan.md`](../../06-Exercises/MATLAB/Du_An_Ca_Nhan.md) (dự án kết hợp MATLAB xử lý tín hiệu + Python ML/Dashboard) — sắp xếp theo cấp độ để tự định vị.
+> Tổng hợp lại các vấn đề đã nhắc ở Module 01-02, kèm tham chiếu [`Du_An_Ca_Nhan.md`](../../../06-Exercises/MATLAB/Du_An_Ca_Nhan.md) (dự án kết hợp MATLAB xử lý tín hiệu + Python ML/Dashboard) — sắp xếp theo cấp độ để tự định vị.
 
 ---
 

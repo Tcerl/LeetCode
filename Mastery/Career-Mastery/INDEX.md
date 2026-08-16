@@ -1,6 +1,6 @@
 # 🌳 Career-Mastery — Cây Kiến Thức Sự Nghiệp & Phỏng Vấn (Senior Companion)
 
-> **Mục đích:** Lớp kiến thức bổ sung cho [`01-Roadmaps/`](../01-Roadmaps/), [`04-Interview-Prep/`](../04-Interview-Prep/) và [`interview_prep/`](../interview_prep/). Các thư mục đó đã có lộ trình chi tiết và ngân hàng câu hỏi phong phú theo từng công nghệ. Cây này là **lớp tổng hợp** — nơi kiến thức kỹ thuật từ `DSA-Mastery`, `Backend-Mastery`, `Cloud-DevOps-Mastery` được chuyển hóa thành **cách trả lời phỏng vấn và tư duy sự nghiệp ở tầm senior**.
+> **Mục đích:** Lớp kiến thức bổ sung cho [`01-Roadmaps/`](../../01-Roadmaps/), [`04-Interview-Prep/`](../../04-Interview-Prep/) và [`interview_prep/`](../../interview_prep/). Các thư mục đó đã có lộ trình chi tiết và ngân hàng câu hỏi phong phú theo từng công nghệ. Cây này là **lớp tổng hợp** — nơi kiến thức kỹ thuật từ `DSA-Mastery`, `Backend-Mastery`, `Cloud-DevOps-Mastery` được chuyển hóa thành **cách trả lời phỏng vấn và tư duy sự nghiệp ở tầm senior**.
 
 ---
 

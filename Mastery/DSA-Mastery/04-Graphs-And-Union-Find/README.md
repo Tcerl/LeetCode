@@ -1,6 +1,6 @@
 # 04. Đồ Thị & Union-Find (Góc nhìn Senior)
 
-> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 10 (Graph), 19 (Union-Find).
+> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 10 (Graph), 19 (Union-Find).
 
 ---
 

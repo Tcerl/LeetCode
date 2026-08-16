@@ -1,6 +1,6 @@
 # 01. Senior Mindset — Điều Gì Thật Sự Phân Biệt Junior/Mid/Senior
 
-> Roadmap chi tiết theo mốc thời gian đã có ở [`01-Roadmaps/`](../../01-Roadmaps/) (đặc biệt `Roadmap_Tang_Toc_Senior_FullStack.md`, `IT_Career_Path_And_Missing_Skills_VN.md`). File này bổ sung **tiêu chí đánh giá thật** mà các công ty dùng để phân biệt level — không phải số năm kinh nghiệm.
+> Roadmap chi tiết theo mốc thời gian đã có ở [`01-Roadmaps/`](../../../01-Roadmaps/) (đặc biệt `Roadmap_Tang_Toc_Senior_FullStack.md`, `IT_Career_Path_And_Missing_Skills_VN.md`). File này bổ sung **tiêu chí đánh giá thật** mà các công ty dùng để phân biệt level — không phải số năm kinh nghiệm.
 
 ---
 

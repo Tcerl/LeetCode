@@ -1,6 +1,6 @@
 # 04. Chiến Lược Deploy — Từ "Chạy Script" Đến "Không Ai Nhận Ra Đã Deploy"
 
-> Cấu hình GitHub Actions cụ thể đã có ở [`CI_CD_Automation_GithubActions.md`](../../10-DevOps-Architect/CI_CD_Automation_GithubActions.md). File này tập trung vào **chiến lược release** — thứ quyết định deploy có an toàn hay không, độc lập với công cụ CI/CD nào đang dùng.
+> Cấu hình GitHub Actions cụ thể đã có ở [`CI_CD_Automation_GithubActions.md`](../../../10-DevOps-Architect/CI_CD_Automation_GithubActions.md). File này tập trung vào **chiến lược release** — thứ quyết định deploy có an toàn hay không, độc lập với công cụ CI/CD nào đang dùng.
 
 ---
 

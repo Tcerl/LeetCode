@@ -1,6 +1,6 @@
 # 01. Kiến Trúc Frontend & Hiệu Năng (Góc nhìn Senior)
 
-> Lý thuyết Vue 3 chi tiết đã có ở [`VueJS_Professional_Guide.md`](../../08-Frontend-Mastery/VueJS_Professional_Guide.md) (Composition API, Proxy internals, Event Loop mục 6-7) và các bài Deep Dive trong [`CODE_EXERCISES.md`](../../06-Exercises/CODE_EXERCISES.md) (Proxy vs `Object.defineProperty`, SSR Hydration). File này nối các mảnh đó thành **bức tranh vận hành thật của trình duyệt + framework**.
+> Lý thuyết Vue 3 chi tiết đã có ở [`VueJS_Professional_Guide.md`](../../../08-Frontend-Mastery/VueJS_Professional_Guide.md) (Composition API, Proxy internals, Event Loop mục 6-7) và các bài Deep Dive trong [`CODE_EXERCISES.md`](../../../06-Exercises/CODE_EXERCISES.md) (Proxy vs `Object.defineProperty`, SSR Hydration). File này nối các mảnh đó thành **bức tranh vận hành thật của trình duyệt + framework**.
 
 ---
 
@@ -45,7 +45,7 @@ console.log('4')
 
 ## 3. Performance thực chiến — vấn đề thật khi UI có hàng nghìn item
 
-Đã có kỹ thuật Virtual List trong [`CODE_EXERCISES.md` (VUE-09)](../../06-Exercises/CODE_EXERCISES.md). Bổ sung góc nhìn **tại sao vấn đề này có thật**:
+Đã có kỹ thuật Virtual List trong [`CODE_EXERCISES.md` (VUE-09)](../../../06-Exercises/CODE_EXERCISES.md). Bổ sung góc nhìn **tại sao vấn đề này có thật**:
 
 - **DOM node càng nhiều, reflow/repaint càng chậm** — render 10,000 item cùng lúc trong `<table>` có thể làm trình duyệt đơ vài giây, đặc biệt trên thiết bị di động yếu.
 - **Virtual List (Windowing)** chỉ render các item **đang nằm trong viewport** (+ buffer nhỏ), tái sử dụng DOM node khi cuộn — đây là kỹ thuật bắt buộc cho bảng dữ liệu lớn (dashboard admin, bảng giao dịch tài chính, chat có hàng nghìn tin nhắn).
@@ -63,7 +63,7 @@ const config = { theme: 'dark' }  // ngoài render scope, reference ổn định
 
 ## 4. SSR Hydration — "tại sao console báo mismatch mà tôi không sửa gì"
 
-Đã có cơ chế chi tiết ở [`CODE_EXERCISES.md` (SSR Hydration Deep Dive)](../../06-Exercises/CODE_EXERCISES.md). Bổ sung sự cố thật hay gặp:
+Đã có cơ chế chi tiết ở [`CODE_EXERCISES.md` (SSR Hydration Deep Dive)](../../../06-Exercises/CODE_EXERCISES.md). Bổ sung sự cố thật hay gặp:
 
 **Hydration mismatch** xảy ra khi HTML server render ra **khác** với HTML client render lần đầu — nguyên nhân phổ biến nhất trong thực tế: dùng `Date.now()`, `Math.random()`, hoặc `window`/`localStorage` (chỉ tồn tại ở client) ngay trong lúc render, khiến server và client tính ra giá trị khác nhau. Giải pháp senior: những giá trị phụ thuộc môi trường client phải được set **sau khi mount** (`onMounted`), không tính trực tiếp trong template/render function.
 

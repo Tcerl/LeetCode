@@ -1,6 +1,6 @@
 # 02. Quản Lý State & Giao Tiếp API (Góc nhìn Senior)
 
-> Lý thuyết Pinia, Axios Interceptor, JWT đã có ở [`CODE_EXERCISES.md`](../../06-Exercises/CODE_EXERCISES.md) (PINIA-01, PINIA-02, API-01) và [`VueJS_Professional_Guide.md`](../../08-Frontend-Mastery/VueJS_Professional_Guide.md) mục 8. File này bổ sung **tại sao thiết kế theo cách đó, và sự cố thật khi thiết kế sai**.
+> Lý thuyết Pinia, Axios Interceptor, JWT đã có ở [`CODE_EXERCISES.md`](../../../06-Exercises/CODE_EXERCISES.md) (PINIA-01, PINIA-02, API-01) và [`VueJS_Professional_Guide.md`](../../../08-Frontend-Mastery/VueJS_Professional_Guide.md) mục 8. File này bổ sung **tại sao thiết kế theo cách đó, và sự cố thật khi thiết kế sai**.
 
 ---
 
@@ -21,7 +21,7 @@
 
 ## 2. Axios Interceptor + JWT Refresh — pattern production thật, không chỉ demo
 
-Đã có code mẫu ở [`CODE_EXERCISES.md` (API-01)](../../06-Exercises/CODE_EXERCISES.md). Bổ sung các case biên senior phải xử lý:
+Đã có code mẫu ở [`CODE_EXERCISES.md` (API-01)](../../../06-Exercises/CODE_EXERCISES.md). Bổ sung các case biên senior phải xử lý:
 
 ```javascript
 // Vấn đề thật: NHIỀU request cùng lúc gặp 401 (token hết hạn) →

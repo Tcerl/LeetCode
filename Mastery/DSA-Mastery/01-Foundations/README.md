@@ -1,6 +1,6 @@
 # 01. Foundations — Big O & Đệ Quy (Góc nhìn Senior)
 
-> Lớp kiến thức nền — lý thuyết cơ bản đã có đầy đủ tại [`02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#1-big-o-notation--tư-duy-tối-ưu) (mục 1-2). File này **không lặp lại** phần đó mà bổ sung lớp "vì sao hệ thống thật cần cái này" và "sai ở đâu thì hệ thống sập".
+> Lớp kiến thức nền — lý thuyết cơ bản đã có đầy đủ tại [`02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md#1-big-o-notation--tư-duy-tối-ưu) (mục 1-2). File này **không lặp lại** phần đó mà bổ sung lớp "vì sao hệ thống thật cần cái này" và "sai ở đâu thì hệ thống sập".
 
 ---
 

@@ -1,6 +1,6 @@
 # 04. Câu Hỏi Hành Vi (Behavioral) & Đàm Phán Lương
 
-> Câu hỏi HR cụ thể đã có ở [`CODE_EXERCISES.md`](../../06-Exercises/CODE_EXERCISES.md) (mục "Câu Hỏi HR Thường Gặp"). File này bổ sung **khung trả lời** và **chiến lược đàm phán** — phần thường bị xem nhẹ nhưng ảnh hưởng trực tiếp tới thu nhập thật.
+> Câu hỏi HR cụ thể đã có ở [`CODE_EXERCISES.md`](../../../06-Exercises/CODE_EXERCISES.md) (mục "Câu Hỏi HR Thường Gặp"). File này bổ sung **khung trả lời** và **chiến lược đàm phán** — phần thường bị xem nhẹ nhưng ảnh hưởng trực tiếp tới thu nhập thật.
 
 ---
 

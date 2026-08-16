@@ -1,6 +1,6 @@
 # 02. Concurrency & Async — Sự Thật Đằng Sau "Python Chậm"
 
-> Lý thuyết AsyncIO/GIL đã có ở [`Python_Core_Mastery.md`](../../03-Python-Expert/Python_Core_Mastery.md) mục 3 và [`Python_Backend_Professional_Guide.md`](../../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 3, 8. File này tập trung vào **quyết định kiến trúc thật**: khi nào dùng gì, và sự cố thật khi chọn sai.
+> Lý thuyết AsyncIO/GIL đã có ở [`Python_Core_Mastery.md`](../../../03-Python-Expert/Python_Core_Mastery.md) mục 3 và [`Python_Backend_Professional_Guide.md`](../../../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 3, 8. File này tập trung vào **quyết định kiến trúc thật**: khi nào dùng gì, và sự cố thật khi chọn sai.
 
 ---
 

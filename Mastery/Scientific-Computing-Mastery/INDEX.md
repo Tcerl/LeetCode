@@ -1,6 +1,6 @@
 # 🌳 Scientific-Computing-Mastery — Cây Kiến Thức Tính Toán Khoa Học/Kỹ Thuật (Senior Companion)
 
-> **Mục đích:** Lớp kiến thức bổ sung cho [`06-Exercises/MATLAB/`](../06-Exercises/MATLAB/) — giáo trình MATLAB đầy đủ từ cơ bản tới Machine Learning/Deep Learning/Simulink. Cây này bổ sung góc nhìn **kỹ sư đã gặp sự cố thật** (hiệu năng tính toán, sai số, data leakage, sai lệch mô phỏng-thực tế) — đây là cây thứ 6, hoàn thiện toàn bộ phạm vi kiến thức còn lại trong repo.
+> **Mục đích:** Lớp kiến thức bổ sung cho [`06-Exercises/MATLAB/`](../../06-Exercises/MATLAB/) — giáo trình MATLAB đầy đủ từ cơ bản tới Machine Learning/Deep Learning/Simulink. Cây này bổ sung góc nhìn **kỹ sư đã gặp sự cố thật** (hiệu năng tính toán, sai số, data leakage, sai lệch mô phỏng-thực tế) — đây là cây thứ 6, hoàn thiện toàn bộ phạm vi kiến thức còn lại trong repo.
 
 ---
 

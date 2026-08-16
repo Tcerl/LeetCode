@@ -1,6 +1,6 @@
 # 🌳 Frontend-Fullstack-Mastery — Cây Kiến Thức Frontend & Kiến Trúc Dự Án (Senior Companion)
 
-> **Mục đích:** Lớp kiến thức bổ sung cho [`08-Frontend-Mastery/`](../08-Frontend-Mastery/), [`09-Example-Projects/`](../09-Example-Projects/), [`05-Projects-Docs/`](../05-Projects-Docs/) và phần Vue/Laravel trong [`06-Exercises/CODE_EXERCISES.md`](../06-Exercises/CODE_EXERCISES.md). Đây là **cây thứ 5**, hoàn thiện phần còn thiếu đã ghi chú ở các cây trước — tập trung vào review code thật, kiến trúc dự án thật, và cạm bẫy "trông đẹp nhưng sai" trong thiết kế hệ thống.
+> **Mục đích:** Lớp kiến thức bổ sung cho [`08-Frontend-Mastery/`](../../08-Frontend-Mastery/), [`09-Example-Projects/`](../../09-Example-Projects/), [`05-Projects-Docs/`](../../05-Projects-Docs/) và phần Vue/Laravel trong [`06-Exercises/CODE_EXERCISES.md`](../../06-Exercises/CODE_EXERCISES.md). Đây là **cây thứ 5**, hoàn thiện phần còn thiếu đã ghi chú ở các cây trước — tập trung vào review code thật, kiến trúc dự án thật, và cạm bẫy "trông đẹp nhưng sai" trong thiết kế hệ thống.
 
 ---
 

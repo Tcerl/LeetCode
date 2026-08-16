@@ -1,6 +1,6 @@
 # 🌳 Cloud-DevOps-Mastery — Cây Kiến Thức Cloud & Vận Hành Hệ Thống (Senior Companion)
 
-> **Mục đích:** Lớp kiến thức bổ sung cho [`07-AWS-Mastery/`](../07-AWS-Mastery/) và [`10-DevOps-Architect/`](../10-DevOps-Architect/). Hai thư mục đó đã giải thích chi tiết TỪNG dịch vụ (VPC, EC2, Docker, K8s...). Cây này tập trung vào **quyết định kiến trúc thật, sự cố production thật, và quy trình vận hành** — thứ chỉ có được từ kinh nghiệm vận hành hệ thống thật, không nằm trong tài liệu tính năng dịch vụ.
+> **Mục đích:** Lớp kiến thức bổ sung cho [`07-AWS-Mastery/`](../../07-AWS-Mastery/) và [`10-DevOps-Architect/`](../../10-DevOps-Architect/). Hai thư mục đó đã giải thích chi tiết TỪNG dịch vụ (VPC, EC2, Docker, K8s...). Cây này tập trung vào **quyết định kiến trúc thật, sự cố production thật, và quy trình vận hành** — thứ chỉ có được từ kinh nghiệm vận hành hệ thống thật, không nằm trong tài liệu tính năng dịch vụ.
 
 ---
 

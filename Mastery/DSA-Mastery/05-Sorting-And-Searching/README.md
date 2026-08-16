@@ -1,6 +1,6 @@
 # 05. Sắp Xếp & Tìm Kiếm (Góc nhìn Senior)
 
-> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 12 (Sorting), 13 (Binary Search).
+> Lý thuyết nền: [`DSA_Giao_Trinh_Chi_Tiet.md`](../../../02-DSA-Curriculum/DSA_Giao_Trinh_Chi_Tiet.md) mục 12 (Sorting), 13 (Binary Search).
 
 ---
 

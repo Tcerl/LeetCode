@@ -1,6 +1,6 @@
 # 03. Chiến Lược Trả Lời Phỏng Vấn Kỹ Thuật Theo Từng Mảng
 
-> Câu hỏi cụ thể theo công nghệ đã có rất đầy đủ ở [`04-Interview-Prep/`](../../04-Interview-Prep/) và [`interview_prep/`](../../interview_prep/) (Python, Flask, Database, JS/Frontend, Docker/DevOps, Odoo, Vue/Laravel). File này bổ sung **cách trả lời có cấu trúc** để câu trả lời nghe "tầm senior" thay vì chỉ đúng.
+> Câu hỏi cụ thể theo công nghệ đã có rất đầy đủ ở [`04-Interview-Prep/`](../../../04-Interview-Prep/) và [`interview_prep/`](../../../interview_prep/) (Python, Flask, Database, JS/Frontend, Docker/DevOps, Odoo, Vue/Laravel). File này bổ sung **cách trả lời có cấu trúc** để câu trả lời nghe "tầm senior" thay vì chỉ đúng.
 
 ---
 
@@ -54,4 +54,4 @@ Trả lời theo đúng quy trình thật (đã có ở [`Backend-Mastery/04`](.
 ## 🔗 Liên kết module khác
 - Khung trả lời cho câu hỏi system design (đề bài lớn, tổng hợp) → [`02-System-Design-Interview-Playbook`](../02-System-Design-Interview-Playbook/README.md)
 - Chuẩn bị phần trả lời hành vi (behavioral) và đàm phán lương → [`04-Behavioral-And-Salary-Negotiation`](../04-Behavioral-And-Salary-Negotiation/README.md)
-- Ngân hàng câu hỏi chi tiết theo công nghệ → [`04-Interview-Prep/`](../../04-Interview-Prep/), [`interview_prep/`](../../interview_prep/)
+- Ngân hàng câu hỏi chi tiết theo công nghệ → [`04-Interview-Prep/`](../../../04-Interview-Prep/), [`interview_prep/`](../../../interview_prep/)

@@ -1,6 +1,6 @@
 # 02. EC2 vs Lambda vs Container — Khung Ra Quyết Định Thật
 
-> Chi tiết dịch vụ đã có ở [`AWS_Architecture_Deep_Dive.md`](../../07-AWS-Mastery/AWS_Architecture_Deep_Dive.md) mục 3 và [`Cloud_Architecture_AWS_Expert.md`](../../10-DevOps-Architect/Cloud_Architecture_AWS_Expert.md) mục 3. File này tập trung vào **tiêu chí chọn** thay vì liệt kê tính năng.
+> Chi tiết dịch vụ đã có ở [`AWS_Architecture_Deep_Dive.md`](../../../07-AWS-Mastery/AWS_Architecture_Deep_Dive.md) mục 3 và [`Cloud_Architecture_AWS_Expert.md`](../../../10-DevOps-Architect/Cloud_Architecture_AWS_Expert.md) mục 3. File này tập trung vào **tiêu chí chọn** thay vì liệt kê tính năng.
 
 ---
 

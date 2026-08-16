@@ -1,6 +1,6 @@
 # 01. Nền Tảng Tính Toán Số (Góc nhìn Senior/Kỹ sư thực chiến)
 
-> Lý thuyết MATLAB chi tiết đã có ở [`06-Exercises/MATLAB/01_Co_Ban.md`](../../06-Exercises/MATLAB/01_Co_Ban.md) và [`02_Trung_Cap.md`](../../06-Exercises/MATLAB/02_Trung_Cap.md). File này bổ sung **vì sao các quy tắc đó tồn tại** — góc nhìn kỹ sư đã từng gặp sự cố tính toán thật, không chỉ cú pháp.
+> Lý thuyết MATLAB chi tiết đã có ở [`06-Exercises/MATLAB/01_Co_Ban.md`](../../../06-Exercises/MATLAB/01_Co_Ban.md) và [`02_Trung_Cap.md`](../../../06-Exercises/MATLAB/02_Trung_Cap.md). File này bổ sung **vì sao các quy tắc đó tồn tại** — góc nhìn kỹ sư đã từng gặp sự cố tính toán thật, không chỉ cú pháp.
 
 ---
 

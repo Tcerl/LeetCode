@@ -30,6 +30,7 @@ Bên cạnh các thư mục giáo trình gốc theo công nghệ (bên dưới),
 - `Expert_Mastery_Roadmap_Project.md`: Lộ trình Fullstack & AWS Expert 2026.
 - `AWS_90Days_Mastery_Plan.md`: Kế hoạch 90 ngày chinh phục AWS.
 - `Roadmap_Tang_Toc_Senior_FullStack.md`: Lộ trình tăng tốc lên Senior.
+- [`Roadmap_Tu_Junior_12Trieu_Len_Luong_Cao.md`](./01-Roadmaps/Roadmap_Tu_Junior_12Trieu_Len_Luong_Cao.md): **(Mới)** Lộ trình cho người đang đi làm Junior lương thấp — mặt bằng lương thị trường theo cấp độ, 4 đòn bẩy tăng lương thực tế, checklist 6 tháng.
 
 ### 🌳 [Career-Mastery/](./Mastery/Career-Mastery/) — **(Mới)**
 *Cây kiến thức "senior companion" nối `01-Roadmaps`, `04-Interview-Prep` và `interview_prep` — đây là nơi kiến thức kỹ thuật từ 3 cây trên (DSA/Backend/Cloud) được tổng hợp thành: senior mindset thật sự là gì, khung 5 bước trả lời system design (kèm bản đồ "đề bài kinh điển → kiến thức cần dùng"), chiến lược trả lời phỏng vấn kỹ thuật, và đàm phán lương. Xem [`INDEX.md`](./Mastery/Career-Mastery/INDEX.md).*

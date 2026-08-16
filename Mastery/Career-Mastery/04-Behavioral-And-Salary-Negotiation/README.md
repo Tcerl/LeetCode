@@ -62,3 +62,4 @@ Thay vì hỏi chung chung ("Văn hóa công ty thế nào?"), hỏi câu cho th
 ## 🔗 Liên kết module khác
 - Nguồn nguyên liệu cho các câu chuyện kỹ thuật thật → toàn bộ [`../DSA-Mastery/`](../../DSA-Mastery/INDEX.md), [`../Backend-Mastery/`](../../Backend-Mastery/INDEX.md), [`../Cloud-DevOps-Mastery/`](../../Cloud-DevOps-Mastery/INDEX.md)
 - Tư duy senior đứng sau cách kể chuyện này → [`01-Senior-Mindset-And-Career-Reality`](../01-Senior-Mindset-And-Career-Reality/README.md)
+- Lộ trình cụ thể để tăng lương từ mức Junior thấp (mặt bằng lương VN, checklist 6 tháng) → [`Roadmap_Tu_Junior_12Trieu_Len_Luong_Cao.md`](../../../01-Roadmaps/Roadmap_Tu_Junior_12Trieu_Len_Luong_Cao.md)

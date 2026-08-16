@@ -14,6 +14,7 @@
 | 04 | [CI/CD Deployment Strategies](04-CICD-Deployment-Strategies/README.md) | Blue-green/canary, feature flag, migration an toàn, pipeline gates | `CI_CD_Automation_GithubActions.md` |
 | 05 | [Observability & Incident Response](05-Observability-Incident-Response/README.md) | SLI/SLO/SLA, Golden Signals, quy trình xử lý sự cố, postmortem | `AWS_Knowledge_Handbook_VN.md` mục 8 |
 | 06 | [Junior-To-Senior Problem Playbook](06-Junior-To-Senior-Problem-Playbook/README.md) | Vấn đề thật + giải pháp, sắp xếp theo cấp độ Junior/Mid/Senior | Tổng hợp Module 01-05 |
+| 07 | [Real-World War Stories Fresher-To-Senior](07-Real-World-War-Stories-Fresher-To-Senior/README.md) | 12 sự cố production kể đầy đủ (bối cảnh → nguyên nhân gốc → cách sửa → bài học), 3 mỗi cấp độ, nguyên liệu STAR cho phỏng vấn | Tổng hợp Module 01-06 + kinh nghiệm thực chiến |
 
 ---
 
@@ -40,3 +41,4 @@
 ## 🔗 Liên kết sang các cây khác
 - Ứng dụng backend được triển khai lên hạ tầng này → [`../Backend-Mastery/`](../Backend-Mastery/INDEX.md)
 - Cấu trúc dữ liệu nền tảng cho các thuật toán scheduling/routing thật (K8s scheduler, load balancer) → [`../DSA-Mastery/`](../DSA-Mastery/INDEX.md)
+- Biến kinh nghiệm sự cố (Module 07) thành bằng chứng tăng lương → [`../Career-Mastery/05`](../Career-Mastery/05-Salary-Growth-Playbook/README.md)

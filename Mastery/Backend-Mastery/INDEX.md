@@ -14,6 +14,7 @@
 | 04 | [Testing, Observability & Debug Prod](04-Testing-Observability-And-Debugging-Prod/README.md) | Kim tự tháp test, logs/metrics/traces, quy trình debug endpoint chậm, alerting | `Python_Backend_Professional_Guide.md` mục 9 |
 | 05 | [Junior-To-Senior Problem Playbook](05-Junior-To-Senior-Problem-Playbook/README.md) | Vấn đề thật + giải pháp, sắp xếp theo cấp độ Junior/Mid/Senior | Tổng hợp Module 01-04 |
 | 06 | [Fresher-To-Senior Knowledge & Interview Map](06-Fresher-To-Senior-Knowledge-And-Interview-Map/README.md) | Kiến thức bắt buộc + cách áp dụng thực tế + câu hỏi phỏng vấn thật kèm mẫu trả lời, theo 4 cấp độ Fresher/Junior/Mid/Senior | Tổng hợp Module 01-05 + `04-Interview-Prep/` |
+| 07 | [Real-World War Stories Fresher-To-Senior](07-Real-World-War-Stories-Fresher-To-Senior/README.md) | 12 sự cố production kể đầy đủ (bối cảnh → nguyên nhân gốc → cách sửa → bài học), 3 mỗi cấp độ, nguyên liệu STAR cho phỏng vấn | Tổng hợp Module 01-05 + kinh nghiệm thực chiến |
 
 ---
 
@@ -38,3 +39,4 @@
 ## 🔗 Liên kết sang các cây khác
 - Cấu trúc dữ liệu nền tảng (Hash Table, B-Tree, Queue) → [`../DSA-Mastery/`](../DSA-Mastery/INDEX.md)
 - Triển khai backend lên hạ tầng thật (container, CI/CD) → [`../Cloud-DevOps-Mastery/`](../Cloud-DevOps-Mastery/INDEX.md)
+- Biến kinh nghiệm sự cố (Module 07) thành bằng chứng tăng lương → [`../Career-Mastery/05`](../Career-Mastery/05-Salary-Growth-Playbook/README.md)

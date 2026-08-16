@@ -12,6 +12,7 @@
 | 02 | [System Design Interview Playbook](02-System-Design-Interview-Playbook/README.md) | Khung 5 bước trả lời mọi đề bài, bản đồ đề bài kinh điển → kiến thức cần dùng | Tổng hợp 3 cây kỹ thuật |
 | 03 | [Technical Interview Strategy By Stack](03-Technical-Interview-Strategy-By-Stack/README.md) | Công thức trả lời câu hỏi lý thuyết/tradeoff/debug nghe "tầm senior" | `04-Interview-Prep/`, `interview_prep/` |
 | 04 | [Behavioral & Salary Negotiation](04-Behavioral-And-Salary-Negotiation/README.md) | Khung STAR, câu chuyện lõi tái sử dụng, chiến lược đàm phán lương thật | `06-Exercises/CODE_EXERCISES.md` (phần HR) |
+| 05 | [Salary Growth Playbook](05-Salary-Growth-Playbook/README.md) | Vì sao lương phản ánh tín hiệu/rủi ro chứ không phải thâm niên, bảng tín hiệu theo cấp độ, case study 2 lộ trình khác nhau từ cùng điểm xuất phát | Tổng hợp Module 01-04 + `Backend-Mastery/07`, `Cloud-DevOps-Mastery/07` |
 
 ---
 
@@ -44,6 +45,7 @@
 3. Luyện tập system design theo [`02`](02-System-Design-Interview-Playbook/README.md) — đây là bài kiểm tra tổng hợp thật sự.
 4. Luyện trình bày từng câu trả lời kỹ thuật đơn lẻ theo [`03`](03-Technical-Interview-Strategy-By-Stack/README.md).
 5. Chuẩn bị phần con người + đàm phán theo [`04`](04-Behavioral-And-Salary-Negotiation/README.md).
+6. Hiểu cơ chế đứng sau việc tăng lương và tự đánh giá tín hiệu bản thân theo [`05`](05-Salary-Growth-Playbook/README.md).
 
 ## 🔗 Liên kết sang các cây khác
 [`../DSA-Mastery/`](../DSA-Mastery/INDEX.md) · [`../Backend-Mastery/`](../Backend-Mastery/INDEX.md) · [`../Cloud-DevOps-Mastery/`](../Cloud-DevOps-Mastery/INDEX.md)

@@ -11,9 +11,9 @@ Bên cạnh các thư mục giáo trình gốc theo công nghệ (bên dưới),
 | Cây kiến thức | Chủ đề | Gộp từ các folder gốc |
 |---|---|---|
 | 🌳 [`DSA-Mastery/`](./Mastery/DSA-Mastery/INDEX.md) | Cấu trúc dữ liệu & giải thuật — ứng dụng thật (Redis LRU, DB Index, npm dependency graph...) | `02-DSA-Curriculum/`, `06-Exercises/20_exam_exercies/` |
-| 🌳 [`Backend-Mastery/`](./Mastery/Backend-Mastery/INDEX.md) | Kiến trúc backend & database — vòng đời request, concurrency, scaling DB | `03-Python-Expert/`, `04-Database-Mastery/` |
-| 🌳 [`Cloud-DevOps-Mastery/`](./Mastery/Cloud-DevOps-Mastery/INDEX.md) | Cloud & vận hành hệ thống — VPC/IAM, container, CI/CD, incident response | `07-AWS-Mastery/`, `10-DevOps-Architect/` |
-| 🌳 [`Career-Mastery/`](./Mastery/Career-Mastery/INDEX.md) | Sự nghiệp & phỏng vấn — system design playbook, senior mindset, đàm phán lương | `01-Roadmaps/`, `04-Interview-Prep/`, `interview_prep/` |
+| 🌳 [`Backend-Mastery/`](./Mastery/Backend-Mastery/INDEX.md) | Kiến trúc backend & database — vòng đời request, concurrency, scaling DB, **12 sự cố production thật Fresher→Senior (Module 07)** | `03-Python-Expert/`, `04-Database-Mastery/` |
+| 🌳 [`Cloud-DevOps-Mastery/`](./Mastery/Cloud-DevOps-Mastery/INDEX.md) | Cloud & vận hành hệ thống — VPC/IAM, container, CI/CD, incident response, **12 sự cố production thật Fresher→Senior (Module 07)** | `07-AWS-Mastery/`, `10-DevOps-Architect/` |
+| 🌳 [`Career-Mastery/`](./Mastery/Career-Mastery/INDEX.md) | Sự nghiệp & phỏng vấn — system design playbook, senior mindset, đàm phán lương, **Salary Growth Playbook (Module 05)** | `01-Roadmaps/`, `04-Interview-Prep/`, `interview_prep/` |
 | 🌳 [`Frontend-Fullstack-Mastery/`](./Mastery/Frontend-Fullstack-Mastery/INDEX.md) | Frontend & kiến trúc dự án — Vue 3 internals, review code thật, phản biện kiến trúc microservices | `08-Frontend-Mastery/`, `09-Example-Projects/`, `05-Projects-Docs/`, `06-Exercises/CODE_EXERCISES.md` |
 | 🌳 [`Scientific-Computing-Mastery/`](./Mastery/Scientific-Computing-Mastery/INDEX.md) | Tính toán khoa học/kỹ thuật — vectorization, sai số, data leakage, sai lệch mô phỏng-thực tế | `06-Exercises/MATLAB/` |
 

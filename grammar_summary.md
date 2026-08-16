@@ -1,18 +1,4 @@
-# tins@adminpc:~/learn/repo/LeetCode$ git pull
-
-hint: You have divergent branches and need to specify how to reconcile them.
-hint: You can do so by running one of the following commands sometime before
-hint: your next pull:
-hint:
-hint:   git config pull.rebase false  # merge
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint:
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-fatal: Need to specify how to reconcile divergent branches.TỔNG HỢP NGỮ PHÁP TIẾNG ANH (TRỌNG TÂM TOEIC)
+# TỔNG HỢP NGỮ PHÁP TIẾNG ANH (TRỌNG TÂM TOEIC)
 
 Tài liệu này tổng hợp các chủ điểm ngữ pháp cốt lõi nhất, đặc biệt hữu ích cho việc "ép xác" Part 5 và Part 6 TOEIC. Hãy tập trung học thật kỹ phần 1 và phần 2.
 
@@ -58,7 +44,7 @@ Tài liệu này tổng hợp các chủ điểm ngữ pháp cốt lõi nhất, 
 
 Dù Tiếng Anh có 12 thì, TOEIC chủ yếu xoay quanh 5 thì cơ bản sau. Hãy nhớ DẤU HIỆU để khoanh nhanh.
 
-### 2.1. Hiện tại đơn (Present Simple)
+### 2.1. Hiện tại đơn (Present Simple) 
 
 * **Cách dùng:** Sự thật hiển nhiên, thói quen, lịch trình tàu xe/máy bay.
 * **Cấu trúc:** `S + V(s/es)`
@@ -383,4 +369,62 @@ Tương tự câu giả định ở phần 11, cấu trúc này dùng sau các T
 * **Mẹo:** Động từ sau "that" luôn ở dạng nguyên mẫu không chia cho mọi ngôi (vì có chữ *should* đã bị lược bỏ).
   *VD: It is **essential** that everyone **be** present at the meeting.* (Dùng "be" nguyên thể, không dùng "is" hay "are").
 
-Tài liệu này tổng hợp các chủ điểm ngữ pháp cốt lõi nhất, đặc biệt hữu ích cho việc "ép xác" Part 5 và Part 6 TOEIC. Hãy tập trung học thật kỹ phần 1 và phần 2.
+---
+
+# PHẦN BỔ SUNG (HOÀN THIỆN 100% THEO DANH SÁCH CỦA BẠN)
+
+Dưới đây là các chủ điểm còn lại trong bức ảnh bạn vừa gửi. Trong TOEIC, các phần này ít bị "đố" ở Part 5 hơn so với các phần trên, nhưng lại cực kỳ nền tảng để bạn dịch nghĩa chuẩn xác bài đọc Part 7. Mình đã bổ sung để tài liệu này khớp 100% với danh sách của bạn nhé:
+
+---
+
+## 22. CẤU TRÚC CÂU & ĐỘNG TỪ TO BE
+
+* **Cấu trúc câu cơ bản:** `Chủ ngữ (S) + Động từ (V) + Tân ngữ (O)`.
+  *VD: The company (S) launched (V) a new product (O).*
+* **Động từ To Be (am / is / are / was / were / been):**
+  * Đi với Tính từ: `S + to be + Adj` *(VD: The price is high).*
+  * Đi với V-ing (Thì tiếp diễn): `S + to be + V-ing`.
+  * Đi với V-ed/P2 (Câu bị động): `S + to be + V-ed`.
+  * Đi với Danh từ: `S + to be + Noun` *(VD: She is a director).*
+
+## 23. TRẬT TỰ TÍNH TỪ (Quy tắc OSASCOMP)
+
+Khi có nhiều tính từ cùng đứng trước bổ nghĩa cho 1 danh từ, trật tự xếp hạng ưu tiên là:
+
+* **O**pinion (Ý kiến/Đánh giá): beautiful, bad, good, excellent...
+* **S**ize (Kích cỡ): big, small, tall, short...
+* **A**ge (Tuổi tác): old, new, young, modern...
+* **S**hape (Hình dáng): round, square...
+* **C**olor (Màu sắc): red, black, blue...
+* **O**rigin (Nguồn gốc): Vietnamese, Japanese, European...
+* **M**aterial (Chất liệu): wooden, plastic, metal...
+* **P**urpose (Mục đích): sleeping (bag), running (shoes)...
+* *VD: A beautiful (Opinion) small (Size) old (Age) brown (Color) wooden (Material) table.*
+
+## 24. MẠO TỪ (A / An / The)
+
+* **A / An:** Dùng trước danh từ đếm được, số ít, chưa xác định (người nghe chưa biết là cái nào).
+  * **"An"** đứng trước danh từ bắt đầu bằng nguyên âm khi phát âm (u, e, o, a, i - thần chú: uể oải). *VD: an apple, an hour.*
+* **The:** Dùng cho đối tượng ĐÃ XÁC ĐỊNH (người nghe và người nói đều ngầm hiểu đó là cái nào), hoặc vật duy nhất (The sun, The CEO).
+* **Không dùng mạo từ:** Trước danh từ số nhiều chỉ chung chung *(I like cats)* hoặc danh từ không đếm được chỉ chung chung *(Water is important)*.
+
+## 25. CÁC THÌ BỔ SUNG
+
+* **Thì Quá khứ tiếp diễn (Past Continuous):** `S + was/were + V-ing`
+  * Hành động đang xảy ra tại 1 thời điểm cụ thể trong quá khứ. *(VD: At 8 PM yesterday, I was studying).*
+  * Hoặc 1 hành động đang xảy ra (QKTD) thì hành động khác xen vào (QKĐ). *(VD: When I arrived, he was working).*
+* **Thì Tương lai tiếp diễn (Future Continuous):** `S + will be + V-ing`
+  * Hành động sẽ đang diễn ra tại 1 thời điểm cụ thể trong tương lai. *(VD: At 9 AM tomorrow, we will be flying to Tokyo).*
+* **Thì Quá khứ hoàn thành (Past Perfect):** `S + had + V(pII/ed)`
+  * Hành động xảy ra và hoàn thành TRƯỚC một hành động khác trong quá khứ.
+  * *VD: By the time the police arrived (QKĐ), the thief had escaped (QKHT).*
+
+## 26. ĐỘNG TỪ KHUYẾT THIẾU CƠ BẢN (Modal Verbs)
+
+Nguyên tắc bất di bất dịch: Luôn cộng với **Động từ nguyên thể không "to"** (`Modal Verb + V-inf`).
+
+* **Can / Could:** Khả năng có thể làm gì, hoặc sự cho phép.
+* **May / Might:** Sự xin phép, khả năng xảy ra (nhưng không chắc chắn 100%).
+* **Must:** Sự bắt buộc (Phải làm gì). Lưu ý: `Must not` = Cấm đoán.
+* **Should / Ought to:** Lời khuyên (Nên làm gì).
+* **Will / Would:** Tương lai, dự định, hoặc dùng trong lời mời/đề nghị *(VD: Would you like...)*.

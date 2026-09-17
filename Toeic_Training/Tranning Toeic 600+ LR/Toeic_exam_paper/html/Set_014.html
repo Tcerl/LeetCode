@@ -1,0 +1,2250 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_014 — Education & Training</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="014">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_014</strong>
+    <span class="theme">Education &amp; Training</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_014 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Giảng viên đứng cạnh bảng trắng, tay chỉ vào một biểu đồ; học viên ngồi nghe.]</em><br />
+(A) Students are handing in papers.<br />
+(B) An instructor is pointing at a chart on a whiteboard.<br />
+(C) People are leaving a lecture hall.<br />
+(D) A projector screen is being lowered.</p>
+<p><strong>2.</strong> <em>[Ảnh: Người đeo tai nghe ngồi trước máy tính, đang học một khoá học trực tuyến.]</em><br />
+(A) A person is taking an online course at a computer.<br />
+(B) Someone is repairing a laptop.<br />
+(C) A woman is reading a printed book.<br />
+(D) Two people are sharing one screen.</p>
+<p><strong>3.</strong> <em>[Ảnh: Lớp học thực hành, học viên làm việc theo cặp tại các bàn.]</em><br />
+(A) A teacher is grading tests at a desk.<br />
+(B) The classroom is empty.<br />
+(C) Learners are working in pairs at tables.<br />
+(D) Chairs are stacked against the wall.</p>
+<p><strong>4.</strong> <em>[Ảnh: Thủ thư đang xếp sách lên kệ trong thư viện.]</em><br />
+(A) Students are studying at long tables.<br />
+(B) A cart of books is blocking the aisle.<br />
+(C) Someone is checking out a book at the desk.<br />
+(D) A librarian is shelving books.</p>
+<p><strong>5.</strong> <em>[Ảnh: Diễn giả đứng trên bục nói chuyện, khán phòng kín người.]</em><br />
+(A) A speaker is addressing a full auditorium.<br />
+(B) The seats are mostly empty.<br />
+(C) People are filing out of the room.<br />
+(D) A microphone is being set up on the stage.</p>
+<p><strong>6.</strong> <em>[Ảnh: Học viên nhận chứng chỉ và bắt tay người trao.]</em><br />
+(A) Diplomas are being printed.<br />
+(B) A group photo is being taken.<br />
+(C) A graduate is receiving a certificate and shaking hands.<br />
+(D) People are seated in rows of chairs.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does registration for the fall term close?<br />
+(A) On August 15th.<br />
+(B) In the student center.<br />
+(C) About 300 students.</p>
+<p><strong>8.</strong> Who's teaching the data analysis workshop?<br />
+(A) It meets on Thursdays.<br />
+(B) A visiting instructor from the city college.<br />
+(C) Around twenty seats.</p>
+<p><strong>9.</strong> Where can I pick up my course materials?<br />
+(A) At the front desk on the second floor.<br />
+(B) They were updated this year.<br />
+(C) It's a required text.</p>
+<p><strong>10.</strong> Why was the seminar moved to a bigger room?<br />
+(A) In the west building.<br />
+(B) It runs for two hours.<br />
+(C) More people enrolled than expected.</p>
+<p><strong>11.</strong> How much does the certification exam cost?<br />
+(A) A hundred and twenty dollars.<br />
+(B) It's offered twice a year.<br />
+(C) You need to pass three modules.</p>
+<p><strong>12.</strong> Could you review my draft before the deadline?<br />
+(A) The assignment is due Friday.<br />
+(B) I can go over it tomorrow afternoon.<br />
+(C) It's a research paper.</p>
+<p><strong>13.</strong> The new e-learning platform is easier to use, isn't it?<br />
+(A) It launched last month.<br />
+(B) Yes, students find it much simpler.<br />
+(C) There are forty courses on it.</p>
+<p><strong>14.</strong> Should we offer the training online or in person?<br />
+(A) The training room holds thirty.<br />
+(B) The trainer is very experienced.<br />
+(C) Online would reach more staff.</p>
+<p><strong>15.</strong> Isn't the library open until midnight during exams?<br />
+(A) It's on the main quad.<br />
+(B) You need a student card to enter.<br />
+(C) Yes, extended hours start next week.</p>
+<p><strong>16.</strong> Can you show me how to submit the assignment online?<br />
+(A) The assignment was challenging.<br />
+(B) Sure — log in and click "Upload."<br />
+(C) It's worth thirty percent.</p>
+<p><strong>17.</strong> What did the course evaluations say?<br />
+(A) They were collected last week.<br />
+(B) About sixty students responded.<br />
+(C) That students wanted more practice sessions.</p>
+<p><strong>18.</strong> Where are the exam results posted?<br />
+(A) On the department portal.<br />
+(B) They come out in two weeks.<br />
+(C) The exam had four sections.</p>
+<p><strong>19.</strong> Do you know whether my scholarship was renewed?<br />
+(A) The application was due in March.<br />
+(B) You should check with the financial aid office.<br />
+(C) It covers tuition and fees.</p>
+<p><strong>20.</strong> I think the course load is too heavy this semester.<br />
+(A) You could drop one elective.<br />
+(B) The semester ends in May.<br />
+(C) There are five required courses.</p>
+<p><strong>21.</strong> Could you grade these quizzes by tomorrow?<br />
+(A) I'll finish them tonight.<br />
+(B) Quizzes take time.<br />
+(C) I graded mine already.</p>
+<p><strong>22.</strong> Has the field trip permission form come back yet?<br />
+(A) It's a simple form.<br />
+(B) I formed a group.<br />
+(C) Not yet, most students haven't returned it.</p>
+<p><strong>23.</strong> Where should I submit my course syllabus?<br />
+(A) Through the online portal.<br />
+(B) Syllabi take time to write.<br />
+(C) I submitted it already.</p>
+<p><strong>24.</strong> Would you rather teach the morning or afternoon section?<br />
+(A) The morning section works better.<br />
+(B) Sections meet twice a week.<br />
+(C) I taught there before.</p>
+<p><strong>25.</strong> Isn't registration usually open until Friday?<br />
+(A) Fridays are busy.<br />
+(B) Yes, but it's been extended a week.<br />
+(C) Registration went smoothly.</p>
+<p><strong>26.</strong> How many students enrolled in the new course?<br />
+(A) About thirty-five.<br />
+(B) Courses are popular.<br />
+(C) We enrolled last year.</p>
+<p><strong>27.</strong> Who's supervising the study hall this week?<br />
+(A) Study halls are quiet.<br />
+(B) Mr. Flores is covering it.<br />
+(C) Studying takes focus.</p>
+<p><strong>28.</strong> Do you know if the scholarship applications are due soon?<br />
+(A) Scholarships are competitive.<br />
+(B) I applied for one myself.<br />
+(C) Yes, next Friday.</p>
+<p><strong>29.</strong> Should we offer an extra tutoring session before the exam?<br />
+(A) Tutoring helps a lot.<br />
+(B) Let's check with the students first.<br />
+(C) I tutored last semester.</p>
+<p><strong>30.</strong> Haven't you finished writing the final exam yet?<br />
+(A) Exams take time to write.<br />
+(B) Almost, just two questions left.<br />
+(C) The exam looked fair.</p>
+<p><strong>31.</strong> Why was today's lecture rescheduled?<br />
+(A) Lectures happen weekly.<br />
+(B) It happened last semester too.<br />
+(C) Because the professor was ill.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I want to take Advanced Statistics next term, but the system won't let me register.<br />
+<strong>M:</strong> That's because you haven't finished the intro course — it's a prerequisite.<br />
+<strong>W:</strong> I took an equivalent course over the summer at another school.<br />
+<strong>M:</strong> Then you need to submit a transfer-credit form with the syllabus. Once it's approved, the block clears. Do that this week so you don't miss the registration window.</p>
+<p><strong>32.</strong> Why can't the woman register for the course?<br />
+(A) The course is full<br />
+(B) The system shows a missing prerequisite<br />
+(C) She owes tuition<br />
+(D) The course was canceled</p>
+<p><strong>33.</strong> What does the woman say about the requirement?<br />
+(A) She completed an equivalent course elsewhere<br />
+(B) She will take it next year<br />
+(C) She doesn't need it<br />
+(D) She failed it once</p>
+<p><strong>34.</strong> What does the man tell her to do?<br />
+(A) Retake the intro course<br />
+(B) Email the professor<br />
+(C) Wait until next term<br />
+(D) Submit a transfer-credit form with the syllabus this week</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The Tuesday compliance training is booked for Room B, but I just saw the sales team reserved the same room.<br />
+<strong>W:</strong> Which booking came first?<br />
+<strong>M:</strong> Ours, by two days. But the sales session has forty people, and Room B only seats twenty-five for a class setup.<br />
+<strong>W:</strong> Let's move ours to the auditorium and let them keep Room B. Ours is more flexible on space.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) A trainer is unavailable<br />
+(B) Two groups booked the same room<br />
+(C) The room equipment is broken<br />
+(D) The training was canceled</p>
+<p><strong>36.</strong> Why does the woman suggest moving the compliance training?<br />
+(A) It has more attendees<br />
+(B) It was booked later<br />
+(C) The trainer prefers the auditorium<br />
+(D) It is more flexible on space</p>
+<p><strong>37.</strong> Where will the compliance training be held?<br />
+(A) The auditorium<br />
+(B) Room B<br />
+(C) Online<br />
+(D) A different building</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> We need to cut the new-hire onboarding from five days to three. What goes?<br />
+<strong>M1:</strong> The half-day office tour could become a self-guided checklist.<br />
+<strong>M2:</strong> And the two compliance modules can be pre-work people do before day one.<br />
+<strong>W:</strong> Good. Keep all the hands-on system training in person — that's where people actually get stuck. Let's rebuild it around that.</p>
+<p><strong>38.</strong> What are the speakers trying to do?<br />
+(A) Cancel onboarding<br />
+(B) Add more onboarding days<br />
+(C) Move onboarding fully online<br />
+(D) Shorten onboarding from five days to three</p>
+<p><strong>39.</strong> What do they decide to make pre-work?<br />
+(A) The office tour<br />
+(B) The system training<br />
+(C) The two compliance modules<br />
+(D) The final assessment</p>
+<p><strong>40.</strong> What do they agree to keep in person?<br />
+(A) The office tour<br />
+(B) The hands-on system training<br />
+(C) The welcome lunch<br />
+(D) The compliance modules</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> I dropped a course in the first week, but I was still charged full tuition for it.<br />
+<strong>M:</strong> Let me check the dates. You dropped on the 9th — the full-refund deadline was the 7th, so you're in the 50-percent window.<br />
+<strong>W:</strong> I dropped it the first day of class, though. Classes started on the 8th.<br />
+<strong>M:</strong> If the term calendar shows classes starting the 8th, that deadline may be wrong in the system. Send me a screenshot of your drop confirmation and I'll ask the registrar to review it.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To add a course<br />
+(B) To change her major<br />
+(C) To request a transcript<br />
+(D) About being charged for a dropped course</p>
+<p><strong>42.</strong> What does the woman point out?<br />
+(A) She never registered for the course<br />
+(B) She dropped it on the first day of class<br />
+(C) The course was online<br />
+(D) She paid twice</p>
+<p><strong>43.</strong> What does the man ask her to send?<br />
+(A) A screenshot of the drop confirmation<br />
+(B) A doctor's note<br />
+(C) Her class schedule<br />
+(D) A payment receipt</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> The similarity checker flagged three papers at over 40 percent this week.<br />
+<strong>W:</strong> Did you look at what it's matching? Sometimes it's the assignment prompt itself, or properly quoted sources.<br />
+<strong>M:</strong> Two were quoted sources — the score dropped to 8 percent once I excluded quotes. The third is a real problem: whole paragraphs from a website, no citation.<br />
+<strong>W:</strong> Then follow the integrity process for that one, and maybe add a note to the syllabus about how the tool works so students aren't scared by a high raw score.</p>
+<p><strong>44.</strong> What did the similarity checker flag?<br />
+(A) Three papers with high similarity scores<br />
+(B) A broken assignment link<br />
+(C) Late submissions<br />
+(D) A grading error</p>
+<p><strong>45.</strong> What does the woman say can cause a high score?<br />
+(A) A slow internet connection<br />
+(B) Short papers<br />
+(C) The assignment prompt or properly quoted sources<br />
+(D) Group work</p>
+<p><strong>46.</strong> What does the woman suggest adding to the syllabus?<br />
+(A) A longer reading list<br />
+(B) A stricter late policy<br />
+(C) A note explaining how the similarity tool works<br />
+(D) A second exam</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> My online course access expired before I finished the last module, and now I can't get my certificate.<br />
+<strong>M:</strong> How far did you get?<br />
+<strong>W:</strong> I completed everything except the final quiz — I was at 95 percent.<br />
+<strong>M:</strong> For learners that close to finishing, we can grant a two-week extension at no cost. I'll reopen your access now; you'll get an email with the new end date. Finish the quiz and the certificate generates automatically.</p>
+<p><strong>47.</strong> What is the woman's problem?<br />
+(A) She failed the final quiz<br />
+(B) Her course access expired before she finished<br />
+(C) She was charged twice<br />
+(D) The certificate has a typo</p>
+<p><strong>48.</strong> How much of the course had she completed?<br />
+(A) About half<br />
+(B) Only the first module<br />
+(C) Everything except the final quiz<br />
+(D) None of it</p>
+<p><strong>49.</strong> What does the man offer?<br />
+(A) A refund<br />
+(B) A new course<br />
+(C) A printed certificate<br />
+(D) A free two-week extension</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> A few students mentioned the reading assignments are taking much longer than expected.<br />
+<strong>W:</strong> Maybe we should shorten the weekly readings a bit.<br />
+<strong>M:</strong> That could help. Should I adjust the syllabus for next term?<br />
+<strong>W:</strong> Yes, and let's also add a note explaining the estimated reading time for each chapter.</p>
+<p><strong>50.</strong> What have students mentioned?<br />
+(A) Readings are taking too long.<br />
+(B) Lectures are too short.<br />
+(C) Exams are too easy.<br />
+(D) Grades are unclear.</p>
+<p><strong>51.</strong> What does the woman suggest?<br />
+(A) Removing all readings<br />
+(B) Shortening the weekly readings<br />
+(C) Adding more readings<br />
+(D) Canceling the course</p>
+<p><strong>52.</strong> What will be added to the syllabus?<br />
+(A) A grading rubric<br />
+(B) Estimated reading time for each chapter<br />
+(C) A list of textbooks<br />
+(D) Office hours</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> I noticed attendance has dropped in the Friday afternoon session.<br />
+<strong>M:</strong> That's probably because it's the last class before the weekend.<br />
+<strong>W:</strong> Should we move it to a different time?<br />
+<strong>M:</strong> Let's survey the students first to see what time would work best.</p>
+<p><strong>53.</strong> What has the woman noticed?<br />
+(A) Higher test scores<br />
+(B) A drop in attendance<br />
+(C) More questions in class<br />
+(D) Fewer complaints</p>
+<p><strong>54.</strong> What does the man think is the reason?<br />
+(A) A scheduling conflict<br />
+(B) It's the last class before the weekend<br />
+(C) The room is too small<br />
+(D) The topic is difficult</p>
+<p><strong>55.</strong> What does the man suggest doing first?<br />
+(A) Canceling the class<br />
+(B) Surveying the students<br />
+(C) Moving it immediately<br />
+(D) Assigning more work</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> We need to finalize the guest speaker for next month's career day.<br />
+<strong>W:</strong> I reached out to an alumna who works in engineering — she said yes.<br />
+<strong>M:</strong> That's great news. Can you confirm the date and time with her?<br />
+<strong>W:</strong> I will, and I'll also ask if she needs any equipment for her presentation.</p>
+<p><strong>56.</strong> What are the speakers planning?<br />
+(A) A career day guest speaker<br />
+(B) A fundraising event<br />
+(C) A graduation ceremony<br />
+(D) A parent-teacher conference</p>
+<p><strong>57.</strong> Who has agreed to speak?<br />
+(A) A current student<br />
+(B) An alumna who works in engineering<br />
+(C) A local business owner<br />
+(D) A school board member</p>
+<p><strong>58.</strong> What will the woman also ask about?<br />
+(A) Parking<br />
+(B) Equipment needs for the presentation<br />
+(C) Payment<br />
+(D) Transportation</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> A parent called asking about the tutoring program's schedule.<br />
+<strong>M:</strong> It runs Tuesdays and Thursdays after school, from three to four-thirty.<br />
+<strong>W:</strong> Should I mention that spots are limited?<br />
+<strong>M:</strong> Yes, and let her know she should sign up soon if she's interested.</p>
+<p><strong>59.</strong> What did the parent ask about?<br />
+(A) A field trip<br />
+(B) The tutoring program's schedule<br />
+(C) A report card<br />
+(D) A school uniform policy</p>
+<p><strong>60.</strong> When does the program run?<br />
+(A) Mondays and Wednesdays<br />
+(B) Tuesdays and Thursdays<br />
+(C) Every weekday<br />
+(D) Weekends only</p>
+<p><strong>61.</strong> What should the woman mention?<br />
+(A) The program is free.<br />
+(B) Spots are limited.<br />
+(C) The program is canceled.<br />
+(D) Only seniors can join.</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's plan the agenda for this year's teacher training day.<br />
+<strong>M1:</strong> I'd like to include a session on using new classroom technology.<br />
+<strong>M2:</strong> Good idea, I can lead that session since I've used the new system already.<br />
+<strong>W:</strong> Perfect, I'll add that to the schedule and send it out by Friday.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A teacher training day<br />
+(B) A student orientation<br />
+(C) A budget meeting<br />
+(D) A graduation ceremony</p>
+<p><strong>63.</strong> What topic does the first man suggest?<br />
+(A) New classroom technology<br />
+(B) Grading policies<br />
+(C) Student behavior<br />
+(D) Parent communication</p>
+<p><strong>64.</strong> What will the woman do by Friday?<br />
+(A) Book a venue<br />
+(B) Send out the schedule<br />
+(C) Order supplies<br />
+(D) Invite parents</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I noticed several students struggled with the same question on the last quiz.<br />
+<strong>W:</strong> Maybe we should go over that concept again before moving on.<br />
+<strong>M:</strong> Agreed, I'll plan a short review at the start of tomorrow's class.<br />
+<strong>W:</strong> Good idea, that should help before we introduce the next topic.</p>
+<p><strong>65.</strong> What did the man notice?<br />
+(A) Low attendance<br />
+(B) Students struggled with the same quiz question<br />
+(C) Late submissions<br />
+(D) A grading error</p>
+<p><strong>66.</strong> What does the woman suggest?<br />
+(A) Skipping the concept entirely<br />
+(B) Reviewing the concept again<br />
+(C) Giving extra credit<br />
+(D) Retesting immediately</p>
+<p><strong>67.</strong> What will the man do tomorrow?<br />
+(A) Cancel class<br />
+(B) Plan a short review<br />
+(C) Assign more homework<br />
+(D) Change the syllabus</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> The new online learning platform launches next week for all classes.<br />
+<strong>M:</strong> Have teachers had enough time to prepare their materials?<br />
+<strong>W:</strong> Most have, but a few still need help uploading their content.<br />
+<strong>M:</strong> Let's offer a short training session tomorrow for anyone who needs it.</p>
+<p><strong>68.</strong> What launches next week?<br />
+(A) A new online learning platform<br />
+(B) A new grading system<br />
+(C) A new school year<br />
+(D) A new cafeteria menu</p>
+<p><strong>69.</strong> What does the woman say about teachers?<br />
+(A) None are ready.<br />
+(B) Most are ready, but a few need help.<br />
+(C) All are fully trained.<br />
+(D) They refuse to use it.</p>
+<p><strong>70.</strong> What will happen tomorrow?<br />
+(A) The platform will be canceled.<br />
+(B) A short training session will be offered.<br />
+(C) Classes will be canceled.<br />
+(D) A survey will be sent.</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Staff announcement</h3>
+<p><em>"I'm pleased to announce our new professional development stipend. Starting this quarter, every full-time employee gets twelve hundred dollars a year toward courses, conferences, or certifications related to your role. You don't need approval for anything under three hundred dollars — just submit the receipt. For larger items, your manager signs off first. Unused funds don't roll over, so plan your year. The request form is on the intranet under 'Learning.'"</em></p>
+<p><strong>71.</strong> What is being announced?<br />
+(A) A professional development stipend<br />
+(B) A new hiring freeze<br />
+(C) A holiday schedule<br />
+(D) An office relocation</p>
+<p><strong>72.</strong> What can employees spend the stipend on?<br />
+(A) Any personal purchase<br />
+(B) Travel for vacation<br />
+(C) Office furniture<br />
+(D) Courses, conferences, or certifications related to their role</p>
+<p><strong>73.</strong> What happens to unused funds?<br />
+(A) They roll over to next year<br />
+(B) They are paid as a bonus<br />
+(C) They do not roll over<br />
+(D) They double the next year</p>
+<h3>Talk 2 (74–76) — Voicemail from a training coordinator</h3>
+<p><em>"Hi, this is Renu from the Learning team. You're signed up for the leadership workshop on the 20th, but we've had to split it into two half-days, the 20th and the 21st, both mornings. Same content, just spread out — feedback said one full day was too much. If the second morning doesn't work for you, there's another full cohort in March. Let me know by Friday which you'd prefer."</em></p>
+<p><strong>74.</strong> Why is the coordinator calling?<br />
+(A) The workshop is being split into two half-days<br />
+(B) The workshop was canceled<br />
+(C) To confirm a room<br />
+(D) To collect payment</p>
+<p><strong>75.</strong> Why was the change made?<br />
+(A) Not enough people registered<br />
+(B) Feedback said one full day was too much<br />
+(C) The trainer was unavailable<br />
+(D) The room was too small</p>
+<p><strong>76.</strong> What should the listener do by Friday?<br />
+(A) Pay a deposit<br />
+(B) Complete pre-work<br />
+(C) Say which option they prefer<br />
+(D) Confirm their address</p>
+<h3>Talk 3 (77–79) — Conference presentation</h3>
+<p><em>"The result that surprised us was retention. We offered free drop-in tutoring, but attendance was low until we changed one thing: instead of students coming to a tutoring center, tutors held hours inside the residence halls, in a common room, three evenings a week. Visits tripled. Students told us the barrier was never the tutoring itself — it was crossing campus at night to a building that felt like an admission of struggling."</em></p>
+<p><strong>77.</strong> What did the program offer?<br />
+(A) Free drop-in tutoring<br />
+(B) Paid private tutors<br />
+(C) Online-only tutoring<br />
+(D) A study-skills course</p>
+<p><strong>78.</strong> What change increased attendance?<br />
+(A) Paying students to attend<br />
+(B) Holding tutoring hours inside the residence halls<br />
+(C) Making it mandatory<br />
+(D) Adding more tutors</p>
+<p><strong>79.</strong> What did students say the barrier was?<br />
+(A) The cost<br />
+(B) The tutors' schedules<br />
+(C) The quality of tutoring<br />
+(D) Getting to a separate building at night</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"For training teams: SkillPath tracks who has completed which required training and automatically sends reminders before a certification lapses. No more spreadsheets, no more scrambling before an audit. It plugs into your HR system, so new hires are enrolled in the right courses on day one. Teams using it report full compliance within one review cycle. See a demo at skillpath.example."</em></p>
+<p><strong>80.</strong> What does SkillPath track?<br />
+(A) Employee vacation days<br />
+(B) Who has completed which required training<br />
+(C) Course content quality<br />
+(D) Payroll</p>
+<p><strong>81.</strong> What does it do before a certification lapses?<br />
+(A) Cancels the certification<br />
+(B) Schedules an exam<br />
+(C) Sends automatic reminders<br />
+(D) Notifies the auditor</p>
+<p><strong>82.</strong> What do teams using it report?<br />
+(A) Lower training costs<br />
+(B) Faster hiring<br />
+(C) Full compliance within one review cycle<br />
+(D) Higher course ratings</p>
+<h3>Talk 5 (83–85) — School announcement</h3>
+<p><em>"Attention, students and staff. Due to expected snow this afternoon, all after-school activities are canceled today, and buses will depart thirty minutes early. Please check with your teacher if you need to make alternate transportation arrangements."</em></p>
+<p><strong>83.</strong> Why are activities being canceled?<br />
+(A) A power outage<br />
+(B) Expected snow<br />
+(C) A staffing shortage<br />
+(D) A scheduled holiday</p>
+<p><strong>84.</strong> What is happening with the buses?<br />
+(A) They will not run today.<br />
+(B) They will depart thirty minutes early.<br />
+(C) They will be delayed.<br />
+(D) They will take a different route.</p>
+<p><strong>85.</strong> What should students do if they need alternate transportation?<br />
+(A) Call the main office<br />
+(B) Check with their teacher<br />
+(C) Wait at the front entrance<br />
+(D) Contact their parents directly</p>
+<h3>Talk 6 (86–88) — Admissions office voicemail</h3>
+<p><em>"Hi, this is the admissions office calling about your application. We're still missing one letter of recommendation, and the priority deadline is coming up in two weeks. Please have it submitted as soon as possible to be considered for early review."</em></p>
+<p><strong>86.</strong> Why is the admissions office calling?<br />
+(A) To confirm acceptance<br />
+(B) To say a document is missing<br />
+(C) To reject the application<br />
+(D) To request a fee</p>
+<p><strong>87.</strong> What is missing?<br />
+(A) A transcript<br />
+(B) A letter of recommendation<br />
+(C) A personal essay<br />
+(D) A test score</p>
+<p><strong>88.</strong> What is coming up in two weeks?<br />
+(A) An interview<br />
+(B) The priority deadline<br />
+(C) Orientation<br />
+(D) A campus tour</p>
+<h3>Talk 7 (89–91) — Orientation welcome speech</h3>
+<p><em>"Welcome, new students, to your first day on campus. Over the next two days, you'll attend sessions on course registration, meet your academic advisor, and take a campus tour. Don't worry if you feel overwhelmed — that's completely normal, and our student volunteers are here to help."</em></p>
+<p><strong>89.</strong> Who is this speech for?<br />
+(A) Graduating seniors<br />
+(B) New students<br />
+(C) Faculty members<br />
+(D) Parents</p>
+<p><strong>90.</strong> What will students do over the next two days?<br />
+(A) Take final exams<br />
+(B) Attend registration sessions and meet advisors<br />
+(C) Move into dorms<br />
+(D) Choose their major</p>
+<p><strong>91.</strong> Who is available to help students?<br />
+(A) Security staff<br />
+(B) Student volunteers<br />
+(C) Local businesses<br />
+(D) The dean only</p>
+<h3>Talk 8 (92–94) — Online course introduction</h3>
+<p><em>"Welcome to Introduction to Data Analysis. This course is entirely self-paced, but I recommend completing one module per week to stay on track. Each module includes a short video, a reading, and a quiz. Discussion forums are available if you have questions or want to connect with classmates."</em></p>
+<p><strong>92.</strong> What kind of course is this?<br />
+(A) A self-paced online course<br />
+(B) A weekly in-person lecture<br />
+(C) A one-day workshop<br />
+(D) A group project course</p>
+<p><strong>93.</strong> What is recommended for staying on track?<br />
+(A) Completing two modules per week<br />
+(B) Completing one module per week<br />
+(C) Finishing the course in one weekend<br />
+(D) Attending a live session weekly</p>
+<p><strong>94.</strong> What does each module include?<br />
+(A) A video, a reading, and a quiz<br />
+(B) Only a video<br />
+(C) A group assignment<br />
+(D) A final exam</p>
+<h3>Talk 9 (95–97) — Faculty meeting excerpt</h3>
+<p><em>"Before we adjourn, I want to highlight some positive feedback from this semester's student survey. Satisfaction with academic advising increased significantly, which reflects the extra office hours many of you have offered. Let's continue that effort going into next semester."</em></p>
+<p><strong>95.</strong> What is the speaker highlighting?<br />
+(A) A budget shortfall<br />
+(B) Positive survey feedback<br />
+(C) A new policy<br />
+(D) A staffing change</p>
+<p><strong>96.</strong> What improved significantly?<br />
+(A) Test scores<br />
+(B) Satisfaction with academic advising<br />
+(C) Graduation rates<br />
+(D) Enrollment numbers</p>
+<p><strong>97.</strong> What does the speaker credit this to?<br />
+(A) A new grading system<br />
+(B) Extra office hours<br />
+(C) Smaller class sizes<br />
+(D) A new advising software</p>
+<h3>Talk 10 (98–100) — Scholarship program announcement</h3>
+<p><em>"We're pleased to announce that applications for next year's merit scholarship are now open. Awards range from five hundred to five thousand dollars, based on academic achievement and extracurricular involvement. The application deadline is March 1, and recipients will be notified by May."</em></p>
+<p><strong>98.</strong> What is now open?<br />
+(A) Course registration<br />
+(B) Merit scholarship applications<br />
+(C) Summer internship applications<br />
+(D) Housing applications</p>
+<p><strong>99.</strong> What determines the award amount?<br />
+(A) Financial need only<br />
+(B) Academic achievement and extracurricular involvement<br />
+(C) A random drawing<br />
+(D) Class year</p>
+<p><strong>100.</strong> When will recipients be notified?<br />
+(A) Immediately<br />
+(B) By May<br />
+(C) In the fall<br />
+(D) Next year</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_014 — READING (100 câu: 101–200) · Chủ đề: Education &amp; Training</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The training department <span class="blk">________</span> a new course every semester.<br />
+(A) develop  (B) develops  (C) developing  (D) to develop</p>
+<p><strong>102.</strong> Final projects must be uploaded <span class="blk">________</span> 5 P.M. on the last day of class.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The reviewers noted several <span class="blk">________</span> between the syllabus and the actual assignments.<br />
+(A) different  (B) differently  (C) discrepancies  (D) difference</p>
+<p><strong>104.</strong> <span class="blk">________</span> the short notice, almost every invited teacher attended the session.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> Participants are asked to <span class="blk">________</span> the pre-course survey before the first meeting.<br />
+(A) complete  (B) completes  (C) completing  (D) completion</p>
+<p><strong>106.</strong> The redesigned interface makes the lessons much <span class="blk">________</span> to follow.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> The reading list is posted <span class="blk">________</span> the course page under "Resources."<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> The field trip was canceled <span class="blk">________</span> a lack of transportation.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The school raised its graduation rate <span class="blk">________</span> adding a first-year advising program.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Enrollment in evening classes has grown <span class="blk">________</span> over the past three years.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the four electives, the design workshop attracts the <span class="blk">________</span> students.<br />
+(A) much  (B) more  (C) most  (D) many</p>
+<p><strong>112.</strong> The online portal returns grades far <span class="blk">________</span> than the old paper system.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> The orientation session will be held <span class="blk">________</span> the main lecture hall.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> a learner finishes all modules, the certificate is issued automatically.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The institute <span class="blk">________</span> six campuses and an online division.<br />
+(A) operate  (B) operates  (C) operating  (D) to operate</p>
+<p><strong>116.</strong> The curriculum review is expected <span class="blk">________</span> before the accreditation visit.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior instructor will <span class="blk">________</span> the new teaching assistants next week.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Students engage <span class="blk">________</span> with short weekly quizzes than with a single final exam.<br />
+(A) deep  (B) deeply  (C) most deeply  (D) more deeply</p>
+<p><strong>119.</strong> The report recommends several <span class="blk">________</span> for improving student attendance.<br />
+(A) measure  (B) measures  (C) measuring  (D) measured</p>
+<p><strong>120.</strong> The certification exam runs <span class="blk">________</span> 9 A.M. to noon on the first Saturday of the month.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The grant was awarded <span class="blk">________</span> conditions on how the funds could be spent.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The revised academic calendar <span class="blk">________</span> published on the website next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A student is <span class="blk">________</span> for the honors program only after two full semesters.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The handbook gives new faculty a <span class="blk">________</span> overview of the grading policy.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The department voted to <span class="blk">________</span> the outdated lab manual.<br />
+(A) revise  (B) revises  (C) revising  (D) revision</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed textbooks covered the new exam topics adequately.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Course recordings from the past five years are stored <span class="blk">________</span> the media server.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any change to a final grade must be approved by an <span class="blk">________</span> department chair.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two topics were dropped from the syllabus <span class="blk">________</span> limited class time.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New tutors receive <span class="blk">________</span> training on the center's feedback methods.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Third-Floor Study Area Closed for Renovation</strong></p>
+<p>The third-floor study area <span class="blk">(131)</span> closed from June 3 to June 28 for new lighting and quiet-study carrels.</p>
+<p>Library staff <span class="blk">(132)</span> move the reference collection to the second floor for the duration; signs will direct you.</p>
+<p>The group-study rooms on the first floor <span class="blk">(133)</span> already been added to the online booking system to absorb the extra demand.</p>
+<p>We appreciate your patience during the work. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will move  (B) move  (C) moving  (D) moved<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The study area will remain closed through the summer.<br />
+(B) The reference collection will not be available during renovations.<br />
+(C) Let us know if you have trouble finding a study space.<br />
+(D) All library fines will be waived during the closure.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Process for Course Reimbursement</p>
+<p>Starting this term, course reimbursement requests <span class="blk">(135)</span> be submitted through the Learning portal, not by email.</p>
+<p>The portal <span class="blk">(136)</span> accept a photo of your receipt and completion certificate, so you no longer need to bring paper copies to HR.</p>
+<p>Requests over five hundred dollars <span class="blk">(137)</span> need your manager's approval, which the portal routes automatically.</p>
+<p>Thank you for your cooperation as we move this online. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper receipts will still be required for all requests.<br />
+(B) Reimbursement requests will now take twice as long to process.<br />
+(C) This process applies only to graduate courses.<br />
+(D) Reach out to HR if you run into any issues with the portal.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>LESSONFORGE — BUILD ONLINE COURSES IN A DAY, NOT A MONTH</strong></p>
+<p>LessonForge turns your slides, documents, and videos into a structured online course with quizzes, progress tracking, and completion certificates.</p>
+<p>Most trainers find <span class="blk">(139)</span> useful: drag-and-drop lesson order, automatic mobile formatting, and a question bank that reshuffles for each learner. Teams report cutting course-build time by about two-thirds.</p>
+<p>Setup is <span class="blk">(140)</span> and takes an afternoon. There is no <span class="blk">(141)</span> contract, and the first course is free. Book a walkthrough at lessonforge.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) LessonForge requires all content to be re-recorded in-app.<br />
+(B) A minimum of ten courses must be built to qualify for a plan.<br />
+(C) Certificates are only issued for courses over one hour long.<br />
+(D) We'll show you how easy it is with your own materials.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Instructors <strong>FROM:</strong> Program Office <strong>RE:</strong> Digital Handouts by Default</p>
+<p>Our default handout method <span class="blk">(143)</span> to digital distribution, starting next term. Printed packets are still available on request for accessibility needs.</p>
+<p>Last year the program printed about 60,000 handout pages. Digital-by-default <span class="blk">(144)</span> cut that by most.</p>
+<p>The tablets in every classroom <span class="blk">(145)</span> now loaded with the annotation app, so students can mark up readings on screen. If a student needs paper, email the Program Office and we will print it. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Printed packets will no longer be available under any circumstance.<br />
+(B) Tablets will be removed from classrooms next term.<br />
+(C) This change takes effect at the end of the school year.<br />
+(D) Thanks for helping us reduce paper use across the program.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Coordinator (8:10 A.M.):</strong> The 9 o'clock workshop — projector in Room 204 won't turn on.<br />
+<strong>Facilities (8:13 A.M.):</strong> Known issue, the bulb went. Replacement is tomorrow.<br />
+<strong>Coordinator (8:14 A.M.):</strong> I have 25 people arriving in 45 minutes.<br />
+<strong>Facilities (8:16 A.M.):</strong> Room 118 is free until 1 and has a working projector. I'll unlock it and put a sign on 204.</p>
+<p><strong>147.</strong> What is the problem?<br />
+(A) The room is double-booked<br />
+(B) The workshop was canceled<br />
+(C) The projector in Room 204 is not working<br />
+(D) The instructor is late</p>
+<p><strong>148.</strong> What does Facilities offer?<br />
+(A) Room 118, which is free with a working projector<br />
+(B) To repair the projector before 9<br />
+(C) To reschedule to tomorrow<br />
+(D) A loaner laptop</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>COMMUNITY COLLEGE TO OFFER FREE CERTIFICATE PROGRAMS IN HIGH-DEMAND FIELDS</strong></p>
+<p>Starting in the fall, Riverside Community College will waive tuition for six one-year certificate programs, including practical nursing, HVAC repair, and early-childhood education. The programs were chosen because local employers reported steady hiring shortages in those fields.</p>
+<p>Students still pay for books, tools, and a small activity fee — about $400 per year — but grants are available to cover those costs for students who qualify. Enrollment is capped at 30 per program for the first year.</p>
+<p>The college says the waiver is funded by a three-year state workforce grant. If completion and hiring rates meet targets, the college will apply to extend it and add programs.</p>
+<p><strong>149.</strong> What is the college offering?<br />
+(A) A new bachelor's degree<br />
+(B) Free tuition for six one-year certificate programs<br />
+(C) Paid internships<br />
+(D) Free housing</p>
+<p><strong>150.</strong> How were the programs chosen?<br />
+(A) They were the cheapest to run<br />
+(B) Students voted on them<br />
+(C) They had the most applicants<br />
+(D) Local employers reported hiring shortages in those fields</p>
+<p><strong>151.</strong> What do students still have to pay for?<br />
+(A) Books, tools, and a small activity fee<br />
+(B) A registration deposit only<br />
+(C) Full tuition<br />
+(D) Nothing at all</p>
+<p><strong>152.</strong> What will the college do if targets are met?<br />
+(A) Raise the enrollment cap to 100<br />
+(B) Charge partial tuition<br />
+(C) Apply to extend the waiver and add programs<br />
+(D) End the program</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — New Late-Assignment Policy, Effective This Term</strong></p>
+<p>All courses now use a single late policy: assignments lose 5 percent per day, up to five days, after which they are not accepted. Instructors may grant an extension in advance for documented reasons.</p>
+<p>The previous system, where each instructor set their own rule, caused confusion for students taking multiple courses. Questions go to your academic advisor.</p>
+<p><strong>153.</strong> When does the new policy take effect?<br />
+(A) Next year<br />
+(B) Immediately for past work<br />
+(C) After graduation<br />
+(D) This term</p>
+<p><strong>154.</strong> Why was the policy changed?<br />
+(A) Students asked for stricter rules<br />
+(B) Differing instructor rules confused students taking multiple courses<br />
+(C) Too many extensions were granted<br />
+(D) A software limitation</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>COHORTLY — RUN LIVE ONLINE CLASSES WITHOUT THE CHAOS</strong></p>
+<p>Cohortly handles the logistics of live online courses: scheduling across time zones, automatic reminder emails, attendance tracking, breakout groups, and a shared resource library that stays available after the course ends.</p>
+<p>It's built for small training providers and independent instructors who are spending more time on admin than on teaching. Most switch from a mix of three or four separate tools.</p>
+<p>Pricing is per active course, not per student, so a large class costs the same as a small one. Free for your first cohort at cohortly.example.</p>
+<p><strong>155.</strong> What does Cohortly handle?<br />
+(A) Scheduling, reminders, attendance, breakout groups, and a resource library<br />
+(B) Printing course materials<br />
+(C) Hiring instructors<br />
+(D) Grading essays</p>
+<p><strong>156.</strong> Who is it built for?<br />
+(A) Large universities<br />
+(B) Software companies<br />
+(C) Small training providers and independent instructors<br />
+(D) Textbook publishers</p>
+<p><strong>157.</strong> How is pricing structured?<br />
+(A) Per student enrolled<br />
+(B) Per active course, regardless of class size<br />
+(C) A percentage of course fees<br />
+(D) A one-time license</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-faculty <strong>From:</strong> Registrar <strong>Subject:</strong> Before You Approve a Course Overload</p>
+<p>A reminder about students requesting more than the standard course load.</p>
+<p>Send the request to the Registrar first if any of these apply: the student is on academic probation, the overload would push them past 21 credits, it is their first term, or they are also working more than 20 hours a week on a work-study contract we can see. These cases need a quick check we can do in a day.</p>
+<p>For a student in good standing adding one course above the standard load, you can approve it yourself in the portal and it takes effect immediately.</p>
+<p>Do not approve an overload for a student who has failed two or more courses in the previous term without talking to us.</p>
+<p><strong>158.</strong> When should faculty send an overload request to the Registrar?<br />
+(A) For every overload request<br />
+(B) Only if the student asks<br />
+(C) Never; faculty handle all overloads<br />
+(D) If the student is on probation, would exceed 21 credits, is in their first term, or has heavy work-study hours</p>
+<p><strong>159.</strong> What can faculty approve themselves?<br />
+(A) One extra course for a student in good standing<br />
+(B) Any overload up to 30 credits<br />
+(C) Overloads only in the fall<br />
+(D) Nothing without Registrar sign-off</p>
+<p><strong>160.</strong> What requires talking to the Registrar first?<br />
+(A) Any first-year student<br />
+(B) A student switching majors<br />
+(C) A student who failed two or more courses the previous term<br />
+(D) A part-time student</p>
+<h3>Passage 6 — Fund coverage table (161–162)</h3>
+<p><strong>PROFESSIONAL DEVELOPMENT FUND — WHAT'S COVERED</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Covered?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Online courses &amp; certifications</td>
+<td>Yes</td>
+<td>Job-related; certificate required for reimbursement</td>
+</tr>
+<tr>
+<td>Conference registration</td>
+<td>Yes</td>
+<td>Up to $800 per event</td>
+</tr>
+<tr>
+<td>Conference travel &amp; lodging</td>
+<td>Partial</td>
+<td>50%, capped at $600 per year</td>
+</tr>
+<tr>
+<td>Professional membership dues</td>
+<td>Yes</td>
+<td>One membership per year</td>
+</tr>
+<tr>
+<td>Books &amp; subscriptions</td>
+<td>No</td>
+<td>Use the team library budget instead</td>
+</tr>
+<tr>
+<td>Coaching (individual)</td>
+<td>Case by case</td>
+<td>Needs director approval</td>
+</tr>
+</tbody>
+</table>
+<p>Unused funds do not carry over. Submit claims within 60 days of the expense.</p>
+<p><strong>161.</strong> How is conference travel and lodging covered?<br />
+(A) Fully covered<br />
+(B) Not covered<br />
+(C) 50%, capped at $600 per year<br />
+(D) Only for directors</p>
+<p><strong>162.</strong> What is not covered by the fund?<br />
+(A) Books and subscriptions<br />
+(B) Conference registration<br />
+(C) Membership dues<br />
+(D) Online certifications</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Halvorsen,</p>
+<p>Thank you for your message about the transfer credit for your statistics course.</p>
+<p>You are correct that the evaluation took longer than our published timeline. We aim to review transfer requests within three weeks; yours took seven, because the sending institution was slow to send an official syllabus. That is not your fault, and we should have kept you updated.</p>
+<p>The credit has now been approved and applied. Because the delay caused you to miss the registration window for the follow-on course, we have added you to that course manually and waived the late-registration fee.</p>
+<p>Your degree audit is now correct. Please check it and let your advisor know if anything still looks off.</p>
+<p>Sincerely,<br />
+Office of the Registrar</p>
+<p><strong>163.</strong> Why did Mr. Halvorsen write?<br />
+(A) To drop a course<br />
+(B) Because his transfer-credit evaluation was taking too long<br />
+(C) To appeal a grade<br />
+(D) To request a refund</p>
+<p><strong>164.</strong> What does the Registrar acknowledge?<br />
+(A) The review took longer than the published timeline<br />
+(B) The credit was denied in error<br />
+(C) His transcript was lost<br />
+(D) He was charged twice</p>
+<p><strong>165.</strong> What did the office do because of the delay?<br />
+(A) Gave him a tuition refund<br />
+(B) Extended his graduation date<br />
+(C) Offered a different course<br />
+(D) Added him to the follow-on course and waived the late-registration fee</p>
+<p><strong>166.</strong> What is Mr. Halvorsen asked to do now?<br />
+(A) Resubmit the syllabus<br />
+(B) Pay the late fee<br />
+(C) Check his degree audit and contact his advisor if anything looks off<br />
+(D) Retake the statistics course</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>ONLINE COURSE — FREQUENTLY ASKED QUESTIONS</strong></p>
+<p><strong>Is the course self-paced?</strong><br />
+Yes. Lessons open all at once and you have 12 months of access. Live Q&amp;A sessions happen monthly and are recorded.</p>
+<p><strong>What do I need to pass?</strong><br />
+A score of 70 percent or higher on the final assessment. You get three attempts; the highest score counts.</p>
+<p><strong>Do I get a certificate?</strong><br />
+Yes, a completion certificate with a verification link. It does not expire, but it is not a licensed credential.</p>
+<p><strong>Can my employer pay directly?</strong><br />
+Yes. Choose "invoice my organization" at checkout and enter a purchase-order number.</p>
+<p><strong>167.</strong> What happens to the live Q&amp;A sessions?<br />
+(A) They are recorded<br />
+(B) They are mandatory<br />
+(C) They cost extra<br />
+(D) They are one-time only</p>
+<p><strong>168.</strong> What is needed to pass?<br />
+(A) Attending every live session<br />
+(B) A passing score on every lesson quiz<br />
+(C) Submitting a final project<br />
+(D) 70% or higher on the final assessment, with three attempts and the highest score counting</p>
+<p><strong>169.</strong> What is true of the certificate?<br />
+(A) It expires after two years<br />
+(B) It does not expire but is not a licensed credential<br />
+(C) It is a government license<br />
+(D) It is only issued on paper</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Trainers <strong>FROM:</strong> Learning &amp; Development <strong>RE:</strong> Recording Live Sessions</p>
+<p>Before you record a live training session, tell participants at the start that it is being recorded and where it will be posted. If someone objects, they can turn off their camera and mic and follow along; don't require anyone to appear on a recording.</p>
+<p>Keep recordings in the course library, not on personal drives. Recordings are for enrolled learners only and should not be forwarded outside the company.</p>
+<p>Delete recordings after 18 months unless the content is part of a permanent reference library.</p>
+<p><strong>170.</strong> What must trainers do before recording?<br />
+(A) Get written consent forms<br />
+(B) Ask their manager<br />
+(C) Tell participants at the start and where it will be posted<br />
+(D) Nothing; recording is automatic</p>
+<p><strong>171.</strong> What can a participant who objects to being recorded do?<br />
+(A) Turn off their camera and mic and still follow along<br />
+(B) Leave the session<br />
+(C) Nothing; recording is required<br />
+(D) Request a private session</p>
+<p><strong>172.</strong> How long should recordings be kept?<br />
+(A) Indefinitely<br />
+(B) Deleted after 18 months unless part of a permanent reference library<br />
+(C) One week<br />
+(D) Until the trainer leaves</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Strong content, weak scheduling tools</strong> — corporate L&amp;D manager</p>
+<p>We run about 40 instructor-led sessions a quarter, and we picked this platform mainly to get everything into one enrollment system. On that it works well — learners find courses, managers see completion, and the reminder emails have cut our no-show rate noticeably.</p>
+<p>Where it falls short is scheduling. There is no way to hold a seat for a waitlisted person for a set time before it is offered to the next in line, so popular sessions turn into a scramble. And you can't set a course to require a prerequisite — we track that manually.</p>
+<p>Support has been responsive, and they say waitlist improvements are on the roadmap. For us the completion tracking alone justifies it.</p>
+<p><strong>173.</strong> Why did the company pick the platform?<br />
+(A) It was the cheapest option<br />
+(B) For its course content<br />
+(C) For its mobile app<br />
+(D) To get everything into one enrollment system</p>
+<p><strong>174.</strong> What is one weakness the reviewer describes?<br />
+(A) The reminder emails don't work<br />
+(B) Managers can't see completion<br />
+(C) There is no way to hold a seat for a waitlisted person<br />
+(D) It has no reporting</p>
+<p><strong>175.</strong> What does the company currently track manually?<br />
+(A) Attendance<br />
+(B) Course prerequisites<br />
+(C) Instructor pay<br />
+(D) Room bookings</p>
+<h3>Passages 11–12 — Tuition reimbursement policy &amp; email (176–180)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>TUITION REIMBURSEMENT — ELIGIBILITY AND RULES</strong></p>
+<ul>
+<li>Open to employees who have completed one year of full-time service.</li>
+<li>Covers up to $5,000 per calendar year for courses at an accredited institution, in a field related to your current role or a documented career path within the company.</li>
+<li>You must earn a grade of C or better (or "pass" in a pass/fail course) to be reimbursed. Submit the grade and an itemized receipt within 45 days of course completion.</li>
+<li>Pre-approval is required before the course starts. Submit the course description and cost to your manager and HR.</li>
+<li>If you leave the company within 12 months of a reimbursement, you repay a prorated amount.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Anand <strong>To:</strong> hr@company.example <strong>Subject:</strong> Questions before enrolling</p>
+<p>Hi,</p>
+<p>I've been here 14 months and want to start a part-time evening program in project management, which fits my career path here.</p>
+<ol>
+<li>The program is $8,000 total over two years. How does the annual cap work — can I claim $5,000 this year and the rest next year?</li>
+<li>Do I need pre-approval for the whole program now, or course by course?</li>
+<li>One course is pass/fail. Does that affect reimbursement?</li>
+</ol>
+<p><strong>176.</strong> Who is eligible for tuition reimbursement?<br />
+(A) Employees who have completed one year of full-time service<br />
+(B) All employees from day one<br />
+(C) Only managers<br />
+(D) Only full-time employees in their first year</p>
+<p><strong>177.</strong> What grade is required to be reimbursed?<br />
+(A) A or better<br />
+(B) B or better<br />
+(C) Any passing grade<br />
+(D) C or better, or "pass" in a pass/fail course</p>
+<p><strong>178.</strong> Based on the policy, can Priya's pass/fail course be reimbursed?<br />
+(A) No, only graded courses count<br />
+(B) Yes, a "pass" result qualifies<br />
+(C) Only if she also takes a graded version<br />
+(D) Only with director approval</p>
+<p><strong>179.</strong> When must pre-approval be submitted?<br />
+(A) Within 45 days of completion<br />
+(B) After receiving the grade<br />
+(C) Before the course starts<br />
+(D) At the end of the year</p>
+<p><strong>180.</strong> What is one of Priya's questions?<br />
+(A) Whether she is still employed<br />
+(B) How the annual cap works across a two-year program<br />
+(C) Where classes are held<br />
+(D) Who her manager is</p>
+<h3>Passages 13–14 — Two emails about a vendor invoice (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Cole, L&amp;D <strong>To:</strong> billing@trainpro.example <strong>Subject:</strong> Invoice 5502 — cancellation fee</p>
+<p>Hi,</p>
+<p>Invoice 5502 charges a full-day facilitation fee of $3,200 plus a $1,600 "late cancellation" fee for the session we moved from March 4 to March 18.</p>
+<p>We notified your coordinator by email on February 18 — 14 days out. Your contract says the cancellation fee applies only inside 10 days. Please remove the $1,600.</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> billing@trainpro.example <strong>To:</strong> Dana Cole <strong>Subject:</strong> RE: Invoice 5502 — cancellation fee</p>
+<p>Hi Dana,</p>
+<p>You're right. The fee was applied automatically based on the reschedule date entered in our system, which was logged March 1 — that's when our coordinator processed your February 18 email, not when you sent it.</p>
+<p>The 14-day notice stands. We've removed the $1,600 and reissued the invoice at $3,200. We've also fixed the process so the notice date is the email date, not the processing date.</p>
+<p>Apologies for the error.</p>
+<p><strong>181.</strong> Why did Dana email TrainPro?<br />
+(A) To book a new session<br />
+(B) To cancel the contract<br />
+(C) To dispute a late-cancellation fee<br />
+(D) To request a discount</p>
+<p><strong>182.</strong> What does the contract say about the cancellation fee?<br />
+(A) It applies only inside 10 days of the session<br />
+(B) It is always charged for a reschedule<br />
+(C) It is 50% of the facilitation fee<br />
+(D) It does not exist</p>
+<p><strong>183.</strong> Why was the fee charged in error?<br />
+(A) Dana never sent notice<br />
+(B) The contract was out of date<br />
+(C) The session was moved twice<br />
+(D) The system used the processing date, not the email date</p>
+<p><strong>184.</strong> What is the corrected invoice total?<br />
+(A) $1,600<br />
+(B) $4,800<br />
+(C) $3,200<br />
+(D) $0</p>
+<p><strong>185.</strong> What did TrainPro change to prevent a repeat?<br />
+(A) Removed the cancellation fee entirely<br />
+(B) Added a longer notice window<br />
+(C) Switched billing systems<br />
+(D) Made the notice date the email date, not the processing date</p>
+<h3>Passages 15–17 — Training-format reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>CHOOSING A TRAINING FORMAT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Best for</th>
+<th>Group size</th>
+<th>Cost</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self-paced e-learning</td>
+<td>Knowledge, policy, compliance</td>
+<td>Any</td>
+<td>Low</td>
+<td>No live interaction; completion tracked</td>
+</tr>
+<tr>
+<td>Live virtual workshop</td>
+<td>Skills practice, discussion</td>
+<td>6–20</td>
+<td>Medium</td>
+<td>Needs a facilitator; recorded</td>
+</tr>
+<tr>
+<td>In-person workshop</td>
+<td>Hands-on, team building</td>
+<td>6–16</td>
+<td>High</td>
+<td>Travel/room costs; highest engagement</td>
+</tr>
+<tr>
+<td>Blended (e-learning + live)</td>
+<td>Complex skills</td>
+<td>6–20</td>
+<td>Medium</td>
+<td>Pre-work online, then a shorter live session</td>
+</tr>
+</tbody>
+</table>
+<p>For compliance topics, use self-paced e-learning unless a regulator requires live delivery. Reserve in-person for content that genuinely needs physical presence.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Pike, Regional Manager <strong>To:</strong> ld@company.example <strong>Subject:</strong> Training for the new returns process</p>
+<p>Hi,</p>
+<p>We're rolling out a new returns process to about 60 store staff across 8 locations. It's part policy (the rules) and part skill (handling the conversation with an upset customer). Budget is tight and pulling people off the floor is hard. What format do you recommend?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> ld@company.example <strong>To:</strong> Owen Pike <strong>Subject:</strong> RE: Training for the new returns process</p>
+<p>Hi Owen,</p>
+<p>This is a good fit for blended. Put the rules — refund windows, exceptions, system steps — into a 25-minute self-paced module everyone does on shift. Then run a 45-minute live virtual workshop, in groups of about 15, focused only on the customer conversation, with role-play.</p>
+<p>That keeps people off the floor for under an hour total, works across all 8 locations without travel, and still gives them live practice on the hard part. Full in-person would be better for the role-play but isn't worth the cost and disruption here.</p>
+<p>I can build the module this week, and we schedule the live sessions over two weeks.</p>
+<p><strong>186.</strong> What is the training about?<br />
+(A) A new hiring process<br />
+(B) A new returns process for store staff<br />
+(C) A software upgrade<br />
+(D) A safety procedure</p>
+<p><strong>187.</strong> Which format does L&amp;D recommend?<br />
+(A) Blended (e-learning plus a live session)<br />
+(B) Full in-person<br />
+(C) Self-paced e-learning only<br />
+(D) A printed manual</p>
+<p><strong>188.</strong> According to the reference, when should in-person training be used?<br />
+(A) For all compliance topics<br />
+(B) Whenever the budget allows<br />
+(C) For groups over 20<br />
+(D) For content that genuinely needs physical presence</p>
+<p><strong>189.</strong> What will the live virtual session focus on?<br />
+(A) The refund system steps<br />
+(B) The policy rules<br />
+(C) The customer conversation, with role-play<br />
+(D) A written test</p>
+<p><strong>190.</strong> How long will staff be off the floor in total?<br />
+(A) A full day<br />
+(B) Under an hour<br />
+(C) Two hours<br />
+(D) Half a day</p>
+<h3>Passages 18–20 — Scholarship rules, student email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Rules</strong></p>
+<p><strong>RIVERSIDE MERIT SCHOLARSHIP — RENEWAL RULES</strong></p>
+<ul>
+<li>The scholarship renews automatically for up to four years (eight semesters) of full-time enrollment.</li>
+<li>To keep it, you must maintain a cumulative GPA of 3.2 and complete at least 24 credits per academic year.</li>
+<li>One "grace semester" is allowed: if your GPA drops below 3.2 once, you keep the scholarship for the next semester and must bring the cumulative GPA back to 3.2 by its end.</li>
+<li>Dropping to part-time pauses the scholarship; it resumes when you return to full-time, but the four-year clock keeps running.</li>
+<li>Study-abroad and approved medical leave do not count against the four-year limit.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lila Ntsiki <strong>To:</strong> scholarships@riverside.example <strong>Subject:</strong> Renewal questions</p>
+<p>Hi,</p>
+<p>My cumulative GPA this semester is 3.05 — first time below 3.2. Questions:<br />
+1. Do I lose the scholarship now, or is this where the grace semester applies?<br />
+2. I'm planning to study abroad next spring. Does that semester count toward my four years of eligibility?<br />
+3. If I drop one class and fall to 11 credits for this semester only, what happens?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> scholarships@riverside.example <strong>To:</strong> Lila Ntsiki <strong>Subject:</strong> RE: Renewal questions</p>
+<p>Hi Lila,</p>
+<ol>
+<li>This is exactly what the grace semester is for. You keep the scholarship for next semester. You'll need your cumulative GPA back to 3.2 by the end of that semester to continue.</li>
+<li>No — study abroad does not count against the four-year limit, so it won't shorten your eligibility.</li>
+<li>Dropping below 12 credits makes you part-time, which pauses the scholarship for that semester. It resumes when you're full-time again, but note the four-year clock keeps running, and the grace semester still applies from this term.</li>
+</ol>
+<p><strong>191.</strong> What does the grace semester allow?<br />
+(A) Keeping the scholarship for one semester after a first GPA drop below 3.2<br />
+(B) A permanently lower GPA requirement<br />
+(C) An extra year of eligibility<br />
+(D) A cash bonus</p>
+<p><strong>192.</strong> Does studying abroad count toward the four-year limit?<br />
+(A) Yes, it counts as a normal semester<br />
+(B) Only if it's a full year<br />
+(C) Only for certain majors<br />
+(D) No, it does not count against the limit</p>
+<p><strong>193.</strong> What happens if Lila drops to 11 credits for one semester?<br />
+(A) The scholarship is paused for that semester<br />
+(B) She loses the scholarship permanently<br />
+(C) Nothing changes<br />
+(D) She must repay one semester</p>
+<p><strong>194.</strong> What is required each academic year to keep the scholarship?<br />
+(A) A 3.5 GPA only<br />
+(B) A 3.2 cumulative GPA and at least 24 credits<br />
+(C) 30 credits and any GPA<br />
+(D) Full-time enrollment only</p>
+<p><strong>195.</strong> What is true about the four-year clock if the scholarship is paused?<br />
+(A) It stops until she returns<br />
+(B) It resets<br />
+(C) It keeps running<br />
+(D) It extends by a year</p>
+<h3>Passages 21–23 — Exam change notice, candidate email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>CHANGES TO THE DATA ANALYST CERTIFICATION — EFFECTIVE JANUARY 1</strong></p>
+<ol>
+<li><strong>Format:</strong> The exam moves from one 3-hour session to two 90-minute sections that can be taken on different days within a 7-day window.</li>
+<li><strong>Content:</strong> A new section on data ethics is added; the total number of questions is unchanged.</li>
+<li><strong>Retakes:</strong> The waiting period after a failed attempt drops from 90 days to 30 days.</li>
+<li><strong>Fee:</strong> Unchanged at $250, and candidates registered before January 1 keep the old single-session format if they test before March 31.</li>
+</ol>
+<p>The passing score and the credential itself are not changing.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Ortega <strong>To:</strong> exams@databoard.example <strong>Subject:</strong> Questions about the January changes</p>
+<p>Hi,</p>
+<ol>
+<li>I registered in November. Can I still take the old one-day format, and until when?</li>
+<li>I failed in October. When can I retake — under the old 90-day rule or the new 30-day one?</li>
+<li>Does the new ethics section mean more questions total?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> exams@databoard.example <strong>To:</strong> Sam Ortega <strong>Subject:</strong> RE: Questions about the January changes</p>
+<p>Hi Sam,</p>
+<ol>
+<li>Yes. Because you registered before January 1, you may take the single 3-hour format, but you must test by March 31. After that, everyone is on the two-section format.</li>
+<li>The 30-day waiting period is the current rule as of January 1 and applies to you now, so you're already eligible to rebook.</li>
+<li>No. The ethics content replaces some existing questions; the total count is the same.</li>
+</ol>
+<p><strong>196.</strong> What is changing about the exam format?<br />
+(A) It becomes fully oral<br />
+(B) It moves online only<br />
+(C) It gets one hour longer<br />
+(D) It splits into two 90-minute sections</p>
+<p><strong>197.</strong> Until when can Sam use the old one-day format?<br />
+(A) January 1<br />
+(B) There is no deadline<br />
+(C) March 31<br />
+(D) He cannot use it</p>
+<p><strong>198.</strong> When can Sam retake the exam?<br />
+(A) Now — the 30-day waiting period applies to him<br />
+(B) 90 days after his October attempt<br />
+(C) Only after January 1<br />
+(D) After completing a mandatory course</p>
+<p><strong>199.</strong> Does the new ethics section add to the total number of questions?<br />
+(A) Yes, there are 20 more questions<br />
+(B) No, it replaces some existing questions<br />
+(C) Only on the two-section format<br />
+(D) The total is now shorter</p>
+<p><strong>200.</strong> What is NOT changing?<br />
+(A) The number of sections<br />
+(B) The retake waiting period<br />
+(C) The content areas covered<br />
+(D) The passing score and the credential</p>
+<hr />
+<p><em>Hết phần Reading — Set_014. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_014</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "an instructor is pointing at a chart on a whiteboard" · bẫy: "handing in papers"</li>
+<li><strong>3 C</strong> "learners are working in pairs at tables" · bẫy: "the classroom is empty"</li>
+<li><strong>4 D</strong> "a librarian is shelving books" · bẫy: "checking out a book at the desk"</li>
+<li><strong>6 C</strong> "a graduate is receiving a certificate and shaking hands" · bẫy: "diplomas are being printed"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why moved to a bigger room?" → "More people enrolled than expected" · bẫy: trả lời Where / How long</li>
+<li><strong>13 B</strong> tag question → "Yes, students find it much simpler"</li>
+<li><strong>15 C</strong> câu phủ định → "Yes, extended hours start next week"</li>
+<li><strong>17 C</strong> "What did the evaluations say?" → nội dung, không phải "collected last week"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "check with the financial aid office" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "You could drop one elective"</li>
+<li><strong>21 C</strong> yêu cầu chấm bài → "I'll finish them tonight" · bẫy: lặp "quizzes"</li>
+<li><strong>25 B</strong> "Isn't registration usually open until Friday?" → đính chính "extended a week" · bẫy: lặp "Friday"</li>
+<li><strong>31 C</strong> "Why was the lecture rescheduled?" → lý do cụ thể "professor was ill" · bẫy: lặp "lecture"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "the system won't let me register" · "it's a prerequisite" · "submit a transfer-credit form with the syllabus"</li>
+<li>35–37: "the sales team reserved the same room" · "Ours is more flexible on space" · "move ours to the auditorium"</li>
+<li>38–40: "cut the new-hire onboarding from five days to three" · "the two compliance modules can be pre-work" · "Keep all the hands-on system training in person"</li>
+<li>41–43: "I was still charged full tuition for it" · "I dropped it the first day of class" · "Send me a screenshot of your drop confirmation"</li>
+<li>44–46: "flagged three papers at over 40 percent" · "the assignment prompt itself, or properly quoted sources" · "add a note to the syllabus about how the tool works"</li>
+<li>47–49: "course access expired before I finished" · "everything except the final quiz — I was at 95 percent" · "a two-week extension at no cost"</li>
+<li>50–52: "readings are taking too long" · "shorten the weekly readings" · "estimated reading time"</li>
+<li>53–55: "attendance has dropped" Friday · "last class before the weekend" · "survey the students first"</li>
+<li>56–58: "guest speaker for career day" · "alumna who works in engineering" · "equipment for her presentation"</li>
+<li>59–61: "tutoring program's schedule" · "Tuesdays and Thursdays" · "spots are limited"</li>
+<li>62–64: "teacher training day" agenda · "new classroom technology" · "send out the schedule by Friday"</li>
+<li>65–67: "struggled with the same quiz question" · "review the concept again" · "short review tomorrow"</li>
+<li>68–70: "new online learning platform launches" · "most are ready, but a few need help" · "short training session tomorrow"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "our new professional development stipend" · "courses, conferences, or certifications related to your role" · "Unused funds don't roll over"</li>
+<li>74–76: "split it into two half-days" · "feedback said one full day was too much" · "Let me know by Friday which you'd prefer"</li>
+<li>77–79: "free drop-in tutoring" · "tutors held hours inside the residence halls" · "crossing campus at night to a building that felt like an admission of struggling"</li>
+<li>80–82: "tracks who has completed which required training" · "automatically sends reminders before a certification lapses" · "report full compliance within one review cycle"</li>
+<li>83–85: "after-school activities are canceled" · "expected snow" · "buses ... thirty minutes early"</li>
+<li>86–88: "missing one letter of recommendation" · "priority deadline ... two weeks" · "submitted as soon as possible"</li>
+<li>89–91: "welcome, new students" · "registration sessions and meet advisors" · "student volunteers ... here to help"</li>
+<li>92–94: "self-paced" course · "one module per week" · "video, a reading, and a quiz"</li>
+<li>95–97: "positive survey feedback" · "satisfaction with academic advising increased" · "extra office hours"</li>
+<li>98–100: "merit scholarship applications ... open" · "academic achievement and extracurricular involvement" · "notified by May"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The training department</code> số ít + thói quen → <code>develops</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> 5 P.M.</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>discrepancies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be asked to</code> + V nguyên → <code>complete</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes the lessons much <span class="fill"></span> to follow</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the course page</code> (bề mặt / trang)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>raised its rate by adding</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> students</code> (trong 4) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the lecture hall</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>a learner finishes all modules</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The institute</code> số ít → <code>operates</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more deeply</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>measures</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"trao <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (calendar <strong>được</strong> phát hành)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code> the honors program</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>overview</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>revise</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... covered ... adequately</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the server</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>chair</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"The third-floor study area <span class="fill"></span> closed from June 3 to June 28" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Library staff <span class="fill"></span> move the reference collection" (sẽ) → <code>will move</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"The group-study rooms ... <span class="fill"></span> already been added" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn phản hồi nếu khó tìm chỗ học, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"reimbursement requests <span class="fill"></span> be submitted through the Learning portal" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The portal <span class="fill"></span> accept a photo of your receipt" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Requests over five hundred dollars <span class="fill"></span> need your manager's approval" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ HR nếu gặp sự cố, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most trainers find <span class="fill"></span> useful" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời dùng thử thực tế, khép lại quảng cáo LessonForge</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our default handout method <span class="fill"></span> to digital distribution, starting next term" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Digital-by-default <span class="fill"></span> cut that by most" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The tablets in every classroom <span class="fill"></span> now loaded with the annotation app" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo phát tài liệu số</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>C</td>
+<td>156</td>
+<td>C</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>A</td>
+<td>157</td>
+<td>B</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>B</td>
+<td>158</td>
+<td>D</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>A</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>A</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>B</td>
+<td>187</td>
+<td>A</td>
+<td>196</td>
+<td>D</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>C</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>C</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>A</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>A</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>B</td>
+<td>172</td>
+<td>B</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>B</td>
+</tr>
+<tr>
+<td>155</td>
+<td>A</td>
+<td>164</td>
+<td>A</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "chosen because local employers reported steady hiring shortages in those fields"<br />
+- <strong>151 A</strong> — "Students still pay for books, tools, and a small activity fee — about $400 per year"<br />
+- <strong>154 B</strong> — "each instructor set their own rule, caused confusion for students taking multiple courses"<br />
+- <strong>158 D</strong> — "on academic probation ... past 21 credits ... their first term ... working more than 20 hours a week"<br />
+- <strong>160 C</strong> — "Do not approve an overload for a student who has failed two or more courses in the previous term"<br />
+- <strong>161 C</strong> — bảng: "Conference travel &amp; lodging → 50%, capped at $600 per year"<br />
+- <strong>165 D</strong> — "added you to that course manually and waived the late-registration fee"<br />
+- <strong>168 D</strong> — "70 percent or higher ... three attempts; the highest score counts"<br />
+- <strong>178 B</strong> — "a grade of C or better (or 'pass' in a pass/fail course)"<br />
+- <strong>183 D</strong> — "logged March 1 — that's when our coordinator processed your February 18 email, not when you sent it"<br />
+- <strong>188 D</strong> — "Reserve in-person for content that genuinely needs physical presence"<br />
+- <strong>192 D</strong> — "Study-abroad and approved medical leave do not count against the four-year limit"<br />
+- <strong>193 A</strong> — "Dropping below 12 credits makes you part-time, which pauses the scholarship for that semester"<br />
+- <strong>198 A</strong> — "The 30-day waiting period is the current rule as of January 1 and applies to you now"<br />
+- <strong>200 D</strong> — "The passing score and the credential itself are not changing"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_014 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Education / Training): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

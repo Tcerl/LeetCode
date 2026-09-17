@@ -1,0 +1,2244 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_011 — Environment & Science</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="011">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_011</strong>
+    <span class="theme">Environment &amp; Science</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_011 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Nhà khoa học mặc áo blouse đang nhìn qua kính hiển vi.]</em><br />
+(A) A scientist is looking through a microscope.<br />
+(B) Someone is writing on a whiteboard.<br />
+(C) Two people are shaking hands in a lab.<br />
+(D) Bottles are being labeled on a bench.</p>
+<p><strong>2.</strong> <em>[Ảnh: Công nhân lắp tấm pin mặt trời trên mái nhà.]</em><br />
+(A) A truck is being unloaded.<br />
+(B) Someone is cleaning a window.<br />
+(C) Panels are stacked on the ground.<br />
+(D) Workers are installing solar panels on a roof.</p>
+<p><strong>3.</strong> <em>[Ảnh: Nhóm tình nguyện viên nhặt rác dọc bờ sông.]</em><br />
+(A) Volunteers are picking up litter along a riverbank.<br />
+(B) People are planting trees in a park.<br />
+(C) A boat is being launched into the water.<br />
+(D) Someone is fishing from the shore.</p>
+<p><strong>4.</strong> <em>[Ảnh: Các thùng phân loại rác tái chế trong một văn phòng.]</em><br />
+(A) A cart is being pushed down a hallway.<br />
+(B) Boxes are being flattened for recycling.<br />
+(C) Recycling bins are lined up in an office.<br />
+(D) The bins are overflowing.</p>
+<p><strong>5.</strong> <em>[Ảnh: Kỹ thuật viên đo chất lượng nước bằng thiết bị cầm tay ở bờ hồ.]</em><br />
+(A) People are swimming in a lake.<br />
+(B) A technician is testing water at a lakeside.<br />
+(C) A sample is being poured into a bottle.<br />
+(D) A boat is moored at a dock.</p>
+<p><strong>6.</strong> <em>[Ảnh: Cánh đồng điện gió với các tuabin lớn.]</em><br />
+(A) A turbine blade is being transported.<br />
+(B) Workers are climbing a tower.<br />
+(C) Wind turbines stand in a field.<br />
+(D) The turbines are being painted.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the recycling get picked up?<br />
+(A) Every other Wednesday.<br />
+(B) In the blue bins.<br />
+(C) Paper and plastic only.</p>
+<p><strong>8.</strong> Where do I drop off old batteries?<br />
+(A) I have about a dozen.<br />
+(B) They can't go in regular trash.<br />
+(C) At the collection point near the entrance.</p>
+<p><strong>9.</strong> Who's leading the field study this summer?<br />
+(A) For about six weeks.<br />
+(B) Dr. Nguyen from the biology department.<br />
+(C) Near the coastal wetlands.</p>
+<p><strong>10.</strong> Why was the water sample rejected by the lab?<br />
+(A) It wasn't kept cold enough.<br />
+(B) About 500 milliliters.<br />
+(C) From the north end of the lake.</p>
+<p><strong>11.</strong> How much did the building's energy use drop after the retrofit?<br />
+(A) New windows and insulation.<br />
+(B) Around 18 percent.<br />
+(C) It took three months.</p>
+<p><strong>12.</strong> Could you send me the emissions report?<br />
+(A) Sure, I'll email it this afternoon.<br />
+(B) The report covers last year.<br />
+(C) It's about forty pages.</p>
+<p><strong>13.</strong> The solar array is finally connected, isn't it?<br />
+(A) It's on the south roof.<br />
+(B) Yes, it went online Monday.<br />
+(C) About 200 panels.</p>
+<p><strong>14.</strong> Should we plant native species or ornamentals along the path?<br />
+(A) The path is about a kilometer.<br />
+(B) Native species need less water.<br />
+(C) I walk there most mornings.</p>
+<p><strong>15.</strong> Isn't the nature center open on Sundays?<br />
+(A) It's near the trailhead.<br />
+(B) Admission is free.<br />
+(C) Yes, from 10 to 4.</p>
+<p><strong>16.</strong> Can you show me how to log a sighting in the app?<br />
+(A) The app was updated last week.<br />
+(B) Of course, you tap the plus button.<br />
+(C) We've had a lot of sightings.</p>
+<p><strong>17.</strong> What did the air-quality monitor show this morning?<br />
+(A) It's on the roof.<br />
+(B) The monitor is new.<br />
+(C) Levels were in the moderate range.</p>
+<p><strong>18.</strong> Where are the seed samples stored?<br />
+(A) We collected them in the fall.<br />
+(B) They're labeled by species.<br />
+(C) In the climate-controlled room downstairs.</p>
+<p><strong>19.</strong> Do you know whether the grant was approved?<br />
+(A) It's for the wetland restoration.<br />
+(B) Let me check with the office.<br />
+(C) The application was long.</p>
+<p><strong>20.</strong> I think we should switch the fleet to electric vehicles.<br />
+(A) The charging stations aren't in yet, though.<br />
+(B) The fleet has twelve vans.<br />
+(C) At the depot on Fifth Street.</p>
+<p><strong>21.</strong> Could you check the recycling bins before pickup day?<br />
+(A) I'll check them this evening.<br />
+(B) Bins are heavy.<br />
+(C) I recycled last week.</p>
+<p><strong>22.</strong> Has the water sample been tested yet?<br />
+(A) It's a small sample.<br />
+(B) I sampled the food.<br />
+(C) Not yet, results come tomorrow.</p>
+<p><strong>23.</strong> Where should we install the new solar panels?<br />
+(A) On the south-facing roof.<br />
+(B) Panels are expensive.<br />
+(C) We installed them already.</p>
+<p><strong>24.</strong> Would you rather present the findings in a report or a slideshow?<br />
+(A) A slideshow would be clearer.<br />
+(B) The findings took months.<br />
+(C) I presented last time.</p>
+<p><strong>25.</strong> Isn't the air quality usually better in spring?<br />
+(A) Spring is mild.<br />
+(B) Yes, but pollen levels are unusually high this year.<br />
+(C) The air felt fresh.</p>
+<p><strong>26.</strong> How many species were recorded in the survey?<br />
+(A) Around forty.<br />
+(B) The survey took weeks.<br />
+(C) We surveyed twice.</p>
+<p><strong>27.</strong> Who's leading the river cleanup this weekend?<br />
+(A) Cleanups take effort.<br />
+(B) A volunteer coordinator from the city.<br />
+(C) Rivers are important.</p>
+<p><strong>28.</strong> Do you know if the grant application was approved?<br />
+(A) Grants take time.<br />
+(B) I applied for a grant once.<br />
+(C) Yes, it was approved yesterday.</p>
+<p><strong>29.</strong> Should we expand the composting program to other buildings?<br />
+(A) Composting reduces waste.<br />
+(B) Let's pilot it in one more building first.<br />
+(C) I composted at home.</p>
+<p><strong>30.</strong> Haven't you finished analyzing the soil samples yet?<br />
+(A) Analysis takes time.<br />
+(B) Almost, just a few more to go.<br />
+(C) The samples looked healthy.</p>
+<p><strong>31.</strong> Why was the field trip canceled?<br />
+(A) Field trips are fun.<br />
+(B) It happened last spring too.<br />
+(C) Because of a severe weather warning.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I'm calling about the compost bin the city gave us. Ours has a lot of fruit flies and a bad smell.<br />
+<strong>M:</strong> That usually means too much wet material and not enough dry. Are you adding leaves or shredded paper?<br />
+<strong>W:</strong> No, just food scraps.<br />
+<strong>M:</strong> Start layering in dry material — a handful of shredded paper or dry leaves each time you add scraps. It should improve in a week.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To request a new compost bin<br />
+(B) About a problem with her compost bin<br />
+(C) To ask when compost is collected<br />
+(D) To cancel the service</p>
+<p><strong>33.</strong> What does the man say is the likely cause?<br />
+(A) The bin is in the sun<br />
+(B) The lid doesn't seal<br />
+(C) Too much wet material, not enough dry<br />
+(D) Meat was added</p>
+<p><strong>34.</strong> What does the man advise?<br />
+(A) Move the bin indoors<br />
+(B) Empty the bin completely<br />
+(C) Use a different bin<br />
+(D) Add dry material like shredded paper</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The energy audit is done. The biggest loss is the old rooftop units — they're only about 60% efficient.<br />
+<strong>W:</strong> Replacing all of them at once would be expensive.<br />
+<strong>M:</strong> I've grouped them. The three worst account for most of the waste. If we replace those this year, we recover the cost in about four years from lower bills.<br />
+<strong>W:</strong> Let's put those three in the budget and phase the rest over three years.</p>
+<p><strong>35.</strong> What are the speakers discussing?<br />
+(A) The results of an energy audit<br />
+(B) A roof repair<br />
+(C) A new office layout<br />
+(D) A staffing plan</p>
+<p><strong>36.</strong> What is the biggest source of energy loss?<br />
+(A) Windows<br />
+(B) Lighting<br />
+(C) Old rooftop units<br />
+(D) Doors left open</p>
+<p><strong>37.</strong> What do the speakers decide?<br />
+(A) Replace all the units this year<br />
+(B) Replace the three worst units this year and phase the rest<br />
+(C) Do nothing for now<br />
+(D) Get a second audit</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> The wetland restoration site had a setback — invasive reeds came back thick in the north section.<br />
+<strong>M1:</strong> We pulled those last spring.<br />
+<strong>W:</strong> They regrow from root fragments. A one-time pull isn't enough.<br />
+<strong>M2:</strong> We could do targeted removal three times over the season instead of once.<br />
+<strong>W:</strong> Let's do that, and plant fast-growing natives right after each pull to hold the ground.</p>
+<p><strong>38.</strong> What problem is being discussed?<br />
+(A) Invasive reeds regrowing at the restoration site<br />
+(B) Flooding at the site<br />
+(C) A funding shortfall<br />
+(D) Vandalism</p>
+<p><strong>39.</strong> Why did the one-time removal not work?<br />
+(A) It was done at the wrong time of year<br />
+(B) The reeds regrow from root fragments<br />
+(C) Not enough volunteers showed up<br />
+(D) The wrong plants were pulled</p>
+<p><strong>40.</strong> What will they do after each removal?<br />
+(A) Apply herbicide<br />
+(B) Install fencing<br />
+(C) Plant fast-growing native species<br />
+(D) Add soil</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> A resident emailed that the new streetlights are too bright and shine into their bedroom.<br />
+<strong>W:</strong> Those are the LED replacements. They're more efficient but the light is more directional.<br />
+<strong>M:</strong> Can we do anything?<br />
+<strong>W:</strong> Yes — we can add a shield on the house-facing side of that fixture, and dim it after 11 P.M. I'll put in a work order for both.</p>
+<p><strong>41.</strong> What is the resident's complaint?<br />
+(A) A streetlight is too bright and shines into their bedroom<br />
+(B) A streetlight is broken<br />
+(C) The street is too dark<br />
+(D) A light flickers</p>
+<p><strong>42.</strong> Why is the new light more of a problem?<br />
+(A) It uses more energy<br />
+(B) The light is more directional<br />
+(C) It's mounted higher<br />
+(D) It's a warmer color</p>
+<p><strong>43.</strong> What will the woman do?<br />
+(A) Remove the light<br />
+(B) Ask the resident to install curtains<br />
+(C) Replace it with the old type<br />
+(D) Put in a work order for a shield and dimming</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The new weather station is up, but the rain data looks off — it's reading zero even when it drizzles.<br />
+<strong>M:</strong> The tipping-bucket gauge might be blocked. Leaves and dust collect in the funnel.<br />
+<strong>W:</strong> I'll go clear it. Anything else to check?<br />
+<strong>M:</strong> While you're up there, make sure it's level. If it tilts, the readings are wrong even when it's clean.</p>
+<p><strong>44.</strong> What is the problem with the weather station?<br />
+(A) It won't connect to the network<br />
+(B) The temperature sensor failed<br />
+(C) The rain gauge reads zero during light rain<br />
+(D) The wind vane is stuck</p>
+<p><strong>45.</strong> What does the man think is wrong?<br />
+(A) The battery is low<br />
+(B) The software needs an update<br />
+(C) It's in the wrong location<br />
+(D) The gauge funnel is blocked</p>
+<p><strong>46.</strong> What else should the woman check?<br />
+(A) The cable connections<br />
+(B) The sensor calibration date<br />
+(C) The mounting bolts<br />
+(D) That the station is level</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> How did the sustainability report land with the board?<br />
+<strong>W:</strong> Well. They approved the two big items — the fleet electrification plan and the switch to a renewable electricity contract.<br />
+<strong>M:</strong> That's most of our target.<br />
+<strong>W:</strong> Right. The one thing they want more detail on is the waste-reduction goal — specifically how we'll measure progress. I'll bring a measurement plan to the next meeting.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) A sustainability report presented to the board<br />
+(B) A new hire<br />
+(C) A budget cut<br />
+(D) An office move</p>
+<p><strong>48.</strong> What did the board approve?<br />
+(A) A new recycling program<br />
+(B) A tree-planting initiative<br />
+(C) Fleet electrification and a renewable electricity contract<br />
+(D) A carbon offset purchase</p>
+<p><strong>49.</strong> What does the board want more detail on?<br />
+(A) The cost of the fleet plan<br />
+(B) How the waste-reduction goal will be measured<br />
+(C) The timeline for solar panels<br />
+(D) Staff training</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> The air quality monitor near the school has been showing unusual readings all week.<br />
+<strong>M:</strong> Should we send someone to check if the sensor itself is working correctly?<br />
+<strong>W:</strong> Good idea — I'll ask the technician to inspect it tomorrow.<br />
+<strong>M:</strong> In the meantime, let's flag the data as unverified so people don't misread it.</p>
+<p><strong>50.</strong> What has been unusual?<br />
+(A) Air quality readings near the school<br />
+(B) Water pressure downtown<br />
+(C) Traffic patterns<br />
+(D) Noise levels</p>
+<p><strong>51.</strong> What does the man suggest checking?<br />
+(A) The weather forecast<br />
+(B) Whether the sensor is working correctly<br />
+(C) The school's schedule<br />
+(D) A nearby factory</p>
+<p><strong>52.</strong> What will the speakers do with the current data?<br />
+(A) Delete it<br />
+(B) Flag it as unverified<br />
+(C) Publish it immediately<br />
+(D) Ignore it completely</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> Our recycling participation rate dropped again this quarter.<br />
+<strong>W:</strong> Maybe people are confused about what's actually recyclable.<br />
+<strong>M:</strong> That's possible. Should we put together a simple guide?<br />
+<strong>W:</strong> Yes, and let's post it near every bin so it's easy to find.</p>
+<p><strong>53.</strong> What problem is discussed?<br />
+(A) A drop in recycling participation<br />
+(B) A budget cut<br />
+(C) A staffing shortage<br />
+(D) A missed deadline</p>
+<p><strong>54.</strong> What does the woman think is the cause?<br />
+(A) Lack of bins<br />
+(B) Confusion about what's recyclable<br />
+(C) High costs<br />
+(D) Lack of interest</p>
+<p><strong>55.</strong> What will the speakers create?<br />
+(A) A new policy<br />
+(B) A simple guide<br />
+(C) A survey<br />
+(D) A fine system</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> The lab results confirm the stream's oxygen levels are lower than last year.<br />
+<strong>M:</strong> That could explain the drop in fish population we noticed.<br />
+<strong>W:</strong> Exactly. I think we should look upstream for possible causes.<br />
+<strong>M:</strong> Agreed, let's schedule a site visit for next week.</p>
+<p><strong>56.</strong> What do the lab results show?<br />
+(A) Higher oxygen levels<br />
+(B) Lower oxygen levels than last year<br />
+(C) No change in oxygen levels<br />
+(D) Contaminated soil</p>
+<p><strong>57.</strong> What might this explain?<br />
+(A) A drop in fish population<br />
+(B) A change in water color<br />
+(C) An increase in algae<br />
+(D) A rise in temperature</p>
+<p><strong>58.</strong> What will the speakers do next week?<br />
+(A) Publish their findings<br />
+(B) Schedule a site visit upstream<br />
+(C) Close the stream to the public<br />
+(D) Request more funding</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> We received funding for the community garden project, which is great news.<br />
+<strong>W:</strong> That's wonderful. What's our timeline for breaking ground?<br />
+<strong>M:</strong> We're hoping to start in early spring, once the ground has thawed.<br />
+<strong>W:</strong> I'll start reaching out to volunteers so we have help ready to go.</p>
+<p><strong>59.</strong> What good news does the man share?<br />
+(A) A new hire<br />
+(B) Funding for the community garden project<br />
+(C) A new location<br />
+(D) An award</p>
+<p><strong>60.</strong> When do they hope to start?<br />
+(A) This winter<br />
+(B) Early spring<br />
+(C) Summer<br />
+(D) Next year</p>
+<p><strong>61.</strong> What will the woman do?<br />
+(A) Order supplies<br />
+(B) Reach out to volunteers<br />
+(C) Design the garden layout<br />
+(D) Apply for more funding</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's finalize the agenda for the sustainability workshop.<br />
+<strong>M1:</strong> I think we should include a session on reducing office waste.<br />
+<strong>M2:</strong> Good idea, and I can lead a short talk on energy-efficient equipment.<br />
+<strong>W:</strong> Perfect, I'll put the full agenda together and share it by Friday.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A sustainability workshop<br />
+(B) A product launch<br />
+(C) A hiring event<br />
+(D) A budget meeting</p>
+<p><strong>63.</strong> What topic does the first man suggest?<br />
+(A) Recycling programs<br />
+(B) Reducing office waste<br />
+(C) Water conservation<br />
+(D) Composting</p>
+<p><strong>64.</strong> What will the woman do by Friday?<br />
+(A) Book a venue<br />
+(B) Share the full agenda<br />
+(C) Invite speakers<br />
+(D) Order materials</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I noticed our energy bill has gone up significantly this quarter.<br />
+<strong>M:</strong> It might be the old lighting system — it's not very efficient.<br />
+<strong>W:</strong> Should we look into switching to LED lighting throughout the building?<br />
+<strong>M:</strong> Yes, let's get a quote and see how quickly it would pay for itself.</p>
+<p><strong>65.</strong> What did the woman notice?<br />
+(A) A drop in temperature<br />
+(B) A significant rise in the energy bill<br />
+(C) A broken thermostat<br />
+(D) A power outage</p>
+<p><strong>66.</strong> What does the man suspect is the cause?<br />
+(A) The old lighting system<br />
+(B) Faulty wiring<br />
+(C) A new appliance<br />
+(D) The weather</p>
+<p><strong>67.</strong> What will the speakers look into?<br />
+(A) Switching to LED lighting<br />
+(B) Reducing office hours<br />
+(C) Hiring an electrician<br />
+(D) Moving to a new building</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> The city is proposing new limits on single-use plastics starting next year.<br />
+<strong>W:</strong> That will definitely affect our packaging for takeout orders.<br />
+<strong>M:</strong> Right, we should start researching alternatives now instead of waiting.<br />
+<strong>W:</strong> Agreed, I'll put together a list of eco-friendly suppliers this week.</p>
+<p><strong>68.</strong> What is the city proposing?<br />
+(A) New limits on single-use plastics<br />
+(B) A new recycling fee<br />
+(C) A ban on delivery services<br />
+(D) New parking regulations</p>
+<p><strong>69.</strong> How will this affect the speakers' business?<br />
+(A) It will require higher taxes.<br />
+(B) It will affect their takeout packaging.<br />
+(C) It will reduce their hours.<br />
+(D) It will require relocation.</p>
+<p><strong>70.</strong> What will the woman do this week?<br />
+(A) Contact the city council<br />
+(B) Put together a list of eco-friendly suppliers<br />
+(C) Raise prices<br />
+(D) Stop offering takeout</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Community announcement</h3>
+<p><em>"A reminder that the household hazardous waste collection event is this Saturday from 9 to 1 in the north parking lot of the community center. Bring paint, solvents, pesticides, motor oil, and old electronics. We cannot accept regular trash, medical waste, or explosives. There's no charge for residents; just bring a utility bill or ID showing your address. Volunteers will unload your car, so please stay in your vehicle."</em></p>
+<p><strong>71.</strong> When is the collection event?<br />
+(A) Saturday, 9 to 1<br />
+(B) Sunday, all day<br />
+(C) Friday evening<br />
+(D) This weekend, both days</p>
+<p><strong>72.</strong> What can residents bring?<br />
+(A) Regular household trash<br />
+(B) Medical waste<br />
+(C) Large furniture<br />
+(D) Paint, solvents, and old electronics</p>
+<p><strong>73.</strong> What do residents need to bring to prove their address?<br />
+(A) A photo of their home<br />
+(B) A neighbor's statement<br />
+(C) A utility bill or ID<br />
+(D) Nothing</p>
+<h3>Talk 2 (74–76) — Voicemail from a research coordinator</h3>
+<p><em>"Hi, this is Devon from the Coastal Monitoring Project. I'm calling about the volunteer training on the 12th. It's now confirmed for 10 A.M. at the field station. We'll cover water sampling, data entry, and safety on the mudflats — including tide timing, which is critical. Please wear boots you don't mind getting muddy and bring a full water bottle. If it's raining hard that morning, we'll move it to the 19th and I'll text everyone by 8 A.M."</em></p>
+<p><strong>74.</strong> What is the call about?<br />
+(A) A volunteer training session<br />
+(B) A grant deadline<br />
+(C) A canceled project<br />
+(D) A public lecture</p>
+<p><strong>75.</strong> What will the training cover?<br />
+(A) Grant writing<br />
+(B) Water sampling, data entry, and mudflat safety<br />
+(C) Bird identification<br />
+(D) Boat handling</p>
+<p><strong>76.</strong> What happens if it rains hard that morning?<br />
+(A) The training is canceled<br />
+(B) It moves indoors<br />
+(C) It's postponed to the 19th<br />
+(D) Only part of it happens</p>
+<h3>Talk 3 (77–79) — Conference talk excerpt</h3>
+<p><em>"The surprising finding was about behavior, not technology. We gave half the households a simple monthly report comparing their energy use to similar homes nearby. That group cut usage by an average of 6% — no new equipment, no rebates, just the comparison. And the effect lasted: a year later, they were still using less. The reports cost almost nothing to produce."</em></p>
+<p><strong>77.</strong> What did the study give half the households?<br />
+(A) New appliances<br />
+(B) A rebate check<br />
+(C) A monthly report comparing their energy use to neighbors'<br />
+(D) A home energy audit</p>
+<p><strong>78.</strong> By how much did that group cut usage?<br />
+(A) About 2%<br />
+(B) About 6%<br />
+(C) About 15%<br />
+(D) About 25%</p>
+<p><strong>79.</strong> What does the speaker say about the effect?<br />
+(A) It faded within months<br />
+(B) It only worked in winter<br />
+(C) It required ongoing rebates<br />
+(D) It lasted at least a year</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Is your business sending recyclables to landfill without knowing it? WasteAudit sends a team to sort a sample of your trash and shows you exactly what's being thrown away that shouldn't be. You get a report with the three changes that would divert the most waste, and we help you set up the bins and signage. Most clients cut their landfill volume by a third in the first month. Book a free consultation at wasteaudit.example."</em></p>
+<p><strong>80.</strong> What does WasteAudit do?<br />
+(A) Collects recycling<br />
+(B) Sorts a sample of a business's trash and reports what's wasted<br />
+(C) Sells recycling bins<br />
+(D) Provides landfill space</p>
+<p><strong>81.</strong> What does the report include?<br />
+(A) The three changes that would divert the most waste<br />
+(B) A full list of every item<br />
+(C) A cost estimate for new equipment<br />
+(D) A comparison with competitors</p>
+<p><strong>82.</strong> What result do most clients see?<br />
+(A) Lower water bills<br />
+(B) A tax credit<br />
+(C) Fewer trash pickups needed<br />
+(D) A one-third cut in landfill volume in the first month</p>
+<h3>Talk 5 (83–85) — Park announcement</h3>
+<p><em>"Attention, visitors. Due to trail maintenance, the east loop trail will be closed today and tomorrow. The west loop and the lake trail remain open and offer similarly scenic views. We apologize for any inconvenience and appreciate your understanding as we keep the trails safe."</em></p>
+<p><strong>83.</strong> What is closed today?<br />
+(A) The west loop trail<br />
+(B) The east loop trail<br />
+(C) The lake trail<br />
+(D) The entire park</p>
+<p><strong>84.</strong> Why is the trail closed?<br />
+(A) A wildlife sighting<br />
+(B) Trail maintenance<br />
+(C) Bad weather<br />
+(D) A special event</p>
+<p><strong>85.</strong> What alternative is suggested?<br />
+(A) Visiting another park<br />
+(B) The west loop and lake trail<br />
+(C) Waiting until next week<br />
+(D) Using the parking lot trail</p>
+<h3>Talk 6 (86–88) — Utility company voicemail</h3>
+<p><em>"Hi, this is the water utility calling to let you know crews found evidence of a small leak near your property while doing routine checks. We'd like to schedule a technician to inspect your meter sometime this week. Please call us back to arrange a convenient time."</em></p>
+<p><strong>86.</strong> Why is the utility company calling?<br />
+(A) To report a billing error<br />
+(B) To report a possible leak<br />
+(C) To announce a rate increase<br />
+(D) To schedule a shutoff</p>
+<p><strong>87.</strong> What was found during routine checks?<br />
+(A) A damaged meter<br />
+(B) Evidence of a small leak<br />
+(C) Unauthorized water use<br />
+(D) A broken pipe</p>
+<p><strong>88.</strong> What does the caller ask the listener to do?<br />
+(A) Fix the leak themselves<br />
+(B) Call back to schedule an inspection<br />
+(C) Turn off the water<br />
+(D) Pay an outstanding bill</p>
+<h3>Talk 7 (89–91) — Science museum exhibit intro</h3>
+<p><em>"Welcome to our new exhibit on renewable energy. As you move through the hall, you'll see working models of wind turbines and solar panels, along with interactive displays showing how energy use has changed over the past century. The exhibit continues through the end of the year."</em></p>
+<p><strong>89.</strong> What is the exhibit about?<br />
+(A) Renewable energy<br />
+(B) Ocean life<br />
+(C) Space exploration<br />
+(D) Ancient civilizations</p>
+<p><strong>90.</strong> What can visitors see?<br />
+(A) Live animals<br />
+(B) Working models of turbines and panels<br />
+(C) Historical documents<br />
+(D) A planetarium show</p>
+<p><strong>91.</strong> How long will the exhibit run?<br />
+(A) One month<br />
+(B) Through the end of the year<br />
+(C) One week<br />
+(D) Indefinitely</p>
+<h3>Talk 8 (92–94) — Weather advisory</h3>
+<p><em>"This is a weather advisory for the metro area. Heavy rainfall is expected overnight, with possible localized flooding in low-lying areas. Residents near the river are advised to move vehicles to higher ground. Updates will be provided every two hours until conditions improve."</em></p>
+<p><strong>92.</strong> What is expected overnight?<br />
+(A) Heavy snow<br />
+(B) Heavy rainfall<br />
+(C) Strong winds<br />
+(D) Extreme heat</p>
+<p><strong>93.</strong> What are residents near the river advised to do?<br />
+(A) Evacuate immediately<br />
+(B) Move vehicles to higher ground<br />
+(C) Stay indoors only<br />
+(D) Turn off electricity</p>
+<p><strong>94.</strong> How often will updates be provided?<br />
+(A) Every hour<br />
+(B) Every two hours<br />
+(C) Every six hours<br />
+(D) Once tomorrow morning</p>
+<h3>Talk 9 (95–97) — Research conference talk</h3>
+<p><em>"Thank you for having me. Today I'll share findings from our three-year study on urban tree cover and its effect on local temperatures. In short, neighborhoods with more tree coverage were consistently several degrees cooler in summer. I'll close with recommendations for city planners."</em></p>
+<p><strong>95.</strong> What did the study examine?<br />
+(A) Urban tree cover and temperature<br />
+(B) Air pollution sources<br />
+(C) Water usage patterns<br />
+(D) Wildlife migration</p>
+<p><strong>96.</strong> How long did the study last?<br />
+(A) One year<br />
+(B) Two years<br />
+(C) Three years<br />
+(D) Five years</p>
+<p><strong>97.</strong> What will the speaker close with?<br />
+(A) A question and answer session<br />
+(B) Recommendations for city planners<br />
+(C) A summary of past studies<br />
+(D) A funding request</p>
+<h3>Talk 10 (98–100) — Environmental policy briefing</h3>
+<p><em>"As part of the new sustainability plan, the city will require all new commercial buildings to include rainwater collection systems starting next year. Existing buildings will not be required to comply immediately but will receive incentives if they choose to upgrade voluntarily."</em></p>
+<p><strong>98.</strong> What will new commercial buildings be required to include?<br />
+(A) Solar panels<br />
+(B) Rainwater collection systems<br />
+(C) Electric vehicle chargers<br />
+(D) Green roofs</p>
+<p><strong>99.</strong> When does this requirement take effect?<br />
+(A) Immediately<br />
+(B) Next year<br />
+(C) In five years<br />
+(D) It has not been decided.</p>
+<p><strong>100.</strong> What is offered to existing buildings?<br />
+(A) A mandatory deadline<br />
+(B) Incentives for voluntary upgrades<br />
+(C) A fine for noncompliance<br />
+(D) Free installation</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_011 — READING (100 câu: 101–200) · Chủ đề: Environment &amp; Science</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The lab <span class="blk">________</span> water samples from twelve sites every month.<br />
+(A) analyze  (B) analyzes  (C) analyzing  (D) to analyze</p>
+<p><strong>102.</strong> Samples must be kept cold <span class="blk">________</span> they reach the lab.<br />
+(A) until  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The team recorded the readings <span class="blk">________</span> to avoid transcription errors.<br />
+(A) careful  (B) carefully  (C) carefulness  (D) carefuller</p>
+<p><strong>104.</strong> <span class="blk">________</span> heavy rain during the survey, the crew completed every transect.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Volunteers are asked to <span class="blk">________</span> their boots before entering the protected area.<br />
+(A) clean  (B) cleans  (C) cleaning  (D) cleaned</p>
+<p><strong>106.</strong> The report offers recommendations <span class="blk">________</span> reducing single-use plastics.<br />
+(A) for  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three sites, the eastern wetland has the <span class="blk">________</span> biodiversity.<br />
+(A) great  (B) greater  (C) greatest  (D) more</p>
+<p><strong>108.</strong> The monitoring was paused <span class="blk">________</span> a failure of the data logger.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The city lowered its emissions <span class="blk">________</span> shifting its bus fleet to electric power.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Average temperatures in the region have risen <span class="blk">________</span> over the past decade.<br />
+(A) steady  (B) steadiness  (C) steadier  (D) steadily</p>
+<p><strong>111.</strong> Each specimen <span class="blk">________</span> photographed and tagged before it is released.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The project lead asked the interns to <span class="blk">________</span> the field notes into the database by Friday.<br />
+(A) enter  (B) entering  (C) entered  (D) entry</p>
+<p><strong>113.</strong> The tide tables are posted <span class="blk">________</span> the noticeboard at the field station.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> the samples are logged, they are moved to cold storage.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The organization <span class="blk">________</span> more than 40 restoration sites across the watershed.<br />
+(A) manage  (B) manages  (C) managing  (D) managed</p>
+<p><strong>116.</strong> The habitat survey is expected <span class="blk">________</span> before the nesting season begins.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Researchers should keep <span class="blk">________</span> records of sampling dates, locations, and conditions.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The new sensor network reports readings far <span class="blk">________</span> than the manual method.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The study proposes several <span class="blk">________</span> to cut the facility's water use.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The public seminar will be held <span class="blk">________</span> the auditorium at the science center.<br />
+(A) at  (B) on  (C) in  (D) by</p>
+<p><strong>121.</strong> The permit was granted <span class="blk">________</span> conditions on the timing of any tree removal.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> A specialist will <span class="blk">________</span> the soil samples for contamination before construction.<br />
+(A) test  (B) tests  (C) testing  (D) tester</p>
+<p><strong>123.</strong> Community groups are <span class="blk">________</span> for small grants to run local cleanup projects.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The redesigned data form lets field staff record observations <span class="blk">________</span> than before.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The utility is committed to <span class="blk">________</span> half of its power from renewable sources by 2030.<br />
+(A) generate  (B) generates  (C) generating  (D) generated</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two sites showed any sign of the rare frog, so the search will continue.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The recycling center is open <span class="blk">________</span> 8 A.M. to 5 P.M., Tuesday through Sunday.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>128.</strong> Any change to the sampling protocol must be approved by an <span class="blk">________</span> supervisor.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The updated field-safety guide <span class="blk">________</span> distributed to all volunteers next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The visitor guide provides <span class="blk">________</span> explanations of the wetland ecosystem.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Trail Closure for Erosion Repair</strong></p>
+<p>The lakeside trail between markers 3 and 6 <span class="blk">(131)</span> closed from Monday, October 6, through Friday, October 17, for erosion repair.</p>
+<p>Crews <span class="blk">(132)</span> rebuild the washed-out section, add drainage, and reseed the banks. During the closure, use the ridge trail as a detour; it adds about 20 minutes.</p>
+<p>Please stay off the closed section even on weekends. Walking on the repaired area before the plants <span class="blk">(133)</span> established can undo the work.</p>
+<p>We appreciate your patience while we protect the shoreline. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will rebuild  (B) rebuild  (C) rebuilding  (D) rebuilt<br />
+<strong>133.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The trail will reopen ahead of schedule if repairs finish early.<br />
+(B) Pets are not allowed on the ridge trail detour.<br />
+(C) Contact the park office if you have any questions.<br />
+(D) The lakeside trail will remain closed through the winter.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Rule for the Kitchen — Composting</p>
+<p>Starting Monday, food waste from the kitchen <span class="blk">(135)</span> go in the new green bin, not the trash.</p>
+<p>The green bin is collected daily and taken to a commercial composter, so it can handle food scraps, coffee grounds, and paper napkins. It <span class="blk">(136)</span> take plastic, foil, or utensils, even the "compostable" ones — those need a different facility we don't have access to.</p>
+<p>If you're unsure, there's a chart above the bin. When in doubt, put it in the trash rather than risk contaminating the compost; one bad item <span class="blk">(137)</span> get a whole load rejected.</p>
+<p>Thanks for your cooperation with this. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can't  (B) doesn't  (C) won't  (D) hasn't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) can<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Compostable utensils can now go in the green bin.<br />
+(B) The green bin will be collected weekly instead of daily.<br />
+(C) This rule applies only to the main kitchen.<br />
+(D) Reach out to facilities if you have questions about what goes where.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>GREENMETER — SEE YOUR BUILDING'S ENERGY IN REAL TIME</strong></p>
+<p>GreenMeter clips onto your existing electrical panel and shows, on a simple dashboard, exactly where your energy is going — by circuit, by hour, by day.</p>
+<p>Most buildings find <span class="blk">(139)</span> surprising: equipment left on overnight, a heater fighting an air conditioner, a freezer that's failing. Fixing the top three usually cuts the bill by 10 to 15 percent.</p>
+<p>Installation is <span class="blk">(140)</span> and takes about an hour. There's no <span class="blk">(141)</span> contract, and the first month is free. Book a demo at greenmeter.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) GreenMeter requires rewiring your entire electrical panel.<br />
+(B) Most customers see savings within the first year only.<br />
+(C) A certified electrician must be present for the demo.<br />
+(D) It only takes a few minutes to see if it's a fit for your building.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Sustainability Team <strong>RE:</strong> Paper Use — A Small Change</p>
+<p>Our default printer setting <span class="blk">(143)</span> to double-sided, black-and-white, starting this week. You can still change it per job when you need color or single-sided.</p>
+<p>Last year we printed about 400,000 sheets. Double-siding by default <span class="blk">(144)</span> cut that roughly in half without anyone doing anything differently.</p>
+<p>We're also removing the personal printers from desks over the next month. The shared printers are within 20 meters of every desk and <span class="blk">(145)</span> cheaper to run and maintain.</p>
+<p>If a personal printer is essential for your role, email us with the reason and we will review it. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Shared printers will be removed entirely next year.<br />
+(B) Color printing will no longer be available to anyone.<br />
+(C) This change is expected to double our paper costs.<br />
+(D) Thanks for helping us reduce our paper use.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Field 1 (6:05 A.M.):</strong> Gauge station 4 flatlined overnight — no data since 11 PM.<br />
+<strong>Field 2 (6:08 A.M.):</strong> Could be the battery or the modem. I'm 20 min out, heading there now.<br />
+<strong>Field 1 (6:31 A.M.):</strong> ?<br />
+<strong>Field 2 (6:33 A.M.):</strong> Modem was frozen — power-cycled it, data's flowing again. Battery's fine. Backfilling the gap from the local logger.</p>
+<p><strong>147.</strong> What was the problem at station 4?<br />
+(A) No data was being received<br />
+(B) The gauge was vandalized<br />
+(C) The battery died<br />
+(D) A flood damaged the sensor</p>
+<p><strong>148.</strong> What fixed it?<br />
+(A) Replacing the battery<br />
+(B) Power-cycling the modem<br />
+(C) Moving the station<br />
+(D) Calling the vendor</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>CITY TO REQUIRE FOOD-WASTE SEPARATION FOR LARGE BUSINESSES</strong></p>
+<p>Starting January, businesses that generate more than 200 kilograms of food waste per week — mostly large restaurants, hotels, and grocery stores — will be required to separate that waste for composting rather than sending it to landfill. The city says these businesses account for a large share of the food waste in the trash stream.</p>
+<p>Affected businesses will get a six-month grace period to set up bins and train staff, and the city is offering free starter kits and signage. Haulers will provide separate pickup; the cost is expected to be similar to or slightly less than current trash rates, because compost tipping fees are lower.</p>
+<p>Smaller businesses and households are encouraged but not required to participate. The city plans to review the results after one year and may lower the threshold.</p>
+<p><strong>149.</strong> Who will be required to separate food waste?<br />
+(A) Businesses generating over 200 kg of food waste per week<br />
+(B) All businesses and households<br />
+(C) Only grocery stores<br />
+(D) Restaurants with more than 50 seats</p>
+<p><strong>150.</strong> What is the city offering to affected businesses?<br />
+(A) A tax rebate<br />
+(B) Reduced property taxes<br />
+(C) Free starter kits and signage<br />
+(D) A cash grant</p>
+<p><strong>151.</strong> Why might the cost be similar or lower?<br />
+(A) The city subsidizes it<br />
+(B) Compost tipping fees are lower than landfill fees<br />
+(C) Pickups will be less frequent<br />
+(D) Businesses share a hauler</p>
+<p><strong>152.</strong> What might the city do after one year?<br />
+(A) End the program<br />
+(B) Make it mandatory for households<br />
+(C) Lower the threshold<br />
+(D) Raise trash rates</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Prescribed Burn This Week</strong></p>
+<p>Weather permitting, the parks department will conduct a prescribed burn in the east meadow on Wednesday or Thursday. This is a planned, controlled fire that clears invasive brush and helps native grasses.</p>
+<p>You may see smoke and smell burning from the trails and nearby streets. The meadow and the adjacent loop trail will be closed on the burn day and the following morning. Crews and equipment will be on site throughout.</p>
+<p><strong>153.</strong> What is happening in the east meadow this week?<br />
+(A) A prescribed (controlled) burn<br />
+(B) A tree-planting event<br />
+(C) A construction project<br />
+(D) A wildlife survey</p>
+<p><strong>154.</strong> What is the purpose of the burn?<br />
+(A) To clear invasive brush and help native grasses<br />
+(B) To create a firebreak<br />
+(C) To remove fallen trees<br />
+(D) To prepare for a building</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>RAINWISE — TURN YOUR ROOF RUNOFF INTO A RESOURCE</strong></p>
+<p>RainWise designs and installs rain gardens, barrels, and permeable surfaces that keep stormwater on your property instead of overloading the drains. Less runoff means less flooding, less erosion, and a lower stormwater fee on your utility bill in cities that charge one.</p>
+<p>We start with a free site visit to look at your slope, soil, and downspouts, then give you options at three price points. Many projects qualify for a city rebate that covers part of the cost.</p>
+<p>Book a visit at rainwise.example.</p>
+<p><strong>155.</strong> What does RainWise install?<br />
+(A) Solar panels<br />
+(B) Rain gardens, barrels, and permeable surfaces<br />
+(C) Roof insulation<br />
+(D) Backup generators</p>
+<p><strong>156.</strong> What benefit is mentioned for utility bills?<br />
+(A) A lower electricity rate<br />
+(B) A water-usage rebate<br />
+(C) Free trash pickup<br />
+(D) A lower stormwater fee in cities that charge one</p>
+<p><strong>157.</strong> What does RainWise do first?<br />
+(A) Install a rain barrel<br />
+(B) Send a quote by email<br />
+(C) A free site visit<br />
+(D) Apply for a permit</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-staff <strong>From:</strong> Facilities <strong>Subject:</strong> Turning Off Equipment Over the Long Weekend</p>
+<p>Before you leave Friday, please shut down everything that doesn't need to run over the four-day weekend. Last long weekend, a review found that idle equipment used nearly as much electricity as a normal working day.</p>
+<p>Checklist: monitors and computers off (not just asleep), task lights off, personal heaters and fans unplugged, and lab equipment on standby only if a protocol requires it. Leave the fridges and the server room alone.</p>
+<p>If your area has equipment that must stay on, tape a note on it so the Friday walk-through knows it's intentional.</p>
+<p><strong>158.</strong> What does the email ask staff to do?<br />
+(A) Shut down non-essential equipment before the long weekend<br />
+(B) Come in over the weekend<br />
+(C) Unplug the refrigerators<br />
+(D) Turn off the server room</p>
+<p><strong>159.</strong> What did last long weekend's review find?<br />
+(A) The building was too cold<br />
+(B) Several devices were left running by mistake with no impact<br />
+(C) The server room overheated<br />
+(D) Idle equipment used nearly as much power as a working day</p>
+<p><strong>160.</strong> What should staff do with equipment that must stay on?<br />
+(A) Move it to the server room<br />
+(B) Email facilities the details<br />
+(C) Tape a note on it for the Friday walk-through<br />
+(D) Nothing; it's assumed</p>
+<h3>Passage 6 — Drop-off recycling table (161–162)</h3>
+<p><strong>DROP-OFF RECYCLING — ACCEPTED ITEMS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Accepted?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Glass bottles &amp; jars</td>
+<td>Yes</td>
+<td>Rinse; lids off</td>
+</tr>
+<tr>
+<td>Cardboard</td>
+<td>Yes</td>
+<td>Flatten; keep dry</td>
+</tr>
+<tr>
+<td>Plastic bags &amp; film</td>
+<td>No</td>
+<td>Take to a grocery-store drop-off</td>
+</tr>
+<tr>
+<td>Electronics</td>
+<td>Yes</td>
+<td>Separate bin near the entrance</td>
+</tr>
+<tr>
+<td>Batteries</td>
+<td>Yes</td>
+<td>Tape terminals of lithium batteries</td>
+</tr>
+<tr>
+<td>Styrofoam</td>
+<td>No</td>
+<td>Not accepted anywhere in this program</td>
+</tr>
+</tbody>
+</table>
+<p>Open Saturdays 9 A.M.–3 P.M. Household quantities only; no commercial loads.</p>
+<p><strong>161.</strong> What must be done with lithium batteries before drop-off?<br />
+(A) Remove them from devices<br />
+(B) Tape the terminals<br />
+(C) Place them in a sealed bag<br />
+(D) Bring a receipt</p>
+<p><strong>162.</strong> Which item is NOT accepted?<br />
+(A) Glass jars<br />
+(B) Flattened cardboard<br />
+(C) Electronics<br />
+(D) Plastic film</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Faye,</p>
+<p>Thank you for your letter about the die-off of trees along Cedar Street.</p>
+<p>We had an arborist inspect the row. The cause is a soil-compaction problem: years of parking and foot traffic over the roots, made worse by last year's drought. Six of the fourteen trees can't be saved and will be removed this fall for safety. The other eight will get aeration around the roots, a layer of mulch, and reduced competition from turf.</p>
+<p>We will replant the six spaces with a more compaction-tolerant species, in larger planting beds protected by low curbs to keep traffic off the roots. Replanting is scheduled for spring.</p>
+<p>We share your concern for the street's tree canopy and appreciate you bringing this to our attention.</p>
+<p>Sincerely,<br />
+Urban Forestry</p>
+<p><strong>163.</strong> Why did Ms. Faye write?<br />
+(A) About trees dying along Cedar Street<br />
+(B) To request a new tree<br />
+(C) To complain about leaf collection<br />
+(D) To ask for a permit</p>
+<p><strong>164.</strong> What is the cause of the problem?<br />
+(A) A tree disease<br />
+(B) Insect damage<br />
+(C) Vandalism<br />
+(D) Soil compaction worsened by drought</p>
+<p><strong>165.</strong> What will happen to six of the trees?<br />
+(A) They will be treated with fertilizer<br />
+(B) They will be removed this fall<br />
+(C) They will be moved to a park<br />
+(D) Nothing</p>
+<p><strong>166.</strong> How will the new trees be protected?<br />
+(A) With fencing all year<br />
+(B) By closing the street to parking<br />
+(C) With larger planting beds and low curbs<br />
+(D) With irrigation only</p>
+<h3>Passage 8 — Community solar FAQ (167–169)</h3>
+<p><strong>COMMUNITY SOLAR — FAQ</strong></p>
+<p><strong>What is community solar?</strong><br />
+You subscribe to a share of a nearby solar farm. The electricity it produces is credited to your utility bill, lowering it. You don't install anything.</p>
+<p><strong>How much do I save?</strong><br />
+Subscribers typically save 5–10% on the portion of their bill covered by the credits, after the subscription fee.</p>
+<p><strong>What if I move?</strong><br />
+If you move within the same utility area, your subscription moves with you. If you move outside it, you can cancel with 90 days' notice, no penalty.</p>
+<p><strong>Is there a contract?</strong><br />
+Month-to-month after the first year. The first-year commitment lets the project plan its output.</p>
+<p><strong>167.</strong> What does a community solar subscriber install?<br />
+(A) Rooftop panels<br />
+(B) A battery<br />
+(C) A smart meter<br />
+(D) Nothing</p>
+<p><strong>168.</strong> How much do subscribers typically save?<br />
+(A) 5–10% on the credited portion of the bill<br />
+(B) 25% on the whole bill<br />
+(C) A flat $50 a month<br />
+(D) Nothing in the first year</p>
+<p><strong>169.</strong> What happens if a subscriber moves outside the utility area?<br />
+(A) The subscription automatically transfers<br />
+(B) They pay a large exit fee<br />
+(C) They can cancel with 90 days' notice, no penalty<br />
+(D) The subscription is forfeited</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> Lab Staff <strong>FROM:</strong> Safety Officer <strong>RE:</strong> Chemical Waste — Reminder</p>
+<p>Every chemical waste container must have a label started as soon as the first drop goes in: the words "Hazardous Waste," the contents (full names, not formulas), and the date you started filling it.</p>
+<p>Containers must be kept closed except when you're actively adding waste — not left open "for convenience." Keep incompatible wastes in separate containers; the compatibility chart is by the sink.</p>
+<p>When a container is three-quarters full, or after 90 days, whichever comes first, submit a pickup request. Don't wait until it's overflowing.</p>
+<p><strong>170.</strong> When must a waste label be started?<br />
+(A) When the container is full<br />
+(B) As soon as the first waste goes in<br />
+(C) At the end of the day<br />
+(D) Only when a pickup is requested</p>
+<p><strong>171.</strong> How should waste containers be kept?<br />
+(A) Open for ventilation<br />
+(B) In a fume hood at all times<br />
+(C) Outside the lab<br />
+(D) Closed except when actively adding waste</p>
+<p><strong>172.</strong> When should a pickup be requested?<br />
+(A) When the container overflows<br />
+(B) Every 30 days<br />
+(C) At three-quarters full or after 90 days, whichever is first<br />
+(D) Only during the annual audit</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Solid data, clunky app</strong> — citizen-science volunteer</p>
+<p>I've used this water-quality kit for a season of monthly sampling. The test strips and the reagent kits are reliable — my duplicate samples match well, and the lab-verified checks I've done line up.</p>
+<p>The app for logging results is the weak point. It's slow to load, the GPS often needs a manual nudge, and if you lose signal mid-entry it sometimes loses the whole record. I've started writing results on paper first and entering them later.</p>
+<p>For the price, the science is good. If they fixed the app, I'd give it five stars.</p>
+<p><strong>173.</strong> What does the reviewer say is reliable?<br />
+(A) The test strips and reagent kits<br />
+(B) The logging app<br />
+(C) The customer support<br />
+(D) The GPS</p>
+<p><strong>174.</strong> What is the main problem?<br />
+(A) Inaccurate test results<br />
+(B) The app is slow and can lose records<br />
+(C) The kit is too expensive<br />
+(D) The reagents expire quickly</p>
+<p><strong>175.</strong> What has the reviewer started doing?<br />
+(A) Using a different kit<br />
+(B) Sampling less often<br />
+(C) Skipping the GPS<br />
+(D) Writing results on paper first</p>
+<h3>Passages 11–12 — Compost drop-off rules &amp; email (176–180)</h3>
+<p><strong>Document 1 — Rules</strong></p>
+<p><strong>RESIDENTIAL COMPOST DROP-OFF — RULES</strong></p>
+<ul>
+<li>Free for city residents. Sign up once online; you'll get a keypad code for the bin enclosure.</li>
+<li>Accepted: fruit and vegetable scraps, coffee grounds and filters, eggshells, plant trimmings, unbleached paper towels.</li>
+<li>NOT accepted: meat, fish, dairy, oil, pet waste, compostable plastics, or anything in a plastic bag. Bring scraps loose or in a paper bag.</li>
+<li>Drop off any day, 6 A.M.–10 P.M. Keep the area clean; if the bin is full, use the second enclosure 50 meters north.</li>
+<li>Repeated contamination (bags, non-compostables) can lead to the code being deactivated.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Park <strong>To:</strong> compost@city.example <strong>Subject:</strong> A few questions before I sign up</p>
+<p>Hi,</p>
+<ol>
+<li>I have a countertop bin with a compostable liner — do I dump the scraps loose and throw the liner in my trash, or can the liner go in the bin?</li>
+<li>Can I bring my neighbor's scraps too? He's elderly and doesn't drive.</li>
+<li>What happens if both enclosures are full?</li>
+</ol>
+<p><strong>176.</strong> What is required to use the drop-off?<br />
+(A) A monthly fee<br />
+(B) Signing up online once to get a keypad code<br />
+(C) A city ID card each visit<br />
+(D) An appointment</p>
+<p><strong>177.</strong> Which item is NOT accepted?<br />
+(A) Coffee grounds<br />
+(B) Eggshells<br />
+(C) Meat and dairy<br />
+(D) Plant trimmings</p>
+<p><strong>178.</strong> How should scraps be brought?<br />
+(A) Loose or in a paper bag<br />
+(B) In any plastic bag<br />
+(C) Frozen<br />
+(D) In a sealed container to keep</p>
+<p><strong>179.</strong> What is one of Owen's questions?<br />
+(A) The cost of the program<br />
+(B) The bin's exact location<br />
+(C) Whether the compostable liner can go in the bin<br />
+(D) Whether he needs gloves</p>
+<p><strong>180.</strong> What can happen after repeated contamination?<br />
+(A) A warning letter only<br />
+(B) A fine<br />
+(C) Nothing<br />
+(D) The keypad code being deactivated</p>
+<h3>Passages 13–14 — Two emails about a rebate (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Lena Marsh <strong>To:</strong> rebates@energyprogram.example <strong>Subject:</strong> Heat pump rebate — status and questions</p>
+<p>Hi,</p>
+<p>I submitted a rebate application for a heat pump installed in March — application #HP-9021. It's been six weeks and the status still shows "received." Two questions:<br />
+1. What's the normal processing time?<br />
+2. The rebate amount on the site went up in April. My install was in March but I applied in April. Which amount applies?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> rebates@energyprogram.example <strong>To:</strong> Lena Marsh <strong>Subject:</strong> RE: Heat pump rebate — status and questions</p>
+<p>Hi Lena,</p>
+<ol>
+<li>Processing is normally 4–8 weeks; yours is within that window. "Received" means it's in the queue; you'll see it change to "under review" and then "approved" or "needs info." If it hasn't moved by week 10, reply here.</li>
+<li>The rebate amount is set by the date of installation, not the application date. Your March install means the pre-April amount applies. That's stated in the program rules, section 4.</li>
+</ol>
+<p>If your paperwork included the higher figure, don't worry — we adjust it to the correct amount and note it; we don't reject applications for that.</p>
+<p><strong>181.</strong> Why did Lena email the program?<br />
+(A) To check on a rebate application and ask about the amount<br />
+(B) To apply for a new rebate<br />
+(C) To appeal a rejection<br />
+(D) To cancel her application</p>
+<p><strong>182.</strong> What is the normal processing time?<br />
+(A) 1–2 weeks<br />
+(B) 3 months<br />
+(C) It varies with no estimate<br />
+(D) 4–8 weeks</p>
+<p><strong>183.</strong> Which rebate amount applies to Lena?<br />
+(A) The higher April amount, because she applied in April<br />
+(B) The pre-April amount, because she installed in March<br />
+(C) An average of the two<br />
+(D) Whichever she wrote on the form</p>
+<p><strong>184.</strong> What does "received" status mean?<br />
+(A) It is in the queue and hasn't been reviewed yet<br />
+(B) The application has been approved<br />
+(C) It was rejected<br />
+(D) More information is needed</p>
+<p><strong>185.</strong> What happens if the paperwork lists the wrong amount?<br />
+(A) The application is rejected<br />
+(B) It is returned for correction<br />
+(C) The program adjusts it to the correct amount and notes it<br />
+(D) The lower amount is always used regardless</p>
+<h3>Passages 15–17 — Grant options, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Grants</strong></p>
+<p><strong>COMMUNITY ENVIRONMENT GRANTS — 2026</strong></p>
+<table>
+<thead>
+<tr>
+<th>Grant</th>
+<th>Max amount</th>
+<th>For</th>
+<th>Deadline</th>
+<th>Match required?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green Spaces</td>
+<td>$5,000</td>
+<td>Planting, gardens, habitat</td>
+<td>March 1</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Clean Water</td>
+<td>$10,000</td>
+<td>Stream cleanup, monitoring, erosion control</td>
+<td>April 15</td>
+<td>25% (volunteer time counts)</td>
+</tr>
+<tr>
+<td>Energy &amp; Waste</td>
+<td>$8,000</td>
+<td>Building efficiency, waste reduction at a community facility</td>
+<td>April 15</td>
+<td>50% (cash or in-kind)</td>
+</tr>
+</tbody>
+</table>
+<p>One grant per organization per year. Reports due 60 days after the project ends. Equipment bought with grant funds stays with the organization.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rana Osei, Riverside Neighborhood Association <strong>To:</strong> grants@cef.example <strong>Subject:</strong> Which grant for our project</p>
+<p>Hi,</p>
+<p>We want to do two things this year: clear invasive plants and stabilize the eroding bank along a 200-meter stretch of Mill Creek, and add a small rain garden by the community hall to cut runoff.</p>
+<p>We have about 30 regular volunteers but a very small cash budget. Which grant fits, and can one grant cover both parts?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> grants@cef.example <strong>To:</strong> Rana Osei <strong>Subject:</strong> RE: Which grant for our project</p>
+<p>Hi Rana,</p>
+<p>The creek work — invasive removal and erosion control — is a clear fit for the Clean Water grant (up to $10,000, deadline April 15). Its 25% match can be met entirely with volunteer time, which suits you.</p>
+<p>The rain garden by itself would fit Green Spaces, but you can only receive one grant per year. The good news: a rain garden that reduces runoff into Mill Creek can reasonably be included in a Clean Water application as part of the erosion/runoff work. Describe it that way and it's eligible under the one grant.</p>
+<p>So: apply for Clean Water, include both the bank work and the rain garden, and use volunteer hours for the match.</p>
+<p><strong>186.</strong> What does Rana's group want to do?<br />
+(A) Only plant a garden<br />
+(B) Clear invasive plants, stabilize a creek bank, and add a rain garden<br />
+(C) Build a community hall<br />
+(D) Install solar panels</p>
+<p><strong>187.</strong> Which grant does the reply recommend?<br />
+(A) Green Spaces<br />
+(B) Energy &amp; Waste<br />
+(C) Clean Water<br />
+(D) Two grants together</p>
+<p><strong>188.</strong> How can Rana's group meet the match requirement?<br />
+(A) With a cash contribution<br />
+(B) It doesn't apply to them<br />
+(C) With volunteer time<br />
+(D) With a bank loan</p>
+<p><strong>189.</strong> Can the rain garden be included in the recommended grant?<br />
+(A) Yes, if described as part of the runoff/erosion work<br />
+(B) No, it needs a separate Green Spaces grant<br />
+(C) Only if it costs under $1,000<br />
+(D) Only in a future year</p>
+<p><strong>190.</strong> How many grants can an organization receive per year?<br />
+(A) Two<br />
+(B) Three<br />
+(C) No limit<br />
+(D) One</p>
+<h3>Passages 18–20 — Air-quality guidance, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Guidance</strong></p>
+<p><strong>OUTDOOR WORK DURING POOR AIR QUALITY — GUIDANCE</strong></p>
+<p>We use the local Air Quality Index (AQI). Check it at the start of each shift and again at midday.</p>
+<ul>
+<li>AQI 0–100 (Good/Moderate): normal outdoor work.</li>
+<li>AQI 101–150 (Unhealthy for Sensitive Groups): normal work, but staff with asthma or heart conditions should limit strenuous tasks and may request lighter duties, no questions asked.</li>
+<li>AQI 151–200 (Unhealthy): reduce heavy exertion for everyone; take a 10-minute indoor break each hour; N95 masks available and recommended for outdoor tasks.</li>
+<li>AQI over 200 (Very Unhealthy+): outdoor work stops except brief essential tasks; supervisor decides.</li>
+</ul>
+<p>Report worsening symptoms (cough, chest tightness, headache) to your supervisor immediately.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Whitfield, Grounds Crew Lead <strong>To:</strong> safety@parks.example <strong>Subject:</strong> AQI at 165 this morning — what do we do</p>
+<p>Hi,</p>
+<p>The AQI is 165 and forecast to stay there. We have a mix of tasks today: some mowing and brush clearing (heavy), and some light stuff like emptying bins and checking signs.</p>
+<p>For the 151–200 range, what exactly counts as "heavy exertion" I should cut back, and is the indoor break per person or can we rotate?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> safety@parks.example <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: AQI at 165 this morning — what do we do</p>
+<p>Hi Sam,</p>
+<p>At 165, in the Unhealthy range:<br />
+- "Heavy exertion" = sustained physical work that has you breathing hard: mowing large areas, brush clearing, digging. Push those to a better-air day if you can, or split them into short bursts with rest.<br />
+- Light tasks (bins, sign checks, light raking) are fine to continue.<br />
+- The indoor break is per person, once an hour — but you can stagger start times so the crew isn't all inside at once.<br />
+- Offer N95s to everyone doing outdoor work and make sure anyone with asthma is on light duty.</p>
+<p>If it climbs over 200, stop outdoor work and call me.</p>
+<p><strong>191.</strong> How often should the AQI be checked?<br />
+(A) Once a week<br />
+(B) At the start of each shift and again at midday<br />
+(C) Only when it looks hazy<br />
+(D) Every hour</p>
+<p><strong>192.</strong> At AQI 165, what should happen to heavy tasks like mowing large areas?<br />
+(A) Continue as normal<br />
+(B) Stop all work entirely<br />
+(C) Do them faster to finish sooner<br />
+(D) Push them to a better-air day or split into short bursts</p>
+<p><strong>193.</strong> What is said about light tasks at AQI 165?<br />
+(A) They must also stop<br />
+(B) They require an N95<br />
+(C) They are fine to continue<br />
+(D) They need supervisor approval</p>
+<p><strong>194.</strong> How does the indoor break work?<br />
+(A) Per person, once an hour, and the crew can stagger it<br />
+(B) One 10-minute break for the whole shift<br />
+(C) Only if someone feels unwell<br />
+(D) The whole crew goes in together</p>
+<p><strong>195.</strong> What should Sam do if the AQI goes over 200?<br />
+(A) Continue with masks<br />
+(B) Take longer breaks<br />
+(C) Send half the crew home<br />
+(D) Stop outdoor work and call the safety office</p>
+<h3>Passages 21–23 — Native plant program, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Program info</strong></p>
+<p><strong>FREE NATIVE PLANTS FOR FRONT YARDS — PROGRAM RULES</strong></p>
+<ul>
+<li>Open to homeowners and renters (with landlord permission) in the service area.</li>
+<li>Choose from a list of 15 native species suited to local conditions. Each household gets up to 20 plants, one order per year.</li>
+<li>Plants are small plugs, best planted in fall or early spring. Pickup only, on a scheduled Saturday; no delivery.</li>
+<li>You agree to: plant within two weeks, water for the first summer, and not use the plants for a commercial landscaping business.</li>
+<li>We may photograph participating yards for the program's outreach, with your permission.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Aria Bello <strong>To:</strong> nativeplants@county.example <strong>Subject:</strong> A couple of questions</p>
+<p>Hi,</p>
+<ol>
+<li>I rent. My lease says I can plant in the front bed "with written approval." Is a text from my landlord saying yes enough, or do you need a specific form?</li>
+<li>I'd like more than 20 plants — my front yard is large. Can I get a second allotment, or order again mid-year?</li>
+<li>If I can't make the Saturday pickup, can a friend collect for me?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> nativeplants@county.example <strong>To:</strong> Aria Bello <strong>Subject:</strong> RE: A couple of questions</p>
+<p>Hi Aria,</p>
+<ol>
+<li>A text or email from your landlord that clearly says you may plant in the front yard is fine — forward it to us with your order. No special form.</li>
+<li>It's 20 plants and one order per year, no exceptions — the limit keeps the program fair while supply is limited. You're welcome to order again next year, and you can buy additional natives from the partner nurseries listed on our site at a discount.</li>
+<li>Yes, a friend can pick up for you. Give them your name and order number; they'll sign for it.</li>
+</ol>
+<p><strong>196.</strong> Who is eligible for the program?<br />
+(A) Homeowners only<br />
+(B) Homeowners and renters with landlord permission<br />
+(C) Businesses in the service area<br />
+(D) Anyone in the county</p>
+<p><strong>197.</strong> How many plants can a household get per year?<br />
+(A) Up to 10<br />
+(B) Up to 50<br />
+(C) No limit<br />
+(D) Up to 20</p>
+<p><strong>198.</strong> What does the program need from Aria regarding her rental?<br />
+(A) A signed lease amendment<br />
+(B) A special program form<br />
+(C) A text or email from her landlord clearly allowing planting<br />
+(D) A deposit</p>
+<p><strong>199.</strong> Can Aria get more than 20 plants this year?<br />
+(A) No — 20 plants, one order per year, no exceptions<br />
+(B) Yes, with a second allotment<br />
+(C) Yes, by ordering again mid-year<br />
+(D) Only if her yard is measured first</p>
+<p><strong>200.</strong> Can a friend pick up Aria's plants?<br />
+(A) No, pickup is in person by the participant only<br />
+(B) Yes, with her name and order number<br />
+(C) Only if the friend is also in the program<br />
+(D) Only with a signed authorization form</p>
+<hr />
+<p><em>Hết phần Reading — Set_011. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_011</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>2 D</strong> "workers are installing solar panels on a roof" · bẫy: "a truck is being unloaded"</li>
+<li><strong>4 C</strong> "recycling bins are lined up in an office" · bẫy: "the bins are overflowing"</li>
+<li><strong>5 B</strong> "a technician is testing water at a lakeside" · bẫy: "people are swimming"</li>
+<li><strong>6 C</strong> "wind turbines stand in a field" · bẫy: "a turbine blade is being transported"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where do I drop off old batteries?" → "At the collection point near the entrance"</li>
+<li><strong>13 B</strong> tag question → "Yes, it went online Monday" · bẫy: trả lời Where / How many</li>
+<li><strong>17 C</strong> "What did the monitor show?" → "Levels were in the moderate range" · bẫy: trả lời Where</li>
+<li><strong>19 B</strong> "was the grant approved?" → "Let me check with the office" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "The charging stations aren't in yet, though"</li>
+<li><strong>21 C</strong> yêu cầu kiểm tra thùng rác tái chế → "I'll check them this evening" · bẫy: lặp "bins"</li>
+<li><strong>25 B</strong> "Isn't air quality usually better in spring?" → đính chính "pollen levels unusually high" · bẫy: lặp "spring"</li>
+<li><strong>31 C</strong> "Why was the field trip canceled?" → lý do cụ thể "severe weather warning" · bẫy: lặp "trip"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>D</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "the compost bin ... a bad smell" · "too much wet material and not enough dry" · "add dry material like shredded paper"</li>
+<li>35–37: "The energy audit is done" · "the old rooftop units" · "replace those three this year and phase the rest"</li>
+<li>38–40: "invasive reeds came back thick" · "They regrow from root fragments" · "plant fast-growing natives right after each pull"</li>
+<li>41–43: "the new streetlights are too bright and shine into their bedroom" · "the light is more directional" · "put in a work order for [a shield and dimming]"</li>
+<li>44–46: "it's reading zero even when it drizzles" · "the tipping-bucket gauge might be blocked" · "make sure it's level"</li>
+<li>47–49: "the sustainability report" · "the fleet electrification plan and ... a renewable electricity contract" · "how we'll measure progress [on the waste-reduction goal]"</li>
+<li>50–52: "air quality monitor ... unusual readings" · "sensor ... working correctly" · "flag it as unverified"</li>
+<li>53–55: "recycling participation rate dropped" · "confusion about what's recyclable" · "put together a simple guide"</li>
+<li>56–58: "stream's oxygen levels ... lower" · "drop in fish population" · "site visit upstream"</li>
+<li>59–61: "funding for the community garden" · "early spring" · "reach out to volunteers"</li>
+<li>62–64: "sustainability workshop" agenda · "reducing office waste" · "share the full agenda by Friday"</li>
+<li>65–67: "energy bill ... gone up" · "old lighting system" · "switching to LED lighting"</li>
+<li>68–70: "new limits on single-use plastics" · "affect their takeout packaging" · "list of eco-friendly suppliers"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "this Saturday from 9 to 1" · "paint, solvents, pesticides, motor oil, and old electronics" · "bring a utility bill or ID"</li>
+<li>74–76: "the volunteer training on the 12th" · "water sampling, data entry, and safety on the mudflats" · "we'll move it to the 19th"</li>
+<li>77–79: "a simple monthly report comparing their energy use to similar homes nearby" · "cut usage by an average of 6%" · "a year later, they were still using less"</li>
+<li>80–82: "sort a sample of your trash and shows you exactly what's being thrown away" · "the three changes that would divert the most waste" · "cut their landfill volume by a third in the first month"</li>
+<li>83–85: "east loop trail will be closed" · "trail maintenance" · "west loop and lake trail" as alternative</li>
+<li>86–88: "evidence of a small leak" · "found during routine checks" · "call back to schedule an inspection"</li>
+<li>89–91: "renewable energy" exhibit · "working models of turbines and panels" · "through the end of the year"</li>
+<li>92–94: "heavy rainfall ... overnight" · "move vehicles to higher ground" · "updates ... every two hours"</li>
+<li>95–97: "urban tree cover and temperature" · "three-year study" · "recommendations for city planners"</li>
+<li>98–100: "rainwater collection systems" required · "starting next year" · "incentives for voluntary upgrades"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The lab</code> số ít + thói quen → <code>analyzes</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề chỉ thời gian → <code>until</code> (cho đến khi)</td>
+</tr>
+<tr>
+<td>103</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>recorded</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be asked to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>recommendations for</code> + V-ing</td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> biodiversity</code> (trong 3) → so sánh nhất <code>greatest</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>lowered its emissions by ... shifting</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>have risen</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each specimen</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>enter</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the noticeboard</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the samples are logged</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The organization</code> số ít → <code>manages</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>records</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td><code>in the auditorium</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"cấp phép <strong>kèm</strong> các điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>test</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>record</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... showed</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>supervisor</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (guide <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>explanations</code> → tính từ <code>clear</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"The trail ... <span class="fill"></span> closed from Monday" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Crews <span class="fill"></span> rebuild the section" (sẽ) → <code>will rebuild</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"before the plants <span class="fill"></span> established" (chủ ngữ <code>plants</code> số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ văn phòng công viên, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"food waste <span class="fill"></span> go in the new green bin" (quy định) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"It <span class="fill"></span> take plastic, foil, or utensils" (không thể) → <code>can't</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"one bad item <span class="fill"></span> get a whole load rejected" (khả năng) → <code>can</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ facilities nếu cần, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most buildings find <span class="fill"></span> surprising" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Installation is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> nhấn mạnh sự nhanh gọn, khép lại quảng cáo GreenMeter</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"the default setting <span class="fill"></span> to double-sided ... starting this week" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Double-siding ... <span class="fill"></span> cut that roughly in half" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The shared printers ... <span class="fill"></span> cheaper" (chủ ngữ số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo tiết kiệm giấy</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>D</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>B</td>
+<td>183</td>
+<td>B</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>B</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>D</td>
+<td>184</td>
+<td>A</td>
+<td>193</td>
+<td>C</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>D</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>C</td>
+<td>194</td>
+<td>A</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>D</td>
+<td>168</td>
+<td>A</td>
+<td>177</td>
+<td>C</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>D</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>C</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>B</td>
+<td>170</td>
+<td>B</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>C</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>A</td>
+<td>162</td>
+<td>D</td>
+<td>171</td>
+<td>D</td>
+<td>180</td>
+<td>D</td>
+<td>189</td>
+<td>A</td>
+<td>198</td>
+<td>C</td>
+</tr>
+<tr>
+<td>154</td>
+<td>A</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>A</td>
+<td>190</td>
+<td>D</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>D</td>
+<td>173</td>
+<td>A</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>B</td>
+<td>200</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>149 A</strong> — "businesses that generate more than 200 kilograms of food waste per week"<br />
+- <strong>151 B</strong> — "because compost tipping fees are lower"<br />
+- <strong>154 A</strong> — "a controlled fire that clears invasive brush and helps native grasses"<br />
+- <strong>159 D</strong> — "idle equipment used nearly as much electricity as a normal working day"<br />
+- <strong>162 D</strong> — table: Plastic bags &amp; film "No"<br />
+- <strong>167 D</strong> — "You don't install anything"<br />
+- <strong>177 C</strong> — "NOT accepted: meat, fish, dairy, oil, pet waste..."<br />
+- <strong>182 D</strong> — "Processing is normally 4–8 weeks"<br />
+- <strong>183 B</strong> — "The rebate amount is set by the date of installation, not the application date"<br />
+- <strong>188 C</strong> — "Its 25% match can be met entirely with volunteer time"<br />
+- <strong>189 A</strong> — "a rain garden that reduces runoff into Mill Creek can reasonably be included in a Clean Water application"<br />
+- <strong>192 D</strong> — "Push those to a better-air day if you can, or split them into short bursts"<br />
+- <strong>199 A</strong> — "It's 20 plants and one order per year, no exceptions"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_011 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Environment / Science): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

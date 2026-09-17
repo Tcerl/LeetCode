@@ -1,0 +1,2192 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_003 — Finance & Banking</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="003">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_003</strong>
+    <span class="theme">Finance &amp; Banking</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_003 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Một nhân viên ngân hàng đang tư vấn cho khách hàng ngồi đối diện qua bàn làm việc.]</em><br />
+(A) A teller is counting money at a counter.<br />
+(B) A bank employee is meeting with a customer.<br />
+(C) Customers are waiting in a long line.<br />
+(D) Someone is using an automated teller machine.</p>
+<p><strong>2.</strong> <em>[Ảnh: Máy ATM gắn trên tường, một người đang rút thẻ ra.]</em><br />
+(A) A man is withdrawing a card from a machine.<br />
+(B) A worker is repairing the ATM.<br />
+(C) People are lining up at a ticket booth.<br />
+(D) A woman is signing a document.</p>
+<p><strong>3.</strong> <em>[Ảnh: Một cuộc họp trong phòng hội nghị, biểu đồ tài chính hiển thị trên màn hình lớn.]</em><br />
+(A) Participants are leaving the meeting room.<br />
+(B) Someone is writing on a whiteboard.<br />
+(C) A chart is being displayed on a screen.<br />
+(D) A presenter is handing out documents.</p>
+<p><strong>4.</strong> <em>[Ảnh: Hai người trao đổi giấy tờ tại quầy giao dịch.]</em><br />
+(A) A customer is depositing coins.<br />
+(B) An employee is stamping a passport.<br />
+(C) People are shaking hands.<br />
+(D) Documents are being exchanged at a counter.</p>
+<p><strong>5.</strong> <em>[Ảnh: Bàn làm việc với máy tính bảng hiển thị ứng dụng ngân hàng, một tách cà phê bên cạnh.]</em><br />
+(A) A tablet is displaying a banking app.<br />
+(B) Someone is pouring coffee into a cup.<br />
+(C) A phone is ringing on the desk.<br />
+(D) Papers are scattered across the floor.</p>
+<p><strong>6.</strong> <em>[Ảnh: Một phụ nữ đang thuyết trình trước nhóm nhỏ, cầm bút chỉ vào biểu đồ.]</em><br />
+(A) She is collecting handouts from the table.<br />
+(B) She is pointing at a graph during a presentation.<br />
+(C) She is adjusting a projector.<br />
+(D) She is greeting people at the door.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is the loan payment due?<br />
+(A) On the fifteenth of each month.<br />
+(B) At the downtown branch.<br />
+(C) It's a fixed-rate loan.</p>
+<p><strong>8.</strong> Where can I open a business account?<br />
+(A) I opened mine last year.<br />
+(B) You'll need a photo ID.<br />
+(C) At the desk near the entrance.</p>
+<p><strong>9.</strong> Who approved the budget increase?<br />
+(A) The finance director did.<br />
+(B) By about ten percent.<br />
+(C) At last week's meeting.</p>
+<p><strong>10.</strong> Why was my transaction declined?<br />
+(A) The card expires next month.<br />
+(B) Your daily limit was reached.<br />
+(C) I'll transfer the funds today.</p>
+<p><strong>11.</strong> How long does an international transfer take?<br />
+(A) Usually two to three business days.<br />
+(B) There's a small fee.<br />
+(C) To an account in Canada.</p>
+<p><strong>12.</strong> Could you send me the quarterly statement?<br />
+(A) The quarter was profitable.<br />
+(B) Sure, I'll email it this afternoon.<br />
+(C) It's on the third floor.</p>
+<p><strong>13.</strong> The interest rate went up again, didn't it?<br />
+(A) Yes, the rate is posted on the wall.<br />
+(B) Yes, by a quarter of a percent.<br />
+(C) I'm interested in the account.</p>
+<p><strong>14.</strong> Should I pay by check or bank transfer?<br />
+(A) The check bounced last time.<br />
+(B) I paid the invoice already.<br />
+(C) A transfer is faster.</p>
+<p><strong>15.</strong> Isn't the branch closed on public holidays?<br />
+(A) Yes, but the ATM is available.<br />
+(B) It's a large branch.<br />
+(C) Near the shopping center.</p>
+<p><strong>16.</strong> Could you explain how the overdraft fee works?<br />
+(A) The fee was refunded.<br />
+(B) Of course, let me walk you through it.<br />
+(C) It's a monthly fee.</p>
+<p><strong>17.</strong> What did the auditors find in the report?<br />
+(A) In the accounting department.<br />
+(B) The audit took two weeks.<br />
+(C) A few minor discrepancies.</p>
+<p><strong>18.</strong> Where should I send the signed contract?<br />
+(A) It was signed yesterday.<br />
+(B) Two copies are needed.<br />
+(C) Scan it and email the legal team.</p>
+<p><strong>19.</strong> Do you know whether the wire transfer went through?<br />
+(A) The bank charges $25.<br />
+(B) Let me check the account now.<br />
+(C) It's an international transfer.</p>
+<p><strong>20.</strong> I think we should move the funds to a savings account.<br />
+(A) That would earn more interest.<br />
+(B) The savings account number.<br />
+(C) Downstairs, at the counter.</p>
+<p><strong>21.</strong> Could you help me set up online banking?<br />
+(A) I already have a savings account.<br />
+(B) The bank closes at five.<br />
+(C) Sure, I just need your account number.</p>
+<p><strong>22.</strong> Has the wire transfer gone through yet?<br />
+(A) It's a large transfer.<br />
+(B) I transferred departments last year.<br />
+(C) Not yet, it usually takes a day.</p>
+<p><strong>23.</strong> Where do I sign to open a checking account?<br />
+(A) Right here at the bottom.<br />
+(B) Checking takes a minute.<br />
+(C) The account is free.</p>
+<p><strong>24.</strong> Would you like your statements mailed or emailed?<br />
+(A) Email is fine, thanks.<br />
+(B) I mailed it yesterday.<br />
+(C) The statement looked correct.</p>
+<p><strong>25.</strong> Isn't the loan application due by Friday?<br />
+(A) Friday is a holiday.<br />
+(B) Yes, but we can extend it a few days.<br />
+(C) The loan was approved.</p>
+<p><strong>26.</strong> How much is the fee for an overdraft?<br />
+(A) Thirty-five dollars per occurrence.<br />
+(B) It happens rarely.<br />
+(C) I overdrew my account once.</p>
+<p><strong>27.</strong> Who approved this month's budget?<br />
+(A) The budget is due Monday.<br />
+(B) The finance director did.<br />
+(C) We approved it last quarter.</p>
+<p><strong>28.</strong> Do you know if the interest rate changed?<br />
+(A) It changed twice last year.<br />
+(B) I know a good rate.<br />
+(C) Yes, it went up slightly.</p>
+<p><strong>29.</strong> Should we invest in the new bond fund?<br />
+(A) Bonds are fixed income.<br />
+(B) Let's discuss it at Thursday's meeting.<br />
+(C) I invested last year.</p>
+<p><strong>30.</strong> Haven't you reconciled the accounts yet?<br />
+(A) The accounts were closed.<br />
+(B) I finished this morning, actually.<br />
+(C) Reconciling takes time.</p>
+<p><strong>31.</strong> Why was my card declined at the register?<br />
+(A) The register is broken.<br />
+(B) It happened to me too.<br />
+(C) There may have been a temporary hold on your card.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> Hi, I'd like to dispute a charge on my credit card. There's a $180 payment to a company I don't recognize.<br />
+<strong>M:</strong> I can help with that. When did the charge appear?<br />
+<strong>W:</strong> Three days ago, on the 12th.<br />
+<strong>M:</strong> I'll open a dispute and issue a temporary credit while we investigate. You should see it within 48 hours, and we'll send a form to your email to confirm the details.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To report a lost card<br />
+(B) To dispute a charge<br />
+(C) To increase her credit limit<br />
+(D) To close her account</p>
+<p><strong>33.</strong> When did the disputed charge appear?<br />
+(A) On the 9th<br />
+(B) On the 15th<br />
+(C) Today<br />
+(D) On the 12th</p>
+<p><strong>34.</strong> What will the bank do first?<br />
+(A) Cancel the card<br />
+(B) Call the merchant<br />
+(C) Issue a temporary credit<br />
+(D) Freeze the account</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> Have you finished reviewing the Q3 numbers?<br />
+<strong>W:</strong> Almost. Revenue is up 6%, but operating costs rose faster than we expected — mostly shipping.<br />
+<strong>M:</strong> That matches what logistics told me. Are we still on track for the annual target?<br />
+<strong>W:</strong> Yes, if Q4 holds. I'll have the full report ready for the board by Thursday.</p>
+<p><strong>35.</strong> What are the speakers discussing?<br />
+(A) A hiring plan<br />
+(B) A new product launch<br />
+(C) The Q3 financial results<br />
+(D) A shipping contract</p>
+<p><strong>36.</strong> What rose faster than expected?<br />
+(A) Revenue<br />
+(B) Staff numbers<br />
+(C) Tax payments<br />
+(D) Operating costs</p>
+<p><strong>37.</strong> When will the full report be ready?<br />
+(A) Today<br />
+(B) Wednesday<br />
+(C) Next month<br />
+(D) Thursday</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> We need to decide on the new payroll software before the end of the month.<br />
+<strong>M1:</strong> The two finalists are PayLine and Ledger Pro. PayLine is cheaper, but Ledger Pro integrates with our accounting system.<br />
+<strong>M2:</strong> How much cheaper is PayLine?<br />
+<strong>W:</strong> About $4,000 a year. But if Ledger Pro saves us ten hours a month in manual entry, it pays for itself.<br />
+<strong>M1:</strong> Let's ask both vendors for a live demo next week.</p>
+<p><strong>38.</strong> What decision must the speakers make?<br />
+(A) Which payroll software to choose<br />
+(B) Whether to hire an accountant<br />
+(C) When to run payroll<br />
+(D) How much to pay staff</p>
+<p><strong>39.</strong> What is an advantage of Ledger Pro?<br />
+(A) It is cheaper<br />
+(B) It includes free training<br />
+(C) It integrates with the accounting system<br />
+(D) It has more users</p>
+<p><strong>40.</strong> What will the speakers do next week?<br />
+(A) Sign a contract<br />
+(B) Ask both vendors for a demo<br />
+(C) Survey employees<br />
+(D) Cancel the project</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> I'm looking at the two savings options you mentioned. What's the difference again?<br />
+<strong>W:</strong> The standard account pays 1.5% with no restrictions. The fixed-term account pays 3%, but you can't withdraw for 12 months without a penalty.<br />
+<strong>M:</strong> I might need the money for a house deposit in about eight months.<br />
+<strong>W:</strong> Then I'd suggest the standard account, so you keep access to your funds.</p>
+<p><strong>41.</strong> What is the man trying to decide?<br />
+(A) Which savings account to open<br />
+(B) Whether to apply for a mortgage<br />
+(C) How much to deposit<br />
+(D) Which bank to use</p>
+<p><strong>42.</strong> What is a drawback of the fixed-term account?<br />
+(A) It has a low interest rate<br />
+(B) It requires a large minimum deposit<br />
+(C) It charges a monthly fee<br />
+(D) Withdrawals are penalized for 12 months</p>
+<p><strong>43.</strong> What does the woman recommend?<br />
+(A) The fixed-term account<br />
+(B) The standard account<br />
+(C) Splitting the money between both<br />
+(D) Waiting to decide</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The new expense app keeps rejecting my receipts. It says the image is unreadable.<br />
+<strong>M:</strong> That happens when the photo is too dark. Try again near a window, and make sure the whole receipt is in the frame.<br />
+<strong>W:</strong> I did that and it still failed for one of them.<br />
+<strong>M:</strong> Then just forward that receipt to expenses@company.com and note your employee number. Finance can enter it manually.</p>
+<p><strong>44.</strong> What problem is the woman having?<br />
+(A) The app will not open<br />
+(B) She forgot her password<br />
+(C) The app is rejecting her receipts<br />
+(D) Her expenses were not reimbursed</p>
+<p><strong>45.</strong> What does the man suggest she do first?<br />
+(A) Restart her phone<br />
+(B) Retake the photos near a window<br />
+(C) Contact IT support<br />
+(D) Use a different app</p>
+<p><strong>46.</strong> What should the woman do if a receipt still fails?<br />
+(A) Discard it<br />
+(B) Print it and mail it<br />
+(C) Forward it to the finance email with her employee number<br />
+(D) Ask her manager to approve it</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> Did you go to the fraud-prevention training yesterday?<br />
+<strong>W:</strong> I did. The part about spotting fake invoices was really useful — I didn't realize how sophisticated they've become.<br />
+<strong>M:</strong> I missed it because of a client call. Is there a recording?<br />
+<strong>W:</strong> Yes, it's on the learning portal. There's also a short quiz you have to pass by Friday to get credit.</p>
+<p><strong>47.</strong> What was the training about?<br />
+(A) Fraud prevention<br />
+(B) Tax filing<br />
+(C) Customer service<br />
+(D) Software updates</p>
+<p><strong>48.</strong> What did the woman find useful?<br />
+(A) A section on fake invoices<br />
+(B) A guest speaker<br />
+(C) The networking session<br />
+(D) A printed handbook</p>
+<p><strong>49.</strong> What must employees do by Friday?<br />
+(A) Submit expense reports<br />
+(B) Pass a short quiz<br />
+(C) Attend a makeup session<br />
+(D) Sign an attendance sheet</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> I'd like to dispute a charge on my statement — I don't recognize this merchant.<br />
+<strong>M:</strong> Let's take a look. Can you tell me the date and amount of the charge?<br />
+<strong>W:</strong> It's from March third, for eighty-two dollars.<br />
+<strong>M:</strong> I'll open a dispute case now and credit the amount back to your account while we investigate.</p>
+<p><strong>50.</strong> Why is the woman contacting the bank?<br />
+(A) To dispute a charge<br />
+(B) To close her account<br />
+(C) To apply for a loan<br />
+(D) To report a lost card</p>
+<p><strong>51.</strong> What does the man ask the woman for?<br />
+(A) Her account password<br />
+(B) The date and amount of the charge<br />
+(C) A copy of her ID<br />
+(D) Her mailing address</p>
+<p><strong>52.</strong> What will the man do?<br />
+(A) Cancel her card<br />
+(B) Credit the amount while investigating<br />
+(C) Transfer her to a manager<br />
+(D) Deny the dispute</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> I'm here to apply for a small business loan for my bakery.<br />
+<strong>W:</strong> Great, I'll need your last two years of tax returns and a business plan.<br />
+<strong>M:</strong> I have the tax returns, but my business plan is still a draft.<br />
+<strong>W:</strong> That's all right, bring the final version when you come in to sign, and we can move forward today.</p>
+<p><strong>53.</strong> Why is the man visiting the bank?<br />
+(A) To open a savings account<br />
+(B) To apply for a business loan<br />
+(C) To refinance his home<br />
+(D) To close his account</p>
+<p><strong>54.</strong> What documents does the woman ask for?<br />
+(A) A photo ID only<br />
+(B) Tax returns and a business plan<br />
+(C) A credit report<br />
+(D) Bank statements</p>
+<p><strong>55.</strong> What does the woman say about the business plan?<br />
+(A) It is not required.<br />
+(B) He can bring the final version later.<br />
+(C) It must be notarized.<br />
+(D) It must be submitted online.</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> Our quarterly earnings report shows revenue up eight percent, but expenses rose too.<br />
+<strong>M:</strong> What's driving the higher expenses?<br />
+<strong>W:</strong> Mostly shipping costs and the new hires in customer support.<br />
+<strong>M:</strong> Let's flag that for the board meeting and look at ways to offset it next quarter.</p>
+<p><strong>56.</strong> What does the earnings report show?<br />
+(A) Falling revenue<br />
+(B) Revenue up eight percent<br />
+(C) A net loss<br />
+(D) Flat expenses</p>
+<p><strong>57.</strong> What is driving higher expenses?<br />
+(A) New office space<br />
+(B) Marketing costs<br />
+(C) Shipping costs and new hires<br />
+(D) Equipment repairs</p>
+<p><strong>58.</strong> What will the man do?<br />
+(A) Ignore the issue<br />
+(B) Flag it for the board meeting<br />
+(C) Cut all new hires<br />
+(D) Delay the earnings report</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> I noticed my mortgage payment increased this month. Can you explain why?<br />
+<strong>W:</strong> Let me check... it looks like your property taxes went up, which affects the escrow portion.<br />
+<strong>M:</strong> I see. Is there anything I can do to lower the monthly amount?<br />
+<strong>W:</strong> You could pay the tax increase as a lump sum instead, which would bring the payment back down.</p>
+<p><strong>59.</strong> Why does the man contact the bank?<br />
+(A) His payment increased.<br />
+(B) His loan was denied.<br />
+(C) He lost his statement.<br />
+(D) He wants to refinance.</p>
+<p><strong>60.</strong> What caused the change?<br />
+(A) A higher interest rate<br />
+(B) Higher property taxes<br />
+(C) A late fee<br />
+(D) A processing error</p>
+<p><strong>61.</strong> What does the woman suggest?<br />
+(A) Refinancing the loan<br />
+(B) Paying the tax increase as a lump sum<br />
+(C) Skipping a payment<br />
+(D) Closing the escrow account</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>M1:</strong> Before we close, let's review the audit findings from last week.<br />
+<strong>W:</strong> Overall it was clean, but they flagged our expense-approval process as outdated.<br />
+<strong>M2:</strong> We've actually been meaning to move that online. I can draft a proposal by next week.<br />
+<strong>W:</strong> Perfect, let's put that on next month's agenda.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) Audit findings<br />
+(B) A merger<br />
+(C) A new hire<br />
+(D) A client complaint</p>
+<p><strong>63.</strong> What did the audit flag?<br />
+(A) Late payments<br />
+(B) An outdated expense-approval process<br />
+(C) A missing signature<br />
+(D) A budget shortfall</p>
+<p><strong>64.</strong> What will the second man do?<br />
+(A) Cancel the audit<br />
+(B) Draft a proposal<br />
+(C) Contact the client<br />
+(D) Resign</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I'd like to set up automatic transfers into my savings account each month.<br />
+<strong>M:</strong> No problem. How much would you like to transfer, and on which date?<br />
+<strong>W:</strong> Two hundred dollars, on the first of each month.<br />
+<strong>M:</strong> I'll set that up starting next month, and you'll get a confirmation email today.</p>
+<p><strong>65.</strong> What does the woman want to set up?<br />
+(A) A new checking account<br />
+(B) A loan payment plan<br />
+(C) Automatic monthly transfers<br />
+(D) A credit card</p>
+<p><strong>66.</strong> How much does she want to transfer?<br />
+(A) One hundred dollars<br />
+(B) Two hundred dollars<br />
+(C) Three hundred dollars<br />
+(D) Five hundred dollars</p>
+<p><strong>67.</strong> What will the woman receive today?<br />
+(A) A new debit card<br />
+(B) A printed statement<br />
+(C) A confirmation email<br />
+(D) A welcome gift</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> Our investment portfolio lost value again this quarter. Should we be worried?<br />
+<strong>W:</strong> Not necessarily — the market as a whole dropped, and we're actually outperforming the index.<br />
+<strong>M:</strong> That's reassuring. Should we still consider rebalancing toward safer assets?<br />
+<strong>W:</strong> I'd suggest waiting until next quarter's report before making any changes.</p>
+<p><strong>68.</strong> What is the man concerned about?<br />
+(A) A missed payment<br />
+(B) The portfolio losing value<br />
+(C) A new tax law<br />
+(D) A data breach</p>
+<p><strong>69.</strong> What does the woman say about the portfolio?<br />
+(A) It is underperforming the index.<br />
+(B) It is outperforming the index.<br />
+(C) It should be closed.<br />
+(D) It has doubled in value.</p>
+<p><strong>70.</strong> What does the woman recommend?<br />
+(A) Selling everything now<br />
+(B) Rebalancing immediately<br />
+(C) Waiting until next quarter's report<br />
+(D) Hiring a new advisor</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Automated telephone message</h3>
+<p><em>"Thank you for calling Meridian Bank. Our offices are currently closed. Branch hours are Monday to Friday, 9 A.M. to 5 P.M., and Saturday 9 A.M. to 1 P.M. For balance inquiries and transfers, use our mobile app or online banking, available 24 hours a day. To report a lost or stolen card, press 1 now to be connected to our security team. For all other matters, please call back during business hours."</em></p>
+<p><strong>71.</strong> What are the bank's Saturday hours?<br />
+(A) 9 A.M. to 1 P.M.<br />
+(B) 9 A.M. to 5 P.M.<br />
+(C) Closed<br />
+(D) 10 A.M. to 2 P.M.</p>
+<p><strong>72.</strong> What can customers do at any time?<br />
+(A) Speak to a branch manager<br />
+(B) Check balances online<br />
+(C) Apply for a loan in person<br />
+(D) Order checks</p>
+<p><strong>73.</strong> What should a caller do to report a stolen card?<br />
+(A) Visit a branch<br />
+(B) Send an email<br />
+(C) Wait for business hours<br />
+(D) Press 1</p>
+<h3>Talk 2 (74–76) — Voicemail from a loan officer</h3>
+<p><em>"Hi, this is Grace from Harbor Credit Union. I'm calling about your car loan application. The good news is that it's been pre-approved for the full amount. Before we finalize, I need one more document — proof of insurance for the vehicle. You can upload it through the member portal or bring it to any branch. Once we have that, funds are usually released within two business days. Call me back at 555-0134 if you have questions."</em></p>
+<p><strong>74.</strong> Why is Grace calling?<br />
+(A) To collect a late payment<br />
+(B) To offer a new credit card<br />
+(C) About a car loan application<br />
+(D) To schedule an appointment</p>
+<p><strong>75.</strong> What does Grace still need from the listener?<br />
+(A) A photo ID<br />
+(B) A pay stub<br />
+(C) Proof of vehicle insurance<br />
+(D) A co-signer's signature</p>
+<p><strong>76.</strong> How soon are funds usually released after that?<br />
+(A) The same day<br />
+(B) Within two business days<br />
+(C) Within a week<br />
+(D) Within 30 days</p>
+<h3>Talk 3 (77–79) — Business news report</h3>
+<p><em>"In financial news, Crestwood Holdings reported that its full-year profit rose 11% to $340 million, beating analyst expectations. The company credited strong demand in its Asian markets and lower raw-material costs. Crestwood also announced it will pay a special one-time dividend to shareholders in March and plans to invest $50 million in a new logistics center. Shares rose 4% in early trading following the announcement."</em></p>
+<p><strong>77.</strong> What did Crestwood Holdings report?<br />
+(A) An 11% rise in full-year profit<br />
+(B) A drop in annual profit<br />
+(C) A merger with a rival<br />
+(D) Layoffs across Asia</p>
+<p><strong>78.</strong> What does the company plan to invest in?<br />
+(A) A marketing campaign<br />
+(B) A research lab<br />
+(C) An overseas office<br />
+(D) A new logistics center</p>
+<p><strong>79.</strong> What happened to the company's shares?<br />
+(A) They fell 4%<br />
+(B) They rose 4%<br />
+(C) They were unchanged<br />
+(D) Trading was suspended</p>
+<h3>Talk 4 (80–82) — Internal announcement</h3>
+<p><em>"A quick announcement about expense reimbursements. Starting the first of next month, reimbursements will be paid twice a month — on the 15th and the last business day — instead of only at month-end. To be included in a given payment run, your claim must be approved by your manager at least three business days beforehand. Claims approved after that will roll to the next run. The submission process itself is not changing."</em></p>
+<p><strong>80.</strong> What is changing about reimbursements?<br />
+(A) They will be paid twice a month<br />
+(B) They will require receipts<br />
+(C) They will be reduced<br />
+(D) They will be paid in cash</p>
+<p><strong>81.</strong> By when must a claim be approved to be included in a payment run?<br />
+(A) The same day<br />
+(B) One business day before<br />
+(C) On the 15th<br />
+(D) At least three business days before</p>
+<p><strong>82.</strong> What is NOT changing?<br />
+(A) The payment dates<br />
+(B) The approval deadline<br />
+(C) The submission process<br />
+(D) The reimbursement amounts</p>
+<h3>Talk 5 (83–85) — Bank recording</h3>
+<p><em>"Thank you for calling First Harbor Bank. Our branch hours are Monday through Friday, nine to five, and Saturday from nine to noon. For lost or stolen cards, press one. For account balances and recent transactions, press two. To speak with a representative, please stay on the line and the next available agent will assist you."</em></p>
+<p><strong>83.</strong> What are the branch's hours on Saturday?<br />
+(A) Nine to noon<br />
+(B) Nine to five<br />
+(C) Ten to two<br />
+(D) Closed</p>
+<p><strong>84.</strong> What should a caller do to report a lost card?<br />
+(A) Press one<br />
+(B) Press two<br />
+(C) Stay on the line<br />
+(D) Visit a branch</p>
+<p><strong>85.</strong> How can a caller reach a representative?<br />
+(A) By pressing three<br />
+(B) By staying on the line<br />
+(C) By visiting the website<br />
+(D) By calling a different number</p>
+<h3>Talk 6 (86–88) — Financial news update</h3>
+<p><em>"In today's market news, the central bank held interest rates steady for the third consecutive month, citing slowing inflation. Analysts had expected a small increase, so markets responded positively, with the main stock index closing up just over one percent. The bank's next policy meeting is scheduled for early next month."</em></p>
+<p><strong>86.</strong> What did the central bank do with interest rates?<br />
+(A) Raised them<br />
+(B) Lowered them<br />
+(C) Held them steady<br />
+(D) Eliminated them</p>
+<p><strong>87.</strong> What had analysts expected?<br />
+(A) A small increase<br />
+(B) A large decrease<br />
+(C) No change<br />
+(D) A rate freeze for a year</p>
+<p><strong>88.</strong> How did the stock index respond?<br />
+(A) It fell sharply.<br />
+(B) It closed up over one percent.<br />
+(C) It remained flat.<br />
+(D) Trading was halted.</p>
+<h3>Talk 7 (89–91) — Internal training talk</h3>
+<p><em>"Welcome to today's session on fraud detection. As transaction volumes grow, our system flags unusual patterns automatically, but your judgment as a reviewer is still essential. Pay close attention to transactions that are unusually large, occur outside a customer's normal location, or happen in rapid succession. When in doubt, always escalate to your supervisor."</em></p>
+<p><strong>89.</strong> What is the topic of the session?<br />
+(A) Customer service<br />
+(B) Fraud detection<br />
+(C) Loan approvals<br />
+(D) Marketing strategy</p>
+<p><strong>90.</strong> What kind of transactions should reviewers watch for?<br />
+(A) Small, routine transactions<br />
+(B) Unusually large or rapid transactions<br />
+(C) Transactions under ten dollars<br />
+(D) Transactions made in person</p>
+<p><strong>91.</strong> What should reviewers do when unsure?<br />
+(A) Approve the transaction<br />
+(B) Ignore it<br />
+(C) Escalate to a supervisor<br />
+(D) Delete the record</p>
+<h3>Talk 8 (92–94) — Company earnings call excerpt</h3>
+<p><em>"Turning to our loan portfolio, delinquency rates remained low this quarter, and we continue to see strong demand for both personal and business loans. We did tighten our approval criteria slightly in response to broader economic uncertainty, which we expect will keep credit quality strong going into next year."</em></p>
+<p><strong>92.</strong> What does the speaker say about delinquency rates?<br />
+(A) They rose sharply.<br />
+(B) They remained low.<br />
+(C) They were not tracked.<br />
+(D) They doubled.</p>
+<p><strong>93.</strong> What change did the company make to loan approvals?<br />
+(A) It removed all requirements.<br />
+(B) It tightened approval criteria.<br />
+(C) It stopped issuing loans.<br />
+(D) It lowered interest rates.</p>
+<p><strong>94.</strong> What does the speaker expect for next year?<br />
+(A) Weaker credit quality<br />
+(B) Strong credit quality<br />
+(C) A loan freeze<br />
+(D) Lower demand</p>
+<h3>Talk 9 (95–97) — ATM voice instructions</h3>
+<p><em>"Please insert your card and enter your four-digit PIN. For a quick cash withdrawal, select from the preset amounts shown on screen. For other services, including deposits and balance transfers, please select 'other transactions.' Your card and receipt will be returned at the end of your session."</em></p>
+<p><strong>95.</strong> What must a user enter first?<br />
+(A) Their account number<br />
+(B) Their four-digit PIN<br />
+(C) Their phone number<br />
+(D) Their date of birth</p>
+<p><strong>96.</strong> Where can preset withdrawal amounts be found?<br />
+(A) On a printed card<br />
+(B) On the screen<br />
+(C) In a mobile app<br />
+(D) At the teller window</p>
+<p><strong>97.</strong> What is returned at the end of the session?<br />
+(A) Only the card<br />
+(B) Only the receipt<br />
+(C) The card and receipt<br />
+(D) Nothing</p>
+<h3>Talk 10 (98–100) — Shareholder meeting excerpt</h3>
+<p><em>"Before we open the floor for questions, I'd like to highlight that the board has approved a modest increase to the quarterly dividend, reflecting our confidence in continued growth. We've also authorized a share buyback program of up to fifty million dollars over the next twelve months. Full details are in the report you received this morning."</em></p>
+<p><strong>98.</strong> What did the board approve?<br />
+(A) A dividend increase and a buyback program<br />
+(B) A merger<br />
+(C) A new CEO<br />
+(D) A stock split</p>
+<p><strong>99.</strong> What does the dividend increase reflect?<br />
+(A) Cost cutting<br />
+(B) Confidence in continued growth<br />
+(C) A one-time gain<br />
+(D) Regulatory requirements</p>
+<p><strong>100.</strong> Where can shareholders find full details?<br />
+(A) On the company website<br />
+(B) In the report they received that morning<br />
+(C) In next month's newsletter<br />
+(D) By calling investor relations</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_003 — READING (100 câu: 101–200) · Chủ đề: Finance &amp; Banking</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The bank <span class="blk">________</span> customers of any changes to their account terms at least 30 days in advance.<br />
+(A) notify  (B) notifies  (C) notifying  (D) to notify</p>
+<p><strong>102.</strong> Loan repayments are due <span class="blk">________</span> the first business day of each month.<br />
+(A) on  (B) at  (C) since  (D) until</p>
+<p><strong>103.</strong> The finance team analyzed the figures <span class="blk">________</span> before presenting them to the board.<br />
+(A) careful  (B) carefulness  (C) carefully  (D) caring</p>
+<p><strong>104.</strong> <span class="blk">________</span> higher interest rates, demand for mortgages remained steady last quarter.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> All employees must <span class="blk">________</span> their expense claims through the online portal.<br />
+(A) submit  (B) submits  (C) submitting  (D) submitted</p>
+<p><strong>106.</strong> The auditor raised concerns <span class="blk">________</span> the way inventory was being valued.<br />
+(A) about  (B) for  (C) of  (D) to</p>
+<p><strong>107.</strong> Of the three investment options, the government bond carries the <span class="blk">________</span> risk.<br />
+(A) low  (B) lower  (C) lowest  (D) less</p>
+<p><strong>108.</strong> The payment was delayed <span class="blk">________</span> a technical problem with the transfer system.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> Clients can reduce their monthly fees <span class="blk">________</span> maintaining a minimum balance.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> The value of the fund has risen <span class="blk">________</span> since the start of the year.<br />
+(A) sharp  (B) sharpness  (C) sharper  (D) sharply</p>
+<p><strong>111.</strong> Neither the treasurer nor the accountants <span class="blk">________</span> available to comment on the report.<br />
+(A) was  (B) were  (C) is  (D) has been</p>
+<p><strong>112.</strong> The committee decided to <span class="blk">________</span> the budget review until the next meeting.<br />
+(A) postpone  (B) postponing  (C) postponed  (D) postponement</p>
+<p><strong>113.</strong> Interest is calculated <span class="blk">________</span> the daily closing balance of the account.<br />
+(A) in  (B) by  (C) on  (D) at</p>
+<p><strong>114.</strong> <span class="blk">________</span> the market recovers, the company will delay any new hiring.<br />
+(A) Despite  (B) However  (C) Although  (D) Until</p>
+<p><strong>115.</strong> The firm <span class="blk">________</span> assets worth more than $2 billion under management.<br />
+(A) have  (B) has  (C) having  (D) had</p>
+<p><strong>116.</strong> The merger is expected <span class="blk">________</span> by the end of the fiscal year.<br />
+(A) finalizing  (B) to finalize  (C) to be finalized  (D) finalized</p>
+<p><strong>117.</strong> Advisors are required to give clients <span class="blk">________</span> information about all fees and charges.<br />
+(A) clarity  (B) clear  (C) clearly  (D) clearness</p>
+<p><strong>118.</strong> The online platform processes payments far <span class="blk">________</span> than the old system did.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The consultant's report highlights several <span class="blk">________</span> for cutting operating costs.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The annual shareholders' meeting will be held <span class="blk">________</span> the main auditorium on the ground floor.<br />
+(A) in  (B) at  (C) on  (D) by</p>
+<p><strong>121.</strong> The loan was ultimately approved <span class="blk">________</span> a slightly higher interest rate than the borrower requested.<br />
+(A) for  (B) of  (C) at  (D) about</p>
+<p><strong>122.</strong> A specialist will <span class="blk">________</span> your investment portfolio and suggest adjustments.<br />
+(A) review  (B) reviews  (C) reviewing  (D) reviewal</p>
+<p><strong>123.</strong> Account holders are <span class="blk">________</span> for a monthly fee waiver if they set up direct deposit.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The new fraud-detection system flags suspicious transactions <span class="blk">________</span> than the previous one did.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The bank is committed to <span class="blk">________</span> its branch network in underserved rural areas.<br />
+(A) expand  (B) expands  (C) expanding  (D) expanded</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposals fully addresses the compliance requirements, so both were returned.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The customer support line operates <span class="blk">________</span> 7 A.M. to 11 P.M. every day of the week.<br />
+(A) since  (B) from  (C) between  (D) during</p>
+<p><strong>128.</strong> Every wire transfer over $10,000 must be approved by an <span class="blk">________</span> manager before it is sent.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The annual financial report <span class="blk">________</span> published on the company's investor website next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The brochure provides <span class="blk">________</span> guidance on choosing a retirement savings plan.<br />
+(A) help  (B) helpfully  (C) helpful  (D) helpfulness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p>Dear Valued Customer,</p>
+<p>We are writing to inform you of changes to our checking account fees, which <span class="blk">(131)</span> effect on September 1.</p>
+<p>The monthly maintenance fee will remain $8, but it <span class="blk">(132)</span> waived if you maintain a minimum daily balance of $1,500 or receive at least $500 in direct deposits each month.</p>
+<p>We have also reduced the fee for outgoing domestic wire transfers from $25 to $15. Fees for international wires are <span class="blk">(133)</span>.</p>
+<p>If these changes affect how you use your account, we encourage you to review the full fee schedule, which is available at any branch or on our website. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) take  (B) takes  (C) will take  (D) taking<br />
+<strong>132.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>133.</strong> (A) unchanging  (B) unchanged  (C) changeless  (D) change<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Overdraft fees will increase by $5 starting in October.<br />
+(B) A customer service representative can also answer questions by phone.<br />
+(C) These changes apply only to accounts opened after September 1.<br />
+(D) Thank you for banking with us.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>TO:</strong> All Department Managers <strong>FROM:</strong> Finance <strong>RE:</strong> Purchase Approval Threshold</p>
+<p>Effective immediately, purchases over $1,000 <span class="blk">(135)</span> approval from a department director before an order is placed. Purchases at or below $1,000 can still be approved by a manager.</p>
+<p>To request director approval, submit the purchase request in the finance system and select "director review." Directors <span class="blk">(136)</span> to respond within two business days.</p>
+<p>This change is intended to improve budget oversight <span class="blk">(137)</span> slowing down routine purchasing. If you have questions about which category a purchase falls into, contact the finance help desk. We appreciate your patience during the transition. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) require  (B) requires  (C) will require  (D) requiring<br />
+<strong>136.</strong> (A) expect  (B) are expected  (C) expecting  (D) expects<br />
+<strong>137.</strong> (A) despite  (B) instead of  (C) without  (D) except<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) All expense reports must now be submitted weekly.<br />
+(B) This policy does not apply to the marketing department.<br />
+(C) The previous approval system will be reactivated next year.<br />
+(D) We're confident this will strengthen our budgeting process going forward.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>TAKE CONTROL OF YOUR FINANCES</strong></p>
+<p>At Anchor Financial, we help individuals and families build a plan for the future. Our advisors are <span class="blk">(139)</span> and paid a flat fee, so their advice is not tied to selling you products.</p>
+<p>Your first consultation is free and lasts about an hour. In it, we will review your income, expenses, and goals, and give you a written <span class="blk">(140)</span> of where you stand.</p>
+<p>Clients who sign up for ongoing planning meet with their advisor <span class="blk">(141)</span> three months to track progress and adjust the plan as life changes.</p>
+<p>To book your free session, visit our website or call 555-0121. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) independence  (B) independent  (C) independently  (D) depend<br />
+<strong>140.</strong> (A) summary  (B) summarize  (C) summarized  (D) summarizing<br />
+<strong>141.</strong> (A) each  (B) any  (C) every  (D) all<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) We look forward to helping you plan for the future.<br />
+(B) Our office is closed on national holidays.<br />
+(C) All consultations must be paid in advance.<br />
+(D) New clients receive a complimentary financial planning book.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>ONLINE BANKING — Planned Maintenance</strong></p>
+<p>Our online and mobile banking services <span class="blk">(143)</span> unavailable this Sunday from 2:00 A.M. to 6:00 A.M. while we upgrade our servers.</p>
+<p>During this window, you will not be able to log in, view balances, or make transfers. Debit and credit cards <span class="blk">(144)</span> normally during this time, and ATMs will remain in service.</p>
+<p>Any transfers or bill payments you have scheduled for that time will be processed automatically <span class="blk">(145)</span> the maintenance is complete.</p>
+<p>We recommend completing time-sensitive transactions beforehand. We apologize for any inconvenience and thank you for your understanding. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) is  (B) has been  (C) being  (D) will be<br />
+<strong>144.</strong> (A) work  (B) works  (C) working  (D) worked<br />
+<strong>145.</strong> (A) although  (B) despite  (C) once  (D) unless<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) This is the first maintenance window scheduled this year.<br />
+(B) ATMs will also be unavailable during this period.<br />
+(C) A new mobile app will be released next month.<br />
+(D) If you need assistance, our support line remains available 24/7.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Ivy Chen (10:40 A.M.):</strong> The Aldridge invoice came in at $4,200, not $3,800 like the quote.<br />
+<strong>Rob Neal (10:42 A.M.):</strong> They probably added the rush fee. Can you check the PO?<br />
+<strong>Ivy Chen (10:43 A.M.):</strong> PO says $3,800 with no rush. I'll email Aldridge and hold payment until it's sorted.<br />
+<strong>Rob Neal (10:44 A.M.):</strong> Good. Loop in procurement too.</p>
+<p><strong>147.</strong> What is the problem with the Aldridge invoice?<br />
+(A) It arrived late<br />
+(B) The amount is higher than the quote<br />
+(C) It was sent to the wrong person<br />
+(D) It is missing a signature</p>
+<p><strong>148.</strong> What will Ivy do?<br />
+(A) Pay the invoice in full<br />
+(B) Cancel the order<br />
+(C) Email Aldridge and hold payment<br />
+(D) Approve the rush fee</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>REGIONAL BANK TO CLOSE 12 BRANCHES, EXPAND DIGITAL SERVICES</strong></p>
+<p>Fairmont Regional Bank announced Tuesday that it will close 12 of its 78 branches over the next year, mostly in areas where two or more branches are within a few kilometers of each other. The bank said no branch will be more than 15 minutes' drive from another location.</p>
+<p>The bank plans to reinvest the savings in its mobile app and to open three "advice centers" — larger branches focused on mortgages, business banking, and financial planning rather than routine transactions.</p>
+<p>About 90 employees will be affected. The bank said it will offer all of them positions at nearby branches or in its expanding customer support center. "This is about matching our network to how customers actually bank today," said CEO Dana Ferris.</p>
+<p><strong>149.</strong> Why is the bank closing some branches?<br />
+(A) It is going out of business<br />
+(B) The buildings are unsafe<br />
+(C) A competitor bought them<br />
+(D) Many are close to other branches</p>
+<p><strong>150.</strong> What will the bank do with the money it saves?<br />
+(A) Reinvest in its mobile app and advice centers<br />
+(B) Pay a special dividend<br />
+(C) Reduce account fees<br />
+(D) Buy another bank</p>
+<p><strong>151.</strong> What will the "advice centers" focus on?<br />
+(A) Mortgages, business banking, and financial planning<br />
+(B) Routine deposits and withdrawals<br />
+(C) Foreign currency exchange<br />
+(D) Insurance products</p>
+<p><strong>152.</strong> What does the bank say about affected employees?<br />
+(A) They will receive severance only<br />
+(B) They must reapply for their jobs<br />
+(C) They will be retrained as advisors<br />
+(D) They will be offered other positions</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Coin Deposit Machine Out of Order</strong></p>
+<p>The coin-counting machine in the lobby is temporarily out of service pending a repair. We expect it to be working again by Friday.</p>
+<p>In the meantime, customers may bring coins to a teller in rolls (paper wrappers are available at the counter free of charge). We apologize for the inconvenience.</p>
+<p><strong>153.</strong> What is wrong?<br />
+(A) The ATM is broken<br />
+(B) The coin-counting machine is out of service<br />
+(C) The branch is closing early<br />
+(D) The lobby is being renovated</p>
+<p><strong>154.</strong> What can customers do in the meantime?<br />
+(A) Use a different branch<br />
+(B) Deposit coins through the ATM<br />
+(C) Bring coins to a teller in rolls<br />
+(D) Wait until Friday</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>SWITCH YOUR BUSINESS ACCOUNT — AND GET 3 MONTHS FREE</strong></p>
+<p>Tired of high fees on your business checking account? Open a Momentum Business Account before June 30 and pay no monthly fee for the first three months.</p>
+<p>The account includes 200 free transactions per month, free incoming wires, and a dedicated support line for business customers. After the promotional period, the monthly fee is $18, waived with a $5,000 average balance.</p>
+<p>Switching is easy: our team will help you move direct debits and standing payments at no charge. Visit any branch or momentumbank.example to start.</p>
+<p><strong>155.</strong> What is the promotional offer?<br />
+(A) No monthly fee for three months<br />
+(B) A cash bonus of $300<br />
+(C) A free business credit card<br />
+(D) Free international wires for a year</p>
+<p><strong>156.</strong> How can the monthly fee be waived after the promotion?<br />
+(A) By making 200 transactions<br />
+(B) By keeping a $5,000 average balance<br />
+(C) By enrolling in online statements<br />
+(D) By referring another business</p>
+<p><strong>157.</strong> What help does the bank offer with switching?<br />
+(A) A cash payment for the old account balance<br />
+(B) A free accountant consultation<br />
+(C) Same-day account opening<br />
+(D) Moving direct debits and standing payments for free</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> clients-list <strong>From:</strong> Anchor Financial <strong>Subject:</strong> Year-End Tax Documents</p>
+<p>Dear Client,</p>
+<p>Your year-end tax documents are now available in your secure online portal. Log in and go to "Documents &gt; Tax" to download them.</p>
+<p>Please note that if you added or closed any investment accounts during the year, you may receive more than one document. All of them are needed to file your return accurately.</p>
+<p>If you use an accountant, you can grant them view-only access to your tax documents from the "Sharing" menu — there is no need to forward files by email.</p>
+<p>If anything looks incorrect, contact us by February 20 so we have time to issue a correction before the filing deadline.</p>
+<p><strong>158.</strong> Where can clients find their tax documents?<br />
+(A) In the secure online portal<br />
+(B) In a mailed envelope<br />
+(C) At their local branch<br />
+(D) By calling the office</p>
+<p><strong>159.</strong> Why might a client receive more than one document?<br />
+(A) They have a joint account<br />
+(B) They added or closed accounts during the year<br />
+(C) They requested paper copies<br />
+(D) They changed advisors</p>
+<p><strong>160.</strong> How can a client share documents with an accountant?<br />
+(A) By forwarding them by email<br />
+(B) By printing and mailing them<br />
+(C) By adding the accountant as a joint owner<br />
+(D) By granting view-only access in the portal</p>
+<h3>Passage 6 — Fee schedule (161–162)</h3>
+<p><strong>MERIDIAN BANK — Selected Fees</strong></p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Fee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monthly maintenance (Basic Checking)</td>
+<td>$8 (waived with $1,500 balance)</td>
+</tr>
+<tr>
+<td>Overdraft</td>
+<td>$30 per item</td>
+</tr>
+<tr>
+<td>Outgoing domestic wire</td>
+<td>$15</td>
+</tr>
+<tr>
+<td>Outgoing international wire</td>
+<td>$40</td>
+</tr>
+<tr>
+<td>Replacement debit card</td>
+<td>$5 (first replacement per year free)</td>
+</tr>
+<tr>
+<td>Paper statement (per month)</td>
+<td>$2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>161.</strong> How can the monthly maintenance fee be avoided?<br />
+(A) By opening a savings account<br />
+(B) By using online banking<br />
+(C) By keeping a $1,500 balance<br />
+(D) By making 10 transactions</p>
+<p><strong>162.</strong> What is true about replacement debit cards?<br />
+(A) They always cost $5<br />
+(B) The first one each year is free<br />
+(C) They are never charged<br />
+(D) They cost $2</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Whitmore,</p>
+<p>Thank you for applying for a Meridian Bank small business line of credit. After reviewing your application and financial statements, we are pleased to approve a revolving credit line of $75,000 at a variable rate currently set at 8.4%.</p>
+<p>To activate the line, please sign and return the enclosed agreement within 30 days. You may draw on the funds at any time through online banking or by visiting a branch. Interest is charged only on the amount you have drawn, and there is no fee for keeping the line open.</p>
+<p>Your assigned relationship manager, Ms. Priya Rao, will contact you within a week to review the terms and answer any questions. She can also help you set up alerts so you always know your available balance.</p>
+<p>Sincerely,<br />
+Meridian Bank Business Lending</p>
+<p><strong>163.</strong> What was Mr. Whitmore approved for?<br />
+(A) A revolving line of credit<br />
+(B) A fixed-term business loan<br />
+(C) A business credit card<br />
+(D) A mortgage</p>
+<p><strong>164.</strong> What must Mr. Whitmore do to activate the credit line?<br />
+(A) Make a first deposit<br />
+(B) Visit a branch in person<br />
+(C) Sign and return the agreement within 30 days<br />
+(D) Provide additional collateral</p>
+<p><strong>165.</strong> When is interest charged?<br />
+(A) Monthly, on the full credit limit<br />
+(B) Only on the amount drawn<br />
+(C) Only after the first year<br />
+(D) At a fixed 8.4% regardless of use</p>
+<p><strong>166.</strong> What will Ms. Rao do?<br />
+(A) Approve future increases automatically<br />
+(B) Close the account if it is unused<br />
+(C) Send monthly paper statements<br />
+(D) Contact Mr. Whitmore within a week</p>
+<h3>Passage 8 — Help page (167–169)</h3>
+<p><strong>HELP — Mobile Deposit</strong></p>
+<p><strong>What can I deposit with the mobile app?</strong><br />
+You can deposit checks payable to you, up to $5,000 per check and $10,000 per day. Money orders and foreign checks are not accepted.</p>
+<p><strong>How do I do it?</strong><br />
+Endorse the back of the check, write "for mobile deposit only," and take a photo of the front and back. Funds are usually available the next business day.</p>
+<p><strong>What should I do with the paper check afterward?</strong><br />
+Keep it for 14 days in case there is a problem, then destroy it. Do not deposit it again.</p>
+<p><strong>Why was my deposit rejected?</strong><br />
+Common reasons: the amount you typed does not match the check, the image is blurry, or the check is not endorsed correctly.</p>
+<p><strong>167.</strong> What is the daily mobile deposit limit?<br />
+(A) $10,000<br />
+(B) $5,000<br />
+(C) $14,000<br />
+(D) There is no limit</p>
+<p><strong>168.</strong> What should a customer write on the back of the check?<br />
+(A) Their account number<br />
+(B) The deposit date<br />
+(C) "For mobile deposit only"<br />
+(D) A phone number</p>
+<p><strong>169.</strong> What should be done with the paper check after depositing?<br />
+(A) Mail it to the bank<br />
+(B) Keep it for 14 days, then destroy it<br />
+(C) Deposit it again at a branch<br />
+(D) Return it to the person who wrote it</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Accounts Payable <strong>RE:</strong> New Vendor Payment Schedule</p>
+<p>Starting next month, vendor payments will run once a week, on Wednesdays, instead of twice a month. To be paid on a given Wednesday, an approved invoice must be in the system by end of day Monday.</p>
+<p>Please remind vendors to send invoices to invoices@company.com, not to individual staff members. Invoices sent directly to staff often get delayed because they must be forwarded and re-entered.</p>
+<p>Urgent payments outside the weekly cycle still require director approval and should be rare.</p>
+<p><strong>170.</strong> How often will vendor payments run under the new schedule?<br />
+(A) Once a week<br />
+(B) Twice a month<br />
+(C) Once a month<br />
+(D) Every day</p>
+<p><strong>171.</strong> By when must an invoice be approved to be paid on Wednesday?<br />
+(A) The previous Friday<br />
+(B) Tuesday morning<br />
+(C) End of day Monday<br />
+(D) Wednesday at noon</p>
+<p><strong>172.</strong> Why should vendors send invoices to the central email address?<br />
+(A) It is required by law<br />
+(B) Individual staff cannot open attachments<br />
+(C) It automatically approves them<br />
+(D) Invoices sent to staff often get delayed</p>
+<h3>Passage 10 — Online review (173–175)</h3>
+<p>★★☆☆☆ <strong>Great app, painful in person</strong> — by T. Alvarez</p>
+<p>The mobile app is genuinely one of the best I have used — fast, clear, and mobile check deposit has never failed me. That is why the two stars sting. I went into the Elm Street branch to set up a trust account, and it took three visits: the first person did not know the process, the second was out sick on my appointment day with no notice, and the third finally handled it but needed 90 minutes. If your needs are simple and digital, this bank is excellent. For anything that requires a branch, be prepared to be patient.</p>
+<p><strong>173.</strong> What does the reviewer praise?<br />
+(A) The branch staff<br />
+(B) The interest rates<br />
+(C) The mobile app<br />
+(D) The phone support</p>
+<p><strong>174.</strong> Why did the reviewer give a low rating?<br />
+(A) A hidden fee<br />
+(B) A poor in-branch experience<br />
+(C) The app crashed<br />
+(D) A declined transaction</p>
+<p><strong>175.</strong> Who would the reviewer recommend this bank to?<br />
+(A) Customers who prefer digital banking<br />
+(B) Customers with complex needs<br />
+(C) Businesses only<br />
+(D) No one</p>
+<h3>Passages 11–12 — Two emails about a returned expense claim (176–180)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Accounts Payable <strong>To:</strong> Nadia Reyes <strong>Subject:</strong> Expense claim EXP-2231 — returned</p>
+<p>Hi Nadia,</p>
+<p>Your expense claim for the client dinner on March 4 ($218) has been returned for two reasons:<br />
+1. The receipt shows a total of $196, not $218. The $22 difference appears to be a tip added by hand; tips are reimbursable, but the handwritten amount must be circled and initialed by you on the receipt.<br />
+2. The claim is missing the names of the attendees, which our policy requires for meals over $75.</p>
+<p>Please make these corrections and resubmit.</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> Nadia Reyes <strong>To:</strong> Accounts Payable <strong>Subject:</strong> RE: Expense claim EXP-2231 — returned</p>
+<p>Thanks for explaining. I have circled and initialed the $22 tip on the receipt and re-uploaded it. The attendees were myself, the client's procurement lead, and their finance manager — three people total. I have added that to the notes field.</p>
+<p>Let me know if anything else is needed.</p>
+<p><strong>176.</strong> Why was the expense claim returned?<br />
+(A) It was submitted too late<br />
+(B) The amount exceeded the meal limit<br />
+(C) The receipt total did not match and attendee names were missing<br />
+(D) The client dinner was not approved</p>
+<p><strong>177.</strong> What is the policy for tips added by hand?<br />
+(A) They cannot be reimbursed<br />
+(B) They must be circled and initialed on the receipt<br />
+(C) They require manager approval<br />
+(D) They must be paid in cash</p>
+<p><strong>178.</strong> When are attendee names required?<br />
+(A) For all expense claims<br />
+(B) Only for international travel<br />
+(C) When a client is present<br />
+(D) For meals over $75</p>
+<p><strong>179.</strong> How many people attended the dinner?<br />
+(A) Two<br />
+(B) Three<br />
+(C) Four<br />
+(D) Five</p>
+<p><strong>180.</strong> What did Nadia do in response?<br />
+(A) Circled the tip and added attendee names<br />
+(B) Withdrew the claim<br />
+(C) Asked her manager to approve it<br />
+(D) Submitted a new receipt for $218</p>
+<h3>Passages 13–14 — Loan statement, email inquiry &amp; reply (181–185)</h3>
+<p><strong>Document 1 — Statement summary</strong></p>
+<p><strong>AUTO LOAN — Monthly Statement</strong><br />
+Account: AL-88123 · Borrower: Kwame Boateng<br />
+Original loan: $24,000 · Term: 48 months · Rate: 6.9% fixed<br />
+Payment due: $573.00 on the 5th of each month<br />
+Current balance: $9,842.11 · Payments remaining: 18<br />
+Note: You may pay extra toward principal at any time with no penalty. Indicate "principal only" in the payment memo.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Kwame Boateng <strong>To:</strong> loans@harborcu.example <strong>Subject:</strong> Paying off the loan early</p>
+<p>Hi,</p>
+<p>I'd like to pay off my auto loan (AL-88123) in the next couple of months using a work bonus. Two questions:<br />
+1. Is there any early-payoff penalty?<br />
+2. If I make a large extra payment now, will my monthly payment go down, or will the loan just finish sooner?</p>
+<p>Thanks,<br />
+Kwame</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> loans@harborcu.example <strong>To:</strong> Kwame Boateng <strong>Subject:</strong> RE: Paying off the loan early</p>
+<p>Hi Kwame,</p>
+<p>There is no early-payoff penalty on your loan.</p>
+<p>An extra payment marked "principal only" reduces your balance and the total interest you will pay, but your required monthly payment of $573 stays the same — the loan simply finishes sooner. If you would instead like your monthly payment recalculated to a lower amount over the remaining term, we can do a "re-amortization" for a $50 fee after the extra payment posts.</p>
+<p>For an exact payoff figure good for 10 days, reply and we will send a payoff quote.</p>
+<p><strong>181.</strong> What type of loan does Kwame have?<br />
+(A) An auto loan<br />
+(B) A mortgage<br />
+(C) A personal line of credit<br />
+(D) A student loan</p>
+<p><strong>182.</strong> What does Kwame want to do?<br />
+(A) Lower his interest rate<br />
+(B) Extend the loan term<br />
+(C) Pay off the loan early<br />
+(D) Skip a payment</p>
+<p><strong>183.</strong> Is there an early-payoff penalty?<br />
+(A) Yes, one month's interest<br />
+(B) Yes, a flat $50<br />
+(C) Only in the first year<br />
+(D) No</p>
+<p><strong>184.</strong> What happens to the monthly payment after an extra "principal only" payment?<br />
+(A) It goes down automatically<br />
+(B) It stays the same; the loan finishes sooner<br />
+(C) It is skipped for one month<br />
+(D) It increases</p>
+<p><strong>185.</strong> What does re-amortization cost?<br />
+(A) $50<br />
+(B) It is free<br />
+(C) One month's payment<br />
+(D) 1% of the balance</p>
+<h3>Passages 15–17 — Card policy, request email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Policy (excerpt)</strong></p>
+<p><strong>CORPORATE CREDIT CARD POLICY</strong><br />
+- Cards are issued to employees who travel or purchase on behalf of the company at least monthly.<br />
+- The default limit is $5,000. Higher limits require VP approval.<br />
+- All charges must be reconciled in the expense system within 10 days of the statement date.<br />
+- Personal charges are not permitted. If one occurs by mistake, repay the company within 5 business days and note it in the system.<br />
+- Two unreconciled statements in a row will result in the card being suspended.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Leo Fontaine <strong>To:</strong> Cards Admin <strong>Subject:</strong> Card limit increase request</p>
+<p>Hi,</p>
+<p>I'm hosting a two-day client workshop next month and will need to cover a venue deposit ($3,200), catering ($1,900), and materials ($600) — about $5,700 total, which is over my $4,000 card limit. Can my limit be raised temporarily for that month? I'll have it all reconciled well within the 10-day window.</p>
+<p>Thanks,<br />
+Leo</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> Cards Admin <strong>To:</strong> Leo Fontaine <strong>Subject:</strong> RE: Card limit increase request</p>
+<p>Hi Leo,</p>
+<p>Because the total is above $5,000, this needs VP sign-off. I've forwarded your request to Maria Ortiz with the breakdown you provided. Once she approves, I can raise your limit to $7,000 for 60 days, which covers the workshop and the reconciliation period. I'll email you when it is active — usually within two business days of her approval.</p>
+<p><strong>186.</strong> Who is eligible for a corporate credit card?<br />
+(A) All full-time employees<br />
+(B) Managers only<br />
+(C) Employees who travel or purchase for the company at least monthly<br />
+(D) Employees with over five years of service</p>
+<p><strong>187.</strong> What happens after two unreconciled statements in a row?<br />
+(A) A written warning<br />
+(B) A fee is charged<br />
+(C) The card is suspended<br />
+(D) The limit is reduced</p>
+<p><strong>188.</strong> Why does Leo's request need VP approval?<br />
+(A) He is a new employee<br />
+(B) It involves an international payment<br />
+(C) His card was previously suspended<br />
+(D) The total is above $5,000</p>
+<p><strong>189.</strong> What temporary limit will Leo get, if approved?<br />
+(A) $5,000 for 30 days<br />
+(B) $7,000 for 60 days<br />
+(C) $5,700 for one month<br />
+(D) $10,000 with no time limit</p>
+<p><strong>190.</strong> When will Leo's new limit become active?<br />
+(A) Within two business days of VP approval<br />
+(B) Immediately after he emails<br />
+(C) On the next statement date<br />
+(D) After the workshop</p>
+<h3>Passages 18–20 — Fund fact sheet, client email &amp; advisor reply (191–195)</h3>
+<p><strong>Document 1 — Fund fact sheet</strong></p>
+<p><strong>HORIZON BALANCED FUND — Key Facts</strong><br />
+- Objective: long-term growth with moderate risk<br />
+- Mix: about 60% stocks, 40% bonds<br />
+- Annual fee: 0.65%<br />
+- Minimum initial investment: $2,500; minimum additional: $100<br />
+- Recommended holding period: 5 years or more<br />
+- Past 5-year average annual return: 7.2% (returns are not guaranteed)</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sofia Marchetti <strong>To:</strong> advisor@anchorfinancial.example <strong>Subject:</strong> Moving my savings into the Horizon fund</p>
+<p>Hi,</p>
+<p>I have $8,000 in a savings account earning about 1%. I'm thinking of putting $6,000 into the Horizon Balanced Fund and keeping $2,000 as an emergency buffer. I won't need this money for at least seven years.</p>
+<p>Does that seem reasonable? And can I set up an automatic $150 monthly contribution afterward?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> advisor@anchorfinancial.example <strong>To:</strong> Sofia Marchetti <strong>Subject:</strong> RE: Moving my savings into the Horizon fund</p>
+<p>Hi Sofia,</p>
+<p>Your plan is sensible. The $6,000 is well above the $2,500 minimum, your seven-year horizon fits the fund's recommended holding period, and keeping $2,000 accessible for emergencies is exactly right.</p>
+<p>Yes, you can set up an automatic monthly contribution; $150 is above the $100 additional-investment minimum. I'll send you the forms today. One reminder: because this fund holds stocks, its value will go up and down along the way — that is normal, and the long horizon is what makes it appropriate.</p>
+<p><strong>191.</strong> What is the Horizon Balanced Fund's objective?<br />
+(A) Short-term income<br />
+(B) Guaranteed returns<br />
+(C) Long-term growth with moderate risk<br />
+(D) Tax-free savings</p>
+<p><strong>192.</strong> What is the minimum additional investment?<br />
+(A) $100<br />
+(B) $150<br />
+(C) $2,500<br />
+(D) $6,000</p>
+<p><strong>193.</strong> Why does the advisor say Sofia's plan is sensible?<br />
+(A) She is investing all her savings<br />
+(B) The fund guarantees 7.2% a year<br />
+(C) She has no other investments<br />
+(D) Her time horizon and emergency buffer fit the fund</p>
+<p><strong>194.</strong> How much does Sofia plan to keep as an emergency buffer?<br />
+(A) $1,000<br />
+(B) $2,000<br />
+(C) $6,000<br />
+(D) $8,000</p>
+<p><strong>195.</strong> What does the advisor remind Sofia about?<br />
+(A) The fee will increase after a year<br />
+(B) She cannot withdraw for seven years<br />
+(C) The fund's value will fluctuate<br />
+(D) The monthly contribution is mandatory</p>
+<h3>Passages 21–23 — Overdraft terms, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Terms</strong></p>
+<p><strong>OVERDRAFT PROTECTION — How It Works</strong></p>
+<p>You can link your checking account to either a savings account or a personal line of credit for overdraft protection.</p>
+<ul>
+<li><strong>Linked to savings:</strong> If a payment would overdraw your checking account, we move funds from savings to cover it. Transfer fee: $10 per day on which a transfer occurs (no fee if the shortfall is under $5).</li>
+<li><strong>Linked to a line of credit:</strong> We advance funds from the line of credit. No transfer fee, but interest applies on the advanced amount at your line's rate.</li>
+<li>Without any protection, a rejected payment incurs a $30 returned-item fee.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Aaron Lund <strong>To:</strong> support@meridianbank.example <strong>Subject:</strong> Which overdraft option?</p>
+<p>Hi,</p>
+<p>I keep a small buffer in checking and occasionally a payment slips through when a deposit is a day late. Last month I got hit with a $30 fee twice.</p>
+<p>I have a savings account with about $3,000 and also a $2,000 personal line of credit. Which overdraft option would you recommend to avoid those fees?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> support@meridianbank.example <strong>To:</strong> Aaron Lund <strong>Subject:</strong> RE: Which overdraft option?</p>
+<p>Hi Aaron,</p>
+<p>Either option would have prevented last month's $30 fees. Given your situation — small, occasional shortfalls that you cover within a day or two — linking to your savings account is usually the better choice: the cost is a $10 transfer fee only on days a transfer happens, and there is no fee at all for shortfalls under $5.</p>
+<p>The line of credit has no transfer fee but charges interest until you repay, which can add up if a shortfall sits for a while. I'd keep the line of credit as a backup for larger needs. I can set up the savings link today if you'd like.</p>
+<p><strong>196.</strong> What does overdraft protection linked to savings do?<br />
+(A) Increases your savings interest rate<br />
+(B) Moves funds from savings to cover an overdraft<br />
+(C) Waives all account fees<br />
+(D) Converts savings into a line of credit</p>
+<p><strong>197.</strong> What is the fee for a returned item with no overdraft protection?<br />
+(A) $5<br />
+(B) $10<br />
+(C) There is no fee<br />
+(D) $30</p>
+<p><strong>198.</strong> Why did Aaron contact the bank?<br />
+(A) To open a new savings account<br />
+(B) To dispute a transaction<br />
+(C) To choose an overdraft option<br />
+(D) To close his line of credit</p>
+<p><strong>199.</strong> Which option does the bank recommend for Aaron?<br />
+(A) Linking to his savings account<br />
+(B) Linking to his line of credit<br />
+(C) No protection<br />
+(D) Both options at once</p>
+<p><strong>200.</strong> What does the bank suggest doing with the line of credit?<br />
+(A) Closing it<br />
+(B) Using it as the main overdraft source<br />
+(C) Increasing its limit<br />
+(D) Keeping it as a backup for larger needs</p>
+<hr />
+<p><em>Hết phần Reading — Set_003. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_003</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B27/C28/D17 (Part 2 không có D), Reading A26/B25/C26/D23.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "meeting with a customer" · bẫy: "counting money", "using an ATM"</li>
+<li><strong>3 C</strong> "a chart is being displayed on a screen" · bẫy: "leaving the meeting room"</li>
+<li><strong>4 D</strong> "documents are being exchanged at a counter" · bẫy: "shaking hands", "depositing coins"</li>
+<li><strong>6 B</strong> "pointing at a graph during a presentation" · bẫy: "adjusting a projector"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where...open a business account" → vị trí · bẫy: lặp "opened"</li>
+<li><strong>13 B</strong> tag question → xác nhận + con số cụ thể · bẫy: lặp "rate", "interested/interest"</li>
+<li><strong>15 A</strong> "Isn't the branch closed...?" → "Yes, but the ATM is available" (đồng ý + bổ sung)</li>
+<li><strong>17 C</strong> "What did they find?" → "A few minor discrepancies" · bẫy: trả lời Where / How long</li>
+<li><strong>19 B</strong> "went through?" → "Let me check the account now" (trả lời gián tiếp)</li>
+<li><strong>21 C</strong> yêu cầu giúp → đồng ý trực tiếp "Sure, I just need your account number" · bẫy: lặp "account"</li>
+<li><strong>25 B</strong> "Isn't the loan due Friday?" → đính chính "Yes, but we can extend it" · bẫy: lặp "Friday"</li>
+<li><strong>31 C</strong> "Why was my card declined?" → lý do cụ thể "temporary hold" · bẫy: lặp "register"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>C</td>
+<td>D</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "dispute a charge" · "Three days ago, on the 12th" · "issue a temporary credit"</li>
+<li>35–37: "the Q3 numbers" · "operating costs rose faster than we expected" · "ready for the board by Thursday"</li>
+<li>38–40: "decide on the new payroll software" · "Ledger Pro integrates with our accounting system" · "ask both vendors for a live demo next week"</li>
+<li>41–43: "the two savings options" · "you can't withdraw for 12 months without a penalty" · "I'd suggest the standard account"</li>
+<li>44–46: "keeps rejecting my receipts" · "Try again near a window" · "forward that receipt to expenses@company.com and note your employee number"</li>
+<li>47–49: "the fraud-prevention training" · "spotting fake invoices was really useful" · "a short quiz you have to pass by Friday"</li>
+<li>50–52: "dispute a charge" · "date and amount of the charge" · "credit the amount while investigating"</li>
+<li>53–55: "apply for a small business loan" · "tax returns and a business plan" · "bring the final version later"</li>
+<li>56–58: "revenue up eight percent" · "shipping costs and new hires" · "flag it for the board meeting"</li>
+<li>59–61: "mortgage payment increased" · "property taxes went up" · "pay the tax increase as a lump sum"</li>
+<li>62–64: "audit findings" · "outdated expense-approval process" · "draft a proposal"</li>
+<li>65–67: "automatic transfers" · "two hundred dollars" · "confirmation email today"</li>
+<li>68–70: "portfolio lost value" · "outperforming the index" · "wait until next quarter's report"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "Saturday 9 A.M. to 1 P.M." · "online banking, available 24 hours a day" · "press 1 now"</li>
+<li>74–76: "about your car loan application" · "proof of insurance for the vehicle" · "released within two business days"</li>
+<li>77–79: "full-year profit rose 11%" · "invest $50 million in a new logistics center" · "Shares rose 4%"</li>
+<li>80–82: "paid twice a month" · "approved ... at least three business days beforehand" · "The submission process itself is not changing"</li>
+<li>83–85: "branch hours ... Saturday ... nine to noon" · "lost or stolen cards, press one" · "stay on the line" for a rep</li>
+<li>86–88: "held interest rates steady" · "analysts had expected a small increase" · "closed up just over one percent"</li>
+<li>89–91: "fraud detection" · "unusually large or rapid" transactions · "escalate to your supervisor"</li>
+<li>92–94: "delinquency rates remained low" · "tightened our approval criteria" · "strong credit quality going into next year"</li>
+<li>95–97: "enter your four-digit PIN" · "preset amounts shown on screen" · "card and receipt ... returned"</li>
+<li>98–100: "increase to the quarterly dividend" · "confidence in continued growth" · "report you received this morning"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The bank</code> số ít + thói quen → <code>notifies</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td><code>on</code> + "the first business day" (một ngày cụ thể)</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>analyzed</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>must</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>raise concerns about</code> (cố định)</td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> risk</code> (trong 3) → so sánh nhất <code>lowest</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>reduce fees by ... maintaining</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>has risen</code> → trạng từ <code>sharply</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Neither ... nor ...</code> chia theo <code>accountants</code> (số nhiều) → <code>were</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>decided to</code> + V nguyên → <code>postpone</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>calculated on the ... balance</code></td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the market recovers</code> → <code>Until</code> (cho đến khi)</td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The firm</code> số ít → <code>has</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động (merger <strong>được</strong> hoàn tất) → <code>to be finalized</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>information</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>in the auditorium</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td><code>approved at a ... rate</code> (mức lãi suất)</td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>review</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>flags</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... addresses</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>B</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>manager</code> → tính từ <code>authorized</code> (được ủy quyền)</td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (report <strong>được</strong> đăng)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>guidance</code> → tính từ <code>helpful</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>C</td>
+<td>"which <span class="fill"></span> effect on September 1" (mốc tương lai) → <code>will take</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>B</td>
+<td>"it <span class="fill"></span> waived if..." → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Fees ... are <span class="fill"></span>" → phân từ/tính từ <code>unchanged</code> (không đổi)</td>
+</tr>
+<tr>
+<td>134</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo phí tài khoản</td>
+</tr>
+<tr>
+<td>135</td>
+<td>A</td>
+<td>"Effective immediately, purchases ... <span class="fill"></span> approval" (hiện tại, chủ ngữ số nhiều) → <code>require</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>B</td>
+<td>"Directors <strong>được</strong> kỳ vọng phản hồi" → bị động <code>are expected</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>C</td>
+<td>"improve oversight <span class="fill"></span> slowing down" + V-ing → <code>without</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời khẳng định tích cực khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>B</td>
+<td>"our advisors are <span class="fill"></span>" → tính từ <code>independent</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>A</td>
+<td>"a written <span class="fill"></span>" → danh từ <code>summary</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>"<span class="fill"></span> three months" (mỗi 3 tháng) → <code>every</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> lời chào đón khép lại quảng cáo tư vấn tài chính</td>
+</tr>
+<tr>
+<td>143</td>
+<td>D</td>
+<td>"services <span class="fill"></span> unavailable this Sunday" (mốc tương lai) → <code>will be</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>A</td>
+<td>"Debit and credit cards <span class="fill"></span> normally" (chủ ngữ số nhiều, hiện tại đơn) → <code>work</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>C</td>
+<td>"processed automatically <span class="fill"></span> the maintenance is complete" → <code>once</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ hỗ trợ, khép lại thông báo bảo trì</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>B</td>
+<td>156</td>
+<td>B</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>B</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>A</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>D</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>A</td>
+<td>184</td>
+<td>B</td>
+<td>193</td>
+<td>D</td>
+</tr>
+<tr>
+<td>149</td>
+<td>D</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>C</td>
+<td>185</td>
+<td>A</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>A</td>
+<td>159</td>
+<td>B</td>
+<td>168</td>
+<td>C</td>
+<td>177</td>
+<td>B</td>
+<td>186</td>
+<td>C</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>A</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>D</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>D</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>B</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>B</td>
+<td>162</td>
+<td>B</td>
+<td>171</td>
+<td>C</td>
+<td>180</td>
+<td>A</td>
+<td>189</td>
+<td>B</td>
+<td>198</td>
+<td>C</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>D</td>
+<td>181</td>
+<td>A</td>
+<td>190</td>
+<td>A</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>A</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>C</td>
+<td>182</td>
+<td>C</td>
+<td>191</td>
+<td>C</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>149 D</strong> — "areas where two or more branches are within a few kilometers of each other"<br />
+- <strong>152 D</strong> — "it will offer all of them positions at nearby branches or in its ... support center"<br />
+- <strong>157 D</strong> — "our team will help you move direct debits and standing payments at no charge"<br />
+- <strong>167 A</strong> — "$5,000 per check and $10,000 per day" → giới hạn NGÀY là $10,000<br />
+- <strong>172 D</strong> — "Invoices sent directly to staff often get delayed"<br />
+- <strong>178 D</strong> — "the names of the attendees, which our policy requires for meals over $75"<br />
+- <strong>179 B</strong> — "myself, the client's procurement lead, and their finance manager — three people total"<br />
+- <strong>183 D</strong> — "There is no early-payoff penalty on your loan"<br />
+- <strong>184 B</strong> — "your required monthly payment of $573 stays the same — the loan simply finishes sooner"<br />
+- <strong>188 D</strong> — "Because the total is above $5,000, this needs VP sign-off"<br />
+- <strong>193 D</strong> — "your seven-year horizon fits the fund's recommended holding period, and keeping $2,000 accessible ... is exactly right"<br />
+- <strong>197 D</strong> — "a rejected payment incurs a $30 returned-item fee"<br />
+- <strong>200 D</strong> — "I'd keep the line of credit as a backup for larger needs"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_003 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Finance): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

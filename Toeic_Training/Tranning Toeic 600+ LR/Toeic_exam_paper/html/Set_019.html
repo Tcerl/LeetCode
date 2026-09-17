@@ -1,0 +1,2233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_019 — Government & Public Services</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="019">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_019</strong>
+    <span class="theme">Government &amp; Public Services</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_019 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Nhân viên quầy dịch vụ công đưa một mẫu đơn cho công dân.]</em><br />
+(A) People are voting at booths.<br />
+(B) A clerk is handing a form to a resident at a service counter.<br />
+(C) A meeting room is being set up.<br />
+(D) Someone is filing folders on a shelf.</p>
+<p><strong>2.</strong> <em>[Ảnh: Xe buýt công cộng dừng ở trạm, hành khách đang lên xe.]</em><br />
+(A) Passengers are boarding a city bus at a stop.<br />
+(B) A bus is being washed at a depot.<br />
+(C) A driver is checking a route map.<br />
+(D) The bus shelter is being repaired.</p>
+<p><strong>3.</strong> <em>[Ảnh: Công nhân vệ sinh đổ thùng rác vào xe ép rác bên đường.]</em><br />
+(A) A street is being swept by a machine.<br />
+(B) Bins are lined up along the curb.<br />
+(C) A worker is emptying a bin into a collection truck.<br />
+(D) Leaves are being raked into bags.</p>
+<p><strong>4.</strong> <em>[Ảnh: Phòng họp hội đồng thành phố trống trước giờ họp, ghế xếp hàng.]</em><br />
+(A) Council members are seated at the dais.<br />
+(B) A speaker is at the podium.<br />
+(C) The public seats are full.<br />
+(D) The council chamber is empty before a meeting.</p>
+<p><strong>5.</strong> <em>[Ảnh: Người dân xếp hàng chờ tại quầy cấp giấy phép.]</em><br />
+(A) People are waiting in line at a licensing counter.<br />
+(B) A form is being stamped.<br />
+(C) Two clerks are talking at a desk.<br />
+(D) A sign is being posted on the door.</p>
+<p><strong>6.</strong> <em>[Ảnh: Công nhân công chính đang vá một ổ gà trên mặt đường.]</em><br />
+(A) A road is being repainted with lane lines.<br />
+(B) A traffic light is being installed.<br />
+(C) Workers are filling a pothole in the road.<br />
+(D) A sidewalk is being poured.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the passport office open?<br />
+(A) At eight thirty on weekdays.<br />
+(B) On the second floor.<br />
+(C) About a two-week wait.</p>
+<p><strong>8.</strong> Who handles noise complaints in this district?<br />
+(A) It happens mostly at night.<br />
+(B) The code enforcement office.<br />
+(C) After 10 P.M. usually.</p>
+<p><strong>9.</strong> Where do I renew my business license?<br />
+(A) At the clerk's window, room 105.<br />
+(B) It's valid for one year.<br />
+(C) The fee went up slightly.</p>
+<p><strong>10.</strong> Why is the recycling pickup late this week?<br />
+(A) On Thursday morning.<br />
+(B) Blue bins only.<br />
+(C) The holiday shifted the schedule.</p>
+<p><strong>11.</strong> How long does a building permit review take?<br />
+(A) Usually about three weeks.<br />
+(B) The application is online.<br />
+(C) For a home addition.</p>
+<p><strong>12.</strong> Could you check whether my rebate application was received?<br />
+(A) The rebate is for a new furnace.<br />
+(B) I can look it up now.<br />
+(C) It's a state program.</p>
+<p><strong>13.</strong> The new transit app shows real-time arrivals now, doesn't it?<br />
+(A) The route changed last month.<br />
+(B) Yes, and it's much more accurate.<br />
+(C) There are twelve bus lines.</p>
+<p><strong>14.</strong> Should we hold the hearing in the evening or during the day?<br />
+(A) The chamber seats eighty.<br />
+(B) The agenda is short.<br />
+(C) Evening lets more residents attend.</p>
+<p><strong>15.</strong> Isn't the tax deadline the end of this month?<br />
+(A) You can pay online.<br />
+(B) The office is downtown.<br />
+(C) No, it was extended to the 15th of next month.</p>
+<p><strong>16.</strong> Can you show me how to request a public record online?<br />
+(A) The request was granted.<br />
+(B) Sure — fill out the form under "Records Request."<br />
+(C) We get a lot of those.</p>
+<p><strong>17.</strong> What did the public comments focus on?<br />
+(A) The meeting ran two hours.<br />
+(B) About thirty people spoke.<br />
+(C) Mostly the proposed parking changes.</p>
+<p><strong>18.</strong> Where is the ballot drop box located?<br />
+(A) Outside the library's main entrance.<br />
+(B) It's open until election day.<br />
+(C) You don't need a stamp.</p>
+<p><strong>19.</strong> Do you know whether the road closure was approved?<br />
+(A) It's for the street festival.<br />
+(B) Check the public works notices.<br />
+(C) It would last two days.</p>
+<p><strong>20.</strong> I think the permit process takes too long for small projects.<br />
+(A) There's a fast-track option for those now.<br />
+(B) The fee schedule is posted.<br />
+(C) Most permits are for renovations.</p>
+<p><strong>21.</strong> Could you process this permit application today?<br />
+(A) I'll process it this afternoon.<br />
+(B) Permits take time.<br />
+(C) I applied last year.</p>
+<p><strong>22.</strong> Has the public hearing been rescheduled yet?<br />
+(A) It's a public event.<br />
+(B) I heard about it.<br />
+(C) Not yet, we're waiting on a new date.</p>
+<p><strong>23.</strong> Where can residents pay their property taxes?<br />
+(A) At the city treasurer's office.<br />
+(B) Taxes are due in April.<br />
+(C) I paid mine already.</p>
+<p><strong>24.</strong> Would you rather hold the town hall in the evening or on a Saturday?<br />
+(A) Evening would draw more people.<br />
+(B) Town halls take planning.<br />
+(C) I attended one last year.</p>
+<p><strong>25.</strong> Isn't the DMV usually closed on Mondays?<br />
+(A) Mondays are the busiest day.<br />
+(B) Yes, but it's open this Monday for a special session.<br />
+(C) The DMV moved locations.</p>
+<p><strong>26.</strong> How many residents attended the meeting?<br />
+(A) About sixty.<br />
+(B) Meetings run long.<br />
+(C) We meet monthly.</p>
+<p><strong>27.</strong> Who's overseeing the road construction project?<br />
+(A) Construction is noisy.<br />
+(B) An engineer from public works.<br />
+(C) Roads need repair.</p>
+<p><strong>28.</strong> Do you know if the budget was approved by the council?<br />
+(A) Budgets are detailed.<br />
+(B) I approved the request.<br />
+(C) Yes, it passed last night.</p>
+<p><strong>29.</strong> Should we extend the public comment period?<br />
+(A) Comments are valuable.<br />
+(B) Let's check with the legal department first.<br />
+(C) I commented already.</p>
+<p><strong>30.</strong> Haven't you finished reviewing the zoning request yet?<br />
+(A) Reviews take time.<br />
+(B) Almost, just one section left.<br />
+(C) The request looked reasonable.</p>
+<p><strong>31.</strong> Why was the council session postponed?<br />
+(A) Sessions happen weekly.<br />
+(B) It happened last term too.<br />
+(C) Because a quorum wasn't reached.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I'm following up on my fence permit — it's been three weeks with no word.<br />
+<strong>M:</strong> Let me check... it's on hold. The reviewer needs a site plan showing the property lines; only a sketch was attached.<br />
+<strong>W:</strong> I have the survey from when I bought the house.<br />
+<strong>M:</strong> That works. Upload it to the application portal under "additional documents" and it goes back in the queue — usually cleared within a few days once it's complete.</p>
+<p><strong>32.</strong> Why is the woman following up?<br />
+(A) To pay a fee<br />
+(B) Her fence permit has been pending three weeks<br />
+(C) To cancel the application<br />
+(D) To appeal a denial</p>
+<p><strong>33.</strong> Why is the application on hold?<br />
+(A) The fee wasn't paid<br />
+(B) The wrong form was used<br />
+(C) It's missing a site plan showing property lines<br />
+(D) A neighbor objected</p>
+<p><strong>34.</strong> What does the clerk tell her to do?<br />
+(A) Come to the office in person<br />
+(B) Start a new application<br />
+(C) Wait for a call<br />
+(D) Upload the survey to the portal</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The zoning hearing is set for the 12th, but we only posted the notice yesterday. The rule is 15 days.<br />
+<strong>W:</strong> So we can't hold it on the 12th.<br />
+<strong>M:</strong> Right. The earliest legal date is the 20th. I'll update the notice and the website, and notify the applicant.<br />
+<strong>W:</strong> Push it to the 20th and make sure the mailed notices to nearby owners go out today so the clock is clean.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) The public notice wasn't posted the required number of days ahead<br />
+(B) The room is double-booked<br />
+(C) The applicant withdrew<br />
+(D) A council member is absent</p>
+<p><strong>36.</strong> When is the earliest the hearing can be held?<br />
+(A) The 12th<br />
+(B) The 20th<br />
+(C) The 15th<br />
+(D) Next month</p>
+<p><strong>37.</strong> What does the woman want done today?<br />
+(A) Cancel the hearing<br />
+(B) Call every resident<br />
+(C) Reschedule the whole agenda<br />
+(D) Mail the notices to nearby owners</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> Ridership on the number 9 has dropped 30 percent since the office park closed. What do we do?<br />
+<strong>M1:</strong> We could cut its frequency from every 20 minutes to every 40.<br />
+<strong>M2:</strong> Or reroute it to serve the new clinic and the community college, which have no direct service now.<br />
+<strong>W:</strong> Let's model the reroute. If it holds ridership, that's better than shrinking the route. Bring it to the board with a rider survey.</p>
+<p><strong>38.</strong> What is the problem with the number 9 route?<br />
+(A) It's overcrowded<br />
+(B) Ridership dropped after the office park closed<br />
+(C) The buses keep breaking down<br />
+(D) Drivers are quitting</p>
+<p><strong>39.</strong> What does the second man suggest?<br />
+(A) Cancel the route<br />
+(B) Add more buses<br />
+(C) Reroute it to serve the clinic and community college<br />
+(D) Raise the fare</p>
+<p><strong>40.</strong> What will they bring to the board?<br />
+(A) A budget cut<br />
+(B) A fare proposal<br />
+(C) A new schedule only<br />
+(D) The reroute model plus a rider survey</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> My trash wasn't collected this morning and the whole street's bins are still full.<br />
+<strong>M:</strong> Let me check the route log... the truck had a breakdown on your side today. A replacement crew is scheduled to finish that route tomorrow by noon.<br />
+<strong>W:</strong> Do I leave the bins out?<br />
+<strong>M:</strong> Yes, leave them at the curb. If it's still not collected by 2 P.M. tomorrow, call back with this reference number and we'll escalate.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To report a broken bin<br />
+(B) Because her trash wasn't collected<br />
+(C) To request an extra pickup<br />
+(D) To change her pickup day</p>
+<p><strong>42.</strong> What caused the missed pickup?<br />
+(A) The truck broke down on her route<br />
+(B) A holiday schedule<br />
+(C) Her bin was blocked<br />
+(D) A staffing shortage</p>
+<p><strong>43.</strong> What should the woman do if it's not collected by 2 P.M. tomorrow?<br />
+(A) Take the trash to a drop-off<br />
+(B) Wait until next week<br />
+(C) Email a photo<br />
+(D) Call back with the reference number to escalate</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> We got a records request for two years of the water department's purchase orders. That's thousands of pages.<br />
+<strong>W:</strong> We still have to respond within the statutory window. Can we produce it in batches?<br />
+<strong>M:</strong> The law allows a rolling production with a written timeline. I'd propose the first batch in ten days and the rest over six weeks.<br />
+<strong>W:</strong> Send the requester that timeline in writing today, and note any records we're withholding and why.</p>
+<p><strong>44.</strong> What did the office receive?<br />
+(A) A complaint<br />
+(B) An audit notice<br />
+(C) A public records request<br />
+(D) A budget amendment</p>
+<p><strong>45.</strong> What does the man propose?<br />
+(A) Denying the request<br />
+(B) A rolling production with a written timeline<br />
+(C) Charging a large fee<br />
+(D) Referring it to a court</p>
+<p><strong>46.</strong> What does the woman say to send the requester today?<br />
+(A) The timeline in writing<br />
+(B) A partial refund<br />
+(C) The first batch immediately<br />
+(D) A denial letter</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> My assistance benefits stopped this month and I didn't get any notice.<br />
+<strong>M:</strong> I see — your annual renewal was due and the form was mailed to your old address. It came back to us.<br />
+<strong>W:</strong> I moved in the spring and I thought I updated it.<br />
+<strong>M:</strong> The update went to one system but not ours. Let's fix the address now, I'll send you the renewal form today, and if you return it within 30 days, benefits are restored back to this month with no gap.</p>
+<p><strong>47.</strong> Why is the woman contacting the office?<br />
+(A) To apply for a new program<br />
+(B) To report fraud<br />
+(C) To change her caseworker<br />
+(D) Her benefits stopped without notice</p>
+<p><strong>48.</strong> What caused the problem?<br />
+(A) She missed an appointment<br />
+(B) Her income changed<br />
+(C) The renewal form went to her old address<br />
+(D) The program ended</p>
+<p><strong>49.</strong> What happens if she returns the form within 30 days?<br />
+(A) Benefits are restored with no gap<br />
+(B) She must reapply from scratch<br />
+(C) She gets a partial payment<br />
+(D) A hearing is scheduled</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> A resident called about a pothole on Maple Street that hasn't been fixed.<br />
+<strong>M:</strong> Let me check if it's already on our repair list.<br />
+<strong>W:</strong> It is, but it's scheduled for next month.<br />
+<strong>M:</strong> Given the complaint, let's see if we can move it up to this week.</p>
+<p><strong>50.</strong> What did the resident report?<br />
+(A) A broken streetlight<br />
+(B) A pothole on Maple Street<br />
+(C) A water leak<br />
+(D) A missing sign</p>
+<p><strong>51.</strong> What does the man check?<br />
+(A) The budget<br />
+(B) Whether it's already on the repair list<br />
+(C) The resident's address<br />
+(D) The weather forecast</p>
+<p><strong>52.</strong> What does the man suggest?<br />
+(A) Ignoring the complaint<br />
+(B) Moving the repair up to this week<br />
+(C) Closing the street<br />
+(D) Sending a survey</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> Attendance at last night's town hall was lower than we expected.<br />
+<strong>W:</strong> Maybe the timing conflicted with the school event happening the same night.<br />
+<strong>M:</strong> That's possible. Should we check the calendar before scheduling the next one?<br />
+<strong>W:</strong> Yes, and let's also promote it earlier next time.</p>
+<p><strong>53.</strong> What problem is discussed?<br />
+(A) Lower than expected attendance<br />
+(B) A budget shortfall<br />
+(C) A canceled event<br />
+(D) A staffing issue</p>
+<p><strong>54.</strong> What does the woman suggest caused it?<br />
+(A) Bad weather<br />
+(B) A conflicting school event<br />
+(C) A lack of interest<br />
+(D) A venue change</p>
+<p><strong>55.</strong> What will the speakers do next time?<br />
+(A) Cancel the event<br />
+(B) Check the calendar and promote earlier<br />
+(C) Hold it online only<br />
+(D) Reduce the frequency</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> We received a records request from a local journalist about last year's spending.<br />
+<strong>M:</strong> Let's make sure we respond within the legal timeframe.<br />
+<strong>W:</strong> I'll gather the documents and have them ready by Thursday.<br />
+<strong>M:</strong> Great, and let's loop in legal before we send anything out.</p>
+<p><strong>56.</strong> What did the speakers receive?<br />
+(A) A complaint<br />
+(B) A records request from a journalist<br />
+(C) A grant application<br />
+(D) A lawsuit notice</p>
+<p><strong>57.</strong> What is the man concerned about?<br />
+(A) Cost<br />
+(B) Responding within the legal timeframe<br />
+(C) Staff availability<br />
+(D) Public opinion</p>
+<p><strong>58.</strong> What will happen before anything is sent?<br />
+(A) A press release<br />
+(B) Legal will be looped in<br />
+(C) A public hearing<br />
+(D) A council vote</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> The new online permit system launches next week, and I'm a bit worried about the transition.<br />
+<strong>W:</strong> We've tested it thoroughly, so it should go smoothly.<br />
+<strong>M:</strong> Should we still have staff on hand to help residents who struggle with it?<br />
+<strong>W:</strong> Good idea, let's schedule extra front-desk coverage for the first few days.</p>
+<p><strong>59.</strong> What launches next week?<br />
+(A) A new tax system<br />
+(B) A new online permit system<br />
+(C) A new website<br />
+(D) A new phone line</p>
+<p><strong>60.</strong> What does the woman say about testing?<br />
+(A) It has not been done yet.<br />
+(B) It has been done thoroughly.<br />
+(C) It revealed major problems.<br />
+(D) It is still ongoing.</p>
+<p><strong>61.</strong> What will the speakers schedule?<br />
+(A) A press conference<br />
+(B) Extra front-desk coverage<br />
+(C) A training session for residents<br />
+(D) A system shutdown</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's discuss the plan for the upcoming election.<br />
+<strong>M1:</strong> We'll need extra poll workers for the busier precincts.<br />
+<strong>M2:</strong> I can start recruiting volunteers through the community board.<br />
+<strong>W:</strong> Great, let's aim to have everyone trained two weeks before election day.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) An upcoming election<br />
+(B) A budget vote<br />
+(C) A new law<br />
+(D) A public hearing</p>
+<p><strong>63.</strong> What is needed for busier precincts?<br />
+(A) More voting machines<br />
+(B) Extra poll workers<br />
+(C) Longer hours<br />
+(D) A different location</p>
+<p><strong>64.</strong> When should training be completed?<br />
+(A) On election day<br />
+(B) Two weeks before election day<br />
+(C) The day before<br />
+(D) A month before</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I noticed complaints about the new parking meter system have been increasing.<br />
+<strong>M:</strong> What exactly are residents unhappy about?<br />
+<strong>W:</strong> Mostly that the app is confusing to use.<br />
+<strong>M:</strong> Let's set up a booth downtown this week to help people and gather feedback.</p>
+<p><strong>65.</strong> What has been increasing?<br />
+(A) Parking ticket revenue<br />
+(B) Complaints about the parking meter system<br />
+(C) The number of parking spaces<br />
+(D) Traffic violations</p>
+<p><strong>66.</strong> What are residents unhappy about?<br />
+(A) High prices<br />
+(B) A confusing app<br />
+(C) Limited hours<br />
+(D) Too few meters</p>
+<p><strong>67.</strong> What will the speakers do this week?<br />
+(A) Remove the meters<br />
+(B) Set up a booth to help and gather feedback<br />
+(C) Lower the prices<br />
+(D) Cancel the app</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> The community center renovation is finally finished ahead of schedule.<br />
+<strong>W:</strong> That's great news. When should we plan the reopening event?<br />
+<strong>M:</strong> Maybe two weeks from now, to give us time to promote it properly.<br />
+<strong>W:</strong> I'll start reaching out to local groups to invite them.</p>
+<p><strong>68.</strong> What is finished?<br />
+(A) A new library<br />
+(B) The community center renovation<br />
+(C) A park upgrade<br />
+(D) A road project</p>
+<p><strong>69.</strong> How is the timing described?<br />
+(A) Behind schedule<br />
+(B) Ahead of schedule<br />
+(C) On schedule<br />
+(D) Not mentioned</p>
+<p><strong>70.</strong> What will the woman do?<br />
+(A) Order supplies<br />
+(B) Reach out to local groups<br />
+(C) Hire new staff<br />
+(D) Design a flyer</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Recorded phone message</h3>
+<p><em>"Thank you for calling the county tax office. Our lobby is open Monday through Friday, 8 to 4:30, and closed on county holidays. Most services — paying your bill, requesting a statement, setting up a payment plan — can be done on our website without waiting. If you're calling about a delinquency notice, please have your parcel number ready. To speak with a representative, stay on the line; the current wait is about twelve minutes."</em></p>
+<p><strong>71.</strong> What kind of office is this?<br />
+(A) The county tax office<br />
+(B) The transit authority<br />
+(C) A public library<br />
+(D) The elections office</p>
+<p><strong>72.</strong> What does the message say most callers can do online?<br />
+(A) File an appeal<br />
+(B) Schedule an inspection<br />
+(C) Update their address<br />
+(D) Pay a bill, request a statement, or set up a payment plan</p>
+<p><strong>73.</strong> What should callers about a delinquency notice have ready?<br />
+(A) A photo ID<br />
+(B) Last year's return<br />
+(C) Their parcel number<br />
+(D) A credit card</p>
+<h3>Talk 2 (74–76) — Voicemail from a permit reviewer</h3>
+<p><em>"Hi, this is Marcus in the building department, calling about your deck permit. The plans are almost approved — one thing is holding it up. The guardrail height on the drawing is 34 inches, and code here requires at least 36 for a deck at that elevation. If you email a revised page showing 36, I can approve it the same day. Nothing else needs to change. My direct line is on the portal."</em></p>
+<p><strong>74.</strong> What is the call about?<br />
+(A) A property tax bill<br />
+(B) A deck permit<br />
+(C) A code violation fine<br />
+(D) A zoning appeal</p>
+<p><strong>75.</strong> What is holding up the approval?<br />
+(A) A missing fee<br />
+(B) The wrong property address<br />
+(C) A neighbor's objection<br />
+(D) The guardrail height is below code</p>
+<p><strong>76.</strong> What does Marcus say will happen if the applicant sends a revised page?<br />
+(A) It goes back to the end of the queue<br />
+(B) A new inspection is required<br />
+(C) He can approve it the same day<br />
+(D) It needs a second reviewer</p>
+<h3>Talk 3 (77–79) — Presentation on a 311 service</h3>
+<p><em>"The change that cut our repeat-call volume was closing the loop. Before, a resident reported a pothole and heard nothing until, maybe, it got fixed weeks later — so they called again, and again. Now every request gets an automatic text when it's assigned to a crew and another when it's marked done, with a photo. Repeat calls on the same issue dropped by about 40 percent, and satisfaction scores went up more than anything else we tried."</em></p>
+<p><strong>77.</strong> What change reduced repeat calls?<br />
+(A) Automatic status updates to the resident<br />
+(B) Hiring more phone staff<br />
+(C) A new phone system<br />
+(D) Longer call-center hours</p>
+<p><strong>78.</strong> What does the resident now receive?<br />
+(A) A printed letter<br />
+(B) A phone call from a supervisor<br />
+(C) A text when the request is assigned and when it's done, with a photo<br />
+(D) A survey only</p>
+<p><strong>79.</strong> What was the result?<br />
+(A) Costs rose<br />
+(B) Repeat calls on the same issue dropped about 40 percent<br />
+(C) Call times got longer<br />
+(D) No measurable change</p>
+<h3>Talk 4 (80–82) — Advertisement</h3>
+<p><em>"For city and county permit offices: PermitFlow moves your whole process online — application, plan review markup, fee payment, inspection scheduling, and the final certificate. Applicants see exactly where their permit stands and what's needed next, which cuts status calls to your counter. It works alongside your existing records system, so there's no rip-and-replace. Cities that switch report approval times dropping by a third. Request a demo at permitflow.example."</em></p>
+<p><strong>80.</strong> What does PermitFlow move online?<br />
+(A) The entire permit process<br />
+(B) Property tax collection<br />
+(C) Public meeting agendas<br />
+(D) Payroll</p>
+<p><strong>81.</strong> What does the applicant visibility reduce?<br />
+(A) Application fees<br />
+(B) Status calls to the counter<br />
+(C) Inspection failures<br />
+(D) Staff overtime</p>
+<p><strong>82.</strong> What do cities that switch report?<br />
+(A) Higher fee revenue<br />
+(B) Fewer applications<br />
+(C) Approval times dropping by about a third<br />
+(D) More staff needed</p>
+<h3>Talk 5 (83–85) — City announcement</h3>
+<p><em>"Attention, residents. Street sweeping in the downtown district will resume next Monday, so please move vehicles from marked streets between 8 A.M. and noon. Vehicles left in the zone during that time may be ticketed. Signs are posted along affected streets as a reminder."</em></p>
+<p><strong>83.</strong> What is resuming next Monday?<br />
+(A) Trash collection<br />
+(B) Street sweeping<br />
+(C) Road construction<br />
+(D) Water main repairs</p>
+<p><strong>84.</strong> What should residents do?<br />
+(A) Move vehicles from marked streets<br />
+(B) Stay indoors<br />
+(C) Avoid downtown entirely<br />
+(D) Report to a hotline</p>
+<p><strong>85.</strong> What might happen to vehicles left in the zone?<br />
+(A) They will be towed immediately.<br />
+(B) They may be ticketed.<br />
+(C) They will be washed.<br />
+(D) Nothing will happen.</p>
+<h3>Talk 6 (86–88) — City clerk's office voicemail</h3>
+<p><em>"Hi, this is the clerk's office calling about your marriage license application. Everything looks complete, but we need both parties to appear in person to sign before it can be issued. Our office is open until four-thirty on weekdays."</em></p>
+<p><strong>86.</strong> Why is the office calling?<br />
+(A) To reject the application<br />
+(B) To explain what's still needed<br />
+(C) To request a fee<br />
+(D) To reschedule an appointment</p>
+<p><strong>87.</strong> What is required before the license can be issued?<br />
+(A) A background check<br />
+(B) Both parties appearing in person to sign<br />
+(C) A witness statement<br />
+(D) A notarized letter</p>
+<p><strong>88.</strong> Until what time is the office open on weekdays?<br />
+(A) Three<br />
+(B) Four-thirty<br />
+(C) Five-thirty<br />
+(D) Six</p>
+<h3>Talk 7 (89–91) — Public library announcement</h3>
+<p><em>"Attention, library patrons. Our summer reading program begins next week and is open to all ages. Participants who complete their reading log by August 1 will be entered into a prize drawing. Sign-up sheets are available at the front desk."</em></p>
+<p><strong>89.</strong> What begins next week?<br />
+(A) A summer reading program<br />
+(B) A book sale<br />
+(C) A lecture series<br />
+(D) A renovation</p>
+<p><strong>90.</strong> Who can participate?<br />
+(A) Children only<br />
+(B) All ages<br />
+(C) Library members only<br />
+(D) Teens only</p>
+<p><strong>91.</strong> What happens if participants complete their log by August 1?<br />
+(A) They receive a free book.<br />
+(B) They are entered into a prize drawing.<br />
+(C) They get a certificate only.<br />
+(D) They can renew their card for free.</p>
+<h3>Talk 8 (92–94) — Emergency services update</h3>
+<p><em>"This is an update from the emergency management office. The road closures from this morning's storm have mostly been cleared, with the exception of River Road, which remains closed due to flooding. Crews expect that road to reopen by this evening."</em></p>
+<p><strong>92.</strong> What caused the road closures?<br />
+(A) A traffic accident<br />
+(B) This morning's storm<br />
+(C) A construction project<br />
+(D) A power outage</p>
+<p><strong>93.</strong> Which road remains closed?<br />
+(A) Main Street<br />
+(B) River Road<br />
+(C) Highway 9<br />
+(D) Park Avenue</p>
+<p><strong>94.</strong> When is that road expected to reopen?<br />
+(A) Tomorrow morning<br />
+(B) This evening<br />
+(C) Next week<br />
+(D) It is unknown.</p>
+<h3>Talk 9 (95–97) — Public policy briefing</h3>
+<p><em>"As part of the city's new initiative, we'll be expanding public transit routes to better serve the eastern neighborhoods, where ridership demand has grown significantly. The new routes are expected to launch in the fall, following a final round of community feedback sessions."</em></p>
+<p><strong>95.</strong> What is being expanded?<br />
+(A) Public transit routes<br />
+(B) Bike lanes<br />
+(C) Parking facilities<br />
+(D) Sidewalks</p>
+<p><strong>96.</strong> Why is this happening?<br />
+(A) A budget surplus<br />
+(B) Growing ridership demand in eastern neighborhoods<br />
+(C) A new mayor's request<br />
+(D) A federal mandate</p>
+<p><strong>97.</strong> When are the new routes expected to launch?<br />
+(A) This summer<br />
+(B) This fall<br />
+(C) Next spring<br />
+(D) In two years</p>
+<h3>Talk 10 (98–100) — Council meeting excerpt</h3>
+<p><em>"Moving to the next item, the council will vote on the proposed budget for park improvements next month. If approved, work would begin in early spring, focusing first on playground equipment and walking trails. Public comment on this item is open for the next ten minutes."</em></p>
+<p><strong>98.</strong> What will the council vote on?<br />
+(A) A tax increase<br />
+(B) A proposed budget for park improvements<br />
+(C) A new zoning law<br />
+(D) A road closure</p>
+<p><strong>99.</strong> What would happen first if approved?<br />
+(A) Building a new building<br />
+(B) Playground equipment and walking trails<br />
+(C) Planting trees<br />
+(D) Adding parking</p>
+<p><strong>100.</strong> What is open for the next ten minutes?<br />
+(A) Voting<br />
+(B) Public comment<br />
+(C) A tour<br />
+(D) Registration</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_019 — READING (100 câu: 101–200) · Chủ đề: Government &amp; Public Services</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The department <span class="blk">________</span> a public performance report every quarter.<br />
+(A) release  (B) releases  (C) releasing  (D) to release</p>
+<p><strong>102.</strong> Appeal forms must be filed <span class="blk">________</span> the date printed on the notice.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The audit identified several <span class="blk">________</span> between the reported hours and the payroll records.<br />
+(A) different  (B) differently  (C) discrepancies  (D) difference</p>
+<p><strong>104.</strong> <span class="blk">________</span> a hiring freeze this year, the office cleared its permit backlog.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> Applicants are required to <span class="blk">________</span> proof of residency with the form.<br />
+(A) provide  (B) provides  (C) providing  (D) provision</p>
+<p><strong>106.</strong> The redesigned website makes finding a form much <span class="blk">________</span> than before.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> The meeting agenda is posted <span class="blk">________</span> the bulletin board outside the clerk's office.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> The bus route was suspended <span class="blk">________</span> construction on the bridge.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The city reduced call-center wait times <span class="blk">________</span> adding an online chat option.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> The number of online permit applications has grown <span class="blk">________</span> over the past two years.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three proposals, the second would serve the <span class="blk">________</span> residents.<br />
+(A) many  (B) more  (C) most  (D) much</p>
+<p><strong>112.</strong> The new system routes service requests to crews far <span class="blk">________</span> than the paper process.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> The budget hearing will be held <span class="blk">________</span> the council chamber on the third floor.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> an application is complete, the review clock begins.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The agency <span class="blk">________</span> five regional offices and a central call center.<br />
+(A) operate  (B) operates  (C) operating  (D) to operate</p>
+<p><strong>116.</strong> The road resurfacing is expected <span class="blk">________</span> before the winter.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior planner will <span class="blk">________</span> the new zoning staff next month.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Residents renew licenses <span class="blk">________</span> when the office offers evening hours than when it closes at five.<br />
+(A) frequent  (B) frequently  (C) most frequently  (D) more frequently</p>
+<p><strong>119.</strong> The report lists several <span class="blk">________</span> for shortening the permit timeline.<br />
+(A) step  (B) steps  (C) stepping  (D) stepped</p>
+<p><strong>120.</strong> The records office is open to the public <span class="blk">________</span> 9 A.M. to 3 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The grant to the city was awarded <span class="blk">________</span> conditions on how the funds could be spent.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The revised fee schedule <span class="blk">________</span> posted 30 days before it takes effect.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A property owner is <span class="blk">________</span> for the exemption only after filing the application by March 1.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The one-page guide gives applicants a <span class="blk">________</span> overview of the permit steps.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The council voted to <span class="blk">________</span> the outdated sign ordinance.<br />
+(A) revise  (B) revises  (C) revising  (D) to revise</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed sites had enough space for the new fire station.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Case files from the past ten years are stored <span class="blk">________</span> the department's secure server.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any change to the official record must be approved by an <span class="blk">________</span> supervisor.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two intersections were left out of the first repaving phase <span class="blk">________</span> a utility conflict.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New clerks receive <span class="blk">________</span> training on the public-records disclosure rules.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — City Hall Payment Systems Down This Weekend</strong></p>
+<p>Online and in-person payment systems <span class="blk">(131)</span> unavailable from Friday 6 P.M. to Monday 8 A.M. while we upgrade the billing platform.</p>
+<p>Staff <span class="blk">(132)</span> accept payments by mail as usual, and no late fees will apply to bills due during the outage.</p>
+<p>Account balances <span class="blk">(133)</span> already been copied to the new system, so nothing will be lost.</p>
+<p>We appreciate your patience during the upgrade. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will  (B) are  (C) have  (D) being<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Late fees will apply as usual during this period.<br />
+(B) Mail payments will not be accepted during the outage.<br />
+(C) Reach out to the finance office if you have questions.<br />
+(D) Account balances from before the upgrade will not be available.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Process for Records Requests</p>
+<p>Starting this month, public records requests <span class="blk">(135)</span> be submitted through the online request portal, not by walk-in or fax.</p>
+<p>The portal <span class="blk">(136)</span> accept attachments, so you can include a map or a prior response to narrow your request.</p>
+<p>Requests that will take more than 40 staff hours <span class="blk">(137)</span> receive a cost estimate before work begins, which you can approve or revise.</p>
+<p>Thank you for your cooperation as we move this online. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Walk-in requests will still be accepted alongside the portal.<br />
+(B) All requests will now require a cost estimate before processing.<br />
+(C) This process applies only to requests from journalists.<br />
+(D) Reach out to the clerk's office if you have questions.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>CIVICLINE — ONE PLACE FOR EVERY RESIDENT REQUEST</strong></p>
+<p>CivicLine takes reports from a web form, a phone line, and a mobile app, routes each to the right department, and sends the resident an update at every step.</p>
+<p>Most agencies find <span class="blk">(139)</span> valuable: a live map of open requests, a record of who touched each one, and reports that show which streets generate the most calls. Cities using it say repeat calls dropped noticeably.</p>
+<p>Setup is <span class="blk">(140)</span> and takes a few weeks. There is no <span class="blk">(141)</span> contract, and the first department is free to pilot. Book a demo at civicline.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) CivicLine requires replacing your current phone system entirely.<br />
+(B) A minimum of three departments must pilot the program together.<br />
+(C) Reports are generated only once per year.<br />
+(D) See how it works with your own department's requests.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Departments <strong>FROM:</strong> City Clerk <strong>RE:</strong> Public Notices Move to the City Website</p>
+<p>The official channel for public notices <span class="blk">(143)</span> to the city website, starting next month. We will still post a paper copy at City Hall and mail notices where the law requires it.</p>
+<p>Last year we spent about $40,000 on newspaper notice fees. Posting online <span class="blk">(144)</span> return most of that to the general fund.</p>
+<p>The website notices <span class="blk">(145)</span> now time-stamped and archived automatically, which meets the legal record requirement. If a notice must also run in the newspaper by statute, the department will still arrange that. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Newspaper notices will be discontinued entirely starting next month.<br />
+(B) Website notices will not be considered an official legal record.<br />
+(C) This change applies only to departments with fewer than ten employees.<br />
+(D) Thanks for helping us reduce costs while staying compliant.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Field crew (10:20 A.M.):</strong> Water main break at Elm and 8th. Two lanes flooding, no service to about 15 homes.<br />
+<strong>Dispatch (10:22 A.M.):</strong> Shutoff crew rolling. ETA 15 min. Barricades?<br />
+<strong>Field crew (10:23 A.M.):</strong> Have cones up now. Need the sign truck for a detour and a notice to the affected addresses.<br />
+<strong>Dispatch (10:25 A.M.):</strong> Sign truck dispatched. I'll push a service alert to those 15 accounts.</p>
+<p><strong>147.</strong> What happened at Elm and 8th?<br />
+(A) A water main broke<br />
+(B) A gas leak<br />
+(C) A traffic accident<br />
+(D) A power outage</p>
+<p><strong>148.</strong> What does dispatch say they will do for the affected homes?<br />
+(A) Send bottled water<br />
+(B) Waive their next bill<br />
+(C) Push a service alert to those accounts<br />
+(D) Schedule inspections</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>CITY TO OFFER SATURDAY HOURS AT THE MOTOR VEHICLE OFFICE</strong></p>
+<p>Starting in March, the city's motor vehicle office will open on the first and third Saturday of each month, 9 A.M. to 1 P.M., for license renewals, ID cards, and vehicle registration. The change responds to consistent complaints about weekday-only hours forcing residents to take time off work.</p>
+<p>The Saturday staff will be existing employees on a rotating schedule, paid at the standard overtime rate; no new positions are being added. Complex transactions — first-time licenses, commercial permits, and anything needing a road test — will still be weekday-only.</p>
+<p>The office will also keep a check-in-online, come-back-when-called system on Saturdays to keep the lobby from overflowing.</p>
+<p><strong>149.</strong> What is the city changing?<br />
+(A) Adding Saturday hours at the motor vehicle office<br />
+(B) Closing the office one weekday<br />
+(C) Raising renewal fees<br />
+(D) Moving to a new building</p>
+<p><strong>150.</strong> Why is the change being made?<br />
+(A) A drop in staff<br />
+(B) A state mandate<br />
+(C) The lease requires it<br />
+(D) Residents had to take time off work for weekday-only hours</p>
+<p><strong>151.</strong> How will the Saturday shifts be staffed?<br />
+(A) Newly hired part-timers<br />
+(B) Existing employees on a rotating schedule, paid overtime<br />
+(C) Temporary agency workers<br />
+(D) Volunteers</p>
+<p><strong>152.</strong> What will still be weekday-only?<br />
+(A) License renewals<br />
+(B) ID cards<br />
+(C) First-time licenses, commercial permits, and road tests<br />
+(D) Vehicle registration</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Leaf Collection Schedule</strong></p>
+<p>Curbside leaf collection runs November 4 through December 13. Each neighborhood is collected once during that window; check the map for your week.</p>
+<p>Rake leaves to the curb, not into the street or over storm drains, by 7 A.M. on the Monday of your week. Do not bag them and do not mix in branches or trash — a contaminated pile is left uncollected. After December 13, leaves must go in yard-waste carts.</p>
+<p><strong>153.</strong> What is the notice about?<br />
+(A) A recycling change<br />
+(B) A street-sweeping route<br />
+(C) A yard-sale permit<br />
+(D) The curbside leaf collection schedule</p>
+<p><strong>154.</strong> What happens to a pile mixed with branches or trash?<br />
+(A) It is collected with an extra fee<br />
+(B) It is left uncollected<br />
+(C) It is picked up the following week<br />
+(D) The resident is fined</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>QUEUEWISE — CUT THE WAIT AT YOUR PUBLIC COUNTER</strong></p>
+<p>QueueWise lets residents check in from their phone before they arrive, see their place in line, and get a text when it's their turn — so they wait in their car or run an errand instead of standing in your lobby.</p>
+<p>Your staff get a dashboard showing wait times by service type, which helps you staff the busy windows. It also captures why people are visiting, so you can move the common ones online.</p>
+<p>It runs on a tablet at your counter and the residents' own phones. No kiosks to buy. Pilot it free at queuewise.example.</p>
+<p><strong>155.</strong> What does QueueWise let residents do?<br />
+(A) Pay fees online<br />
+(B) Book a specific appointment slot<br />
+(C) Check in from their phone and get a text when it's their turn<br />
+(D) File complaints</p>
+<p><strong>156.</strong> What do staff get?<br />
+(A) A printed daily report<br />
+(B) A dashboard of wait times by service type<br />
+(C) An automated phone line<br />
+(D) Extra counter windows</p>
+<p><strong>157.</strong> What hardware does QueueWise need?<br />
+(A) A tablet at the counter and residents' own phones<br />
+(B) A full kiosk system<br />
+(C) A dedicated server room<br />
+(D) New counter computers</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-counter-staff <strong>From:</strong> City Clerk <strong>Subject:</strong> Handling Requests to Waive a Fee</p>
+<p>A reminder on fee waivers, since we've had inconsistent answers at the counter.</p>
+<p>You cannot waive a fee at your own discretion. Fees are set by ordinance. There are exactly three waivers allowed: veterans on the specified documents, residents with an approved hardship application on file, and corrections of a city error.</p>
+<p>If someone asks and doesn't fall into one of those, explain that the fee is set by law, point them to the hardship application if it might apply, and offer the payment-plan option for larger amounts. Don't say "I can't" without offering the next step.</p>
+<p><strong>158.</strong> Can counter staff waive a fee at their own discretion?<br />
+(A) Yes, for any resident who asks<br />
+(B) Yes, up to a set amount<br />
+(C) No — fees are set by ordinance<br />
+(D) Only with a supervisor present</p>
+<p><strong>159.</strong> How many fee waivers are allowed?<br />
+(A) Exactly three<br />
+(B) One<br />
+(C) Any number, case by case<br />
+(D) None</p>
+<p><strong>160.</strong> What should staff do when someone doesn't qualify?<br />
+(A) Waive it anyway to avoid conflict<br />
+(B) Tell them to write a letter<br />
+(C) Refer every case to a supervisor<br />
+(D) Explain the fee is set by law and offer the hardship application or a payment plan</p>
+<h3>Passage 6 — Permit-time table (161–162)</h3>
+<p><strong>PERMIT PROCESSING TIMES — TYPICAL</strong></p>
+<table>
+<thead>
+<tr>
+<th>Permit type</th>
+<th>Review time</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Over-the-counter (water heater, minor electrical)</td>
+<td>Same day</td>
+<td>No plan review; walk-in or online</td>
+</tr>
+<tr>
+<td>Residential (deck, addition, remodel)</td>
+<td>10–15 business days</td>
+<td>One round of comments typical</td>
+</tr>
+<tr>
+<td>Commercial tenant improvement</td>
+<td>20–30 business days</td>
+<td>Multiple departments review</td>
+</tr>
+<tr>
+<td>New commercial building</td>
+<td>8–12 weeks</td>
+<td>Pre-application meeting required</td>
+</tr>
+<tr>
+<td>Sign permit</td>
+<td>5–10 business days</td>
+<td>Historic district adds one week</td>
+</tr>
+</tbody>
+</table>
+<p>Times restart when revised plans are resubmitted. Expedited review is available for residential permits for an added fee.</p>
+<p><strong>161.</strong> How long does a residential deck permit typically take?<br />
+(A) Same day<br />
+(B) 5–10 business days<br />
+(C) 10–15 business days<br />
+(D) 8–12 weeks</p>
+<p><strong>162.</strong> What is available for residential permits for an added fee?<br />
+(A) Expedited review<br />
+(B) A waived plan review<br />
+(C) A pre-application meeting<br />
+(D) A refund if delayed</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Reyes,</p>
+<p>Thank you for your letter about the parking ticket issued to your vehicle on May 3 at 200 Oak Street.</p>
+<p>We have reviewed the citation and the photos taken by the enforcement officer. The signage at that location was changed on May 1 from "2-hour parking" to "no parking," but the old sign was not fully removed and was still partly visible. Given that, we are dismissing the citation. No payment is due, and if you already paid the $45, a refund will be mailed within three weeks.</p>
+<p>We have also submitted a work order to remove the old sign completely. We appreciate you bringing the signage problem to our attention.</p>
+<p>Sincerely,<br />
+Parking Services</p>
+<p><strong>163.</strong> Why did Ms. Reyes write?<br />
+(A) To request a permit<br />
+(B) To report a broken meter<br />
+(C) To contest a parking ticket<br />
+(D) To appeal a towing fee</p>
+<p><strong>164.</strong> What was the problem with the signage?<br />
+(A) The new sign was in the wrong place<br />
+(B) The old sign was still partly visible after the rule changed<br />
+(C) There was no sign at all<br />
+(D) The sign was in another language</p>
+<p><strong>165.</strong> What is the outcome?<br />
+(A) The fine is reduced to $20<br />
+(B) A hearing is scheduled<br />
+(C) The ticket stands<br />
+(D) The citation is dismissed, with a refund if already paid</p>
+<p><strong>166.</strong> What else did Parking Services do?<br />
+(A) Submitted a work order to remove the old sign<br />
+(B) Issued a warning to the officer<br />
+(C) Changed the rule back<br />
+(D) Nothing further</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>PUBLIC RECORDS REQUESTS — FREQUENTLY ASKED QUESTIONS</strong></p>
+<p><strong>Do I have to say why I want the records?</strong><br />
+No. You don't need to give a reason or identify yourself beyond a way to send the response.</p>
+<p><strong>How long does it take?</strong><br />
+We acknowledge within 5 business days and provide records or a timeline within 10. Large or complex requests get a written production schedule.</p>
+<p><strong>Is there a charge?</strong><br />
+The first 100 pages and any electronic copies are free. Beyond that, paper copies are 10 cents a page. Staff time is charged only for requests over 2 hours, at the lowest-paid capable employee's rate.</p>
+<p><strong>Can a request be denied?</strong><br />
+Specific records can be withheld under the exemptions in the law — personal information, active investigations, some legal advice. We must tell you what we withheld and which exemption applies.</p>
+<p><strong>167.</strong> Does a requester have to explain why they want the records?<br />
+(A) No, and they don't have to identify themselves beyond a contact method<br />
+(B) Yes, in writing<br />
+(C) Only for large requests<br />
+(D) Only if records are withheld</p>
+<p><strong>168.</strong> What is free?<br />
+(A) Nothing<br />
+(B) All paper copies<br />
+(C) Only records under 10 pages<br />
+(D) The first 100 pages and any electronic copies</p>
+<p><strong>169.</strong> What must the office do if it withholds records?<br />
+(A) Refund any fees<br />
+(B) Say what was withheld and which exemption applies<br />
+(C) Provide a summary instead<br />
+(D) Get a judge's approval</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> City Attorney <strong>RE:</strong> Emails Are Public Records</p>
+<p>A reminder that emails you send and receive about city business are public records, whether on a city account or a personal one, and can be requested by anyone.</p>
+<p>Write every email as if it could appear in the newspaper, because it can. Keep city business on your city account so it's captured properly. Don't use personal email or texts for decisions, approvals, or anything that documents an action.</p>
+<p>This isn't about hiding anything — it's the opposite. Complete, professional records on the right system protect you and the city.</p>
+<p><strong>170.</strong> What does the memo say about emails on city business?<br />
+(A) They are public records, even on a personal account<br />
+(B) Only city-account emails are records<br />
+(C) They are private after 90 days<br />
+(D) Only emails to residents count</p>
+<p><strong>171.</strong> What does the memo tell staff NOT to use for decisions or approvals?<br />
+(A) The city email system<br />
+(B) Written memos<br />
+(C) Personal email or texts<br />
+(D) The shared drive</p>
+<p><strong>172.</strong> Why does the memo say to keep records on the right system?<br />
+(A) To save storage costs<br />
+(B) Complete records on the right system protect the employee and the city<br />
+(C) It is faster to search<br />
+(D) The state requires one system</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Ended our counter chaos, reporting is basic</strong> — deputy clerk, mid-size city</p>
+<p>We put this queue system in after our lobby regularly backed up past the door on renewal days. It worked immediately — people check in online, wait wherever they want, and come back when texted. The lobby is calm now and staff aren't refereeing a line.</p>
+<p>The reporting is thin. I can see average wait time, but I can't break it down by hour or by clerk, so I'm still doing that analysis in a spreadsheet from the raw export. And there's no way to flag a resident who needs extra time so we can plan for it.</p>
+<p>Setup took about a month with our IT. Support was responsive. Worth it to fix the lobby.</p>
+<p><strong>173.</strong> Why did the city install the queue system?<br />
+(A) To collect fees<br />
+(B) To schedule staff<br />
+(C) To replace phone lines<br />
+(D) The lobby regularly backed up on busy days</p>
+<p><strong>174.</strong> What is a weakness the reviewer describes?<br />
+(A) It sends no texts<br />
+(B) It requires kiosks<br />
+(C) Reporting can't break wait time down by hour or clerk<br />
+(D) Residents can't check in online</p>
+<p><strong>175.</strong> What does the reviewer still do in a spreadsheet?<br />
+(A) Track fees<br />
+(B) The hour-by-hour and per-clerk wait analysis<br />
+(C) Staff scheduling<br />
+(D) Complaint logging</p>
+<h3>Passages 11–12 — Shelter-reservation rules &amp; email (176–180)</h3>
+<p><strong>Document 1 — Rules</strong></p>
+<p><strong>PARK SHELTER RESERVATIONS</strong></p>
+<ul>
+<li>Reservations open 90 days ahead and can be made online or at the Parks office. Same-day walk-up use is free but yields to any reservation that shows up.</li>
+<li>The fee is $40 for residents, $75 for non-residents, per four-hour block. Proof of residency is required for the resident rate.</li>
+<li>Groups over 50, amplified sound, inflatables, or any sale of food or goods require a special-event permit (separate application, 30 days ahead) in addition to the reservation.</li>
+<li>Alcohol is allowed only with an approved permit and only in shelters 3 and 4.</li>
+<li>Cancellations more than 14 days out are fully refunded; inside 14 days, half; no-shows forfeit the fee.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Blake <strong>To:</strong> parks@city.example <strong>Subject:</strong> Reserving a shelter for a birthday</p>
+<p>Hi,</p>
+<p>I'd like to book a shelter for about 35 people, three Saturdays from now. Questions:<br />
+1. We'll have a bounce house and I'd like to bring a small speaker for music. Do I need the special-event permit?<br />
+2. Can we bring a cooler with beer?<br />
+3. If it rains and we cancel two days before, do we get anything back?</p>
+<p><strong>176.</strong> When do reservations open?<br />
+(A) One year ahead<br />
+(B) 90 days ahead<br />
+(C) 30 days ahead<br />
+(D) Any time</p>
+<p><strong>177.</strong> What requires a special-event permit?<br />
+(A) Any birthday party<br />
+(B) Bringing food<br />
+(C) Reserving on a weekend<br />
+(D) Groups over 50, amplified sound, inflatables, or selling food or goods</p>
+<p><strong>178.</strong> Based on the rules, does Owen's bounce house require the special-event permit?<br />
+(A) Yes — an inflatable requires the special-event permit<br />
+(B) No, it's under 50 people<br />
+(C) Only if there's amplified sound<br />
+(D) Only for non-residents</p>
+<p><strong>179.</strong> Where is alcohol allowed with a permit?<br />
+(A) In any shelter<br />
+(B) Nowhere in the park<br />
+(C) Only in shelters 3 and 4<br />
+(D) Only after 5 P.M.</p>
+<p><strong>180.</strong> If Owen cancels two days before, what does he get back?<br />
+(A) The full fee<br />
+(B) Half the fee<br />
+(C) Nothing<br />
+(D) A credit for a future date</p>
+<h3>Passages 13–14 — Two emails about a water bill (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Ford <strong>To:</strong> waterbilling@city.example <strong>Subject:</strong> Account 7781 — $610 bill</p>
+<p>Hi,</p>
+<p>My water bill is normally about $70. This month it's $610, and the usage shown is nine times my average. I had a toilet flapper fail — I've since replaced it — but this seems extreme. Is there any adjustment for a leak that's been fixed?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> waterbilling@city.example <strong>To:</strong> Dana Ford <strong>Subject:</strong> RE: Account 7781 — $610 bill</p>
+<p>Hi Dana,</p>
+<p>Yes. Our leak-adjustment policy applies once every three years: if you show the leak is repaired (a receipt or a photo of the new part), we recalculate the excess usage at the wholesale water rate instead of the retail rate, and we waive the sewer charge on the excess, since that water didn't enter the sewer.</p>
+<p>For your bill, that brings the $610 down to about $180. Send the flapper receipt or a photo and I'll process it. The adjusted amount is due on the normal date, or we can set up a short payment plan.</p>
+<p><strong>181.</strong> Why did Dana email water billing?<br />
+(A) To start service<br />
+(B) To report low pressure<br />
+(C) About a high bill from a leak that's been fixed<br />
+(D) To change the due date</p>
+<p><strong>182.</strong> How often can the leak-adjustment policy be used?<br />
+(A) Once every three years<br />
+(B) Once a year<br />
+(C) Every billing cycle<br />
+(D) Only once ever</p>
+<p><strong>183.</strong> What does the office need from Dana?<br />
+(A) A plumber's license<br />
+(B) A water sample<br />
+(C) A signed affidavit<br />
+(D) Proof the leak is repaired, such as a receipt or photo</p>
+<p><strong>184.</strong> How is the adjusted bill calculated?<br />
+(A) The whole bill is cut in half<br />
+(B) A flat $70<br />
+(C) Excess usage at the wholesale rate, with the sewer charge on the excess waived<br />
+(D) The prior month's amount</p>
+<p><strong>185.</strong> What is the adjusted amount, roughly?<br />
+(A) $610<br />
+(B) $70<br />
+(C) $0<br />
+(D) About $180</p>
+<h3>Passages 15–17 — Hearing-format reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>PUBLIC HEARING FORMATS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Notice needed</th>
+<th>Accessibility</th>
+<th>Record</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-person only</td>
+<td>15 days</td>
+<td>Venue must be accessible; parking, transit matter</td>
+<td>Clerk's minutes + audio</td>
+<td>Small local items; strong turnout expected</td>
+</tr>
+<tr>
+<td>Hybrid (in-person + online)</td>
+<td>15 days</td>
+<td>Widest reach; needs tech staff and a moderator</td>
+<td>Minutes + audio + chat log</td>
+<td>Contested items; residents spread across the city</td>
+</tr>
+<tr>
+<td>Written comment only</td>
+<td>21 days</td>
+<td>Anyone who can write or call; no set time</td>
+<td>All comments entered verbatim</td>
+<td>Technical items; low expected public interest</td>
+</tr>
+</tbody>
+</table>
+<p>State law sets the minimum notice period. A hearing that fails the notice requirement must be re-noticed and re-held, even if it already happened.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rana Osei, Planning Director <strong>To:</strong> clerk@city.example <strong>Subject:</strong> Hearing for the corridor rezoning</p>
+<p>Hi,</p>
+<p>The Maple Corridor rezoning affects about 400 parcels across three neighborhoods and has drawn a lot of interest — we've had 60 emails already. We want maximum participation but our chamber only seats 90. What format, and how much lead time do I need?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> clerk@city.example <strong>To:</strong> Rana Osei <strong>Subject:</strong> RE: Hearing for the corridor rezoning</p>
+<p>Hi Rana,</p>
+<p>For a contested item affecting residents across the city, use the hybrid format — in-person for those who want to be in the room, online for everyone else, so the 90-seat limit isn't a barrier. I'll book a tech operator and a moderator.</p>
+<p>Notice is 15 days minimum by state law, but for something this size I'd give 21 to 25 days and do the mailed notices to all 400 parcels plus a press release. Get me the final hearing language two days before the notice goes out.</p>
+<p>One caution: if we get the notice period wrong, the whole hearing is void and we start over — so let's build in a buffer.</p>
+<p><strong>186.</strong> What format does the clerk recommend?<br />
+(A) Hybrid (in-person plus online)<br />
+(B) In-person only<br />
+(C) Written comment only<br />
+(D) Two separate hearings</p>
+<p><strong>187.</strong> Why does the clerk recommend that format?<br />
+(A) It is the cheapest<br />
+(B) It needs the least staff<br />
+(C) It requires the shortest notice<br />
+(D) So the seating limit isn't a barrier for a citywide contested item</p>
+<p><strong>188.</strong> What is the minimum notice period by state law for this hearing?<br />
+(A) 10 days<br />
+(B) 15 days<br />
+(C) 21 days<br />
+(D) 30 days</p>
+<p><strong>189.</strong> What does the clerk actually advise for notice, given the size?<br />
+(A) Exactly 15 days<br />
+(B) 10 days with email only<br />
+(C) 21 to 25 days, with mailed notices to all parcels and a press release<br />
+(D) No notice, since it's online</p>
+<p><strong>190.</strong> What happens if the notice period is wrong?<br />
+(A) The item is approved by default<br />
+(B) The hearing is void and must be re-noticed and re-held<br />
+(C) A small fine applies<br />
+(D) It proceeds with a warning</p>
+<h3>Passages 18–20 — Property-tax exemption rules, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Rules</strong></p>
+<p><strong>HOMESTEAD &amp; SENIOR PROPERTY-TAX EXEMPTIONS</strong></p>
+<ul>
+<li><strong>Homestead exemption:</strong> Available on your primary residence only. Reduces the taxable value by $25,000. Apply once; it renews automatically as long as you own and live in the home.</li>
+<li><strong>Senior exemption:</strong> For owners 65+ with household income under the annual limit. Reduces taxable value by an additional $30,000. Must be renewed every year with an income statement.</li>
+<li><strong>Deadline:</strong> Applications are due March 1 for that tax year. Applications received after March 1 apply to the next year.</li>
+<li><strong>Change of use:</strong> If the home stops being your primary residence (you rent it out, or move), you must notify the assessor within 60 days. Exemptions claimed after you no longer qualify are billed back with interest.</li>
+<li>Both exemptions can be held at the same time if you qualify for each.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Whitfield <strong>To:</strong> assessor@county.example <strong>Subject:</strong> Exemption questions</p>
+<p>Hi,</p>
+<ol>
+<li>I turned 65 in January and I already have the homestead exemption. Do I need to reapply for that, or just add the senior one?</li>
+<li>My income is right around the limit and varies year to year. What if I qualify one year but not the next?</li>
+<li>My application would be a little after March 1 this year. Is it worth filing?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> assessor@county.example <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: Exemption questions</p>
+<p>Hi Sam,</p>
+<ol>
+<li>Your homestead exemption renews automatically — no need to touch it. Just file the senior exemption application, with an income statement. If approved, you'll have both.</li>
+<li>The senior exemption is year-by-year. In a year your income is over the limit, you simply don't get it that year; the homestead exemption is unaffected. There's no penalty for a year you don't qualify — just don't claim it.</li>
+<li>File it anyway. An application after March 1 applies to next year's taxes, so you'd lock in the senior exemption for next year and not have to remember to file again in the spring.</li>
+</ol>
+<p><strong>191.</strong> What does the homestead exemption require after the first application?<br />
+(A) Nothing — it renews automatically while you own and live there<br />
+(B) A new application every year<br />
+(C) An income statement each year<br />
+(D) A renewal every three years</p>
+<p><strong>192.</strong> What must a homeowner do if the home stops being their primary residence?<br />
+(A) Nothing<br />
+(B) Pay a transfer fee<br />
+(C) Reapply for both exemptions<br />
+(D) Notify the assessor within 60 days</p>
+<p><strong>193.</strong> Does Sam need to reapply for the homestead exemption?<br />
+(A) No — it renews automatically<br />
+(B) Yes, every year<br />
+(C) Yes, once he turns 65<br />
+(D) Only if his income changes</p>
+<p><strong>194.</strong> What happens in a year Sam's income is over the senior-exemption limit?<br />
+(A) He loses both exemptions<br />
+(B) He doesn't get the senior exemption that year; the homestead one is unaffected<br />
+(C) He must repay the prior year<br />
+(D) He pays a penalty</p>
+<p><strong>195.</strong> Why does the office tell Sam to file after March 1 anyway?<br />
+(A) The deadline was extended<br />
+(B) There is a late-filing discount<br />
+(C) It applies to next year, so he locks in the exemption without refiling in spring<br />
+(D) March 1 applications are backlogged</p>
+<h3>Passages 21–23 — Waste-collection change notice, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>CHANGES TO WASTE &amp; RECYCLING COLLECTION — EFFECTIVE APRIL 1</strong></p>
+<ol>
+<li><strong>Frequency:</strong> Trash goes from weekly to every other week. Recycling and yard waste stay weekly.</li>
+<li><strong>Cart sizes:</strong> The default trash cart shrinks from 96 to 64 gallons. Households that need the 96-gallon cart can request it for a $6 monthly fee; a 35-gallon cart is available at a $3 monthly discount.</li>
+<li><strong>Food scraps:</strong> Food waste now goes in the yard-waste cart, which becomes "organics." A kitchen pail is available free at any library branch.</li>
+<li><strong>Bulky items:</strong> Two free bulky-item pickups per year, scheduled online, replace the old call-in system.</li>
+</ol>
+<p>The changes are projected to cut what goes to the landfill by about a third and hold collection costs flat despite rising disposal fees.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Nair <strong>To:</strong> publicworks@city.example <strong>Subject:</strong> Questions about the April changes</p>
+<p>Hi,</p>
+<ol>
+<li>Every-other-week trash worries me — we're a family of five and fill the 96-gallon cart most weeks now. What are our options?</li>
+<li>Can I really put meat and dairy scraps in the organics cart, or just vegetable trimmings?</li>
+<li>We have an old couch and a broken dresser. How do I get rid of them under the new system?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> publicworks@city.example <strong>To:</strong> Priya Nair <strong>Subject:</strong> RE: Questions about the April changes</p>
+<p>Hi Priya,</p>
+<ol>
+<li>For a family of five, keep the 96-gallon cart — request it online before April 1 and the $6 fee starts then. Also, moving food scraps to the organics cart frees up a surprising amount of trash space; a lot of large households find every-other-week works once they're sorting food out.</li>
+<li>All food scraps, including meat, dairy, bones, and cooked food. The only things to keep out are packaging, liquids, and pet waste.</li>
+<li>Book a bulky-item pickup online — you get two free per year. One slot can include several items, so the couch and the dresser can go together on one pickup.</li>
+</ol>
+<p><strong>196.</strong> How is trash collection frequency changing?<br />
+(A) It stays weekly<br />
+(B) It goes to twice a week<br />
+(C) From weekly to every other week<br />
+(D) It is being eliminated</p>
+<p><strong>197.</strong> What happens to the default trash cart size?<br />
+(A) It grows to 96 gallons<br />
+(B) It shrinks from 96 to 64 gallons<br />
+(C) It stays the same<br />
+(D) Households choose any size free</p>
+<p><strong>198.</strong> What can Priya's family of five do about trash capacity?<br />
+(A) Nothing; everyone gets 64 gallons<br />
+(B) Get a second cart free<br />
+(C) Switch to weekly pickup for a fee<br />
+(D) Keep the 96-gallon cart for a $6 monthly fee</p>
+<p><strong>199.</strong> What food scraps can go in the organics cart?<br />
+(A) All food scraps, including meat, dairy, and cooked food<br />
+(B) Only vegetable trimmings<br />
+(C) Only uncooked food<br />
+(D) None; food goes in the trash</p>
+<p><strong>200.</strong> How does Priya dispose of the couch and dresser?<br />
+(A) Put them at the curb on trash day<br />
+(B) Pay a disposal fee per item<br />
+(C) Take them to the landfill herself<br />
+(D) Book a free bulky-item pickup online, which can include both</p>
+<hr />
+<p><em>Hết phần Reading — Set_019. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_019</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a clerk is handing a form to a resident at a service counter" · bẫy: "voting at booths"</li>
+<li><strong>3 C</strong> "a worker is emptying a bin into a collection truck" · bẫy: "bins are lined up along the curb"</li>
+<li><strong>4 D</strong> "the council chamber is empty before a meeting" · bẫy: "council members are seated at the dais"</li>
+<li><strong>6 C</strong> "workers are filling a pothole in the road" · bẫy: "a road is being repainted with lane lines"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why late this week?" → "The holiday shifted the schedule" · bẫy: trả lời When / bin type</li>
+<li><strong>13 B</strong> tag question → "Yes, and it's much more accurate"</li>
+<li><strong>15 C</strong> câu phủ định → "No, it was extended to the 15th of next month"</li>
+<li><strong>17 C</strong> "What did the public comments focus on?" → "Mostly the proposed parking changes"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "Check the public works notices" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "There's a fast-track option for those now"</li>
+<li><strong>21 C</strong> yêu cầu xử lý hồ sơ → "I'll process it this afternoon" · bẫy: lặp "permit"</li>
+<li><strong>25 B</strong> "Isn't the DMV usually closed Mondays?" → đính chính "open this Monday for a special session" · bẫy: lặp "Monday"</li>
+<li><strong>31 C</strong> "Why was the session postponed?" → lý do cụ thể "quorum wasn't reached" · bẫy: lặp "session"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "my fence permit — it's been three weeks" · "needs a site plan showing the property lines" · "Upload it to the application portal"</li>
+<li>35–37: "we only posted the notice yesterday. The rule is 15 days" · "The earliest legal date is the 20th" · "the mailed notices to nearby owners go out today"</li>
+<li>38–40: "Ridership on the number 9 has dropped 30 percent" · "reroute it to serve the new clinic and the community college" · "Bring it to the board with a rider survey"</li>
+<li>41–43: "My trash wasn't collected this morning" · "the truck had a breakdown on your side today" · "call back with this reference number and we'll escalate"</li>
+<li>44–46: "a records request for two years of ... purchase orders" · "a rolling production with a written timeline" · "Send the requester that timeline in writing today"</li>
+<li>47–49: "My assistance benefits stopped this month and I didn't get any notice" · "the form was mailed to your old address" · "if you return it within 30 days, benefits are restored ... with no gap"</li>
+<li>50–52: "pothole on Maple Street" · "already on the repair list" · "move it up to this week"</li>
+<li>53–55: "attendance ... lower than expected" · "conflicting school event" · "check the calendar and promote earlier"</li>
+<li>56–58: "records request from a journalist" · "respond within the legal timeframe" · "legal will be looped in"</li>
+<li>59–61: "new online permit system launches" · "tested it thoroughly" · "extra front-desk coverage"</li>
+<li>62–64: "upcoming election" · "extra poll workers" · "trained two weeks before election day"</li>
+<li>65–67: "complaints about the parking meter system" · "app is confusing" · "set up a booth ... gather feedback"</li>
+<li>68–70: "community center renovation ... finished" · "ahead of schedule" · "reach out to local groups"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "Thank you for calling the county tax office" · "paying your bill, requesting a statement, setting up a payment plan ... on our website" · "please have your parcel number ready"</li>
+<li>74–76: "calling about your deck permit" · "the guardrail height ... is 34 inches, and code ... requires at least 36" · "I can approve it the same day"</li>
+<li>77–79: "the change ... was closing the loop" (status updates) · "an automatic text when it's assigned ... and another when it's marked done, with a photo" · "Repeat calls ... dropped by about 40 percent"</li>
+<li>80–82: "moves your whole process online" · "cuts status calls to your counter" · "approval times dropping by a third"</li>
+<li>83–85: "street sweeping ... resume next Monday" · "move vehicles from marked streets" · "may be ticketed"</li>
+<li>86–88: "marriage license application" · "both parties ... in person to sign" · "open until four-thirty"</li>
+<li>89–91: "summer reading program" · "open to all ages" · "entered into a prize drawing"</li>
+<li>92–94: "road closures from this morning's storm" · "River Road ... remains closed" · "reopen by this evening"</li>
+<li>95–97: "expanding public transit routes" · "growing ridership demand" eastern neighborhoods · "launch in the fall"</li>
+<li>98–100: "budget for park improvements" · "playground equipment and walking trails" first · "public comment ... open for ten minutes"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The department</code> số ít + thói quen → <code>releases</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> the date on the notice</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>discrepancies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be required to</code> + V nguyên → <code>provide</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes finding a form much <span class="fill"></span> than</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the bulletin board</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>reduced wait times by adding</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> residents</code> (trong 3) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the council chamber</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>an application is complete</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The agency</code> số ít → <code>operates</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more frequently</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>steps</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"khoản trợ cấp trao <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (schedule <strong>được</strong> đăng)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code> the exemption</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>overview</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>revise</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... had enough space</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the server</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>supervisor</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"Online and in-person payment systems <span class="fill"></span> unavailable from Friday 6 P.M. ..." → tương lai <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Staff <span class="fill"></span> accept payments by mail as usual" (sẽ) → <code>will</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Account balances <span class="fill"></span> already been copied to the new system" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ tài chính nếu cần, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"public records requests <span class="fill"></span> be submitted through the online request portal" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The portal <span class="fill"></span> accept attachments" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Requests that will take more than 40 staff hours <span class="fill"></span> receive a cost estimate" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ văn phòng thư ký, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most agencies find <span class="fill"></span> valuable" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời trải nghiệm thực tế, khép lại quảng cáo CivicLine</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"The official channel for public notices <span class="fill"></span> to the city website, starting next month" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Posting online <span class="fill"></span> return most of that to the general fund" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The website notices <span class="fill"></span> now time-stamped and archived automatically" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo chuyển thông báo công sang web</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>B</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>A</td>
+<td>166</td>
+<td>A</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>C</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>A</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>D</td>
+<td>196</td>
+<td>C</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>B</td>
+<td>197</td>
+<td>B</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>C</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>D</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>C</td>
+<td>172</td>
+<td>B</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>C</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "consistent complaints about weekday-only hours forcing residents to take time off work"<br />
+- <strong>152 C</strong> — "first-time licenses, commercial permits, and anything needing a road test — will still be weekday-only"<br />
+- <strong>154 B</strong> — "a contaminated pile is left uncollected"<br />
+- <strong>158 C</strong> — "You cannot waive a fee at your own discretion. Fees are set by ordinance"<br />
+- <strong>159 A</strong> — "There are exactly three waivers allowed"<br />
+- <strong>161 C</strong> — bảng: "Residential (deck, addition, remodel) — 10–15 business days"<br />
+- <strong>167 A</strong> — "You don't need to give a reason or identify yourself beyond a way to send the response"<br />
+- <strong>169 B</strong> — "We must tell you what we withheld and which exemption applies"<br />
+- <strong>178 A</strong> — "inflatables ... require a special-event permit"<br />
+- <strong>183 D</strong> — "if you show the leak is repaired (a receipt or a photo of the new part)"<br />
+- <strong>184 C</strong> — "recalculate the excess usage at the wholesale water rate ... and we waive the sewer charge on the excess"<br />
+- <strong>187 D</strong> — "so the 90-seat limit isn't a barrier"<br />
+- <strong>189 C</strong> — "I'd give 21 to 25 days and do the mailed notices to all 400 parcels plus a press release"<br />
+- <strong>194 B</strong> — "In a year your income is over the limit, you simply don't get it that year; the homestead exemption is unaffected"<br />
+- <strong>199 A</strong> — "All food scraps, including meat, dairy, bones, and cooked food"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_019 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Government / Public Services): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

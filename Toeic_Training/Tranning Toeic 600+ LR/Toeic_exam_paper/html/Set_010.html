@@ -1,0 +1,2238 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_010 — Health & Medicine</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="010">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_010</strong>
+    <span class="theme">Health &amp; Medicine</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_010 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Bác sĩ đang khám cho bệnh nhân bằng ống nghe.]</em><br />
+(A) A doctor is examining a patient.<br />
+(B) A nurse is filling a syringe.<br />
+(C) Someone is reading an X-ray.<br />
+(D) People are waiting in a hallway.</p>
+<p><strong>2.</strong> <em>[Ảnh: Lễ tân phòng khám, bệnh nhân điền form ở quầy.]</em><br />
+(A) A doctor is greeting a visitor.<br />
+(B) Chairs are being arranged in a row.<br />
+(C) Someone is answering the phone.<br />
+(D) A patient is filling out a form at a counter.</p>
+<p><strong>3.</strong> <em>[Ảnh: Dược sĩ đưa túi thuốc cho khách qua quầy.]</em><br />
+(A) A pharmacist is handing a bag to a customer.<br />
+(B) Boxes are being unpacked on a shelf.<br />
+(C) A person is measuring liquid into a cup.<br />
+(D) Someone is sweeping the floor.</p>
+<p><strong>4.</strong> <em>[Ảnh: Phòng chờ bệnh viện với hàng ghế, vài người ngồi.]</em><br />
+(A) A line has formed at the reception desk.<br />
+(B) A nurse is pushing a wheelchair.<br />
+(C) People are seated in a waiting area.<br />
+(D) The room is empty.</p>
+<p><strong>5.</strong> <em>[Ảnh: Kỹ thuật viên xét nghiệm cầm ống nghiệm, mặc áo blouse.]</em><br />
+(A) Someone is labeling samples on a tray.<br />
+(B) A lab technician is holding a test tube.<br />
+(C) A machine is being repaired.<br />
+(D) People are gathered around a microscope.</p>
+<p><strong>6.</strong> <em>[Ảnh: Nhân viên y tế đẩy xe đẩy dụng cụ dọc hành lang.]</em><br />
+(A) A patient is being moved on a stretcher.<br />
+(B) Doors are being held open.<br />
+(C) A worker is pushing a supply cart down a hallway.<br />
+(D) Someone is mopping a corridor.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is your follow-up appointment?<br />
+(A) Next Wednesday at 10.<br />
+(B) With Dr. Alvarez.<br />
+(C) It went well, thanks.</p>
+<p><strong>8.</strong> Where do I get my blood test done?<br />
+(A) I had one last month.<br />
+(B) Fasting for eight hours.<br />
+(C) At the lab on the second floor.</p>
+<p><strong>9.</strong> Who's covering the clinic while Dr. Kim is away?<br />
+(A) Dr. Osei is taking her patients.<br />
+(B) For two weeks in July.<br />
+(C) At the downtown location.</p>
+<p><strong>10.</strong> Why was my prescription changed?<br />
+(A) The first medication caused side effects.<br />
+(B) A 30-day supply.<br />
+(C) At the pharmacy on Main Street.</p>
+<p><strong>11.</strong> How long is the wait to see a specialist?<br />
+(A) On the fourth floor.<br />
+(B) About three weeks for a routine referral.<br />
+(C) A cardiologist, I think.</p>
+<p><strong>12.</strong> Could you send my records to the new clinic?<br />
+(A) Sure, I'll fax them today.<br />
+(B) The records go back ten years.<br />
+(C) It's a new patient form.</p>
+<p><strong>13.</strong> The pharmacy closes at nine, doesn't it?<br />
+(A) It's near the hospital entrance.<br />
+(B) Yes, but it's open until midnight on weekdays.<br />
+(C) They fill about 200 prescriptions a day.</p>
+<p><strong>14.</strong> Should we schedule the surgery for this month or next?<br />
+(A) The procedure takes about two hours.<br />
+(B) Next month, so the swelling has time to go down.<br />
+(C) I read about it online.</p>
+<p><strong>15.</strong> Isn't the vaccine clinic supposed to be open today?<br />
+(A) The flu shot is free this year.<br />
+(B) About a ten-minute wait.<br />
+(C) Yes, from 9 to 4 in room 120.</p>
+<p><strong>16.</strong> Can you show me how to use the patient portal?<br />
+(A) The portal was updated recently.<br />
+(B) Of course, you just need your ID number.<br />
+(C) I check my messages there.</p>
+<p><strong>17.</strong> What did the test results show?<br />
+(A) They came back Thursday.<br />
+(B) The lab is very reliable.<br />
+(C) Everything is within the normal range.</p>
+<p><strong>18.</strong> Where should I pick up my crutches?<br />
+(A) I sprained my ankle last week.<br />
+(B) They're adjustable.<br />
+(C) From the equipment desk near the exit.</p>
+<p><strong>19.</strong> Do you know whether the doctor is running behind?<br />
+(A) The appointment is at 2.<br />
+(B) Let me check with the front desk.<br />
+(C) She's very thorough.</p>
+<p><strong>20.</strong> I think we should add an evening clinic once a week.<br />
+(A) A lot of patients work during the day.<br />
+(B) The clinic has six exam rooms.<br />
+(C) On Thursdays, maybe.</p>
+<p><strong>21.</strong> Could you schedule my follow-up appointment?<br />
+(A) I'll book that before you leave.<br />
+(B) Appointments run late today.<br />
+(C) I scheduled a checkup once.</p>
+<p><strong>22.</strong> Has the lab results come back yet?<br />
+(A) It's a routine lab.<br />
+(B) I labeled the sample.<br />
+(C) Not yet, usually two more days.</p>
+<p><strong>23.</strong> Where do I pick up my prescription?<br />
+(A) At the pharmacy counter.<br />
+(B) Prescriptions expire.<br />
+(C) I prescribed rest.</p>
+<p><strong>24.</strong> Would you prefer a morning or afternoon appointment?<br />
+(A) Morning is better for me.<br />
+(B) Appointments take an hour.<br />
+(C) I had one this morning.</p>
+<p><strong>25.</strong> Isn't the clinic usually closed on Sundays?<br />
+(A) Sundays are quiet.<br />
+(B) Yes, but it's open this Sunday for flu shots.<br />
+(C) The clinic is new.</p>
+<p><strong>26.</strong> How many patients are scheduled today?<br />
+(A) About thirty.<br />
+(B) Patients wait in the lobby.<br />
+(C) We schedule weekly.</p>
+<p><strong>27.</strong> Who's covering the night shift at the ER?<br />
+(A) Night shifts are hard.<br />
+(B) Dr. Alvarez is covering it.<br />
+(C) The ER is busy.</p>
+<p><strong>28.</strong> Do you know if my insurance covers this procedure?<br />
+(A) Insurance is confusing.<br />
+(B) I insured my car.<br />
+(C) Yes, it's fully covered.</p>
+<p><strong>29.</strong> Should we order more flu vaccine doses?<br />
+(A) Vaccines are important.<br />
+(B) Let's check current inventory first.<br />
+(C) I ordered mine already.</p>
+<p><strong>30.</strong> Haven't you reviewed the patient's chart yet?<br />
+(A) Charts take time to review.<br />
+(B) Almost, just the recent notes left.<br />
+(C) The chart was thorough.</p>
+<p><strong>31.</strong> Why was my appointment rescheduled?<br />
+(A) Appointments are booked online.<br />
+(B) It happened last time too.<br />
+(C) Because the doctor had an emergency.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I'm calling to reschedule my physical therapy session. Something came up at work.<br />
+<strong>M:</strong> No problem. Your current slot is Thursday at 3. I have Friday at 11 or Monday at 4.<br />
+<strong>W:</strong> Friday at 11 works.<br />
+<strong>M:</strong> Done. And a reminder — bring the exercise log your therapist gave you so she can review your progress.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To cancel her therapy entirely<br />
+(B) To reschedule a session<br />
+(C) To ask about her bill<br />
+(D) To request a new therapist</p>
+<p><strong>33.</strong> When is the new appointment?<br />
+(A) Thursday at 3<br />
+(B) Monday at 4<br />
+(C) Friday at 11<br />
+(D) Next week</p>
+<p><strong>34.</strong> What is the woman reminded to bring?<br />
+(A) Her insurance card<br />
+(B) A referral form<br />
+(C) Comfortable shoes<br />
+(D) An exercise log</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The wait times in the walk-in clinic have been over an hour most afternoons.<br />
+<strong>W:</strong> I've looked at the numbers. The morning is fine — it's the 1 to 5 window that's backed up.<br />
+<strong>M:</strong> Could we shift one provider from the morning to the afternoon?<br />
+<strong>W:</strong> That would help. Mornings can absorb it. I'll draft a new schedule and run it by the providers this week.</p>
+<p><strong>35.</strong> What problem are the speakers discussing?<br />
+(A) Long afternoon wait times at the walk-in clinic<br />
+(B) A staff shortage<br />
+(C) A billing error<br />
+(D) Equipment failures</p>
+<p><strong>36.</strong> When are wait times worst?<br />
+(A) Early morning<br />
+(B) Between 1 and 5 P.M.<br />
+(C) Evenings<br />
+(D) Weekends</p>
+<p><strong>37.</strong> What will the woman do this week?<br />
+(A) Hire another provider<br />
+(B) Extend clinic hours<br />
+(C) Draft a new schedule and consult the providers<br />
+(D) Close the walk-in clinic</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> We're switching to the new electronic records system on the first. Are the nurses ready?<br />
+<strong>M1:</strong> Training's done. The main worry is speed on day one — everything takes longer while people learn.<br />
+<strong>W:</strong> Let's book fewer appointments that first week, maybe 20% fewer, so no one falls behind.<br />
+<strong>M2:</strong> And keep two IT staff on-site that week for quick help.<br />
+<strong>W:</strong> Agreed. I'll adjust the schedule and let IT know.</p>
+<p><strong>38.</strong> What is changing on the first?<br />
+(A) A new electronic records system goes live<br />
+(B) The clinic is moving<br />
+(C) New staff start<br />
+(D) Hours are extended</p>
+<p><strong>39.</strong> What will they do the first week?<br />
+(A) Close for two days<br />
+(B) Hire temporary nurses<br />
+(C) Book 20% fewer appointments<br />
+(D) Delay all non-urgent care</p>
+<p><strong>40.</strong> What will IT staff do that week?<br />
+(A) Install new computers<br />
+(B) Be on-site for quick help<br />
+(C) Train the doctors<br />
+(D) Back up the old system</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> A patient says the prescription we sent to the pharmacy isn't there.<br />
+<strong>W:</strong> Which patient?<br />
+<strong>M:</strong> Ms. Bautista. The doctor entered it this morning.<br />
+<strong>W:</strong> Let me check... It went to the Oak Street pharmacy, but her file lists the Center Avenue one as her default. I'll resend it to Center Avenue and call her to confirm which she prefers going forward.</p>
+<p><strong>41.</strong> What is the patient's problem?<br />
+(A) Her prescription isn't at the pharmacy she expected<br />
+(B) The medication is out of stock<br />
+(C) The dosage is wrong<br />
+(D) The prescription expired</p>
+<p><strong>42.</strong> Why did it happen?<br />
+(A) The doctor forgot to send it<br />
+(B) It went to a different pharmacy than her default<br />
+(C) The pharmacy lost it<br />
+(D) The insurance was declined</p>
+<p><strong>43.</strong> What will the woman do?<br />
+(A) Cancel the prescription<br />
+(B) Ask the patient to come in<br />
+(C) Contact the doctor<br />
+(D) Resend it and call the patient</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The new blood-pressure monitors arrived, but the cuffs are all the standard size. We ordered a mix.<br />
+<strong>M:</strong> A lot of our patients need the large cuff. Using a too-small cuff gives a falsely high reading.<br />
+<strong>W:</strong> Right. I'll contact the supplier about the mismatch. In the meantime, we still have the old large cuffs — they're compatible.<br />
+<strong>M:</strong> Good. Let's keep those at each station until the correct ones come.</p>
+<p><strong>44.</strong> What is the problem with the new monitors?<br />
+(A) The monitors don't turn on<br />
+(B) The readings are inaccurate<br />
+(C) The wrong model was sent<br />
+(D) All the cuffs are the standard size</p>
+<p><strong>45.</strong> Why does cuff size matter?<br />
+(A) Large cuffs are more comfortable<br />
+(B) The monitor won't work otherwise<br />
+(C) A too-small cuff gives a falsely high reading<br />
+(D) It affects the warranty</p>
+<p><strong>46.</strong> What will they do in the meantime?<br />
+(A) Send patients elsewhere<br />
+(B) Use the old large cuffs, which are compatible<br />
+(C) Stop taking blood pressure<br />
+(D) Order from a different supplier</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> How did the accreditation review go?<br />
+<strong>W:</strong> We passed. Two recommendations: better documentation of medication double-checks, and clearer signage for the emergency exits on the third floor.<br />
+<strong>M:</strong> Neither is serious.<br />
+<strong>W:</strong> No. I've already ordered the signs, and I'm updating the medication checklist to require a second signature. The reviewer wants a written response in 30 days.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) An accreditation review<br />
+(B) A patient complaint<br />
+(C) A staff meeting<br />
+(D) A budget cut</p>
+<p><strong>48.</strong> What is one recommendation?<br />
+(A) A new triage process<br />
+(B) Longer clinic hours<br />
+(C) Clearer emergency exit signage<br />
+(D) More parking</p>
+<p><strong>49.</strong> What does the reviewer want in 30 days?<br />
+(A) A follow-up visit<br />
+(B) Photos of every room<br />
+(C) A staff survey<br />
+(D) A written response</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> A patient in room three says her pain medication isn't working as well as before.<br />
+<strong>M:</strong> Let's check when her last dose was and see if we're due for an adjustment.<br />
+<strong>W:</strong> It's been about six hours, so she's due soon.<br />
+<strong>M:</strong> Okay, let's give the next dose now and note it in her chart.</p>
+<p><strong>50.</strong> What is the patient's complaint?<br />
+(A) Her pain medication isn't working well.<br />
+(B) She has a fever.<br />
+(C) She cannot sleep.<br />
+(D) She feels dizzy.</p>
+<p><strong>51.</strong> What does the man ask about?<br />
+(A) Her allergy history<br />
+(B) When her last dose was<br />
+(C) Her insurance<br />
+(D) Her discharge date</p>
+<p><strong>52.</strong> What will the speakers do?<br />
+(A) Wait several more hours<br />
+(B) Give the next dose now<br />
+(C) Call the patient's family<br />
+(D) Discharge the patient</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> I'm reviewing the schedule, and we're double-booked at two o'clock.<br />
+<strong>W:</strong> Let me check — I think one of those patients is a quick follow-up.<br />
+<strong>M:</strong> That would help. Could you move that one to two-fifteen instead?<br />
+<strong>W:</strong> Sure, I'll call and confirm the new time with them now.</p>
+<p><strong>53.</strong> What problem does the man notice?<br />
+(A) A missing patient file<br />
+(B) A double-booked time slot<br />
+(C) A billing error<br />
+(D) A canceled appointment</p>
+<p><strong>54.</strong> What does the woman suggest?<br />
+(A) Canceling one appointment<br />
+(B) Moving a quick follow-up to a later time<br />
+(C) Adding another doctor<br />
+(D) Extending clinic hours</p>
+<p><strong>55.</strong> What will the woman do now?<br />
+(A) Reschedule for next week<br />
+(B) Call and confirm the new time<br />
+(C) Cancel the appointment<br />
+(D) Ask the doctor to work late</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> The new patient intake forms are taking a long time to process.<br />
+<strong>M:</strong> Maybe we should move them online instead of paper.<br />
+<strong>W:</strong> That could definitely speed things up. Should I look into software options?<br />
+<strong>M:</strong> Yes, and let's aim to have something in place within the next two months.</p>
+<p><strong>56.</strong> What problem is being discussed?<br />
+(A) Slow intake form processing<br />
+(B) A staffing shortage<br />
+(C) A billing dispute<br />
+(D) Missing lab results</p>
+<p><strong>57.</strong> What does the man suggest?<br />
+(A) Hiring more staff<br />
+(B) Moving the forms online<br />
+(C) Reducing the number of questions<br />
+(D) Outsourcing intake</p>
+<p><strong>58.</strong> What is the woman asked to do?<br />
+(A) Print more forms<br />
+(B) Look into software options<br />
+(C) Train new staff<br />
+(D) Contact patients directly</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> A patient just called asking whether we accept walk-ins for minor injuries.<br />
+<strong>W:</strong> We do, but wait times can be long depending on how busy we are.<br />
+<strong>M:</strong> Should I let them know an estimated wait?<br />
+<strong>W:</strong> Yes, tell them it's usually around forty-five minutes right now.</p>
+<p><strong>59.</strong> What is the patient asking about?<br />
+(A) Whether the clinic accepts walk-ins<br />
+(B) Whether the clinic is open on holidays<br />
+(C) Whether the clinic offers vaccinations<br />
+(D) Whether the clinic takes new patients</p>
+<p><strong>60.</strong> What does the woman say about wait times?<br />
+(A) They are always short.<br />
+(B) They can be long depending on how busy it is.<br />
+(C) Walk-ins are never accepted.<br />
+(D) Appointments are required.</p>
+<p><strong>61.</strong> What does the man ask about?<br />
+(A) An estimated wait time to share<br />
+(B) The patient's insurance<br />
+(C) The patient's symptoms<br />
+(D) The nearest pharmacy</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's review this month's patient satisfaction survey results.<br />
+<strong>M1:</strong> Overall scores are up, but wait time is still the top complaint.<br />
+<strong>M2:</strong> We could add a text notification system to update patients on delays.<br />
+<strong>W:</strong> I like that idea — let's look into vendors this week.</p>
+<p><strong>62.</strong> What are the speakers reviewing?<br />
+(A) A patient satisfaction survey<br />
+(B) A budget report<br />
+(C) A staffing plan<br />
+(D) A hiring decision</p>
+<p><strong>63.</strong> What is the top complaint?<br />
+(A) Rude staff<br />
+(B) Wait time<br />
+(C) Billing errors<br />
+(D) Parking</p>
+<p><strong>64.</strong> What idea does the second man suggest?<br />
+(A) Hiring more doctors<br />
+(B) A text notification system<br />
+(C) Extending hours<br />
+(D) Reducing appointment length</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I noticed we're almost out of the flu vaccine in storage.<br />
+<strong>M:</strong> Let's place an order today so we don't run out before the busy season.<br />
+<strong>W:</strong> I'll also check with the other clinics to see if they can share some in the meantime.<br />
+<strong>M:</strong> Good idea, that should cover us until the new shipment arrives.</p>
+<p><strong>65.</strong> What is running low?<br />
+(A) Bandages<br />
+(B) The flu vaccine<br />
+(C) Prescription pads<br />
+(D) Hand sanitizer</p>
+<p><strong>66.</strong> What will the man do today?<br />
+(A) Cancel flu shot appointments<br />
+(B) Place an order<br />
+(C) Close the clinic early<br />
+(D) Contact patients</p>
+<p><strong>67.</strong> What does the woman offer to check?<br />
+(A) The insurance coverage<br />
+(B) Whether other clinics can share supply<br />
+(C) The vaccine's expiration date<br />
+(D) The vaccine's price</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> A patient's family is asking for an update on his surgery.<br />
+<strong>W:</strong> He's out of surgery and doing well — the doctor should be out to speak with them shortly.<br />
+<strong>M:</strong> Should I let them know how much longer that will be?<br />
+<strong>W:</strong> Tell them about fifteen minutes, once the doctor finishes with the next patient.</p>
+<p><strong>68.</strong> What is the family asking about?<br />
+(A) Visiting hours<br />
+(B) An update on the surgery<br />
+(C) The hospital bill<br />
+(D) Parking information</p>
+<p><strong>69.</strong> What does the woman report about the patient?<br />
+(A) He is still in surgery.<br />
+(B) He is out of surgery and doing well.<br />
+(C) He has been discharged.<br />
+(D) He needs another procedure.</p>
+<p><strong>70.</strong> How long will the family need to wait to speak with the doctor?<br />
+(A) Five minutes<br />
+(B) Fifteen minutes<br />
+(C) An hour<br />
+(D) Until tomorrow</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Clinic announcement</h3>
+<p><em>"A reminder to all patients: starting next month, you can check in for your appointment using the tablets in the lobby or the app before you arrive. This should cut the check-in line, especially in the morning. You'll still speak with the front desk if you have insurance changes or a new address. If you're not comfortable with the tablets, staff are happy to check you in the old way — just let them know."</em></p>
+<p><strong>71.</strong> What is changing next month?<br />
+(A) A new self check-in option<br />
+(B) Longer clinic hours<br />
+(C) A new billing system<br />
+(D) A move to a new building</p>
+<p><strong>72.</strong> When would a patient still need to speak with the front desk?<br />
+(A) For every appointment<br />
+(B) If they have insurance or address changes<br />
+(C) Only on weekends<br />
+(D) To pay a copay</p>
+<p><strong>73.</strong> What is said about patients uncomfortable with the tablets?<br />
+(A) They must use the app instead<br />
+(B) They will be charged a fee<br />
+(C) Staff will check them in the old way<br />
+(D) They should arrive earlier</p>
+<h3>Talk 2 (74–76) — Voicemail from a clinic</h3>
+<p><em>"Hello, this is the scheduling team at Lakeside Medical. We're calling about your upcoming procedure on the 22nd. Your pre-procedure instructions are now in your patient portal — please read them at least three days before. The main points: no food after midnight the night before, and arrange for someone to drive you home. If you take blood thinners, call us before Friday so the doctor can advise. Our number is 555-0177."</em></p>
+<p><strong>74.</strong> What is the call about?<br />
+(A) An upcoming procedure<br />
+(B) A billing question<br />
+(C) A test result<br />
+(D) A canceled appointment</p>
+<p><strong>75.</strong> What is one of the pre-procedure instructions?<br />
+(A) Take all usual medications<br />
+(B) Arrive two hours early<br />
+(C) Bring a list of questions<br />
+(D) Arrange for someone to drive you home</p>
+<p><strong>76.</strong> Who should call before Friday?<br />
+(A) Anyone with the procedure on the 22nd<br />
+(B) Patients who take blood thinners<br />
+(C) Patients without a portal account<br />
+(D) Patients over 65</p>
+<h3>Talk 3 (77–79) — Health conference presentation</h3>
+<p><em>"When we looked at why patients missed appointments, the top reason wasn't forgetting — it was transportation. Nearly a third of no-shows in our clinic couldn't get a ride. So we partnered with a local rideshare program: patients who need it can request a ride when they book. Our no-show rate dropped from 18% to 11% in six months, and the cost of the rides was far less than the cost of the empty slots."</em></p>
+<p><strong>77.</strong> What was the top reason patients missed appointments?<br />
+(A) Forgetting<br />
+(B) Long wait times<br />
+(C) Cost<br />
+(D) Transportation problems</p>
+<p><strong>78.</strong> What did the clinic do about it?<br />
+(A) Sent more reminders<br />
+(B) Charged a no-show fee<br />
+(C) Partnered with a rideshare program<br />
+(D) Added evening appointments</p>
+<p><strong>79.</strong> What happened to the no-show rate?<br />
+(A) It stayed the same<br />
+(B) It rose slightly<br />
+(C) It fell to zero<br />
+(D) It dropped from 18% to 11%</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Tired of juggling multiple prescriptions? MedSync from Cedar Pharmacy lines up all your refills to the same day each month, so you make one trip instead of five. We'll also call your doctor for renewals and flag any medications that shouldn't be taken together. It's free for anyone who fills three or more prescriptions with us. Ask a pharmacist or sign up at cedarpharmacy.example."</em></p>
+<p><strong>80.</strong> What does MedSync do?<br />
+(A) Delivers prescriptions to your home<br />
+(B) Lines up all refills to the same day each month<br />
+(C) Lowers the price of medications<br />
+(D) Provides a weekly pill organizer</p>
+<p><strong>81.</strong> What else does the service do?<br />
+(A) Calls your doctor for renewals<br />
+(B) Offers free health screenings<br />
+(C) Ships internationally<br />
+(D) Provides a nurse hotline</p>
+<p><strong>82.</strong> Who is the service free for?<br />
+(A) Everyone<br />
+(B) People over 65<br />
+(C) Anyone filling three or more prescriptions there<br />
+(D) New customers only</p>
+<h3>Talk 5 (83–85) — Clinic announcement</h3>
+<p><em>"Attention, patients in the waiting room. Due to a scheduling change, Dr. Patel is running approximately thirty minutes behind today. We apologize for the delay and appreciate your patience. If you'd prefer to reschedule, please speak with the front desk."</em></p>
+<p><strong>83.</strong> What is being announced?<br />
+(A) A clinic closure<br />
+(B) A doctor running behind schedule<br />
+(C) A new doctor joining the practice<br />
+(D) A change in office hours</p>
+<p><strong>84.</strong> About how far behind is the schedule?<br />
+(A) Ten minutes<br />
+(B) Thirty minutes<br />
+(C) One hour<br />
+(D) Two hours</p>
+<p><strong>85.</strong> What can patients do if they prefer to reschedule?<br />
+(A) Call a different clinic<br />
+(B) Speak with the front desk<br />
+(C) Wait until next week<br />
+(D) Email the doctor directly</p>
+<h3>Talk 6 (86–88) — Pharmacy voicemail</h3>
+<p><em>"Hi, this is the pharmacy calling to let you know your prescription is ready for pickup. Please remember to bring your insurance card, since there was an update to your coverage this month. We're open until eight this evening if you'd like to stop by."</em></p>
+<p><strong>86.</strong> Why is the pharmacy calling?<br />
+(A) To request a new prescription<br />
+(B) To say the prescription is ready<br />
+(C) To report a billing error<br />
+(D) To cancel an order</p>
+<p><strong>87.</strong> What should the listener bring?<br />
+(A) A photo ID only<br />
+(B) Their insurance card<br />
+(C) Cash payment<br />
+(D) A referral form</p>
+<p><strong>88.</strong> Until what time is the pharmacy open?<br />
+(A) Six<br />
+(B) Seven<br />
+(C) Eight<br />
+(D) Nine</p>
+<h3>Talk 7 (89–91) — Health seminar introduction</h3>
+<p><em>"Thank you all for joining today's seminar on managing stress in the workplace. We'll cover simple breathing techniques, the importance of regular breaks, and how to recognize early signs of burnout. There will be time for questions at the end, so feel free to jot down anything that comes to mind."</em></p>
+<p><strong>89.</strong> What is the topic of the seminar?<br />
+(A) Managing stress in the workplace<br />
+(B) Healthy eating<br />
+(C) Sleep habits<br />
+(D) Exercise routines</p>
+<p><strong>90.</strong> What will be covered?<br />
+(A) Breathing techniques, breaks, and signs of burnout<br />
+(B) Nutrition planning<br />
+(C) Medication management<br />
+(D) First aid training</p>
+<p><strong>91.</strong> What are attendees encouraged to do?<br />
+(A) Leave early if needed<br />
+(B) Jot down questions for later<br />
+(C) Bring a notebook to keep<br />
+(D) Sign up for individual sessions</p>
+<h3>Talk 8 (92–94) — Hospital directory recording</h3>
+<p><em>"Thank you for calling City General Hospital. For the emergency room, press one. For appointment scheduling, press two. For billing questions, press three. If you know your party's extension, you may dial it at any time."</em></p>
+<p><strong>92.</strong> What should a caller press for appointment scheduling?<br />
+(A) One<br />
+(B) Two<br />
+(C) Three<br />
+(D) Four</p>
+<p><strong>93.</strong> What can a caller do if they know an extension?<br />
+(A) Wait for an operator<br />
+(B) Dial it at any time<br />
+(C) Press zero<br />
+(D) Leave a voicemail</p>
+<p><strong>94.</strong> What is this recording?<br />
+(A) A hospital directory<br />
+(B) An emergency alert<br />
+(C) A doctor's voicemail<br />
+(D) A patient satisfaction survey</p>
+<h3>Talk 9 (95–97) — Nutrition talk excerpt</h3>
+<p><em>"One common question I get is how much protein a person actually needs. It varies by activity level, but as a general guideline, most adults benefit from including a source of protein at each meal rather than saving it all for dinner. This helps keep energy levels steady throughout the day."</em></p>
+<p><strong>95.</strong> What question does the speaker address?<br />
+(A) How much water to drink<br />
+(B) How much protein is needed<br />
+(C) How many calories to eat<br />
+(D) How often to exercise</p>
+<p><strong>96.</strong> What does the speaker recommend?<br />
+(A) Eating protein only at dinner<br />
+(B) Including protein at each meal<br />
+(C) Avoiding protein at breakfast<br />
+(D) Eating protein once a week</p>
+<p><strong>97.</strong> What benefit does this provide?<br />
+(A) Weight loss<br />
+(B) Steady energy throughout the day<br />
+(C) Better sleep<br />
+(D) Stronger bones</p>
+<h3>Talk 10 (98–100) — Wellness program announcement</h3>
+<p><em>"We're excited to launch a new wellness program for employees starting next month. It includes a discounted gym membership, quarterly health screenings, and access to a nutrition counselor. Sign-up forms are available on the employee portal, and enrollment closes at the end of this week."</em></p>
+<p><strong>98.</strong> What is starting next month?<br />
+(A) A new health insurance plan<br />
+(B) A wellness program<br />
+(C) A hiring initiative<br />
+(D) A new cafeteria menu</p>
+<p><strong>99.</strong> What does the program include?<br />
+(A) Free lunches<br />
+(B) A gym membership, screenings, and a nutrition counselor<br />
+(C) Extra vacation days<br />
+(D) A company car</p>
+<p><strong>100.</strong> Where can employees find the sign-up form?<br />
+(A) In the break room<br />
+(B) On the employee portal<br />
+(C) At the front desk<br />
+(D) By calling HR</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_010 — READING (100 câu: 101–200) · Chủ đề: Health &amp; Medicine</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The clinic <span class="blk">________</span> appointment reminders by text two days in advance.<br />
+(A) send  (B) sends  (C) sending  (D) to send</p>
+<p><strong>102.</strong> Patients should arrive 15 minutes early <span class="blk">________</span> their first visit.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The nurse explained the discharge instructions <span class="blk">________</span> so the patient could follow them at home.<br />
+(A) clear  (B) clearly  (C) clearness  (D) clearer</p>
+<p><strong>104.</strong> <span class="blk">________</span> a full waiting room, the clinic saw every scheduled patient before closing.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Staff are trained to <span class="blk">________</span> hand hygiene before and after every patient contact.<br />
+(A) perform  (B) performs  (C) performing  (D) performed</p>
+<p><strong>106.</strong> The brochure gives guidance <span class="blk">________</span> managing a chronic condition at home.<br />
+(A) on  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three treatment options, the first has the <span class="blk">________</span> risk of side effects.<br />
+(A) low  (B) lower  (C) lowest  (D) less</p>
+<p><strong>108.</strong> The appointment was rescheduled <span class="blk">________</span> the doctor being called into surgery.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The hospital cut readmission rates <span class="blk">________</span> following up with patients within 48 hours of discharge.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Demand for the vaccine clinic has grown <span class="blk">________</span> since the season started.<br />
+(A) sharp  (B) sharpness  (C) sharper  (D) sharply</p>
+<p><strong>111.</strong> Each sample <span class="blk">________</span> labeled with the patient's name and the collection time.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The clinic director asked the team to <span class="blk">________</span> the intake form to make it shorter.<br />
+(A) revise  (B) revising  (C) revised  (D) revision</p>
+<p><strong>113.</strong> The visiting hours are posted <span class="blk">________</span> the door of each ward.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> test results are ready, the patient is notified through the portal.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The practice <span class="blk">________</span> more than 8,000 patients across two locations.<br />
+(A) serve  (B) serves  (C) serving  (D) served</p>
+<p><strong>116.</strong> The renovation of the emergency department is expected <span class="blk">________</span> by winter.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Providers should keep <span class="blk">________</span> notes of every medication change and the reason for it.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The online booking tool lets patients schedule visits far <span class="blk">________</span> than calling.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The report identifies several <span class="blk">________</span> to reduce patient wait times.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The support group meets <span class="blk">________</span> the conference room on the ground floor.<br />
+(A) at  (B) on  (C) in  (D) by</p>
+<p><strong>121.</strong> The device was approved <span class="blk">________</span> a warning about use in patients with pacemakers.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> A pharmacist will <span class="blk">________</span> your current medications for possible interactions.<br />
+(A) review  (B) reviews  (C) reviewing  (D) reviewal</p>
+<p><strong>123.</strong> Uninsured patients are <span class="blk">________</span> for the clinic's sliding-scale fee program.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The new triage process moves urgent cases through <span class="blk">________</span> than the old one.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The hospital is committed to <span class="blk">________</span> clear, plain-language information to patients.<br />
+(A) provide  (B) provides  (C) providing  (D) provided</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two clinics has an opening this week, so the patient was referred elsewhere.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The pharmacy is open <span class="blk">________</span> 8 A.M. to 10 P.M. every day, including holidays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>128.</strong> Any change to a patient's care plan must be approved by an <span class="blk">________</span> physician.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The updated visitor policy <span class="blk">________</span> posted at every entrance next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The take-home guide provides <span class="blk">________</span> steps for changing a wound dressing.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Phone System Upgrade</strong></p>
+<p>Our phone system <span class="blk">(131)</span> upgraded this Saturday. During the upgrade, from 6 A.M. to noon, you may have trouble reaching us by phone.</p>
+<p>If you have an urgent medical concern during that window, please go to the nearest urgent care or emergency department. For non-urgent matters, you can send a message through the patient portal, and we <span class="blk">(132)</span> respond on Monday.</p>
+<p>The upgrade will give us more phone lines and a call-back option, so you <span class="blk">(133)</span> have to wait on hold as often.</p>
+<p>We appreciate your patience during the transition. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will respond  (B) respond  (C) responding  (D) responded<br />
+<strong>133.</strong> (A) don't  (B) haven't  (C) aren't  (D) won't<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The urgent care center will also be closed on Saturday.<br />
+(B) All appointments this week will be rescheduled.<br />
+(C) Reach out to the front desk if you have any concerns.<br />
+(D) This upgrade was delayed from last month.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Prescription Refill Process</p>
+<p>Starting April 1, refill requests <span class="blk">(135)</span> be made through the patient portal or your pharmacy, not by calling the office. Requests left as voicemails will no longer be processed, as messages were sometimes missed.</p>
+<p>When you request a refill, allow two business days. If your medication requires a check-in with the provider first, you'll get a message <span class="blk">(136)</span> that.</p>
+<p>Controlled medications still require an in-person or video visit before each refill; those <span class="blk">(137)</span> be requested online.</p>
+<p>If you're low on a medication and can't reach us, your pharmacy can often provide a short emergency supply. We appreciate your patience as we make this change. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) will  (C) must  (D) should<br />
+<strong>136.</strong> (A) explain  (B) explaining  (C) explained  (D) to explain<br />
+<strong>137.</strong> (A) can  (B) must  (C) should  (D) cannot<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Voicemail requests will still be processed for regular patients.<br />
+(B) This change applies only to controlled medications.<br />
+(C) The office phone number will be disconnected next month.<br />
+(D) If you have questions, reach out to our office.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>CARE COMPANION — HELP MANAGING YOUR HEALTH</strong></p>
+<p>Care Companion pairs you with a trained health coach who checks in by phone or video twice a month. Your coach helps you <span class="blk">(139)</span> your appointments, understand your medications, and prepare questions for your doctor.</p>
+<p>This is not medical advice — your coach doesn't diagnose or prescribe. Think of them as someone <span class="blk">(140)</span> in your corner who helps you get the most from your care team.</p>
+<p>Many health plans cover the service at no cost. <span class="blk">(141)</span> your plan is eligible, sign-up takes ten minutes. Visit carecompanion.example or call us at 555-0130. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) track  (B) tracking  (C) tracks  (D) tracked<br />
+<strong>140.</strong> (A) whose  (B) which  (C) who's  (D) whom<br />
+<strong>141.</strong> (A) Whether  (B) If  (C) Unless  (D) Despite<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) We're here to support you every step of the way.<br />
+(B) Care Companion replaces regular visits to your doctor.<br />
+(C) A subscription fee applies after the first three months.<br />
+(D) Coaches are available only on weekdays.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Clinical Staff <strong>FROM:</strong> Patient Safety <strong>RE:</strong> Two-Person Verification for High-Alert Medications</p>
+<p>Effective this week, high-alert medications (including insulin, anticoagulants, and concentrated electrolytes) <span class="blk">(143)</span> a second qualified staff member to independently check the drug, dose, and patient before administration.</p>
+<p>The second check must be a true independent check — the second person reviews the order and the medication themselves, <span class="blk">(144)</span> simply agreeing with the first person.</p>
+<p>Document both names in the record. If a second checker isn't immediately available for a non-urgent dose, wait; <span class="blk">(145)</span> rush this step.</p>
+<p>We expect to see fewer errors on these medications within a month. Thank you for your care with this. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) require  (B) requires  (C) requiring  (D) required<br />
+<strong>144.</strong> (A) despite  (B) instead of  (C) without  (D) rather than<br />
+<strong>145.</strong> (A) doesn't  (B) won't  (C) don't  (D) not<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) This policy applies only to the night shift.<br />
+(B) Reach out to patient safety with any questions.<br />
+(C) The second check requirement will be reviewed after one week.<br />
+(D) Insulin is no longer classified as high-alert.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Nurse Rios (7:20 A.M.):</strong> Room 4's IV pump is alarming "occlusion." I've checked the line, no kinks.<br />
+<strong>Charge (7:22 A.M.):</strong> Try repositioning the arm and flushing the line. If it keeps alarming, swap the pump — there's a spare in the clean utility room.<br />
+<strong>Nurse Rios (7:31 A.M.):</strong> Repositioned and flushed, alarm cleared. Watching it.<br />
+<strong>Charge (7:32 A.M.):</strong> Good. Note it in the record and let day shift know to keep an eye on that site.</p>
+<p><strong>147.</strong> What was the problem?<br />
+(A) An IV pump was alarming<br />
+(B) A patient fell<br />
+(C) A monitor was disconnected<br />
+(D) A medication was missing</p>
+<p><strong>148.</strong> What cleared the alarm?<br />
+(A) Swapping the pump<br />
+(B) Repositioning the arm and flushing the line<br />
+(C) Calling the doctor<br />
+(D) Restarting the pump</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>HOSPITAL ADDS "HOSPITAL AT HOME" PROGRAM FOR SOME PATIENTS</strong></p>
+<p>Riverside General has launched a program that lets certain patients who would normally be admitted receive hospital-level care at home instead. Eligible patients — mostly those with conditions like pneumonia or heart failure that are stable enough to monitor remotely — get daily visits from a nurse, video check-ins with a doctor, and monitoring equipment installed in their home.</p>
+<p>The hospital says early results are encouraging: patients in the program have similar recovery times, fewer infections picked up in the hospital, and higher satisfaction. It also frees up beds during busy periods.</p>
+<p>Not every patient qualifies. Those who need frequent tests, are unstable, or lack a safe home environment are still admitted. A care coordinator assesses each case, and patients can return to the hospital at any time.</p>
+<p><strong>149.</strong> What does the new program allow?<br />
+(A) Faster emergency room check-in<br />
+(B) Free prescriptions for discharged patients<br />
+(C) Online booking of surgeries<br />
+(D) Certain patients to get hospital-level care at home</p>
+<p><strong>150.</strong> Which patients are eligible?<br />
+(A) Anyone who requests it<br />
+(B) Only patients over 65<br />
+(C) Stable patients with conditions that can be monitored remotely<br />
+(D) Patients with private insurance only</p>
+<p><strong>151.</strong> What benefit is mentioned?<br />
+(A) Lower staff costs<br />
+(B) Fewer infections picked up in the hospital<br />
+(C) Shorter doctor visits<br />
+(D) No need for monitoring equipment</p>
+<p><strong>152.</strong> What happens if a patient in the program becomes unstable?<br />
+(A) They can return to the hospital at any time<br />
+(B) They are dropped from the program permanently<br />
+(C) They must wait 24 hours<br />
+(D) A family member takes over their care</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Pharmacy Closed for Inventory</strong></p>
+<p>The outpatient pharmacy will be closed on Saturday, June 7, for its annual inventory count. It reopens Sunday at 9 A.M.</p>
+<p>If you'll need a refill over the weekend, please request it by Thursday so we can fill it before Friday's close. For urgent needs on Saturday, the 24-hour pharmacy on Center Street can help; bring your prescription bottle or a photo of the label.</p>
+<p><strong>153.</strong> Why will the pharmacy be closed on June 7?<br />
+(A) A staff training day<br />
+(B) A system upgrade<br />
+(C) A public holiday<br />
+(D) An annual inventory count</p>
+<p><strong>154.</strong> What should patients needing a weekend refill do?<br />
+(A) Come in on Saturday morning<br />
+(B) Call the front desk on Saturday<br />
+(C) Request it by Thursday<br />
+(D) Wait until Sunday</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>BRIGHTPATH THERAPY — IN-PERSON OR ONLINE</strong></p>
+<p>Brightpath offers individual therapy for adults, with licensed therapists in a range of specialties. Book online, choose in-person or video, and switch between them anytime.</p>
+<p>New clients start with a 20-minute consultation, free of charge, to make sure the fit is right before you commit. Sessions are 50 minutes. Most major insurance plans are accepted, and we'll check your coverage before your first session so there are no surprises.</p>
+<p>Evening and weekend appointments are available. Visit brightpaththerapy.example to see therapist profiles and openings.</p>
+<p><strong>155.</strong> What does Brightpath offer new clients?<br />
+(A) A free 20-minute consultation<br />
+(B) A discounted first month<br />
+(C) A free workbook<br />
+(D) Group sessions</p>
+<p><strong>156.</strong> What will Brightpath do before the first session?<br />
+(A) Send a long questionnaire<br />
+(B) Require a deposit<br />
+(C) Check the client's insurance coverage<br />
+(D) Assign a therapist at random</p>
+<p><strong>157.</strong> What flexibility does Brightpath provide?<br />
+(A) Sessions of any length<br />
+(B) Same-day appointments only<br />
+(C) Choosing a new therapist each week<br />
+(D) Switching between in-person and video anytime</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-staff <strong>From:</strong> Infection Control <strong>Subject:</strong> Updated Isolation Signage</p>
+<p>We've replaced the isolation-precaution signs on patient doors with a simpler design. The new signs use one word — "Contact," "Droplet," or "Airborne" — and a color, with the required PPE shown as icons.</p>
+<p>The old signs had too much text; staff and visitors often didn't read them. The new ones can be understood in a second.</p>
+<p>The PPE requirements haven't changed — only the signs. If you see an old-style sign still up, swap it for a new one from the supply on each unit, and recycle the old one. Questions go to Infection Control at extension 2100.</p>
+<p><strong>158.</strong> What has changed?<br />
+(A) The isolation-precaution signs<br />
+(B) The PPE requirements<br />
+(C) The visiting hours<br />
+(D) The location of PPE supplies</p>
+<p><strong>159.</strong> Why were the old signs replaced?<br />
+(A) They were the wrong size<br />
+(B) They had too much text and were often not read<br />
+(C) They faded quickly<br />
+(D) They used the wrong colors</p>
+<p><strong>160.</strong> What should staff do with old-style signs still in use?<br />
+(A) Leave them; both are valid<br />
+(B) Cover them with tape<br />
+(C) Swap them for new ones and recycle the old<br />
+(D) Report them to the manager</p>
+<h3>Passage 6 — Clinic hours table (161–162)</h3>
+<p><strong>CLINIC HOURS BY LOCATION</strong></p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Mon–Fri</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main clinic</td>
+<td>8 A.M.–6 P.M.</td>
+<td>9 A.M.–1 P.M.</td>
+<td>Closed</td>
+</tr>
+<tr>
+<td>Urgent care</td>
+<td>8 A.M.–9 P.M.</td>
+<td>8 A.M.–9 P.M.</td>
+<td>9 A.M.–5 P.M.</td>
+</tr>
+<tr>
+<td>Lab</td>
+<td>7 A.M.–4 P.M.</td>
+<td>8 A.M.–noon</td>
+<td>Closed</td>
+</tr>
+</tbody>
+</table>
+<p>Lab draws for fasting tests are best done before 10 A.M. The urgent care does not handle prescription refills or routine follow-ups.</p>
+<p><strong>161.</strong> When is the lab open on Saturday?<br />
+(A) 7 A.M.–4 P.M.<br />
+(B) 9 A.M.–1 P.M.<br />
+(C) Closed<br />
+(D) 8 A.M.–noon</p>
+<p><strong>162.</strong> What does the urgent care NOT handle?<br />
+(A) Minor injuries<br />
+(B) After-hours illness<br />
+(C) Prescription refills and routine follow-ups<br />
+(D) Weekend visits</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Adeyemi,</p>
+<p>Thank you for completing our patient survey after your visit on May 3.</p>
+<p>We're glad you found the medical care thorough and your provider easy to talk to. We also read your comments about the 40-minute wait past your appointment time, and the difficulty getting through on the phone to reschedule.</p>
+<p>We've made two changes. First, we've added a text message that goes out if your provider is running more than 20 minutes behind, so you can adjust your arrival. Second, we've added an online rescheduling option in the patient portal, so you don't have to call.</p>
+<p>We hope these help, and we appreciate you taking the time to tell us what wasn't working.</p>
+<p>Sincerely,<br />
+Patient Experience Team</p>
+<p><strong>163.</strong> Why did the clinic send this letter?<br />
+(A) To respond to Mr. Adeyemi's survey feedback<br />
+(B) To remind him of an appointment<br />
+(C) To send a bill<br />
+(D) To share test results</p>
+<p><strong>164.</strong> What did Mr. Adeyemi praise?<br />
+(A) The parking<br />
+(B) The short wait time<br />
+(C) The thorough care and easy-to-talk-to provider<br />
+(D) The phone system</p>
+<p><strong>165.</strong> What is one change the clinic made?<br />
+(A) A new phone number<br />
+(B) Longer appointment slots<br />
+(C) A different waiting room<br />
+(D) A text alert when the provider is over 20 minutes behind</p>
+<p><strong>166.</strong> What can patients now do in the portal?<br />
+(A) Pay their bill<br />
+(B) Reschedule appointments online<br />
+(C) Message their provider<br />
+(D) View X-rays</p>
+<h3>Passage 8 — Patient FAQ (167–169)</h3>
+<p><strong>PATIENT FAQ — Billing</strong></p>
+<p><strong>When will I get a bill?</strong><br />
+Usually 2–4 weeks after your visit, once your insurance has processed the claim. If you don't have insurance, you'll get a bill within a week.</p>
+<p><strong>Why is my bill different from what I paid at the visit?</strong><br />
+The amount collected at the visit is an estimate. The final amount depends on how your insurance processes the claim. You may owe more, or get a refund.</p>
+<p><strong>Can I set up a payment plan?</strong><br />
+Yes, for balances over $100, at no interest. Call billing or set it up in the portal.</p>
+<p><strong>What if I think my bill is wrong?</strong><br />
+Call billing within 60 days. We'll review the charges and the insurance processing with you.</p>
+<p><strong>167.</strong> When does an insured patient usually get a bill?<br />
+(A) At the visit<br />
+(B) 2–4 weeks after the visit<br />
+(C) 6 months later<br />
+(D) Only if they owe money</p>
+<p><strong>168.</strong> Why might the final bill differ from what was paid at the visit?<br />
+(A) A billing error<br />
+(B) Late fees were added<br />
+(C) The visit amount was an estimate; the final depends on insurance processing<br />
+(D) The provider changed the diagnosis</p>
+<p><strong>169.</strong> What is required to set up a no-interest payment plan?<br />
+(A) A balance over $100<br />
+(B) A credit check<br />
+(C) Manager approval<br />
+(D) Payment of half up front</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Clinic Manager <strong>RE:</strong> After-Visit Summary — Reminder</p>
+<p>Every patient must leave with a printed or portal After-Visit Summary. It should include: the reason for the visit, any diagnoses discussed, changes to medications, instructions, and the date and purpose of the next appointment.</p>
+<p>We've had feedback that summaries sometimes list medication changes without saying why. Please add a short reason in plain language — "to lower blood pressure," not just "start lisinopril."</p>
+<p>If a patient declines the printed copy, note that they were offered it and it's available in their portal. The summary is also how we meet a quality reporting requirement, so completeness matters.</p>
+<p><strong>170.</strong> What must every patient receive?<br />
+(A) An After-Visit Summary<br />
+(B) A prescription<br />
+(C) A follow-up call<br />
+(D) A satisfaction survey</p>
+<p><strong>171.</strong> What feedback did the clinic get about summaries?<br />
+(A) They are too long<br />
+(B) They list medication changes without explaining why<br />
+(C) They are hard to read<br />
+(D) They are often not printed</p>
+<p><strong>172.</strong> What should staff do if a patient declines the printed copy?<br />
+(A) Print it anyway<br />
+(B) Skip the summary<br />
+(C) Note that it was offered and is in the portal<br />
+(D) Mail it to the patient</p>
+<h3>Passage 10 — Clinic review (173–175)</h3>
+<p>★★★★☆ <strong>Excellent care, front-desk experience is uneven</strong> — patient for 3 years</p>
+<p>I've seen my doctor here for three years and the medical care is genuinely excellent — she listens, explains, and follows up. The nurses are kind and competent.</p>
+<p>The front desk is hit or miss. Some staff are warm and efficient; others seem rushed and I've been given wrong information about referrals twice. The phone hold times can be long. Booking online has helped a lot.</p>
+<p>If the front-desk experience matched the clinical care, this would be a five-star practice. I'm staying — the doctor is worth it.</p>
+<p><strong>173.</strong> What does the reviewer praise?<br />
+(A) The medical care from the doctor and nurses<br />
+(B) The short phone hold times<br />
+(C) The front-desk staff<br />
+(D) The parking</p>
+<p><strong>174.</strong> What is the reviewer's complaint?<br />
+(A) The doctor doesn't listen<br />
+(B) An uneven front-desk experience, including wrong referral information<br />
+(C) The clinic is far away<br />
+(D) High costs</p>
+<p><strong>175.</strong> What has helped the reviewer?<br />
+(A) Calling early in the morning<br />
+(B) Switching doctors<br />
+(C) Visiting a different location<br />
+(D) Booking online</p>
+<h3>Passages 11–12 — Pre-procedure instructions &amp; email (176–180)</h3>
+<p><strong>Document 1 — Instructions</strong></p>
+<p><strong>BEFORE YOUR COLONOSCOPY</strong></p>
+<ul>
+<li>5 days before: stop iron supplements and, if advised, blood thinners (confirm with your prescriber).</li>
+<li>3 days before: switch to a low-fiber diet (no nuts, seeds, raw vegetables, whole grains).</li>
+<li>1 day before: clear liquids only after breakfast. Begin the prep solution at 6 P.M.</li>
+<li>Day of: nothing by mouth for 4 hours before arrival. Bring a photo ID and your insurance card. You must have an adult to drive you home — you cannot take a taxi or rideshare alone due to sedation.</li>
+<li>Arrive 45 minutes before your appointment time.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Park <strong>To:</strong> gi-scheduling@lakeside.example <strong>Subject:</strong> Questions before my procedure on the 18th</p>
+<p>Hi,</p>
+<p>Two questions:<br />
+1. I take a low-dose aspirin daily. Do I need to stop it, and if so when?<br />
+2. My spouse can drive me but has a work meeting and would need to leave right after dropping me — can they come back at pickup, or do they need to stay the whole time?</p>
+<p><strong>176.</strong> When should iron supplements be stopped?<br />
+(A) The day before<br />
+(B) 3 days before<br />
+(C) 5 days before<br />
+(D) The morning of</p>
+<p><strong>177.</strong> What is the diet the day before the procedure?<br />
+(A) Low-fiber foods<br />
+(B) Nothing by mouth all day<br />
+(C) A normal diet<br />
+(D) Clear liquids only after breakfast</p>
+<p><strong>178.</strong> Why can't the patient take a rideshare home alone?<br />
+(A) It is against clinic policy for all patients<br />
+(B) Because of the sedation<br />
+(C) The clinic doesn't allow rideshares on site<br />
+(D) Insurance won't cover it</p>
+<p><strong>179.</strong> What is one of Owen's questions?<br />
+(A) Whether he needs to stop his daily aspirin<br />
+(B) What the procedure costs<br />
+(C) Whether he can eat breakfast<br />
+(D) How long the procedure takes</p>
+<p><strong>180.</strong> How early must the patient arrive?<br />
+(A) 15 minutes before<br />
+(B) 30 minutes before<br />
+(C) 45 minutes before<br />
+(D) One hour before</p>
+<h3>Passages 13–14 — Two emails about a referral (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Sam Whitfield (patient) <strong>To:</strong> care-team@brightclinic.example <strong>Subject:</strong> Referral to a dermatologist</p>
+<p>Hi,</p>
+<p>My doctor said last visit that she'd send a referral to dermatology for a mole she wants checked. That was three weeks ago and I haven't heard from the dermatology office. Can you check whether the referral went through, and let me know what I should do next?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> care-team@brightclinic.example <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: Referral to a dermatologist</p>
+<p>Hi Sam,</p>
+<p>I looked into this. The referral was entered and approved by your insurance, but it was sent to a dermatology practice that isn't taking new patients until September. That's why you haven't been contacted.</p>
+<p>I've redirected the referral to a practice with earlier availability. They should call you within 3–5 business days to schedule. If you don't hear from them by next Friday, call them directly at 555-0161 and mention referral #DR-4820.</p>
+<p>Given your doctor wants the mole checked soon, if the new practice can't see you within a month, reply here and we'll look at other options, including a different clinic.</p>
+<p><strong>181.</strong> Why did Sam email the care team?<br />
+(A) To ask about a referral he hasn't heard back on<br />
+(B) To cancel an appointment<br />
+(C) To request his records<br />
+(D) To dispute a bill</p>
+<p><strong>182.</strong> Why hadn't the dermatology office contacted Sam?<br />
+(A) The referral was denied by insurance<br />
+(B) His phone number was wrong<br />
+(C) The referral was never entered<br />
+(D) It was sent to a practice not taking new patients until September</p>
+<p><strong>183.</strong> What has the care team done?<br />
+(A) Canceled the referral<br />
+(B) Asked Sam to book it himself<br />
+(C) Redirected the referral to a practice with earlier availability<br />
+(D) Scheduled the appointment</p>
+<p><strong>184.</strong> What should Sam do if he doesn't hear from the new practice by next Friday?<br />
+(A) Call them directly and mention the referral number<br />
+(B) Wait another week<br />
+(C) Return to his own doctor<br />
+(D) Go to urgent care</p>
+<p><strong>185.</strong> What will the care team do if the new practice can't see Sam within a month?<br />
+(A) Nothing further<br />
+(B) Look at other options, including a different clinic<br />
+(C) Refer him back to his own doctor<br />
+(D) Charge a rush fee</p>
+<h3>Passages 15–17 — Health plan comparison, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Plans</strong></p>
+<p><strong>EMPLOYER HEALTH PLANS — QUICK COMPARISON</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Plan A (HMO)</th>
+<th>Plan B (PPO)</th>
+<th>Plan C (High-Deductible)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monthly premium (you pay)</td>
+<td>$80</td>
+<td>$180</td>
+<td>$40</td>
+</tr>
+<tr>
+<td>Annual deductible</td>
+<td>$500</td>
+<td>$1,000</td>
+<td>$3,000</td>
+</tr>
+<tr>
+<td>Primary care visit</td>
+<td>$20 copay</td>
+<td>$30 copay</td>
+<td>Full cost until deductible</td>
+</tr>
+<tr>
+<td>Specialist (needs referral?)</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Out-of-network care</td>
+<td>Not covered</td>
+<td>Covered at 60%</td>
+<td>Covered at 50% after deductible</td>
+</tr>
+<tr>
+<td>Includes HSA contribution</td>
+<td>No</td>
+<td>No</td>
+<td>Yes ($750/year from employer)</td>
+</tr>
+</tbody>
+</table>
+<p>Open enrollment closes November 15. Changes take effect January 1.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Nair <strong>To:</strong> benefits@company.example <strong>Subject:</strong> Which plan for my situation</p>
+<p>Hi,</p>
+<p>I'm generally healthy — a couple of primary care visits a year and one specialist I see regularly (a rheumatologist) who is out-of-network for some plans. I'd rather pay a bit more monthly for predictability and to keep seeing my specialist without a referral each time.</p>
+<p>Which plan fits? And can I change my mind before January 1 if I pick one now?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> benefits@company.example <strong>To:</strong> Priya Nair <strong>Subject:</strong> RE: Which plan for my situation</p>
+<p>Hi Priya,</p>
+<p>Given you want to keep an out-of-network specialist without referrals and value predictability, Plan B (PPO) is the best fit — no referrals for specialists, and out-of-network care is covered at 60%. Plan A wouldn't cover your out-of-network rheumatologist at all, and it requires referrals.</p>
+<p>Plan C is cheapest monthly and adds an HSA, but with a $3,000 deductible you'd pay full cost for visits early in the year, which doesn't match your preference for predictability.</p>
+<p>You can change your selection any time before enrollment closes on November 15.</p>
+<p><strong>186.</strong> What does Priya want in a plan?<br />
+(A) The lowest possible monthly premium<br />
+(B) Predictability and access to her out-of-network specialist without referrals<br />
+(C) An HSA contribution<br />
+(D) HMO coverage</p>
+<p><strong>187.</strong> Why doesn't Plan A fit Priya's needs?<br />
+(A) It has the highest premium<br />
+(B) It has no primary care coverage<br />
+(C) It is being discontinued<br />
+(D) It requires referrals and doesn't cover her out-of-network specialist</p>
+<p><strong>188.</strong> Which plan does the benefits team recommend?<br />
+(A) Plan A<br />
+(B) Plan B<br />
+(C) Plan C<br />
+(D) None</p>
+<p><strong>189.</strong> Why isn't Plan C a good match?<br />
+(A) It doesn't cover specialists<br />
+(B) It requires referrals<br />
+(C) The $3,000 deductible means paying full cost for visits early in the year<br />
+(D) It has the highest premium</p>
+<p><strong>190.</strong> Until when can Priya change her selection?<br />
+(A) November 15<br />
+(B) January 1<br />
+(C) December 31<br />
+(D) Anytime during the year</p>
+<h3>Passages 18–20 — Records release policy, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>RELEASE OF MEDICAL RECORDS — POLICY</strong></p>
+<ul>
+<li>Patients may request a copy of their own records at any time, free of charge for the first request each year; $0.25 per page after that, capped at $50.</li>
+<li>Requests are fulfilled within 15 business days. Urgent requests (for an upcoming appointment with another provider) are prioritized — usually within 3 days — if marked urgent.</li>
+<li>To send records to another provider or a third party, a signed authorization form is required, specifying what to release and to whom.</li>
+<li>Certain notes (e.g., psychotherapy notes) require separate specific authorization.</li>
+<li>Records are provided electronically by default; paper copies on request.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lena Marsh <strong>To:</strong> records@harborclinic.example <strong>Subject:</strong> Records for a specialist appointment</p>
+<p>Hi,</p>
+<p>I have a first appointment with a cardiologist in 10 days and they've asked me to bring my records — specifically the last two years of visit notes, my most recent labs, and the echocardiogram report from March.</p>
+<p>This is my first records request this year. Can you get me these in time, and can they go straight to the cardiologist's office instead of to me?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> records@harborclinic.example <strong>To:</strong> Lena Marsh <strong>Subject:</strong> RE: Records for a specialist appointment</p>
+<p>Hi Lena,</p>
+<p>Yes, this is doable. Since it's for an upcoming appointment, I've marked it urgent — we should have it ready within 3 business days, well before your appointment.</p>
+<p>To send the records directly to the cardiologist, I need a signed authorization form. I've attached it; fill in the cardiologist's details and the specific items, sign, and return it. An emailed photo or scan is fine.</p>
+<p>As your first request this year, there's no charge. We'll send it electronically to the cardiologist's office; let me know if they need a fax instead.</p>
+<p><strong>191.</strong> How much does a patient's first records request each year cost?<br />
+(A) Free<br />
+(B) $0.25 per page<br />
+(C) $50 flat<br />
+(D) It depends on page count</p>
+<p><strong>192.</strong> How quickly are urgent requests usually fulfilled?<br />
+(A) The same day<br />
+(B) Within 15 business days<br />
+(C) Within 30 days<br />
+(D) Within 3 business days</p>
+<p><strong>193.</strong> What is needed to send records directly to the cardiologist?<br />
+(A) Nothing extra<br />
+(B) A doctor's referral<br />
+(C) A signed authorization form<br />
+(D) Payment of a $50 fee</p>
+<p><strong>194.</strong> Why is Lena's request being treated as urgent?<br />
+(A) She asked for it to be rushed for a fee<br />
+(B) It is for an upcoming appointment with another provider<br />
+(C) It is her first request of the year<br />
+(D) The clinic is closing soon</p>
+<p><strong>195.</strong> How will the records be sent by default?<br />
+(A) By mail<br />
+(B) By fax only<br />
+(C) Picked up in person<br />
+(D) Electronically</p>
+<h3>Passages 21–23 — Clinical trial info, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Study info sheet</strong></p>
+<p><strong>STUDY BR-114 — INFORMATION FOR POTENTIAL PARTICIPANTS</strong></p>
+<p>This is a study of a new medication for adults with moderate asthma that is not well controlled on their current inhaler.</p>
+<ul>
+<li>Duration: 6 months, with visits every 4 weeks (7 visits total) plus phone check-ins.</li>
+<li>Participants are assigned by chance to the new medication or a placebo, in addition to their usual care. Neither you nor the study doctor will know which you're taking until the study ends.</li>
+<li>You may leave the study at any time without affecting your regular care.</li>
+<li>Travel to visits is reimbursed. There is no payment for participation itself.</li>
+<li>You should NOT join if you smoke, are pregnant, or have had a severe asthma attack requiring hospitalization in the last 3 months.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Aria Bello <strong>To:</strong> research@lungcenter.example <strong>Subject:</strong> Study BR-114 — am I eligible?</p>
+<p>Hi,</p>
+<p>I have moderate asthma and my inhaler isn't fully controlling it. I'm interested in the study. A few things:<br />
+1. I had a bad asthma attack 5 months ago but wasn't hospitalized — treated in the ER and sent home. Does that rule me out?<br />
+2. I don't drive — is public transit fare reimbursed, or only mileage?<br />
+3. How soon would I know if I'm in the medication group?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> research@lungcenter.example <strong>To:</strong> Aria Bello <strong>Subject:</strong> RE: Study BR-114 — am I eligible?</p>
+<p>Hi Aria,</p>
+<ol>
+<li>The exclusion is for hospitalization in the last 3 months. An ER visit 5 months ago that didn't lead to admission doesn't automatically rule you out — the study doctor will review the details at a screening visit.</li>
+<li>Travel reimbursement covers your actual costs to get to visits, including public transit fares (keep receipts), not just mileage.</li>
+<li>You wouldn't know during the study — it's a blinded study, so the group assignment stays hidden from you and the study doctor until the study ends. You'd learn afterward.</li>
+</ol>
+<p>Would you like to book a screening visit? There's no obligation to continue after it.</p>
+<p><strong>196.</strong> How long is the study?<br />
+(A) 3 months<br />
+(B) 6 months<br />
+(C) 12 months<br />
+(D) 4 weeks</p>
+<p><strong>197.</strong> Who is NOT eligible to join?<br />
+(A) Anyone with asthma<br />
+(B) People whose inhaler isn't fully controlling their asthma<br />
+(C) People over 50<br />
+(D) People who smoke, are pregnant, or were hospitalized for asthma in the last 3 months</p>
+<p><strong>198.</strong> Does Aria's ER visit 5 months ago rule her out?<br />
+(A) Yes, automatically<br />
+(B) No — the exclusion is for hospitalization in the last 3 months; the study doctor will review<br />
+(C) Only if she was given oxygen<br />
+(D) It cannot be determined</p>
+<p><strong>199.</strong> What travel costs are reimbursed?<br />
+(A) Actual costs, including public transit fares<br />
+(B) Only mileage for driving<br />
+(C) A flat $20 per visit<br />
+(D) Nothing</p>
+<p><strong>200.</strong> When would Aria learn which group she was in?<br />
+(A) At the first visit<br />
+(B) Halfway through<br />
+(C) After the study ends<br />
+(D) Only if she asks the doctor</p>
+<hr />
+<p><em>Hết phần Reading — Set_010. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_010</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B25/C26/D23.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>2 D</strong> "a patient is filling out a form at a counter" · bẫy: "a doctor is greeting a visitor"</li>
+<li><strong>4 C</strong> "people are seated in a waiting area" · bẫy: "a line has formed", "the room is empty"</li>
+<li><strong>5 B</strong> "a lab technician is holding a test tube" · bẫy: "labeling samples", "a machine is being repaired"</li>
+<li><strong>6 C</strong> "pushing a supply cart down a hallway" · bẫy: "a patient is being moved on a stretcher"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where do I get my blood test done?" → "At the lab on the second floor" · bẫy: lặp "had one"</li>
+<li><strong>13 B</strong> tag question → "Yes, but it's open until midnight on weekdays" (đính chính)</li>
+<li><strong>17 C</strong> "What did the test results show?" → "Everything is within the normal range" · bẫy: trả lời When</li>
+<li><strong>19 B</strong> "is the doctor running behind?" → "Let me check with the front desk" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "A lot of patients work during the day"</li>
+<li><strong>21 C</strong> yêu cầu đặt lịch → "I'll book that before you leave" · bẫy: lặp "appointment"</li>
+<li><strong>25 B</strong> "Isn't the clinic usually closed Sundays?" → đính chính "open this Sunday for flu shots" · bẫy: lặp "Sunday"</li>
+<li><strong>31 C</strong> "Why was my appointment rescheduled?" → lý do cụ thể "doctor had an emergency" · bẫy: lặp "appointment"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "reschedule my physical therapy session" · "Friday at 11 works" · "bring the exercise log"</li>
+<li>35–37: "wait times ... over an hour most afternoons" · "the 1 to 5 window that's backed up" · "draft a new schedule and run it by the providers"</li>
+<li>38–40: "the new electronic records system on the first" · "book fewer appointments ... 20% fewer" · "keep two IT staff on-site ... for quick help"</li>
+<li>41–43: "the prescription we sent ... isn't there" · "her file lists the Center Avenue one as her default" · "resend it ... and call her"</li>
+<li>44–46: "the cuffs are all the standard size" · "a too-small cuff gives a falsely high reading" · "we still have the old large cuffs — they're compatible"</li>
+<li>47–49: "the accreditation review" · "clearer signage for the emergency exits" · "a written response in 30 days"</li>
+<li>50–52: "pain medication isn't working" · "when her last dose was" · "give the next dose now"</li>
+<li>53–55: "double-booked at two o'clock" · "quick follow-up" · "call and confirm the new time"</li>
+<li>56–58: "intake forms ... taking a long time" · "move them online" · "look into software options"</li>
+<li>59–61: "accept walk-ins for minor injuries" · "wait times can be long" · "estimated wait to share"</li>
+<li>62–64: "patient satisfaction survey" · "wait time is still the top complaint" · "text notification system"</li>
+<li>65–67: "almost out of the flu vaccine" · "place an order today" · "other clinics ... share supply"</li>
+<li>68–70: "update on the surgery" · "out of surgery and doing well" · "about fifteen minutes"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "check in ... using the tablets in the lobby or the app" · "if you have insurance changes or a new address" · "staff are happy to check you in the old way"</li>
+<li>74–76: "about your upcoming procedure on the 22nd" · "arrange for someone to drive you home" · "If you take blood thinners, call us before Friday"</li>
+<li>77–79: "the top reason ... was transportation" · "we partnered with a local rideshare program" · "dropped from 18% to 11%"</li>
+<li>80–82: "lines up all your refills to the same day each month" · "call your doctor for renewals" · "free for anyone who fills three or more prescriptions"</li>
+<li>83–85: "Dr. Patel is running ... behind" · "thirty minutes" · "speak with the front desk" to reschedule</li>
+<li>86–88: "prescription is ready for pickup" · "bring your insurance card" · "open until eight"</li>
+<li>89–91: "managing stress in the workplace" · "breathing techniques, breaks, and signs of burnout" · "jot down questions"</li>
+<li>92–94: "hospital directory" · "appointment scheduling, press two" · "dial ... extension at any time"</li>
+<li>95–97: "how much protein" · "protein at each meal" · "steady energy throughout the day"</li>
+<li>98–100: "new wellness program" · "gym membership, screenings, nutrition counselor" · "employee portal"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The clinic</code> số ít + thói quen → <code>sends</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>explained</code> → trạng từ <code>clearly</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be trained to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>guidance on</code> + V-ing</td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> risk</code> (trong 3) → so sánh nhất <code>lowest</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ (V-ing) + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>cut rates by ... following up</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>sharply</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each sample</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>revise</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the door</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>test results are ready</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The practice</code> số ít → <code>serves</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>notes</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td><code>in the conference room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"được duyệt <strong>kèm</strong> một cảnh báo" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>review</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>moves ... through</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... has</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>physician</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (policy <strong>được</strong> dán)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>steps</code> → tính từ <code>clear</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"Our phone system <span class="fill"></span> upgraded this Saturday" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"we <span class="fill"></span> respond on Monday" → tương lai <code>will respond</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td>"you <span class="fill"></span> have to wait on hold as often" (lợi ích tương lai) → <code>won't</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ lễ tân nếu cần, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"refill requests <span class="fill"></span> be made through the portal" (quy định) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>B</td>
+<td>"a message <span class="fill"></span> that" (phân từ hiện tại: giải thích) → <code>explaining</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"those <span class="fill"></span> be requested online" (không thể) → <code>cannot</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu có thắc mắc, khép lại thông báo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td><code>help + [O] + V nguyên</code> → "helps you track your appointments"</td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"someone <span class="fill"></span> in your corner" → <code>who's</code> (= who is)</td>
+</tr>
+<tr>
+<td>141</td>
+<td>B</td>
+<td>"<span class="fill"></span> your plan is eligible, sign-up takes ten minutes" → <code>If</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> lời trấn an đồng hành, khép lại quảng cáo dịch vụ</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"high-alert medications ... <span class="fill"></span> a second staff member" (chủ ngữ số nhiều) → <code>require</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>D</td>
+<td>"reviews ... themselves, <span class="fill"></span> simply agreeing" → <code>rather than</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>C</td>
+<td>mệnh lệnh phủ định → <code>don't rush this step</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu cần, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>C</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>B</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>B</td>
+<td>157</td>
+<td>D</td>
+<td>166</td>
+<td>B</td>
+<td>175</td>
+<td>D</td>
+<td>184</td>
+<td>A</td>
+<td>193</td>
+<td>C</td>
+</tr>
+<tr>
+<td>149</td>
+<td>D</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>C</td>
+<td>185</td>
+<td>B</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>B</td>
+<td>168</td>
+<td>C</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>D</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>A</td>
+<td>178</td>
+<td>B</td>
+<td>187</td>
+<td>D</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>A</td>
+<td>161</td>
+<td>D</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>A</td>
+<td>188</td>
+<td>B</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>C</td>
+<td>171</td>
+<td>B</td>
+<td>180</td>
+<td>C</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>B</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>A</td>
+<td>190</td>
+<td>A</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>A</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>A</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 C</strong> — "those with conditions ... that are stable enough to monitor remotely"<br />
+- <strong>151 B</strong> — "fewer infections picked up in the hospital"<br />
+- <strong>154 C</strong> — "please request it by Thursday"<br />
+- <strong>162 C</strong> — "The urgent care does not handle prescription refills or routine follow-ups"<br />
+- <strong>168 C</strong> — "The amount collected at the visit is an estimate. The final amount depends on how your insurance processes the claim"<br />
+- <strong>178 B</strong> — "you cannot take a taxi or rideshare alone due to sedation"<br />
+- <strong>182 D</strong> — "it was sent to a dermatology practice that isn't taking new patients until September"<br />
+- <strong>187 D</strong> — "Plan A wouldn't cover your out-of-network rheumatologist at all, and it requires referrals"<br />
+- <strong>189 C</strong> — "with a $3,000 deductible you'd pay full cost for visits early in the year"<br />
+- <strong>192 D</strong> — "usually within 3 days — if marked urgent"<br />
+- <strong>198 B</strong> — "The exclusion is for hospitalization in the last 3 months ... doesn't automatically rule you out"<br />
+- <strong>199 A</strong> — "covers your actual costs ... including public transit fares"<br />
+- <strong>200 C</strong> — "the group assignment stays hidden ... until the study ends"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_010 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Health / Medicine): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2250 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_018 — Nonprofit & NGO</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="018">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_018</strong>
+    <span class="theme">Nonprofit &amp; NGO</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_018 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Tình nguyện viên phân loại quần áo quyên góp vào các thùng.]</em><br />
+(A) A volunteer is loading a van with boxes.<br />
+(B) A volunteer is sorting donated clothing into bins.<br />
+(C) People are unpacking books at a table.<br />
+(D) A shelf is being assembled.</p>
+<p><strong>2.</strong> <em>[Ảnh: Diễn giả đứng trên bục phát biểu tại sự kiện gây quỹ, khán phòng ngồi kín.]</em><br />
+(A) A speaker is addressing guests at a fundraising event.<br />
+(B) Waiters are clearing plates from tables.<br />
+(C) A band is setting up on stage.<br />
+(D) The room is being decorated.</p>
+<p><strong>3.</strong> <em>[Ảnh: Nhân viên phát suất ăn cho những người xếp hàng tại bếp ăn từ thiện.]</em><br />
+(A) People are seated at long tables eating.<br />
+(B) Food is being unloaded from a truck.<br />
+(C) A worker is serving meals to people in line.<br />
+(D) Dishes are being washed at a sink.</p>
+<p><strong>4.</strong> <em>[Ảnh: Văn phòng NGO cuối tuần, bàn trống, đèn tắt phần lớn.]</em><br />
+(A) Staff are meeting around a conference table.<br />
+(B) A presentation is on the screen.<br />
+(C) Boxes are stacked in the hallway.<br />
+(D) The office is empty and mostly dark.</p>
+<p><strong>5.</strong> <em>[Ảnh: Tình nguyện viên trồng cây con trong một công viên cộng đồng.]</em><br />
+(A) Volunteers are planting young trees in a park.<br />
+(B) People are picking up litter along a path.<br />
+(C) A garden bed is being watered.<br />
+(D) A fence is being painted.</p>
+<p><strong>6.</strong> <em>[Ảnh: Nhân viên tại quầy đăng ký đưa tờ rơi cho một khách tham quan.]</em><br />
+(A) A line is forming outside a building.<br />
+(B) Someone is filling a donation box.<br />
+(C) A staff member is handing a brochure to a visitor at a sign-up table.<br />
+(D) Chairs are being arranged in rows.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is the annual gala this year?<br />
+(A) The second Saturday of November.<br />
+(B) At the downtown hotel.<br />
+(C) About 300 guests.</p>
+<p><strong>8.</strong> Who's coordinating the volunteer schedule?<br />
+(A) It fills up fast.<br />
+(B) Rosa, in the programs office.<br />
+(C) Every Tuesday and Thursday.</p>
+<p><strong>9.</strong> Where do I turn in my volunteer hours?<br />
+(A) Through the online log.<br />
+(B) I did about twenty this month.<br />
+(C) The shift was long.</p>
+<p><strong>10.</strong> Why was the grant application rejected?<br />
+(A) The reviewer's notes came last week.<br />
+(B) It was forty pages.<br />
+(C) It didn't match the funder's priorities.</p>
+<p><strong>11.</strong> How much did the year-end appeal raise?<br />
+(A) A little over eighty thousand dollars.<br />
+(B) Mostly small gifts.<br />
+(C) The mailing went out in December.</p>
+<p><strong>12.</strong> Could you review the impact report before the board meeting?<br />
+(A) The meeting is Thursday.<br />
+(B) I'll read it tonight.<br />
+(C) It's about fifteen pages.</p>
+<p><strong>13.</strong> The new donor database is easier to use, isn't it?<br />
+(A) We migrated last month.<br />
+(B) Yes, pulling reports takes half the time.<br />
+(C) It has ten thousand records.</p>
+<p><strong>14.</strong> Should we hold the workshop in person or online?<br />
+(A) The community room seats forty.<br />
+(B) The facilitator is local.<br />
+(C) Online would reach the rural members.</p>
+<p><strong>15.</strong> Isn't the membership renewal notice due to go out this week?<br />
+(A) Renewals are up this year.<br />
+(B) It's a one-page letter.<br />
+(C) Yes, it's scheduled for Friday.</p>
+<p><strong>16.</strong> Can you show me how to enter a pledge in the system?<br />
+(A) The pledge was generous.<br />
+(B) Sure — open the gift record and choose "Pledge."<br />
+(C) We get a lot of pledges in spring.</p>
+<p><strong>17.</strong> What did the program evaluation find?<br />
+(A) The evaluator visited twice.<br />
+(B) The report runs thirty pages.<br />
+(C) That attendance was high but follow-through was low.</p>
+<p><strong>18.</strong> Where is the silent-auction table set up?<br />
+(A) By the entrance to the ballroom.<br />
+(B) We have forty items this year.<br />
+(C) Bidding closes at nine.</p>
+<p><strong>19.</strong> Do you know whether the foundation renewed our funding?<br />
+(A) The program has run for six years.<br />
+(B) Ask the development director.<br />
+(C) It's a two-year grant.</p>
+<p><strong>20.</strong> I think we're spending too much on the mailed newsletter.<br />
+(A) We could move more members to email.<br />
+(B) It comes out quarterly.<br />
+(C) Printing costs went up.</p>
+<p><strong>21.</strong> Could you update the donor database this week?<br />
+(A) I'll update it today.<br />
+(B) Databases are useful.<br />
+(C) I donated last year.</p>
+<p><strong>22.</strong> Has the grant proposal been submitted yet?<br />
+(A) It's a detailed proposal.<br />
+(B) I proposed an idea.<br />
+(C) Not yet, it's due Friday.</p>
+<p><strong>23.</strong> Where should we set up the donation table at the event?<br />
+(A) Near the main entrance.<br />
+(B) Donations help a lot.<br />
+(C) We set it up already.</p>
+<p><strong>24.</strong> Would you rather host the fundraiser outdoors or indoors?<br />
+(A) Outdoors would feel more festive.<br />
+(B) Fundraisers take planning.<br />
+(C) I hosted one last year.</p>
+<p><strong>25.</strong> Isn't the annual report usually released in spring?<br />
+(A) Spring is a busy season.<br />
+(B) Yes, but it's coming out early this year.<br />
+(C) The report looked thorough.</p>
+<p><strong>26.</strong> How many volunteers signed up for Saturday?<br />
+(A) About forty.<br />
+(B) Volunteers are dedicated.<br />
+(C) We volunteer often.</p>
+<p><strong>27.</strong> Who's coordinating the food drive this month?<br />
+(A) Food drives help families.<br />
+(B) Nadia from outreach.<br />
+(C) Coordinating takes effort.</p>
+<p><strong>28.</strong> Do you know if the matching gift deadline was extended?<br />
+(A) Deadlines matter.<br />
+(B) I matched my donation.<br />
+(C) Yes, by two weeks.</p>
+<p><strong>29.</strong> Should we apply for the community grant this cycle?<br />
+(A) Grants are competitive.<br />
+(B) Let's review the requirements first.<br />
+(C) I applied last year.</p>
+<p><strong>30.</strong> Haven't you finished the volunteer training materials yet?<br />
+(A) Training takes time to prepare.<br />
+(B) Almost, just the final section left.<br />
+(C) The materials looked clear.</p>
+<p><strong>31.</strong> Why was the board meeting rescheduled?<br />
+(A) Board meetings are monthly.<br />
+(B) It happened last quarter too.<br />
+(C) Because two members had a conflict.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> A longtime donor called upset — she's getting three copies of every appeal because she's in the system three times.<br />
+<strong>M:</strong> Different name spellings?<br />
+<strong>W:</strong> "Margaret," "Peggy," and one with her maiden name. I merged them and flagged her for a personal call.<br />
+<strong>M:</strong> Good. Have the development director make that call — she's given for fifteen years, we don't want to lose her over a mailing list.</p>
+<p><strong>32.</strong> Why did the donor call?<br />
+(A) To increase her gift<br />
+(B) Because she was getting duplicate mailings<br />
+(C) To stop donating<br />
+(D) About a tax receipt</p>
+<p><strong>33.</strong> What caused the problem?<br />
+(A) A printing error<br />
+(B) A postal mistake<br />
+(C) She was entered three times under different names<br />
+(D) A staff member's error at an event</p>
+<p><strong>34.</strong> What does the man suggest?<br />
+(A) Send a form apology<br />
+(B) Remove her from all lists<br />
+(C) Offer a refund<br />
+(D) Have the development director call her personally</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The report to the Hale Foundation is due Friday and we're missing the participant numbers from the east site.<br />
+<strong>W:</strong> Can we estimate them?<br />
+<strong>M:</strong> The funder wants actuals. I've asked the east coordinator to send raw sign-in sheets by Wednesday and I'll compile them.<br />
+<strong>W:</strong> If they slip, email the program officer now and ask for a few days — they're usually fine with a heads-up.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) The grant report is due Friday but data is missing<br />
+(B) The grant was not renewed<br />
+(C) A budget overrun<br />
+(D) A staff resignation</p>
+<p><strong>36.</strong> What does the man say the funder requires?<br />
+(A) A shorter report<br />
+(B) Actual numbers, not estimates<br />
+(C) An audited statement<br />
+(D) A site visit</p>
+<p><strong>37.</strong> What does the woman advise if the data slips?<br />
+(A) Submit what they have<br />
+(B) Skip that section<br />
+(C) Call the board chair<br />
+(D) Email the program officer now to ask for an extension</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> Ticket sales for the gala are slow — we're at 60 percent with three weeks left.<br />
+<strong>M1:</strong> Last year we sent a second push email at two weeks and it moved a lot.<br />
+<strong>M2:</strong> We could also let board members each bring a table of guests at a lower rate to fill the room.<br />
+<strong>W:</strong> Do both. And let's set a firmer RSVP deadline so the caterer has an accurate count.</p>
+<p><strong>38.</strong> What is the problem?<br />
+(A) The venue canceled<br />
+(B) Gala ticket sales are slow<br />
+(C) The caterer raised prices<br />
+(D) A speaker dropped out</p>
+<p><strong>39.</strong> What does the second man suggest?<br />
+(A) Cancel the gala<br />
+(B) Raise ticket prices<br />
+(C) Let board members bring tables of guests at a lower rate<br />
+(D) Move it online</p>
+<p><strong>40.</strong> What will they do so the caterer has an accurate count?<br />
+(A) Guess high<br />
+(B) Order for last year's number<br />
+(C) Ask the venue<br />
+(D) Set a firmer RSVP deadline</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> I signed up to volunteer with the youth program but I haven't heard anything in two weeks.<br />
+<strong>M:</strong> Youth-program volunteers need a background check, which takes about ten business days. Let me check yours... it cleared yesterday.<br />
+<strong>W:</strong> So what's next?<br />
+<strong>M:</strong> You do a two-hour orientation — there's one this Saturday and one next Wednesday evening — and then you're matched with a site.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To cancel her application<br />
+(B) Because she hasn't heard back after signing up<br />
+(C) To change programs<br />
+(D) To report a problem at a site</p>
+<p><strong>42.</strong> Why did onboarding take longer?<br />
+(A) Youth-program volunteers need a background check<br />
+(B) The office was closed<br />
+(C) Her form was incomplete<br />
+(D) There were no openings</p>
+<p><strong>43.</strong> What is the next step for the woman?<br />
+(A) A second interview<br />
+(B) Paying a fee<br />
+(C) A written test<br />
+(D) A two-hour orientation, then a site match</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> A donor emailed asking why our "overhead" is 22 percent. He read it somewhere as a red flag.<br />
+<strong>W:</strong> That framing is misleading. A lot of what gets called overhead is the evaluation and training that make the programs work.<br />
+<strong>M:</strong> How do we respond?<br />
+<strong>W:</strong> Send him the impact numbers alongside the finances, and explain that we invest in doing the work well, not just cheaply. Offer a call if he wants detail.</p>
+<p><strong>44.</strong> What did the donor ask about?<br />
+(A) A program's results<br />
+(B) The CEO's salary<br />
+(C) The organization's overhead percentage<br />
+(D) A canceled event</p>
+<p><strong>45.</strong> What does the woman say about the "overhead" framing?<br />
+(A) It is accurate and concerning<br />
+(B) It is misleading — much of it is evaluation and training<br />
+(C) It should be hidden<br />
+(D) It is a required disclosure</p>
+<p><strong>46.</strong> What does the woman suggest sending the donor?<br />
+(A) The impact numbers alongside the finances<br />
+(B) A refund<br />
+(C) The full audit<br />
+(D) A board roster</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> The finance committee wants us to build an operating reserve — three months of expenses — over the next two years.<br />
+<strong>M:</strong> That's healthy, but this year's budget is already tight.<br />
+<strong>W:</strong> The idea is to set aside a small fixed amount each month and add any surplus at year-end, rather than trying to do it all at once.<br />
+<strong>M:</strong> That I can support. Let's bring a written policy to the full board next month.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) A staff raise<br />
+(B) A new program<br />
+(C) A fundraising campaign<br />
+(D) Building an operating reserve fund</p>
+<p><strong>48.</strong> What is the concern the man raises?<br />
+(A) The board won't agree<br />
+(B) There is no bank account for it<br />
+(C) This year's budget is already tight<br />
+(D) Donors will object</p>
+<p><strong>49.</strong> What is the proposed approach?<br />
+(A) Set aside a small fixed amount monthly plus year-end surplus<br />
+(B) A one-time transfer<br />
+(C) A special appeal<br />
+(D) Cutting a program</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> A major donor called asking about the impact of their last contribution.<br />
+<strong>M:</strong> Let's pull together the program outcomes from that quarter.<br />
+<strong>W:</strong> Good idea, I'll also include a few photos from the field.<br />
+<strong>M:</strong> Perfect, let's have it ready to send by Friday.</p>
+<p><strong>50.</strong> What is the donor asking about?<br />
+(A) A tax receipt<br />
+(B) The impact of their contribution<br />
+(C) A refund<br />
+(D) A new donation opportunity</p>
+<p><strong>51.</strong> What will the man pull together?<br />
+(A) A budget report<br />
+(B) Program outcomes from that quarter<br />
+(C) A volunteer list<br />
+(D) A grant application</p>
+<p><strong>52.</strong> What will the woman include?<br />
+(A) A video<br />
+(B) Photos from the field<br />
+(C) A testimonial<br />
+(D) A press release</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> Our volunteer sign-ups for the cleanup event are lower than expected.<br />
+<strong>W:</strong> Maybe we should send another reminder email this week.<br />
+<strong>M:</strong> Good idea, should we also post about it on social media again?<br />
+<strong>W:</strong> Yes, let's do both and see if that helps boost numbers.</p>
+<p><strong>53.</strong> What problem is discussed?<br />
+(A) Low volunteer sign-ups<br />
+(B) A funding shortfall<br />
+(C) A canceled event<br />
+(D) A staffing issue</p>
+<p><strong>54.</strong> What does the woman suggest?<br />
+(A) Canceling the event<br />
+(B) Sending another reminder email<br />
+(C) Hiring paid staff<br />
+(D) Postponing the event</p>
+<p><strong>55.</strong> What else will the speakers do?<br />
+(A) Call each volunteer individually<br />
+(B) Post about it on social media again<br />
+(C) Offer a cash incentive<br />
+(D) Shorten the event</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> We just received notice that we didn't get the state grant we applied for.<br />
+<strong>M:</strong> That's disappointing. Did they give any feedback?<br />
+<strong>W:</strong> They mentioned our budget section needed more detail.<br />
+<strong>M:</strong> Let's revise that section and apply again next cycle.</p>
+<p><strong>56.</strong> What news did the woman receive?<br />
+(A) The grant was approved.<br />
+(B) The grant application was denied.<br />
+(C) The deadline was extended.<br />
+(D) More funding was offered.</p>
+<p><strong>57.</strong> What feedback was given?<br />
+(A) The mission statement was unclear.<br />
+(B) The budget section needed more detail.<br />
+(C) Too few volunteers were listed.<br />
+(D) The application was late.</p>
+<p><strong>58.</strong> What will the speakers do?<br />
+(A) Give up on the grant<br />
+(B) Revise the budget section and reapply<br />
+(C) Ask for an exception<br />
+(D) Appeal the decision</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> A local business reached out about sponsoring our gala this year.<br />
+<strong>W:</strong> That's great news. What level of sponsorship are they considering?<br />
+<strong>M:</strong> They mentioned the gold tier, which includes a table and logo placement.<br />
+<strong>W:</strong> Let's send them the sponsorship packet today so they can confirm.</p>
+<p><strong>59.</strong> What is the local business interested in?<br />
+(A) Volunteering<br />
+(B) Sponsoring the gala<br />
+(C) Joining the board<br />
+(D) Donating supplies</p>
+<p><strong>60.</strong> What tier are they considering?<br />
+(A) Bronze<br />
+(B) Silver<br />
+(C) Gold<br />
+(D) Platinum</p>
+<p><strong>61.</strong> What will the woman send today?<br />
+(A) A thank-you letter<br />
+(B) The sponsorship packet<br />
+(C) An invoice<br />
+(D) A tax form</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's finalize the agenda for next week's board meeting.<br />
+<strong>M1:</strong> I'd like to add an update on our new mentorship program.<br />
+<strong>M2:</strong> Good idea, I can present the enrollment numbers so far.<br />
+<strong>W:</strong> Perfect, I'll add that and send the agenda out tomorrow.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A board meeting agenda<br />
+(B) A fundraising campaign<br />
+(C) A staff retreat<br />
+(D) A volunteer orientation</p>
+<p><strong>63.</strong> What does the first man want to add?<br />
+(A) A budget review<br />
+(B) An update on the mentorship program<br />
+(C) A new hire announcement<br />
+(D) A donor list</p>
+<p><strong>64.</strong> What will the second man present?<br />
+(A) A financial report<br />
+(B) Enrollment numbers<br />
+(C) A marketing plan<br />
+(D) A volunteer schedule</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I noticed our newsletter open rate has dropped over the past few months.<br />
+<strong>M:</strong> Maybe we should test a different subject line style.<br />
+<strong>W:</strong> That's worth trying. Should we also shorten the content?<br />
+<strong>M:</strong> Yes, let's test both changes with the next issue and compare results.</p>
+<p><strong>65.</strong> What has the woman noticed?<br />
+(A) A drop in donations<br />
+(B) A drop in newsletter open rates<br />
+(C) A rise in complaints<br />
+(D) Fewer new subscribers</p>
+<p><strong>66.</strong> What does the man suggest testing?<br />
+(A) A new logo<br />
+(B) A different subject line style<br />
+(C) A new email provider<br />
+(D) A different sending time</p>
+<p><strong>67.</strong> What will the speakers do with the next issue?<br />
+(A) Cancel the newsletter<br />
+(B) Test both changes and compare results<br />
+(C) Send it to fewer people<br />
+(D) Outsource the writing</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> A group of students is asking if they can volunteer for community service hours.<br />
+<strong>W:</strong> Yes, we always welcome student volunteers — do they need a minimum number of hours?<br />
+<strong>M:</strong> They mentioned needing about twenty hours each.<br />
+<strong>W:</strong> That works well with our weekend programs — let's get them signed up.</p>
+<p><strong>68.</strong> What are the students asking about?<br />
+(A) A paid internship<br />
+(B) Volunteering for community service hours<br />
+(C) A scholarship<br />
+(D) A mentorship program</p>
+<p><strong>69.</strong> How many hours do the students need?<br />
+(A) Ten hours<br />
+(B) Twenty hours<br />
+(C) Fifty hours<br />
+(D) A hundred hours</p>
+<p><strong>70.</strong> What does the woman suggest?<br />
+(A) Turning them away<br />
+(B) Signing them up for weekend programs<br />
+(C) Offering a shorter program<br />
+(D) Charging a fee</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Volunteer orientation welcome</h3>
+<p><em>"Welcome, and thank you for volunteering. A few basics before we start. Every shift, sign in and out on the tablet at the front desk — that's how we track hours for our grant reports, so it matters. If you can't make a shift, let your coordinator know at least 24 hours ahead so we can find cover. And anything a client tells you stays here — confidentiality is the one rule we never bend. We'll cover the rest in the walk-through."</em></p>
+<p><strong>71.</strong> What is the purpose of the talk?<br />
+(A) A volunteer orientation<br />
+(B) A board meeting<br />
+(C) A donor event<br />
+(D) A staff review</p>
+<p><strong>72.</strong> Why does signing in and out matter?<br />
+(A) It calculates pay<br />
+(B) It is a security measure<br />
+(C) It assigns parking<br />
+(D) It tracks hours for grant reports</p>
+<p><strong>73.</strong> What does the speaker call the one rule they never bend?<br />
+(A) Punctuality<br />
+(B) The dress code<br />
+(C) Confidentiality<br />
+(D) Signing waivers</p>
+<h3>Talk 2 (74–76) — Voicemail from a grant program officer</h3>
+<p><em>"Hi, this is Aran from the Belmont Fund. Good news — your renewal for the after-school program is approved at the same level, 40,000 dollars for the year. Two notes. We've moved to quarterly payments instead of one lump sum, so you'll see the first 10,000 next month. And we've added a light mid-year check-in — just a short call in month six, no written report. The agreement is in your email to sign."</em></p>
+<p><strong>74.</strong> What is the message about?<br />
+(A) A grant application was rejected<br />
+(B) A grant renewal is approved<br />
+(C) A payment is late<br />
+(D) A new funding opportunity</p>
+<p><strong>75.</strong> What is changing about the payments?<br />
+(A) The amount is lower<br />
+(B) They stop after six months<br />
+(C) They require receipts first<br />
+(D) They will be quarterly instead of one lump sum</p>
+<p><strong>76.</strong> What is the new mid-year requirement?<br />
+(A) A written report<br />
+(B) A site visit<br />
+(C) A short check-in call in month six<br />
+(D) An audited financial statement</p>
+<h3>Talk 3 (77–79) — Conference presentation</h3>
+<p><em>"The number that changed our strategy was second-gift rate. Most first-time donors never give again — we were losing about 75 percent. What moved it was a single thing: a personal thank-you within 48 hours, from a real person, mentioning what the gift would do. Not a receipt, a thank-you. Donors who got that call or note gave again at nearly double the rate. It costs almost nothing and we should have done it years ago."</em></p>
+<p><strong>77.</strong> What metric changed the organization's strategy?<br />
+(A) The second-gift (donor retention) rate<br />
+(B) The average gift size<br />
+(C) The event attendance<br />
+(D) The overhead ratio</p>
+<p><strong>78.</strong> What single change made the difference?<br />
+(A) A year-end tax letter<br />
+(B) A monthly newsletter<br />
+(C) A personal thank-you within 48 hours from a real person<br />
+(D) A donor gift</p>
+<p><strong>79.</strong> What was the result?<br />
+(A) Gifts got larger<br />
+(B) Those donors gave again at nearly double the rate<br />
+(C) Costs rose sharply<br />
+(D) Nothing measurable</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"For small nonprofits: DonorNest keeps your donors, volunteers, gifts, and grant deadlines in one place, so you're not running the organization out of a spreadsheet and your memory. It sends the thank-you automatically, reminds you before a report is due, and builds the board financial summary with a click. It connects to your payment processor, so online gifts record themselves. Free for organizations under 500 donors at donornest.example."</em></p>
+<p><strong>80.</strong> What does DonorNest keep in one place?<br />
+(A) Donors, volunteers, gifts, and grant deadlines<br />
+(B) Payroll and benefits<br />
+(C) Event catering<br />
+(D) The website</p>
+<p><strong>81.</strong> What does DonorNest do automatically?<br />
+(A) Files tax returns<br />
+(B) Sends the thank-you<br />
+(C) Writes grant applications<br />
+(D) Schedules volunteers</p>
+<p><strong>82.</strong> Who is DonorNest free for?<br />
+(A) All registered charities<br />
+(B) First-year organizations only<br />
+(C) Organizations under 500 donors<br />
+(D) Organizations with one staff member</p>
+<h3>Talk 5 (83–85) — Fundraiser announcement</h3>
+<p><em>"Good evening, everyone, and thank you for joining tonight's gala. Before dinner is served, we'll have a short presentation about this year's impact, followed by our live auction. All proceeds tonight go directly toward expanding our after-school program."</em></p>
+<p><strong>83.</strong> What event is this?<br />
+(A) A gala<br />
+(B) A board meeting<br />
+(C) A staff training<br />
+(D) A press conference</p>
+<p><strong>84.</strong> What will happen before dinner?<br />
+(A) A live auction<br />
+(B) A short presentation about this year's impact<br />
+(C) A raffle drawing<br />
+(D) A guest speaker</p>
+<p><strong>85.</strong> Where will proceeds go?<br />
+(A) General operating costs<br />
+(B) Expanding the after-school program<br />
+(C) Staff salaries<br />
+(D) Building renovations</p>
+<h3>Talk 6 (86–88) — Volunteer coordinator voicemail</h3>
+<p><em>"Hi, this is Elena calling about Saturday's park cleanup. We still need a few more volunteers for the morning shift, from nine to noon. If you're able to join or know someone who might be interested, please give me a call back."</em></p>
+<p><strong>86.</strong> Why is Elena calling?<br />
+(A) To cancel the cleanup<br />
+(B) To recruit more volunteers<br />
+(C) To report a problem<br />
+(D) To thank volunteers</p>
+<p><strong>87.</strong> What shift needs more people?<br />
+(A) The afternoon shift<br />
+(B) The morning shift<br />
+(C) The evening shift<br />
+(D) The overnight shift</p>
+<p><strong>88.</strong> What does Elena ask the listener to do?<br />
+(A) Sign up online<br />
+(B) Call her back<br />
+(C) Show up without confirming<br />
+(D) Email the office</p>
+<h3>Talk 7 (89–91) — Nonprofit conference session</h3>
+<p><em>"Welcome to this session on donor retention strategies. We'll cover how to personalize thank-you communications, the importance of timely follow-up, and simple ways to show donors the impact of their gift. I'll share examples from organizations that have seen real improvement."</em></p>
+<p><strong>89.</strong> What is the session about?<br />
+(A) Donor retention strategies<br />
+(B) Grant writing<br />
+(C) Volunteer management<br />
+(D) Event planning</p>
+<p><strong>90.</strong> What will be covered?<br />
+(A) Personalizing thank-you communications<br />
+(B) Social media advertising<br />
+(C) Legal compliance<br />
+(D) Board recruitment</p>
+<p><strong>91.</strong> What will the speaker share?<br />
+(A) A budget template<br />
+(B) Examples from organizations with real improvement<br />
+(C) A list of grant sources<br />
+(D) A volunteer handbook</p>
+<h3>Talk 8 (92–94) — Community program update</h3>
+<p><em>"We're happy to share that our meal delivery program has expanded to two new neighborhoods this month. This was made possible by a generous grant and the dedication of our volunteer drivers. If you know someone who could benefit, referrals can be made through our website."</em></p>
+<p><strong>92.</strong> What has expanded this month?<br />
+(A) A job training program<br />
+(B) A meal delivery program<br />
+(C) A housing program<br />
+(D) A tutoring program</p>
+<p><strong>93.</strong> What made this possible?<br />
+(A) A government contract<br />
+(B) A generous grant and volunteer drivers<br />
+(C) A corporate partnership<br />
+(D) A fundraising gala</p>
+<p><strong>94.</strong> How can someone be referred?<br />
+(A) By calling the office only<br />
+(B) Through the website<br />
+(C) By visiting in person<br />
+(D) Through a mobile app</p>
+<h3>Talk 9 (95–97) — Grant announcement</h3>
+<p><em>"We're pleased to announce that our organization has received a two-year grant to expand our literacy program into three additional schools. Hiring for two new program coordinators will begin next month, and the expanded program is expected to launch by the start of the next school year."</em></p>
+<p><strong>95.</strong> What did the organization receive?<br />
+(A) A two-year grant<br />
+(B) A new building<br />
+(C) An award<br />
+(D) A corporate donation</p>
+<p><strong>96.</strong> What will the grant fund?<br />
+(A) A new office<br />
+(B) Expanding the literacy program into three schools<br />
+(C) A fundraising event<br />
+(D) Staff bonuses</p>
+<p><strong>97.</strong> When is the expanded program expected to launch?<br />
+(A) Immediately<br />
+(B) By the start of the next school year<br />
+(C) In five years<br />
+(D) It has not been decided.</p>
+<h3>Talk 10 (98–100) — Annual meeting excerpt</h3>
+<p><em>"As we close out this year's annual meeting, I want to thank every volunteer, donor, and staff member for making this our most impactful year yet. We served twenty percent more families than last year, and none of that would be possible without this community's support."</em></p>
+<p><strong>98.</strong> What is the speaker doing?<br />
+(A) Announcing layoffs<br />
+(B) Thanking volunteers, donors, and staff<br />
+(C) Presenting a budget cut<br />
+(D) Introducing a new board member</p>
+<p><strong>99.</strong> How does this year compare to last year?<br />
+(A) Fewer families were served.<br />
+(B) Twenty percent more families were served.<br />
+(C) The same number of families were served.<br />
+(D) It was not measured.</p>
+<p><strong>100.</strong> What does the speaker credit this success to?<br />
+(A) A new director<br />
+(B) The community's support<br />
+(C) A government program<br />
+(D) Reduced costs</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_018 — READING (100 câu: 101–200) · Chủ đề: Nonprofit &amp; NGO</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The foundation <span class="blk">________</span> a call for proposals every spring.<br />
+(A) issue  (B) issues  (C) issuing  (D) to issue</p>
+<p><strong>102.</strong> Grant reports must be submitted <span class="blk">________</span> the deadline stated in the award letter.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The auditor noted several <span class="blk">________</span> between the budget and the actual spending.<br />
+(A) different  (B) differently  (C) discrepancies  (D) difference</p>
+<p><strong>104.</strong> <span class="blk">________</span> a smaller staff this year, the organization served more families than before.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> Volunteers are asked to <span class="blk">________</span> their hours in the online system after each shift.<br />
+(A) record  (B) records  (C) recording  (D) recorded</p>
+<p><strong>106.</strong> The new giving page makes donating much <span class="blk">________</span> on a phone.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> The volunteer schedule is posted <span class="blk">________</span> the bulletin board by the front desk.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> The event was postponed <span class="blk">________</span> a scheduling conflict at the venue.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The charity cut its printing costs <span class="blk">________</span> moving the newsletter to email.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Membership in the association has grown <span class="blk">________</span> since the dues were lowered.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three programs, the tutoring program reaches the <span class="blk">________</span> students.<br />
+(A) many  (B) more  (C) most  (D) much</p>
+<p><strong>112.</strong> The new database lets staff pull donor reports far <span class="blk">________</span> than the old one.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> The annual meeting will be held <span class="blk">________</span> the community center on Elm Street.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> the grant agreement is signed, the first payment is released.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The network <span class="blk">________</span> forty local chapters and a national office.<br />
+(A) include  (B) includes  (C) including  (D) to include</p>
+<p><strong>116.</strong> The strategic plan is expected <span class="blk">________</span> before the new fiscal year.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior staff member will <span class="blk">________</span> the new program coordinators next week.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Donors respond <span class="blk">________</span> to an appeal that shows a specific outcome than to a general request.<br />
+(A) generous  (B) generously  (C) most generously  (D) more generously</p>
+<p><strong>119.</strong> The report recommends several <span class="blk">________</span> for improving volunteer retention.<br />
+(A) step  (B) steps  (C) stepping  (D) stepped</p>
+<p><strong>120.</strong> The food pantry is open to clients <span class="blk">________</span> 10 A.M. to 2 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The gift was made <span class="blk">________</span> conditions on how the funds could be used.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The revised volunteer handbook <span class="blk">________</span> distributed to every site next month.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A member is <span class="blk">________</span> to vote at the annual meeting only if dues are current.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The one-page summary gives donors a <span class="blk">________</span> picture of where their money goes.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The board voted to <span class="blk">________</span> the outdated conflict-of-interest policy.<br />
+(A) revise  (B) revises  (C) revising  (D) to revise</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed venues could hold the full guest list.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Donation records for the past seven years are stored <span class="blk">________</span> the secure database.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any expense over five hundred dollars must be approved by an <span class="blk">________</span> manager.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two workshops were dropped from the schedule <span class="blk">________</span> low registration.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New volunteers receive <span class="blk">________</span> training on the organization's privacy rules.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Community Office Closed for Relocation</strong></p>
+<p>Our neighborhood office <span class="blk">(131)</span> closed the week of July 14 while we move to the larger space on Main Street.</p>
+<p>Staff <span class="blk">(132)</span> forward phone and email during the move, so you can still reach us; responses may take an extra day.</p>
+<p>Client appointments for that week <span class="blk">(133)</span> already been rescheduled, and everyone affected has been called.</p>
+<p>We appreciate your patience while we settle into the new office. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will  (B) are  (C) have  (D) being<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The new office will be smaller than the current one.<br />
+(B) Phone and email will be unavailable during the move.<br />
+(C) Stop by and see us once we're settled in.<br />
+(D) All appointments this month have been canceled.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Process for Volunteer Expense Reimbursement</p>
+<p>Starting this month, volunteers <span class="blk">(135)</span> submit reimbursement requests through the online form, not by handing in receipts at the desk.</p>
+<p>The form <span class="blk">(136)</span> accept a photo of the receipt, so there is nothing to mail or drop off.</p>
+<p>Requests over one hundred dollars <span class="blk">(137)</span> need a program manager's approval, which the system routes automatically.</p>
+<p>Thank you for your cooperation as we move this online. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper receipts will still need to be mailed in as well.<br />
+(B) All reimbursements will now require manager approval.<br />
+(C) This process applies only to new volunteers.<br />
+(D) Reach out to the program office if you have questions.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>GRANTLINE — NEVER MISS A REPORT DEADLINE AGAIN</strong></p>
+<p>GrantLine keeps every grant you hold in one place: award amounts, restrictions, payment dates, and report due dates, with reminders weeks ahead.</p>
+<p>Most nonprofits find <span class="blk">(139)</span> useful: a calendar of what's due when, a note of what each funder wants, and a record of what you reported last time. Teams using it say they stopped scrambling the week a report is due.</p>
+<p>Setup is <span class="blk">(140)</span> and takes an afternoon. There is no <span class="blk">(141)</span> contract, and the first year is free for small organizations. Book a walkthrough at grantline.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) GrantLine is only available to organizations with paid staff.<br />
+(B) A minimum of five active grants is required to sign up.<br />
+(C) Reports must still be submitted by mail to each funder.<br />
+(D) See how it works with your own current grants.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Members <strong>FROM:</strong> Communications <strong>RE:</strong> The Newsletter Goes Digital</p>
+<p>Our newsletter <span class="blk">(143)</span> to email by default, starting with the fall issue. You can still ask for a mailed paper copy at any time at no charge.</p>
+<p>Last year we spent about $18,000 printing and mailing four issues. Going digital <span class="blk">(144)</span> put most of that back into programs.</p>
+<p>The web pages <span class="blk">(145)</span> now easier to read on a phone, and each issue links to ways to get involved. If you want paper, reply to this email or call the office and one will keep coming. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper copies will no longer be available after this year.<br />
+(B) The digital newsletter will be sent only twice a year.<br />
+(C) This change applies only to new members.<br />
+(D) Thanks for helping us put more resources into our programs.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Coordinator (8:05 A.M.):</strong> Only 4 volunteers checked in for the 8:30 build day; we planned for 12.<br />
+<strong>Site lead (8:08 A.M.):</strong> The rain probably. I can still run it with 4 — scale back to one house instead of two.<br />
+<strong>Coordinator (8:09 A.M.):</strong> Do that. I'll call the no-shows and text the waitlist for next month.<br />
+<strong>Site lead (8:10 A.M.):</strong> Sounds good. Send the 4 to me at the corner of 3rd and Oak.</p>
+<p><strong>147.</strong> What is the problem?<br />
+(A) Fewer volunteers showed up than planned<br />
+(B) The build materials didn't arrive<br />
+(C) The site was closed<br />
+(D) A volunteer was injured</p>
+<p><strong>148.</strong> What does the site lead decide to do?<br />
+(A) Cancel the build day<br />
+(B) Reschedule to next month<br />
+(C) Wait for more volunteers<br />
+(D) Scale back to one house instead of two</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>COMMUNITY FOUNDATION SHIFTS TO MULTI-YEAR, UNRESTRICTED GRANTS</strong></p>
+<p>The Rivertown Community Foundation announced it will move most of its grantmaking to three-year, unrestricted grants — money nonprofits can spend where it's needed, renewed automatically if basic reporting is met. Previously, grants were one year and tied to specific projects.</p>
+<p>The foundation says annual project grants forced nonprofits to spend heavily on applications and reports and made it hard to plan or retain staff. Reporting will shift from long written reports to a yearly conversation and a short financial summary.</p>
+<p>Total grant dollars are unchanged. The foundation will fund fewer organizations but support each one more deeply, and it will keep a small pool for first-time applicants.</p>
+<p><strong>149.</strong> What is the foundation changing?<br />
+(A) Moving to three-year, unrestricted grants<br />
+(B) Ending its grant program<br />
+(C) Doubling its budget<br />
+(D) Requiring matching funds</p>
+<p><strong>150.</strong> Why is the foundation making the change?<br />
+(A) Donors requested it<br />
+(B) A new law<br />
+(C) Annual project grants forced heavy admin spending and hurt planning<br />
+(D) It had too few applicants</p>
+<p><strong>151.</strong> How will reporting change?<br />
+(A) It will require monthly reports<br />
+(B) From long written reports to a yearly conversation and a short summary<br />
+(C) It will be eliminated entirely<br />
+(D) An outside auditor will do it</p>
+<p><strong>152.</strong> What is true about the total grant dollars?<br />
+(A) They are being cut in half<br />
+(B) They are increasing<br />
+(C) They are unchanged, spread across fewer organizations<br />
+(D) They depend on donations that year</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Donation Drop-Off Hours Are Changing</strong></p>
+<p>Starting October 1, the donation center will accept drop-offs Tuesday through Saturday, 9 A.M. to 4 P.M. We are ending Sunday and Monday drop-offs because volunteer coverage those days was thin and items were being left outside.</p>
+<p>Please do not leave donations outside the doors when we are closed — they are often damaged or taken, and the city fines us for items on the sidewalk. If our hours don't work for you, email us to arrange a pickup.</p>
+<p><strong>153.</strong> What is changing?<br />
+(A) The center is closing<br />
+(B) A new location is opening<br />
+(C) Donations are no longer accepted<br />
+(D) The donation drop-off hours</p>
+<p><strong>154.</strong> Why are Sunday and Monday being dropped?<br />
+(A) Low donation volume<br />
+(B) Thin volunteer coverage and items left outside on those days<br />
+(C) A staff request<br />
+(D) Rising rent</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>PLEDGEPAGE — PEER-TO-PEER FUNDRAISING WITHOUT THE SETUP HEADACHE</strong></p>
+<p>PledgePage lets your supporters create their own fundraising pages for your cause — a birthday, a run, a memorial — in about five minutes, with your branding and a thermometer that updates live.</p>
+<p>Funds come straight to you, minus the payment processor's fee; PledgePage itself is free for registered nonprofits and asks donors for an optional tip instead.</p>
+<p>You get a dashboard of every campaign and can message all your fundraisers at once. Start at pledgepage.example.</p>
+<p><strong>155.</strong> What does PledgePage let supporters do?<br />
+(A) Create their own fundraising pages for the cause<br />
+(B) Vote on how funds are spent<br />
+(C) Apply for grants<br />
+(D) Volunteer for events</p>
+<p><strong>156.</strong> How does PledgePage make money?<br />
+(A) A monthly fee to the nonprofit<br />
+(B) An optional tip from donors<br />
+(C) A percentage of every gift<br />
+(D) Selling donor data</p>
+<p><strong>157.</strong> What does the nonprofit get?<br />
+(A) A printed report each month<br />
+(B) A dedicated account manager<br />
+(C) A dashboard of every campaign and mass messaging to fundraisers<br />
+(D) Free event insurance</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-staff <strong>From:</strong> Finance <strong>Subject:</strong> Before You Spend Restricted Grant Money</p>
+<p>A reminder on restricted funds.</p>
+<p>If a grant is restricted to a specific program or purpose, that money can only be spent on that — not borrowed for payroll, not moved to cover a shortfall elsewhere, even temporarily. Restricted funds spent wrongly have to be paid back to the funder and can cost us the relationship.</p>
+<p>Before charging an expense to a grant, check the award letter for what it covers. If you're unsure, ask Finance first — it's much easier than unwinding it later.</p>
+<p>Unrestricted gifts and general donations can go wherever the need is; those are the flexible dollars.</p>
+<p><strong>158.</strong> What can restricted grant money be spent on?<br />
+(A) Any program that is short on funds<br />
+(B) Payroll, temporarily<br />
+(C) Only the specific program or purpose it is restricted to<br />
+(D) Whatever the director approves</p>
+<p><strong>159.</strong> What happens if restricted funds are spent wrongly?<br />
+(A) They must be paid back to the funder<br />
+(B) A late fee applies<br />
+(C) Nothing, if it's temporary<br />
+(D) The board is notified only</p>
+<p><strong>160.</strong> What should staff do before charging an expense to a grant?<br />
+(A) Get the director's signature<br />
+(B) Wait until month-end<br />
+(C) Split it across two grants<br />
+(D) Check the award letter and ask Finance if unsure</p>
+<h3>Passage 6 — Acknowledgment table (161–162)</h3>
+<p><strong>GIFT ACKNOWLEDGMENT — WHAT WE SEND AND WHEN</strong></p>
+<table>
+<thead>
+<tr>
+<th>Gift</th>
+<th>Acknowledgment</th>
+<th>Timing</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Any gift</td>
+<td>Emailed tax receipt</td>
+<td>Automatic, same day</td>
+<td>Required for the donor's records</td>
+</tr>
+<tr>
+<td>Gift of $250+</td>
+<td>Personal thank-you note</td>
+<td>Within 5 business days</td>
+<td>Signed by a staff member</td>
+</tr>
+<tr>
+<td>Gift of $1,000+</td>
+<td>Phone call from a director</td>
+<td>Within 5 business days</td>
+<td>Note left if no answer</td>
+</tr>
+<tr>
+<td>First-time gift (any size)</td>
+<td>Welcome note + what the gift funds</td>
+<td>Within 5 business days</td>
+<td>In addition to the receipt</td>
+</tr>
+<tr>
+<td>Monthly recurring gift</td>
+<td>Quarterly impact update</td>
+<td>Every 3 months</td>
+<td>Not per-gift</td>
+</tr>
+</tbody>
+</table>
+<p>Every donor also gets the annual report and one year-end summary of their giving for tax purposes.</p>
+<p><strong>161.</strong> Which gift triggers a phone call from a director?<br />
+(A) Any gift<br />
+(B) A gift of $250 or more<br />
+(C) A gift of $1,000 or more<br />
+(D) A monthly recurring gift</p>
+<p><strong>162.</strong> What does every donor receive in addition to acknowledgments?<br />
+(A) The annual report and a year-end giving summary<br />
+(B) A quarterly newsletter only<br />
+(C) A board meeting invitation<br />
+(D) A volunteer request</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Adeyemi,</p>
+<p>Thank you for your letter about the delay in your donation receipt.</p>
+<p>You are right that it took almost three weeks, when our policy is to send receipts the same day. During our database migration in March, a batch of gifts made by check did not sync to the new system and were receipted by hand once we caught it. Yours was one of them.</p>
+<p>Your corrected receipt for $500, dated the day we received your check, is enclosed. We have also confirmed that your record transferred correctly and that you are set to receive gifts by email going forward, which is faster.</p>
+<p>We are sorry for the delay and for the worry it may have caused at tax time.</p>
+<p>Sincerely,<br />
+Donor Services</p>
+<p><strong>163.</strong> Why did Ms. Adeyemi write?<br />
+(A) Her donation receipt was delayed<br />
+(B) To increase her gift<br />
+(C) To stop receiving mail<br />
+(D) To volunteer</p>
+<p><strong>164.</strong> What caused the delay?<br />
+(A) A postal error<br />
+(B) A batch of check gifts didn't sync during the database migration<br />
+(C) Her address was wrong<br />
+(D) A staff vacation</p>
+<p><strong>165.</strong> What is enclosed with the letter?<br />
+(A) A refund<br />
+(B) A tax form<br />
+(C) A newsletter<br />
+(D) A corrected receipt for $500</p>
+<p><strong>166.</strong> What has Donor Services set up going forward?<br />
+(A) Monthly statements<br />
+(B) A phone confirmation<br />
+(C) Receipts by email<br />
+(D) Certified mail</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>BECOMING A MEMBER — FREQUENTLY ASKED QUESTIONS</strong></p>
+<p><strong>What does membership include?</strong><br />
+Voting rights at the annual meeting, the quarterly journal, discounted event registration, and access to the members' resource library.</p>
+<p><strong>Is my membership tax-deductible?</strong><br />
+The portion above the value of benefits you receive is. We show the deductible amount on your receipt.</p>
+<p><strong>Can my organization hold a membership?</strong><br />
+Yes. Organizational memberships cover up to five named staff and include one complimentary event registration a year.</p>
+<p><strong>What if I can't afford the dues?</strong><br />
+We have a pay-what-you-can option, no questions asked. Choose "supported membership" at checkout.</p>
+<p><strong>167.</strong> What is one thing membership includes?<br />
+(A) Voting rights at the annual meeting<br />
+(B) A free lifetime subscription<br />
+(C) Board membership<br />
+(D) A tax exemption</p>
+<p><strong>168.</strong> How much of the membership is tax-deductible?<br />
+(A) The full amount<br />
+(B) None of it<br />
+(C) Half<br />
+(D) The portion above the value of benefits received</p>
+<p><strong>169.</strong> What does an organizational membership cover?<br />
+(A) Unlimited staff<br />
+(B) Up to five named staff and one free event registration a year<br />
+(C) Only the executive director<br />
+(D) Ten staff and free events</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff and Volunteers <strong>FROM:</strong> Executive Director <strong>RE:</strong> Talking to Reporters and Donors About Clients</p>
+<p>Our clients trust us with hard personal situations. Protecting that is not optional.</p>
+<p>Never share a client's name, photo, or identifying story with a reporter, a donor, or on social media without that client's written consent for that specific use. General consent "to tell my story" is not enough — it has to name where and how.</p>
+<p>If a reporter or a major donor asks to "meet a family" or "hear a real story," route the request to me. Sometimes a client wants to share, and we help them do it safely. That's their choice to make, not ours.</p>
+<p><strong>170.</strong> What must staff never share without specific written consent?<br />
+(A) The organization's budget<br />
+(B) A program's results<br />
+(C) A client's name, photo, or identifying story<br />
+(D) A staff member's contact information</p>
+<p><strong>171.</strong> Why is general "tell my story" consent not enough?<br />
+(A) It must name where and how the story will be used<br />
+(B) Clients often forget they gave it<br />
+(C) It expires after a year<br />
+(D) The board must also approve</p>
+<p><strong>172.</strong> What should staff do if a donor asks to "hear a real story"?<br />
+(A) Introduce them to any willing client<br />
+(B) Route the request to the executive director<br />
+(C) Share a written case study<br />
+(D) Decline and end the conversation</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Fixed our donor mess, events module is thin</strong> — development manager, small arts nonprofit</p>
+<p>We moved off spreadsheets because we had donors in three places and no reliable way to see who gave last year but not this year. This tool fixed that in a week — the lapsed-donor report alone paid for it, and the automatic thank-you emails mean nothing slips.</p>
+<p>The events module is where it falls short. You can't sell tiered tickets or manage a table-seating chart, so for our gala we still use a separate ticketing site and reconcile by hand afterward.</p>
+<p>Support has been patient with a small team that isn't very technical. Recommended if donor tracking is your main pain.</p>
+<p><strong>173.</strong> Why did the nonprofit switch to this tool?<br />
+(A) To manage payroll<br />
+(B) To build a website<br />
+(C) To run events<br />
+(D) Donors were scattered and lapsed donors were hard to track</p>
+<p><strong>174.</strong> What is a weakness of the events module?<br />
+(A) It sends too many emails<br />
+(B) It has no reporting<br />
+(C) It can't sell tiered tickets or manage seating charts<br />
+(D) It is not mobile-friendly</p>
+<p><strong>175.</strong> What does the reviewer say about support?<br />
+(A) It is only available online<br />
+(B) It has been patient with a small, non-technical team<br />
+(C) It costs extra<br />
+(D) It is slow</p>
+<h3>Passages 11–12 — Grant guidelines &amp; email (176–180)</h3>
+<p><strong>Document 1 — Guidelines</strong></p>
+<p><strong>HARBOR FOUNDATION — COMMUNITY GRANTS</strong></p>
+<ul>
+<li>Applicants must be a registered 501(c)(3) or have a fiscal sponsor that is. Sponsored applicants submit the sponsor's determination letter.</li>
+<li>Grants range from $5,000 to $25,000 for one year. We do not fund capital projects, endowments, or debt.</li>
+<li>Up to 15 percent of the grant may be used for general operating costs tied to the funded work.</li>
+<li>One application per organization per cycle. If declined, you may reapply the next cycle with a revised proposal.</li>
+<li>Decisions are made about 10 weeks after the deadline. Funds are paid in two installments: 60 percent on signing, 40 percent after the mid-point report.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Osei, Northside Arts Collective <strong>To:</strong> grants@harborfoundation.example <strong>Subject:</strong> Eligibility questions</p>
+<p>Hi,</p>
+<ol>
+<li>We're not yet a 501(c)(3) — our application is pending. A local arts council has offered to be our fiscal sponsor. Does that work?</li>
+<li>Part of what we'd request is to buy a kiln for the ceramics program. Is equipment considered a "capital project"?</li>
+<li>We applied last cycle and were declined. Can we apply again this cycle?</li>
+</ol>
+<p><strong>176.</strong> Who is eligible to apply?<br />
+(A) Any community group<br />
+(B) A registered 501(c)(3), or one with a qualifying fiscal sponsor<br />
+(C) Only organizations over five years old<br />
+(D) Government agencies</p>
+<p><strong>177.</strong> What does the foundation NOT fund?<br />
+(A) Arts programs<br />
+(B) Staff salaries<br />
+(C) One-year projects<br />
+(D) Capital projects, endowments, or debt</p>
+<p><strong>178.</strong> How much of a grant may go to general operating costs?<br />
+(A) Up to 15 percent, tied to the funded work<br />
+(B) Up to 50 percent<br />
+(C) None<br />
+(D) The full amount</p>
+<p><strong>179.</strong> When are funds paid?<br />
+(A) All at once on signing<br />
+(B) All after the final report<br />
+(C) 60% on signing and 40% after the mid-point report<br />
+(D) In 12 monthly payments</p>
+<p><strong>180.</strong> Since Northside Arts was declined last cycle, what can they do?<br />
+(A) Nothing for a year<br />
+(B) Reapply this cycle with a revised proposal<br />
+(C) Appeal the decision<br />
+(D) Apply only through a sponsor</p>
+<h3>Passages 13–14 — Two emails about a grant budget change (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Ruiz, program director <strong>To:</strong> grants@belmontfund.example <strong>Subject:</strong> Budget change request — Grant BF-204</p>
+<p>Hi,</p>
+<p>Our approved budget for the after-school grant put $12,000 toward a part-time coordinator and $6,000 toward snacks and supplies. Enrollment is higher than projected. We'd like to move $3,000 from supplies to add coordinator hours, keeping the total the same.</p>
+<p>Is that something we can do, and do we need approval first?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> grants@belmontfund.example <strong>To:</strong> Dana Ruiz <strong>Subject:</strong> RE: Budget change request — Grant BF-204</p>
+<p>Hi Dana,</p>
+<p>Good news: our rules let a grantee move up to 10 percent of the total grant between approved line items without prior approval — just note it in the next report. Your $3,000 shift on an $18,000 grant is under that, so you can proceed now.</p>
+<p>If you ever need to move more than 10 percent, or add a new line item not in the original budget, that does need our written sign-off first.</p>
+<p>One note: keep the coordinator's added hours documented (timesheets), since that line is now larger than approved.</p>
+<p><strong>181.</strong> Why did Dana email the fund?<br />
+(A) To request more total funding<br />
+(B) To report an underspend<br />
+(C) To ask about moving money between budget lines<br />
+(D) To extend the grant period</p>
+<p><strong>182.</strong> What does Dana want to do?<br />
+(A) Move $3,000 from supplies to coordinator hours, keeping the total the same<br />
+(B) Return unspent funds<br />
+(C) Add a new staff position<br />
+(D) Increase the snack budget</p>
+<p><strong>183.</strong> Can Dana make this change without prior approval?<br />
+(A) No, all changes need approval<br />
+(B) Only with board approval<br />
+(C) No, it exceeds the limit<br />
+(D) Yes, it is under the 10 percent threshold</p>
+<p><strong>184.</strong> What always needs written sign-off first?<br />
+(A) Any purchase over $500<br />
+(B) Hiring any staff<br />
+(C) Moving more than 10 percent or adding a new line item<br />
+(D) Spending on supplies</p>
+<p><strong>185.</strong> What does the fund ask Dana to keep?<br />
+(A) Receipts for snacks<br />
+(B) A photo log<br />
+(C) Enrollment forms<br />
+(D) Timesheets for the coordinator's added hours</p>
+<h3>Passages 15–17 — Event-type reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>FUNDRAISING EVENT TYPES</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Typical net margin</th>
+<th>Staff/volunteer load</th>
+<th>Best for</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gala / dinner</td>
+<td>40–55% of gross</td>
+<td>Very high</td>
+<td>Major donors, sponsors, visibility</td>
+<td>High fixed costs if attendance is low</td>
+</tr>
+<tr>
+<td>Fun run / walk</td>
+<td>60–75%</td>
+<td>High (peer fundraising)</td>
+<td>Broad reach, new donors, younger crowd</td>
+<td>Weather; needs many participants</td>
+</tr>
+<tr>
+<td>House parties (small, hosted)</td>
+<td>80–90%</td>
+<td>Low per event</td>
+<td>Deepening mid-level donors</td>
+<td>Small totals unless done in series</td>
+</tr>
+<tr>
+<td>Online campaign (matched)</td>
+<td>90%+</td>
+<td>Medium</td>
+<td>Existing list, urgency moments</td>
+<td>Fatigue if overused</td>
+</tr>
+</tbody>
+</table>
+<p>Galas raise the most per event but keep the least per dollar. A series of small house parties often nets more with less risk, but takes longer.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Blake, board chair <strong>To:</strong> consult@fundwise.example <strong>Subject:</strong> Rethinking our annual gala</p>
+<p>Hi,</p>
+<p>Our gala grosses about $120,000 but by the time we pay the hotel, the band, and the printing, we net around $55,000, and it consumes the staff for two months. The board is split on whether to keep it. We have a loyal mid-level donor base (gifts of $250–$2,000) we don't do much with. Thoughts?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> consult@fundwise.example <strong>To:</strong> Owen Blake <strong>Subject:</strong> RE: Rethinking our annual gala</p>
+<p>Hi Owen,</p>
+<p>Your gala's net margin — about 46 percent — is normal for a gala, but the staff cost is the real price. Given your strong mid-level base, I'd test replacing the gala with a series of six to eight small hosted house parties over a season, each hosted by a board member.</p>
+<p>House parties net 80–90 percent and let you actually talk to those $250–$2,000 donors, who often move up when they feel seen. The tradeoff is they raise less in total the first year and take sustained effort rather than one big push.</p>
+<p>Keep one visibility event — maybe a low-cost annual open house — so you don't lose the public moment the gala provided.</p>
+<p><strong>186.</strong> What is the board debating?<br />
+(A) Whether to hire a consultant<br />
+(B) Whether to raise ticket prices<br />
+(C) Whether to merge with another organization<br />
+(D) Whether to keep the annual gala</p>
+<p><strong>187.</strong> What does the consultant recommend testing?<br />
+(A) Replacing the gala with a series of small hosted house parties<br />
+(B) A larger gala<br />
+(C) An online-only campaign<br />
+(D) Ending fundraising events</p>
+<p><strong>188.</strong> According to the reference, what is the tradeoff of house parties?<br />
+(A) They have high fixed costs<br />
+(B) They raise less in total and take sustained effort<br />
+(C) They depend on the weather<br />
+(D) They reach only new donors</p>
+<p><strong>189.</strong> Why does the consultant favor house parties for this organization?<br />
+(A) The staff prefers them<br />
+(B) They are weatherproof<br />
+(C) The org has a strong mid-level base that responds to personal attention<br />
+(D) They require no volunteers</p>
+<p><strong>190.</strong> What does the consultant suggest keeping?<br />
+(A) The band<br />
+(B) One low-cost visibility event<br />
+(C) The hotel contract<br />
+(D) The printed invitations</p>
+<h3>Passages 18–20 — Volunteer policy, prospective volunteer email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>VOLUNTEER POLICY — KEY POINTS</strong></p>
+<ul>
+<li><strong>Minimum commitment:</strong> Direct-service roles (tutoring, mentoring, front desk) ask for one shift a week for at least three months, so clients have consistency. One-time and event roles have no minimum.</li>
+<li><strong>Screening:</strong> Roles working with children or vulnerable adults require a background check (about 10 business days) and two references. Other roles require only the application.</li>
+<li><strong>Orientation:</strong> All volunteers do a 90-minute general orientation. Direct-service volunteers also do a role-specific training before their first shift.</li>
+<li><strong>Under 18:</strong> Ages 16–17 may volunteer for event and group roles with a signed parent form; direct-service roles are 18+.</li>
+<li><strong>Hours:</strong> Logged in the portal. We provide letters verifying hours for school or court requirements on request.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Cho <strong>To:</strong> volunteer@brightpath.example <strong>Subject:</strong> Getting started</p>
+<p>Hi,</p>
+<p>I'd like to help with the tutoring program. A few questions:<br />
+1. I can commit to Wednesdays but I travel for work about one week in six. Is that a dealbreaker for the weekly commitment?<br />
+2. My daughter is 16 and wants to volunteer with me. Can she tutor too?<br />
+3. How long from application to first shift, realistically?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> volunteer@brightpath.example <strong>To:</strong> Sam Cho <strong>Subject:</strong> RE: Getting started</p>
+<p>Hi Sam,</p>
+<ol>
+<li>Not a dealbreaker. Missing roughly one shift every six weeks for travel is fine as long as you tell your student's family and us ahead of time. Consistency is about the pattern, not perfect attendance.</li>
+<li>She can volunteer with you at events and group activities with a signed parent form, but tutoring is a direct-service role and those are 18 and older. A good option: she helps at the monthly family reading night, which is a group role.</li>
+<li>For tutoring: about three weeks. The background check is 10 business days, then the general orientation and the tutor training, which run on alternating weeks.</li>
+</ol>
+<p><strong>191.</strong> What is the minimum commitment for a tutoring role?<br />
+(A) One shift a week for at least three months<br />
+(B) One shift a month<br />
+(C) No minimum<br />
+(D) Two shifts a week for a year</p>
+<p><strong>192.</strong> What screening do roles with children require?<br />
+(A) Only the application<br />
+(B) An interview only<br />
+(C) A criminal record from the volunteer<br />
+(D) A background check and two references</p>
+<p><strong>193.</strong> Is Sam's travel schedule a problem for the weekly commitment?<br />
+(A) No, as long as he notifies the family and the organization ahead of time<br />
+(B) Yes, weekly attendance must be perfect<br />
+(C) Only if he misses more than once<br />
+(D) He must switch to a one-time role</p>
+<p><strong>194.</strong> Can Sam's 16-year-old daughter tutor?<br />
+(A) Yes, with a parent form<br />
+(B) No — tutoring is 18+, but she can help at group activities<br />
+(C) Yes, if Sam supervises<br />
+(D) Only in the summer</p>
+<p><strong>195.</strong> How long from application to a first tutoring shift?<br />
+(A) About one week<br />
+(B) The same week<br />
+(C) About three weeks<br />
+(D) About two months</p>
+<h3>Passages 21–23 — Membership-change notice, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>CHANGES TO MEMBERSHIP — EFFECTIVE JANUARY 1</strong></p>
+<ol>
+<li><strong>Dues:</strong> The individual rate goes from $50 to $60; the household rate from $80 to $90. The student and supported rates are unchanged.</li>
+<li><strong>Auto-renewal:</strong> All memberships will renew automatically on the anniversary date unless you opt out. You'll get an email 30 days before with the amount and a one-click cancel.</li>
+<li><strong>Benefit change:</strong> The printed quarterly journal becomes digital by default. Members who want the print edition can request it at no extra cost.</li>
+<li><strong>New benefit:</strong> Members now get free or discounted admission to 40 partner museums nationwide through a reciprocal program.</li>
+</ol>
+<p>Questions to the membership office.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rana Ellis <strong>To:</strong> members@heritagesociety.example <strong>Subject:</strong> Questions about the January changes</p>
+<p>Hi,</p>
+<ol>
+<li>I'm on the household plan and renew in March. Does the $90 rate apply to my March renewal or only to new members?</li>
+<li>I didn't sign up for auto-renewal. Am I now enrolled in it automatically?</li>
+<li>I really value the print journal. Do I have to pay extra to keep getting it?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> members@heritagesociety.example <strong>To:</strong> Rana Ellis <strong>Subject:</strong> RE: Questions about the January changes</p>
+<p>Hi Rana,</p>
+<ol>
+<li>The new $90 household rate applies to any renewal on or after January 1, so your March renewal will be at $90.</li>
+<li>Yes — auto-renewal becomes the default for everyone. You'll get the 30-day notice before your March renewal with a one-click way to turn it off or cancel. Nothing is charged without that notice going out first.</li>
+<li>No extra charge. Just reply to the pre-renewal email or call us and we'll keep the print journal coming to you. The change is only about the default.</li>
+</ol>
+<p><strong>196.</strong> How is the household dues rate changing?<br />
+(A) From $50 to $60<br />
+(B) From $80 to $90<br />
+(C) It is unchanged<br />
+(D) It is being eliminated</p>
+<p><strong>197.</strong> Does the new household rate apply to Rana's March renewal?<br />
+(A) No, only to new members<br />
+(B) Only if she renews early<br />
+(C) Yes — any renewal on or after January 1<br />
+(D) Only from the following year</p>
+<p><strong>198.</strong> Is Rana now enrolled in auto-renewal?<br />
+(A) No, she has to opt in<br />
+(B) Only new members are<br />
+(C) No, her plan is exempt<br />
+(D) Yes — it is now the default, with a 30-day notice before any charge</p>
+<p><strong>199.</strong> Does Rana have to pay extra to keep the print journal?<br />
+(A) No — she just has to request it<br />
+(B) Yes, a small fee<br />
+(C) Only household members pay<br />
+(D) Print is no longer available</p>
+<p><strong>200.</strong> What new benefit do members get?<br />
+(A) A second journal subscription<br />
+(B) A tote bag<br />
+(C) Voting rights<br />
+(D) Free or discounted admission to 40 partner museums</p>
+<hr />
+<p><em>Hết phần Reading — Set_018. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_018</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a volunteer is sorting donated clothing into bins" · bẫy: "loading a van with boxes"</li>
+<li><strong>3 C</strong> "a worker is serving meals to people in line" · bẫy: "seated at long tables eating"</li>
+<li><strong>4 D</strong> "the office is empty and mostly dark" · bẫy: "staff are meeting around a table"</li>
+<li><strong>6 C</strong> "handing a brochure to a visitor at a sign-up table" · bẫy: "filling a donation box"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why rejected?" → "It didn't match the funder's priorities" · bẫy: trả lời When / length</li>
+<li><strong>13 B</strong> tag question → "Yes, pulling reports takes half the time"</li>
+<li><strong>15 C</strong> câu phủ định → "Yes, it's scheduled for Friday"</li>
+<li><strong>17 C</strong> "What did the evaluation find?" → "attendance was high but follow-through was low"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "Ask the development director" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "We could move more members to email"</li>
+<li><strong>21 C</strong> yêu cầu cập nhật cơ sở dữ liệu → "I'll update it today" · bẫy: lặp "database"</li>
+<li><strong>25 B</strong> "Isn't the annual report usually spring?" → đính chính "coming out early this year" · bẫy: lặp "spring"</li>
+<li><strong>31 C</strong> "Why was the board meeting rescheduled?" → lý do cụ thể "two members had a conflict" · bẫy: lặp "meeting"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "getting three copies of every appeal because she's in the system three times" · "'Margaret,' 'Peggy,' and one with her maiden name" · "Have the development director make that call"</li>
+<li>35–37: "due Friday and we're missing the participant numbers" · "The funder wants actuals" · "email the program officer now and ask for a few days"</li>
+<li>38–40: "Ticket sales for the gala are slow" · "let board members each bring a table of guests at a lower rate" · "set a firmer RSVP deadline"</li>
+<li>41–43: "I haven't heard anything in two weeks" · "need a background check, which takes about ten business days" · "a two-hour orientation ... and then you're matched with a site"</li>
+<li>44–46: "why our 'overhead' is 22 percent" · "That framing is misleading. A lot of ... is the evaluation and training" · "Send him the impact numbers alongside the finances"</li>
+<li>47–49: "build an operating reserve — three months of expenses" · "this year's budget is already tight" · "set aside a small fixed amount each month and add any surplus at year-end"</li>
+<li>50–52: "impact of their last contribution" · "program outcomes from that quarter" · "photos from the field"</li>
+<li>53–55: "volunteer sign-ups ... lower than expected" · "another reminder email" · "post about it on social media again"</li>
+<li>56–58: "didn't get the state grant" · "budget section needed more detail" · "revise the budget section and reapply"</li>
+<li>59–61: "sponsoring our gala" · "gold tier" · "send the sponsorship packet today"</li>
+<li>62–64: "board meeting agenda" · "update on the mentorship program" · "enrollment numbers"</li>
+<li>65–67: "newsletter open rate has dropped" · "different subject line style" · "test both changes and compare results"</li>
+<li>68–70: "volunteer for community service hours" · "twenty hours each" · "sign them up for weekend programs"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "thank you for volunteering ... A few basics" · "that's how we track hours for our grant reports" · "confidentiality is the one rule we never bend"</li>
+<li>74–76: "your renewal ... is approved at the same level" · "quarterly payments instead of one lump sum" · "a short call in month six, no written report"</li>
+<li>77–79: "the number that changed our strategy was second-gift rate" · "a personal thank-you within 48 hours, from a real person" · "gave again at nearly double the rate"</li>
+<li>80–82: "keeps your donors, volunteers, gifts, and grant deadlines in one place" · "It sends the thank-you automatically" · "Free for organizations under 500 donors"</li>
+<li>83–85: "tonight's gala" · "short presentation about this year's impact" · "proceeds ... expanding the after-school program"</li>
+<li>86–88: "Saturday's park cleanup" · "morning shift, nine to noon" · "call me back"</li>
+<li>89–91: "donor retention strategies" · "personalizing thank-you communications" · "examples from organizations with real improvement"</li>
+<li>92–94: "meal delivery program has expanded" · "generous grant and volunteer drivers" · "referrals ... through our website"</li>
+<li>95–97: "two-year grant" · "expand ... literacy program into three schools" · "launch by the start of the next school year"</li>
+<li>98–100: "thank every volunteer, donor, and staff member" · "twenty percent more families" · "community's support"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The foundation</code> số ít + thói quen → <code>issues</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> the deadline</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>discrepancies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be asked to</code> + V nguyên → <code>record</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes donating much <span class="fill"></span> on a phone</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the bulletin board</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>cut its costs by moving</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> students</code> (trong 3) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the community center</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the grant agreement is signed</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The network</code> số ít → <code>includes</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more generously</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>steps</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"món quà tặng <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (handbook <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible to</code> + V (đủ điều kiện để bỏ phiếu)</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>picture</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>revise</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... could hold</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the database</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>manager</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"Our neighborhood office <span class="fill"></span> closed the week of July 14" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Staff <span class="fill"></span> forward phone and email during the move" (sẽ) → <code>will</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Client appointments for that week <span class="fill"></span> already been rescheduled" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> lời mời ghé thăm khép lại thông báo chuyển văn phòng</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"volunteers <span class="fill"></span> submit reimbursement requests through the online form" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The form <span class="fill"></span> accept a photo of the receipt" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Requests over one hundred dollars <span class="fill"></span> need a program manager's approval" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ chương trình nếu cần, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most nonprofits find <span class="fill"></span> useful" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời trải nghiệm thực tế, khép lại quảng cáo GrantLine</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our newsletter <span class="fill"></span> to email by default, starting with the fall issue" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Going digital <span class="fill"></span> put most of that back into programs" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The web pages <span class="fill"></span> now easier to read on a phone" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo bản tin chuyển sang email</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>B</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>D</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>C</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>D</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>A</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>C</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>B</td>
+<td>197</td>
+<td>C</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>A</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>D</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>B</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>A</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 C</strong> — "annual project grants forced nonprofits to spend heavily on applications and reports and made it hard to plan"<br />
+- <strong>152 C</strong> — "Total grant dollars are unchanged. The foundation will fund fewer organizations"<br />
+- <strong>154 B</strong> — "volunteer coverage those days was thin and items were being left outside"<br />
+- <strong>158 C</strong> — "that money can only be spent on that — not borrowed for payroll ... even temporarily"<br />
+- <strong>159 A</strong> — "Restricted funds spent wrongly have to be paid back to the funder"<br />
+- <strong>161 C</strong> — bảng: "Gift of $1,000+ — Phone call from a director"<br />
+- <strong>168 D</strong> — "The portion above the value of benefits you receive is [tax-deductible]"<br />
+- <strong>178 A</strong> — "Up to 15 percent of the grant may be used for general operating costs"<br />
+- <strong>183 D</strong> — "our rules let a grantee move up to 10 percent ... without prior approval ... Your $3,000 shift on an $18,000 grant is under that"<br />
+- <strong>188 B</strong> — "they raise less in total the first year and take sustained effort rather than one big push"<br />
+- <strong>189 C</strong> — "Given your strong mid-level base ... donors, who often move up when they feel seen"<br />
+- <strong>193 A</strong> — "fine as long as you tell your student's family and us ahead of time"<br />
+- <strong>194 B</strong> — "tutoring is a direct-service role and those are 18 and older ... she helps at the monthly family reading night"<br />
+- <strong>198 D</strong> — "auto-renewal becomes the default for everyone. You'll get the 30-day notice ... Nothing is charged without that notice"<br />
+- <strong>200 D</strong> — "free or discounted admission to 40 partner museums nationwide"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_018 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Nonprofit / NGO): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

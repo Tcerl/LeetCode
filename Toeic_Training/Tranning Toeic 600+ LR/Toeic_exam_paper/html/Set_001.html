@@ -1,0 +1,2202 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_001 — Office hỗn hợp</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="001">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_001</strong>
+    <span class="theme">Office hỗn hợp</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_001 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<blockquote>
+<p>Chọn câu mô tả đúng nhất bức ảnh.</p>
+</blockquote>
+<p><strong>1.</strong> <em>[Ảnh: Một phụ nữ đứng cạnh máy photocopy, tay cầm một xấp giấy.]</em><br />
+(A) She's turning off the lights.<br />
+(B) She's holding some documents.<br />
+(C) She's repairing the copier.<br />
+(D) She's filing papers in a cabinet.</p>
+<p><strong>2.</strong> <em>[Ảnh: Hai đồng nghiệp ngồi đối diện ở bàn, cùng nhìn vào một máy tính bảng.]</em><br />
+(A) They're shaking hands across the desk.<br />
+(B) One of them is leaving the room.<br />
+(C) They're looking at a tablet together.<br />
+(D) They're moving the furniture.</p>
+<p><strong>3.</strong> <em>[Ảnh: Quán cà phê ngoài trời, bàn ghế trống, các ô dù đã mở.]</em><br />
+(A) Customers are being served drinks.<br />
+(B) A waiter is clearing a table.<br />
+(C) Chairs are stacked against the wall.<br />
+(D) The umbrellas have been opened.</p>
+<p><strong>4.</strong> <em>[Ảnh: Công nhân đội mũ bảo hộ đang xem xét một bảng điều khiển trong nhà máy.]</em><br />
+(A) A worker is examining a control panel.<br />
+(B) Workers are putting on safety helmets.<br />
+(C) A machine is being installed.<br />
+(D) Someone is sweeping the floor.</p>
+<p><strong>5.</strong> <em>[Ảnh: Hành lý xếp thành hàng trên băng chuyền ở sân bay.]</em><br />
+(A) Passengers are boarding a plane.<br />
+(B) A cart is being loaded with boxes.<br />
+(C) Luggage is arranged on a conveyor belt.<br />
+(D) Bags are being carried up the stairs.</p>
+<p><strong>6.</strong> <em>[Ảnh: Một người đàn ông đang tưới cây trong khu vườn của tòa văn phòng.]</em><br />
+(A) He's planting a tree.<br />
+(B) He's mowing the lawn.<br />
+(C) He's raking leaves.<br />
+(D) He's watering some plants.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> Where's the nearest printer on this floor?<br />
+(A) It's down the hall to your left.<br />
+(B) I printed it this morning.<br />
+(C) About fifty copies.</p>
+<p><strong>8.</strong> When will the budget report be ready?<br />
+(A) In the finance office.<br />
+(B) By Thursday afternoon.<br />
+(C) It was over budget.</p>
+<p><strong>9.</strong> Who's organizing the staff luncheon this year?<br />
+(A) At the Italian restaurant.<br />
+(B) Yes, I'll be there.<br />
+(C) Someone in the HR department.</p>
+<p><strong>10.</strong> Would you like to join us for the client dinner?<br />
+(A) I'd love to, thanks.<br />
+(B) The food was excellent.<br />
+(C) He joined the company last year.</p>
+<p><strong>11.</strong> Why is the elevator out of service?<br />
+(A) On the ground floor.<br />
+(B) It's being inspected today.<br />
+(C) Take the stairs, please.</p>
+<p><strong>12.</strong> How many people signed up for the workshop?<br />
+(A) Around twenty so far.<br />
+(B) It starts at nine.<br />
+(C) In meeting room C.</p>
+<p><strong>13.</strong> The quarterly figures look strong, don't they?<br />
+(A) Yes, sales are up in every region.<br />
+(B) Every quarter of the year.<br />
+(C) The figure is on page four.</p>
+<p><strong>14.</strong> Should I email the invoice or send a paper copy?<br />
+(A) The invoice was correct.<br />
+(B) Email is fine.<br />
+(C) I paid it yesterday.</p>
+<p><strong>15.</strong> Isn't the new branch opening next month?<br />
+(A) It's quite a large branch.<br />
+(B) Actually, it's been pushed back to July.<br />
+(C) Near the train station.</p>
+<p><strong>16.</strong> Could you show me how to use the new database?<br />
+(A) The data was very useful.<br />
+(B) It's a large database.<br />
+(C) Sure, I have a few minutes now.</p>
+<p><strong>17.</strong> What did you think of the keynote speech?<br />
+(A) At the main auditorium.<br />
+(B) I found it inspiring.<br />
+(C) The speaker arrived late.</p>
+<p><strong>18.</strong> Where should we hold the team-building event?<br />
+(A) Sometime in the spring.<br />
+(B) About thirty employees.<br />
+(C) How about the lakeside park?</p>
+<p><strong>19.</strong> Do you know whether the manager approved my leave request?<br />
+(A) She's on leave this week.<br />
+(B) Two weeks of vacation.<br />
+(C) I haven't heard, but I can check.</p>
+<p><strong>20.</strong> I think we should replace the office chairs.<br />
+(A) Good idea — mine is falling apart.<br />
+(B) The chair of the committee.<br />
+(C) Upstairs, near the copier.</p>
+<p><strong>21.</strong> Could you forward me last week's meeting notes?<br />
+(A) The meeting ran an hour.<br />
+(B) Sure — I forward mail every day.<br />
+(C) I'll email them right after this call.</p>
+<p><strong>22.</strong> What time does the shuttle leave for the airport?<br />
+(A) At quarter past six.<br />
+(B) It's a comfortable ride.<br />
+(C) A round-trip ticket.</p>
+<p><strong>23.</strong> Who's covering the front desk during lunch?<br />
+(A) I covered it myself yesterday.<br />
+(B) It's a two-hour lunch.<br />
+(C) Priya said she would.</p>
+<p><strong>24.</strong> Should we order more printer paper this week?<br />
+(A) The printer is upstairs.<br />
+(B) Yes, we're almost out.<br />
+(C) I ordered lunch already.</p>
+<p><strong>25.</strong> Haven't you finished the expense report yet?<br />
+(A) I finished it on time.<br />
+(B) The report was long.<br />
+(C) Not yet — I'm waiting on one receipt.</p>
+<p><strong>26.</strong> Why was today's stand-up meeting moved online?<br />
+(A) Two people are traveling.<br />
+(B) It moves pretty fast.<br />
+(C) It was online last year too.</p>
+<p><strong>27.</strong> Would you rather meet on Tuesday or Wednesday?<br />
+(A) I met them on Tuesday.<br />
+(B) It's a short meeting.<br />
+(C) Wednesday works better for me.</p>
+<p><strong>28.</strong> How's the new hire settling into the team?<br />
+(A) We hired two people.<br />
+(B) She's picking things up quickly.<br />
+(C) The team sits near the window.</p>
+<p><strong>29.</strong> Do you know if the client confirmed the contract?<br />
+(A) Not yet, I'll follow up today.<br />
+(B) I signed for the delivery.<br />
+(C) The contract is ten pages.</p>
+<p><strong>30.</strong> Who left this laptop charger at my desk?<br />
+(A) The desk is being replaced.<br />
+(B) It charges pretty fast.<br />
+(C) I think it's Daniel's.</p>
+<p><strong>31.</strong> Isn't the office supply closet usually locked?<br />
+(A) The closet is on the third floor.<br />
+(B) Usually, yes, but it's open for restocking today.<br />
+(C) I locked the front door.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> Hi, I'm calling about the conference room I reserved for tomorrow at 10. Is it possible to move it to the afternoon?<br />
+<strong>M:</strong> Let me check the schedule… The room is open from 2 to 4. Would that work?<br />
+<strong>W:</strong> That's perfect. Also, will the projector be set up, or do I need to request it separately?<br />
+<strong>M:</strong> It's already in the room, but I'll send you the remote and a quick setup guide.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To cancel a reservation<br />
+(B) To change a room reservation<br />
+(C) To ask about projector rentals<br />
+(D) To report a broken projector</p>
+<p><strong>33.</strong> When does the woman want to use the room now?<br />
+(A) At 10 A.M.<br />
+(B) At noon<br />
+(C) On the following day<br />
+(D) In the afternoon</p>
+<p><strong>34.</strong> What does the man say he will send?<br />
+(A) A remote and a setup guide<br />
+(B) A revised invoice<br />
+(C) A new reservation form<br />
+(D) A parking pass</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> Sarah, have you had a chance to review the vendor proposals for the new packaging?<br />
+<strong>W:</strong> I've looked at two of the three. GreenPack's pricing is the best, but their delivery time is longer.<br />
+<strong>M:</strong> How much longer?<br />
+<strong>W:</strong> About a week. If we plan ahead, it shouldn't be a problem. I'll finish the third one this afternoon and send you my recommendation.</p>
+<p><strong>35.</strong> What are the speakers mainly discussing?<br />
+(A) A delivery that arrived late<br />
+(B) A marketing campaign<br />
+(C) Vendor proposals for packaging<br />
+(D) A change in product design</p>
+<p><strong>36.</strong> According to the woman, what is the disadvantage of GreenPack?<br />
+(A) Its prices are too high<br />
+(B) Its delivery time is longer<br />
+(C) Its materials are lower quality<br />
+(D) It is located overseas</p>
+<p><strong>37.</strong> What will the woman do this afternoon?<br />
+(A) Meet with a vendor<br />
+(B) Place an order<br />
+(C) Present to the board<br />
+(D) Review the third proposal</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> Before we finish, let's talk about the office move. The new building is ready on the 15th.<br />
+<strong>M1:</strong> Will we move everything over a weekend?<br />
+<strong>W:</strong> Yes, the movers are booked for Saturday the 16th. Each team should pack their own supplies by Friday.<br />
+<strong>M2:</strong> What about the IT equipment?<br />
+<strong>W:</strong> The IT team will handle all computers and phones separately on Monday.</p>
+<p><strong>38.</strong> What are the speakers planning?<br />
+(A) A company merger<br />
+(B) An office move<br />
+(C) A product launch<br />
+(D) A training program</p>
+<p><strong>39.</strong> What should each team do by Friday?<br />
+(A) Submit a budget<br />
+(B) Choose a moving company<br />
+(C) Pack their own supplies<br />
+(D) Update their contact information</p>
+<p><strong>40.</strong> What will happen on Monday?<br />
+(A) IT equipment will be moved<br />
+(B) The new building will open to clients<br />
+(C) A staff meeting will be held<br />
+(D) The movers will be paid</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> Thanks for coming in for the interview, Ms. Alvarez. I see you've spent five years in logistics management.<br />
+<strong>W:</strong> Yes, most recently overseeing a team of twelve at a distribution center.<br />
+<strong>M:</strong> This role would involve some travel — about once a month to our regional sites. Is that something you're comfortable with?<br />
+<strong>W:</strong> Absolutely. I traveled regularly in my last position.</p>
+<p><strong>41.</strong> Where most likely does the conversation take place?<br />
+(A) At a logistics conference<br />
+(B) At a distribution center<br />
+(C) At a training session<br />
+(D) At a job interview</p>
+<p><strong>42.</strong> How large was the woman's most recent team?<br />
+(A) Five people<br />
+(B) Twelve people<br />
+(C) Twenty people<br />
+(D) Thirty people</p>
+<p><strong>43.</strong> What does the man ask the woman about?<br />
+(A) Her salary expectations<br />
+(B) Her availability to start<br />
+(C) Her willingness to travel monthly<br />
+(D) Her computer skills</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The customer feedback from last month is in. Overall satisfaction is up, but several people said the checkout process is confusing.<br />
+<strong>M:</strong> I've heard that before. Maybe we should simplify the online form.<br />
+<strong>W:</strong> I agree. I'll ask the web team to look at it. Could you draft a short survey to find out which steps are causing problems?<br />
+<strong>M:</strong> Sure, I can have that ready by Wednesday.</p>
+<p><strong>44.</strong> What did some customers complain about?<br />
+(A) A confusing checkout process<br />
+(B) Slow delivery times<br />
+(C) High prices<br />
+(D) Poor product quality</p>
+<p><strong>45.</strong> What will the woman ask the web team to do?<br />
+(A) Redesign the company logo<br />
+(B) Add a live chat feature<br />
+(C) Look at the online form<br />
+(D) Fix a broken link</p>
+<p><strong>46.</strong> What does the man agree to prepare by Wednesday?<br />
+(A) A budget report<br />
+(B) A short survey<br />
+(C) A presentation<br />
+(D) A press release</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> Good morning. I ordered a desk lamp online last week, but the wrong color arrived. I ordered black and received white.<br />
+<strong>W:</strong> I'm sorry about that. Do you have your order number?<br />
+<strong>M:</strong> Yes, it's 55-7120.<br />
+<strong>W:</strong> Thank you. I can send the correct lamp today. You can keep the white one or return it with the prepaid label I'll include.<br />
+<strong>M:</strong> I'll return it. Thanks for sorting this out so quickly.</p>
+<p><strong>47.</strong> What is the man's problem?<br />
+(A) His order never arrived<br />
+(B) He was charged twice<br />
+(C) The lamp is damaged<br />
+(D) He received the wrong color</p>
+<p><strong>48.</strong> What does the woman ask the man for?<br />
+(A) His order number<br />
+(B) His phone number<br />
+(C) His mailing address<br />
+(D) His receipt</p>
+<p><strong>49.</strong> What does the man decide to do with the white lamp?<br />
+(A) Keep it<br />
+(B) Give it away<br />
+(C) Return it<br />
+(D) Exchange it in person</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> Do you have a minute? I can't get the video conferencing app to connect to today's client call.<br />
+<strong>W:</strong> Try restarting your laptop first — that usually fixes the connection issue.<br />
+<strong>M:</strong> I already tried that twice.<br />
+<strong>W:</strong> Okay, then I'll submit an IT ticket for you and ask them to call you directly.</p>
+<p><strong>50.</strong> What problem does the man report?<br />
+(A) His laptop will not turn on.<br />
+(B) He missed the client call.<br />
+(C) His headset is broken.<br />
+(D) An app will not connect.</p>
+<p><strong>51.</strong> What has the man already tried?<br />
+(A) Restarting his laptop<br />
+(B) Reinstalling the app<br />
+(C) Calling IT directly<br />
+(D) Using a different laptop</p>
+<p><strong>52.</strong> What will the woman do next?<br />
+(A) Reschedule the call<br />
+(B) Submit an IT ticket<br />
+(C) Fix the app herself<br />
+(D) Lend him her laptop</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> The courier just dropped off a package, but it's addressed to someone who left the company last spring.<br />
+<strong>M:</strong> That happens sometimes. Check if it's marked urgent — if so, let's open it and see who it's really for.<br />
+<strong>W:</strong> It just says "office supplies," so I'll leave it at the front desk and post a note.<br />
+<strong>M:</strong> Good idea. Someone will probably claim it by the end of the day.</p>
+<p><strong>53.</strong> What is unusual about the package?<br />
+(A) It arrived damaged.<br />
+(B) It has no return address.<br />
+(C) It is addressed to a former employee.<br />
+(D) It was delivered to the wrong building.</p>
+<p><strong>54.</strong> What does the woman decide to do?<br />
+(A) Return the package to the courier<br />
+(B) Open it immediately<br />
+(C) Forward it to another office<br />
+(D) Leave it at the front desk with a note</p>
+<p><strong>55.</strong> What does the man expect will happen?<br />
+(A) The package will be claimed by the end of the day.<br />
+(B) The sender will be contacted.<br />
+(C) The package will be forwarded.<br />
+(D) No one will claim it.</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> Have you seen the draft agenda for Thursday's planning meeting?<br />
+<strong>M:</strong> Not yet. Is it just the quarterly numbers again?<br />
+<strong>W:</strong> Mostly, but we're also adding ten minutes for the new hiring plan.<br />
+<strong>M:</strong> Good — I wanted to bring that up anyway. Can you send the agenda around today?</p>
+<p><strong>56.</strong> What are the speakers mainly discussing?<br />
+(A) A hiring decision<br />
+(B) A meeting agenda<br />
+(C) A budget cut<br />
+(D) A client complaint</p>
+<p><strong>57.</strong> What topic is being added to Thursday's meeting?<br />
+(A) A product recall<br />
+(B) Office relocation<br />
+(C) The hiring plan<br />
+(D) A software upgrade</p>
+<p><strong>58.</strong> What does the man ask the woman to do?<br />
+(A) Cancel the meeting<br />
+(B) Book a larger room<br />
+(C) Invite the client<br />
+(D) Send the agenda today</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> I noticed the copier on the third floor keeps jamming. Has anyone reported it?<br />
+<strong>W:</strong> I mentioned it to facilities on Monday, but no one's come to look at it yet.<br />
+<strong>M:</strong> Could you call them again? I have a large print job due this afternoon.<br />
+<strong>W:</strong> Sure, I'll call right now and ask them to prioritize it.</p>
+<p><strong>59.</strong> What is the problem with the copier?<br />
+(A) It keeps jamming.<br />
+(B) It is out of paper.<br />
+(C) It is too slow.<br />
+(D) It was removed.</p>
+<p><strong>60.</strong> What did the woman already do?<br />
+(A) Fixed the copier herself<br />
+(B) Reported the issue to facilities<br />
+(C) Ordered a new copier<br />
+(D) Moved the copier upstairs</p>
+<p><strong>61.</strong> What does the man ask the woman to do?<br />
+(A) Print the job for him<br />
+(B) Use a different floor's copier<br />
+(C) Call facilities again<br />
+(D) Cancel his print job</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Before we wrap up, let's finalize the vendor for the holiday party.<br />
+<strong>M1:</strong> I got quotes from two caterers. Riverside is cheaper, but Oakview includes setup and cleanup.<br />
+<strong>M2:</strong> Given our small team, the extra service from Oakview is probably worth it.<br />
+<strong>W:</strong> Agreed. Let's book Oakview, and I'll confirm the headcount with everyone by Friday.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A product launch<br />
+(B) A client dinner<br />
+(C) A training session<br />
+(D) A holiday party</p>
+<p><strong>63.</strong> What advantage does Oakview offer?<br />
+(A) Setup and cleanup service<br />
+(B) A lower price<br />
+(C) A larger venue<br />
+(D) A longer rental period</p>
+<p><strong>64.</strong> What will the woman do by Friday?<br />
+(A) Sign the contract<br />
+(B) Confirm the headcount<br />
+(C) Choose a venue<br />
+(D) Pay the deposit</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I'm putting together next quarter's travel budget. Any trips I should know about?<br />
+<strong>W:</strong> I'm attending the regional sales conference in March, and Tom is visiting the Chicago office in April.<br />
+<strong>M:</strong> Got it. Do either of you need extra nights for the hotel?<br />
+<strong>W:</strong> I'll only need the conference nights, but you should check with Tom directly.</p>
+<p><strong>65.</strong> What is the man preparing?<br />
+(A) A sales report<br />
+(B) A hiring plan<br />
+(C) A travel budget<br />
+(D) An office move</p>
+<p><strong>66.</strong> What does the woman say she will do in March?<br />
+(A) Visit the Chicago office<br />
+(B) Extend her vacation<br />
+(C) Meet a client on site<br />
+(D) Attend a regional sales conference</p>
+<p><strong>67.</strong> What does the woman suggest the man do?<br />
+(A) Check with Tom about his hotel nights<br />
+(B) Cancel Tom's trip<br />
+(C) Book her flight<br />
+(D) Extend the budget</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> I can't find the file you sent yesterday — did you save it to the shared drive?<br />
+<strong>M:</strong> I thought I did, but let me check... you're right, it's still only on my desktop.<br />
+<strong>W:</strong> No problem, just upload it when you get a chance. I don't need it until this afternoon.<br />
+<strong>M:</strong> I'll upload it right now so it's not a last-minute rush.</p>
+<p><strong>68.</strong> What problem does the woman mention?<br />
+(A) Her computer crashed.<br />
+(B) A file is missing from the shared drive.<br />
+(C) She lost her password.<br />
+(D) The printer is broken.</p>
+<p><strong>69.</strong> What does the man realize?<br />
+(A) He deleted the file.<br />
+(B) He sent the wrong file.<br />
+(C) The file is only on his desktop.<br />
+(D) The file is too large to upload.</p>
+<p><strong>70.</strong> What does the man decide to do?<br />
+(A) Upload the file right away<br />
+(B) Wait until this afternoon<br />
+(C) Ask someone else to upload it<br />
+(D) Recreate the file</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Staff announcement</h3>
+<p><em>"Attention, staff. This is a reminder that the annual health fair will take place this Thursday in the main lobby, from 10 A.M. to 3 P.M. Free flu shots, blood-pressure checks, and nutrition consultations will be available. You do not need to sign up in advance, but appointments for the flu shot can be booked through the employee portal to avoid waiting. The fair is open to all employees and contractors."</em></p>
+<p><strong>71.</strong> When will the health fair take place?<br />
+(A) Monday<br />
+(B) Wednesday<br />
+(C) Thursday<br />
+(D) Friday</p>
+<p><strong>72.</strong> What can employees reserve in advance?<br />
+(A) A nutrition consultation<br />
+(B) A flu shot appointment<br />
+(C) A blood-pressure check<br />
+(D) A parking space</p>
+<p><strong>73.</strong> According to the speaker, who may attend the fair?<br />
+(A) Managers only<br />
+(B) Full-time staff only<br />
+(C) Employees and their families<br />
+(D) All employees and contractors</p>
+<h3>Talk 2 (74–76) — Voicemail message</h3>
+<p><em>"Hi, this is Mark from Delta Print Services. I'm calling about the brochures you ordered. The print run is finished and looks great, but I noticed the delivery address on the order is your old office. Could you call me back at 555-0173 to confirm where you'd like them sent? If I don't hear from you by end of day tomorrow, I'll send them to the address on file. Thanks."</em></p>
+<p><strong>74.</strong> Why is the speaker calling?<br />
+(A) To confirm a delivery address<br />
+(B) To report a printing error<br />
+(C) To request payment<br />
+(D) To reschedule a meeting</p>
+<p><strong>75.</strong> What does the speaker say about the brochures?<br />
+(A) They contain a typo<br />
+(B) The print run is finished<br />
+(C) They are out of stock<br />
+(D) The design needs changes</p>
+<p><strong>76.</strong> What will happen if the listener does not call back?<br />
+(A) The order will be canceled<br />
+(B) A late fee will be added<br />
+(C) The speaker will visit in person<br />
+(D) The brochures will be sent to the address on file</p>
+<h3>Talk 3 (77–79) — Radio advertisement</h3>
+<p><em>"Is your commute stressing you out? Try CityCycle, the new bike-share program with over 60 stations across downtown. Your first month is just five dollars, and that includes unlimited 45-minute rides. Download the CityCycle app to find a bike near you, unlock it with your phone, and return it to any station. Sign up before the end of March and get a free helmet. Visit citycycle.example for details."</em></p>
+<p><strong>77.</strong> What is being advertised?<br />
+(A) A ride-sharing service<br />
+(B) A public transit pass<br />
+(C) A bike-share program<br />
+(D) A car rental company</p>
+<p><strong>78.</strong> Under the offer, how long can each ride last?<br />
+(A) 45 minutes<br />
+(B) 15 minutes<br />
+(C) 30 minutes<br />
+(D) 60 minutes</p>
+<p><strong>79.</strong> What do customers receive if they sign up before the end of March?<br />
+(A) A month of free rides<br />
+(B) A free helmet<br />
+(C) A discount code<br />
+(D) A water bottle</p>
+<h3>Talk 4 (80–82) — Excerpt from a meeting</h3>
+<p><em>"Let's move on to the warehouse expansion. Construction is on schedule, and we expect to begin using the new space in September. This will roughly double our storage capacity. To prepare, we'll be hiring six additional warehouse staff over the summer. Team leads should submit their staffing requests to HR by the end of this month so we can begin interviews in July."</em></p>
+<p><strong>80.</strong> What project is the speaker discussing?<br />
+(A) A store renovation<br />
+(B) A new office building<br />
+(C) A warehouse expansion<br />
+(D) A delivery fleet upgrade</p>
+<p><strong>81.</strong> When is the new space expected to be in use?<br />
+(A) In June<br />
+(B) In July<br />
+(C) In December<br />
+(D) In September</p>
+<p><strong>82.</strong> What are team leads asked to do by the end of the month?<br />
+(A) Submit staffing requests to HR<br />
+(B) Complete a safety inspection<br />
+(C) Attend an orientation<br />
+(D) Approve a budget</p>
+<h3>Talk 5 (83–85) — Office announcement</h3>
+<p><em>"Good morning, everyone. Starting Monday, the parking garage on Fifth Street will be closed for resurfacing for about two weeks. During that time, please use the temporary lot behind the building, which is free for all staff. Badge access to that lot will be activated by Friday afternoon. If your badge doesn't work at the gate, contact building security."</em></p>
+<p><strong>83.</strong> Why will the parking garage be closed?<br />
+(A) For resurfacing<br />
+(B) For a security inspection<br />
+(C) For a private event<br />
+(D) Because of storm damage</p>
+<p><strong>84.</strong> What will happen by Friday afternoon?<br />
+(A) A new garage will open.<br />
+(B) Parking fees will be refunded.<br />
+(C) Badge access to the temporary lot will be activated.<br />
+(D) A shuttle service will begin.</p>
+<p><strong>85.</strong> What should employees do if their badge does not work?<br />
+(A) Use the main entrance<br />
+(B) Contact building security<br />
+(C) Wait until Monday<br />
+(D) Park on the street</p>
+<h3>Talk 6 (86–88) — Voicemail message</h3>
+<p><em>"Hi, this is Grace calling from Aspen Office Supplies. I'm following up on the order you placed for twenty boxes of folders and three cases of printer paper. Unfortunately, the printer paper is temporarily out of stock, so I wanted to check whether you'd like to receive the folders now and the paper later, or wait and ship everything together. Please call me back at 555-0198 to let me know."</em></p>
+<p><strong>86.</strong> Why is Grace calling?<br />
+(A) To apologize for a late delivery<br />
+(B) To confirm a payment<br />
+(C) To cancel an order<br />
+(D) To ask about a shipping preference</p>
+<p><strong>87.</strong> What item is currently out of stock?<br />
+(A) Printer paper<br />
+(B) Folders<br />
+(C) Binders<br />
+(D) Pens</p>
+<p><strong>88.</strong> What does Grace ask the listener to do?<br />
+(A) Visit the store<br />
+(B) Send a new purchase order<br />
+(C) Call her back<br />
+(D) Reply by email</p>
+<h3>Talk 7 (89–91) — Radio advertisement</h3>
+<p><em>"Tired of searching for a place to focus? DeskShare offers flexible co-working spaces across the city, with high-speed internet, private meeting rooms, and unlimited coffee included in every membership. Sign up this month and your first two weeks are free. Visit deskshare.example to find the location nearest you and reserve your desk today."</em></p>
+<p><strong>89.</strong> What is being advertised?<br />
+(A) An office furniture store<br />
+(B) A co-working space<br />
+(C) An internet provider<br />
+(D) A coffee shop chain</p>
+<p><strong>90.</strong> According to the advertisement, what is included in every membership?<br />
+(A) A private office<br />
+(B) Free parking<br />
+(C) A monthly cleaning service<br />
+(D) Unlimited coffee</p>
+<p><strong>91.</strong> What offer is available this month?<br />
+(A) Two free weeks<br />
+(B) A discounted annual plan<br />
+(C) A free desk chair<br />
+(D) Free printing</p>
+<h3>Talk 8 (92–94) — Excerpt from a meeting</h3>
+<p><em>"Before we close today's meeting, I want to remind everyone that the employee satisfaction survey opens next Monday and stays open for two weeks. Participation is anonymous, and we'll share a summary of the results at next month's all-hands meeting. Last year, only about half the staff responded, so this year we're offering a small prize drawing for anyone who completes it."</em></p>
+<p><strong>92.</strong> What will open next Monday?<br />
+(A) A training course<br />
+(B) A new office branch<br />
+(C) An employee satisfaction survey<br />
+(D) A hiring window</p>
+<p><strong>93.</strong> When will the results be shared?<br />
+(A) Immediately after the survey closes<br />
+(B) At next month's all-hands meeting<br />
+(C) In a company newsletter<br />
+(D) They will not be shared.</p>
+<p><strong>94.</strong> What is new about the survey this year?<br />
+(A) It is no longer anonymous.<br />
+(B) It takes longer to complete.<br />
+(C) It is mandatory for all staff.<br />
+(D) There is a prize drawing for participants.</p>
+<h3>Talk 9 (95–97) — Tour information</h3>
+<p><em>"Welcome to the history museum. Before we begin, please silence your phones and keep them put away during the tour. Photography without flash is allowed in every gallery except the textiles room. The tour will run about ninety minutes, with a short break near the halfway point where restrooms and a small café are available."</em></p>
+<p><strong>95.</strong> What are visitors asked to do with their phones?<br />
+(A) Keep them put away<br />
+(B) Turn them off completely<br />
+(C) Use them only for photos<br />
+(D) Leave them at the entrance</p>
+<p><strong>96.</strong> Where is photography not allowed?<br />
+(A) In the main hall<br />
+(B) Near the entrance<br />
+(C) In the textiles room<br />
+(D) In the café</p>
+<p><strong>97.</strong> What is available at the halfway point?<br />
+(A) A gift shop<br />
+(B) Restrooms and a café<br />
+(C) A second guide<br />
+(D) A parking area</p>
+<h3>Talk 10 (98–100) — Instructions</h3>
+<p><em>"Attention, warehouse staff. Starting today, all outgoing packages must be scanned at station three before they're loaded onto the truck, not at station one as before. This change lets us update tracking information earlier in the process. If station three's scanner is busy, please wait rather than use another station, since packages scanned elsewhere won't update correctly."</em></p>
+<p><strong>98.</strong> What change is being announced?<br />
+(A) A new delivery schedule<br />
+(B) A new uniform policy<br />
+(C) A change in truck routes<br />
+(D) A new scanning station for outgoing packages</p>
+<p><strong>99.</strong> Why is the change being made?<br />
+(A) To update tracking information earlier<br />
+(B) To reduce staff<br />
+(C) To save on shipping costs<br />
+(D) To speed up loading</p>
+<p><strong>100.</strong> What should workers do if station three is busy?<br />
+(A) Use station one instead<br />
+(B) Ask a supervisor to scan it later<br />
+(C) Wait for station three<br />
+(D) Skip the scan</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_001 — READING (100 câu: 101–200)</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The marketing team <span class="blk">________</span> a new campaign for the spring product line.<br />
+(A) develop  (B) develops  (C) developing  (D) is developing</p>
+<p><strong>102.</strong> Please submit your travel expenses <span class="blk">________</span> the end of the week.<br />
+(A) by  (B) until  (C) since  (D) for</p>
+<p><strong>103.</strong> The report was <span class="blk">________</span> reviewed before it was sent to the board of directors.<br />
+(A) care  (B) careful  (C) carefully  (D) caring</p>
+<p><strong>104.</strong> <span class="blk">________</span> the delay in shipping, the customer received the order on time.<br />
+(A) Although  (B) Despite  (C) Because of  (D) However</p>
+<p><strong>105.</strong> All employees are encouraged to <span class="blk">________</span> in the annual training program.<br />
+(A) participate  (B) participates  (C) participating  (D) participated</p>
+<p><strong>106.</strong> The new policy will <span class="blk">________</span> effect on the first of next month.<br />
+(A) take  (B) make  (C) do  (D) have</p>
+<p><strong>107.</strong> Mr. Reyes is the <span class="blk">________</span> qualified candidate for the position.<br />
+(A) more  (B) most  (C) much  (D) very</p>
+<p><strong>108.</strong> The conference has been rescheduled <span class="blk">________</span> unforeseen circumstances.<br />
+(A) although  (B) because  (C) due to  (D) since</p>
+<p><strong>109.</strong> Visitors must sign in at the front desk <span class="blk">________</span> entering the building.<br />
+(A) before  (B) despite  (C) while  (D) unless</p>
+<p><strong>110.</strong> The company's profits have increased <span class="blk">________</span> over the past three years.<br />
+(A) steady  (B) steadiness  (C) steadier  (D) steadily</p>
+<p><strong>111.</strong> Each department <span class="blk">________</span> responsible for managing its own budget.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The manager asked the team to <span class="blk">________</span> the deadline by two days.<br />
+(A) extend  (B) extending  (C) extended  (D) extension</p>
+<p><strong>113.</strong> The assembly instructions are printed <span class="blk">________</span> the back of the box.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> you have any questions about the form, please contact the help desk.<br />
+(A) Unless  (B) Despite  (C) However  (D) If</p>
+<p><strong>115.</strong> The firm has offices in twelve countries and <span class="blk">________</span> more than 5,000 people.<br />
+(A) employ  (B) employs  (C) employing  (D) employed</p>
+<p><strong>116.</strong> The renovation is expected <span class="blk">________</span> by the end of August.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Sales representatives should keep <span class="blk">________</span> records of all client meetings.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The new software is much <span class="blk">________</span> to use than the previous version.<br />
+(A) easy  (B) easiest  (C) more easy  (D) easier</p>
+<p><strong>119.</strong> Neither the printer <span class="blk">________</span> the scanner is working this morning.<br />
+(A) or  (B) and  (C) nor  (D) but</p>
+<p><strong>120.</strong> The workshop will be held <span class="blk">________</span> the third-floor conference room.<br />
+(A) in  (B) at  (C) on  (D) by</p>
+<p><strong>121.</strong> The board approved the proposal <span class="blk">________</span> some minor changes to the timeline.<br />
+(A) for  (B) of  (C) with  (D) about</p>
+<p><strong>122.</strong> The technician will <span class="blk">________</span> the equipment thoroughly before the demonstration.<br />
+(A) inspect  (B) inspects  (C) inspecting  (D) inspection</p>
+<p><strong>123.</strong> Employees who work overtime are <span class="blk">________</span> for additional compensation.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The new hire adjusted to her role <span class="blk">________</span> than her manager had expected.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The company is committed to <span class="blk">________</span> its environmental impact.<br />
+(A) reduce  (B) reduces  (C) reducing  (D) reduced</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposals offers a realistic timeline, so we asked both vendors to revise.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The customer service line is open <span class="blk">________</span> 8 A.M. to 8 P.M. every day.<br />
+(A) since  (B) between  (C) during  (D) from</p>
+<p><strong>128.</strong> The document must be signed by an <span class="blk">________</span> representative of the company.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The results of the employee survey <span class="blk">________</span> shared with all staff next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The seminar provided <span class="blk">________</span> information about the new tax regulations.<br />
+(A) use  (B) usefully  (C) useful  (D) usefulness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>Subject:</strong> Change to Monday's Team Meeting</p>
+<p>Hi everyone,</p>
+<p>Our usual Monday meeting <span class="blk">(131)</span> to Tuesday at 10 A.M. this week, because the main conference room is being used for a client presentation on Monday.</p>
+<p>The agenda <span class="blk">(132)</span> the same: project updates, the budget review, and planning for the trade show. Please send me any additional items by Friday so I can add them.</p>
+<p>If you cannot attend, let me know and I will share the notes afterward. <span class="blk">(133)</span>, the meeting will be recorded for anyone who joins remotely.</p>
+<p>Thanks for your patience as we work around the room booking. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) moves  (B) has been moved  (C) moving  (D) will move<br />
+<strong>132.</strong> (A) remains  (B) remaining  (C) to remain  (D) remained<br />
+<strong>133.</strong> (A) However  (B) Otherwise  (C) Therefore  (D) In addition<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The trade show planning committee will meet separately next week.<br />
+(B) Please remember to submit your expense reports by Friday.<br />
+(C) If anything changes again, we'll let you know as soon as possible.<br />
+(D) The new conference room will be available starting next month.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>BUILDING ACCESS UPDATE</strong></p>
+<p>Beginning October 1, all staff will use the new key-card system to enter the building. Your current cards <span class="blk">(135)</span> work after that date.</p>
+<p>New cards can be collected from the security office on the ground floor between 8 A.M. and 6 P.M. Please bring a form of photo ID. The process <span class="blk">(136)</span> only a few minutes.</p>
+<p>If you arrive before you have received your new card, security staff can let you in <span class="blk">(137)</span> you show your employee badge.</p>
+<p>We recommend picking up your card this week to avoid delays on October 1. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) will not  (B) have not  (C) had not  (D) do not<br />
+<strong>136.</strong> (A) taking  (B) takes  (C) is taken  (D) took<br />
+<strong>137.</strong> (A) despite  (B) because of  (C) as long as  (D) instead of<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The security office also handles visitor badges.<br />
+(B) Employees who lose their card will be charged a replacement fee.<br />
+(C) The building will be closed for renovations next month.<br />
+(D) Cards not picked up by then will be mailed to your home address instead.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>LEARN A NEW LANGUAGE THIS YEAR</strong></p>
+<p>Riverside Language Center is now <span class="blk">(139)</span> registrations for its winter term. We offer evening and weekend classes in Spanish, French, Mandarin, and Japanese, from beginner to advanced levels.</p>
+<p>All courses are taught by <span class="blk">(140)</span> instructors in small groups of no more than ten students. This term we are also introducing a conversation club, which is <span class="blk">(141)</span> to all current and former students at no extra charge.</p>
+<p>Classes fill quickly, so registering early is strongly recommended. <span class="blk">(142)</span> Visit riversidelanguages.example or call 555-0142.</p>
+<p><strong>139.</strong> (A) accept  (B) accepts  (C) accepting  (D) accepted<br />
+<strong>140.</strong> (A) experience  (B) experienced  (C) experiencing  (D) experiences<br />
+<strong>141.</strong> (A) open  (B) opened  (C) opening  (D) openly<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) All instructors hold advanced degrees in linguistics.<br />
+(B) The center also offers private one-on-one lessons.<br />
+(C) Tuition must be paid in full before the first class.<br />
+(D) A limited number of scholarships are also available this term.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Sales Staff <strong>FROM:</strong> Operations <strong>RE:</strong> Updated Sample Request Procedure</p>
+<p>Effective immediately, all product sample requests <span class="blk">(143)</span> through the online portal rather than by email.</p>
+<p>To request samples, log in, select the products and quantities, and enter the client's shipping address. Requests submitted before noon <span class="blk">(144)</span> the same day; later requests ship the next business day.</p>
+<p>Each salesperson may request up to 20 samples per month. Requests <span class="blk">(145)</span> this limit require manager approval.</p>
+<p>If you experience any problems with the portal, contact the operations team. We appreciate your adjustment to the new system. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) must submit  (B) must be submitted  (C) submitting  (D) submitted<br />
+<strong>144.</strong> (A) ship  (B) ships  (C) shipping  (D) shipped<br />
+<strong>145.</strong> (A) exceed  (B) exceeds  (C) exceeding  (D) exceeded<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The previous email-based system will remain available as a backup.<br />
+(B) A training session on the portal will be held next Monday.<br />
+(C) Sample requests over 20 units require director approval instead.<br />
+(D) We're confident this change will make the process faster for everyone.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Rosa Delgado (9:12 A.M.):</strong> Hi Ken, I'm running about 15 minutes late for the site visit. Traffic on Route 9.<br />
+<strong>Ken Adeyemi (9:13 A.M.):</strong> No problem. The client just called too — she pushed the start to 10:00.<br />
+<strong>Rosa Delgado (9:14 A.M.):</strong> Oh, that's a relief. I'll head straight there then. Do you have the floor plans?<br />
+<strong>Ken Adeyemi (9:15 A.M.):</strong> I printed three copies. See you there.</p>
+<p><strong>147.</strong> Why did Rosa contact Ken?<br />
+(A) To say she would be late<br />
+(B) To cancel the site visit<br />
+(C) To ask for the client's number<br />
+(D) To request the floor plans</p>
+<p><strong>148.</strong> What does Ken say he has done?<br />
+(A) Printed copies of the floor plans<br />
+(B) Called the client<br />
+(C) Left for the site<br />
+(D) Rescheduled the meeting</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>RIVERTON BAKERY OPENS SECOND LOCATION</strong></p>
+<p>Riverton Bakery, a favorite among downtown office workers for its fresh bread and pastries, opened its second shop on Maple Street last Saturday. Owner Nadia Petrov said the new location was a response to years of customer requests from the city's north side.</p>
+<p>The Maple Street shop is larger than the original and includes a small seating area with about 20 chairs. It also offers a wider lunch menu, including sandwiches and soups that are not available at the first location.</p>
+<p>To celebrate the opening, the bakery is offering a free coffee with any purchase through the end of the month. Petrov said she hopes to hire five more staff members by summer and is already considering a third location.</p>
+<p><strong>149.</strong> What is the article mainly about?<br />
+(A) A change in a bakery's menu<br />
+(B) The opening of a bakery's second shop<br />
+(C) A bakery's new owner<br />
+(D) A bakery's financial difficulties</p>
+<p><strong>150.</strong> Why did the bakery open the new location?<br />
+(A) The original shop closed<br />
+(B) Rent downtown increased<br />
+(C) Customers on the north side requested it<br />
+(D) A competitor went out of business</p>
+<p><strong>151.</strong> What is available at the Maple Street shop but not at the original?<br />
+(A) Fresh bread<br />
+(B) Free coffee<br />
+(C) Pastries<br />
+(D) Sandwiches and soups</p>
+<p><strong>152.</strong> What does Ms. Petrov say she hopes to do by summer?<br />
+(A) Hire five more staff members<br />
+(B) Open a third location<br />
+(C) Expand the seating area<br />
+(D) Extend the store hours</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE: Parking Lot B Closure</strong></p>
+<p>Parking Lot B will be closed for resurfacing on Saturday and Sunday, June 7–8. Vehicles left in the lot after 6 P.M. on Friday, June 6, will be towed at the owner's expense.</p>
+<p>Employees who normally use Lot B should park in Lot D, near the cafeteria, over the weekend. Normal parking resumes Monday, June 9.</p>
+<p><strong>153.</strong> What will happen to Parking Lot B?<br />
+(A) It will be permanently closed<br />
+(B) It will be resurfaced<br />
+(C) It will be reserved for visitors<br />
+(D) It will be expanded</p>
+<p><strong>154.</strong> Where should affected employees park over the weekend?<br />
+(A) Lot A<br />
+(B) On the street<br />
+(C) Lot D<br />
+(D) In the cafeteria</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>MOVE MORE — Corporate Fitness Classes</strong></p>
+<p>Bring energy back to your workday. Move More brings certified instructors to your office for 30-minute group fitness classes: yoga, stretching, and low-impact cardio. Classes are designed for all fitness levels and require no special equipment or clothing.</p>
+<p>Packages start at $200 per month for one class per week. Companies that book two or more classes per week receive a 10% discount. A free trial class is available for new clients.</p>
+<p>Contact us at movemore.example or 555-0190 to schedule your trial.</p>
+<p><strong>155.</strong> What does Move More provide?<br />
+(A) Gym memberships for employees<br />
+(B) Nutrition counseling<br />
+(C) On-site fitness classes<br />
+(D) Standing desks</p>
+<p><strong>156.</strong> How long is each class?<br />
+(A) 15 minutes<br />
+(B) 30 minutes<br />
+(C) 45 minutes<br />
+(D) 60 minutes</p>
+<p><strong>157.</strong> How can a company get a discount?<br />
+(A) By paying for a full year in advance<br />
+(B) By referring another company<br />
+(C) By having more than 50 employees<br />
+(D) By booking two or more classes per week</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> All Staff <strong>From:</strong> Facilities <strong>Subject:</strong> Recycling Program Changes</p>
+<p>Starting next Monday, we are updating our recycling program. New bins will be placed on every floor, with separate sections for paper, plastic, and cans. The single mixed-recycling bins will be removed.</p>
+<p>Please note that food containers must be rinsed before recycling, and plastic bags cannot be recycled in the building — please take them to a grocery-store drop-off instead.</p>
+<p>A short guide will be posted above each bin. If your team needs a desk-side paper bin, email facilities with your floor and headcount.</p>
+<p><strong>158.</strong> What change is being announced?<br />
+(A) Recycling bins will be separated by material<br />
+(B) Recycling will no longer be offered<br />
+(C) Bins will be moved to the basement<br />
+(D) A recycling fee will be introduced</p>
+<p><strong>159.</strong> What does the email say about plastic bags?<br />
+(A) They should go in the plastic section<br />
+(B) They must be rinsed first<br />
+(C) They cannot be recycled in the building<br />
+(D) They will be collected weekly</p>
+<p><strong>160.</strong> What should a team do if it wants a desk-side paper bin?<br />
+(A) Buy one from the supply room<br />
+(B) Ask the cleaning staff<br />
+(C) Fill out a form in the lobby<br />
+(D) Email facilities with the floor and headcount</p>
+<h3>Passage 6 — Schedule (161–162)</h3>
+<p><strong>GREENFIELD COMMUNITY CENTER — Room 3 Bookings, Week of May 12</strong></p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Time</th>
+<th>Group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mon</td>
+<td>6:00–8:00 P.M.</td>
+<td>Photography Club</td>
+</tr>
+<tr>
+<td>Tue</td>
+<td>5:30–7:00 P.M.</td>
+<td>Language Exchange</td>
+</tr>
+<tr>
+<td>Wed</td>
+<td>—</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>Thu</td>
+<td>6:00–9:00 P.M.</td>
+<td>Community Choir</td>
+</tr>
+<tr>
+<td>Fri</td>
+<td>4:00–6:00 P.M.</td>
+<td>Chess Club</td>
+</tr>
+</tbody>
+</table>
+<p>To book Room 3, contact the front desk at least 48 hours in advance. A refundable $20 deposit is required.</p>
+<p><strong>161.</strong> Which day is Room 3 available for a new booking?<br />
+(A) Wednesday<br />
+(B) Monday<br />
+(C) Thursday<br />
+(D) Friday</p>
+<p><strong>162.</strong> What is required to book Room 3?<br />
+(A) A membership card<br />
+(B) Written approval from the manager<br />
+(C) A refundable deposit<br />
+(D) Payment in cash</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Halloran,</p>
+<p>Thank you for your letter of March 3 regarding the noise from the construction next to your apartment building. We understand how disruptive early-morning work can be.</p>
+<p>We have reviewed the permit for the site. Under city rules, construction may not begin before 7 A.M. on weekdays or before 9 A.M. on Saturdays, and is not permitted on Sundays. If work is taking place outside these hours, it is a violation, and we encourage you to report the date and time to our office so we can follow up with the contractor.</p>
+<p>We have also asked the site manager to keep heavy deliveries away from the residential side of the street where possible. The project is scheduled to finish in late June.</p>
+<p>Sincerely,<br />
+City Planning Office</p>
+<p><strong>163.</strong> Why did Mr. Halloran write to the City Planning Office?<br />
+(A) To complain about construction noise<br />
+(B) To apply for a construction permit<br />
+(C) To request a parking permit<br />
+(D) To report a broken streetlight</p>
+<p><strong>164.</strong> According to the letter, when may construction begin on Saturdays?<br />
+(A) 7 A.M.<br />
+(B) 8 A.M.<br />
+(C) 9 A.M.<br />
+(D) It is not permitted on Saturdays</p>
+<p><strong>165.</strong> What does the office encourage Mr. Halloran to do?<br />
+(A) Contact the contractor directly<br />
+(B) Report the date and time of any early work<br />
+(C) Attend a city council meeting<br />
+(D) Move to a different apartment</p>
+<p><strong>166.</strong> When is the project expected to be finished?<br />
+(A) Early March<br />
+(B) Late April<br />
+(C) Early June<br />
+(D) Late June</p>
+<h3>Passage 8 — Help Center page (167–169)</h3>
+<p><strong>HELP CENTER — Returns and Exchanges</strong></p>
+<p><strong>How long do I have to return an item?</strong><br />
+Most items can be returned within 30 days of delivery for a full refund. Items marked "final sale" cannot be returned.</p>
+<p><strong>Do I need the original packaging?</strong><br />
+Yes. Items must be returned unused and in their original packaging.</p>
+<p><strong>Who pays for return shipping?</strong><br />
+If the return is due to our error (wrong or defective item), we cover shipping. Otherwise, a $6 return-shipping fee is deducted from your refund.</p>
+<p><strong>How long do refunds take?</strong><br />
+Refunds are processed within 5 business days of our receiving the item, and may take a few additional days to appear on your statement.</p>
+<p><strong>167.</strong> What is true about "final sale" items?<br />
+(A) They ship for free<br />
+(B) They have a longer return window<br />
+(C) They must be exchanged, not refunded<br />
+(D) They cannot be returned</p>
+<p><strong>168.</strong> When does the company pay for return shipping?<br />
+(A) Always<br />
+(B) Never<br />
+(C) When the return is due to the company's error<br />
+(D) Only for orders over $50</p>
+<p><strong>169.</strong> How soon are refunds processed after the item is received?<br />
+(A) Within 5 business days<br />
+(B) Within 2 business days<br />
+(C) Within 10 business days<br />
+(D) Within 30 days</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> Reception Staff <strong>FROM:</strong> Office Manager <strong>RE:</strong> Visitor Sign-In Tablets</p>
+<p>The paper visitor logbook at the front desk will be replaced with a sign-in tablet starting Monday. Visitors will type their name, company, and the person they are visiting, and the system will automatically notify that person.</p>
+<p>Please keep the paper logbook at the desk for one more week as a backup while everyone adjusts. If the tablet is not working, use the paper log and let IT know.</p>
+<p>Name badges will still be printed at the desk, but now they will print automatically once a visitor completes sign-in.</p>
+<p><strong>170.</strong> What is replacing the paper logbook?<br />
+(A) A sign-in tablet<br />
+(B) A mobile app<br />
+(C) A security guard<br />
+(D) A phone system</p>
+<p><strong>171.</strong> Why should staff keep the paper logbook for another week?<br />
+(A) For legal record-keeping<br />
+(B) As a backup during the transition<br />
+(C) To collect visitor feedback<br />
+(D) Because the tablets have not arrived</p>
+<p><strong>172.</strong> What will happen automatically when a visitor signs in?<br />
+(A) The front door will unlock<br />
+(B) A parking pass will be issued<br />
+(C) A name badge will print<br />
+(D) A photo will be taken</p>
+<h3>Passage 10 — Online review (173–175)</h3>
+<p>★★★★☆ <strong>Solid choice for a working lunch</strong> — reviewed by D. Osei</p>
+<p>I've been to Corner Table three times now for lunch meetings. The food is consistently good — the grain bowls and the daily soup are highlights — and it comes out fast, which matters when you have an hour. The room is a little loud at peak times, so if you need a quiet conversation, aim for before noon or after 1:30. Service is friendly but can be slow to bring the check; ask for it when your food arrives. Prices are reasonable for the area. I'll keep coming back.</p>
+<p><strong>173.</strong> What does the reviewer mainly use the restaurant for?<br />
+(A) Family dinners<br />
+(B) Weekend brunch<br />
+(C) Large parties<br />
+(D) Lunch meetings</p>
+<p><strong>174.</strong> What does the reviewer suggest to avoid noise?<br />
+(A) Going before noon or after 1:30<br />
+(B) Sitting near the window<br />
+(C) Reserving a private room<br />
+(D) Visiting on weekdays only</p>
+<p><strong>175.</strong> What tip does the reviewer give about the check?<br />
+(A) Pay at the counter<br />
+(B) Ask for it when the food arrives<br />
+(C) Tip in cash<br />
+(D) Split it in advance</p>
+<h3>Passages 11–12 — Job posting &amp; application email (176–180)</h3>
+<p><strong>Document 1</strong></p>
+<p><strong>JOB OPENING: Office Coordinator</strong> — Brightview Consulting · Full-time</p>
+<p>We are seeking an Office Coordinator to manage day-to-day operations at our downtown office. Responsibilities include scheduling meetings, ordering supplies, greeting visitors, and supporting the finance team with invoice tracking.</p>
+<p>Requirements: 2+ years of administrative experience; proficiency with spreadsheet and calendar software; strong organizational skills.</p>
+<p>We offer $44,000–$50,000, health benefits, and 15 days of paid vacation. To apply, send a résumé and cover letter to jobs@brightview.example by April 18. The position starts May 12.</p>
+<p><strong>Document 2</strong></p>
+<p><strong>From:</strong> Teresa Lin <strong>To:</strong> jobs@brightview.example <strong>Subject:</strong> Office Coordinator Application</p>
+<p>Dear Hiring Manager,</p>
+<p>I am writing to apply for the Office Coordinator position. I have three years of administrative experience, most recently as an assistant at a 30-person architecture firm, where I managed scheduling, supply orders, and expense reports.</p>
+<p>I am very comfortable with spreadsheet and calendar tools and am often the person colleagues turn to for organizing events and travel. I am available to start on May 5, a week earlier than your listed date if that is helpful.</p>
+<p>My résumé is attached. Thank you for your consideration.</p>
+<p>Best regards,<br />
+Teresa Lin</p>
+<p><strong>176.</strong> What is NOT listed as a responsibility of the Office Coordinator?<br />
+(A) Scheduling meetings<br />
+(B) Ordering supplies<br />
+(C) Managing the company website<br />
+(D) Supporting invoice tracking</p>
+<p><strong>177.</strong> What is the minimum experience required for the position?<br />
+(A) One year<br />
+(B) Two years<br />
+(C) Three years<br />
+(D) Five years</p>
+<p><strong>178.</strong> What does Teresa Lin say about her most recent job?<br />
+(A) It was at an architecture firm<br />
+(B) It was her first job<br />
+(C) It was part-time<br />
+(D) It was in the finance department</p>
+<p><strong>179.</strong> How does Teresa's experience compare with the requirement?<br />
+(A) She has less experience than required<br />
+(B) She exactly meets the minimum<br />
+(C) The posting does not specify<br />
+(D) She has more experience than the minimum</p>
+<p><strong>180.</strong> What does Teresa offer regarding the start date?<br />
+(A) She needs to start two weeks later<br />
+(B) She can start a week earlier than listed<br />
+(C) She can only start in June<br />
+(D) She is not available until June</p>
+<h3>Passages 13–14 — Two emails about an order (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Victor Ramos, Purchasing — Halcyon Studios <strong>To:</strong> orders@paperplus.example <strong>Subject:</strong> Order PP-3391 — Short Shipment</p>
+<p>Hello,</p>
+<p>We received Order PP-3391 today. The packing slip lists 12 boxes of A4 paper and 6 boxes of letterhead, but only the 12 boxes of A4 paper arrived. The 6 boxes of letterhead are missing.</p>
+<p>We have a print job scheduled for Thursday that needs the letterhead. Can you confirm when the missing boxes will arrive?</p>
+<p>Thanks, Victor Ramos</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> orders@paperplus.example <strong>To:</strong> Victor Ramos <strong>Subject:</strong> RE: Order PP-3391 — Short Shipment</p>
+<p>Dear Mr. Ramos,</p>
+<p>I apologize for the error. Our warehouse confirms the letterhead was left off the truck. We are sending the 6 boxes by overnight courier at no charge; they will arrive Wednesday by noon, ahead of your Thursday print job.</p>
+<p>As an apology, we have added a 10% credit to your account, which you will see on your next invoice. Please let me know if there is anything else we can do.</p>
+<p>Regards, Paper Plus Customer Service</p>
+<p><strong>181.</strong> What problem does Victor Ramos report?<br />
+(A) Part of the order is missing<br />
+(B) The wrong type of paper was delivered<br />
+(C) The order arrived damaged<br />
+(D) He was charged the wrong amount</p>
+<p><strong>182.</strong> Why does Mr. Ramos need the missing items quickly?<br />
+(A) He is closing the office for a holiday<br />
+(B) The storage room is being cleaned<br />
+(C) A client is visiting on Wednesday<br />
+(D) He has a print job on Thursday</p>
+<p><strong>183.</strong> What caused the problem, according to Paper Plus?<br />
+(A) A computer error<br />
+(B) A shipping-address mistake<br />
+(C) The items were left off the truck<br />
+(D) The items were out of stock</p>
+<p><strong>184.</strong> When will the missing boxes arrive?<br />
+(A) Tuesday morning<br />
+(B) Wednesday by noon<br />
+(C) Thursday afternoon<br />
+(D) The following Monday</p>
+<p><strong>185.</strong> What compensation does Paper Plus offer?<br />
+(A) A full refund<br />
+(B) A replacement of the entire order<br />
+(C) Free shipping on the next order<br />
+(D) A 10% account credit</p>
+<h3>Passages 15–17 — Expo flyer, confirmation &amp; email (186–190)</h3>
+<p><strong>Document 1 — Flyer</strong></p>
+<p><strong>SMALL BUSINESS EXPO — Saturday, September 20</strong><br />
+Downtown Convention Hall · 9:00 A.M. – 4:00 P.M.</p>
+<ul>
+<li>40+ exhibitor booths</li>
+<li>Free workshops on marketing, bookkeeping, and hiring</li>
+<li>Keynote at 1:00 P.M.: "Growing Without Losing Focus"</li>
+<li>Admission: $10 in advance, $15 at the door</li>
+<li>Students free with ID</li>
+</ul>
+<p>Register at sbexpo.example.</p>
+<p><strong>Document 2 — Registration confirmation</strong></p>
+<p>Thank you for registering for the Small Business Expo.<br />
+Name: Grace Okafor · Ticket type: Advance admission ($10) · Confirmation #: SBX-2094<br />
+Note: Bring this confirmation (printed or on your phone) to the registration desk to collect your badge. Workshops are first-come, first-served; arrive 15 minutes early for popular sessions.</p>
+<p><strong>Document 3 — Email</strong></p>
+<p><strong>From:</strong> Grace Okafor <strong>To:</strong> info@sbexpo.example <strong>Subject:</strong> Workshop question</p>
+<p>Hi,</p>
+<p>I'm registered for the Expo (SBX-2094). I'd like to attend both the bookkeeping workshop and the hiring workshop. Are they at the same time, or can I do both? Also, is the keynote included with my admission, or is it a separate ticket?</p>
+<p>Thanks, Grace</p>
+<p><strong>186.</strong> How much did Grace Okafor pay for admission?<br />
+(A) Free<br />
+(B) $10<br />
+(C) $15<br />
+(D) $20</p>
+<p><strong>187.</strong> According to the flyer, who can attend for free?<br />
+(A) Members of the chamber of commerce<br />
+(B) Exhibitors<br />
+(C) Students with ID<br />
+(D) Anyone who registers before September 1</p>
+<p><strong>188.</strong> What does the confirmation tell attendees to do?<br />
+(A) Bring the confirmation to collect a badge<br />
+(B) Pay the balance at the door<br />
+(C) Choose workshops in advance<br />
+(D) Park in the convention hall garage</p>
+<p><strong>189.</strong> What does Grace ask about in her email?<br />
+(A) A refund<br />
+(B) Directions to the venue<br />
+(C) Exhibitor booth prices<br />
+(D) Whether two workshops overlap</p>
+<p><strong>190.</strong> Based on the flyer, what can be said about the keynote?<br />
+(A) It requires a separate ticket<br />
+(B) It starts at 9:00 A.M.<br />
+(C) It is included with Expo admission<br />
+(D) It is only for exhibitors</p>
+<h3>Passages 18–20 — Trip itinerary, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Itinerary</strong></p>
+<p><strong>Traveler:</strong> Sam Whitfield · <strong>Trip:</strong> Chicago (client visit)<br />
+- Tue, Oct 7: Flight AA-218, depart 8:10 A.M., arrive 10:30 A.M.<br />
+- Tue, Oct 7: Client meeting, 2:00–4:00 P.M., Kessler &amp; Co. offices<br />
+- Wed, Oct 8: Site tour, 9:00 A.M.–12:00 P.M.<br />
+- Wed, Oct 8: Flight AA-455, depart 6:40 P.M.<br />
+- Hotel: Lakeside Inn (check-in Oct 6)</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Whitfield <strong>To:</strong> Dana Cole (Travel Desk) <strong>Subject:</strong> Itinerary change</p>
+<p>Hi Dana,</p>
+<p>The client just moved our Tuesday meeting to Monday, Oct 6, at 3:00 P.M. Can we move my outbound flight to Monday morning instead of Tuesday? The rest of the trip stays the same, and I'll still fly home Wednesday evening. The hotel is already booked from Oct 6, so that part should be fine.</p>
+<p>Thanks, Sam</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> Dana Cole <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: Itinerary change</p>
+<p>Hi Sam,</p>
+<p>Done. You're now on Flight AA-120, Monday Oct 6, departing 7:00 A.M., arriving 9:20 A.M. — plenty of time before the 3:00 P.M. meeting. Your Wednesday evening return flight is unchanged.</p>
+<p>The hotel was already set to check in on Oct 6, so no change was needed — you check out on the 8th, the morning of your return flight. That's two nights. Confirmation attached.</p>
+<p><strong>191.</strong> Why does Sam email the travel desk?<br />
+(A) To cancel the trip<br />
+(B) To book a rental car<br />
+(C) To request an earlier outbound flight<br />
+(D) To change hotels</p>
+<p><strong>192.</strong> What caused the change to Sam's schedule?<br />
+(A) A flight was canceled<br />
+(B) The client moved the meeting earlier<br />
+(C) Bad weather in Chicago<br />
+(D) A scheduling error by the travel desk</p>
+<p><strong>193.</strong> What time does Sam's new outbound flight (AA-120) depart?<br />
+(A) 7:00 A.M.<br />
+(B) 8:10 A.M.<br />
+(C) 9:20 A.M.<br />
+(D) 6:40 P.M.</p>
+<p><strong>194.</strong> How many nights will Sam stay at the hotel?<br />
+(A) One<br />
+(B) Three<br />
+(C) Four<br />
+(D) Two</p>
+<p><strong>195.</strong> When will Sam check out of the hotel?<br />
+(A) October 6<br />
+(B) October 7<br />
+(C) October 8<br />
+(D) October 9</p>
+<h3>Passages 21–23 — Remote-work policy, employee email &amp; HR reply (196–200)</h3>
+<p><strong>Document 1 — Policy excerpt</strong></p>
+<p><strong>REMOTE WORK POLICY (excerpt)</strong></p>
+<p>Eligible employees may work remotely up to two days per week. To be eligible, an employee must:<br />
+- have completed at least six months with the company,<br />
+- have a satisfactory most-recent performance review, and<br />
+- receive written approval from their direct manager.</p>
+<p>Remote days must be scheduled in advance in the team calendar. Employees working remotely are expected to be reachable during core hours (10 A.M.–3 P.M.) and to attend any required on-site meetings.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Aisha Bello <strong>To:</strong> HR <strong>Subject:</strong> Remote work eligibility</p>
+<p>Hi,</p>
+<p>I joined the company on March 3 and my six-month mark is coming up. My last review was rated "meets expectations." I'd like to start working remotely on Wednesdays and Fridays. What do I need to do?</p>
+<p>Also, our team has a required planning meeting every other Thursday. Would I still need to come in for that?</p>
+<p>Thanks, Aisha</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> HR <strong>To:</strong> Aisha Bello <strong>Subject:</strong> RE: Remote work eligibility</p>
+<p>Hi Aisha,</p>
+<p>You'll reach six months on September 3, and a "meets expectations" review satisfies the performance requirement. The last step is written approval from your manager — send them the policy link and ask them to email HR confirming.</p>
+<p>Once approved, add your remote days (Wednesday and Friday) to the team calendar. Your required Thursday meeting falls on an in-office day anyway, so there's no conflict — you would attend it in person as normal.</p>
+<p><strong>196.</strong> What is the maximum number of remote days per week under the policy?<br />
+(A) One<br />
+(B) Two<br />
+(C) Three<br />
+(D) Five</p>
+<p><strong>197.</strong> Which eligibility requirement does Aisha still need to complete?<br />
+(A) Six months of employment<br />
+(B) A satisfactory performance review<br />
+(C) A training course<br />
+(D) Written manager approval</p>
+<p><strong>198.</strong> When will Aisha reach her six-month mark?<br />
+(A) March 3<br />
+(B) June 3<br />
+(C) September 3<br />
+(D) December 3</p>
+<p><strong>199.</strong> What does HR tell Aisha to do after her manager approves?<br />
+(A) Sign a new contract<br />
+(B) Add her remote days to the team calendar<br />
+(C) Notify the IT department<br />
+(D) Submit a weekly report</p>
+<p><strong>200.</strong> What does HR say about Aisha's required Thursday meeting?<br />
+(A) She would attend it in person as normal<br />
+(B) She can attend it remotely<br />
+(C) It has been canceled<br />
+(D) It will be moved to Wednesday</p>
+<hr />
+<p><em>Hết phần Reading — Set_001. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_001</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A27/B26/C29/D18 (Part 2 không có D), Reading A26/B24/C27/D23.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 (B)</strong> "holding some documents" — hành động đúng · bẫy: "repairing" (không sửa máy)</li>
+<li><strong>2 (C)</strong> "looking at a tablet together" · bẫy: "shaking hands" (không có)</li>
+<li><strong>3 (D)</strong> "umbrellas have been opened" — trạng thái · bẫy: có "customers/waiter" nhưng ảnh không có người</li>
+<li><strong>4 (A)</strong> "examining a control panel" · bẫy: "putting on helmets" (đã đội sẵn)</li>
+<li><strong>5 (C)</strong> "luggage is arranged on a conveyor belt" · bẫy: "passengers boarding"</li>
+<li><strong>6 (D)</strong> "watering some plants" · bẫy: "planting a tree" / "mowing"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>7 A</strong> "Where" → vị trí · bẫy: lặp "printed", "copies"</li>
+<li><strong>8 B</strong> "When" → mốc thời gian · bẫy: lặp "budget"</li>
+<li><strong>9 C</strong> "Who" → người/bộ phận · bẫy: (A) trả lời Where, (B) Yes cho câu Who</li>
+<li><strong>13 A</strong> tag question xác nhận → "Yes, sales are up" · bẫy: lặp "quarter", "figure"</li>
+<li><strong>15 B</strong> "Isn't...?" → đính chính (dời sang tháng 7) · bẫy: lặp "branch"</li>
+<li><strong>16 C</strong> yêu cầu giúp → đồng ý gián tiếp "I have a few minutes" · bẫy: lặp "data/database"</li>
+<li><strong>19 C</strong> trả lời gián tiếp "I can check" · bẫy: lặp "leave"</li>
+<li><strong>24 B</strong> "Should we order more paper?" → "Yes, we're almost out" · bẫy: lặp "printer"</li>
+<li><strong>26 A</strong> "Why moved online?" → lý do gián tiếp "Two people are traveling" · bẫy: lặp "moves"</li>
+<li><strong>29 A</strong> "confirmed the contract?" → "Not yet, I'll follow up today" · bẫy: lặp "contract", "signed"</li>
+<li><strong>31 B</strong> "Isn't...usually locked?" → đính chính "it's open for restocking today" · bẫy: lặp "closet", "locked"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "move it to the afternoon" · "2 to 4" · "I'll send you the remote and a quick setup guide"</li>
+<li>35–37: "vendor proposals for the new packaging" · "delivery time is longer" · "I'll finish the third one this afternoon"</li>
+<li>38–40: "the office move" · "pack their own supplies by Friday" · "IT team ... separately on Monday"</li>
+<li>41–43: "Thanks for coming in for the interview" · "a team of twelve" · "involve some travel — about once a month"</li>
+<li>44–46: "checkout process is confusing" · "ask the web team to look at it" · "survey ... ready by Wednesday"</li>
+<li>47–49: "the wrong color arrived" · "Do you have your order number?" · "I'll return it"</li>
+<li>50–52: "app will not connect" · "restarting his laptop" · "submit an IT ticket"</li>
+<li>53–55: "addressed to a former employee" · "leave it at the front desk with a note" · "claimed by the end of the day"</li>
+<li>56–58: "draft agenda" · "adding ten minutes for the hiring plan" · "send the agenda around today"</li>
+<li>59–61: "keeps jamming" · "reported the issue to facilities" · "call facilities again"</li>
+<li>62–64: "finalize the vendor for the holiday party" · "Oakview includes setup and cleanup" · "confirm the headcount ... by Friday"</li>
+<li>65–67: "next quarter's travel budget" · "regional sales conference in March" · "check with Tom about his hotel nights"</li>
+<li>68–70: "file ... only on his desktop" · "upload it when you get a chance" · "upload it right now"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "this Thursday" · "appointments for the flu shot can be booked" · "open to all employees and contractors"</li>
+<li>74–76: "confirm where you'd like them sent" · "The print run is finished" · "I'll send them to the address on file"</li>
+<li>77–79: "bike-share program" · "unlimited 45-minute rides" · "Sign up before the end of March and get a free helmet"</li>
+<li>80–82: "the warehouse expansion" · "begin using the new space in September" · "submit their staffing requests to HR by the end of this month"</li>
+<li>83–85: "parking garage ... closed for resurfacing" · "badge access ... activated by Friday afternoon" · "contact building security"</li>
+<li>86–88: "confirm where you'd like them sent" (shipping preference) · "printer paper is temporarily out of stock" · "call me back"</li>
+<li>89–91: "co-working spaces" · "unlimited coffee included in every membership" · "first two weeks are free"</li>
+<li>92–94: "employee satisfaction survey opens next Monday" · "share a summary at next month's all-hands meeting" · "prize drawing for anyone who completes it"</li>
+<li>95–97: "keep them put away" · "except the textiles room" · "restrooms and a small café"</li>
+<li>98–100: "scanned at station three ... before loaded" · "update tracking information earlier" · "wait rather than use another station"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 — Incomplete Sentences (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>D</td>
+<td>hành động đang diễn ra → hiện tại tiếp diễn <code>is developing</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>was reviewed</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>B</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be encouraged to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>take effect</code> (có hiệu lực — cố định)</td>
+</tr>
+<tr>
+<td>107</td>
+<td>B</td>
+<td><code>the <span class="fill"></span> qualified</code> → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>C</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>before</code> + V-ing</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>have increased</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each department</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask somebody to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the back of</code></td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề điều kiện → <code>If</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The firm</code> số ít → <code>employs</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động (renovation <strong>được</strong> hoàn thành) → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>records</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>easier</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>Neither ... nor ...</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>in</code> + phòng (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td>"phê duyệt <strong>kèm theo</strong> vài thay đổi" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>inspect</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>adjusted</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... offers</code> — cả hai đều không đạt</td>
+</tr>
+<tr>
+<td>127</td>
+<td>D</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>representative</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (results <strong>được</strong> chia sẻ)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>information</code> → tính từ <code>useful</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 — Text Completion (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>cuộc họp <strong>được</strong> dời → bị động <code>has been moved</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>chủ ngữ <code>The agenda</code> số ít → <code>remains</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td>thêm thông tin (ghi hình) → <code>In addition</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> tiếp nối lời cảm ơn → trấn an sẽ báo tiếp nếu có thay đổi</td>
+</tr>
+<tr>
+<td>135</td>
+<td>A</td>
+<td>"sau ngày đó thẻ <strong>sẽ không</strong> dùng được" → tương lai <code>will not</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>B</td>
+<td>chủ ngữ <code>The process</code> số ít → <code>takes</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>C</td>
+<td>+ mệnh đề <code>you show your badge</code> → <code>as long as</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> phương án dự phòng nếu không đến lấy thẻ kịp</td>
+</tr>
+<tr>
+<td>139</td>
+<td>C</td>
+<td><code>is now <span class="fill"></span></code> → hiện tại tiếp diễn <code>accepting</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>B</td>
+<td>trước danh từ <code>instructors</code> → tính từ <code>experienced</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>A</td>
+<td><code>which is <span class="fill"></span> to all students</code> → tính từ <code>open</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> thêm lý do hấp dẫn trước lời kêu gọi hành động (CTA)</td>
+</tr>
+<tr>
+<td>143</td>
+<td>B</td>
+<td>requests <strong>được</strong> nộp → bị động <code>must be submitted</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>A</td>
+<td>chủ ngữ <code>Requests</code> (số nhiều, đã rút gọn "submitted before noon") → <code>ship</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>C</td>
+<td>phân từ rút gọn: "Requests exceeding this limit"</td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời khẳng định tích cực khép lại thông báo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 — Reading (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>B</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>A</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>B</td>
+</tr>
+<tr>
+<td>148</td>
+<td>A</td>
+<td>157</td>
+<td>D</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>B</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>B</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>D</td>
+<td>176</td>
+<td>C</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>D</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>C</td>
+<td>168</td>
+<td>C</td>
+<td>177</td>
+<td>B</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>D</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>A</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>A</td>
+<td>161</td>
+<td>A</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>D</td>
+<td>188</td>
+<td>A</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>B</td>
+<td>162</td>
+<td>C</td>
+<td>171</td>
+<td>B</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>D</td>
+<td>198</td>
+<td>C</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>A</td>
+<td>190</td>
+<td>C</td>
+<td>199</td>
+<td>B</td>
+</tr>
+<tr>
+<td>155</td>
+<td>C</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>C</td>
+<td>200</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>151 D</strong> — "sandwiches and soups that are not available at the first location"<br />
+- <strong>157 D</strong> — "book two or more classes per week receive a 10% discount"<br />
+- <strong>164 C</strong> — "not begin before ... 9 A.M. on Saturdays"<br />
+- <strong>166 D</strong> — "scheduled to finish in late June"<br />
+- <strong>179 D</strong> — yêu cầu 2 năm, Teresa có 3 năm → nhiều hơn mức tối thiểu<br />
+- <strong>181 A</strong> — "only the 12 boxes of A4 paper arrived. The 6 boxes of letterhead are missing"<br />
+- <strong>185 D</strong> — "added a 10% credit to your account"<br />
+- <strong>190 C</strong> — keynote nằm trong chương trình, admission $10/$15 (không nói vé riêng) → included<br />
+- <strong>194 D</strong> — Dana xác nhận "That's two nights"<br />
+- <strong>195 C</strong> — "you check out on the 8th"<br />
+- <strong>197 D</strong> — Aisha đã đủ 2 điều kiện; còn thiếu "written approval from your manager"<br />
+- <strong>200 A</strong> — "you would attend it in person as normal"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Số câu đúng theo Part:
+  P1: <span class="fill"></span>/6   P2: <span class="fill"></span>/25   P3: <span class="fill"></span>/39   P4: <span class="fill"></span>/30
+  P5: <span class="fill"></span>/30  P6: <span class="fill"></span>/16   P7: <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre>
+<p><strong>Quy đổi thô (tham khảo, KHÔNG chính xác bằng Study4):</strong><br />
+Reading 80–100/100 ≈ RC 400+ · 60/100 ≈ ~300 · 45/100 ≈ ~230.</p></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_001 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai (không biết từ / sai luật / nghe hụt / hết giờ / bẫy)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới cần thêm vào <code>../../Review/Vocab_Bank/</code>: </li>
+</ul>
+<p>→ Chuyển chi tiết sang <code>../../Review/Daily_Review/</code> và <code>../../Review/Error_Analysis/</code>.</p></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

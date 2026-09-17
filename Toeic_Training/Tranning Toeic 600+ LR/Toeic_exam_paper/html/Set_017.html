@@ -1,0 +1,2248 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_017 — Energy & Utilities</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="017">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_017</strong>
+    <span class="theme">Energy &amp; Utilities</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_017 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Công nhân điện lực đứng trong giỏ nâng, sửa đường dây trên cột.]</em><br />
+(A) A worker is reading a meter on a house.<br />
+(B) A utility worker is repairing lines from a bucket lift.<br />
+(C) Two people are inspecting a solar panel.<br />
+(D) A truck is being loaded with cable.</p>
+<p><strong>2.</strong> <em>[Ảnh: Cánh đồng pin mặt trời trải dài dưới nắng.]</em><br />
+(A) Rows of solar panels stretch across a field.<br />
+(B) Workers are cleaning the panels with brushes.<br />
+(C) A panel is being lifted onto a roof.<br />
+(D) The field is covered with snow.</p>
+<p><strong>3.</strong> <em>[Ảnh: Kỹ thuật viên xem các đồng hồ đo trên bảng điều khiển trong phòng vận hành.]</em><br />
+(A) A control room is empty.<br />
+(B) Someone is flipping a large switch.<br />
+(C) A technician is checking gauges on a control panel.<br />
+(D) Wires are being pulled through a conduit.</p>
+<p><strong>4.</strong> <em>[Ảnh: Trạm biến áp có hàng rào, không có người, thiết bị đứng yên.]</em><br />
+(A) Crews are working inside the substation.<br />
+(B) A gate is being opened.<br />
+(C) A transformer is being delivered.<br />
+(D) The substation is fenced and unattended.</p>
+<p><strong>5.</strong> <em>[Ảnh: Nhân viên giải thích hoá đơn cho khách hàng qua quầy dịch vụ.]</em><br />
+(A) A representative is going over a bill with a customer.<br />
+(B) A line is forming at the counter.<br />
+(C) Someone is paying with a card.<br />
+(D) A brochure rack is being restocked.</p>
+<p><strong>6.</strong> <em>[Ảnh: Công nhân lắp một công tơ thông minh mới lên tường ngoài của căn nhà.]</em><br />
+(A) A meter is being read with a handheld device.<br />
+(B) An old meter is being boxed up.<br />
+(C) A worker is installing a new smart meter on a wall.<br />
+(D) A power line is being connected to the house.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is the scheduled outage for the maintenance work?<br />
+(A) Sunday between 2 and 6 A.M.<br />
+(B) On the west feeder line.<br />
+(C) About four hours.</p>
+<p><strong>8.</strong> Who do I call to report a gas smell?<br />
+(A) It's been a few minutes.<br />
+(B) The 24-hour emergency line.<br />
+(C) In the utility room.</p>
+<p><strong>9.</strong> Where is the main water shutoff for the building?<br />
+(A) In the basement by the meter.<br />
+(B) It was replaced last year.<br />
+(C) Turn it clockwise.</p>
+<p><strong>10.</strong> Why did my electric bill go up so much this month?<br />
+(A) On the online portal.<br />
+(B) It's due on the 15th.<br />
+(C) The rate changed in June.</p>
+<p><strong>11.</strong> How long will the power be out in this area?<br />
+(A) Crews estimate about three hours.<br />
+(B) A tree fell on the line.<br />
+(C) The whole north side.</p>
+<p><strong>12.</strong> Could you take a meter reading before you leave?<br />
+(A) The meter is around back.<br />
+(B) I'll do it on my way out.<br />
+(C) It reads in kilowatt-hours.</p>
+<p><strong>13.</strong> The new time-of-use rate saves money if you shift usage, doesn't it?<br />
+(A) It started this quarter.<br />
+(B) Yes, if you run big appliances off-peak.<br />
+(C) The peak hours are 4 to 9.</p>
+<p><strong>14.</strong> Should we switch the building to the solar-plus-storage plan or stay on standard?<br />
+(A) The panels are on the south roof.<br />
+(B) The installer comes Thursday.<br />
+(C) Solar-plus-storage pays off in about seven years.</p>
+<p><strong>15.</strong> Isn't the water main flush scheduled for this week?<br />
+(A) It can cause cloudy water for a day.<br />
+(B) The hydrants are painted yellow.<br />
+(C) Yes, Tuesday and Wednesday nights.</p>
+<p><strong>16.</strong> Can you show me how to submit a meter reading online?<br />
+(A) The reading was high.<br />
+(B) Sure — log in and enter it under "My Meter."<br />
+(C) We read it every two months.</p>
+<p><strong>17.</strong> What did the energy audit recommend first?<br />
+(A) The auditor spent two hours here.<br />
+(B) The report is quite detailed.<br />
+(C) Sealing the attic and adding insulation.</p>
+<p><strong>18.</strong> Where can I drop off the old thermostat for recycling?<br />
+(A) At the utility's service center on Oak Street.<br />
+(B) It still works fine.<br />
+(C) We switched to a smart one.</p>
+<p><strong>19.</strong> Do you know whether the rebate for the heat pump was approved?<br />
+(A) The heat pump was installed in March.<br />
+(B) Check the status in your account.<br />
+(C) It's a fairly large rebate.</p>
+<p><strong>20.</strong> I think we're paying for more capacity than we use.<br />
+(A) We could ask for a demand review.<br />
+(B) The bill comes monthly.<br />
+(C) Capacity charges are separate.</p>
+<p><strong>21.</strong> Could you check the meter readings this morning?<br />
+(A) I'll check them right now.<br />
+(B) Meters are small.<br />
+(C) I checked mine already.</p>
+<p><strong>22.</strong> Has the power outage in sector four been resolved yet?<br />
+(A) It's a large sector.<br />
+(B) I powered off my laptop.<br />
+(C) Not yet, crews are still working on it.</p>
+<p><strong>23.</strong> Where should we install the new transformer?<br />
+(A) Near the substation entrance.<br />
+(B) Transformers are heavy.<br />
+(C) We installed it already.</p>
+<p><strong>24.</strong> Would you rather schedule the maintenance for day or night?<br />
+(A) Night would cause less disruption.<br />
+(B) Maintenance takes hours.<br />
+(C) I scheduled mine already.</p>
+<p><strong>25.</strong> Isn't the grid usually more stable in summer?<br />
+(A) Summers are hot.<br />
+(B) Yes, but demand has been unusually high this year.<br />
+(C) The grid looks fine.</p>
+<p><strong>26.</strong> How many customers were affected by the outage?<br />
+(A) About five thousand.<br />
+(B) Outages are common.<br />
+(C) We outage rarely.</p>
+<p><strong>27.</strong> Who's leading the solar farm inspection?<br />
+(A) Inspections take time.<br />
+(B) An engineer from headquarters.<br />
+(C) Solar farms are large.</p>
+<p><strong>28.</strong> Do you know if the rate increase was approved?<br />
+(A) Rates change often.<br />
+(B) I increased my budget.<br />
+(C) Yes, it was approved this week.</p>
+<p><strong>29.</strong> Should we upgrade the aging pipeline this year or next?<br />
+(A) Upgrades are costly.<br />
+(B) Let's get an engineering assessment first.<br />
+(C) I upgraded my system.</p>
+<p><strong>30.</strong> Haven't you finished the safety audit yet?<br />
+(A) Audits take time.<br />
+(B) Almost, just one site left.<br />
+(C) The audit went smoothly.</p>
+<p><strong>31.</strong> Why was the maintenance crew delayed?<br />
+(A) Crews work in shifts.<br />
+(B) It happened last month too.<br />
+(C) Because of a road closure nearby.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> My bill doubled this month and I haven't changed anything.<br />
+<strong>M:</strong> Let me look. I see it — last month's reading was estimated because the meter reader couldn't get access, so it was low. This month's is actual, so it's catching up.<br />
+<strong>W:</strong> So I overpaid last month and now I'm paying the difference?<br />
+<strong>M:</strong> Exactly. The two months together are normal. If you send a photo of your meter each month, we'll always bill on actual.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To start service<br />
+(B) Because her bill doubled unexpectedly<br />
+(C) To report an outage<br />
+(D) To change her rate plan</p>
+<p><strong>33.</strong> What does the man say caused it?<br />
+(A) A rate increase<br />
+(B) A meter malfunction<br />
+(C) Last month's reading was estimated low and this month is catching up<br />
+(D) A new fee</p>
+<p><strong>34.</strong> What does the man suggest she do?<br />
+(A) Pay in installments<br />
+(B) Switch plans<br />
+(C) Request an audit<br />
+(D) Send a photo of her meter each month</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> We've got 400 customers out on the Birch Street circuit. Looks like a blown transformer.<br />
+<strong>W:</strong> Do we have a spare that size?<br />
+<strong>M:</strong> One at the yard. I can have a crew swap it in about two hours once they're on site.<br />
+<strong>W:</strong> Send them now, and push a text alert with a three-hour estimate so people aren't calling in.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) 400 customers are out from a blown transformer<br />
+(B) A gas leak<br />
+(C) A billing system failure<br />
+(D) A water main break</p>
+<p><strong>36.</strong> What does the woman ask about first?<br />
+(A) The cause of the outage<br />
+(B) Whether there is a spare transformer that size<br />
+(C) The number of customers<br />
+(D) The weather</p>
+<p><strong>37.</strong> What does the woman decide to send out?<br />
+(A) A crew only<br />
+(B) A refund notice<br />
+(C) An apology letter<br />
+(D) A text alert with a three-hour estimate</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> The roof can hold about a 200-kilowatt array. The question is whether to add batteries.<br />
+<strong>M1:</strong> Batteries roughly double the upfront cost.<br />
+<strong>M2:</strong> But our demand charges are brutal in summer. Storage could shave the afternoon peak and cut those.<br />
+<strong>W:</strong> Let's model it both ways — solar only, and solar plus a small battery sized just for peak-shaving — and bring both numbers to the board.</p>
+<p><strong>38.</strong> What are the speakers considering?<br />
+(A) A new lease<br />
+(B) A solar installation<br />
+(C) A rate dispute<br />
+(D) A staffing plan</p>
+<p><strong>39.</strong> What is the argument for adding batteries?<br />
+(A) They are cheaper than solar<br />
+(B) They provide backup only<br />
+(C) They could cut summer demand charges by shaving the peak<br />
+(D) The roof requires them</p>
+<p><strong>40.</strong> What will they bring to the board?<br />
+(A) A single recommendation<br />
+(B) A contractor's bid<br />
+(C) A lease proposal<br />
+(D) Numbers for both options</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> Our water bill for the building tripled last quarter and I can't find a leak.<br />
+<strong>M:</strong> A tripling usually means a running toilet or an underground line. Does your meter move when everything's off?<br />
+<strong>W:</strong> I'll check tonight.<br />
+<strong>M:</strong> If it moves with everything shut, it's likely the service line between the meter and the building. We can do a leak-location visit for a flat fee, and if it's on our side of the meter, we cover the repair.</p>
+<p><strong>41.</strong> Why is the landlord calling?<br />
+(A) To set up new service<br />
+(B) Because the water bill tripled and no leak was found<br />
+(C) To dispute a late fee<br />
+(D) To report discolored water</p>
+<p><strong>42.</strong> What does the man ask her to check?<br />
+(A) Whether the meter moves when everything is off<br />
+(B) The water pressure<br />
+(C) The color of the water<br />
+(D) The last three bills</p>
+<p><strong>43.</strong> What does the utility offer?<br />
+(A) A free new meter<br />
+(B) A payment plan<br />
+(C) A rate reduction<br />
+(D) A leak-location visit for a flat fee</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> The crew found the trench near the gas main deeper than the locate marks showed. They stopped digging.<br />
+<strong>W:</strong> Good. That's exactly right — the marks are approximate, not exact.<br />
+<strong>M:</strong> They want the gas company to come hand-expose the main before they go further.<br />
+<strong>W:</strong> Agreed. Call for a positive locate, and no mechanical digging within two feet of the mark until they've been out.</p>
+<p><strong>44.</strong> What did the crew find?<br />
+(A) A damaged pipe<br />
+(B) Standing water in the trench<br />
+(C) The gas main was not where the locate marks indicated<br />
+(D) An abandoned cable</p>
+<p><strong>45.</strong> What does the woman say about the locate marks?<br />
+(A) They were wrong on purpose<br />
+(B) They are approximate, not exact<br />
+(C) They expire after a week<br />
+(D) They should be ignored</p>
+<p><strong>46.</strong> What is the rule until the gas company comes?<br />
+(A) No mechanical digging within two feet of the mark<br />
+(B) Work can continue slowly<br />
+(C) Fill the trench back in<br />
+(D) Move to a different site</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> My gas bill is huge in winter and tiny in summer. It's hard to budget.<br />
+<strong>M:</strong> We have a levelized billing plan — we average your last 12 months and you pay the same amount each month, then true up once a year.<br />
+<strong>W:</strong> What if I use more than expected?<br />
+<strong>M:</strong> The true-up either credits you or spreads a balance over the next few months. Most people find it just makes the year predictable. You can switch starting next cycle.</p>
+<p><strong>47.</strong> What is the woman's problem?<br />
+(A) Her bill is always too high<br />
+(B) She was double-charged<br />
+(C) Her service keeps getting cut off<br />
+(D) Her gas bill swings a lot between seasons</p>
+<p><strong>48.</strong> What does the man describe?<br />
+(A) A discount for low-income customers<br />
+(B) A prepaid meter<br />
+(C) A levelized billing plan<br />
+(D) A one-time credit</p>
+<p><strong>49.</strong> What happens at the annual true-up?<br />
+(A) She is credited or the balance is spread over a few months<br />
+(B) She pays a penalty<br />
+(C) The plan is canceled<br />
+(D) Nothing changes</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> We're getting reports of flickering lights in the downtown district.<br />
+<strong>W:</strong> Let's check if it's related to the substation upgrade happening this week.<br />
+<strong>M:</strong> Good thought — I'll pull the maintenance schedule to confirm.<br />
+<strong>W:</strong> If it is, let's notify residents so they know it's temporary.</p>
+<p><strong>50.</strong> What is being reported?<br />
+(A) A gas leak<br />
+(B) Flickering lights in the downtown district<br />
+(C) A water main break<br />
+(D) A billing error</p>
+<p><strong>51.</strong> What does the woman suggest checking?<br />
+(A) Weather reports<br />
+(B) The substation upgrade schedule<br />
+(C) Customer complaints<br />
+(D) A staffing issue</p>
+<p><strong>52.</strong> What will the speakers do if related?<br />
+(A) Shut down the grid<br />
+(B) Notify residents it's temporary<br />
+(C) Cancel the upgrade<br />
+(D) File a report with the city</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> Our latest customer survey shows people want more updates during outages.<br />
+<strong>M:</strong> We could send text alerts with estimated restoration times.<br />
+<strong>W:</strong> That would help a lot. Should we look into a vendor for that system?<br />
+<strong>M:</strong> Yes, let's research a few options and present them at next week's meeting.</p>
+<p><strong>53.</strong> What does the survey show?<br />
+(A) Customers want lower rates.<br />
+(B) Customers want more outage updates.<br />
+(C) Customers want a new app.<br />
+(D) Customers want faster billing.</p>
+<p><strong>54.</strong> What does the man suggest?<br />
+(A) Sending text alerts with restoration times<br />
+(B) Hiring more customer service staff<br />
+(C) Reducing outage frequency<br />
+(D) Offering refunds during outages</p>
+<p><strong>55.</strong> What will happen next week?<br />
+(A) A new system will launch.<br />
+(B) Vendor options will be presented.<br />
+(C) The survey will be repeated.<br />
+(D) Rates will be adjusted.</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> The wind farm's turbine three has been offline for repairs longer than expected.<br />
+<strong>W:</strong> What's causing the delay?<br />
+<strong>M:</strong> A replacement part is on backorder from the manufacturer.<br />
+<strong>W:</strong> Let's check with other suppliers to see if we can get one faster.</p>
+<p><strong>56.</strong> What is the problem?<br />
+(A) A turbine has been offline longer than expected.<br />
+(B) A turbine was damaged in a storm.<br />
+(C) A turbine was shut down for safety.<br />
+(D) A turbine needs a full replacement.</p>
+<p><strong>57.</strong> What is causing the delay?<br />
+(A) A staffing shortage<br />
+(B) A part on backorder<br />
+(C) A permit issue<br />
+(D) Bad weather</p>
+<p><strong>58.</strong> What does the woman suggest?<br />
+(A) Waiting for the original part<br />
+(B) Checking with other suppliers<br />
+(C) Canceling the repair<br />
+(D) Replacing the whole turbine</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> A resident called asking why their bill increased so much this month.<br />
+<strong>M:</strong> Let's check whether it's related to the recent rate adjustment.<br />
+<strong>W:</strong> I looked, and it seems their usage also increased significantly.<br />
+<strong>M:</strong> Let's send them a usage breakdown so they can see exactly why.</p>
+<p><strong>59.</strong> What did the resident ask about?<br />
+(A) A service outage<br />
+(B) Why their bill increased<br />
+(C) A meter installation<br />
+(D) A late payment notice</p>
+<p><strong>60.</strong> What did the woman find?<br />
+(A) A billing error<br />
+(B) Their usage also increased significantly<br />
+(C) An incorrect meter reading<br />
+(D) A duplicate charge</p>
+<p><strong>61.</strong> What will the speakers send the resident?<br />
+(A) A refund<br />
+(B) A usage breakdown<br />
+(C) A new meter<br />
+(D) A discount coupon</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's review the plan for next month's planned maintenance.<br />
+<strong>M1:</strong> We're scheduling most of it overnight to minimize customer impact.<br />
+<strong>M2:</strong> I'll make sure the crew schedules are finalized by Friday.<br />
+<strong>W:</strong> Great, and I'll handle the customer notifications once that's confirmed.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) Planned maintenance<br />
+(B) A new hire<br />
+(C) A rate increase<br />
+(D) A safety audit</p>
+<p><strong>63.</strong> Why is most work scheduled overnight?<br />
+(A) To save money<br />
+(B) To minimize customer impact<br />
+(C) Because of weather<br />
+(D) Because of staff availability</p>
+<p><strong>64.</strong> What will the woman do once schedules are confirmed?<br />
+(A) Order equipment<br />
+(B) Handle customer notifications<br />
+(C) Inspect the site<br />
+(D) Contact the media</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I noticed our natural gas usage data shows a spike in one neighborhood.<br />
+<strong>W:</strong> That could indicate a leak — should we send a crew to check?<br />
+<strong>M:</strong> Yes, let's dispatch someone right away just to be safe.<br />
+<strong>W:</strong> I'll also notify residents in that area in case they smell gas.</p>
+<p><strong>65.</strong> What did the man notice?<br />
+(A) A spike in gas usage in one neighborhood<br />
+(B) A drop in electricity usage<br />
+(C) A billing discrepancy<br />
+(D) A meter malfunction</p>
+<p><strong>66.</strong> What does the woman suggest this could indicate?<br />
+(A) A meter error<br />
+(B) A leak<br />
+(C) A billing mistake<br />
+(D) A weather effect</p>
+<p><strong>67.</strong> What will the woman do?<br />
+(A) Shut off gas to the area<br />
+(B) Notify residents in the area<br />
+(C) File a report<br />
+(D) Wait until tomorrow</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> The city council is asking about our progress on the renewable energy targets.<br />
+<strong>M:</strong> We're currently at about sixty percent toward this year's goal.<br />
+<strong>W:</strong> Should we prepare a formal update for their next meeting?<br />
+<strong>M:</strong> Yes, I'll put together the numbers and a summary by early next week.</p>
+<p><strong>68.</strong> What is the city council asking about?<br />
+(A) A rate increase<br />
+(B) Progress on renewable energy targets<br />
+(C) A new office location<br />
+(D) A staffing plan</p>
+<p><strong>69.</strong> What progress has been made?<br />
+(A) Twenty percent<br />
+(B) Sixty percent<br />
+(C) Ninety percent<br />
+(D) The goal has been met.</p>
+<p><strong>70.</strong> What will the man prepare?<br />
+(A) A press release<br />
+(B) A formal update with numbers and a summary<br />
+(C) A budget proposal<br />
+(D) A new policy</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Automated outage notification</h3>
+<p><em>"This is a message from Cascade Power about a planned outage affecting your address. To replace aging equipment, crews will interrupt power on Wednesday, October 9, from 1 A.M. to 5 A.M. Your power may come back before 5, but plan for the full window. Medical-equipment customers on our registry will get a separate call with backup options. There is nothing you need to do. For updates, check the outage map on our website."</em></p>
+<p><strong>71.</strong> What is the message about?<br />
+(A) A planned outage to replace aging equipment<br />
+(B) A rate increase<br />
+(C) A billing error<br />
+(D) A new service sign-up</p>
+<p><strong>72.</strong> When will power be interrupted?<br />
+(A) Wednesday evening<br />
+(B) All day Wednesday<br />
+(C) Thursday morning<br />
+(D) Wednesday, 1 A.M. to 5 A.M.</p>
+<p><strong>73.</strong> What will medical-equipment customers receive?<br />
+(A) A refund<br />
+(B) A free generator<br />
+(C) A separate call about backup options<br />
+(D) Priority restoration only</p>
+<h3>Talk 2 (74–76) — Voicemail from an energy auditor</h3>
+<p><em>"Hi, this is Lena from GreenHome Audits. I've finished the report on your house. The big one is air sealing — you're losing a lot of heat through gaps in the attic and around the rim joist, and that's a low-cost fix with a fast payback. Insulation is second. Your windows are old but replacing them doesn't pay back for decades, so I'd hold off. The full report and a list of qualified contractors are in your email."</em></p>
+<p><strong>74.</strong> What did Lena complete?<br />
+(A) A repair<br />
+(B) An energy audit report<br />
+(C) A rebate application<br />
+(D) An installation</p>
+<p><strong>75.</strong> What is the top recommendation?<br />
+(A) Replacing the windows<br />
+(B) A new furnace<br />
+(C) Solar panels<br />
+(D) Air sealing the attic and rim joist</p>
+<p><strong>76.</strong> What does Lena advise about the windows?<br />
+(A) Replace them right away<br />
+(B) Add storm windows only<br />
+(C) Hold off — the payback takes decades<br />
+(D) Repair the frames</p>
+<h3>Talk 3 (77–79) — Conference talk</h3>
+<p><em>"The program that outperformed everything else was small business direct install. We sent a crew to swap lighting, add smart thermostats, and tune refrigeration — free, done in one visit, no paperwork for the owner. Uptake was over 70 percent because there was no cost and no hassle. Rebate programs that made owners front the money and file forms sat at under 10 percent, even with a bigger incentive."</em></p>
+<p><strong>77.</strong> What program worked best?<br />
+(A) Small-business direct install<br />
+(B) A rebate program<br />
+(C) A public awareness campaign<br />
+(D) Time-of-use pricing</p>
+<p><strong>78.</strong> Why was uptake over 70 percent?<br />
+(A) It was mandatory<br />
+(B) The incentive was large<br />
+(C) There was no cost and no hassle for the owner<br />
+(D) It was heavily advertised</p>
+<p><strong>79.</strong> How did the rebate programs compare?<br />
+(A) They also reached 70 percent<br />
+(B) Under 10 percent uptake despite a bigger incentive<br />
+(C) They were slightly better<br />
+(D) They were not measured</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"For facilities managers: WattWatch reads your meter data every 15 minutes and flags what's driving your bill — a chiller short-cycling, lights on all weekend, a demand spike you could have shifted. You get one clear action list a month, ranked by dollars. It connects to most utility accounts directly, so there's no hardware to install. Facilities using it cut energy spend 8 to 12 percent in the first year. Start free at wattwatch.example."</em></p>
+<p><strong>80.</strong> What does WattWatch analyze?<br />
+(A) Meter data every 15 minutes<br />
+(B) Monthly bills only<br />
+(C) Equipment warranties<br />
+(D) Staff schedules</p>
+<p><strong>81.</strong> What does a customer get each month?<br />
+(A) A new meter<br />
+(B) One clear action list ranked by dollars<br />
+(C) A rebate check<br />
+(D) An on-site visit</p>
+<p><strong>82.</strong> What do facilities using it report?<br />
+(A) Fewer outages<br />
+(B) Faster repairs<br />
+(C) 8 to 12 percent lower energy spend in the first year<br />
+(D) A tax credit</p>
+<h3>Talk 5 (83–85) — Utility company announcement</h3>
+<p><em>"Attention, customers in the riverside district. Crews will be performing routine maintenance on power lines tomorrow between 9 A.M. and 1 P.M. A brief interruption in service is possible during this window. We apologize for any inconvenience and appreciate your patience."</em></p>
+<p><strong>83.</strong> What will happen tomorrow?<br />
+(A) A water shutoff<br />
+(B) Routine power line maintenance<br />
+(C) A gas inspection<br />
+(D) A billing system update</p>
+<p><strong>84.</strong> What time will this occur?<br />
+(A) 7 A.M. to 9 A.M.<br />
+(B) 9 A.M. to 1 P.M.<br />
+(C) 1 P.M. to 5 P.M.<br />
+(D) All day</p>
+<p><strong>85.</strong> What is possible during this window?<br />
+(A) A permanent outage<br />
+(B) A brief service interruption<br />
+(C) A rate increase<br />
+(D) A meter replacement</p>
+<h3>Talk 6 (86–88) — Energy audit voicemail</h3>
+<p><em>"Hi, this is Sam calling to schedule your home energy audit. We have openings this Thursday afternoon or Friday morning. The audit takes about ninety minutes and includes a report with recommendations to lower your energy bill."</em></p>
+<p><strong>86.</strong> Why is Sam calling?<br />
+(A) To report an outage<br />
+(B) To schedule a home energy audit<br />
+(C) To request payment<br />
+(D) To cancel a service</p>
+<p><strong>87.</strong> How long does the audit take?<br />
+(A) Thirty minutes<br />
+(B) Ninety minutes<br />
+(C) Three hours<br />
+(D) A full day</p>
+<p><strong>88.</strong> What is included in the audit?<br />
+(A) A free appliance<br />
+(B) A report with recommendations to lower the bill<br />
+(C) A rebate check<br />
+(D) A new meter</p>
+<h3>Talk 7 (89–91) — Power plant tour introduction</h3>
+<p><em>"Welcome to the plant. For safety, please keep your hard hat and hearing protection on at all times during the tour. We'll begin in the control room, then move to the turbine hall, and finish with a view of the cooling towers from the observation deck."</em></p>
+<p><strong>89.</strong> What are visitors required to wear?<br />
+(A) Safety goggles only<br />
+(B) A hard hat and hearing protection<br />
+(C) A uniform<br />
+(D) Gloves only</p>
+<p><strong>90.</strong> Where does the tour begin?<br />
+(A) The turbine hall<br />
+(B) The control room<br />
+(C) The cooling towers<br />
+(D) The parking area</p>
+<p><strong>91.</strong> Where does the tour end?<br />
+(A) The control room<br />
+(B) The observation deck<br />
+(C) The main office<br />
+(D) The turbine hall</p>
+<h3>Talk 8 (92–94) — Weather-related service update</h3>
+<p><em>"Due to the storm moving through the region, some customers may experience power outages over the next several hours. Crews are on standby and will begin restoration as soon as it's safe to do so. Please report outages through our app or by phone."</em></p>
+<p><strong>92.</strong> What is causing possible outages?<br />
+(A) Scheduled maintenance<br />
+(B) A storm moving through the region<br />
+(C) A billing system failure<br />
+(D) A construction project</p>
+<p><strong>93.</strong> What are crews doing?<br />
+(A) On standby, ready to respond<br />
+(B) Already repairing lines<br />
+(C) Not available today<br />
+(D) Testing new equipment</p>
+<p><strong>94.</strong> How can customers report outages?<br />
+(A) Only by visiting an office<br />
+(B) Through the app or by phone<br />
+(C) By mail<br />
+(D) Through social media only</p>
+<h3>Talk 9 (95–97) — Renewable energy conference talk</h3>
+<p><em>"Thank you for having me today. I'll be sharing data from our recent study on battery storage costs, which have dropped nearly forty percent over the past five years. This trend is making large-scale renewable projects increasingly cost-competitive with traditional power sources."</em></p>
+<p><strong>95.</strong> What is the talk about?<br />
+(A) Battery storage costs<br />
+(B) Grid infrastructure<br />
+(C) Customer billing<br />
+(D) Wind turbine design</p>
+<p><strong>96.</strong> How much have costs dropped?<br />
+(A) Ten percent<br />
+(B) Twenty-five percent<br />
+(C) Nearly forty percent<br />
+(D) Over eighty percent</p>
+<p><strong>97.</strong> What does this trend make possible?<br />
+(A) Cheaper fossil fuels<br />
+(B) Renewable projects becoming cost-competitive<br />
+(C) Lower customer bills immediately<br />
+(D) Fewer power outages</p>
+<h3>Talk 10 (98–100) — Internal briefing on rate changes</h3>
+<p><em>"As most of you know, the new rate structure takes effect next month. Customer service should expect a higher volume of calls during the first two weeks, so we're adding extra staff during that period. Please make sure you're familiar with the new rate tiers before then."</em></p>
+<p><strong>98.</strong> When does the new rate structure take effect?<br />
+(A) Immediately<br />
+(B) Next month<br />
+(C) Next year<br />
+(D) It has been delayed.</p>
+<p><strong>99.</strong> What is expected during the first two weeks?<br />
+(A) Fewer customer calls<br />
+(B) A higher volume of calls<br />
+(C) A system outage<br />
+(D) Lower revenue</p>
+<p><strong>100.</strong> What are staff asked to do beforehand?<br />
+(A) Take a vacation<br />
+(B) Familiarize themselves with the new rate tiers<br />
+(C) Attend a conference<br />
+(D) Update their equipment</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_017 — READING (100 câu: 101–200) · Chủ đề: Energy &amp; Utilities</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The utility <span class="blk">________</span> a system-wide reliability report every quarter.<br />
+(A) publish  (B) publishes  (C) publishing  (D) to publish</p>
+<p><strong>102.</strong> Meter readings must be submitted <span class="blk">________</span> the 25th of each month to appear on that bill.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The audit found several <span class="blk">________</span> between the billed usage and the meter data.<br />
+(A) different  (B) differently  (C) discrepancies  (D) difference</p>
+<p><strong>104.</strong> <span class="blk">________</span> the severe storm, crews restored power to most customers within a day.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> Customers are asked to <span class="blk">________</span> large appliances during peak hours to lower their bills.<br />
+(A) avoid  (B) avoids  (C) avoiding  (D) avoidance</p>
+<p><strong>106.</strong> The new online portal makes paying a bill much <span class="blk">________</span> than the phone system.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> The outage map is posted <span class="blk">________</span> the utility's website under "Storm Center."<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> Service to the north district was interrupted <span class="blk">________</span> a failure at the substation.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The city cut its municipal energy use <span class="blk">________</span> upgrading every streetlight to LED.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Demand for rooftop solar has grown <span class="blk">________</span> over the past five years.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three rate plans, the time-of-use plan offers the <span class="blk">________</span> savings for off-peak users.<br />
+(A) great  (B) greater  (C) greatest  (D) more</p>
+<p><strong>112.</strong> The smart meters transmit readings far <span class="blk">________</span> than a monthly manual read.<br />
+(A) frequent  (B) frequently  (C) most frequently  (D) more frequently</p>
+<p><strong>113.</strong> The public rate hearing will be held <span class="blk">________</span> the council chambers downtown.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> the new transformer is energized, the temporary generators can be removed.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The regional operator <span class="blk">________</span> the transmission grid across four states.<br />
+(A) manage  (B) manages  (C) managing  (D) to manage</p>
+<p><strong>116.</strong> The substation upgrade is expected <span class="blk">________</span> before peak summer demand.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior engineer will <span class="blk">________</span> the new field technicians next month.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Households cut usage <span class="blk">________</span> when the bill shows a comparison to similar homes than when it shows only a number.<br />
+(A) sharp  (B) sharply  (C) most sharply  (D) more sharply</p>
+<p><strong>119.</strong> The efficiency plan proposes several <span class="blk">________</span> to reduce peak demand.<br />
+(A) measure  (B) measures  (C) measuring  (D) measured</p>
+<p><strong>120.</strong> The billing office is open to walk-ins <span class="blk">________</span> 8 A.M. to 4 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The interconnection was approved <span class="blk">________</span> conditions on the size of the export.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The revised rate schedule <span class="blk">________</span> posted on the website thirty days before it takes effect.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A customer is <span class="blk">________</span> for the low-income discount only after submitting proof of income.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The bill insert gives customers a <span class="blk">________</span> explanation of the new fixed charge.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The commission voted to <span class="blk">________</span> the outdated interconnection standard.<br />
+(A) update  (B) updates  (C) updating  (D) to update</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed line routes avoided the wetland entirely.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Inspection records for every substation are stored <span class="blk">________</span> the asset-management server.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any change to the protection settings must be approved by an <span class="blk">________</span> engineer.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two neighborhoods were left off the first restoration wave <span class="blk">________</span> damage to the access road.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New meter technicians receive <span class="blk">________</span> training on the safe-disconnect procedure.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Water Service Interruption for Main Replacement</strong></p>
+<p>Water service on Oak, Pine, and Cedar Streets <span class="blk">(131)</span> shut off Thursday from 9 A.M. to 3 P.M. while a section of main is replaced.</p>
+<p>Crews <span class="blk">(132)</span> flush the lines before service is restored; you may see cloudy water for a few hours afterward, which is safe and clears with running the cold tap.</p>
+<p>Notices <span class="blk">(133)</span> already been delivered to every affected address, and a reminder call will go out the evening before.</p>
+<p>We appreciate your patience during this necessary work. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will  (B) are  (C) have  (D) being<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Water service will remain off through the weekend.<br />
+(B) Streets outside this area will also be affected.<br />
+(C) Call us if you have any questions before then.<br />
+(D) A boil-water notice will be in effect for one week.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Meter-Access Requirement</p>
+<p>Starting next cycle, customers with an indoor meter <span class="blk">(135)</span> provide access on their scheduled read day or submit a self-read through the app.</p>
+<p>The app <span class="blk">(136)</span> accept a photo of the meter face, so a self-read takes about a minute.</p>
+<p>Accounts with three or more estimated bills in a row <span class="blk">(137)</span> be contacted to arrange a meter relocation to an outside wall, at no charge.</p>
+<p>Thank you for your cooperation in keeping bills accurate. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Outdoor meters will now also require scheduled access.<br />
+(B) Self-reads submitted through the app will no longer be accepted.<br />
+(C) Meter relocations will now come with an additional fee.<br />
+(D) Reach out to customer service with any questions.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>GRIDSENSE — SEE YOUR ENERGY BILL BEFORE IT ARRIVES</strong></p>
+<p>GridSense connects to your utility account and shows your usage and projected bill updated daily, plus alerts when you're on track for a high month.</p>
+<p>Most households find <span class="blk">(139)</span> useful: a breakdown by likely appliance, a heads-up before a rate season changes, and a nudge when the AC has been running unusually long. Users report trimming their bills by about 9 percent.</p>
+<p>Setup is <span class="blk">(140)</span> and takes two minutes. There is no <span class="blk">(141)</span> contract, and the basic plan is free. Connect your account at gridsense.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) GridSense requires a smart meter installed by a technician.<br />
+(B) The basic plan is limited to one appliance at a time.<br />
+(C) A minimum twelve-month commitment applies to all users.<br />
+(D) It only takes a couple of minutes to get started.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Residential Customers <strong>FROM:</strong> Billing Services <strong>RE:</strong> Paperless Billing Becomes the Default</p>
+<p>Our billing method <span class="blk">(143)</span> to paperless by default for new accounts, starting this month. You can still request a mailed paper bill at any time at no charge.</p>
+<p>Last year we mailed about 2 million paper statements. Paperless-by-default <span class="blk">(144)</span> cut printing and postage significantly, and the savings go into the rate base.</p>
+<p>Payment reminders and outage alerts <span class="blk">(145)</span> now sent by text and email for customers who opt in. If you prefer paper, call us or check the box on your next bill and one will keep coming. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper bills will be discontinued completely next year.<br />
+(B) Text and email alerts will replace paper bills for everyone.<br />
+(C) This change applies only to commercial accounts.<br />
+(D) Thanks for helping us reduce paper and postage costs.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Dispatcher (3:12 P.M.):</strong> Report of arcing on a pole at 5th and Main. Any crew near?<br />
+<strong>Crew 7 (3:14 P.M.):</strong> Ten minutes out. Is the area clear?<br />
+<strong>Dispatcher (3:15 P.M.):</strong> Police on scene keeping people back. Line's still energized.<br />
+<strong>Crew 7 (3:16 P.M.):</strong> Copy. We'll de-energize that section from the recloser before we approach.</p>
+<p><strong>147.</strong> What was reported?<br />
+(A) Arcing on a power pole<br />
+(B) A gas leak<br />
+(C) A water main break<br />
+(D) A downed tree</p>
+<p><strong>148.</strong> What will Crew 7 do before approaching?<br />
+(A) Wait for a supervisor<br />
+(B) Call the customer<br />
+(C) De-energize the section from the recloser<br />
+(D) Set up a generator</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>UTILITY LAUNCHES FREE BATTERY PROGRAM FOR HOME SOLAR CUSTOMERS</strong></p>
+<p>Cascade Power will install a home battery at no upfront cost for customers who already have rooftop solar, in exchange for the right to draw a small amount of stored power during a few dozen peak-demand hours a year.</p>
+<p>The utility says the pooled batteries can replace a planned "peaker" plant, cutting costs for all customers. Participants keep backup power during outages and are guaranteed a minimum reserve the utility can't touch.</p>
+<p>Enrollment is limited to 5,000 homes in the first year, chosen by circuit to balance the grid. Customers can leave the program with 60 days' notice but must then buy out the battery at its depreciated value.</p>
+<p><strong>149.</strong> What is the utility offering?<br />
+(A) A home battery at no upfront cost for solar customers<br />
+(B) Free solar panels<br />
+(C) A cash rebate<br />
+(D) A lower rate for everyone</p>
+<p><strong>150.</strong> What does the utility get in return?<br />
+(A) Ownership of the customer's solar panels<br />
+(B) A monthly fee<br />
+(C) The customer's usage data<br />
+(D) The right to draw stored power during peak-demand hours</p>
+<p><strong>151.</strong> What is guaranteed to participants?<br />
+(A) A fixed bill<br />
+(B) A minimum battery reserve the utility cannot use<br />
+(C) Free electricity<br />
+(D) Priority outage restoration</p>
+<p><strong>152.</strong> What must a customer do to leave the program?<br />
+(A) Pay a cancellation fee<br />
+(B) Remove their solar panels<br />
+(C) Give 60 days' notice and buy out the battery<br />
+(D) Nothing; they can leave anytime</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Hydrant Flushing in Your Area Next Week</strong></p>
+<p>Crews will flush fire hydrants in the Highland neighborhood Monday through Thursday, 9 P.M. to 5 A.M. This clears sediment from the mains and lets us check hydrant flow.</p>
+<p>You may notice lower pressure or rusty-looking water during and shortly after flushing. It is safe. Run a cold tap until it clears before doing laundry, and check that first load. Avoid washing whites during the flushing window.</p>
+<p><strong>153.</strong> What will crews be doing next week?<br />
+(A) Replacing meters<br />
+(B) Repairing a main break<br />
+(C) Reading meters<br />
+(D) Flushing fire hydrants</p>
+<p><strong>154.</strong> What are residents advised to do?<br />
+(A) Boil their water<br />
+(B) Run a cold tap until clear and avoid washing whites during the window<br />
+(C) Store water in advance<br />
+(D) Turn off their water heater</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>AMPPOINT — EV CHARGING FOR YOUR PARKING LOT, NO CAPITAL COST</strong></p>
+<p>AmpPoint installs and owns Level 2 and DC fast chargers in your lot. You provide the spaces and the grid connection; we handle hardware, payments, maintenance, and support. You get a share of the charging revenue and chargers your tenants and customers ask for.</p>
+<p>We size the install to your electrical capacity and can add load management so the chargers don't trip your service or spike your demand charges.</p>
+<p>Typical sites are live within eight weeks. Request a site assessment at amppoint.example.</p>
+<p><strong>155.</strong> What does AmpPoint provide?<br />
+(A) EV fleet vehicles<br />
+(B) Solar carports<br />
+(C) EV chargers it installs and owns at no capital cost to you<br />
+(D) Parking management software</p>
+<p><strong>156.</strong> What does the site owner provide?<br />
+(A) The charging hardware<br />
+(B) The parking spaces and grid connection<br />
+(C) Payment processing<br />
+(D) Maintenance staff</p>
+<p><strong>157.</strong> What does load management prevent?<br />
+(A) Chargers tripping the service or spiking demand charges<br />
+(B) Vandalism<br />
+(C) Slow charging speeds<br />
+(D) Billing errors</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-field-staff <strong>From:</strong> Safety <strong>Subject:</strong> Before You Open a Padmount Transformer</p>
+<p>A reminder on padmount transformer work.</p>
+<p>Only a qualified worker opens a padmount. Before the doors come off: confirm it's the right unit, test for voltage on the case with a known-good tester, and have a second qualified person present. Never work alone inside the pad.</p>
+<p>Treat every conductor as energized until you've tested it dead and applied your own grounds. The lockout tag from the last crew is not a substitute for your own test.</p>
+<p>If the pad is flooded or shows signs of oil around the base, don't open it — call it in.</p>
+<p><strong>158.</strong> Who may open a padmount transformer?<br />
+(A) Any two field staff<br />
+(B) The customer<br />
+(C) Only a qualified worker<br />
+(D) A supervisor only</p>
+<p><strong>159.</strong> What must be done before removing the doors?<br />
+(A) Confirm the unit, test the case for voltage, and have a second qualified person present<br />
+(B) Photograph the pad<br />
+(C) Call dispatch for permission<br />
+(D) Wait 15 minutes</p>
+<p><strong>160.</strong> When should a worker NOT open the pad?<br />
+(A) On weekends<br />
+(B) During rain of any kind<br />
+(C) If the previous crew's tag is missing<br />
+(D) If it is flooded or shows oil around the base</p>
+<h3>Passage 6 — Rate-plan table (161–162)</h3>
+<p><strong>RESIDENTIAL RATE PLANS — COMPARISON</strong></p>
+<table>
+<thead>
+<tr>
+<th>Plan</th>
+<th>Energy charge</th>
+<th>Best for</th>
+<th>Switching</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard flat</td>
+<td>One rate, all hours</td>
+<td>Steady, low usage; can't shift load</td>
+<td>Anytime</td>
+</tr>
+<tr>
+<td>Time-of-use</td>
+<td>Low off-peak, high 4–9 P.M. weekdays</td>
+<td>Can shift laundry, dishwasher, EV charging to nights</td>
+<td>Once per 12 months</td>
+</tr>
+<tr>
+<td>Demand</td>
+<td>Low energy rate + charge based on your single highest hour</td>
+<td>Large, controllable loads managed carefully</td>
+<td>Requires a smart meter; 12-month commitment</td>
+</tr>
+<tr>
+<td>Budget billing</td>
+<td>Any plan above, averaged into equal monthly payments</td>
+<td>Predictable payments; true-up once a year</td>
+<td>Anytime; add-on</td>
+</tr>
+</tbody>
+</table>
+<p>Time-of-use and Demand plans require a smart meter. Budget billing can be added to any plan.</p>
+<p><strong>161.</strong> Which plan has a charge based on your single highest-usage hour?<br />
+(A) Standard flat<br />
+(B) Time-of-use<br />
+(C) Demand<br />
+(D) Budget billing</p>
+<p><strong>162.</strong> How often can a customer switch off the Time-of-use plan?<br />
+(A) Once per 12 months<br />
+(B) Anytime<br />
+(C) Never<br />
+(D) Every billing cycle</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Osei,</p>
+<p>Thank you for your letter about the estimated charges on your account at 30 Ridge Road.</p>
+<p>You are right that we billed three months in a row on estimates without telling you why. Our meter reader reported a locked gate; we should have contacted you to arrange access or set up a self-read, and we did not.</p>
+<p>We have re-billed all three months using the actual reading our technician took last week. Your account is now a credit of $84, which we have applied to your next bill. We have also added a note to your account for a self-read by app, and mailed you instructions.</p>
+<p>We apologize for the lack of communication and the inconvenience of the corrected bills.</p>
+<p>Sincerely,<br />
+Customer Accounts</p>
+<p><strong>163.</strong> Why did Mr. Osei write?<br />
+(A) To start service<br />
+(B) To report an outage<br />
+(C) To dispute a late fee<br />
+(D) About repeated estimated charges</p>
+<p><strong>164.</strong> Why were the bills estimated?<br />
+(A) The meter was broken<br />
+(B) The meter reader reported a locked gate<br />
+(C) A billing system error<br />
+(D) Mr. Osei was on a payment plan</p>
+<p><strong>165.</strong> What is the result of the re-billing?<br />
+(A) An $84 credit applied to his next bill<br />
+(B) An additional charge<br />
+(C) A refund check<br />
+(D) No change</p>
+<p><strong>166.</strong> What has the utility set up for the future?<br />
+(A) Monthly technician visits<br />
+(B) A new meter location<br />
+(C) A self-read by app<br />
+(D) Quarterly billing</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>MOVING? — UTILITY ACCOUNT FAQ</strong></p>
+<p><strong>How much notice do you need to start or stop service?</strong><br />
+Three business days for a standard start or stop. Same-day and next-day are available for a fee if a technician visit isn't required.</p>
+<p><strong>Will my service be interrupted between addresses?</strong><br />
+No. Schedule the stop at your old address for the day after you move and the start at the new one for the day you move in.</p>
+<p><strong>Is there a deposit?</strong><br />
+Only for accounts with no prior utility history or a past disconnection for non-payment. It's refunded with interest after 12 on-time payments.</p>
+<p><strong>Can I transfer my budget billing plan?</strong><br />
+The plan doesn't transfer, but you can re-enroll at the new address after two months of actual usage there.</p>
+<p><strong>167.</strong> How much notice is needed for a standard service start or stop?<br />
+(A) Three business days<br />
+(B) One week<br />
+(C) 24 hours<br />
+(D) 30 days</p>
+<p><strong>168.</strong> Who has to pay a deposit?<br />
+(A) All new customers<br />
+(B) Renters only<br />
+(C) Customers who use budget billing<br />
+(D) Accounts with no prior history or a past disconnection for non-payment</p>
+<p><strong>169.</strong> What happens to a budget billing plan when a customer moves?<br />
+(A) It transfers automatically<br />
+(B) It doesn't transfer; re-enroll after two months of usage<br />
+(C) It is canceled permanently<br />
+(D) It continues at the old rate</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Call-Center Staff <strong>FROM:</strong> Operations <strong>RE:</strong> Reports of Gas Odor</p>
+<p>If a caller reports a natural gas smell, this takes priority over everything else on the call.</p>
+<p>Do not troubleshoot, do not put them on hold to look up the account, and do not tell them to check anything themselves. Tell them to leave the building now, not use any switches, phones, or the garage door, and call us from outside or from a neighbor's. Dispatch an emergency response immediately and stay on the line until they are outside.</p>
+<p>Log it as an odor call afterward. A false alarm is fine; we always respond.</p>
+<p><strong>170.</strong> What should staff do first when a caller reports a gas smell?<br />
+(A) Look up the account<br />
+(B) Treat it as top priority; tell the caller to leave and dispatch emergency response<br />
+(C) Ask the caller to check the stove<br />
+(D) Transfer the call to billing</p>
+<p><strong>171.</strong> What should the caller be told NOT to do?<br />
+(A) Not use switches, phones, or the garage door inside<br />
+(B) Not call a neighbor<br />
+(C) Not leave the building<br />
+(D) Not open windows</p>
+<p><strong>172.</strong> What does the memo say about false alarms?<br />
+(A) The caller is charged a fee<br />
+(B) They are logged and ignored<br />
+(C) A false alarm is fine; they always respond<br />
+(D) The account is flagged</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Cut our demand charges, dashboard is dense</strong> — plant facilities engineer</p>
+<p>We put this on our main service and two submeters to figure out why our demand charges kept creeping up. It found it fast: a compressor and a chiller were both kicking on in the same 15-minute window every afternoon, setting a new peak. Staggering their start times by 10 minutes knocked about $1,400 a month off the bill.</p>
+<p>The dashboard is powerful but overwhelming — there are a dozen charts and it took me a while to know which one mattered. The monthly summary email is the useful part; I mostly ignore the live view.</p>
+<p>Support helped set up the peak alerts, which is what I check now. Solid tool for a facility with real demand charges.</p>
+<p><strong>173.</strong> Why did the engineer install the tool?<br />
+(A) To detect outages<br />
+(B) To read submeters remotely<br />
+(C) To lower the energy rate<br />
+(D) To find why demand charges kept rising</p>
+<p><strong>174.</strong> What did it find?<br />
+(A) A billing error<br />
+(B) A failing meter<br />
+(C) Two large loads starting at the same time and setting a new peak<br />
+(D) Lights left on overnight</p>
+<p><strong>175.</strong> What does the reviewer find most useful?<br />
+(A) The live dashboard view<br />
+(B) The monthly summary email<br />
+(C) The dozen charts<br />
+(D) The submeter setup</p>
+<h3>Passages 11–12 — Interconnection rules &amp; email (176–180)</h3>
+<p><strong>Document 1 — Rules</strong></p>
+<p><strong>RESIDENTIAL SOLAR INTERCONNECTION — KEY RULES</strong></p>
+<ul>
+<li>Systems up to 10 kW use the standard fast-track review, normally 10 business days after a complete application.</li>
+<li>You may not turn the system on until you receive written permission to operate. Turning it on early can lead to disconnection of your whole service.</li>
+<li>Excess energy you send to the grid is credited at the retail rate against your next bill; unused credits roll over month to month but zero out each March.</li>
+<li>Your system size cannot exceed 120 percent of your past 12 months' usage without extra review.</li>
+<li>A visible, lockable AC disconnect must be installed next to your meter for line-crew safety.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Ree Patel <strong>To:</strong> interconnect@cascadepower.example <strong>Subject:</strong> Questions before I install</p>
+<p>Hi,</p>
+<ol>
+<li>My installer wants to size the system at 9.5 kW. My past year's usage works out to about 8 kW worth. Is that within the rule?</li>
+<li>How long after I submit do I have to wait, and can I run the panels while I wait if the installer says they're done?</li>
+<li>What happens to credits I build up in the summer that I don't use?</li>
+</ol>
+<p><strong>176.</strong> How long does fast-track review normally take?<br />
+(A) Same day<br />
+(B) 10 business days after a complete application<br />
+(C) 30 days<br />
+(D) It varies with no estimate</p>
+<p><strong>177.</strong> What must a homeowner NOT do before receiving permission to operate?<br />
+(A) Sign the contract<br />
+(B) Install the disconnect<br />
+(C) Submit the application<br />
+(D) Turn the system on</p>
+<p><strong>178.</strong> Based on the rules, is Ree's 9.5 kW system within the size limit?<br />
+(A) Yes — it is under 120% of past usage<br />
+(B) No — it exceeds the limit<br />
+(C) Only with extra review<br />
+(D) Only if usage increases</p>
+<p><strong>179.</strong> What happens to unused credits?<br />
+(A) They are paid out in cash<br />
+(B) They expire after 60 days<br />
+(C) They roll over monthly but zero out each March<br />
+(D) They cannot be built up</p>
+<p><strong>180.</strong> What must be installed next to the meter?<br />
+(A) A second meter<br />
+(B) A visible, lockable AC disconnect<br />
+(C) A battery<br />
+(D) A surge protector</p>
+<h3>Passages 13–14 — Two emails about a commercial bill (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Wex, facilities <strong>To:</strong> billing@metroutility.example <strong>Subject:</strong> Account 55-2210 — June bill looks wrong</p>
+<p>Hi,</p>
+<p>Our June bill jumped from about $9,000 to $27,000 — roughly triple — with no change in operations. Energy use on the bill is also about triple our normal kWh. Nothing in our plant changed. Can you check the meter and the reading?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> billing@metroutility.example <strong>To:</strong> Dana Wex <strong>Subject:</strong> RE: Account 55-2210 — June bill looks wrong</p>
+<p>Hi Dana,</p>
+<p>You're right. When your meter was replaced on May 28, the new meter's multiplier (it records a scaled value that we multiply to get actual usage) was entered as 3 instead of 1 in our system. Your actual June usage is in line with your history.</p>
+<p>We've corrected the multiplier and re-billed June at $9,140. The $27,000 charge will not be collected; if any payment was taken, it will be refunded within five business days.</p>
+<p>We've also audited every meter changed that week and found one other account affected, which we're correcting too.</p>
+<p><strong>181.</strong> Why did Dana email the utility?<br />
+(A) To start a new account<br />
+(B) To report an outage<br />
+(C) Because the June bill roughly tripled with no change in operations<br />
+(D) To switch rate plans</p>
+<p><strong>182.</strong> What caused the error?<br />
+(A) The meter's multiplier was entered as 3 instead of 1<br />
+(B) A rate increase<br />
+(C) A demand spike<br />
+(D) A double reading</p>
+<p><strong>183.</strong> What is the corrected June amount?<br />
+(A) $27,000<br />
+(B) $18,000<br />
+(C) $0<br />
+(D) $9,140</p>
+<p><strong>184.</strong> What will happen if a payment was already taken?<br />
+(A) It will be applied to July<br />
+(B) It becomes a credit only<br />
+(C) It will be refunded within five business days<br />
+(D) Nothing; it is kept</p>
+<p><strong>185.</strong> What else did the utility do?<br />
+(A) Replaced Dana's meter again<br />
+(B) Changed the billing software<br />
+(C) Added a late fee<br />
+(D) Audited all meters changed that week and found one other affected account</p>
+<h3>Passages 15–17 — Backup-power reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>BACKUP POWER OPTIONS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Covers</th>
+<th>Runtime</th>
+<th>Upfront</th>
+<th>Ongoing</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Portable generator</td>
+<td>A few circuits via manual transfer</td>
+<td>Hours (fuel)</td>
+<td>Low</td>
+<td>Fuel, maintenance</td>
+<td>Must be run outdoors; manual switching</td>
+</tr>
+<tr>
+<td>Standby generator (natural gas)</td>
+<td>Whole building, automatic</td>
+<td>Days+</td>
+<td>High</td>
+<td>Annual service, gas</td>
+<td>Starts itself; noise; permit</td>
+</tr>
+<tr>
+<td>Battery only</td>
+<td>Selected loads, automatic</td>
+<td>2–8 hours typical</td>
+<td>High</td>
+<td>Minimal</td>
+<td>Quiet; no fuel; limited runtime</td>
+</tr>
+<tr>
+<td>Solar + battery</td>
+<td>Selected loads, automatic, recharges by day</td>
+<td>Extended if sunny</td>
+<td>Highest</td>
+<td>Minimal</td>
+<td>Best for long daytime outages; sizing matters</td>
+</tr>
+</tbody>
+</table>
+<p>For outages that are usually short (under 4 hours) and rare, a battery or a portable generator is often enough. For frequent or long outages where you can't lose power, a standby generator is the reliable choice.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Ree, café owner <strong>To:</strong> advisor@energyfit.example <strong>Subject:</strong> Backup power for the café</p>
+<p>Hi,</p>
+<p>We lose power maybe three or four times a year, usually for one to three hours, occasionally longer in a storm. When it's out we lose refrigeration and the POS, and we have to close. Quiet matters — we have neighbors and outdoor seating. Budget is a concern but closing costs us too.</p>
+<p>What do you recommend?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> advisor@energyfit.example <strong>To:</strong> Sam Ree <strong>Subject:</strong> RE: Backup power for the café</p>
+<p>Hi Sam,</p>
+<p>Given short, infrequent outages and a strong preference for quiet, a battery sized for your refrigeration and POS is the best fit. It switches over instantly, makes no noise, needs no fuel, and 2–8 hours of runtime covers almost every outage you described.</p>
+<p>For the rare multi-day storm outage, the battery won't carry you, but a portable generator kept on hand as a backup-to-the-backup is a cheap hedge — you'd only run it outdoors in that rare case.</p>
+<p>A standby generator would cover everything but it's the most expensive option, it's noisy right where your outdoor seating is, and you'd be paying for capacity you use a few hours a year.</p>
+<p><strong>186.</strong> How often does Sam's café lose power?<br />
+(A) Weekly<br />
+(B) Once a year<br />
+(C) Never in summer<br />
+(D) Three or four times a year, usually one to three hours</p>
+<p><strong>187.</strong> What does the consultant recommend?<br />
+(A) A standby natural-gas generator<br />
+(B) Solar plus a large battery<br />
+(C) A battery sized for refrigeration and the POS<br />
+(D) No backup power</p>
+<p><strong>188.</strong> What does the consultant suggest for the rare multi-day outage?<br />
+(A) Close the café<br />
+(B) Keep a portable generator on hand as a backup<br />
+(C) Buy a second battery<br />
+(D) Rely on the utility</p>
+<p><strong>189.</strong> Why does the consultant advise against a standby generator?<br />
+(A) It is the most expensive, noisy near the seating, and mostly unused<br />
+(B) It cannot cover refrigeration<br />
+(C) It is not allowed for cafés<br />
+(D) It takes too long to install</p>
+<p><strong>190.</strong> According to the reference, when is a standby generator the reliable choice?<br />
+(A) For any business<br />
+(B) For frequent or long outages where you can't lose power<br />
+(C) Only for outages under four hours<br />
+(D) Never</p>
+<h3>Passages 18–20 — Bill-assistance policy, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>BILL ASSISTANCE &amp; PAYMENT OPTIONS</strong></p>
+<ul>
+<li><strong>Payment arrangement:</strong> Any customer with a past-due balance can split it over up to 6 months, added to current bills. One arrangement at a time; a broken arrangement can't be renewed for 12 months.</li>
+<li><strong>Low-income discount:</strong> 20% off the total bill for households under the income limit. Apply once a year with proof of income or enrollment in another assistance program.</li>
+<li><strong>Medical protection:</strong> With a doctor's form, service won't be disconnected for non-payment while someone in the home depends on electrically powered medical equipment. It does not erase the balance.</li>
+<li><strong>Emergency grant:</strong> Up to $400 once every 24 months toward a past-due balance, for households facing disconnection. Funds are limited and first-come.</li>
+<li>Disconnection for non-payment does not happen on a Friday, a weekend, a holiday, or when the forecast high is below 32°F or above 95°F.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lena Cruz <strong>To:</strong> assistance@cascadepower.example <strong>Subject:</strong> Behind on my bill, got a shutoff notice</p>
+<p>Hi,</p>
+<p>I'm about $520 behind and got a disconnection notice for next Tuesday. I work but had a medical leave. My father lives with me and uses an oxygen concentrator. Questions:<br />
+1. Can I stop the disconnection?<br />
+2. Can I get help with the $520, and also a payment plan for the rest?<br />
+3. Does the medical form wipe out what I owe?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> assistance@cascadepower.example <strong>To:</strong> Lena Cruz <strong>Subject:</strong> RE: Behind on my bill, got a shutoff notice</p>
+<p>Hi Lena,</p>
+<ol>
+<li>Yes. Submit the medical protection form (attached) — with your father on an oxygen concentrator, we cannot disconnect for non-payment while it's on file. Get it back to us before Tuesday and the shutoff is stopped.</li>
+<li>You can apply for the emergency grant (up to $400 toward the past-due balance) and set up a payment arrangement for whatever is left, spread over up to 6 months. I've attached both forms.</li>
+<li>No — the medical protection stops the disconnection but does not reduce the balance. The grant and the payment plan are what bring the balance down and keep it manageable.</li>
+</ol>
+<p><strong>191.</strong> What does the medical protection form do?<br />
+(A) It stops disconnection while someone depends on powered medical equipment<br />
+(B) It erases the past-due balance<br />
+(C) It gives a permanent discount<br />
+(D) It is only for winter</p>
+<p><strong>192.</strong> What is the emergency grant?<br />
+(A) A monthly credit<br />
+(B) A loan repaid over a year<br />
+(C) 20% off every bill<br />
+(D) Up to $400 once every 24 months toward a past-due balance</p>
+<p><strong>193.</strong> What can Lena do about the remaining balance after the grant?<br />
+(A) Set up a payment arrangement over up to six months<br />
+(B) Have it written off<br />
+(C) Defer it for a year<br />
+(D) Nothing; it is due at once</p>
+<p><strong>194.</strong> Does the medical form reduce what Lena owes?<br />
+(A) Yes, it cuts it in half<br />
+(B) No — it stops disconnection but does not reduce the balance<br />
+(C) Yes, entirely<br />
+(D) Only the late fees</p>
+<p><strong>195.</strong> According to the policy, when does disconnection for non-payment NOT happen?<br />
+(A) Only on the customer's request<br />
+(B) During any rain<br />
+(C) On Fridays, weekends, holidays, or in extreme heat or cold<br />
+(D) Never in the first year</p>
+<h3>Passages 21–23 — Rate-change notice, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>RATE CHANGES EFFECTIVE JANUARY 1 — RESIDENTIAL</strong></p>
+<ol>
+<li><strong>Fixed monthly charge</strong> rises from $10 to $14. This covers metering, billing, and grid connection regardless of usage.</li>
+<li><strong>Energy charge</strong> drops by about 4%. For the average home, the two changes roughly cancel out; very low-usage homes will see a small increase, high-usage homes a small decrease.</li>
+<li><strong>Time-of-use peak window</strong> shifts from 3–8 P.M. to 4–9 P.M. to match actual system peak.</li>
+<li><strong>Low-income discount</strong> increases from 15% to 20% of the total bill.</li>
+</ol>
+<p>A bill-comparison tool on our site shows your estimated change based on your last 12 months.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Diallo <strong>To:</strong> rates@metroutility.example <strong>Subject:</strong> How the January changes hit me</p>
+<p>Hi,</p>
+<p>I live alone in a small apartment and use very little electricity — my bills are usually $25–35. Questions:<br />
+1. Will my bill go up or down?<br />
+2. I'm on the time-of-use plan and charge my e-bike in the early evening. Does the window change affect me?<br />
+3. I think I qualify for the low-income discount. If I apply now, does the higher 20% apply from January?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> rates@metroutility.example <strong>To:</strong> Owen Diallo <strong>Subject:</strong> RE: How the January changes hit me</p>
+<p>Hi Owen,</p>
+<ol>
+<li>As a very low-usage customer, you'll likely see a small increase — the higher fixed charge outweighs the lower energy rate at your usage level. The comparison tool will give you a dollar figure.</li>
+<li>Yes. The peak window moves an hour later, to 4–9 P.M. If you can start your e-bike charge after 9 P.M., you'll be on the off-peak rate. Before, 8–9 P.M. was already off-peak for you; now it isn't.</li>
+<li>If your application is approved before the January bill cycle, the 20% rate applies from January. Approvals take about two weeks, so apply now to be safe. The discount also applies to the fixed charge, which helps low-usage customers like you.</li>
+</ol>
+<p><strong>196.</strong> How is the fixed monthly charge changing?<br />
+(A) It is being eliminated<br />
+(B) It rises from $10 to $14<br />
+(C) It drops to $8<br />
+(D) It stays the same</p>
+<p><strong>197.</strong> Will Owen's bill likely go up or down?<br />
+(A) Up slightly, because the higher fixed charge outweighs the lower energy rate<br />
+(B) Down significantly<br />
+(C) No change<br />
+(D) It depends on the weather</p>
+<p><strong>198.</strong> How does the peak-window change affect Owen's e-bike charging?<br />
+(A) It no longer matters<br />
+(B) He should charge before 3 P.M.<br />
+(C) Charging is now always off-peak<br />
+(D) 8–9 P.M. is now peak, so he should charge after 9 P.M.</p>
+<p><strong>199.</strong> When will the 20% low-income discount apply for Owen?<br />
+(A) Immediately on applying<br />
+(B) Only from next year<br />
+(C) From January, if approved before the January bill cycle<br />
+(D) It cannot be backdated at all</p>
+<p><strong>200.</strong> What does the reply note about the discount and the fixed charge?<br />
+(A) The discount does not apply to the fixed charge<br />
+(B) The fixed charge is waived for discount customers<br />
+(C) The discount only applies to peak usage<br />
+(D) The discount also applies to the fixed charge, which helps low-usage customers</p>
+<hr />
+<p><em>Hết phần Reading — Set_017. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_017</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a utility worker is repairing lines from a bucket lift" · bẫy: "reading a meter on a house"</li>
+<li><strong>3 C</strong> "a technician is checking gauges on a control panel" · bẫy: "flipping a large switch"</li>
+<li><strong>4 D</strong> "the substation is fenced and unattended" · bẫy: "crews are working inside"</li>
+<li><strong>6 C</strong> "a worker is installing a new smart meter on a wall" · bẫy: "a meter is being read with a handheld device"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why did my bill go up?" → "The rate changed in June" · bẫy: trả lời Where / When due</li>
+<li><strong>13 B</strong> tag question → "Yes, if you run big appliances off-peak"</li>
+<li><strong>15 C</strong> câu phủ định → "Yes, Tuesday and Wednesday nights"</li>
+<li><strong>17 C</strong> "What did the audit recommend first?" → "Sealing the attic and adding insulation"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "Check the status in your account" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "We could ask for a demand review"</li>
+<li><strong>21 C</strong> yêu cầu kiểm tra đồng hồ → "I'll check them right now" · bẫy: lặp "meter"</li>
+<li><strong>25 B</strong> "Isn't the grid usually more stable in summer?" → đính chính "demand unusually high this year" · bẫy: lặp "summer"</li>
+<li><strong>31 C</strong> "Why was the crew delayed?" → lý do cụ thể "road closure nearby" · bẫy: lặp "crew"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "last month's reading was estimated ... This month's is actual, so it's catching up" · "send a photo of your meter each month"</li>
+<li>35–37: "400 customers out ... a blown transformer" · "Do we have a spare that size?" · "push a text alert with a three-hour estimate"</li>
+<li>38–40: "The question is whether to add batteries" · "Storage could shave the afternoon peak and cut those" · "bring both numbers to the board"</li>
+<li>41–43: "Our water bill for the building tripled ... I can't find a leak" · "Does your meter move when everything's off?" · "a leak-location visit for a flat fee"</li>
+<li>44–46: "deeper than the locate marks showed. They stopped digging" · "the marks are approximate, not exact" · "no mechanical digging within two feet of the mark"</li>
+<li>47–49: "huge in winter and tiny in summer. It's hard to budget" · "a levelized billing plan" · "either credits you or spreads a balance over the next few months"</li>
+<li>50–52: "flickering lights downtown" · "substation upgrade schedule" · "notify residents it's temporary"</li>
+<li>53–55: "survey shows ... more outage updates" · "text alerts with restoration times" · "vendor options ... presented next week"</li>
+<li>56–58: "turbine three ... offline longer than expected" · "part on backorder" · "check with other suppliers"</li>
+<li>59–61: "why their bill increased" · "usage also increased significantly" · "send a usage breakdown"</li>
+<li>62–64: "planned maintenance" · "scheduled overnight to minimize customer impact" · "handle customer notifications"</li>
+<li>65–67: "spike in gas usage" one neighborhood · "could indicate a leak" · "notify residents in the area"</li>
+<li>68–70: "progress on renewable energy targets" · "sixty percent toward this year's goal" · "formal update with numbers"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "a planned outage ... To replace aging equipment" · "Wednesday, October 9, from 1 A.M. to 5 A.M." · "Medical-equipment customers ... will get a separate call with backup options"</li>
+<li>74–76: "I've finished the report on your house" · "The big one is air sealing" · "replacing them doesn't pay back for decades, so I'd hold off"</li>
+<li>77–79: "small business direct install" · "there was no cost and no hassle" · "Rebate programs ... sat at under 10 percent, even with a bigger incentive"</li>
+<li>80–82: "reads your meter data every 15 minutes" · "one clear action list a month, ranked by dollars" · "cut energy spend 8 to 12 percent in the first year"</li>
+<li>83–85: "routine maintenance on power lines" · "9 A.M. and 1 P.M." · "brief interruption in service is possible"</li>
+<li>86–88: "schedule your home energy audit" · "about ninety minutes" · "report with recommendations to lower your bill"</li>
+<li>89–91: "hard hat and hearing protection" · "begin in the control room" · "finish ... observation deck"</li>
+<li>92–94: "storm moving through the region" · "crews are on standby" · "report outages through our app or by phone"</li>
+<li>95–97: "battery storage costs" · "dropped nearly forty percent" · "cost-competitive with traditional power sources"</li>
+<li>98–100: "new rate structure takes effect next month" · "higher volume of calls" · "familiarize ... with the new rate tiers"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The utility</code> số ít + thói quen → <code>publishes</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> the 25th</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>discrepancies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be asked to</code> + V nguyên → <code>avoid</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes paying a bill much <span class="fill"></span> than</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the website</code> (trên)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>cut its energy use by upgrading</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> savings</code> (trong 3) → so sánh nhất <code>greatest</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more frequently</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the council chambers</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the new transformer is energized</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The regional operator</code> số ít → <code>manages</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more sharply</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>measures</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"phê duyệt <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (schedule <strong>được</strong> đăng)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code> the discount</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>explanation</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>update</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... avoided the wetland</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the server</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>engineer</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"Water service ... <span class="fill"></span> shut off Thursday from 9 A.M. to 3 P.M." → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Crews <span class="fill"></span> flush the lines before service is restored" (sẽ) → <code>will</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Notices <span class="fill"></span> already been delivered" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu có thắc mắc, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"customers with an indoor meter <span class="fill"></span> provide access ... or submit a self-read" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The app <span class="fill"></span> accept a photo of the meter face" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Accounts with three or more estimated bills in a row <span class="fill"></span> be contacted" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ CSKH nếu cần, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most households find <span class="fill"></span> useful" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> nhấn mạnh sự nhanh gọn, khép lại quảng cáo GridSense</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our billing method <span class="fill"></span> to paperless by default ..., starting this month" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Paperless-by-default <span class="fill"></span> cut printing and postage significantly" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"Payment reminders and outage alerts <span class="fill"></span> now sent by text and email" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo hoá đơn không giấy</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>B</td>
+<td>165</td>
+<td>A</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>A</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>C</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>D</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>B</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>B</td>
+<td>197</td>
+<td>A</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>A</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>A</td>
+<td>198</td>
+<td>D</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>D</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>C</td>
+</tr>
+<tr>
+<td>155</td>
+<td>C</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "in exchange for the right to draw a small amount of stored power during ... peak-demand hours"<br />
+- <strong>151 B</strong> — "guaranteed a minimum reserve the utility can't touch"<br />
+- <strong>152 C</strong> — "leave the program with 60 days' notice but must then buy out the battery"<br />
+- <strong>154 B</strong> — "Run a cold tap until it clears ... Avoid washing whites during the flushing window"<br />
+- <strong>159 A</strong> — "confirm it's the right unit, test for voltage on the case ..., and have a second qualified person present"<br />
+- <strong>160 D</strong> — "If the pad is flooded or shows signs of oil around the base, don't open it"<br />
+- <strong>161 C</strong> — bảng: "Demand — ... charge based on your single highest hour"<br />
+- <strong>178 A</strong> — 120% của ~8 kW = 9.6 kW; hệ 9.5 kW nằm trong giới hạn<br />
+- <strong>183 D</strong> — "re-billed June at $9,140"<br />
+- <strong>185 D</strong> — "audited every meter changed that week and found one other account affected"<br />
+- <strong>189 A</strong> — "the most expensive option, it's noisy right where your outdoor seating is, and you'd be paying for capacity you use a few hours a year"<br />
+- <strong>194 B</strong> — "the medical protection stops the disconnection but does not reduce the balance"<br />
+- <strong>195 C</strong> — "does not happen on a Friday, a weekend, a holiday, or when the forecast high is below 32°F or above 95°F"<br />
+- <strong>198 D</strong> — "Before, 8–9 P.M. was already off-peak for you; now it isn't"<br />
+- <strong>200 D</strong> — "The discount also applies to the fixed charge, which helps low-usage customers like you"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_017 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Energy / Utilities): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

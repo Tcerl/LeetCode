@@ -1,0 +1,2197 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_002 — Travel & Hospitality</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="002">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_002</strong>
+    <span class="theme">Travel &amp; Hospitality</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_002 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Một lễ tân khách sạn đang đưa chìa khóa phòng cho khách qua quầy.]</em><br />
+(A) A guest is signing a registration form.<br />
+(B) A receptionist is handing a key to a guest.<br />
+(C) Someone is carrying luggage up the stairs.<br />
+(D) A clerk is answering the telephone.</p>
+<p><strong>2.</strong> <em>[Ảnh: Hành khách xếp hàng tại quầy làm thủ tục ở sân bay, va li bên cạnh.]</em><br />
+(A) Travelers are waiting in line at a check-in counter.<br />
+(B) Passengers are boarding the aircraft.<br />
+(C) A worker is loading bags onto a cart.<br />
+(D) People are collecting bags from a carousel.</p>
+<p><strong>3.</strong> <em>[Ảnh: Bàn ăn ngoài trời nhìn ra biển, đồ ăn đã dọn sẵn, chưa có người ngồi.]</em><br />
+(A) Diners are being served a meal.<br />
+(B) A server is clearing the plates.<br />
+(C) A table has been set near the water.<br />
+(D) Guests are paying the bill.</p>
+<p><strong>4.</strong> <em>[Ảnh: Một hướng dẫn viên cầm micro, đứng trước nhóm du khách trong bảo tàng.]</em><br />
+(A) Tourists are taking photographs of a painting.<br />
+(B) People are entering through a doorway.<br />
+(C) A worker is hanging artwork on the wall.<br />
+(D) A guide is speaking to a group of visitors.</p>
+<p><strong>5.</strong> <em>[Ảnh: Một chiếc thuyền du lịch nhỏ neo tại bến, vài người đang bước lên.]</em><br />
+(A) A boat is being repaired at the dock.<br />
+(B) Passengers are stepping onto a boat.<br />
+(C) The boat is moving away from the pier.<br />
+(D) Fishing nets are spread on the deck.</p>
+<p><strong>6.</strong> <em>[Ảnh: Nhân viên buồng phòng đang trải ga giường trắng trong phòng khách sạn.]</em><br />
+(A) A housekeeper is making a bed.<br />
+(B) A guest is unpacking a suitcase.<br />
+(C) Curtains are being drawn closed.<br />
+(D) Towels are folded on a chair.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> What time is the shuttle to the airport?<br />
+(A) It leaves every half hour.<br />
+(B) At the hotel entrance.<br />
+(C) About twenty minutes.</p>
+<p><strong>8.</strong> Where can I leave my luggage after checkout?<br />
+(A) I checked out this morning.<br />
+(B) Your room is on the fourth floor.<br />
+(C) There's a storage room by the lobby.</p>
+<p><strong>9.</strong> Would you prefer a room with a city view or a garden view?<br />
+(A) The garden view, please.<br />
+(B) For three nights.<br />
+(C) The room was very clean.</p>
+<p><strong>10.</strong> Why was the boat tour canceled this morning?<br />
+(A) It starts at nine.<br />
+(B) Because of the heavy rain.<br />
+(C) Around fifteen people.</p>
+<p><strong>11.</strong> Has the taxi arrived yet?<br />
+(A) To the train station.<br />
+(B) The fare was quite high.<br />
+(C) It's just pulling up now.</p>
+<p><strong>12.</strong> How do I get to the museum from here?<br />
+(A) It's open until six.<br />
+(B) Take the number 4 bus.<br />
+(C) The exhibit was fascinating.</p>
+<p><strong>13.</strong> Isn't breakfast included with our booking?<br />
+(A) Yes, it's served until ten.<br />
+(B) The restaurant is downstairs.<br />
+(C) I had eggs and toast.</p>
+<p><strong>14.</strong> Could you recommend a good restaurant nearby?<br />
+(A) I made a reservation for eight.<br />
+(B) The food was a bit expensive.<br />
+(C) The one on Maple Street is excellent.</p>
+<p><strong>15.</strong> Do you want me to book the return flight now?<br />
+(A) The flight was delayed.<br />
+(B) Yes, please — for Sunday evening.<br />
+(C) At gate 22.</p>
+<p><strong>16.</strong> The pool closes at eight, doesn't it?<br />
+(A) Actually, it's open until ten in summer.<br />
+(B) The pool is on the roof.<br />
+(C) I went swimming yesterday.</p>
+<p><strong>17.</strong> Who's leading the walking tour tomorrow?<br />
+(A) It meets in the lobby.<br />
+(B) A local historian named Paulo.<br />
+(C) It lasts about two hours.</p>
+<p><strong>18.</strong> Should we take the train or rent a car?<br />
+(A) The car rental desk is closed.<br />
+(B) I've been to that city before.<br />
+(C) The train is faster and cheaper.</p>
+<p><strong>19.</strong> When does the front desk close?<br />
+(A) It's staffed 24 hours.<br />
+(B) Near the elevators.<br />
+(C) The manager is named Rosa.</p>
+<p><strong>20.</strong> My key card isn't working.<br />
+(A) The card costs five dollars.<br />
+(B) Room service is available all night.<br />
+(C) I'll send someone to reset it right away.</p>
+<p><strong>21.</strong> Could I get a wake-up call for six tomorrow morning?<br />
+(A) Six people are staying.<br />
+(B) Of course, I'll set that up.<br />
+(C) The lobby opens at six.</p>
+<p><strong>22.</strong> Do you know if the flight to Denver is delayed?<br />
+(A) Denver has great weather.<br />
+(B) I flew there last year.<br />
+(C) It's on time, actually.</p>
+<p><strong>23.</strong> Where can I exchange currency near the hotel?<br />
+(A) There's a bank two blocks away.<br />
+(B) The exchange rate is fair.<br />
+(C) I paid in cash.</p>
+<p><strong>24.</strong> Would you prefer a window or an aisle seat?<br />
+(A) The flight is full.<br />
+(B) A window seat, please.<br />
+(C) I sat there last time.</p>
+<p><strong>25.</strong> Isn't checkout usually at eleven?<br />
+(A) The room was clean.<br />
+(B) Eleven guests checked in.<br />
+(C) Yes, but we can extend it for you.</p>
+<p><strong>26.</strong> How far is the museum from here?<br />
+(A) About a ten-minute walk.<br />
+(B) It opens at nine.<br />
+(C) I visited last week.</p>
+<p><strong>27.</strong> Who's picking us up from the airport?<br />
+(A) The airport is downtown.<br />
+(B) A driver from the hotel.<br />
+(C) We picked a good time to fly.</p>
+<p><strong>28.</strong> Should we book the city tour for morning or afternoon?<br />
+(A) The tour lasts two hours.<br />
+(B) I toured the city already.<br />
+(C) Morning tends to be less crowded.</p>
+<p><strong>29.</strong> Haven't you confirmed the rental car yet?<br />
+(A) Not yet, I'll do it tonight.<br />
+(B) The car was rented already.<br />
+(C) It's a compact car.</p>
+<p><strong>30.</strong> Do you know if breakfast is included?<br />
+(A) Breakfast was delicious.<br />
+(B) Yes, it's included until ten.<br />
+(C) The dining room is downstairs.</p>
+<p><strong>31.</strong> Why was our connecting flight changed?<br />
+(A) The flight attendants were friendly.<br />
+(B) It changed gates twice.<br />
+(C) Due to a schedule conflict.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> Hi, I booked a double room for tonight under Watson, but I'd like to add a second night if possible.<br />
+<strong>M:</strong> Let me check… Yes, we have availability. The rate for tomorrow is $135, the same as tonight.<br />
+<strong>W:</strong> Great, please add it. And is late checkout available on my last day?<br />
+<strong>M:</strong> We can offer checkout until 1 P.M. at no charge, or until 3 P.M. for an extra $25.</p>
+<p><strong>32.</strong> What does the woman want to do?<br />
+(A) Cancel her reservation<br />
+(B) Extend her stay by one night<br />
+(C) Change to a single room<br />
+(D) Get a refund</p>
+<p><strong>33.</strong> How much is the room rate for the additional night?<br />
+(A) $25<br />
+(B) $115<br />
+(C) $160<br />
+(D) $135</p>
+<p><strong>34.</strong> What does the man say about late checkout?<br />
+(A) It is free until 1 P.M.<br />
+(B) It is not available<br />
+(C) It must be requested a day ahead<br />
+(D) It costs $25 until 1 P.M.</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> I'm calling about the Portugal package we discussed. Have the flight prices changed?<br />
+<strong>W:</strong> They've actually gone up by about $80 per person since last week. But the hotel rate is still the same.<br />
+<strong>M:</strong> Let's go ahead and book before it rises further. There are two of us traveling.<br />
+<strong>W:</strong> I'll send the payment link this afternoon. Once you pay the deposit, the price is locked in.</p>
+<p><strong>35.</strong> Why is the man calling?<br />
+(A) To cancel a trip<br />
+(B) To change his hotel<br />
+(C) To ask whether flight prices have changed<br />
+(D) To request a refund</p>
+<p><strong>36.</strong> What has changed since last week?<br />
+(A) The hotel rate went down<br />
+(B) The flight price went up<br />
+(C) The travel dates<br />
+(D) The number of travelers</p>
+<p><strong>37.</strong> What will the woman do this afternoon?<br />
+(A) Send a payment link<br />
+(B) Call the airline<br />
+(C) Confirm the hotel<br />
+(D) Cancel the booking</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> Everyone, our bus leaves at 8:15 sharp tomorrow for the vineyard tour. Please be in the lobby by 8:00.<br />
+<strong>M1:</strong> How long is the drive?<br />
+<strong>W:</strong> About 45 minutes. We'll have lunch there, which is included, and be back by 4.<br />
+<strong>M2:</strong> Is there time to buy wine to bring home?<br />
+<strong>W:</strong> Yes, the last 30 minutes are for the shop. They can ship bottles internationally if you prefer not to carry them.</p>
+<p><strong>38.</strong> What are the speakers discussing?<br />
+(A) A cooking class<br />
+(B) A museum visit<br />
+(C) A vineyard tour<br />
+(D) A hiking trip</p>
+<p><strong>39.</strong> What time should the group be in the lobby?<br />
+(A) 7:45<br />
+(B) 8:00<br />
+(C) 8:15<br />
+(D) 8:30</p>
+<p><strong>40.</strong> What does the woman say guests can do at the shop?<br />
+(A) Get a discount with a coupon<br />
+(B) Sample free cheese<br />
+(C) Book a private tasting<br />
+(D) Have wine shipped internationally</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> Excuse me, my connecting flight to Denver was just canceled. What are my options?<br />
+<strong>W:</strong> I'm sorry about that. There's a flight at 6:40 this evening with seats available, or I can put you on the first flight tomorrow morning at 7:15.<br />
+<strong>M:</strong> I'd rather not wait overnight. I'll take the evening one.<br />
+<strong>W:</strong> Done. I've also added a meal voucher you can use at any restaurant in the terminal.</p>
+<p><strong>41.</strong> What is the man's problem?<br />
+(A) He missed his flight<br />
+(B) His luggage is lost<br />
+(C) His connecting flight was canceled<br />
+(D) His seat was double-booked</p>
+<p><strong>42.</strong> Which option does the man choose?<br />
+(A) The 7:15 morning flight<br />
+(B) The 6:40 evening flight<br />
+(C) A refund<br />
+(D) A different airline</p>
+<p><strong>43.</strong> What does the woman give the man?<br />
+(A) A hotel voucher<br />
+(B) A seat upgrade<br />
+(C) A lounge pass<br />
+(D) A meal voucher</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> Front desk, how can I help?<br />
+<strong>M:</strong> The air conditioning in room 508 doesn't seem to be cooling. It's been running for an hour.<br />
+<strong>W:</strong> I'm sorry. I can send maintenance up in about fifteen minutes, or if you prefer, we have a room on the ninth floor available for you to move to.<br />
+<strong>M:</strong> I'll wait for maintenance first. If it can't be fixed, I'll move then.</p>
+<p><strong>44.</strong> Why is the man calling the front desk?<br />
+(A) The Wi-Fi is not working<br />
+(B) The room is too noisy<br />
+(C) The air conditioning is not cooling<br />
+(D) He is locked out</p>
+<p><strong>45.</strong> What does the woman offer?<br />
+(A) A discount on the room<br />
+(B) To send maintenance or move him to another room<br />
+(C) A late checkout<br />
+(D) A free breakfast</p>
+<p><strong>46.</strong> What does the man decide to do?<br />
+(A) Wait for maintenance first<br />
+(B) Move to the ninth floor immediately<br />
+(C) Check out of the hotel<br />
+(D) Use a portable fan</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> For the conference in Vienna, should we fly in the day before or the same morning?<br />
+<strong>W:</strong> The day before, definitely. The keynote is at 9 A.M. and I don't want to risk a delay.<br />
+<strong>M:</strong> Agreed. I'll book us on the afternoon flight on the 14th, then. Same hotel as the venue?<br />
+<strong>W:</strong> Yes, it's a bit pricier but it saves us the commute. I'll expense it.</p>
+<p><strong>47.</strong> When do the speakers decide to fly to Vienna?<br />
+(A) The morning of the conference<br />
+(B) Two days early<br />
+(C) The day before the conference<br />
+(D) The evening of the keynote</p>
+<p><strong>48.</strong> Why does the woman want to arrive early?<br />
+(A) To sightsee<br />
+(B) To meet a client<br />
+(C) To prepare a presentation<br />
+(D) To avoid the risk of a flight delay</p>
+<p><strong>49.</strong> What do the speakers decide about the hotel?<br />
+(A) To stay at the conference venue<br />
+(B) To find a cheaper option nearby<br />
+(C) To share a room<br />
+(D) To book it later</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> Hi, I have a reservation under Chen. I know it's early, but is there any chance my room is ready?<br />
+<strong>M:</strong> Let me check... it's not quite ready, but I can hold your bags and text you the moment it is.<br />
+<strong>W:</strong> That works. Is the pool open in the meantime?<br />
+<strong>M:</strong> Yes, it opens at eight, and towels are available at the front desk.</p>
+<p><strong>50.</strong> What does the woman ask about?<br />
+(A) Whether her room is ready<br />
+(B) How much the room costs<br />
+(C) Where to park her car<br />
+(D) Whether the pool is heated</p>
+<p><strong>51.</strong> What does the man offer to do?<br />
+(A) Upgrade her room<br />
+(B) Text her when the room is ready<br />
+(C) Cancel her reservation<br />
+(D) Give her a discount</p>
+<p><strong>52.</strong> What time does the pool open?<br />
+(A) Six<br />
+(B) Eight<br />
+(C) Ten<br />
+(D) Noon</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> Excuse me, I think there's an error on my bill — I was charged for a minibar item I never touched.<br />
+<strong>W:</strong> I'm sorry about that. Let me pull up your folio and remove the charge right away.<br />
+<strong>M:</strong> Thank you. Also, could I get a late checkout tomorrow? My flight isn't until the evening.<br />
+<strong>W:</strong> Of course, I'll note one P.M. checkout for your room.</p>
+<p><strong>53.</strong> Why does the man approach the front desk?<br />
+(A) To ask for a room change<br />
+(B) To report a billing error<br />
+(C) To extend his stay<br />
+(D) To request a taxi</p>
+<p><strong>54.</strong> What does the woman do about the charge?<br />
+(A) Doubles it<br />
+(B) Explains it<br />
+(C) Ignores it<br />
+(D) Removes it</p>
+<p><strong>55.</strong> What does the man request for tomorrow?<br />
+(A) An early breakfast<br />
+(B) A late checkout<br />
+(C) A wake-up call<br />
+(D) A luggage cart</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> Welcome aboard. May I see your boarding pass? It looks like you're in seat 14C.<br />
+<strong>M:</strong> Actually, I was hoping to move closer to the front — I have a tight connection.<br />
+<strong>W:</strong> Let me check availability... there's an open seat in row 6. I'll move you there.<br />
+<strong>M:</strong> That would be a huge help, thank you.</p>
+<p><strong>56.</strong> What is the man concerned about?<br />
+(A) Lost luggage<br />
+(B) A tight connection<br />
+(C) A delayed departure<br />
+(D) A seat with no window</p>
+<p><strong>57.</strong> What does the man ask to do?<br />
+(A) Check a second bag<br />
+(B) Move to a different seat<br />
+(C) Board earlier<br />
+(D) Speak to the pilot</p>
+<p><strong>58.</strong> What does the woman do?<br />
+(A) Apologizes and offers nothing<br />
+(B) Finds him a seat closer to the front<br />
+(C) Tells him to wait<br />
+(D) Cancels his connection</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> I'd like to return this rental car a day early — is that a problem?<br />
+<strong>W:</strong> Not at all, though early returns don't come with a refund for the unused day.<br />
+<strong>M:</strong> That's fine, I understand. Can you check the fuel level while I get my bags?<br />
+<strong>W:</strong> Sure, and I'll email you the final receipt within the hour.</p>
+<p><strong>59.</strong> Why does the man come to the counter?<br />
+(A) To report an accident<br />
+(B) To rent a second car<br />
+(C) To return the car early<br />
+(D) To extend his rental</p>
+<p><strong>60.</strong> What does the woman say about early returns?<br />
+(A) They are not allowed.<br />
+(B) They come with an extra fee.<br />
+(C) They do not include a refund for unused days.<br />
+(D) They require a manager's approval.</p>
+<p><strong>61.</strong> What will the woman send within the hour?<br />
+(A) A replacement key<br />
+(B) A rental agreement<br />
+(C) A roadside assistance number<br />
+(D) The final receipt</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>M1:</strong> Our tour bus is supposed to leave at nine, but I don't see it yet.<br />
+<strong>W:</strong> I just got a message — it's running about fifteen minutes late because of traffic downtown.<br />
+<strong>M2:</strong> No problem, that gives us time to grab coffee across the street.<br />
+<strong>W:</strong> Good idea. I'll wait here and text you both the moment it arrives.</p>
+<p><strong>62.</strong> What is the problem?<br />
+(A) The tour bus is late.<br />
+(B) The tour was canceled.<br />
+(C) The tickets are missing.<br />
+(D) The driver got lost.</p>
+<p><strong>63.</strong> Why is the bus delayed?<br />
+(A) A mechanical issue<br />
+(B) Bad weather<br />
+(C) Traffic downtown<br />
+(D) A missing passenger</p>
+<p><strong>64.</strong> What will the woman do?<br />
+(A) Board the bus alone<br />
+(B) Text the men when the bus arrives<br />
+(C) Cancel the tour<br />
+(D) Drive them herself</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I booked a room with a sea view, but the one I was given faces the parking lot.<br />
+<strong>M:</strong> I apologize for the mix-up. Let me check what's available on the higher floors.<br />
+<strong>W:</strong> I'd appreciate that — the view was actually the main reason I chose this hotel.<br />
+<strong>M:</strong> Good news, room 812 just opened up and does face the ocean. I'll have your bags moved right now.</p>
+<p><strong>65.</strong> What is the woman's complaint?<br />
+(A) Her room is too small.<br />
+(B) Her room does not have the view she booked.<br />
+(C) Her room key does not work.<br />
+(D) Her room was not cleaned.</p>
+<p><strong>66.</strong> Why did the woman choose this hotel?<br />
+(A) Its location<br />
+(B) Its price<br />
+(C) Its view<br />
+(D) Its restaurant</p>
+<p><strong>67.</strong> What does the man offer?<br />
+(A) A refund<br />
+(B) A different room with an ocean view<br />
+(C) A free dinner<br />
+(D) A late checkout</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> Our flight got canceled — do you know when the next one to Seoul is?<br />
+<strong>W:</strong> There's one at 6 P.M. with two seats left, but it has a stop in Tokyo.<br />
+<strong>M:</strong> We'd rather get there directly, even if it means waiting until tomorrow.<br />
+<strong>W:</strong> Understood. I'll book you both on tomorrow's direct flight and arrange a hotel voucher for tonight.</p>
+<p><strong>68.</strong> What problem are the speakers facing?<br />
+(A) A canceled flight<br />
+(B) A missed connection<br />
+(C) A lost passport<br />
+(D) An overbooked flight</p>
+<p><strong>69.</strong> What does the man say about the 6 P.M. flight?<br />
+(A) He wants to book it immediately.<br />
+(B) He would rather wait for a direct flight.<br />
+(C) It is too expensive.<br />
+(D) It is already full.</p>
+<p><strong>70.</strong> What will the woman arrange for tonight?<br />
+(A) A rental car<br />
+(B) A hotel voucher<br />
+(C) A refund<br />
+(D) A taxi</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Airport announcement</h3>
+<p><em>"Attention passengers on Flight 772 to Amsterdam. Due to a technical issue with the aircraft, boarding will be delayed by approximately one hour. The new boarding time is 4:45 P.M., with departure at 5:15. We apologize for the inconvenience. Passengers with connecting flights in Amsterdam should speak with a gate agent, who can help rebook connections. Complimentary refreshment vouchers are available at the desk."</em></p>
+<p><strong>71.</strong> Why is the flight delayed?<br />
+(A) Bad weather<br />
+(B) A technical issue with the aircraft<br />
+(C) A crew shortage<br />
+(D) A security check</p>
+<p><strong>72.</strong> What is the new boarding time?<br />
+(A) 3:45 P.M.<br />
+(B) 4:15 P.M.<br />
+(C) 4:45 P.M.<br />
+(D) 5:15 P.M.</p>
+<p><strong>73.</strong> What should passengers with connecting flights do?<br />
+(A) Speak with a gate agent<br />
+(B) Wait at the gate<br />
+(C) Call the airline<br />
+(D) Collect their luggage</p>
+<h3>Talk 2 (74–76) — Hotel guest information recording</h3>
+<p><em>"Welcome to the Seaview Hotel. Breakfast is served in the Terrace Restaurant from 6:30 to 10:00 A.M. The fitness center on level 2 is open 24 hours; your room key provides access. The outdoor pool is open from 7 A.M. to 9 P.M. For housekeeping, dial 3; for room service, dial 4. Checkout is at 11 A.M., and luggage storage is available at the front desk if you need it after that time."</em></p>
+<p><strong>74.</strong> Where is breakfast served?<br />
+(A) In the guest rooms<br />
+(B) By the pool<br />
+(C) On level 2<br />
+(D) In the Terrace Restaurant</p>
+<p><strong>75.</strong> How can guests access the fitness center?<br />
+(A) With a day pass<br />
+(B) By reserving in advance<br />
+(C) With their room key<br />
+(D) By paying a fee</p>
+<p><strong>76.</strong> What is available after checkout time?<br />
+(A) Luggage storage<br />
+(B) Late breakfast<br />
+(C) A free shuttle<br />
+(D) Room service</p>
+<h3>Talk 3 (77–79) — Tour guide introduction</h3>
+<p><em>"Good morning, and welcome to the Old Town walking tour. My name is Elena. The tour takes about two hours and covers roughly two kilometers, mostly on cobblestone streets, so comfortable shoes are important. We'll make two stops — one at the cathedral and one at the market square, where you'll have fifteen minutes for coffee or photos. The tour ends back here at the fountain. Please stay together, and don't hesitate to ask questions."</em></p>
+<p><strong>77.</strong> How long does the tour last?<br />
+(A) One hour<br />
+(B) About two hours<br />
+(C) Three hours<br />
+(D) Half a day</p>
+<p><strong>78.</strong> What does the guide say is important?<br />
+(A) Bringing an umbrella<br />
+(B) Carrying cash<br />
+(C) Booking in advance<br />
+(D) Wearing comfortable shoes</p>
+<p><strong>79.</strong> What will happen at the market square?<br />
+(A) A fifteen-minute break for coffee or photos<br />
+(B) A guided museum visit<br />
+(C) Lunch will be served<br />
+(D) The group will split up</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Planning a getaway? With TripNest, you can book flights, hotels, and rental cars in one place — and members always get an extra 5% off hotels. Signing up is free. Right now, use the code SPRING at checkout for an additional $30 off any booking over $300. Our support team is available by chat around the clock if your plans change. Download the TripNest app or visit tripnest.example today."</em></p>
+<p><strong>80.</strong> What service does TripNest provide?<br />
+(A) Travel insurance<br />
+(B) Guided tours<br />
+(C) Airport transfers<br />
+(D) Booking flights, hotels, and cars</p>
+<p><strong>81.</strong> What do members always receive?<br />
+(A) Free cancellation<br />
+(B) An extra 5% off hotels<br />
+(C) A free checked bag<br />
+(D) Priority support</p>
+<p><strong>82.</strong> What does the code SPRING provide?<br />
+(A) A free hotel night<br />
+(B) 5% off flights<br />
+(C) $30 off bookings over $300<br />
+(D) A free app subscription</p>
+<h3>Talk 5 (83–85) — Airport announcement</h3>
+<p><em>"May I have your attention. Flight 228 to Miami is now boarding at gate 14, beginning with passengers who need extra time or are traveling with small children, followed by our premium members. All other passengers should remain seated until their zone is called. Boarding will close ten minutes before departure."</em></p>
+<p><strong>83.</strong> What is being announced?<br />
+(A) A flight delay<br />
+(B) A gate change<br />
+(C) Boarding for a flight<br />
+(D) A lost baggage notice</p>
+<p><strong>84.</strong> Who is invited to board first?<br />
+(A) Premium members<br />
+(B) Passengers needing extra time or with small children<br />
+(C) Passengers with carry-on bags only<br />
+(D) Airline staff</p>
+<p><strong>85.</strong> When will boarding close?<br />
+(A) Five minutes before departure<br />
+(B) Ten minutes before departure<br />
+(C) At the scheduled departure time<br />
+(D) Fifteen minutes after boarding begins</p>
+<h3>Talk 6 (86–88) — Hotel voicemail</h3>
+<p><em>"Hi, this is the front desk at Lakeview Inn calling to confirm your reservation for this Friday through Sunday. We just wanted to let you know that the rooftop restaurant will be closed for a private event on Saturday evening, so we've reserved you a table at our sister restaurant next door instead. Please call us back if that doesn't work for you."</em></p>
+<p><strong>86.</strong> Why is the hotel calling?<br />
+(A) To cancel the reservation<br />
+(B) To confirm the reservation and mention a change<br />
+(C) To request payment<br />
+(D) To upgrade the room</p>
+<p><strong>87.</strong> What will be closed on Saturday evening?<br />
+(A) The pool<br />
+(B) The gym<br />
+(C) The rooftop restaurant<br />
+(D) The parking garage</p>
+<p><strong>88.</strong> What has the hotel arranged instead?<br />
+(A) A refund<br />
+(B) A table at a nearby restaurant<br />
+(C) Room service<br />
+(D) A later checkout</p>
+<h3>Talk 7 (89–91) — Tour guide introduction</h3>
+<p><em>"Good morning, everyone, and welcome to the old town walking tour. We'll cover about two kilometers over the next ninety minutes, stopping at the cathedral, the central market, and the harbor. Please stay close to the group, especially when we cross the main square, and feel free to ask questions at any point along the way."</em></p>
+<p><strong>89.</strong> What kind of tour is this?<br />
+(A) A bus tour<br />
+(B) A boat tour<br />
+(C) A walking tour<br />
+(D) A cycling tour</p>
+<p><strong>90.</strong> How long will the tour last?<br />
+(A) Thirty minutes<br />
+(B) Sixty minutes<br />
+(C) Ninety minutes<br />
+(D) Two hours</p>
+<p><strong>91.</strong> What does the guide ask visitors to do?<br />
+(A) Buy tickets in advance<br />
+(B) Stay close to the group<br />
+(C) Bring their own water<br />
+(D) Wear comfortable shoes</p>
+<h3>Talk 8 (92–94) — Airline announcement</h3>
+<p><em>"Ladies and gentlemen, we're currently third in line for takeoff, so we expect to be in the air within the next ten minutes. Once we reach cruising altitude, the cabin crew will begin the beverage service, followed by a light meal. In the meantime, please keep your seatbelt fastened and your tray table stowed."</em></p>
+<p><strong>92.</strong> What does the speaker say about the flight's position?<br />
+(A) It is first for takeoff.<br />
+(B) It is third in line for takeoff.<br />
+(C) It has been delayed indefinitely.<br />
+(D) It has already taken off.</p>
+<p><strong>93.</strong> What will happen after the plane reaches cruising altitude?<br />
+(A) Passengers may use their phones.<br />
+(B) The crew will begin beverage service.<br />
+(C) The captain will make an announcement.<br />
+(D) Passengers may recline their seats.</p>
+<p><strong>94.</strong> What are passengers asked to do?<br />
+(A) Turn off all electronics<br />
+(B) Keep their seatbelts fastened<br />
+(C) Move to assigned seats<br />
+(D) Prepare for landing</p>
+<h3>Talk 9 (95–97) — Museum audio guide</h3>
+<p><em>"Welcome to gallery three, home to our collection of nineteenth-century landscape paintings. As you move through the room, you'll notice the artists' growing interest in capturing natural light. Press seven on your audio device at any painting marked with a star for a more detailed description. The gift shop is located at the end of this hall."</em></p>
+<p><strong>95.</strong> What is displayed in gallery three?<br />
+(A) Modern sculpture<br />
+(B) Nineteenth-century landscape paintings<br />
+(C) Ancient pottery<br />
+(D) Photography</p>
+<p><strong>96.</strong> What should visitors do for more detail on certain paintings?<br />
+(A) Ask a guide<br />
+(B) Read a nearby sign<br />
+(C) Press seven on their audio device<br />
+(D) Scan a code with their phone</p>
+<p><strong>97.</strong> Where is the gift shop located?<br />
+(A) At the entrance<br />
+(B) On the second floor<br />
+(C) At the end of the hall<br />
+(D) Next to gallery one</p>
+<h3>Talk 10 (98–100) — Cruise announcement</h3>
+<p><em>"Good afternoon, passengers. We'll be arriving at our next port of call, Santorini, in about one hour. Please remember that all guests must be back on board no later than six P.M., as the ship departs promptly at six-thirty. Shuttle tickets to the town center are available at the guest services desk."</em></p>
+<p><strong>98.</strong> What is the next port of call?<br />
+(A) Santorini<br />
+(B) Mykonos<br />
+(C) Crete<br />
+(D) Athens</p>
+<p><strong>99.</strong> By what time must guests be back on board?<br />
+(A) Five P.M.<br />
+(B) Six P.M.<br />
+(C) Six-thirty P.M.<br />
+(D) Seven P.M.</p>
+<p><strong>100.</strong> Where can guests get shuttle tickets?<br />
+(A) On the shuttle itself<br />
+(B) At the guest services desk<br />
+(C) At the port entrance<br />
+(D) From their cabin steward</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_002 — READING (100 câu: 101–200) · Chủ đề: Travel &amp; Hospitality</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The resort's spa <span class="blk">________</span> a range of treatments, from massages to facials.<br />
+(A) offer  (B) offers  (C) offering  (D) to offer</p>
+<p><strong>102.</strong> Guests must check out <span class="blk">________</span> noon on the day of departure.<br />
+(A) by  (B) until  (C) since  (D) for</p>
+<p><strong>103.</strong> The travel agency handled our itinerary very <span class="blk">________</span>.<br />
+(A) efficient  (B) efficiency  (C) efficiently  (D) efficiencies</p>
+<p><strong>104.</strong> <span class="blk">________</span> the long overnight flight, the delegates went straight into the afternoon session.<br />
+(A) Although  (B) Because  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Passengers are advised to <span class="blk">________</span> at the gate 30 minutes before departure.<br />
+(A) arrive  (B) arrives  (C) arriving  (D) arrived</p>
+<p><strong>106.</strong> The hotel offers a complimentary shuttle <span class="blk">________</span> the city center every hour.<br />
+(A) to  (B) at  (C) of  (D) with</p>
+<p><strong>107.</strong> This is the <span class="blk">________</span> comfortable seat I have had on a long-haul flight.<br />
+(A) more  (B) most  (C) much  (D) very</p>
+<p><strong>108.</strong> The excursion was postponed <span class="blk">________</span> unsafe weather conditions.<br />
+(A) although  (B) because  (C) due to  (D) since</p>
+<p><strong>109.</strong> Travelers should confirm their reservations <span class="blk">________</span> calling the hotel directly.<br />
+(A) for  (B) to  (C) with  (D) by</p>
+<p><strong>110.</strong> The number of international visitors has grown <span class="blk">________</span> since the new airport terminal opened.<br />
+(A) rapid  (B) rapidity  (C) rapider  (D) rapidly</p>
+<p><strong>111.</strong> Each guest room <span class="blk">________</span> equipped with a safe and a minibar.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The tour operator asked participants to <span class="blk">________</span> their passports with them at all times.<br />
+(A) carry  (B) carrying  (C) carried  (D) carriage</p>
+<p><strong>113.</strong> Boarding passes can be printed <span class="blk">________</span> the self-service kiosks near the entrance.<br />
+(A) in  (B) on  (C) at  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> your flight is delayed, our staff will help you rebook at no charge.<br />
+(A) Unless  (B) Despite  (C) However  (D) If</p>
+<p><strong>115.</strong> The airline <span class="blk">________</span> baggage allowances that vary by fare class.<br />
+(A) have  (B) has  (C) having  (D) had</p>
+<p><strong>116.</strong> The renovation of the lobby is expected <span class="blk">________</span> before the peak travel season.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Front-desk staff should provide <span class="blk">________</span> directions to nearby attractions.<br />
+(A) accuracy  (B) accurate  (C) accurately  (D) accurateness</p>
+<p><strong>118.</strong> The express train is far <span class="blk">________</span> than the local service.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> Neither the pool <span class="blk">________</span> the gym will be open during the maintenance period.<br />
+(A) or  (B) and  (C) nor  (D) but</p>
+<p><strong>120.</strong> The welcome reception will be held <span class="blk">________</span> the rooftop terrace.<br />
+(A) on  (B) at  (C) in  (D) by</p>
+<p><strong>121.</strong> The travel package comes <span class="blk">________</span> airport transfers and daily breakfast.<br />
+(A) for  (B) of  (C) with  (D) about</p>
+<p><strong>122.</strong> A member of staff will <span class="blk">________</span> your room to make sure everything is in order.<br />
+(A) inspect  (B) inspects  (C) inspecting  (D) inspection</p>
+<p><strong>123.</strong> Frequent flyers are <span class="blk">________</span> for priority boarding and an extra checked bag.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The new booking website loads <span class="blk">________</span> than the previous one.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The resort is committed to <span class="blk">________</span> water and energy across all of its properties.<br />
+(A) conserve  (B) conserves  (C) conserving  (D) conserved</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two airlines flies directly to the island, so a connection is required.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The visitor center is open <span class="blk">________</span> 9 A.M. to 5 P.M. from Tuesday to Sunday.<br />
+(A) from  (B) since  (C) between  (D) during</p>
+<p><strong>128.</strong> All tour guides must hold a valid, city<span class="blk">________</span> operating license.<br />
+(A) issue  (B) issued  (C) issuing  (D) issuance</p>
+<p><strong>129.</strong> The updated flight schedule <span class="blk">________</span> posted on the airline's website tomorrow morning.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The visitor brochure contains <span class="blk">________</span> information about local customs and etiquette.<br />
+(A) use  (B) usefully  (C) useful  (D) usefulness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>Subject:</strong> Your Reservation at Cedar Ridge Lodge — Confirmed</p>
+<p>Dear Ms. Okoro,</p>
+<p>Thank you for booking with Cedar Ridge Lodge. Your reservation for two nights, arriving July 8, <span class="blk">(131)</span> confirmed.</p>
+<p>Check-in begins at 3:00 P.M. If you arrive earlier, you are welcome to leave your bags with the front desk and use the lounge <span class="blk">(132)</span> your room is ready.</p>
+<p>Please note that the mountain road to the lodge is narrow and winding; we <span class="blk">(133)</span> allowing extra driving time, especially after dark.</p>
+<p>A light breakfast is included each morning. Should you have any dietary requirements, please let us know at least 24 hours in advance. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) are  (C) was  (D) has<br />
+<strong>132.</strong> (A) despite  (B) during  (C) until  (D) unless<br />
+<strong>133.</strong> (A) recommends  (B) recommending  (C) recommendation  (D) recommend<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Parking is available for an additional fee of $10 per night.<br />
+(B) We look forward to welcoming you to Cedar Ridge Lodge.<br />
+(C) The lodge was originally built in the early 1900s.<br />
+(D) Check-out time is strictly enforced at 11:00 A.M.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>TERMINAL 2 — SECURITY LANE CHANGES</strong></p>
+<p>Starting Monday, the security checkpoint layout in Terminal 2 <span class="blk">(135)</span>. Lanes 1–4 will be dedicated to passengers with carry-on bags only, allowing faster processing.</p>
+<p>Passengers with checked-baggage receipts or oversized items should use Lanes 5–8. Signs <span class="blk">(136)</span> clearly displayed at the entrance to each lane.</p>
+<p>We expect these changes to reduce average wait times <span class="blk">(137)</span> about ten minutes during busy periods.</p>
+<p>If you are unsure which lane to use, a staff member near the entrance will be happy to assist you. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) changes  (B) will change  (C) changed  (D) changing<br />
+<strong>136.</strong> (A) are  (B) is  (C) was  (D) being<br />
+<strong>137.</strong> (A) for  (B) at  (C) by  (D) of<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Terminal 3 will not be affected by these changes.<br />
+(B) All passengers must arrive at least two hours before departure.<br />
+(C) Duty-free shops remain open during the renovation.<br />
+(D) We appreciate your patience as we work to improve the security process.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>SEE THE COUNTRYSIDE BY BIKE</strong></p>
+<p>Green Valley Tours offers <span class="blk">(139)</span> cycling trips through vineyards, villages, and river paths. Whether you are a casual rider or a serious cyclist, we have a route for you.</p>
+<p>All tours include a support vehicle that carries your luggage and <span class="blk">(140)</span> water and snacks at rest stops. Bikes and helmets are provided, or you may bring your own.</p>
+<p>Our most <span class="blk">(141)</span> trip is the three-day "River Loop," which sells out early each season. Reserve your spot now at greenvalleytours.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) guide  (B) guided  (C) guiding  (D) guides<br />
+<strong>140.</strong> (A) provides  (B) provide  (C) providing  (D) provided<br />
+<strong>141.</strong> (A) popularly  (B) popularity  (C) popular  (D) populate<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) All tours depart from the downtown train station.<br />
+(B) Group discounts are available for parties of six or more.<br />
+(C) Tours do not operate during the winter months.<br />
+(D) Spaces fill up fast, so don't wait too long to sign up.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Finance <strong>RE:</strong> Updated Travel Booking Policy</p>
+<p>Effective next month, all business travel <span class="blk">(143)</span> through the company's approved travel portal. Bookings made outside the portal may not be reimbursed.</p>
+<p>When booking flights, please select the lowest fare that meets your schedule. Business class <span class="blk">(144)</span> only for flights longer than six hours and requires manager approval in advance.</p>
+<p>Hotel bookings should not exceed the nightly cap for each city, which is listed in the portal. Any amount <span class="blk">(145)</span> the cap is the traveler's responsibility.</p>
+<p>Receipts must be uploaded within five business days of your return. Thank you for your cooperation with the new process. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) must book  (B) must be booked  (C) booking  (D) booked<br />
+<strong>144.</strong> (A) allow  (B) allows  (C) is allowed  (D) allowing<br />
+<strong>145.</strong> (A) exceeding  (B) exceeds  (C) exceed  (D) exceeded<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The finance team will conduct a random audit each quarter.<br />
+(B) International flights are exempt from these requirements.<br />
+(C) Employees may still book directly with airlines in emergencies.<br />
+(D) If you have any questions, please contact the finance team.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Nils Berg (2:05 P.M.):</strong> The 3:00 ferry is fully booked. Next one with space is 4:30.<br />
+<strong>Priya Shah (2:07 P.M.):</strong> That still gets us to the hotel before dinner, right?<br />
+<strong>Nils Berg (2:08 P.M.):</strong> Yes, around 5:15. I'll grab tickets for the 4:30 now.<br />
+<strong>Priya Shah (2:09 P.M.):</strong> Perfect. I'll wait by the café near the terminal.</p>
+<p><strong>147.</strong> Why can't they take the 3:00 ferry?<br />
+(A) It has been canceled<br />
+(B) It is fully booked<br />
+(C) It is too expensive<br />
+(D) They missed it</p>
+<p><strong>148.</strong> What will Nils do next?<br />
+(A) Buy tickets for the 4:30 ferry<br />
+(B) Call the hotel<br />
+(C) Wait at the café<br />
+(D) Look for another route</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>CITY LAUNCHES FREE HARBOR FERRY ON WEEKENDS</strong></p>
+<p>Beginning this Saturday, the city will run a free passenger ferry between the North Pier and the Harbor Market every weekend through the end of September. The service is aimed at reducing car traffic near the waterfront and supporting local shops and restaurants.</p>
+<p>Ferries will depart every 20 minutes from 10 A.M. to 8 P.M. on Saturdays and Sundays. Each boat holds 60 passengers, and bicycles are permitted at no charge.</p>
+<p>City transport director Lucia Marin said the pilot program will be evaluated in October. "If ridership is strong and merchants see a benefit, we'll look at extending it into the fall and adding a weekday service," she said. Funding for the pilot comes from a regional tourism grant.</p>
+<p><strong>149.</strong> What is the main purpose of the new ferry service?<br />
+(A) To reduce car traffic near the waterfront<br />
+(B) To replace an existing bus route<br />
+(C) To connect two airports<br />
+(D) To transport goods to the market</p>
+<p><strong>150.</strong> How often will ferries depart?<br />
+(A) Every 10 minutes<br />
+(B) Every 20 minutes<br />
+(C) Every 30 minutes<br />
+(D) Every hour</p>
+<p><strong>151.</strong> What is allowed on the ferry at no extra cost?<br />
+(A) Pets<br />
+(B) Large cargo<br />
+(C) Motorbikes<br />
+(D) Bicycles</p>
+<p><strong>152.</strong> When will the program be evaluated?<br />
+(A) This Saturday<br />
+(B) At the end of September<br />
+(C) In October<br />
+(D) Next spring</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>GUEST NOTICE — Elevator Maintenance</strong></p>
+<p>The main guest elevator will be out of service on Wednesday, May 14, from 9 A.M. to 3 P.M. for its annual safety inspection. The service elevator at the end of the east hallway will remain available and can be used by guests during this time. Staff will be posted on each floor to assist guests with luggage. We appreciate your patience.</p>
+<p><strong>153.</strong> When will the main elevator be unavailable?<br />
+(A) All day Tuesday<br />
+(B) Wednesday morning and afternoon<br />
+(C) Wednesday evening only<br />
+(D) All week</p>
+<p><strong>154.</strong> What can guests do during the maintenance?<br />
+(A) Use the service elevator<br />
+(B) Request a ground-floor room<br />
+(C) Wait in the lobby<br />
+(D) Take the fire stairs only</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>MOUNTAIN VIEW CABINS — Autumn Special</strong></p>
+<p>Escape to the forest this fall. Our fully equipped cabins sleep four to six and include a kitchen, fireplace, and private deck. Book any three-night stay in October and get the fourth night free.</p>
+<p>Cabins are a 90-minute drive from the city and 15 minutes from the national park entrance. A small grocery and a café are within walking distance. Pets are welcome in select cabins for a $25 cleaning fee.</p>
+<p>Reserve at mountainviewcabins.example or call 555-0166. A 50% deposit holds your dates.</p>
+<p><strong>155.</strong> What is the autumn special offer?<br />
+(A) A free guided hike<br />
+(B) Half off all bookings<br />
+(C) A free rental car<br />
+(D) A fourth night free with a three-night stay</p>
+<p><strong>156.</strong> How far are the cabins from the national park entrance?<br />
+(A) 15 minutes<br />
+(B) 45 minutes<br />
+(C) 90 minutes<br />
+(D) Two hours</p>
+<p><strong>157.</strong> What is required to hold a reservation?<br />
+(A) Full payment<br />
+(B) A credit card number only<br />
+(C) A 50% deposit<br />
+(D) A membership</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> bookings@harborinn.example <strong>From:</strong> t.nomura@example.com <strong>Subject:</strong> Room request for July</p>
+<p>Hello,</p>
+<p>I'd like to book a room for three nights, July 19–22, for two adults. We'd prefer a quiet room away from the street if possible, as one of us works early mornings.</p>
+<p>Also, do you offer parking on site, and is there a fee? We'll be arriving by car around 6 P.M. on the 19th.</p>
+<p>Finally, is it possible to arrange a taxi to the airport for our departure on the 22nd? Our flight is at 11 A.M.</p>
+<p>Thank you,<br />
+Taro Nomura</p>
+<p><strong>158.</strong> What does Mr. Nomura ask for regarding the room?<br />
+(A) A room with a balcony<br />
+(B) A room on the ground floor<br />
+(C) Two connecting rooms<br />
+(D) A quiet room away from the street</p>
+<p><strong>159.</strong> Why does Mr. Nomura mention early mornings?<br />
+(A) He wants an early check-in<br />
+(B) One traveler works early and needs quiet<br />
+(C) Breakfast starts early<br />
+(D) Their flight is early</p>
+<p><strong>160.</strong> What does Mr. Nomura ask the hotel to arrange?<br />
+(A) A rental car<br />
+(B) A city tour<br />
+(C) A taxi to the airport<br />
+(D) A late checkout</p>
+<h3>Passage 6 — Schedule (161–162)</h3>
+<p><strong>RIVERSIDE HOTEL — Weekly Activities</strong></p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Activity</th>
+<th>Time</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mon</td>
+<td>Morning yoga</td>
+<td>7:00 A.M.</td>
+<td>Garden lawn</td>
+</tr>
+<tr>
+<td>Wed</td>
+<td>Wine tasting</td>
+<td>5:30 P.M.</td>
+<td>Cellar bar</td>
+</tr>
+<tr>
+<td>Thu</td>
+<td>Guided river walk</td>
+<td>9:00 A.M.</td>
+<td>Meet at lobby</td>
+</tr>
+<tr>
+<td>Sat</td>
+<td>Live jazz</td>
+<td>8:00 P.M.</td>
+<td>Terrace</td>
+</tr>
+</tbody>
+</table>
+<p>All activities are free for guests. The river walk requires sign-up at the front desk by 6 P.M. the day before.</p>
+<p><strong>161.</strong> Which activity requires advance sign-up?<br />
+(A) Morning yoga<br />
+(B) Wine tasting<br />
+(C) The guided river walk<br />
+(D) Live jazz</p>
+<p><strong>162.</strong> Where does the Saturday activity take place?<br />
+(A) The garden lawn<br />
+(B) The cellar bar<br />
+(C) The lobby<br />
+(D) The terrace</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Almeida,</p>
+<p>Thank you for staying at the Grand Central Hotel from March 2 to March 5 and for taking the time to share your feedback.</p>
+<p>We were pleased to hear that you enjoyed the restaurant and found our staff helpful. We also take seriously your comment about the noise from the street-facing rooms on the lower floors. We are currently installing soundproof windows on floors 2 through 4, a project we expect to finish by the end of April.</p>
+<p>As a gesture of goodwill, we have added 3,000 points to your loyalty account, which you may use toward a future stay. We hope to welcome you back once the improvements are complete.</p>
+<p>Sincerely,<br />
+Guest Relations, Grand Central Hotel</p>
+<p><strong>163.</strong> Why did the hotel send this letter?<br />
+(A) To respond to a guest's feedback<br />
+(B) To confirm a future reservation<br />
+(C) To advertise a new restaurant<br />
+(D) To request payment</p>
+<p><strong>164.</strong> What problem did Ms. Almeida mention?<br />
+(A) Slow room service<br />
+(B) An uncomfortable bed<br />
+(C) Street noise in lower-floor rooms<br />
+(D) A billing error</p>
+<p><strong>165.</strong> What is the hotel doing about the issue?<br />
+(A) Moving guests to higher floors<br />
+(B) Installing soundproof windows<br />
+(C) Closing the lower floors<br />
+(D) Offering earplugs</p>
+<p><strong>166.</strong> What did the hotel give Ms. Almeida?<br />
+(A) A cash refund<br />
+(B) A free night immediately<br />
+(C) A restaurant voucher<br />
+(D) 3,000 loyalty points</p>
+<h3>Passage 8 — Traveler FAQ (167–169)</h3>
+<p><strong>TRAVELER FAQ — Baggage</strong></p>
+<p><strong>How many bags can I check for free?</strong><br />
+Economy fares include one checked bag up to 23 kg. Additional bags are $40 each if added online before departure, or $60 at the airport.</p>
+<p><strong>What about carry-on?</strong><br />
+All passengers may bring one carry-on bag (max 7 kg) and one personal item such as a purse or laptop bag.</p>
+<p><strong>Are there restricted items?</strong><br />
+Liquids in carry-on must be in containers of 100 ml or less. Power banks must be carried on, not checked.</p>
+<p><strong>What if my bag is delayed?</strong><br />
+Report it at the arrivals baggage desk before leaving the airport. Most delayed bags are delivered within 24 hours.</p>
+<p><strong>167.</strong> How much does a second checked bag cost if added at the airport?<br />
+(A) $23<br />
+(B) $60<br />
+(C) $40<br />
+(D) $100</p>
+<p><strong>168.</strong> What must be carried on rather than checked?<br />
+(A) Power banks<br />
+(B) Liquids over 100 ml<br />
+(C) Laptop bags<br />
+(D) Fragile items</p>
+<p><strong>169.</strong> What should a passenger do about a delayed bag?<br />
+(A) Call the airline the next day<br />
+(B) File a claim online within a week<br />
+(C) Wait 48 hours, then report it<br />
+(D) Report it before leaving the airport</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> Reservations Team <strong>FROM:</strong> Revenue Manager <strong>RE:</strong> Minimum-Stay Rule for Festival Weekend</p>
+<p>For the weekend of the Harvest Festival (October 17–19), we are setting a two-night minimum for all bookings. Single-night requests for those dates should not be accepted through the normal system.</p>
+<p>Guests who already hold a single-night booking for that weekend will be honored — do not cancel or change them. However, if such a guest calls to modify their booking, encourage them to extend to two nights at the standard rate.</p>
+<p>Rates for the festival weekend are 20% higher than the usual weekend rate and are already loaded in the system.</p>
+<p><strong>170.</strong> What rule applies to the festival weekend?<br />
+(A) A two-night minimum stay<br />
+(B) No new bookings at all<br />
+(C) Prepayment in full<br />
+(D) A one-night maximum</p>
+<p><strong>171.</strong> What should staff do about existing single-night bookings for that weekend?<br />
+(A) Cancel them<br />
+(B) Charge them a penalty<br />
+(C) Honor them without changes<br />
+(D) Move them to another weekend</p>
+<p><strong>172.</strong> What is true about festival-weekend rates?<br />
+(A) They are the same as usual<br />
+(B) They are 20% higher than the usual weekend rate<br />
+(C) They are 20% lower<br />
+(D) They are set by each guest</p>
+<h3>Passage 10 — Online review (173–175)</h3>
+<p>★★★☆☆ <strong>Great location, tired rooms</strong> — by K. Whitfield</p>
+<p>I stayed here for a conference because it's directly across from the convention center — you can't beat that for convenience, and the staff at the desk were genuinely friendly and quick. That said, the room felt dated: the bathroom fixtures were worn, and the air conditioner was loud enough that I slept with earplugs. Breakfast was fine but repetitive over four days. For a one-night stay near the convention center, it's a reasonable choice; for a longer trip, I'd look elsewhere.</p>
+<p><strong>173.</strong> Why did the reviewer choose this hotel?<br />
+(A) The low price<br />
+(B) A friend's recommendation<br />
+(C) The breakfast options<br />
+(D) Its location across from the convention center</p>
+<p><strong>174.</strong> What complaint does the reviewer make about the room?<br />
+(A) It was too small<br />
+(B) The Wi-Fi was slow<br />
+(C) The fixtures were worn and the air conditioner was loud<br />
+(D) There was no desk</p>
+<p><strong>175.</strong> What does the reviewer recommend?<br />
+(A) The hotel for a short stay near the convention center<br />
+(B) The hotel for long stays<br />
+(C) Avoiding the hotel entirely<br />
+(D) Requesting a renovated room</p>
+<h3>Passages 11–12 — Group booking email &amp; hotel reply (176–180)</h3>
+<p><strong>Document 1</strong></p>
+<p><strong>From:</strong> Marta Reyes <strong>To:</strong> reservations@lakesidehotel.example <strong>Subject:</strong> Group booking — August</p>
+<p>Hello,</p>
+<p>I'm organizing a family reunion and would like to book 6 rooms for the weekend of August 15–17 (two nights). We'll have about 14 people, mostly couples, plus two children.</p>
+<p>A few questions:<br />
+- Do you have a room that connects to another, for the family with children?<br />
+- Is there a room large enough for a group dinner on the Saturday evening, for about 16 people?<br />
+- Do groups get any discount on the room rate?</p>
+<p>Thank you,<br />
+Marta Reyes</p>
+<p><strong>Document 2</strong></p>
+<p><strong>From:</strong> reservations@lakesidehotel.example <strong>To:</strong> Marta Reyes <strong>Subject:</strong> RE: Group booking — August</p>
+<p>Dear Ms. Reyes,</p>
+<p>We'd be glad to host your reunion. For August 15–17 we can offer 6 rooms, including one pair of connecting rooms, which I've noted for the family with children.</p>
+<p>Our private dining room seats up to 20 and is available Saturday evening; there is no room-hire fee, but we ask that food and drink orders total at least $400.</p>
+<p>For bookings of 5 rooms or more, we apply a 10% discount on the room rate. To confirm, we'll need a one-night deposit per room within seven days.</p>
+<p>Best regards,<br />
+Lakeside Hotel Reservations</p>
+<p><strong>176.</strong> How many rooms does Ms. Reyes want to book?<br />
+(A) Two<br />
+(B) Four<br />
+(C) Six<br />
+(D) Fourteen</p>
+<p><strong>177.</strong> What does Ms. Reyes ask about for the family with children?<br />
+(A) A crib<br />
+(B) A ground-floor room<br />
+(C) A babysitting service<br />
+(D) Connecting rooms</p>
+<p><strong>178.</strong> What is the condition for using the private dining room?<br />
+(A) A room-hire fee of $400<br />
+(B) A minimum food and drink order of $400<br />
+(C) Booking 30 days in advance<br />
+(D) A group of at least 20</p>
+<p><strong>179.</strong> How does the hotel's discount apply?<br />
+(A) 10% off for 5 or more rooms<br />
+(B) 10% off for stays of 3 nights<br />
+(C) A flat $400 discount<br />
+(D) No discount for groups</p>
+<p><strong>180.</strong> What must Ms. Reyes do to confirm the booking?<br />
+(A) Pay in full immediately<br />
+(B) Sign a contract in person<br />
+(C) Pay a one-night deposit per room within seven days<br />
+(D) Provide a list of all guest names</p>
+<h3>Passages 13–14 — Two emails about a delayed refund (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Owen Park <strong>To:</strong> support@flyaway.example <strong>Subject:</strong> Refund for canceled flight — booking FA-7781</p>
+<p>On June 3, my flight FA-7781 from Lisbon to Dublin was canceled by the airline, and I was rebooked on a flight two days later. At the airport, an agent told me I was entitled to a €250 compensation payment and gave me a form, which I submitted online that day.</p>
+<p>It has now been five weeks and I have not received the payment or any update. Can you tell me the status of my claim?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> support@flyaway.example <strong>To:</strong> Owen Park <strong>Subject:</strong> RE: Refund for canceled flight — booking FA-7781</p>
+<p>Dear Mr. Park,</p>
+<p>I apologize for the delay. I can see your claim was received on June 3 and approved on June 20, but it was not passed to our payments team due to a processing error on our side.</p>
+<p>I have now escalated it. The €250 will be transferred to the card used for the original booking within five business days. You will receive a confirmation email once the transfer is made.</p>
+<p>To apologize for the inconvenience, I have also added a €40 travel voucher to your account, valid for 12 months.</p>
+<p><strong>181.</strong> Why was Mr. Park's flight disrupted?<br />
+(A) The airline canceled it<br />
+(B) He missed the flight<br />
+(C) Bad weather closed the airport<br />
+(D) His ticket was invalid</p>
+<p><strong>182.</strong> When did Mr. Park submit his compensation form?<br />
+(A) Two days after the cancellation<br />
+(B) Five weeks later<br />
+(C) On June 20<br />
+(D) On June 3, the day of the cancellation</p>
+<p><strong>183.</strong> Why was the payment delayed, according to the airline?<br />
+(A) The claim was denied<br />
+(B) Mr. Park submitted the wrong form<br />
+(C) A processing error kept it from the payments team<br />
+(D) The airline was waiting for a receipt</p>
+<p><strong>184.</strong> When will Mr. Park receive the €250?<br />
+(A) Immediately<br />
+(B) Within five business days<br />
+(C) In 12 months<br />
+(D) After he replies</p>
+<p><strong>185.</strong> What else does the airline offer Mr. Park?<br />
+(A) A free flight<br />
+(B) A seat upgrade<br />
+(C) Frequent-flyer status<br />
+(D) A €40 travel voucher</p>
+<h3>Passages 15–17 — Summit agenda, planning email &amp; hotel confirmation (186–190)</h3>
+<p><strong>Document 1 — Agenda</strong></p>
+<p><strong>COASTAL TOURISM SUMMIT — October 9–10</strong> · Seabright Convention Center</p>
+<ul>
+<li>Oct 9, 9:00 A.M. — Opening remarks</li>
+<li>Oct 9, 10:00 A.M.–12:30 P.M. — Panel sessions</li>
+<li>Oct 9, 1:30–5:00 P.M. — Workshops (Track A: Marketing / Track B: Sustainability)</li>
+<li>Oct 9, 7:00 P.M. — Networking dinner (separate ticket, $45)</li>
+<li>Oct 10, 9:00 A.M.–12:00 P.M. — Site visits (choose one: harbor tour or historic district)</li>
+<li>Oct 10, 1:00 P.M. — Closing session</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Dana Cole <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> Summit plan</p>
+<p>Hi Sam,</p>
+<p>I've registered us both for the Coastal Tourism Summit. For the Oct 9 workshops, I signed you up for Track B (Sustainability), since that's closer to your project. I'm doing Track A.</p>
+<p>I also bought us both tickets for the networking dinner. For the Oct 10 site visits, can you let me know which one you'd like? I'm leaning toward the harbor tour.</p>
+<p>Our hotel is the Seabright Inn, two blocks from the convention center, checking in Oct 8 and out Oct 10.</p>
+<p><strong>Document 3 — Hotel confirmation</strong></p>
+<p><strong>SEABRIGHT INN — Booking Confirmed</strong><br />
+Guest: S. Whitfield · Check-in: Oct 8 · Check-out: Oct 10 · Room: 1 king, non-smoking<br />
+Rate: $140/night · Breakfast included · Confirmation: SBI-3320<br />
+Note: The convention center offers a discounted parking rate to Seabright Inn guests; show your room key at the garage office.</p>
+<p><strong>186.</strong> Which workshop track is Sam signed up for?<br />
+(A) Track A: Marketing<br />
+(B) Track B: Sustainability<br />
+(C) Both tracks<br />
+(D) Neither</p>
+<p><strong>187.</strong> What did Dana purchase in addition to registration?<br />
+(A) Parking passes<br />
+(B) Site visit upgrades<br />
+(C) A rental car<br />
+(D) Networking dinner tickets</p>
+<p><strong>188.</strong> What does Dana ask Sam to decide?<br />
+(A) Which hotel to book<br />
+(B) Whether to attend the dinner<br />
+(C) Which Oct 10 site visit to join<br />
+(D) What time to leave</p>
+<p><strong>189.</strong> How many nights will Sam stay at the Seabright Inn?<br />
+(A) Two<br />
+(B) One<br />
+(C) Three<br />
+(D) Four</p>
+<p><strong>190.</strong> How can Sam get a discounted parking rate?<br />
+(A) Book parking online in advance<br />
+(B) Register early for the summit<br />
+(C) Show his room key at the garage office<br />
+(D) Ask Dana for a pass</p>
+<h3>Passages 18–20 — Travel request, manager reply &amp; booking confirmation (191–195)</h3>
+<p><strong>Document 1 — Travel request</strong></p>
+<p>Employee: Rosa Delgado<br />
+Purpose: Client site visit — Halvorsen Group, Bergen<br />
+Requested dates: Depart Nov 4, return Nov 7<br />
+Estimated cost: Flights €420, hotel 3 nights €330, meals/local transport €150<br />
+Notes: Client meeting is Nov 5; Nov 6 reserved for a factory tour. Requesting the extra day (Nov 7 departure) to avoid a same-day return after the tour.</p>
+<p><strong>Document 2 — Manager reply</strong></p>
+<p><strong>From:</strong> Erik Lund <strong>To:</strong> Rosa Delgado <strong>Subject:</strong> RE: Travel request — Bergen</p>
+<p>Approved, with one change: please return Nov 6 evening rather than Nov 7. There is a red-eye option that gets you back by early morning on the 7th, and it saves a hotel night. If the factory tour runs long and you would miss that flight, let me know and we will keep the original plan.</p>
+<p>Book through the travel portal and copy me on the confirmation.</p>
+<p><strong>Document 3 — Booking confirmation</strong></p>
+<p><strong>Traveler:</strong> R. Delgado<br />
+- Nov 4: OSL→BGO, dep 3:15 P.M.<br />
+- Nov 6: BGO→OSL, dep 10:40 P.M.<br />
+- Nov 7: OSL→home, dep 6:30 A.M., arr 7:50 A.M.<br />
+Hotel: Bergen Harbor Hotel, 2 nights (Nov 4–6)<br />
+Total: €690</p>
+<p><strong>191.</strong> Why is Rosa traveling to Bergen?<br />
+(A) To attend a conference<br />
+(B) To open a new office<br />
+(C) For a client site visit<br />
+(D) For training</p>
+<p><strong>192.</strong> What change did Erik make to the request?<br />
+(A) He moved the return to Nov 6<br />
+(B) He canceled the factory tour<br />
+(C) He upgraded the flights<br />
+(D) He added an extra day</p>
+<p><strong>193.</strong> Why did Erik prefer the earlier return?<br />
+(A) The client requested it<br />
+(B) Rosa asked for it<br />
+(C) The later flight was full<br />
+(D) It saves a hotel night</p>
+<p><strong>194.</strong> According to the confirmation, how many nights will Rosa stay at the hotel?<br />
+(A) One<br />
+(B) Two<br />
+(C) Three<br />
+(D) Four</p>
+<p><strong>195.</strong> What does Erik ask Rosa to do?<br />
+(A) Pay for the trip herself<br />
+(B) Cancel the factory tour<br />
+(C) Copy him on the booking confirmation<br />
+(D) Fly business class</p>
+<h3>Passages 21–23 — Loyalty terms, member email &amp; program reply (196–200)</h3>
+<p><strong>Document 1 — Program terms (excerpt)</strong></p>
+<p><strong>SKYPOINTS LOYALTY PROGRAM</strong></p>
+<ul>
+<li>Earn 5 points per €1 spent on flights and 3 points per €1 on hotels booked through Skyway.</li>
+<li>Points expire 24 months after they are earned if there is no account activity.</li>
+<li>A "reward flight" starts at 15,000 points for short-haul and 40,000 for long-haul, plus taxes and fees paid in cash.</li>
+<li>Silver status (25,000 points in a calendar year) includes one free checked bag and priority boarding.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lena Novak <strong>To:</strong> skypoints@skyway.example <strong>Subject:</strong> Points balance and status</p>
+<p>Hi,</p>
+<p>My account shows 22,400 points. I have one more trip booked this year — a round-trip short-haul flight costing €360. Will that trip push me to Silver status before the end of the year? And roughly how many points will I have afterward?</p>
+<p>Also, I earned about 6,000 points in early 2023 that I haven't used. Are those about to expire?</p>
+<p>Thanks,<br />
+Lena</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> skypoints@skyway.example <strong>To:</strong> Lena Novak <strong>Subject:</strong> RE: Points balance and status</p>
+<p>Hi Lena,</p>
+<p>Your upcoming €360 flight will earn 1,800 points (5 × 360), bringing your calendar-year total above 25,000 — so yes, you'll reach Silver, and it will apply to trips booked after that flight is completed. Your total balance would then be about 24,200 points.</p>
+<p>Regarding the 2023 points: because you have had account activity since then, they have not expired. Points only lapse after 24 months with no activity at all.</p>
+<p><strong>196.</strong> How many points does a member earn per €1 spent on flights?<br />
+(A) 3<br />
+(B) 5<br />
+(C) 15<br />
+(D) 25</p>
+<p><strong>197.</strong> What does Lena want to know?<br />
+(A) How to book a reward flight<br />
+(B) How to transfer points to a friend<br />
+(C) The cost of a checked bag<br />
+(D) Whether her upcoming trip will earn Silver status</p>
+<p><strong>198.</strong> According to the reply, how many points will the €360 flight earn?<br />
+(A) 360<br />
+(B) 1,080<br />
+(C) 1,800<br />
+(D) 3,600</p>
+<p><strong>199.</strong> When will Lena's Silver status take effect?<br />
+(A) Immediately<br />
+(B) After the upcoming flight is completed<br />
+(C) On January 1<br />
+(D) After 25 flights</p>
+<p><strong>200.</strong> Why have Lena's 2023 points NOT expired?<br />
+(A) Her account has had activity since then<br />
+(B) They were transferred to a new account<br />
+(C) Silver members' points never expire<br />
+(D) She used them on a hotel</p>
+<hr />
+<p><em>Hết phần Reading — Set_002. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_002</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B27/C28/D17 (Part 2 không có D), Reading A25/B24/C27/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "handing a key to a guest" · bẫy: "signing a registration form" (khách không ký)</li>
+<li><strong>3 C</strong> "a table has been set near the water" — trạng thái · bẫy: "diners/server" (ảnh chưa có người)</li>
+<li><strong>4 D</strong> "a guide is speaking to a group" · bẫy: "taking photographs of a painting"</li>
+<li><strong>5 B</strong> "stepping onto a boat" · bẫy: "being repaired" / "moving away"</li>
+<li><strong>6 A</strong> "making a bed" · bẫy: "unpacking a suitcase" (là việc của khách, không phải buồng phòng)</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where...after checkout" → vị trí (storage room) · bẫy: lặp "checked out"</li>
+<li><strong>11 C</strong> "Has the taxi arrived?" → "It's just pulling up now" · bẫy: lặp "fare", trả lời Where</li>
+<li><strong>16 A</strong> tag question → đính chính "open until ten in summer" · bẫy: lặp "pool", "swimming"</li>
+<li><strong>19 A</strong> "When does it close?" → "staffed 24 hours" (không đóng) — trả lời gián tiếp</li>
+<li><strong>20 C</strong> câu than phiền → giải pháp "I'll send someone to reset it"</li>
+<li><strong>21 B</strong> yêu cầu wake-up call → "Of course, I'll set that up" · bẫy: lặp "six"</li>
+<li><strong>25 C</strong> "Isn't checkout usually at eleven?" → đính chính-đồng ý "Yes, but we can extend it" · bẫy: lặp "eleven"</li>
+<li><strong>29 A</strong> "Haven't you confirmed...yet?" → "Not yet, I'll do it tonight" · bẫy: lặp "rented", "car"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "add a second night" · "$135, the same as tonight" · "until 1 P.M. at no charge"</li>
+<li>35–37: "Have the flight prices changed?" · "gone up by about $80" · "I'll send the payment link this afternoon"</li>
+<li>38–40: "the vineyard tour" · "be in the lobby by 8:00" · "ship bottles internationally"</li>
+<li>41–43: "connecting flight to Denver was just canceled" · "I'll take the evening one" · "added a meal voucher"</li>
+<li>44–46: "air conditioning ... doesn't seem to be cooling" · "send maintenance ... or ... move to" · "I'll wait for maintenance first"</li>
+<li>47–49: "The day before, definitely" · "don't want to risk a delay" · "Same hotel as the venue?" → "Yes"</li>
+<li>50–52: "is my room ready?" · "text her when the room is ready" · "opens at eight"</li>
+<li>53–55: "charged for a minibar item" · "removes it" · "late checkout"</li>
+<li>56–58: "tight connection" · "move him to a different seat" · "seat closer to the front"</li>
+<li>59–61: "return the car early" · "no refund for unused days" · "the final receipt"</li>
+<li>62–64: "tour bus is late" · "traffic downtown" · "text the men when the bus arrives"</li>
+<li>65–67: "room does not have the sea view" · "the view was the main reason" · "different room with an ocean view"</li>
+<li>68–70: "flight got canceled" · "would rather wait for a direct flight" · "hotel voucher for tonight"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "a technical issue with the aircraft" · "new boarding time is 4:45 P.M." · "speak with a gate agent"</li>
+<li>74–76: "Breakfast is served in the Terrace Restaurant" · "your room key provides access" · "luggage storage is available ... after that time"</li>
+<li>77–79: "takes about two hours" · "comfortable shoes are important" · "fifteen minutes for coffee or photos"</li>
+<li>80–82: "book flights, hotels, and rental cars" · "members always get an extra 5% off hotels" · "code SPRING ... $30 off any booking over $300"</li>
+<li>83–85: "boarding at gate 14" · "extra time or small children" board first · "boarding will close ten minutes before"</li>
+<li>86–88: "confirm your reservation" · "rooftop restaurant will be closed" Saturday · "table at a nearby restaurant"</li>
+<li>89–91: "old town walking tour" · "ninety minutes" · "stay close to the group"</li>
+<li>92–94: "third in line for takeoff" · "beverage service" after cruising altitude · "keep seatbelts fastened"</li>
+<li>95–97: "nineteenth-century landscape paintings" · "press seven" for detail · "gift shop ... at the end of this hall"</li>
+<li>98–100: "arriving ... Santorini" · "back on board no later than six P.M." · "shuttle tickets ... at guest services"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The resort's spa</code> số ít + thói quen → <code>offers</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>handled</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be advised to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>shuttle to the city center</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>B</td>
+<td><code>the <span class="fill"></span> comfortable</code> → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>C</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>D</td>
+<td><code>confirm ... by calling</code> (bằng cách gọi)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa <code>has grown</code> → trạng từ <code>rapidly</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each guest room</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask somebody to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>at the kiosks</code> (một điểm)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề điều kiện → <code>If</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The airline</code> số ít → <code>has</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>directions</code> → tính từ <code>accurate</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (far + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>Neither ... nor ...</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>on the terrace</code> (bề mặt/khu vực)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td><code>come with</code> (đi kèm)</td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>inspect</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa <code>loads</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... flies</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>A</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td><code>city-issued license</code> (giấy phép do thành phố cấp) — phân từ quá khứ</td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (schedule <strong>được</strong> đăng)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>information</code> → tính từ <code>useful</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>A</td>
+<td><code>Your reservation ... is confirmed</code> (chủ ngữ số ít)</td>
+</tr>
+<tr>
+<td>132</td>
+<td>C</td>
+<td>+ mệnh đề <code>your room is ready</code> → <code>until</code> (cho đến khi)</td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td><code>we <span class="fill"></span> allowing</code> → động từ <code>recommend</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> lời chào đón khép lại email xác nhận đặt phòng</td>
+</tr>
+<tr>
+<td>135</td>
+<td>B</td>
+<td>"Starting Monday ... sẽ đổi" → tương lai <code>will change</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>chủ ngữ <code>Signs</code> (số nhiều) → <code>are ... displayed</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>C</td>
+<td><code>reduce ... by ten minutes</code> (giảm đi 10 phút)</td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo thay đổi làn an ninh</td>
+</tr>
+<tr>
+<td>139</td>
+<td>B</td>
+<td>trước danh từ <code>cycling trips</code> → tính từ <code>guided</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>A</td>
+<td>song song với <code>carries</code> (chủ ngữ <code>a support vehicle</code> số ít) → <code>provides</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td><code>our most <span class="fill"></span> trip</code> → tính từ <code>popular</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> nhấn mạnh tính khẩn cấp trước lời kêu gọi đặt chỗ</td>
+</tr>
+<tr>
+<td>143</td>
+<td>B</td>
+<td>travel <strong>được</strong> đặt → bị động <code>must be booked</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>C</td>
+<td>"Business class <strong>được</strong> cho phép" → bị động <code>is allowed</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>A</td>
+<td>phân từ rút gọn: "Any amount exceeding the cap"</td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu có thắc mắc, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>B</td>
+<td>156</td>
+<td>A</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>A</td>
+</tr>
+<tr>
+<td>148</td>
+<td>A</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>A</td>
+<td>184</td>
+<td>B</td>
+<td>193</td>
+<td>D</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>D</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>C</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>B</td>
+<td>159</td>
+<td>B</td>
+<td>168</td>
+<td>A</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>D</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>D</td>
+<td>178</td>
+<td>B</td>
+<td>187</td>
+<td>D</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>A</td>
+<td>188</td>
+<td>C</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>B</td>
+<td>162</td>
+<td>D</td>
+<td>171</td>
+<td>C</td>
+<td>180</td>
+<td>C</td>
+<td>189</td>
+<td>A</td>
+<td>198</td>
+<td>C</td>
+</tr>
+<tr>
+<td>154</td>
+<td>A</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>B</td>
+<td>181</td>
+<td>A</td>
+<td>190</td>
+<td>C</td>
+<td>199</td>
+<td>B</td>
+</tr>
+<tr>
+<td>155</td>
+<td>D</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>C</td>
+<td>200</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>151 D</strong> — "bicycles are permitted at no charge"<br />
+- <strong>157 C</strong> — "A 50% deposit holds your dates"<br />
+- <strong>167 B</strong> — "$40 ... online ... or $60 at the airport"<br />
+- <strong>172 B</strong> — "20% higher than the usual weekend rate"<br />
+- <strong>178 B</strong> — "no room-hire fee, but ... orders total at least $400"<br />
+- <strong>182 D</strong> — "gave me a form, which I submitted online that day" (that day = June 3)<br />
+- <strong>185 D</strong> — "added a €40 travel voucher to your account"<br />
+- <strong>189 A</strong> — check-in Oct 8, check-out Oct 10 → 2 đêm<br />
+- <strong>194 B</strong> — "Bergen Harbor Hotel, 2 nights (Nov 4–6)"<br />
+- <strong>198 C</strong> — "1,800 points (5 × 360)"<br />
+- <strong>199 B</strong> — "it will apply to trips booked after that flight is completed"<br />
+- <strong>200 A</strong> — "because you have had account activity since then, they have not expired"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_002 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Travel): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

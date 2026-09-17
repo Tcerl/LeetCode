@@ -1,0 +1,2246 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_015 — Food Service & Restaurants</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="015">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_015</strong>
+    <span class="theme">Food Service &amp; Restaurants</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_015 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Đầu bếp đứng bên bếp, đang đảo thức ăn trong chảo.]</em><br />
+(A) A server is carrying a tray of plates.<br />
+(B) A chef is cooking food in a pan on the stove.<br />
+(C) Dishes are being stacked in a rack.<br />
+(D) Vegetables are being delivered to the door.</p>
+<p><strong>2.</strong> <em>[Ảnh: Nhân viên phục vụ đặt một đĩa thức ăn xuống bàn của khách.]</em><br />
+(A) A server is placing a plate on a customer's table.<br />
+(B) A customer is paying at the register.<br />
+(C) Two people are reading menus.<br />
+(D) A table is being wiped down.</p>
+<p><strong>3.</strong> <em>[Ảnh: Nhân viên đứng trong kho, ghi chép số lượng hàng trên kệ.]</em><br />
+(A) Boxes are being loaded onto a truck.<br />
+(B) A cook is washing produce at a sink.<br />
+(C) A worker is checking stock on the shelves.<br />
+(D) The storeroom door is being locked.</p>
+<p><strong>4.</strong> <em>[Ảnh: Quán cà phê trước giờ mở cửa, ghế được úp lên bàn.]</em><br />
+(A) Customers are waiting in line.<br />
+(B) A barista is making a drink.<br />
+(C) People are seated by the window.<br />
+(D) The chairs are stacked on the tables before opening.</p>
+<p><strong>5.</strong> <em>[Ảnh: Bàn dài được bày sẵn dao nĩa và ly cho một sự kiện.]</em><br />
+(A) A long table is set with cutlery and glasses for an event.<br />
+(B) Guests are being seated for dinner.<br />
+(C) A waiter is pouring water.<br />
+(D) Plates are being cleared from the table.</p>
+<p><strong>6.</strong> <em>[Ảnh: Người giao đồ ăn cầm túi đứng trước cửa một nhà hàng.]</em><br />
+(A) A cook is handing food over the counter.<br />
+(B) A menu board is being updated.<br />
+(C) A delivery rider is holding a bag outside a restaurant.<br />
+(D) Tables are being set up on the sidewalk.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the dinner service start?<br />
+(A) At five thirty.<br />
+(B) In the back dining room.<br />
+(C) About forty covers.</p>
+<p><strong>8.</strong> Who's covering the Saturday brunch shift?<br />
+(A) It gets very busy.<br />
+(B) Two of the new servers.<br />
+(C) From ten to two.</p>
+<p><strong>9.</strong> Where do the clean aprons go?<br />
+(A) In the cupboard by the pass.<br />
+(B) They're washed every night.<br />
+(C) We ordered more last week.</p>
+<p><strong>10.</strong> Why is the walk-in cooler beeping?<br />
+(A) It's in the back hallway.<br />
+(B) Since about an hour ago.<br />
+(C) The temperature is too high.</p>
+<p><strong>11.</strong> How many reservations do we have tonight?<br />
+(A) Around sixty.<br />
+(B) Mostly parties of four.<br />
+(C) The book is online now.</p>
+<p><strong>12.</strong> Could you prep the salad station before the rush?<br />
+(A) The rush starts at seven.<br />
+(B) I'll get to it after the deliveries.<br />
+(C) It's by the walk-in.</p>
+<p><strong>13.</strong> The new supplier is cheaper, isn't it?<br />
+(A) They deliver on Tuesdays.<br />
+(B) Yes, about ten percent less on produce.<br />
+(C) We've used them twice.</p>
+<p><strong>14.</strong> Should we add the daily special to the printed menu or just the board?<br />
+(A) The special is a fish dish.<br />
+(B) The printer is down the street.<br />
+(C) The board is easier to change.</p>
+<p><strong>15.</strong> Isn't the health inspection due this month?<br />
+(A) The kitchen passed last time.<br />
+(B) It's usually unannounced.<br />
+(C) Yes, sometime in the next two weeks.</p>
+<p><strong>16.</strong> Can you show me how to split a check on the new system?<br />
+(A) The system was updated.<br />
+(B) Sure — tap the table, then "Split."<br />
+(C) We get a lot of split checks.</p>
+<p><strong>17.</strong> What did the customer complain about?<br />
+(A) They were seated near the kitchen.<br />
+(B) The table was by the window.<br />
+(C) That the soup arrived cold.</p>
+<p><strong>18.</strong> Where's the allergen list kept?<br />
+(A) Laminated, by the host stand.<br />
+(B) We updated it last month.<br />
+(C) Mostly nuts and shellfish.</p>
+<p><strong>19.</strong> Do you know whether the catering order was confirmed?<br />
+(A) It's for eighty people.<br />
+(B) Check with the events coordinator.<br />
+(C) They wanted a buffet.</p>
+<p><strong>20.</strong> I think we're over-ordering on bread.<br />
+(A) We could cut the standing order.<br />
+(B) The bakery delivers daily.<br />
+(C) Bread is cheap, though.</p>
+<p><strong>21.</strong> Could you set the table for the six o'clock reservation?<br />
+(A) I'll set it up now.<br />
+(B) Tables are heavy.<br />
+(C) I reserved a table.</p>
+<p><strong>22.</strong> Has the delivery of fresh produce arrived yet?<br />
+(A) It's a large delivery.<br />
+(B) I delivered a package.<br />
+(C) Not yet, it's expected by noon.</p>
+<p><strong>23.</strong> Where should we seat the party of eight?<br />
+(A) At the large table by the window.<br />
+(B) Parties are fun.<br />
+(C) We seated them already.</p>
+<p><strong>24.</strong> Would you rather work the lunch or dinner shift?<br />
+(A) The dinner shift works better for me.<br />
+(B) Shifts run five hours.<br />
+(C) I worked lunch yesterday.</p>
+<p><strong>25.</strong> Isn't the kitchen usually closed on Mondays?<br />
+(A) Mondays are quiet.<br />
+(B) Yes, but we're open for a private event today.<br />
+(C) The kitchen looks clean.</p>
+<p><strong>26.</strong> How many reservations do we have tonight?<br />
+(A) About twenty-five.<br />
+(B) Reservations fill up fast.<br />
+(C) We reserved a table.</p>
+<p><strong>27.</strong> Who's running the bar tonight?<br />
+(A) Bars are busy on weekends.<br />
+(B) Leo is covering it.<br />
+(C) Bartending is fun.</p>
+<p><strong>28.</strong> Do you know if the new menu items were approved?<br />
+(A) Menus change often.<br />
+(B) I approved the budget.<br />
+(C) Yes, they were approved yesterday.</p>
+<p><strong>29.</strong> Should we offer a discount for the slow weeknights?<br />
+(A) Discounts bring customers.<br />
+(B) Let's discuss it with the owner first.<br />
+(C) I discounted the bill.</p>
+<p><strong>30.</strong> Haven't you finished prepping the vegetables yet?<br />
+(A) Prep takes time.<br />
+(B) Almost, just the onions left.<br />
+(C) The vegetables looked fresh.</p>
+<p><strong>31.</strong> Why was tonight's reservation canceled?<br />
+(A) Reservations fill quickly.<br />
+(B) It happened last week too.<br />
+(C) Because the guest had a family emergency.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> Table 12 says they ordered the grilled salmon, but the kitchen sent out the salmon cakes. They've already waited 25 minutes.<br />
+<strong>M:</strong> Fire the grilled salmon now and tell the kitchen it's a re-cook priority. What do they have in front of them?<br />
+<strong>W:</strong> Just bread and drinks.<br />
+<strong>M:</strong> Comp their appetizer and bring them a round of drinks on the house while they wait. I'll go talk to them.</p>
+<p><strong>32.</strong> What is the problem at table 12?<br />
+(A) Their reservation was lost<br />
+(B) They received the wrong dish<br />
+(C) They were overcharged<br />
+(D) The table was double-booked</p>
+<p><strong>33.</strong> What does the manager tell the kitchen?<br />
+(A) To cancel the order<br />
+(B) To prepare a different dish<br />
+(C) To treat the re-cook as a priority<br />
+(D) To close the salmon station</p>
+<p><strong>34.</strong> What does the manager offer the table?<br />
+(A) A full refund<br />
+(B) A free dessert<br />
+(C) A gift card<br />
+(D) A comped appetizer and drinks on the house</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The produce order came in short — no romaine at all, and half the tomatoes we ordered.<br />
+<strong>W:</strong> Romaine is in three dishes on tonight's menu.<br />
+<strong>M:</strong> I called the supplier; they can't get more until tomorrow. There's a smaller grocery two blocks over that might have romaine at retail price.<br />
+<strong>W:</strong> Do that for tonight, and let's 86 the Caesar if we run low. I'll tell the servers.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) The produce delivery arrived short<br />
+(B) A delivery was late<br />
+(C) The invoice was wrong<br />
+(D) The cooler broke down</p>
+<p><strong>36.</strong> What does the man suggest doing for tonight?<br />
+(A) Cancel dinner service<br />
+(B) Buy romaine at a nearby grocery<br />
+(C) Substitute a different green<br />
+(D) Wait for tomorrow's delivery</p>
+<p><strong>37.</strong> What will the woman tell the servers?<br />
+(A) The kitchen is closing early<br />
+(B) Prices are going up<br />
+(C) There is a new special<br />
+(D) The Caesar salad may run out</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> We're dropping four dishes that barely sell. What replaces them?<br />
+<strong>M1:</strong> Two can just go — the menu's too long anyway.<br />
+<strong>M2:</strong> For the other two slots, I'd add a vegetarian main and a shareable starter. Both are gaps right now.<br />
+<strong>W:</strong> Agreed. Let's cost them out this week and put them on as specials first before we print them.</p>
+<p><strong>38.</strong> What are the speakers doing?<br />
+(A) Hiring kitchen staff<br />
+(B) Revising the menu<br />
+(C) Choosing a supplier<br />
+(D) Planning a renovation</p>
+<p><strong>39.</strong> What does the second man suggest adding?<br />
+(A) Two new desserts<br />
+(B) A children's menu<br />
+(C) A vegetarian main and a shareable starter<br />
+(D) More seafood dishes</p>
+<p><strong>40.</strong> What will they do before printing the new dishes?<br />
+(A) Survey customers<br />
+(B) Raise prices<br />
+(C) Train the servers<br />
+(D) Run them as specials first</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> I'm calling about a quote for a lunch for about 30 people next Friday.<br />
+<strong>M:</strong> We can do that. Buffet or plated?<br />
+<strong>W:</strong> Buffet, and a few people have gluten and dairy restrictions.<br />
+<strong>M:</strong> We can label everything and have dedicated serving utensils for the allergen-free items. I'll email you a menu and a per-person price today; if it works, we need a deposit and a final count by Wednesday.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To complain about a past event<br />
+(B) To get a catering quote for a lunch<br />
+(C) To cancel an order<br />
+(D) To apply for a job</p>
+<p><strong>42.</strong> What does the woman mention about the guests?<br />
+(A) Some have gluten and dairy restrictions<br />
+(B) They are all vegetarian<br />
+(C) Several are children<br />
+(D) They will arrive late</p>
+<p><strong>43.</strong> What does the man say he needs by Wednesday?<br />
+(A) A signed contract<br />
+(B) A seating chart<br />
+(C) Full payment<br />
+(D) A deposit and a final count</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> Priya just called out for tonight — that's our second server down. We're at two on the floor for a full book.<br />
+<strong>W:</strong> Can we pull anyone from the day shift?<br />
+<strong>M:</strong> Dev already worked a double yesterday. I'd rather not.<br />
+<strong>W:</strong> Then I'll take a section myself, and we hold the two window tables as walk-in only so we don't seat more than we can serve.</p>
+<p><strong>44.</strong> What is the problem?<br />
+(A) The kitchen is behind<br />
+(B) A booking system error<br />
+(C) A server called out and they are short-staffed<br />
+(D) A supplier issue</p>
+<p><strong>45.</strong> Why doesn't the man want to call Dev?<br />
+(A) Dev is on vacation<br />
+(B) Dev worked a double the previous day<br />
+(C) Dev is new<br />
+(D) Dev lives too far away</p>
+<p><strong>46.</strong> What does the woman decide to do?<br />
+(A) Take a section herself and limit seating<br />
+(B) Close early<br />
+(C) Cancel all reservations<br />
+(D) Call a staffing agency</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> The practice inspection flagged the hand-wash sink by the prep line — the paper towels were empty and the water wasn't reaching 100 degrees fast enough.<br />
+<strong>M:</strong> The towels are an easy fix — restock and add it to the opening checklist.<br />
+<strong>W:</strong> The water temperature is the bigger issue. Maintenance thinks it's the mixing valve.<br />
+<strong>M:</strong> Get them in before Thursday. A slow hand-wash sink is an automatic critical violation.</p>
+<p><strong>47.</strong> What did the practice inspection flag?<br />
+(A) The walk-in cooler<br />
+(B) The dish machine<br />
+(C) Expired food<br />
+(D) The hand-wash sink by the prep line</p>
+<p><strong>48.</strong> What is the more serious problem?<br />
+(A) The empty paper towels<br />
+(B) A cracked tile<br />
+(C) The water not reaching the right temperature<br />
+(D) A missing sign</p>
+<p><strong>49.</strong> Why does it need to be fixed before Thursday?<br />
+(A) A slow hand-wash sink is an automatic critical violation<br />
+(B) A supplier visit is scheduled<br />
+(C) The owner is visiting<br />
+(D) The staff training is Thursday</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> A customer at table six says her soup came out cold.<br />
+<strong>M:</strong> Let's get her a fresh bowl right away and apologize for the mix-up.<br />
+<strong>W:</strong> Should we comp her dessert as well?<br />
+<strong>M:</strong> Good idea, that should help make up for the wait.</p>
+<p><strong>50.</strong> What is the customer's complaint?<br />
+(A) Her soup was too salty.<br />
+(B) Her soup was cold.<br />
+(C) Her order was wrong.<br />
+(D) Her food arrived late.</p>
+<p><strong>51.</strong> What will the speakers do first?<br />
+(A) Refund her entire meal<br />
+(B) Bring a fresh bowl and apologize<br />
+(C) Ask her to wait longer<br />
+(D) Offer her a different table</p>
+<p><strong>52.</strong> What does the man suggest offering?<br />
+(A) A free drink<br />
+(B) A complimentary dessert<br />
+(C) A gift card<br />
+(D) A discount on her next visit</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> We're running low on the salmon special — should we take it off the menu tonight?<br />
+<strong>W:</strong> How many portions do we have left?<br />
+<strong>M:</strong> Maybe six or seven.<br />
+<strong>W:</strong> Let's keep it on but let servers know to mention limited availability.</p>
+<p><strong>53.</strong> What is the man concerned about?<br />
+(A) Running low on the salmon special<br />
+(B) A broken oven<br />
+(C) A late delivery<br />
+(D) A customer complaint</p>
+<p><strong>54.</strong> How many portions are left?<br />
+(A) Two or three<br />
+(B) Six or seven<br />
+(C) Ten<br />
+(D) None</p>
+<p><strong>55.</strong> What does the woman decide?<br />
+(A) Removing the dish from the menu<br />
+(B) Keeping it but noting limited availability<br />
+(C) Doubling the price<br />
+(D) Making a new dish instead</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> The health inspector is scheduled to visit sometime this week.<br />
+<strong>M:</strong> Do we know if there's anything specific we should double-check beforehand?<br />
+<strong>W:</strong> Mainly the walk-in cooler temperatures and food labeling.<br />
+<strong>M:</strong> I'll go through those today just to be safe.</p>
+<p><strong>56.</strong> Who is scheduled to visit this week?<br />
+(A) A food critic<br />
+(B) The health inspector<br />
+(C) A new supplier<br />
+(D) A regional manager</p>
+<p><strong>57.</strong> What should be double-checked?<br />
+(A) Cooler temperatures and food labeling<br />
+(B) The wine list<br />
+(C) Staff schedules<br />
+(D) The reservation system</p>
+<p><strong>58.</strong> What will the man do today?<br />
+(A) Close the kitchen<br />
+(B) Check those items<br />
+(C) Call the inspector<br />
+(D) Reschedule the visit</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> A guest is asking if we can accommodate a gluten-free order.<br />
+<strong>W:</strong> Yes, we have several options — let me walk you through what's available.<br />
+<strong>M:</strong> Great, I'll let them know and bring you over to explain.<br />
+<strong>W:</strong> Sounds good, I'll grab the allergen guide just in case they have more questions.</p>
+<p><strong>59.</strong> What is the guest asking about?<br />
+(A) A vegetarian option<br />
+(B) A gluten-free order<br />
+(C) A children's menu<br />
+(D) A wine pairing</p>
+<p><strong>60.</strong> What does the woman offer to do?<br />
+(A) Deny the request<br />
+(B) Explain the gluten-free options<br />
+(C) Cancel the order<br />
+(D) Call the manager</p>
+<p><strong>61.</strong> What will the woman bring?<br />
+(A) The wine list<br />
+(B) The allergen guide<br />
+(C) A new menu<br />
+(D) The reservation book</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's plan the specials for this weekend.<br />
+<strong>M1:</strong> We just got a great batch of fresh scallops in.<br />
+<strong>M2:</strong> I could build a special around those with a citrus sauce.<br />
+<strong>W:</strong> Perfect, let's finalize the recipe and get it on tomorrow's menu.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) Weekend specials<br />
+(B) A staff schedule<br />
+(C) A new location<br />
+(D) A wine tasting</p>
+<p><strong>63.</strong> What ingredient just arrived?<br />
+(A) Fresh scallops<br />
+(B) Fresh salmon<br />
+(C) Fresh lamb<br />
+(D) Fresh mushrooms</p>
+<p><strong>64.</strong> What will the speakers do?<br />
+(A) Cancel the special<br />
+(B) Finalize the recipe for tomorrow's menu<br />
+(C) Order more ingredients<br />
+(D) Raise menu prices</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I noticed our online reviews mention slow service during peak hours.<br />
+<strong>M:</strong> We've been short-staffed on weekends lately.<br />
+<strong>W:</strong> Should we bring on a couple more part-time servers?<br />
+<strong>M:</strong> Yes, let's start interviewing candidates this week.</p>
+<p><strong>65.</strong> What do recent reviews mention?<br />
+(A) Poor food quality<br />
+(B) Slow service during peak hours<br />
+(C) High prices<br />
+(D) A dirty dining room</p>
+<p><strong>66.</strong> What does the man say about weekends?<br />
+(A) They are fully staffed.<br />
+(B) They have been short-staffed.<br />
+(C) They are closed.<br />
+(D) They are the slowest days.</p>
+<p><strong>67.</strong> What will the speakers do this week?<br />
+(A) Close on weekends<br />
+(B) Start interviewing candidates<br />
+(C) Raise prices<br />
+(D) Cancel reservations</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> A customer wants to know if we can host a birthday party for twenty people next month.<br />
+<strong>W:</strong> We can, but a group that size needs to book the private room in advance.<br />
+<strong>M:</strong> I'll let them know and send over our event menu options.<br />
+<strong>W:</strong> Great, and remind them we need a deposit to confirm the date.</p>
+<p><strong>68.</strong> What is the customer asking about?<br />
+(A) A catering order<br />
+(B) Hosting a birthday party for twenty<br />
+(C) A wine tasting event<br />
+(D) A cooking class</p>
+<p><strong>69.</strong> What does the woman say is required?<br />
+(A) A smaller group size<br />
+(B) Booking the private room in advance<br />
+(C) A same-day reservation<br />
+(D) A membership</p>
+<p><strong>70.</strong> What does the woman remind the man to mention?<br />
+(A) A dress code<br />
+(B) A required deposit<br />
+(C) A parking fee<br />
+(D) A time limit</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Pre-shift briefing</h3>
+<p><em>"Quick pre-shift. We're fully booked from 7 to 9, so turn tables cleanly but don't rush people. The kitchen is out of the halibut — push the trout instead, it's a great sub. One more thing: we have a food critic reservation at 7:30 under the name Weller, table 8. Treat it like any other table — same timing, same service. Don't hover. And the dessert special is the fig tart; we have twelve."</em></p>
+<p><strong>71.</strong> When is the restaurant fully booked?<br />
+(A) From 7 to 9<br />
+(B) All evening<br />
+(C) Only at 7:30<br />
+(D) From 5 to 7</p>
+<p><strong>72.</strong> What does the speaker tell staff to do about the halibut?<br />
+(A) Offer a discount<br />
+(B) Take it off the menu board<br />
+(C) Tell guests at the door<br />
+(D) Push the trout instead</p>
+<p><strong>73.</strong> What does the speaker say about the critic's table?<br />
+(A) Give them extra courses<br />
+(B) Seat them in a quiet corner<br />
+(C) Treat it like any other table<br />
+(D) Have the chef greet them</p>
+<h3>Talk 2 (74–76) — Voicemail from a supplier</h3>
+<p><em>"Hi, this is Marco at Coastal Provisions. Two things on tomorrow's delivery. The order's confirmed, but the delivery window is moving from 6 A.M. to somewhere between 9 and 11 — our truck's in for service. Second, the price on king crab jumped again, so I've substituted snow crab at the old price unless you tell me otherwise by tonight. Call the order line if that's a problem."</em></p>
+<p><strong>74.</strong> Why is the delivery time changing?<br />
+(A) Bad weather<br />
+(B) The truck is being serviced<br />
+(C) A staff shortage<br />
+(D) The restaurant asked for a later time</p>
+<p><strong>75.</strong> What did Marco do about the king crab?<br />
+(A) Removed it from the order<br />
+(B) Charged the higher price<br />
+(C) Split the order<br />
+(D) Substituted snow crab at the old price</p>
+<p><strong>76.</strong> What should the restaurant do if the substitution is a problem?<br />
+(A) Refuse the delivery<br />
+(B) Email a complaint<br />
+(C) Call the order line by tonight<br />
+(D) Wait for the next delivery</p>
+<h3>Talk 3 (77–79) — Conference talk</h3>
+<p><em>"The single change that moved the needle was weighing what we threw away, by category, for two weeks. Just knowing the numbers changed behavior. We found we were over-prepping garnishes and tossing bread that could have been croutons. We cut pre-service prep on low-sellers, started a staff-meal program built around trim, and our food cost dropped almost four points in a quarter — with no menu changes."</em></p>
+<p><strong>77.</strong> What change made the biggest difference?<br />
+(A) Weighing thrown-away food by category for two weeks<br />
+(B) Changing the menu<br />
+(C) Buying from a new supplier<br />
+(D) Reducing portion sizes</p>
+<p><strong>78.</strong> What did they discover they were wasting?<br />
+(A) Meat and seafood<br />
+(B) Dairy products<br />
+(C) Over-prepped garnishes and bread<br />
+(D) Beverages</p>
+<p><strong>79.</strong> What was the result?<br />
+(A) Sales rose 10 percent<br />
+(B) Food cost dropped about four points with no menu changes<br />
+(C) Prep time doubled<br />
+(D) Staff turnover fell</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Restaurant owners: TableTurn replaces your paper reservation book and the three apps you use to patch around it. Online booking, a waitlist that texts guests when their table's ready, no-show tracking, and a floor view that updates as tables clear. It syncs with your POS so you can see spend per table over time. Most restaurants set it up in an afternoon. First month free at tableturn.example."</em></p>
+<p><strong>80.</strong> What does TableTurn replace?<br />
+(A) The paper reservation book and several apps<br />
+(B) The POS system<br />
+(C) The kitchen display<br />
+(D) The phone line</p>
+<p><strong>81.</strong> What does the waitlist feature do?<br />
+(A) Charges a deposit<br />
+(B) Texts guests when their table is ready<br />
+(C) Assigns servers<br />
+(D) Prints tickets</p>
+<p><strong>82.</strong> What does TableTurn sync with?<br />
+(A) The payroll system<br />
+(B) The supplier's system<br />
+(C) The POS system<br />
+(D) A delivery app</p>
+<h3>Talk 5 (83–85) — Restaurant announcement</h3>
+<p><em>"Good evening, everyone, and thank you for your patience. Due to unexpectedly high demand tonight, wait times for tables are running about forty minutes. We're doing our best to seat everyone quickly, and complimentary appetizers are available at the bar while you wait."</em></p>
+<p><strong>83.</strong> Why is there a wait tonight?<br />
+(A) A kitchen equipment failure<br />
+(B) Unexpectedly high demand<br />
+(C) A staff shortage<br />
+(D) A private event</p>
+<p><strong>84.</strong> About how long is the wait?<br />
+(A) Fifteen minutes<br />
+(B) Forty minutes<br />
+(C) One hour<br />
+(D) Two hours</p>
+<p><strong>85.</strong> What is available while guests wait?<br />
+(A) A discount coupon<br />
+(B) Complimentary appetizers at the bar<br />
+(C) Free parking<br />
+(D) A gift card</p>
+<h3>Talk 6 (86–88) — Catering company voicemail</h3>
+<p><em>"Hi, this is Maria from Golden Table Catering confirming your order for Saturday's event. We'll arrive at noon to set up, two hours before your guests arrive. Please let us know if the guest count changes so we can adjust the amount of food prepared."</em></p>
+<p><strong>86.</strong> Why is Maria calling?<br />
+(A) To cancel the order<br />
+(B) To confirm the order for Saturday<br />
+(C) To request payment<br />
+(D) To reschedule delivery</p>
+<p><strong>87.</strong> What time will the caterers arrive to set up?<br />
+(A) 10 A.M.<br />
+(B) Noon<br />
+(C) 2 P.M.<br />
+(D) 6 P.M.</p>
+<p><strong>88.</strong> What does Maria ask the listener to report?<br />
+(A) Any menu changes<br />
+(B) Any change in guest count<br />
+(C) A new address<br />
+(D) A payment issue</p>
+<h3>Talk 7 (89–91) — Cooking class introduction</h3>
+<p><em>"Welcome to tonight's pasta-making class. We'll start by preparing the dough from scratch, then move on to rolling and cutting it into your choice of shapes. By the end of the evening, you'll take home fresh pasta along with the recipe to make it again."</em></p>
+<p><strong>89.</strong> What is the class about?<br />
+(A) Bread baking<br />
+(B) Pasta making<br />
+(C) Grilling techniques<br />
+(D) Dessert decorating</p>
+<p><strong>90.</strong> What will participants do first?<br />
+(A) Choose a shape<br />
+(B) Prepare the dough from scratch<br />
+(C) Cook a sauce<br />
+(D) Taste a sample</p>
+<p><strong>91.</strong> What will participants take home?<br />
+(A) A cookbook only<br />
+(B) Fresh pasta and the recipe<br />
+(C) Kitchen tools<br />
+(D) A gift certificate</p>
+<h3>Talk 8 (92–94) — Food delivery app update</h3>
+<p><em>"We've made a few updates to improve your ordering experience. You can now track your driver's location in real time, and estimated delivery times are more accurate than before. We've also added the option to leave detailed delivery instructions for your building."</em></p>
+<p><strong>92.</strong> What new feature allows tracking?<br />
+(A) Driver location in real time<br />
+(B) Restaurant wait times<br />
+(C) Order history<br />
+(D) Payment status</p>
+<p><strong>93.</strong> What else has improved?<br />
+(A) Menu photos<br />
+(B) Estimated delivery time accuracy<br />
+(C) Customer support response time<br />
+(D) Restaurant ratings</p>
+<p><strong>94.</strong> What new option was added?<br />
+(A) Split payments<br />
+(B) Detailed delivery instructions<br />
+(C) Scheduled orders<br />
+(D) Group ordering</p>
+<h3>Talk 9 (95–97) — Radio restaurant review</h3>
+<p><em>"This week, I visited a new spot downtown that's been getting a lot of buzz. The menu is small but focused, and every dish I tried was well executed, especially the roasted vegetable plate. Prices are moderate, and the space itself is cozy without feeling cramped."</em></p>
+<p><strong>95.</strong> What did the reviewer describe the menu as?<br />
+(A) Large and varied<br />
+(B) Small but focused<br />
+(C) Confusing<br />
+(D) Expensive</p>
+<p><strong>96.</strong> Which dish did the reviewer especially like?<br />
+(A) The roasted vegetable plate<br />
+(B) The steak<br />
+(C) The seafood platter<br />
+(D) The dessert sampler</p>
+<p><strong>97.</strong> How did the reviewer describe the prices?<br />
+(A) Very expensive<br />
+(B) Moderate<br />
+(C) Extremely low<br />
+(D) Not mentioned</p>
+<h3>Talk 10 (98–100) — Staff training talk</h3>
+<p><em>"Before the dinner rush, let's review our policy on food allergies. Always inform the kitchen immediately of any allergy mentioned by a guest, and never guess about ingredients — check with the chef if you're unsure. Getting this wrong can seriously harm a guest, so please take it seriously."</em></p>
+<p><strong>98.</strong> What is the topic of this training?<br />
+(A) Wine pairing<br />
+(B) Food allergy policy<br />
+(C) Table setting<br />
+(D) Cash handling</p>
+<p><strong>99.</strong> What should staff do when a guest mentions an allergy?<br />
+(A) Ignore it if minor<br />
+(B) Inform the kitchen immediately<br />
+(C) Ask the guest to leave<br />
+(D) Offer a discount</p>
+<p><strong>100.</strong> What should staff do if unsure about ingredients?<br />
+(A) Guess based on experience<br />
+(B) Check with the chef<br />
+(C) Tell the guest to ask online<br />
+(D) Serve the dish anyway</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_015 — READING (100 câu: 101–200) · Chủ đề: Food Service &amp; Restaurants</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The café <span class="blk">________</span> a new seasonal menu four times a year.<br />
+(A) introduce  (B) introduces  (C) introducing  (D) to introduce</p>
+<p><strong>102.</strong> Final head counts are due <span class="blk">________</span> noon on the Wednesday before the event.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The inspector noted several <span class="blk">________</span> in the temperature logs.<br />
+(A) accurate  (B) accurately  (C) inaccuracies  (D) accuracy</p>
+<p><strong>104.</strong> <span class="blk">________</span> the kitchen being short-staffed, every table was served on time.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> Servers are expected to <span class="blk">________</span> guests about the daily specials.<br />
+(A) inform  (B) informs  (C) informing  (D) information</p>
+<p><strong>106.</strong> The new point-of-sale system makes splitting a check much <span class="blk">________</span> .<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> Tonight's staffing chart is posted <span class="blk">________</span> the wall by the pass.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> The Friday delivery was late <span class="blk">________</span> a problem with the supplier's truck.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The restaurant lowered its food cost <span class="blk">________</span> tracking what it threw away.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Reservations for weekend brunch have grown <span class="blk">________</span> since the patio opened.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three desserts, the fig tart takes the <span class="blk">________</span> time to plate.<br />
+(A) little  (B) less  (C) least  (D) fewer</p>
+<p><strong>112.</strong> The updated ticket system sends orders to the kitchen far <span class="blk">________</span> than before.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> The private dining event will be held <span class="blk">________</span> the upstairs room.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> a table is cleared, the host stand is notified automatically.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The group <span class="blk">________</span> five restaurants and a central commissary kitchen.<br />
+(A) operate  (B) operates  (C) operating  (D) to operate</p>
+<p><strong>116.</strong> The kitchen renovation is expected <span class="blk">________</span> before the holiday season.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior line cook will <span class="blk">________</span> the new kitchen hires next week.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Guests book <span class="blk">________</span> when they can reserve online than when they must call.<br />
+(A) frequent  (B) frequently  (C) most frequently  (D) more frequently</p>
+<p><strong>119.</strong> The report suggests several <span class="blk">________</span> for cutting the restaurant's energy use.<br />
+(A) change  (B) changes  (C) changing  (D) changed</p>
+<p><strong>120.</strong> The lunch buffet is served <span class="blk">________</span> 11:30 A.M. to 2 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The franchise agreement was signed <span class="blk">________</span> conditions on menu changes.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The revised allergen guide <span class="blk">________</span> distributed to all servers next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A server is <span class="blk">________</span> for the closing bonus only after a full month on the schedule.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The training manual gives new hires a <span class="blk">________</span> overview of the opening checklist.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The owners voted to <span class="blk">________</span> the outdated wine list.<br />
+(A) replace  (B) replaces  (C) replacing  (D) replacement</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed suppliers could deliver seven days a week.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Invoices from the past three years are stored <span class="blk">________</span> the back-office computer.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any comp over twenty dollars must be approved by an <span class="blk">________</span> manager.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two dishes were pulled from the menu <span class="blk">________</span> a shortage of a key ingredient.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New servers receive <span class="blk">________</span> training on the restaurant's allergen procedures.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Main Dining Room Closed for Floor Refinishing</strong></p>
+<p>The main dining room <span class="blk">(131)</span> closed the week of March 10 while the floors are refinished.</p>
+<p>Staff <span class="blk">(132)</span> move the smaller tables to the patio and the bar area, which will stay open for a limited menu.</p>
+<p>Reservations for that week <span class="blk">(133)</span> already been contacted and offered the patio or a later date.</p>
+<p>We appreciate your patience while the work is done. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will move  (B) move  (C) moving  (D) moved<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The dining room will remain closed through the end of the month.<br />
+(B) The patio will also be closed during the renovation.<br />
+(C) Please let us know if you have any concerns about your reservation.<br />
+(D) All reservations that week have been canceled without exception.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Time-Clock Procedure</p>
+<p>Starting Monday, all staff <span class="blk">(135)</span> clock in and out using the tablet by the office, not the paper sheet.</p>
+<p>The tablet <span class="blk">(136)</span> record your break automatically once you tap "Break," so there is no separate form to fill out.</p>
+<p>Shifts not clocked out by closing <span class="blk">(137)</span> be corrected by a manager the next day, which delays your pay.</p>
+<p>Thanks for your cooperation as we switch over. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper time sheets will still be accepted for the first month.<br />
+(B) Breaks will no longer need to be recorded at all.<br />
+(C) This new process applies only to part-time staff.<br />
+(D) Let your manager know if you have trouble using the tablet.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>PANTRYLINE — KNOW WHAT'S IN YOUR WALK-IN WITHOUT COUNTING IT TWICE</strong></p>
+<p>PantryLine tracks your inventory as you receive and use it, so your order sheet fills itself in based on what you actually go through.</p>
+<p>Most kitchens find <span class="blk">(139)</span> useful: par-level alerts, a running food-cost number, and a receiving check that catches short deliveries at the door. Kitchens using it report cutting weekly ordering time by two-thirds.</p>
+<p>Setup is <span class="blk">(140)</span> and takes an afternoon. There is no <span class="blk">(141)</span> contract, and the first location is free. Book a demo at pantryline.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) PantryLine requires replacing all your existing kitchen equipment.<br />
+(B) A minimum of three locations is required to sign up.<br />
+(C) Food-cost reports are only available as a paid add-on.<br />
+(D) See exactly how it works with your own inventory.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All FOH Staff <strong>FROM:</strong> Management <strong>RE:</strong> Specials on the Handhelds</p>
+<p>Our specials process <span class="blk">(143)</span> to the handheld devices, starting this week. The printed insert is going away.</p>
+<p>Last month we reprinted the specials insert about 60 times for small changes. The handhelds <span class="blk">(144)</span> remove that entirely — the chef updates once and it's on every device.</p>
+<p>The allergen notes for each special <span class="blk">(145)</span> now attached in the item screen, so you can check without leaving the table. If a guest wants a printed copy, the host stand will print one on request. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Printed specials inserts will still be made every day as before.<br />
+(B) The chef will need to update each handheld device individually.<br />
+(C) Allergen information will no longer be available to guests.<br />
+(D) Thanks for helping us keep the specials accurate and up to date.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Server (7:40 P.M.):</strong> Table 6 — the birthday cake we were holding isn't in the walk-in. Can't find it.<br />
+<strong>Manager (7:42 P.M.):</strong> It's in the bar fridge, bottom shelf, name tag "Ruiz." Moved it this afternoon for space.<br />
+<strong>Server (7:44 P.M.):</strong> Got it. Candles?<br />
+<strong>Manager (7:45 P.M.):</strong> Box by the register. Send it out after their mains are cleared.</p>
+<p><strong>147.</strong> What is the server looking for?<br />
+(A) A reservation<br />
+(B) A missing bill<br />
+(C) A birthday cake that was being held<br />
+(D) A table setting</p>
+<p><strong>148.</strong> Where did the manager say it is?<br />
+(A) In the bar fridge<br />
+(B) Still in the walk-in<br />
+(C) In the delivery van<br />
+(D) At the host stand</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>CITY TO REQUIRE CALORIE LABELS ON MENUS AT CHAIN RESTAURANTS</strong></p>
+<p>Starting in July, restaurants with 15 or more locations nationwide must show calorie counts next to each item on printed menus, menu boards, and online ordering pages. The rule does not apply to independent restaurants or small local chains.</p>
+<p>Affected restaurants get a six-month phase-in and can use standard nutrition-analysis software rather than lab testing. Daily specials and limited-time items under 60 days are exempt.</p>
+<p>The city says the goal is consistent information for diners, not to change what restaurants serve. A first violation brings a warning and 30 days to comply.</p>
+<p><strong>149.</strong> What will large chain restaurants have to do?<br />
+(A) Reduce portion sizes<br />
+(B) Show calorie counts next to each item<br />
+(C) Remove certain ingredients<br />
+(D) Post health-inspection scores</p>
+<p><strong>150.</strong> Which restaurants are NOT covered by the rule?<br />
+(A) Restaurants with online ordering<br />
+(B) Restaurants that serve alcohol<br />
+(C) Fast-food restaurants<br />
+(D) Independent restaurants and small local chains</p>
+<p><strong>151.</strong> What is exempt from the labeling requirement?<br />
+(A) Daily specials and limited-time items under 60 days<br />
+(B) Desserts<br />
+(C) Children's meals<br />
+(D) Drinks</p>
+<p><strong>152.</strong> What happens on a first violation?<br />
+(A) A fine of $1,000<br />
+(B) Immediate closure<br />
+(C) A warning and 30 days to comply<br />
+(D) Loss of license</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Kitchen Closed Mondays Starting Next Month</strong></p>
+<p>Beginning May 1, the restaurant will close on Mondays. The dining room and kitchen will both be dark; the office is still staffed for deliveries and admin.</p>
+<p>We're doing this to give the kitchen team two consecutive days off, which has been the top request in staff surveys for a year. Reservations already booked for Mondays in May have been moved or refunded.</p>
+<p><strong>153.</strong> What is changing?<br />
+(A) The restaurant is closing permanently<br />
+(B) Hours are being extended<br />
+(C) A new location is opening<br />
+(D) The restaurant will close on Mondays</p>
+<p><strong>154.</strong> Why is the change being made?<br />
+(A) Low sales on Mondays<br />
+(B) To give kitchen staff two consecutive days off<br />
+(C) A lease requirement<br />
+(D) Rising utility costs</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>SHIFTLY — STAFF SCHEDULING BUILT FOR RESTAURANTS</strong></p>
+<p>Shiftly builds your weekly schedule around forecasted covers, tracks who's certified for which station, and lets staff swap shifts from their phones with manager approval built in.</p>
+<p>It flags overtime before you publish, not after payroll, and keeps a record of who was offered a shift and declined — useful if coverage becomes a dispute.</p>
+<p>Pricing is per location, with unlimited staff. Import last month's schedule and it learns your patterns. First location free at shiftly.example.</p>
+<p><strong>155.</strong> What does Shiftly build the schedule around?<br />
+(A) Staff seniority<br />
+(B) Forecasted covers<br />
+(C) A fixed rotation<br />
+(D) The payroll budget only</p>
+<p><strong>156.</strong> What does Shiftly flag before you publish?<br />
+(A) Late arrivals<br />
+(B) Understaffed stations<br />
+(C) Overtime<br />
+(D) Expired certifications</p>
+<p><strong>157.</strong> How is Shiftly priced?<br />
+(A) Per location, with unlimited staff<br />
+(B) Per staff member<br />
+(C) A percentage of payroll<br />
+(D) A one-time fee</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-staff <strong>From:</strong> Kitchen Manager <strong>Subject:</strong> Cooling Cooked Food — Do It Right</p>
+<p>A reminder on cooling, since it came up in the practice inspection.</p>
+<p>Cooked food that isn't served right away has to go from 135°F down to 70°F within two hours, and down to 41°F within a further four hours — six hours total. If it's not at 70 by hour two, it gets reheated to 165 and re-cooled, or tossed.</p>
+<p>Don't put a deep, covered container of hot food straight in the walk-in. Use shallow pans, leave them uncovered until cold, and use an ice bath for dense items like rice and beans. Log the time in and the temperature at hour two.</p>
+<p><strong>158.</strong> What is the two-hour cooling target?<br />
+(A) Down to 41°F<br />
+(B) Down to 32°F<br />
+(C) Room temperature<br />
+(D) From 135°F down to 70°F</p>
+<p><strong>159.</strong> What should be done if food isn't at 70°F by hour two?<br />
+(A) Reheat it to 165°F and re-cool it, or discard it<br />
+(B) Serve it anyway<br />
+(C) Leave it another two hours<br />
+(D) Move it to the freezer</p>
+<p><strong>160.</strong> What does the email say NOT to do?<br />
+(A) Use shallow pans<br />
+(B) Use an ice bath<br />
+(C) Put a deep, covered container of hot food straight in the walk-in<br />
+(D) Log the temperature</p>
+<h3>Passage 6 — Holding-temperature table (161–162)</h3>
+<p><strong>HOLDING TEMPERATURES — QUICK REFERENCE</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Hold at</th>
+<th>Check every</th>
+<th>Discard after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hot line items (soups, sauces)</td>
+<td>135°F or above</td>
+<td>2 hours</td>
+<td>4 hours below temp</td>
+</tr>
+<tr>
+<td>Cold line items (dressings, cut greens)</td>
+<td>41°F or below</td>
+<td>2 hours</td>
+<td>4 hours above temp</td>
+</tr>
+<tr>
+<td>Sushi rice (with time control)</td>
+<td>Room temp, labeled</td>
+<td>Label time</td>
+<td>4 hours from prep</td>
+</tr>
+<tr>
+<td>Raw shellfish on ice</td>
+<td>41°F or below</td>
+<td>1 hour</td>
+<td>End of service</td>
+</tr>
+</tbody>
+</table>
+<p>Time-controlled items must be labeled with the time they left temperature control. When in doubt, throw it out.</p>
+<p><strong>161.</strong> How often should hot line items be checked?<br />
+(A) Every 30 minutes<br />
+(B) Every hour<br />
+(C) Every 2 hours<br />
+(D) Only at closing</p>
+<p><strong>162.</strong> What must time-controlled items be labeled with?<br />
+(A) The time they left temperature control<br />
+(B) The name of the cook<br />
+(C) The supplier<br />
+(D) The calorie count</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Booker,</p>
+<p>Thank you for taking the time to write about your anniversary dinner last Saturday, and I'm sorry it fell short.</p>
+<p>You're right that a 40-minute wait between your appetizers and main courses is not acceptable, especially without an explanation from us at the time. That evening we had a cook call out and a larger party than expected order at once; that's a reason, not an excuse, and your server should have kept you informed.</p>
+<p>I've refunded the cost of your main courses to your card, and I'd like to invite you both back as our guests for a dinner — I'll email you a code to book directly with me so there's no uncertainty.</p>
+<p>Thank you for giving us the chance to make it right.</p>
+<p>Sincerely,<br />
+The General Manager</p>
+<p><strong>163.</strong> Why did Ms. Booker write?<br />
+(A) About a long wait between courses at her dinner<br />
+(B) To praise a server<br />
+(C) To book an anniversary dinner<br />
+(D) About an incorrect bill</p>
+<p><strong>164.</strong> What does the manager give as the reason for the delay?<br />
+(A) A kitchen equipment failure<br />
+(B) A cook called out and a large party ordered at once<br />
+(C) A reservation mix-up<br />
+(D) A supplier problem</p>
+<p><strong>165.</strong> What has the manager already done?<br />
+(A) Sent a gift basket<br />
+(B) Fired the server<br />
+(C) Given a discount voucher<br />
+(D) Refunded the cost of the main courses</p>
+<p><strong>166.</strong> What will the manager email Ms. Booker?<br />
+(A) A customer survey<br />
+(B) A written apology only<br />
+(C) A code to book a complimentary dinner directly with him<br />
+(D) A copy of the menu</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>PRIVATE EVENTS — FREQUENTLY ASKED QUESTIONS</strong></p>
+<p><strong>Is there a room fee?</strong><br />
+For groups of 20 or more, the room fee is waived if you meet a food-and-beverage minimum (currently $1,500 for the main private room). Below that, a $250 room fee applies.</p>
+<p><strong>Can we bring our own cake?</strong><br />
+Yes, for celebrations. There's a $2-per-person plating fee. Outside food otherwise is not permitted.</p>
+<p><strong>How is the final count handled?</strong><br />
+Give us a guaranteed count 72 hours before. You're billed for the guaranteed count or the actual attendance, whichever is higher.</p>
+<p><strong>Do you handle dietary restrictions?</strong><br />
+Yes, with notice on the guaranteed-count date. We can do vegetarian, vegan, gluten-free, and common allergens.</p>
+<p><strong>167.</strong> When is the room fee waived?<br />
+(A) For groups of 20 or more that meet a food-and-beverage minimum<br />
+(B) Always<br />
+(C) Only on weekdays<br />
+(D) For groups under 20</p>
+<p><strong>168.</strong> What is the policy on outside food?<br />
+(A) All outside food is welcome<br />
+(B) No outside food of any kind<br />
+(C) Outside food is allowed with 72 hours' notice<br />
+(D) Only a celebration cake, with a per-person plating fee</p>
+<p><strong>169.</strong> How is the client billed if fewer guests attend than the guaranteed count?<br />
+(A) Billed only for actual attendance<br />
+(B) Billed for the guaranteed count<br />
+(C) Given a partial refund<br />
+(D) Charged a no-show fee per missing guest</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Servers <strong>FROM:</strong> Management <strong>RE:</strong> Allergen Requests</p>
+<p>When a guest mentions an allergy, take it seriously every time, even if they seem casual about it.</p>
+<p>Tell the kitchen verbally and on the ticket — don't rely on one or the other. The kitchen will prepare that plate separately, and a manager or the chef will run it, not a food runner, so there's a clear handoff.</p>
+<p>Never guess whether a dish contains an allergen. If you're not certain, check the allergen binder at the host stand or ask the chef. "I think it's fine" is not an answer we give.</p>
+<p><strong>170.</strong> What should a server do when a guest mentions an allergy?<br />
+(A) Note it only on the ticket<br />
+(B) Tell the guest to choose a safe item<br />
+(C) Tell the kitchen both verbally and on the ticket<br />
+(D) Ask another server</p>
+<p><strong>171.</strong> Who runs an allergen plate to the table?<br />
+(A) A manager or the chef<br />
+(B) Any available food runner<br />
+(C) The server who took the order<br />
+(D) The host</p>
+<p><strong>172.</strong> What should a server do if unsure whether a dish contains an allergen?<br />
+(A) Assume it does not<br />
+(B) Check the allergen binder or ask the chef<br />
+(C) Tell the guest it is probably fine<br />
+(D) Serve it with a warning</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Solves the ordering headache, waitlist is clunky</strong> — owner, two locations</p>
+<p>We got this to stop doing inventory on paper and email our supplier a photo of a legal pad. That part is great — receiving against the PO catches short deliveries, and the food-cost number updates as we go, so there are no month-end surprises.</p>
+<p>The reservation side is weaker. The waitlist doesn't estimate wait times, so the host is guessing, and guests get annoyed when "10 minutes" turns into 30. There's also no way to note a regular's usual table.</p>
+<p>Support is good and they took my feature requests seriously. For the inventory alone I'd buy it again.</p>
+<p><strong>173.</strong> Why did the owner get the system?<br />
+(A) To take reservations online<br />
+(B) To process payments<br />
+(C) To schedule staff<br />
+(D) To stop doing inventory on paper</p>
+<p><strong>174.</strong> What is a weakness of the reservation side?<br />
+(A) It can't take deposits<br />
+(B) It double-books tables<br />
+(C) The waitlist doesn't estimate wait times<br />
+(D) It has no mobile app</p>
+<p><strong>175.</strong> What does the reviewer say about support?<br />
+(A) It is slow to respond<br />
+(B) It is good and took his feature requests seriously<br />
+(C) It charges extra<br />
+(D) It is only available by email</p>
+<h3>Passages 11–12 — Supplier policy &amp; email (176–180)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>FRESHLINE PROVISIONS — DELIVERY &amp; CREDIT POLICY</strong></p>
+<ul>
+<li>Deliveries run Monday, Wednesday, and Friday. Orders must be placed by 6 P.M. the day before.</li>
+<li>Check your delivery against the packing slip before the driver leaves. The driver can take back and credit anything wrong on the spot.</li>
+<li>For quality issues found later (spoiled produce, off dairy), email a photo within 24 hours of delivery for a credit. No credit after 24 hours.</li>
+<li>Credits appear on your next invoice, not as a refund.</li>
+<li>Minimum order is $150 for free delivery; below that, a $20 fee applies.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Ravi Menon, Elm Street Bistro <strong>To:</strong> service@freshline.example <strong>Subject:</strong> Wednesday delivery — bad case of strawberries</p>
+<p>Hi,</p>
+<p>Wednesday's delivery included a case of strawberries that were moldy through most of the flats. We didn't open that case until Thursday afternoon prep, so it's now about 28 hours. I have photos.</p>
+<p>I know your policy says 24 hours, but the case was sealed and refrigerated the whole time. Can you still credit it? It was a $46 case.</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> service@freshline.example <strong>To:</strong> Ravi Menon <strong>Subject:</strong> RE: Wednesday delivery — bad case of strawberries</p>
+<p>Hi Ravi,</p>
+<p>Normally the 24-hour rule is firm, but for a sealed case that was held cold, and with clear photos, we'll make an exception this time and credit the $46 to your next invoice.</p>
+<p>Going forward, please open and check berry cases the day they arrive even if you won't use them until later — they're the most fragile item we carry.</p>
+<p><strong>176.</strong> When must orders be placed?<br />
+(A) By 6 P.M. the day before delivery<br />
+(B) By midnight the day before<br />
+(C) Two days ahead<br />
+(D) Any time before the delivery window</p>
+<p><strong>177.</strong> How does Freshline handle an approved credit?<br />
+(A) As a cash refund<br />
+(B) As a check by mail<br />
+(C) As store credit only<br />
+(D) As a credit on the next invoice</p>
+<p><strong>178.</strong> Why is Ravi's request outside the normal policy?<br />
+(A) He has no photos<br />
+(B) He reported the problem after 24 hours<br />
+(C) The order was under the minimum<br />
+(D) He opened the case at delivery</p>
+<p><strong>179.</strong> What does Freshline decide?<br />
+(A) To deny the credit<br />
+(B) To send a replacement case<br />
+(C) To make an exception and credit the $46<br />
+(D) To credit half</p>
+<p><strong>180.</strong> What does Freshline tell Ravi to do going forward?<br />
+(A) Order berries less often<br />
+(B) Open and check berry cases the day they arrive<br />
+(C) Refuse any sealed case<br />
+(D) Call instead of emailing</p>
+<h3>Passages 13–14 — Two emails about a catering invoice (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Cruz, office manager <strong>To:</strong> events@grovecatering.example <strong>Subject:</strong> Invoice 8810 — headcount</p>
+<p>Hi,</p>
+<p>Invoice 8810 bills us for 85 guests at $32 a head. Our guaranteed count, submitted on the 3rd, was 70. Only about 62 people actually attended.</p>
+<p>I think this should be 70 × $32, not 85. Where did 85 come from?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> events@grovecatering.example <strong>To:</strong> Dana Cruz <strong>Subject:</strong> RE: Invoice 8810 — headcount</p>
+<p>Hi Dana,</p>
+<p>You're right, and I apologize. The 85 was your original estimate from the proposal; our team billed off the wrong field. Your guaranteed count of 70, received on the 3rd, is what applies.</p>
+<p>Per our contract you're billed for the guaranteed count or actual attendance, whichever is higher — so 70, since only 62 came. The corrected invoice is 70 × $32 = $2,240, and I've reissued it.</p>
+<p>We've also changed our billing checklist to confirm the guaranteed count against the signed form before an invoice goes out.</p>
+<p><strong>181.</strong> Why did Dana email Grove Catering?<br />
+(A) To book another event<br />
+(B) To cancel the contract<br />
+(C) To dispute the number of guests billed<br />
+(D) To change the menu</p>
+<p><strong>182.</strong> Where did the number 85 come from?<br />
+(A) Dana's original estimate in the proposal<br />
+(B) The actual attendance count<br />
+(C) A different event<br />
+(D) A price increase</p>
+<p><strong>183.</strong> How many guests actually attended?<br />
+(A) 85<br />
+(B) 70<br />
+(C) 32<br />
+(D) About 62</p>
+<p><strong>184.</strong> What number is Dana billed for, and why?<br />
+(A) 62, the actual attendance<br />
+(B) 85, the original estimate<br />
+(C) 70, the guaranteed count, because it is higher than attendance<br />
+(D) An average of the three</p>
+<p><strong>185.</strong> What did Grove Catering change to prevent a repeat?<br />
+(A) Raised the per-head price<br />
+(B) Stopped taking estimates<br />
+(C) Switched catering software<br />
+(D) Confirm the guaranteed count against the signed form before invoicing</p>
+<h3>Passages 15–17 — Service-model reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>SERVICE MODELS — TRADE-OFFS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Labor cost</th>
+<th>Avg check</th>
+<th>Table turns/night</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full table service</td>
+<td>High</td>
+<td>Highest</td>
+<td>1.5–2</td>
+<td>Destination dining, special occasions</td>
+</tr>
+<tr>
+<td>Counter order, food run</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>3–4</td>
+<td>Casual, lunch-heavy, high foot traffic</td>
+</tr>
+<tr>
+<td>Order at table via QR, food run</td>
+<td>Medium-low</td>
+<td>Medium</td>
+<td>3–4</td>
+<td>Younger crowd, drinks-forward</td>
+</tr>
+<tr>
+<td>Fast-casual (tray, bus yourself)</td>
+<td>Lowest</td>
+<td>Lowest</td>
+<td>5+</td>
+<td>High-volume, price-sensitive</td>
+</tr>
+</tbody>
+</table>
+<p>Counter and QR models cut front-of-house labor by roughly a third versus full service, but tips are lower, which can make hiring harder.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Nadia Fields <strong>To:</strong> consult@restadvisors.example <strong>Subject:</strong> Service model for the second spot</p>
+<p>Hi,</p>
+<p>The new location is in a busy lunch district — lots of office workers, tight lunch hours, thinner evening traffic. Our flagship is full table service and that's our brand, but the rent here needs volume.</p>
+<p>What model fits, and will it confuse people who know our other place?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> consult@restadvisors.example <strong>To:</strong> Nadia Fields <strong>Subject:</strong> RE: Service model for the second spot</p>
+<p>Hi Nadia,</p>
+<p>For a lunch-district site that needs volume, counter-order with a food run is the right call. You'll get 3–4 turns at lunch instead of 1.5–2, and the lower front-of-house labor matches the thinner dinner traffic.</p>
+<p>On brand confusion: position it clearly as a different format — "the counter spot" — with the same kitchen and quality. Guests accept a sister concept if the food connects and you don't pretend it's the same experience.</p>
+<p>One caution from the table: lower tips at the counter model make it harder to keep good staff. Budget for a slightly higher base wage than you pay servers now, and you'll still come out ahead on total labor.</p>
+<p><strong>186.</strong> What kind of location is the new spot?<br />
+(A) A tourist area<br />
+(B) A busy lunch district with thin evening traffic<br />
+(C) A suburban mall<br />
+(D) A late-night entertainment zone</p>
+<p><strong>187.</strong> What model does the consultant recommend?<br />
+(A) Counter-order with a food run<br />
+(B) Full table service<br />
+(C) Fast-casual, bus-yourself<br />
+(D) QR ordering at the table</p>
+<p><strong>188.</strong> According to the reference, how do counter and QR models affect front-of-house labor?<br />
+(A) They raise it slightly<br />
+(B) No change<br />
+(C) They eliminate it<br />
+(D) They cut it by about a third versus full service</p>
+<p><strong>189.</strong> How does the consultant suggest handling brand confusion?<br />
+(A) Use a completely different name and menu<br />
+(B) Make it identical to the flagship<br />
+(C) Position it as a different format with the same kitchen and quality<br />
+(D) Don't open a second location</p>
+<p><strong>190.</strong> What caution does the consultant give about staffing?<br />
+(A) Counter staff need less training<br />
+(B) Lower tips make retention harder; budget a higher base wage<br />
+(C) Hire only part-timers<br />
+(D) The kitchen will need fewer cooks</p>
+<h3>Passages 18–20 — Staff discount policy, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>STAFF MEALS &amp; DISCOUNTS</strong></p>
+<ul>
+<li><strong>On-shift meal:</strong> One meal per shift of 5+ hours, from the staff-meal menu the kitchen prepares, at no charge. Not transferable; eat before or after service, not during.</li>
+<li><strong>Off-shift dining:</strong> 30% off food for you plus one guest, once per week, with a manager present in the building. Alcohol is not discounted.</li>
+<li><strong>Family/friends:</strong> A 15% "friends" discount code, up to 3 uses a month, for a table you are not dining at. Don't apply it to your own check.</li>
+<li>Discounts can't be combined with promotions or gift cards. Tips are calculated on the pre-discount total.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Theo Marsh <strong>To:</strong> manager@restaurant.example <strong>Subject:</strong> Couple of questions on staff discounts</p>
+<p>Hi,</p>
+<ol>
+<li>If I work a 4-hour shift, do I get the staff meal?</li>
+<li>My parents are visiting next week and want to come in on my day off. Can I use the 30% off even though I'm not working, and can I add a second guest?</li>
+<li>Can I combine the friends code with the current "$10 off $50" promo for them?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> manager@restaurant.example <strong>To:</strong> Theo Marsh <strong>Subject:</strong> RE: Couple of questions on staff discounts</p>
+<p>Hi Theo,</p>
+<ol>
+<li>The free staff meal is for shifts of 5 hours or more, so a 4-hour shift doesn't qualify. You're welcome to order off the staff-meal menu at cost, though.</li>
+<li>The 30% off-shift discount is for you plus one guest, and you need to be at the table. For your parents on your day off, you'd be there, so that works — but it's you plus one, so one parent is covered at 30%; the rest of the check is full price. It's also once per week.</li>
+<li>No — discount codes and promotions can't be stacked. They'd use whichever is the better deal, not both.</li>
+</ol>
+<p><strong>191.</strong> Does Theo get a free staff meal on a 4-hour shift?<br />
+(A) No — it requires a shift of 5 hours or more<br />
+(B) Yes, any shift qualifies<br />
+(C) Only if a manager approves<br />
+(D) Only on weekends</p>
+<p><strong>192.</strong> What is the off-shift discount?<br />
+(A) 50% off everything<br />
+(B) 15% off for up to three guests<br />
+(C) A free dessert<br />
+(D) 30% off food for the employee plus one guest, once a week</p>
+<p><strong>193.</strong> For Theo's parents' visit, how much of the check is discounted?<br />
+(A) Theo plus one guest at 30%; the rest is full price<br />
+(B) The whole table at 30%<br />
+(C) Nothing, because it's his day off<br />
+(D) The whole table at 15%</p>
+<p><strong>194.</strong> Can Theo combine the friends code with the "$10 off $50" promo?<br />
+(A) Yes, both apply<br />
+(B) No, codes and promotions can't be stacked<br />
+(C) Only on weekdays<br />
+(D) Only with manager approval</p>
+<p><strong>195.</strong> How are tips calculated when a discount is used?<br />
+(A) On the discounted total<br />
+(B) They are not expected<br />
+(C) On the pre-discount total<br />
+(D) At a flat 20%</p>
+<h3>Passages 21–23 — Delivery-partner change notice, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>CHANGES TO THIRD-PARTY DELIVERY — EFFECTIVE SEPTEMBER 1</strong></p>
+<ol>
+<li><strong>Commission:</strong> Our negotiated rate with QuickDash drops from 24% to 18% for all locations.</li>
+<li><strong>Menu:</strong> Delivery menus must now match the dine-in menu item-for-item, except you may add a $1.50–$3.00 per-item "delivery adjustment" to offset packaging and the commission. This must be applied evenly, not to select items.</li>
+<li><strong>Photos:</strong> Every item on the delivery app needs a photo by October 15. Corporate is sending a photographer to each region; you can also submit your own if they meet the spec sheet.</li>
+<li><strong>Tablet:</strong> The old QuickDash tablet is replaced by an app on your POS. Training video is on the portal.</li>
+</ol>
+<p>Questions to your regional operations manager.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Okafor, franchisee (3 locations) <strong>To:</strong> ops@brandcorp.example <strong>Subject:</strong> Delivery changes — a few questions</p>
+<p>Hi,</p>
+<ol>
+<li>The delivery adjustment — is that optional or required? I've been eating the commission and keeping prices identical.</li>
+<li>I already have professional photos of most items. Do I have to use the corporate photographer anyway?</li>
+<li>One of my locations has almost no delivery volume. Do the photo and POS-app requirements still apply there?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> ops@brandcorp.example <strong>To:</strong> Sam Okafor <strong>Subject:</strong> RE: Delivery changes — a few questions</p>
+<p>Hi Sam,</p>
+<ol>
+<li>The delivery adjustment is optional — you can keep delivery prices equal to dine-in if you want. If you do use it, it has to be even across the menu, in the $1.50–$3.00 range.</li>
+<li>No. If your existing photos meet the spec sheet (resolution, background, framing), submit those and skip the photographer. Send them to the brand asset inbox for a quick check.</li>
+<li>The POS app requirement applies everywhere — it replaces the tablet regardless of volume. For photos, a location doing under 15 delivery orders a week can request a waiver from your regional manager.</li>
+</ol>
+<p><strong>196.</strong> What is happening to the commission rate?<br />
+(A) It rises to 24%<br />
+(B) It stays the same<br />
+(C) It becomes a flat fee<br />
+(D) It drops from 24% to 18%</p>
+<p><strong>197.</strong> What is the rule about the "delivery adjustment"?<br />
+(A) It is required on every item<br />
+(B) It can be applied to select high-cost items<br />
+(C) It is optional, but if used must be even across the menu in a set range<br />
+(D) It is set by corporate</p>
+<p><strong>198.</strong> Does Sam have to use the corporate photographer?<br />
+(A) Yes, for all items<br />
+(B) No, if his existing photos meet the spec sheet<br />
+(C) Only for new menu items<br />
+(D) Only at his busiest location</p>
+<p><strong>199.</strong> Does the POS-app requirement apply to Sam's low-volume location?<br />
+(A) Yes, it applies everywhere regardless of volume<br />
+(B) No, low-volume locations are exempt<br />
+(C) Only after October 15<br />
+(D) Only if he requests it</p>
+<p><strong>200.</strong> How can Sam handle the photo requirement at his low-volume location?<br />
+(A) Ignore it<br />
+(B) Use stock photos<br />
+(C) Wait for corporate to decide<br />
+(D) Request a waiver from the regional manager</p>
+<hr />
+<p><em>Hết phần Reading — Set_015. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_015</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a chef is cooking food in a pan on the stove" · bẫy: "vegetables are being delivered"</li>
+<li><strong>3 C</strong> "a worker is checking stock on the shelves" · bẫy: "boxes are being loaded onto a truck"</li>
+<li><strong>4 D</strong> "the chairs are stacked on the tables before opening" · bẫy: "a barista is making a drink"</li>
+<li><strong>6 C</strong> "a delivery rider is holding a bag outside a restaurant" · bẫy: "handing food over the counter"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why beeping?" → "The temperature is too high" · bẫy: trả lời Where / How long</li>
+<li><strong>13 B</strong> tag question → "Yes, about ten percent less on produce"</li>
+<li><strong>15 C</strong> câu phủ định → "Yes, sometime in the next two weeks"</li>
+<li><strong>17 C</strong> "What did the customer complain about?" → "the soup arrived cold"</li>
+<li><strong>19 B</strong> "Do you know if...?" → "Check with the events coordinator" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "We could cut the standing order"</li>
+<li><strong>21 C</strong> yêu cầu dọn bàn → "I'll set it up now" · bẫy: lặp "table"</li>
+<li><strong>25 B</strong> "Isn't the kitchen usually closed Mondays?" → đính chính "open for a private event today" · bẫy: lặp "Monday"</li>
+<li><strong>31 C</strong> "Why was the reservation canceled?" → lý do cụ thể "family emergency" · bẫy: lặp "reservation"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "the kitchen sent out the salmon cakes" · "it's a re-cook priority" · "Comp their appetizer and bring them a round of drinks"</li>
+<li>35–37: "The produce order came in short" · "a smaller grocery two blocks over ... at retail price" · "86 the Caesar if we run low"</li>
+<li>38–40: "dropping four dishes that barely sell" · "a vegetarian main and a shareable starter" · "put them on as specials first before we print them"</li>
+<li>41–43: "a quote for a lunch for about 30 people" · "a few people have gluten and dairy restrictions" · "we need a deposit and a final count by Wednesday"</li>
+<li>44–46: "our second server down" · "Dev already worked a double yesterday" · "I'll take a section myself, and we hold the two window tables as walk-in only"</li>
+<li>47–49: "flagged the hand-wash sink by the prep line" · "The water temperature is the bigger issue" · "an automatic critical violation"</li>
+<li>50–52: "soup came out cold" · "fresh bowl and apologize" · "complimentary dessert"</li>
+<li>53–55: "running low on the salmon special" · "six or seven" portions left · "keep it but note limited availability"</li>
+<li>56–58: "health inspector ... this week" · "cooler temperatures and food labeling" · "check those items today"</li>
+<li>59–61: "gluten-free order" · "explain the gluten-free options" · "the allergen guide"</li>
+<li>62–64: "weekend specials" · "fresh scallops" · "finalize the recipe for tomorrow's menu"</li>
+<li>65–67: "slow service during peak hours" · "short-staffed on weekends" · "start interviewing candidates"</li>
+<li>68–70: "birthday party for twenty" · "book the private room in advance" · "a required deposit"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "fully booked from 7 to 9" · "push the trout instead" · "Treat it like any other table ... Don't hover"</li>
+<li>74–76: "our truck's in for service" · "substituted snow crab at the old price" · "Call the order line if that's a problem" (by tonight)</li>
+<li>77–79: "weighing what we threw away, by category, for two weeks" · "over-prepping garnishes and tossing bread" · "food cost dropped almost four points ... with no menu changes"</li>
+<li>80–82: "replaces your paper reservation book and the three apps" · "a waitlist that texts guests when their table's ready" · "It syncs with your POS"</li>
+<li>83–85: "wait times ... running about forty minutes" · "unexpectedly high demand" · "complimentary appetizers at the bar"</li>
+<li>86–88: "confirming your order for Saturday" · "arrive at noon to set up" · "report any change in guest count"</li>
+<li>89–91: "pasta-making class" · "prepare the dough from scratch" first · "take home fresh pasta and the recipe"</li>
+<li>92–94: "track your driver's location in real time" · "estimated delivery times ... more accurate" · "detailed delivery instructions"</li>
+<li>95–97: "menu is small but focused" · "roasted vegetable plate" · "prices are moderate"</li>
+<li>98–100: "food allergy policy" · "inform the kitchen immediately" · "check with the chef if unsure"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The café</code> số ít + thói quen → <code>introduces</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> noon</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>inaccuracies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be expected to</code> + V nguyên → <code>inform</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes splitting a check much <span class="fill"></span></code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the wall</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>lowered its cost by tracking</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>have grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> time</code> (trong 3) → so sánh nhất <code>least</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the upstairs room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>a table is cleared</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The group</code> số ít → <code>operates</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more frequently</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>changes</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"ký <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (guide <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code> the bonus</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>overview</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>replace</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... could deliver</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the computer</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>manager</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"The main dining room <span class="fill"></span> closed the week of March 10" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Staff <span class="fill"></span> move the smaller tables to the patio" (sẽ) → <code>will move</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Reservations for that week <span class="fill"></span> already been contacted" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn phản hồi nếu có lo ngại, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"all staff <span class="fill"></span> clock in and out using the tablet" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The tablet <span class="fill"></span> record your break automatically" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Shifts not clocked out by closing <span class="fill"></span> be corrected by a manager the next day" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn báo quản lý nếu gặp khó khăn, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most kitchens find <span class="fill"></span> useful" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời trải nghiệm thực tế, khép lại quảng cáo PantryLine</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our specials process <span class="fill"></span> to the handheld devices, starting this week" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"The handhelds <span class="fill"></span> remove that entirely" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The allergen notes for each special <span class="fill"></span> now attached in the item screen" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo chuyển sang order điện tử</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>C</td>
+<td>156</td>
+<td>C</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>A</td>
+<td>157</td>
+<td>A</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>B</td>
+<td>158</td>
+<td>D</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>A</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>A</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>B</td>
+<td>187</td>
+<td>A</td>
+<td>196</td>
+<td>D</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>C</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>C</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>A</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>B</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>B</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "The rule does not apply to independent restaurants or small local chains"<br />
+- <strong>151 A</strong> — "Daily specials and limited-time items under 60 days are exempt"<br />
+- <strong>154 B</strong> — "to give the kitchen team two consecutive days off, which has been the top request in staff surveys"<br />
+- <strong>158 D</strong> — "go from 135°F down to 70°F within two hours"<br />
+- <strong>160 C</strong> — "Don't put a deep, covered container of hot food straight in the walk-in"<br />
+- <strong>166 C</strong> — "I'll email you a code to book directly with me"<br />
+- <strong>168 D</strong> — "Yes, for celebrations. There's a $2-per-person plating fee. Outside food otherwise is not permitted"<br />
+- <strong>169 B</strong> — "billed for the guaranteed count or the actual attendance, whichever is higher"<br />
+- <strong>178 B</strong> — "it's now about 28 hours" (chính sách chỉ credit trong 24 giờ)<br />
+- <strong>184 C</strong> — "you're billed for the guaranteed count or actual attendance, whichever is higher — so 70"<br />
+- <strong>188 D</strong> — "Counter and QR models cut front-of-house labor by roughly a third versus full service"<br />
+- <strong>193 A</strong> — "it's you plus one, so one parent is covered at 30%; the rest of the check is full price"<br />
+- <strong>195 C</strong> — "Tips are calculated on the pre-discount total"<br />
+- <strong>198 B</strong> — "If your existing photos meet the spec sheet ... submit those and skip the photographer"<br />
+- <strong>200 D</strong> — "a location doing under 15 delivery orders a week can request a waiver"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_015 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Food Service / Restaurants): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

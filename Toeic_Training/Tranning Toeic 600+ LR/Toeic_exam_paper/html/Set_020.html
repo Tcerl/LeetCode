@@ -1,0 +1,2250 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_020 — Ôn tổng (mixed final mock)</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="020">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_020</strong>
+    <span class="theme">Ôn tổng (mixed final mock)</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_020 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Người phụ nữ trình bày biểu đồ trên màn hình cho đồng nghiệp trong phòng họp.]</em><br />
+(A) People are entering a conference room.<br />
+(B) A woman is presenting a chart on a screen to colleagues.<br />
+(C) Someone is unplugging a projector.<br />
+(D) A whiteboard is being erased.</p>
+<p><strong>2.</strong> <em>[Ảnh: Hành khách kéo vali qua sảnh sân bay.]</em><br />
+(A) Travelers are wheeling suitcases through an airport hall.<br />
+(B) Bags are being loaded onto a cart.<br />
+(C) A flight board is being updated.<br />
+(D) People are seated at a gate.</p>
+<p><strong>3.</strong> <em>[Ảnh: Nhân viên kho quét mã vạch trên các thùng carton.]</em><br />
+(A) Boxes are being stacked on a pallet.<br />
+(B) A forklift is being driven down an aisle.<br />
+(C) A worker is scanning barcodes on cartons.<br />
+(D) Shelves are being assembled.</p>
+<p><strong>4.</strong> <em>[Ảnh: Quán cà phê vắng buổi sáng, ghế úp lên bàn.]</em><br />
+(A) Customers are ordering at the counter.<br />
+(B) A barista is wiping the espresso machine.<br />
+(C) People are reading at a table by the window.<br />
+(D) The chairs are up on the tables and the café is closed.</p>
+<p><strong>5.</strong> <em>[Ảnh: Kỹ thuật viên kiểm tra máy chủ trong phòng data center.]</em><br />
+(A) A technician is checking servers in a data center.<br />
+(B) Cables are being coiled on the floor.<br />
+(C) A monitor is being mounted on a rack.<br />
+(D) The room is dark and empty.</p>
+<p><strong>6.</strong> <em>[Ảnh: Nhân viên y tế đo huyết áp cho bệnh nhân tại phòng khám.]</em><br />
+(A) A patient is filling out a form at a desk.<br />
+(B) A nurse is restocking a supply cabinet.<br />
+(C) A medical worker is taking a patient's blood pressure.<br />
+(D) People are waiting in a reception area.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is the quarterly report due?<br />
+(A) By the end of next week.<br />
+(B) In the shared folder.<br />
+(C) About twenty pages.</p>
+<p><strong>8.</strong> Who's leading the onboarding session for the new hires?<br />
+(A) It runs all morning.<br />
+(B) Someone from the HR team.<br />
+(C) Six people started Monday.</p>
+<p><strong>9.</strong> Where should I submit the travel expense form?<br />
+(A) To the finance inbox.<br />
+(B) It's due within thirty days.<br />
+(C) I kept all the receipts.</p>
+<p><strong>10.</strong> Why was the shipment delayed?<br />
+(A) It's coming from overseas.<br />
+(B) About three days late.<br />
+(C) A customs hold at the port.</p>
+<p><strong>11.</strong> How many units did we sell last month?<br />
+(A) Just under five thousand.<br />
+(B) Mostly the smaller model.<br />
+(C) The campaign helped.</p>
+<p><strong>12.</strong> Could you proofread the press release before it goes out?<br />
+(A) The release announces the merger.<br />
+(B) I can look at it after lunch.<br />
+(C) It's only two paragraphs.</p>
+<p><strong>13.</strong> The new scheduling software saves time, doesn't it?<br />
+(A) We rolled it out in March.<br />
+(B) Yes, managers spend far less time on it.<br />
+(C) It has a mobile app too.</p>
+<p><strong>14.</strong> Should we run the ad on social media or in the local paper?<br />
+(A) The paper reaches an older audience.<br />
+(B) The budget is fixed.<br />
+(C) Social media would target our customers better.</p>
+<p><strong>15.</strong> Isn't the store inventory count this weekend?<br />
+(A) It usually takes two days.<br />
+(B) We close early for it.<br />
+(C) No, it was moved to next weekend.</p>
+<p><strong>16.</strong> Can you show me how to book a meeting room in the system?<br />
+(A) The room was double-booked.<br />
+(B) Sure — open the calendar and click "Reserve."<br />
+(C) We have four rooms on this floor.</p>
+<p><strong>17.</strong> What did the customer survey show?<br />
+(A) It went out to two thousand people.<br />
+(B) The response rate was low.<br />
+(C) That people want faster support.</p>
+<p><strong>18.</strong> Where are the backup drives stored?<br />
+(A) In the fireproof cabinet in IT.<br />
+(B) They're backed up nightly.<br />
+(C) We rotate them weekly.</p>
+<p><strong>19.</strong> Do you know whether the budget was approved?<br />
+(A) It was submitted in October.<br />
+(B) Ask the finance director.<br />
+(C) It covers three departments.</p>
+<p><strong>20.</strong> I think we should extend the return window during the holidays.<br />
+(A) Competitors already do that.<br />
+(B) Returns go up in January.<br />
+(C) The current window is 30 days.</p>
+<p><strong>21.</strong> Could you confirm the vendor delivery time?<br />
+(A) I'll confirm it now.<br />
+(B) Deliveries take time.<br />
+(C) I delivered it myself.</p>
+<p><strong>22.</strong> Has the quarterly report been finalized yet?<br />
+(A) It's a detailed report.<br />
+(B) I reported the issue.<br />
+(C) Not yet, it's due tomorrow.</p>
+<p><strong>23.</strong> Where should we hold the client dinner?<br />
+(A) At the restaurant downtown.<br />
+(B) Dinners are relaxing.<br />
+(C) We held one last year.</p>
+<p><strong>24.</strong> Would you rather fly out Sunday night or Monday morning?<br />
+(A) Sunday night would be safer.<br />
+(B) Flights get delayed sometimes.<br />
+(C) I flew there before.</p>
+<p><strong>25.</strong> Isn't the system usually backed up automatically?<br />
+(A) Backups take time.<br />
+(B) Yes, but tonight's backup failed.<br />
+(C) The system runs smoothly.</p>
+<p><strong>26.</strong> How many applicants are we interviewing this week?<br />
+(A) About eight.<br />
+(B) Interviews take an hour.<br />
+(C) We interview monthly.</p>
+<p><strong>27.</strong> Who's presenting the quarterly results?<br />
+(A) Results are strong this quarter.<br />
+(B) The finance director is presenting.<br />
+(C) Presentations take practice.</p>
+<p><strong>28.</strong> Do you know if the invoice was paid?<br />
+(A) Invoices are common.<br />
+(B) I invoiced the client.<br />
+(C) Yes, it was paid this morning.</p>
+<p><strong>29.</strong> Should we move the meeting to the larger conference room?<br />
+(A) Conference rooms fill up.<br />
+(B) Let's check if it's available first.<br />
+(C) I moved the meeting once.</p>
+<p><strong>30.</strong> Haven't you finished the onboarding checklist yet?<br />
+(A) Checklists take time.<br />
+(B) Almost, just two items left.<br />
+(C) The checklist looked complete.</p>
+<p><strong>31.</strong> Why was the shipment returned?<br />
+(A) Shipments arrive weekly.<br />
+(B) It happened last month too.<br />
+(C) Because the address was incorrect.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> The Kimura account wants to move Thursday's review to Monday — their finance lead is out sick.<br />
+<strong>M:</strong> Monday's tight. I have the vendor call at 10 and the all-hands at 2.<br />
+<strong>W:</strong> They offered 11:30. That's a ninety-minute window before your all-hands.<br />
+<strong>M:</strong> That works. Confirm 11:30 Monday and send them the updated deck by Friday so they can review over the weekend.</p>
+<p><strong>32.</strong> Why does the client want to reschedule?<br />
+(A) They lost the contract<br />
+(B) Their finance lead is out sick<br />
+(C) They want more time to prepare<br />
+(D) A holiday</p>
+<p><strong>33.</strong> What is the man's concern about Monday?<br />
+(A) He'll be traveling<br />
+(B) The room is booked<br />
+(C) He has a vendor call and an all-hands<br />
+(D) He hasn't finished the deck</p>
+<p><strong>34.</strong> What does the woman ask the man to send by Friday?<br />
+(A) An invoice<br />
+(B) A meeting agenda<br />
+(C) A contract<br />
+(D) The updated deck</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> We have two strong candidates for the analyst role and one opening.<br />
+<strong>W:</strong> The first has more direct experience; the second is stronger on communication and would ramp up slower.<br />
+<strong>M:</strong> Given the team already has deep technical skills, I'd lean toward the communicator.<br />
+<strong>W:</strong> Agreed. Let's make that offer, and keep the first candidate warm — we may have another opening next quarter.</p>
+<p><strong>35.</strong> What are the speakers discussing?<br />
+(A) Which of two candidates to hire<br />
+(B) A promotion<br />
+(C) A layoff<br />
+(D) A salary review</p>
+<p><strong>36.</strong> Why does the manager lean toward the second candidate?<br />
+(A) They asked for less money<br />
+(B) The team already has technical depth, so communication adds more<br />
+(C) They can start sooner<br />
+(D) They have a referral</p>
+<p><strong>37.</strong> What do they decide to do about the first candidate?<br />
+(A) Reject them formally<br />
+(B) Offer a lower role<br />
+(C) Ask for more interviews<br />
+(D) Keep them warm for a future opening</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> The launch is six weeks out. Where are we on the three workstreams?<br />
+<strong>M1:</strong> The website's on track. Pricing page still needs legal sign-off.<br />
+<strong>M2:</strong> Support is behind — the help articles aren't written and training isn't scheduled.<br />
+<strong>W:</strong> Support is the risk then. Let's pull a writer onto the help articles this week and lock a training date before we do anything else.</p>
+<p><strong>38.</strong> What is being planned?<br />
+(A) A company merger<br />
+(B) A product launch<br />
+(C) An office move<br />
+(D) A hiring round</p>
+<p><strong>39.</strong> Which workstream is behind?<br />
+(A) The website<br />
+(B) Pricing<br />
+(C) Support<br />
+(D) Legal</p>
+<p><strong>40.</strong> What does the woman want done before anything else?<br />
+(A) Delay the launch<br />
+(B) Cut the support scope<br />
+(C) Get legal sign-off<br />
+(D) Assign a writer and lock a training date</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> I was charged twice for my subscription this month — same amount, same day.<br />
+<strong>M:</strong> I see both charges. The first one failed on our end and retried, but the bank ended up processing both.<br />
+<strong>W:</strong> Can you refund one?<br />
+<strong>M:</strong> Yes, I'm refunding the duplicate now — it'll post in three to five business days. I've also added a note so the retry logic doesn't do this again on your account.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To cancel her subscription<br />
+(B) Because she was charged twice<br />
+(C) To upgrade her plan<br />
+(D) To change her card</p>
+<p><strong>42.</strong> What does the man say happened?<br />
+(A) A failed charge retried and both went through<br />
+(B) The price went up<br />
+(C) She has two accounts<br />
+(D) A discount expired</p>
+<p><strong>43.</strong> What has the man done besides the refund?<br />
+(A) Canceled her plan<br />
+(B) Escalated to a manager<br />
+(C) Applied a credit for next month<br />
+(D) Added a note to prevent the retry issue</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> Line 2 is producing parts that are 0.2 millimeters over spec — about one in eight.<br />
+<strong>W:</strong> Enough to fail inspection?<br />
+<strong>M:</strong> Right at the edge. QC is passing most but flagging some.<br />
+<strong>W:</strong> Stop line 2, have maintenance check the die alignment, and hold this morning's output for a full re-inspection before it ships.</p>
+<p><strong>44.</strong> What is the problem on line 2?<br />
+(A) The line stopped completely<br />
+(B) A worker was injured<br />
+(C) Parts are running slightly over spec<br />
+(D) A material shortage</p>
+<p><strong>45.</strong> What does QC do with the parts currently?<br />
+(A) Rejects all of them<br />
+(B) Passes most but flags some<br />
+(C) Ignores the issue<br />
+(D) Sends them all back</p>
+<p><strong>46.</strong> What does the woman order?<br />
+(A) Stop line 2 and re-inspect the morning's output<br />
+(B) Increase the line speed<br />
+(C) Ship it with a note<br />
+(D) Switch to line 3</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> I have a reservation for tonight but the system says it was canceled. I never canceled it.<br />
+<strong>M:</strong> I see the cancellation came from the booking site, not from us. Unfortunately we're now fully booked.<br />
+<strong>W:</strong> So I have nowhere to stay?<br />
+<strong>M:</strong> We have a partner hotel two blocks away with availability. We'll cover the rate difference and the taxi, and I'll flag your account so the booking site refunds any charge.</p>
+<p><strong>47.</strong> What is the woman's problem?<br />
+(A) She was overcharged<br />
+(B) Her room isn't ready<br />
+(C) She wants a different room<br />
+(D) Her reservation was canceled without her request</p>
+<p><strong>48.</strong> What does the man say caused it?<br />
+(A) A payment failure<br />
+(B) A staff error at check-in<br />
+(C) The cancellation came from the booking site<br />
+(D) A system outage</p>
+<p><strong>49.</strong> What does the hotel offer?<br />
+(A) A room at a partner hotel, with the difference and taxi covered<br />
+(B) A full refund only<br />
+(C) A free upgrade tomorrow<br />
+(D) A discount on a future stay</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> I just got a message that our afternoon client call needs to move up an hour.<br />
+<strong>W:</strong> That should be fine — let me check if the conference room is free at that time.<br />
+<strong>M:</strong> Thanks, and could you also let the rest of the team know?<br />
+<strong>W:</strong> Sure, I'll send a quick message to everyone right now.</p>
+<p><strong>50.</strong> What needs to change?<br />
+(A) The location of a meeting<br />
+(B) The time of a client call<br />
+(C) The attendees of a meeting<br />
+(D) The agenda of a call</p>
+<p><strong>51.</strong> What will the woman check?<br />
+(A) The weather<br />
+(B) Room availability<br />
+(C) The client's schedule<br />
+(D) The budget</p>
+<p><strong>52.</strong> What does the man ask the woman to do?<br />
+(A) Cancel the call<br />
+(B) Notify the team<br />
+(C) Reschedule again<br />
+(D) Call the client</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> Our new hire starts Monday — has her equipment been set up?<br />
+<strong>M:</strong> Her laptop is ready, but the badge hasn't come back from security yet.<br />
+<strong>W:</strong> Can you follow up with them today so it's ready in time?<br />
+<strong>M:</strong> Sure, I'll call security this afternoon.</p>
+<p><strong>53.</strong> What is being discussed?<br />
+(A) A new hire's setup<br />
+(B) A budget review<br />
+(C) A client complaint<br />
+(D) A software update</p>
+<p><strong>54.</strong> What is missing?<br />
+(A) A laptop<br />
+(B) A security badge<br />
+(C) A parking pass<br />
+(D) A welcome packet</p>
+<p><strong>55.</strong> What will the man do today?<br />
+(A) Order a new laptop<br />
+(B) Call security<br />
+(C) Contact the new hire<br />
+(D) Cancel her start date</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> The customer feedback from this month's survey is mostly positive.<br />
+<strong>W:</strong> That's great to hear. Any recurring complaints we should address?<br />
+<strong>M:</strong> A few mentioned slow response times from support.<br />
+<strong>W:</strong> Let's bring that up at next week's team meeting.</p>
+<p><strong>56.</strong> What does the survey show overall?<br />
+(A) Mostly negative feedback<br />
+(B) Mostly positive feedback<br />
+(C) No clear pattern<br />
+(D) A decline from last month</p>
+<p><strong>57.</strong> What recurring complaint is mentioned?<br />
+(A) High prices<br />
+(B) Slow response times from support<br />
+(C) Product defects<br />
+(D) Confusing instructions</p>
+<p><strong>58.</strong> What will the speakers do?<br />
+(A) Ignore the complaint<br />
+(B) Bring it up at next week's meeting<br />
+(C) Fire the support team<br />
+(D) Offer refunds</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> I noticed the printer on our floor is out of toner again.<br />
+<strong>M:</strong> I'll order a replacement cartridge right now.<br />
+<strong>W:</strong> Thanks, and maybe we should keep a spare on hand going forward.<br />
+<strong>M:</strong> Good idea, I'll order two so we always have a backup.</p>
+<p><strong>59.</strong> What problem is mentioned?<br />
+(A) A broken printer<br />
+(B) A printer out of toner<br />
+(C) A paper jam<br />
+(D) A slow printer</p>
+<p><strong>60.</strong> What will the man do?<br />
+(A) Fix the printer himself<br />
+(B) Order a replacement cartridge<br />
+(C) Report it to facilities<br />
+(D) Use a different printer</p>
+<p><strong>61.</strong> What does the woman suggest?<br />
+(A) Removing the printer<br />
+(B) Keeping a spare cartridge on hand<br />
+(C) Buying a new printer<br />
+(D) Sharing a printer with another floor</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's go over the plan for next week's product demo.<br />
+<strong>M1:</strong> I'll handle the live demonstration portion.<br />
+<strong>M2:</strong> I can take questions afterward since I know the technical details best.<br />
+<strong>W:</strong> Perfect, I'll introduce the session and manage the timing.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A product demo<br />
+(B) A hiring event<br />
+(C) A budget meeting<br />
+(D) A training session</p>
+<p><strong>63.</strong> What will the first man handle?<br />
+(A) Introductions<br />
+(B) The live demonstration<br />
+(C) Q&amp;A<br />
+(D) Timing</p>
+<p><strong>64.</strong> What will the woman do?<br />
+(A) Answer technical questions<br />
+(B) Introduce the session and manage timing<br />
+(C) Handle the demo<br />
+(D) Take notes</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> Our expense reports this month are taking longer to process than usual.<br />
+<strong>W:</strong> I think it's because several people submitted them late.<br />
+<strong>M:</strong> Should we send a reminder before the deadline next time?<br />
+<strong>W:</strong> Yes, let's set up an automatic reminder a few days before it's due.</p>
+<p><strong>65.</strong> What problem is discussed?<br />
+(A) Expense reports taking longer to process<br />
+(B) A budget overrun<br />
+(C) Missing receipts<br />
+(D) A software error</p>
+<p><strong>66.</strong> What does the woman think caused it?<br />
+(A) A system outage<br />
+(B) Late submissions<br />
+(C) A new policy<br />
+(D) Staff turnover</p>
+<p><strong>67.</strong> What will the speakers set up?<br />
+(A) A new approval process<br />
+(B) An automatic reminder<br />
+(C) A penalty for late submissions<br />
+(D) A new software system</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> A client asked if we could move up the project deadline by a week.<br />
+<strong>M:</strong> That's tight, but let's see what the team says before committing.<br />
+<strong>W:</strong> I'll check in with everyone this afternoon and get back to the client tomorrow.<br />
+<strong>M:</strong> Sounds good, let's make sure we're realistic about what's possible.</p>
+<p><strong>68.</strong> What did the client ask for?<br />
+(A) A lower price<br />
+(B) An earlier deadline<br />
+(C) A different deliverable<br />
+(D) A refund</p>
+<p><strong>69.</strong> What does the man want to do first?<br />
+(A) Agree immediately<br />
+(B) Check with the team<br />
+(C) Reject the request<br />
+(D) Raise the price</p>
+<p><strong>70.</strong> When will the woman respond to the client?<br />
+(A) Today<br />
+(B) Tomorrow<br />
+(C) Next week<br />
+(D) After the project ends</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Company announcement</h3>
+<p><em>"A quick update on our travel policy. Starting next month, all flights over four hours can be booked in premium economy, not just business class for executives. Booking still goes through the travel portal, and the same 14-day advance-purchase rule applies to keep costs down. Hotel per-diems are unchanged. If you have a trip already booked that qualifies, contact the travel desk and they'll see if it can be adjusted."</em></p>
+<p><strong>71.</strong> What is the announcement about?<br />
+(A) A change to the travel policy<br />
+(B) A new hire<br />
+(C) An office closure<br />
+(D) A bonus program</p>
+<p><strong>72.</strong> What is the main change?<br />
+(A) Business class for everyone<br />
+(B) Lower per-diems<br />
+(C) A new travel portal<br />
+(D) Premium economy on flights over four hours</p>
+<p><strong>73.</strong> What rule stays the same?<br />
+(A) Executives only fly business<br />
+(B) No international travel<br />
+(C) The 14-day advance-purchase requirement<br />
+(D) Manager approval for every trip</p>
+<h3>Talk 2 (74–76) — Voicemail from a supplier</h3>
+<p><em>"Hi, this is Devon at Northgate Supply, calling about purchase order 4412. The 500 units are ready, but the freight carrier we normally use raised their rate 20 percent this week. I can hold your original quote if you're okay with a two-day-slower carrier, or ship on the faster one at the new rate. Let me know by end of day; either way it ships tomorrow."</em></p>
+<p><strong>74.</strong> What is the call about?<br />
+(A) A payment problem<br />
+(B) A purchase order<br />
+(C) A product recall<br />
+(D) A contract renewal</p>
+<p><strong>75.</strong> What is the issue?<br />
+(A) The units aren't ready<br />
+(B) The order was wrong<br />
+(C) A warehouse closure<br />
+(D) The usual freight carrier raised its rate</p>
+<p><strong>76.</strong> What are the two options Devon offers?<br />
+(A) Cancel or delay the order<br />
+(B) Pay more now or later<br />
+(C) Original quote with a slower carrier, or faster at the new rate<br />
+(D) Split the shipment</p>
+<h3>Talk 3 (77–79) — Conference talk</h3>
+<p><em>"The metric that reshaped our support team was first-contact resolution. We were proud of our fast response time, but customers were coming back two and three times for the same issue. We shifted the goal: solve it on the first contact, even if that call runs longer. Repeat contacts dropped by a third, total handle time per issue actually went down, and satisfaction rose sharply."</em></p>
+<p><strong>77.</strong> What metric did the team focus on?<br />
+(A) First-contact resolution<br />
+(B) Response time<br />
+(C) Call volume<br />
+(D) Average revenue per customer</p>
+<p><strong>78.</strong> What was the problem with the old approach?<br />
+(A) Calls were dropped<br />
+(B) Staff were overworked<br />
+(C) Customers kept coming back for the same issue<br />
+(D) Response time was too slow</p>
+<p><strong>79.</strong> What happened to total handle time per issue?<br />
+(A) It doubled<br />
+(B) It went down<br />
+(C) It stayed the same<br />
+(D) It was not measured</p>
+<h3>Talk 4 (80–82) — Advertisement</h3>
+<p><em>"For operations teams: ClearMetrics pulls your data from sales, inventory, and support into one dashboard and flags what changed and why — a spike in returns from one region, a product that's about to stock out, a support queue that's growing. You get a weekly summary ranked by impact, not a wall of charts. It connects to the tools you already use. Start free at clearmetrics.example."</em></p>
+<p><strong>80.</strong> What does ClearMetrics pull together?<br />
+(A) Data from sales, inventory, and support<br />
+(B) Payroll and HR records<br />
+(C) Marketing campaigns only<br />
+(D) Website traffic</p>
+<p><strong>81.</strong> What does the weekly summary do?<br />
+(A) Lists every metric<br />
+(B) Ranks items by impact<br />
+(C) Shows only sales<br />
+(D) Compares to competitors</p>
+<p><strong>82.</strong> What does the ad say about setup?<br />
+(A) It requires new hardware<br />
+(B) It takes a month<br />
+(C) It connects to the tools you already use<br />
+(D) It needs a dedicated analyst</p>
+<h3>Talk 5 (83–85) — Office announcement</h3>
+<p><em>"Attention, everyone. The elevator on the east side of the building will be out of service for maintenance today. Please use the west elevator or the stairs during this time. We expect service to resume by tomorrow morning."</em></p>
+<p><strong>83.</strong> What is happening today?<br />
+(A) A fire drill<br />
+(B) Elevator maintenance<br />
+(C) A power outage<br />
+(D) A building inspection</p>
+<p><strong>84.</strong> What are employees asked to use instead?<br />
+(A) The parking garage<br />
+(B) The west elevator or the stairs<br />
+(C) A different building<br />
+(D) The loading dock</p>
+<p><strong>85.</strong> When is service expected to resume?<br />
+(A) Later today<br />
+(B) Tomorrow morning<br />
+(C) Next week<br />
+(D) It is unknown.</p>
+<h3>Talk 6 (86–88) — Client voicemail</h3>
+<p><em>"Hi, this is calling from Ferro Industries about the proposal you sent over. We're interested in moving forward, but we'd like to schedule a call to discuss the pricing structure in more detail. Please let us know your availability this week."</em></p>
+<p><strong>86.</strong> Why is the caller reaching out?<br />
+(A) To reject the proposal<br />
+(B) To schedule a call about pricing<br />
+(C) To request a refund<br />
+(D) To cancel the project</p>
+<p><strong>87.</strong> What does the caller want to discuss?<br />
+(A) The timeline<br />
+(B) The pricing structure<br />
+(C) The team assignments<br />
+(D) The contract length</p>
+<p><strong>88.</strong> What does the caller ask for?<br />
+(A) A written response<br />
+(B) The listener's availability this week<br />
+(C) A site visit<br />
+(D) A revised proposal</p>
+<h3>Talk 7 (89–91) — Training session introduction</h3>
+<p><em>"Welcome to today's training on time management. We'll cover how to prioritize tasks, the importance of setting realistic deadlines, and simple tools to reduce daily distractions. We'll take a short break halfway through, and there will be time for questions at the end."</em></p>
+<p><strong>89.</strong> What is the training about?<br />
+(A) Time management<br />
+(B) Customer service<br />
+(C) Budgeting<br />
+(D) Public speaking</p>
+<p><strong>90.</strong> What will be covered?<br />
+(A) Prioritizing tasks and setting deadlines<br />
+(B) Financial planning<br />
+(C) Team building<br />
+(D) Marketing strategy</p>
+<p><strong>91.</strong> When will there be time for questions?<br />
+(A) At the beginning<br />
+(B) At the end<br />
+(C) During the break<br />
+(D) Throughout the session</p>
+<h3>Talk 8 (92–94) — Product update announcement</h3>
+<p><em>"We're rolling out an update to our analytics dashboard this week. The new version loads faster and includes customizable charts based on user feedback. Existing reports will not be affected, and no action is needed on your part."</em></p>
+<p><strong>92.</strong> What is being updated?<br />
+(A) The analytics dashboard<br />
+(B) The billing system<br />
+(C) The mobile app<br />
+(D) The customer support portal</p>
+<p><strong>93.</strong> What improvement is mentioned?<br />
+(A) Lower pricing<br />
+(B) Faster loading and customizable charts<br />
+(C) New security features<br />
+(D) A redesigned logo</p>
+<p><strong>94.</strong> What does the speaker say about existing reports?<br />
+(A) They will be deleted.<br />
+(B) They will not be affected.<br />
+(C) They must be recreated.<br />
+(D) They will be archived.</p>
+<h3>Talk 9 (95–97) — Conference session recap</h3>
+<p><em>"Thanks to everyone who attended this morning's session on remote team management. Slides and a recording will be shared by email later today. If you have follow-up questions, feel free to reach out to any of our panelists directly."</em></p>
+<p><strong>95.</strong> What was this morning's session about?<br />
+(A) Remote team management<br />
+(B) Sales strategy<br />
+(C) Product design<br />
+(D) Financial reporting</p>
+<p><strong>96.</strong> What will be shared by email?<br />
+(A) A survey<br />
+(B) Slides and a recording<br />
+(C) A discount code<br />
+(D) A certificate</p>
+<p><strong>97.</strong> What can attendees do with follow-up questions?<br />
+(A) Wait for a newsletter<br />
+(B) Reach out to the panelists directly<br />
+(C) Submit a written form<br />
+(D) Attend another session</p>
+<h3>Talk 10 (98–100) — Internal policy update</h3>
+<p><em>"As part of our updated travel policy, employees booking flights more than sixty days in advance will now be eligible for premium economy on flights over five hours. All other travel policy terms remain the same. Questions can be directed to the travel desk."</em></p>
+<p><strong>98.</strong> What is changing?<br />
+(A) A new travel booking system<br />
+(B) Eligibility for premium economy seating<br />
+(C) A reduction in travel budget<br />
+(D) A new approval process</p>
+<p><strong>99.</strong> What is required to qualify?<br />
+(A) Booking more than sixty days in advance<br />
+(B) Booking through a specific agency<br />
+(C) Manager approval<br />
+(D) A minimum flight length of ten hours</p>
+<p><strong>100.</strong> Where should questions be directed?<br />
+(A) Human resources<br />
+(B) The travel desk<br />
+(C) The finance department<br />
+(D) A supervisor</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_020 — READING (100 câu: 101–200) · Ôn tổng (chủ đề trộn — full mock)</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.<br />
+Đây là bộ ôn tổng cuối cùng — làm liền cả L + R như một đề thi thật, rồi so với mục tiêu 2 lần liên tiếp ≥ 620.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The company <span class="blk">________</span> a customer newsletter at the start of every month.<br />
+(A) send  (B) sends  (C) sending  (D) to send</p>
+<p><strong>102.</strong> Expense claims must be filed <span class="blk">________</span> the end of the month in which the trip took place.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The review found several <span class="blk">________</span> between the proposal and the final invoice.<br />
+(A) different  (B) differently  (C) discrepancies  (D) difference</p>
+<p><strong>104.</strong> <span class="blk">________</span> a tight timeline, the team delivered the report a day early.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> New employees are required to <span class="blk">________</span> the safety training within their first week.<br />
+(A) complete  (B) completes  (C) completing  (D) completion</p>
+<p><strong>106.</strong> The updated template makes writing a status report much <span class="blk">________</span> than before.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> The meeting notes are shared <span class="blk">________</span> the team drive under "Weekly Sync."<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> The presentation was cut short <span class="blk">________</span> a problem with the projector.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The firm reduced its shipping costs <span class="blk">________</span> consolidating orders into weekly batches.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Demand for the subscription plan has risen <span class="blk">________</span> since the price was lowered.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three suppliers, the second offers the <span class="blk">________</span> delivery time.<br />
+(A) short  (B) shorter  (C) shortest  (D) more short</p>
+<p><strong>112.</strong> The new system processes reimbursements far <span class="blk">________</span> than the paper form did.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> The training will be held <span class="blk">________</span> the large conference room on the fifth floor.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> the contract is signed, work can begin on the pilot.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The group <span class="blk">________</span> three brands and a shared logistics center.<br />
+(A) own  (B) owns  (C) owning  (D) to own</p>
+<p><strong>116.</strong> The audit is expected <span class="blk">________</span> before the end of the fiscal year.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior manager will <span class="blk">________</span> the new team leads next month.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Staff complete the form <span class="blk">________</span> when the instructions include an example than when they don't.<br />
+(A) accurate  (B) accurately  (C) most accurately  (D) more accurately</p>
+<p><strong>119.</strong> The report suggests several <span class="blk">________</span> for reducing customer wait times.<br />
+(A) change  (B) changes  (C) changing  (D) changed</p>
+<p><strong>120.</strong> The help desk is staffed <span class="blk">________</span> 8 A.M. to 6 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The license was granted <span class="blk">________</span> conditions on how the software may be shared.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The revised employee handbook <span class="blk">________</span> distributed to all offices next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A vendor is <span class="blk">________</span> for the preferred-pricing tier only after a full year of orders.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The one-page brief gives new managers a <span class="blk">________</span> overview of the approval process.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The committee voted to <span class="blk">________</span> the outdated expense policy.<br />
+(A) replace  (B) replaces  (C) replacing  (D) to replace</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed dates worked for every department head.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Signed contracts from the past five years are stored <span class="blk">________</span> the document server.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any refund over one hundred dollars must be approved by an <span class="blk">________</span> supervisor.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two items were removed from the agenda <span class="blk">________</span> a lack of time.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New hires receive <span class="blk">________</span> training on the company's data-handling rules.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Network Maintenance This Weekend</strong></p>
+<p>The office network <span class="blk">(131)</span> offline from Saturday 8 P.M. to Sunday 6 A.M. for a security update.</p>
+<p>The IT team <span class="blk">(132)</span> be on site during the work, and the help line will be staffed if you hit a problem Monday morning.</p>
+<p>Files saved to the cloud drive <span class="blk">(133)</span> already been backed up, so nothing will be lost.</p>
+<p>We appreciate your patience during the maintenance window. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will  (B) are  (C) have  (D) being<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The network will remain offline through Monday afternoon.<br />
+(B) Files saved locally will also be backed up automatically.<br />
+(C) Contact the help line if you run into any issues Monday.<br />
+(D) This is the first scheduled maintenance this year.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Process for Time-Off Requests</p>
+<p>Starting this month, all time-off requests <span class="blk">(135)</span> be submitted through the HR portal, not by email to your manager.</p>
+<p>The portal <span class="blk">(136)</span> show your remaining balance and your team's calendar, so you can pick a date that doesn't clash.</p>
+<p>Requests during the two weeks around a major deadline <span class="blk">(137)</span> need a second-level approval, which the system routes automatically.</p>
+<p>Thank you for your cooperation as we move this online. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Email requests to managers will still be accepted as a backup.<br />
+(B) All time-off requests will now require second-level approval.<br />
+(C) This process applies only to full-time employees.<br />
+(D) Reach out to HR if you have questions about the portal.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>TASKLINE — SEE EVERY PROJECT AT A GLANCE</strong></p>
+<p>TaskLine puts your projects, owners, deadlines, and blockers on one board, and warns you when a due date is about to slip based on what's actually done.</p>
+<p>Most teams find <span class="blk">(139)</span> useful: a weekly digest of what moved, a clear view of who's overloaded, and a record of why a date changed. Teams using it say status meetings got shorter.</p>
+<p>Setup is <span class="blk">(140)</span> and takes an afternoon. There is no <span class="blk">(141)</span> contract, and the first project is free. Book a demo at taskline.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) TaskLine requires migrating all historical project data manually.<br />
+(B) A minimum of ten team members is required to start.<br />
+(C) Weekly digests are only available on the enterprise plan.<br />
+(D) See how it works with one of your current projects.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Payroll <strong>RE:</strong> Pay Stubs Go Digital</p>
+<p>Our pay stub delivery <span class="blk">(143)</span> to the employee portal, starting with the next pay period. Paper stubs will no longer be printed.</p>
+<p>Last year we printed about 30,000 paper stubs. Going digital <span class="blk">(144)</span> save the printing cost and get your stub to you on payday instead of two days later.</p>
+<p>Year-end tax forms <span class="blk">(145)</span> also now available in the portal, and you can download any of the last seven years. If you need a printed copy for a loan or a lease, HR will print one on request. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Printed pay stubs will resume automatically next year.<br />
+(B) Tax forms will only be available for the current year.<br />
+(C) This change applies only to salaried employees.<br />
+(D) Thanks for helping us reduce paper and speed up payday.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Ops (9:15 A.M.):</strong> Front-desk printer jammed and there's a line of customers needing receipts.<br />
+<strong>IT (9:17 A.M.):</strong> Try opening the back panel and clearing the paper path. If it errors after, it's the fuser.<br />
+<strong>Ops (9:26 A.M.):</strong> Cleared a torn sheet, still throwing a fuser error.<br />
+<strong>IT (9:28 A.M.):</strong> OK, that's a service call. Use the back-office printer for receipts today; I'll put in a ticket for a same-day tech.</p>
+<p><strong>147.</strong> What is the problem?<br />
+(A) The front-desk printer jammed and is now erroring<br />
+(B) The point-of-sale system is down<br />
+(C) There is no receipt paper<br />
+(D) The network is out</p>
+<p><strong>148.</strong> What does IT tell Ops to do today?<br />
+(A) Turn away customers<br />
+(B) Handwrite receipts<br />
+(C) Wait for the tech<br />
+(D) Use the back-office printer for receipts</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>REGIONAL FIRM MOVES TO A FOUR-DAY WORK WEEK AFTER A YEAR-LONG TRIAL</strong></p>
+<p>Meridian Logistics will make its four-day, 32-hour week permanent for salaried staff, following a 12-month pilot. Pay is unchanged. The company says productivity held steady and voluntary turnover fell by nearly half.</p>
+<p>Not every role fits the model. Warehouse and dispatch teams, which need seven-day coverage, keep a five-day schedule but got an extra week of paid leave and a small shift premium instead. Client-facing staff rotate a Friday coverage desk so the company is still reachable.</p>
+<p>The firm credits the trial's success to cutting meetings — average meeting time dropped 40 percent — rather than simply working faster.</p>
+<p><strong>149.</strong> What is Meridian Logistics doing?<br />
+(A) Making a four-day work week permanent for salaried staff<br />
+(B) Cutting pay by 20%<br />
+(C) Closing on Fridays entirely<br />
+(D) Reducing headcount</p>
+<p><strong>150.</strong> What happened to voluntary turnover during the trial?<br />
+(A) It rose slightly<br />
+(B) It stayed the same<br />
+(C) It fell by nearly half<br />
+(D) It was not tracked</p>
+<p><strong>151.</strong> What did warehouse and dispatch teams get instead?<br />
+(A) The four-day week too<br />
+(B) An extra week of paid leave and a shift premium<br />
+(C) A one-time bonus<br />
+(D) Nothing changed for them</p>
+<p><strong>152.</strong> What does the firm credit for the trial's success?<br />
+(A) Hiring more staff<br />
+(B) New software<br />
+(C) Cutting meeting time<br />
+(D) Longer daily hours</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Café Closed for Equipment Replacement</strong></p>
+<p>The 4th-floor café will be closed Monday and Tuesday while the espresso machine and refrigeration are replaced. Vending machines on 2 and 6 are stocked and the coffee station in the 5th-floor break room is available to all staff those two days.</p>
+<p>The café reopens Wednesday with the same menu and hours. Loyalty-card points and pre-orders are unaffected.</p>
+<p><strong>153.</strong> Why is the café closed?<br />
+(A) A health inspection<br />
+(B) Staff training<br />
+(C) Low sales<br />
+(D) To replace the espresso machine and refrigeration</p>
+<p><strong>154.</strong> What is available to staff during the closure?<br />
+(A) A catered lunch<br />
+(B) Vending machines and the 5th-floor coffee station<br />
+(C) A meal allowance<br />
+(D) Nothing</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>INBOXZERO — TURN YOUR SHARED INBOX INTO A REAL QUEUE</strong></p>
+<p>InboxZero sits on top of your team's shared email — support@, orders@, info@ — and turns it into an assignable queue: every message gets an owner, a status, and a due time, so nothing sits unanswered because "someone else has it."</p>
+<p>You get response-time reporting, canned replies for common questions, and a note when two people open the same message. It works with your existing email; there's nothing to migrate.</p>
+<p>Teams using it cut their average first-response time in half. Free for two users at inboxzero.example.</p>
+<p><strong>155.</strong> What does InboxZero turn a shared inbox into?<br />
+(A) A chat channel<br />
+(B) An assignable queue with owners and statuses<br />
+(C) A ticketing database<br />
+(D) A public forum</p>
+<p><strong>156.</strong> What problem does it solve?<br />
+(A) Spam<br />
+(B) Storage limits<br />
+(C) Messages sitting unanswered because ownership is unclear<br />
+(D) Lost attachments</p>
+<p><strong>157.</strong> What does the ad say about migration?<br />
+(A) There is nothing to migrate<br />
+(B) It takes two weeks<br />
+(C) You must switch email providers<br />
+(D) It requires an IT project</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-managers <strong>From:</strong> HR <strong>Subject:</strong> Before You Approve Overtime</p>
+<p>A reminder on overtime approval.</p>
+<p>Overtime for hourly staff must be approved in advance, in the timekeeping system, before the extra hours are worked — not after the fact. Approving it after means we've already incurred a cost with no budget check, and repeated late approvals get flagged in the quarterly audit.</p>
+<p>If a genuine emergency comes up outside hours and you can't get into the system, email HR and your director that night with the reason and the expected hours, and enter it the next morning.</p>
+<p>Salaried staff don't earn overtime, but chronic long hours are a workload problem to raise with your director, not something to ignore.</p>
+<p><strong>158.</strong> When must overtime for hourly staff be approved?<br />
+(A) Within a week of the hours<br />
+(B) At the end of the pay period<br />
+(C) In advance, before the hours are worked<br />
+(D) Only if it exceeds 10 hours</p>
+<p><strong>159.</strong> What happens with repeated late approvals?<br />
+(A) They are flagged in the quarterly audit<br />
+(B) The hours are not paid<br />
+(C) Nothing<br />
+(D) The employee is disciplined</p>
+<p><strong>160.</strong> What should a manager do in a genuine after-hours emergency?<br />
+(A) Approve it verbally<br />
+(B) Skip the approval<br />
+(C) Wait until the next audit<br />
+(D) Email HR and the director that night, then enter it the next morning</p>
+<h3>Passage 6 — Purchase-approval table (161–162)</h3>
+<p><strong>PURCHASE APPROVAL — WHO SIGNS OFF</strong></p>
+<table>
+<thead>
+<tr>
+<th>Amount</th>
+<th>Approver</th>
+<th>Extra step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Under $500</td>
+<td>Team lead</td>
+<td>Receipt to Finance within 5 days</td>
+</tr>
+<tr>
+<td>$500–$5,000</td>
+<td>Department manager</td>
+<td>Quote required if not a standing vendor</td>
+</tr>
+<tr>
+<td>$5,000–$25,000</td>
+<td>Director</td>
+<td>Two quotes; Finance reviews</td>
+</tr>
+<tr>
+<td>Over $25,000</td>
+<td>VP + Finance</td>
+<td>Formal bid process; 10-day notice</td>
+</tr>
+</tbody>
+</table>
+<p>Recurring subscriptions are approved at the annual total, not the monthly charge. Splitting a purchase to stay under a threshold is not allowed.</p>
+<p><strong>161.</strong> Who approves a $3,000 purchase?<br />
+(A) A team lead<br />
+(B) A director<br />
+(C) A department manager<br />
+(D) A VP</p>
+<p><strong>162.</strong> How is a recurring subscription approved?<br />
+(A) At the annual total, not the monthly charge<br />
+(B) Monthly, by the team lead<br />
+(C) It doesn't need approval<br />
+(D) Only by Finance</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Feng,</p>
+<p>Thank you for your email about the damaged item in order #55210.</p>
+<p>You are right that the desk lamp arrived with a cracked base, and I'm sorry for the trouble. Looking at the photos, the outer box was intact, so the damage likely happened before packing — a quality-control miss on our end, not a shipping problem.</p>
+<p>A replacement lamp is on its way and should arrive in three to four business days; you don't need to return the damaged one. If you'd rather have a refund instead, reply to this email and I'll process it the same day.</p>
+<p>We've also pulled the remaining stock of that lamp for re-inspection. Thank you for the clear photos, which made this easy to resolve.</p>
+<p><strong>163.</strong> Why did Mr. Feng write?<br />
+(A) To cancel an order<br />
+(B) Because an item arrived damaged<br />
+(C) To change a shipping address<br />
+(D) To ask about a discount</p>
+<p><strong>164.</strong> What does the company believe caused the damage?<br />
+(A) Rough handling by the carrier<br />
+(B) A manufacturing recall<br />
+(C) A quality-control miss before packing<br />
+(D) The customer's handling</p>
+<p><strong>165.</strong> What is the company doing by default?<br />
+(A) Issuing a store credit<br />
+(B) Asking for the item back first<br />
+(C) Nothing until he calls<br />
+(D) Sending a replacement with no return required</p>
+<p><strong>166.</strong> What else did the company do?<br />
+(A) Pulled the remaining stock for re-inspection<br />
+(B) Switched carriers<br />
+(C) Offered a coupon<br />
+(D) Changed the packaging supplier</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>EMPLOYEE REFERRAL PROGRAM — FAQ</strong></p>
+<p><strong>Who can I refer?</strong><br />
+Anyone not already in our system and not a current employee, contractor, or someone we've interviewed in the last six months.</p>
+<p><strong>What's the bonus?</strong><br />
+$2,000 for most roles, $4,000 for hard-to-fill roles marked in the job posting. Paid half when the person starts and half after they complete 90 days.</p>
+<p><strong>When do I have to submit the referral?</strong><br />
+Before the candidate applies, or within 5 days of their application, through the referral form. A resume forwarded by email doesn't count.</p>
+<p><strong>Can managers refer people to their own team?</strong><br />
+No. You can refer to any other team, but not to a role you'd manage or be on the hiring panel for.</p>
+<p><strong>167.</strong> Who can be referred?<br />
+(A) Someone not already in the system and not interviewed in the last six months<br />
+(B) Anyone at all<br />
+(C) Only former employees<br />
+(D) Only people with 5+ years' experience</p>
+<p><strong>168.</strong> How is the referral bonus paid?<br />
+(A) All upfront<br />
+(B) All after one year<br />
+(C) In monthly installments<br />
+(D) Half when the person starts, half after 90 days</p>
+<p><strong>169.</strong> When must a referral be submitted?<br />
+(A) Any time before the person is hired<br />
+(B) Before the candidate applies, or within 5 days of their application<br />
+(C) Only after the person starts<br />
+(D) Within 30 days</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Communications <strong>RE:</strong> Speaking to the Media</p>
+<p>If a reporter contacts you about company business, be courteous, take their name, outlet, deadline, and question, and tell them our communications team will follow up. Then send that to comms right away.</p>
+<p>Do not answer the question, even if you know the answer and it seems harmless. An incomplete or off-the-cuff answer can be wrong or taken out of context, and then we're correcting it publicly.</p>
+<p>You are free to speak about your own work publicly — a conference talk, an article — but run anything that names the company or a client past comms first.</p>
+<p><strong>170.</strong> What should staff do if a reporter contacts them?<br />
+(A) Answer briefly and honestly<br />
+(B) Take the reporter's details and refer them to the communications team<br />
+(C) Ignore the request<br />
+(D) Give a written statement</p>
+<p><strong>171.</strong> Why does the memo say not to answer the question?<br />
+(A) Reporters can't be trusted<br />
+(B) It is against the law<br />
+(C) An off-the-cuff answer can be wrong or taken out of context<br />
+(D) It wastes time</p>
+<p><strong>172.</strong> What can staff do freely?<br />
+(A) Speak about their own work publicly<br />
+(B) Speak for the company<br />
+(C) Share client names<br />
+(D) Nothing without approval</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Great for approvals, weak reporting</strong> — operations manager, 60-person company</p>
+<p>We brought this in to stop chasing purchase approvals over email and chat. That part is excellent — a request goes to the right approver by amount, they get a reminder if they sit on it, and everything's logged with the quotes attached. Our month-end close is a day faster because Finance isn't hunting for backup.</p>
+<p>The reporting is thin. I can't easily see spend by category or by team over time without exporting to a spreadsheet, and there's no budget-vs-actual view at all.</p>
+<p>Onboarding took a week. Support answered quickly. Worth it just for the approval trail.</p>
+<p><strong>173.</strong> Why did the company adopt the tool?<br />
+(A) To manage payroll<br />
+(B) To track inventory<br />
+(C) To schedule staff<br />
+(D) To stop chasing purchase approvals over email and chat</p>
+<p><strong>174.</strong> What is a weakness the reviewer describes?<br />
+(A) Approvals go to the wrong person<br />
+(B) No reminders<br />
+(C) Weak reporting and no budget-vs-actual view<br />
+(D) It has no mobile app</p>
+<p><strong>175.</strong> What is faster now?<br />
+(A) Vendor onboarding<br />
+(B) The month-end close<br />
+(C) Hiring<br />
+(D) Shipping</p>
+<h3>Passages 11–12 — Expense policy &amp; email (176–180)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>EXPENSE REIMBURSEMENT — KEY RULES</strong></p>
+<ul>
+<li>Submit expenses within 30 days of the transaction date. Claims older than 60 days are not reimbursed except with a director's written exception.</li>
+<li>Itemized receipts are required for anything over $25. A credit-card statement alone is not an itemized receipt.</li>
+<li>Meals while traveling are reimbursed at actual cost up to the daily limit ($60 domestic, $90 international). Alcohol is not reimbursable.</li>
+<li>Personal travel added to a business trip is your own cost; submit only the business portion, and note the split.</li>
+<li>Reimbursement is paid with the next payroll run after approval, normally within two weeks.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Shah <strong>To:</strong> finance@company.example <strong>Subject:</strong> A few expense questions</p>
+<p>Hi,</p>
+<ol>
+<li>I have a hotel receipt from a trip 45 days ago that I forgot to submit. Am I still okay?</li>
+<li>I took a client to dinner and the bill included two glasses of wine. Do I just subtract those?</li>
+<li>I extended a work trip by two days for personal reasons. How do I handle the flight, which was one ticket?</li>
+</ol>
+<p><strong>176.</strong> How soon should expenses be submitted?<br />
+(A) Within one week<br />
+(B) Within 30 days of the transaction<br />
+(C) Within 90 days<br />
+(D) By year-end</p>
+<p><strong>177.</strong> What counts as a valid receipt for a $40 expense?<br />
+(A) A credit-card statement<br />
+(B) A photo of the item<br />
+(C) A verbal confirmation<br />
+(D) An itemized receipt</p>
+<p><strong>178.</strong> Based on the policy, is Priya's 45-day-old receipt reimbursable?<br />
+(A) Yes — it is under 60 days<br />
+(B) No — it is over 30 days<br />
+(C) Only with a director's exception<br />
+(D) Only half</p>
+<p><strong>179.</strong> How does Priya handle the wine on the client dinner bill?<br />
+(A) Submit the whole bill<br />
+(B) Split it with the client<br />
+(C) Subtract the wine — alcohol is not reimbursable<br />
+(D) Claim it as entertainment</p>
+<p><strong>180.</strong> What is one of Priya's questions?<br />
+(A) Whether meals have a limit<br />
+(B) How to handle a flight for a trip with personal days added<br />
+(C) When she'll be paid<br />
+(D) Whether she needs manager approval</p>
+<h3>Passages 13–14 — Two emails about a vendor invoice (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Cole, accounts payable <strong>To:</strong> billing@brightoffice.example <strong>Subject:</strong> Invoices 7781 and 7802 — same charge</p>
+<p>Hi,</p>
+<p>We've received two invoices — 7781 and 7802 — both for the March furniture order, both for $6,400, dated a week apart. We only placed one order (PO 4120) and received one delivery. Please confirm which invoice to pay and cancel the other.</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> billing@brightoffice.example <strong>To:</strong> Dana Cole <strong>Subject:</strong> RE: Invoices 7781 and 7802 — same charge</p>
+<p>Hi Dana,</p>
+<p>You're right — that's a duplicate on our side. Invoice 7781 is the correct one, tied to PO 4120. Invoice 7802 was generated when a staff member re-entered the order after a system glitch; it should not have gone out.</p>
+<p>Please pay 7781 only. I've voided 7802 in our system and you'll get a confirmation. We've also added a check that flags two invoices against the same PO before they send.</p>
+<p>Sorry for the confusion.</p>
+<p><strong>181.</strong> Why did Dana email the vendor?<br />
+(A) To place a new order<br />
+(B) To dispute the price<br />
+(C) Because two invoices were received for one order<br />
+(D) To return the furniture</p>
+<p><strong>182.</strong> Which invoice is correct?<br />
+(A) 7781, tied to PO 4120<br />
+(B) 7802<br />
+(C) Both, split evenly<br />
+(D) Neither</p>
+<p><strong>183.</strong> Why was the second invoice generated?<br />
+(A) The price changed<br />
+(B) A second delivery was made<br />
+(C) The first was rejected<br />
+(D) A staff member re-entered the order after a glitch</p>
+<p><strong>184.</strong> What should Dana's team do?<br />
+(A) Pay both and request a refund<br />
+(B) Pay 7802<br />
+(C) Pay 7781 only<br />
+(D) Hold all payment</p>
+<p><strong>185.</strong> What did the vendor add to prevent a repeat?<br />
+(A) A new accounting system<br />
+(B) A manager sign-off on every invoice<br />
+(C) A late fee<br />
+(D) A check that flags two invoices against the same PO</p>
+<h3>Passages 15–17 — Feedback-method reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>CUSTOMER FEEDBACK METHODS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Sample size</th>
+<th>Depth</th>
+<th>Speed</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-app survey (1–2 questions)</td>
+<td>Very large</td>
+<td>Shallow</td>
+<td>Real-time</td>
+<td>Tracking a metric over time; spotting a sudden drop</td>
+</tr>
+<tr>
+<td>Email survey (longer)</td>
+<td>Large</td>
+<td>Medium</td>
+<td>Days</td>
+<td>Understanding "why" behind a trend; segmenting by customer type</td>
+</tr>
+<tr>
+<td>1:1 interviews (30–45 min)</td>
+<td>Small (6–12)</td>
+<td>Deep</td>
+<td>Weeks</td>
+<td>Discovering problems you didn't know to ask about</td>
+</tr>
+<tr>
+<td>Support-ticket analysis</td>
+<td>Whatever comes in</td>
+<td>Medium</td>
+<td>Ongoing</td>
+<td>Finding friction points; free, already collected</td>
+</tr>
+</tbody>
+</table>
+<p>Start with what you already have (tickets), use surveys to size a problem, and use interviews to understand one you can't explain.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Reyes, product manager <strong>To:</strong> research@company.example <strong>Subject:</strong> Drop in trial conversions</p>
+<p>Hi,</p>
+<p>Our free-trial-to-paid conversion fell from 22% to 16% over the last two months. Nothing obvious changed in the product. I need to understand why, fast, but I also don't want to guess. What's the right way to look into this?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> research@company.example <strong>To:</strong> Owen Reyes <strong>Subject:</strong> RE: Drop in trial conversions</p>
+<p>Hi Owen,</p>
+<p>Do this in order. First, I'll pull the support tickets from trial users over the last quarter — that's free and might show an obvious friction point (a broken step, a confusing screen) in a day.</p>
+<p>If that's not conclusive, we send a short email survey to users whose trials expired without converting, asking the one open question "what stopped you from subscribing?" That'll size the top reasons within a week.</p>
+<p>If the survey answers are vague, we book six interviews with recent non-converters to dig in. That's two to three weeks, but it's how we'd find a problem we don't currently have words for.</p>
+<p>I'd resist a big interview round as step one — it's slow and you might spend it on the wrong question.</p>
+<p><strong>186.</strong> What is Owen's problem?<br />
+(A) A product outage<br />
+(B) Free-trial-to-paid conversion dropped from 22% to 16%<br />
+(C) Rising support costs<br />
+(D) A competitor's launch</p>
+<p><strong>187.</strong> What does the researcher say to do first?<br />
+(A) Book interviews<br />
+(B) Redesign the trial<br />
+(C) Run an in-app survey<br />
+(D) Analyze support tickets from trial users</p>
+<p><strong>188.</strong> Why start there?<br />
+(A) It is free, already collected, and fast<br />
+(B) It has the largest sample<br />
+(C) It is the deepest method<br />
+(D) It is required by policy</p>
+<p><strong>189.</strong> What does the email survey ask?<br />
+(A) A rating from 1 to 10<br />
+(B) A list of features to rank<br />
+(C) One open question: what stopped you from subscribing<br />
+(D) Demographic details</p>
+<p><strong>190.</strong> Why does the researcher resist starting with a big interview round?<br />
+(A) Interviews are unreliable<br />
+(B) It is slow and might be spent on the wrong question<br />
+(C) Customers won't participate<br />
+(D) It costs too much</p>
+<h3>Passages 18–20 — Remote-work policy, employee email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>REMOTE &amp; HYBRID WORK — POLICY</strong></p>
+<ul>
+<li><strong>Default:</strong> Most roles are hybrid: at least two days a week in the office, days chosen by the team, not the individual, so people overlap.</li>
+<li><strong>Fully remote:</strong> Approved case by case for roles that don't require presence, with a manager and HR sign-off, reviewed yearly.</li>
+<li><strong>Equipment:</strong> The company provides a laptop and one monitor for home use. A one-time $300 stipend covers a chair or desk; keep the receipt.</li>
+<li><strong>Out-of-area:</strong> If you move more than 90 minutes from your assigned office, you must switch to fully remote status (with approval) or the move isn't supported. Tax and pay may change if you move to another state.</li>
+<li><strong>In-office days:</strong> Booked through the desk system. Teams that are all-in on the same days get priority for the larger rooms.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Ellis <strong>To:</strong> hr@company.example <strong>Subject:</strong> Questions about hybrid and a possible move</p>
+<p>Hi,</p>
+<ol>
+<li>My team picked Tuesday and Wednesday as our in-office days, but those are hard for me with childcare. Can I do Monday and Thursday instead?</li>
+<li>I want to buy a standing desk that costs $420. How does the stipend work?</li>
+<li>I'm thinking of moving to my partner's city, about two hours from the office, in another state. What would I need to do?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> hr@company.example <strong>To:</strong> Sam Ellis <strong>Subject:</strong> RE: Questions about hybrid and a possible move</p>
+<p>Hi Sam,</p>
+<ol>
+<li>The in-office days are set by the team so people actually overlap, so individual swaps defeat the purpose. Raise it with your manager — if childcare makes Tue/Wed genuinely unworkable, the better path is a formal schedule accommodation, not an informal swap.</li>
+<li>The stipend is a one-time $300. For a $420 desk, the company reimburses $300 and the remaining $120 is yours. Submit the itemized receipt.</li>
+<li>Two hours away and in another state means you'd need approved fully-remote status, and your pay and tax withholding would be reviewed for the new state. Start that conversation with your manager and me before you commit to the move.</li>
+</ol>
+<p><strong>191.</strong> What sets the in-office days?<br />
+(A) The team, so people overlap<br />
+(B) Each individual<br />
+(C) HR centrally<br />
+(D) They are random</p>
+<p><strong>192.</strong> How does the equipment stipend work for Sam's $420 desk?<br />
+(A) The company pays the full $420<br />
+(B) Sam pays the full amount<br />
+(C) The company pays half<br />
+(D) The company reimburses $300; Sam covers the $120 balance</p>
+<p><strong>193.</strong> What does HR suggest Sam do about the in-office days?<br />
+(A) Raise it with his manager as a formal accommodation, not an informal swap<br />
+(B) Swap days with a coworker<br />
+(C) Come in all five days instead<br />
+(D) Nothing can be done</p>
+<p><strong>194.</strong> What status would Sam need if he moves two hours away in another state?<br />
+(A) Hybrid with fewer days<br />
+(B) Approved fully-remote status<br />
+(C) A leave of absence<br />
+(D) A transfer to a new office</p>
+<p><strong>195.</strong> What does HR say may change if Sam moves to another state?<br />
+(A) His job title<br />
+(B) His manager<br />
+(C) His pay and tax withholding<br />
+(D) His equipment</p>
+<h3>Passages 21–23 — Benefits-change notice, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>HEALTH BENEFITS — CHANGES FOR NEXT PLAN YEAR (STARTS JANUARY 1)</strong></p>
+<ol>
+<li><strong>Premiums:</strong> The employee share rises about 6%. The company continues to cover 80% of the total for individual coverage and 70% for family coverage.</li>
+<li><strong>New plan option:</strong> A lower-premium, higher-deductible plan is added, paired with a company contribution of $750/year to a health savings account.</li>
+<li><strong>Provider network:</strong> The network is unchanged, but two urgent-care chains are being added as in-network.</li>
+<li><strong>Open enrollment:</strong> November 1–20. If you do nothing, your current plan and coverage roll over at the new premium. New hires still have 30 days from their start date.</li>
+</ol>
+<p>Questions to the benefits team; drop-in sessions are scheduled the first two weeks of November.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rana Bell <strong>To:</strong> benefits@company.example <strong>Subject:</strong> A few questions about open enrollment</p>
+<p>Hi,</p>
+<ol>
+<li>I'm happy with my current plan. Do I have to do anything during open enrollment?</li>
+<li>The new high-deductible plan with the HSA contribution sounds interesting — I'm young and rarely go to the doctor. Where can I compare the two?</li>
+<li>My spouse might join my plan mid-year when their contract ends in April. Is that allowed outside open enrollment?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> benefits@company.example <strong>To:</strong> Rana Bell <strong>Subject:</strong> RE: A few questions about open enrollment</p>
+<p>Hi Rana,</p>
+<ol>
+<li>No action needed — your current plan rolls over automatically at the new premium. Just check that your dependents and beneficiaries are still correct while the window is open.</li>
+<li>The comparison tool on the benefits portal lets you enter your expected usage and shows total yearly cost for each plan, including the HSA contribution. For someone who rarely uses care, the high-deductible plan often comes out ahead, but run your own numbers.</li>
+<li>Yes. A spouse losing their own coverage is a "qualifying life event," which opens a 30-day special enrollment window. Send us proof of the coverage-end date within 30 days of April.</li>
+</ol>
+<p><strong>196.</strong> What must Rana do if she wants to keep her current plan?<br />
+(A) Nothing — it rolls over automatically at the new premium<br />
+(B) Re-enroll in person<br />
+(C) Sign a form<br />
+(D) Call the benefits team</p>
+<p><strong>197.</strong> What is the company adding to the provider network?<br />
+(A) A new hospital system<br />
+(B) Two urgent-care chains as in-network<br />
+(C) Dental coverage<br />
+(D) Nothing; the network shrinks</p>
+<p><strong>198.</strong> How can Rana compare the two plans?<br />
+(A) By calling each insurer<br />
+(B) At a drop-in session only<br />
+(C) It cannot be compared in advance<br />
+(D) The comparison tool on the benefits portal</p>
+<p><strong>199.</strong> Can Rana's spouse join her plan in April?<br />
+(A) No, only during open enrollment<br />
+(B) Only if they pay a penalty<br />
+(C) Yes — losing their coverage is a qualifying life event<br />
+(D) Only from the following January</p>
+<p><strong>200.</strong> What must Rana send within 30 days of April?<br />
+(A) A new enrollment form only<br />
+(B) A doctor's note<br />
+(C) Her spouse's pay stub<br />
+(D) Proof of the coverage-end date</p>
+<hr />
+<p><em>Hết phần Reading — Set_020. Đáp án ở <code>answer_key.md</code>. Đây là bộ đề cuối — chấm cả L + R, ghi vào <code>../../Brain/progress_log.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_020</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a woman is presenting a chart on a screen to colleagues" · bẫy: "entering a conference room"</li>
+<li><strong>3 C</strong> "a worker is scanning barcodes on cartons" · bẫy: "a forklift is being driven"</li>
+<li><strong>4 D</strong> "the chairs are up on the tables and the café is closed" · bẫy: "customers are ordering"</li>
+<li><strong>6 C</strong> "a medical worker is taking a patient's blood pressure" · bẫy: "waiting in a reception area"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why delayed?" → "A customs hold at the port" · bẫy: trả lời Where from / how late</li>
+<li><strong>13 B</strong> tag question → "Yes, managers spend far less time on it"</li>
+<li><strong>15 C</strong> câu phủ định → "No, it was moved to next weekend"</li>
+<li><strong>17 C</strong> "What did the survey show?" → "That people want faster support"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "Ask the finance director" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "Competitors already do that"</li>
+<li><strong>21 C</strong> yêu cầu xác nhận giao hàng → "I'll confirm it now" · bẫy: lặp "delivery"</li>
+<li><strong>25 B</strong> "Isn't the system usually backed up automatically?" → đính chính "tonight's backup failed" · bẫy: lặp "backup"</li>
+<li><strong>31 C</strong> "Why was the shipment returned?" → lý do cụ thể "address was incorrect" · bẫy: lặp "shipment"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "their finance lead is out sick" · "I have the vendor call at 10 and the all-hands at 2" · "send them the updated deck by Friday"</li>
+<li>35–37: "two strong candidates for the analyst role" · "the team already has deep technical skills, I'd lean toward the communicator" · "keep the first candidate warm"</li>
+<li>38–40: "The launch is six weeks out" · "Support is behind" · "pull a writer onto the help articles ... and lock a training date"</li>
+<li>41–43: "I was charged twice for my subscription" · "failed on our end and retried, but the bank ended up processing both" · "added a note so the retry logic doesn't do this again"</li>
+<li>44–46: "producing parts that are 0.2 millimeters over spec" · "QC is passing most but flagging some" · "Stop line 2 ... and hold this morning's output for a full re-inspection"</li>
+<li>47–49: "the system says it was canceled. I never canceled it" · "the cancellation came from the booking site" · "a partner hotel two blocks away ... We'll cover the rate difference and the taxi"</li>
+<li>50–52: "client call needs to move up an hour" · "check room availability" · "notify the team"</li>
+<li>53–55: "new hire ... equipment" · "security badge ... missing" · "call security this afternoon"</li>
+<li>56–58: "survey ... mostly positive" · "slow response times from support" · "bring it up at next week's meeting"</li>
+<li>59–61: "printer ... out of toner" · "order a replacement cartridge" · "keep a spare cartridge on hand"</li>
+<li>62–64: "next week's product demo" · "the live demonstration" · "introduce the session and manage timing"</li>
+<li>65–67: "expense reports ... taking longer" · "late submissions" · "automatic reminder"</li>
+<li>68–70: "move up the project deadline" · "check with the team" · "respond to the client tomorrow"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "an update on our travel policy" · "all flights over four hours can be booked in premium economy" · "the same 14-day advance-purchase rule applies"</li>
+<li>74–76: "calling about purchase order 4412" · "the freight carrier we normally use raised their rate 20 percent" · "hold your original quote ... slower carrier, or ship on the faster one at the new rate"</li>
+<li>77–79: "first-contact resolution" · "customers were coming back two and three times for the same issue" · "total handle time per issue actually went down"</li>
+<li>80–82: "pulls your data from sales, inventory, and support" · "a weekly summary ranked by impact" · "It connects to the tools you already use"</li>
+<li>83–85: "east elevator ... out of service" · "west elevator or the stairs" · "service to resume by tomorrow morning"</li>
+<li>86–88: "moving forward ... pricing structure" · "schedule a call" · "availability this week"</li>
+<li>89–91: "time management" training · "prioritizing tasks and setting deadlines" · "time for questions at the end"</li>
+<li>92–94: "analytics dashboard" update · "faster loading and customizable charts" · "existing reports will not be affected"</li>
+<li>95–97: "remote team management" session · "slides and a recording ... by email" · "reach out to the panelists directly"</li>
+<li>98–100: "updated travel policy" · "premium economy" eligibility · "questions ... to the travel desk"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The company</code> số ít + thói quen → <code>sends</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> the end of the month</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>discrepancies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be required to</code> + V nguyên → <code>complete</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes writing a report much <span class="fill"></span> than</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the team drive</code> (trên)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>reduced its costs by consolidating</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>has risen</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> delivery time</code> (trong 3) → so sánh nhất <code>shortest</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the conference room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the contract is signed</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The group</code> số ít → <code>owns</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more accurately</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>changes</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"cấp phép <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (handbook <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code> the pricing tier</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>overview</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>replace</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... worked for every head</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the server</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>supervisor</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"The office network <span class="fill"></span> offline from Saturday 8 P.M. ..." → tương lai <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"The IT team <span class="fill"></span> be on site during the work" (sẽ) → <code>will</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Files saved to the cloud drive <span class="fill"></span> already been backed up" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ help line nếu cần, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"all time-off requests <span class="fill"></span> be submitted through the HR portal" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The portal <span class="fill"></span> show your remaining balance and your team's calendar" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Requests during the two weeks around a major deadline <span class="fill"></span> need a second-level approval" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ HR nếu cần, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most teams find <span class="fill"></span> useful" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời trải nghiệm thực tế, khép lại quảng cáo TaskLine</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our pay stub delivery <span class="fill"></span> to the employee portal, starting with the next pay period" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Going digital <span class="fill"></span> save the printing cost" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"Year-end tax forms <span class="fill"></span> also now available in the portal" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo phiếu lương điện tử</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>C</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>D</td>
+<td>157</td>
+<td>A</td>
+<td>166</td>
+<td>A</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>C</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>D</td>
+<td>196</td>
+<td>A</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>B</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>A</td>
+<td>197</td>
+<td>B</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>C</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>D</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>B</td>
+<td>172</td>
+<td>A</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>C</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 C</strong> — "voluntary turnover fell by nearly half"<br />
+- <strong>151 B</strong> — "keep a five-day schedule but got an extra week of paid leave and a small shift premium"<br />
+- <strong>152 C</strong> — "credits the trial's success to cutting meetings ... rather than simply working faster"<br />
+- <strong>157 A</strong> — "It works with your existing email; there's nothing to migrate"<br />
+- <strong>158 C</strong> — "must be approved in advance ... before the extra hours are worked — not after the fact"<br />
+- <strong>164 C</strong> — "the outer box was intact, so the damage likely happened before packing — a quality-control miss"<br />
+- <strong>167 A</strong> — "not ... someone we've interviewed in the last six months"<br />
+- <strong>168 D</strong> — "half when the person starts and half after they complete 90 days"<br />
+- <strong>178 A</strong> — "Claims older than 60 days are not reimbursed" (45 ngày → vẫn được)<br />
+- <strong>183 D</strong> — "generated when a staff member re-entered the order after a system glitch"<br />
+- <strong>188 A</strong> — "that's free and might show an obvious friction point ... in a day"<br />
+- <strong>190 B</strong> — "it's slow and you might spend it on the wrong question"<br />
+- <strong>192 D</strong> — "the company reimburses $300 and the remaining $120 is yours"<br />
+- <strong>194 B</strong> — "in another state means you'd need approved fully-remote status"<br />
+- <strong>199 C</strong> — "A spouse losing their own coverage is a 'qualifying life event'"</p>
+<hr />
+<h2>Ghi điểm (bộ ôn tổng — chấm cả L + R)</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Quy đổi thô (tham khảo): ~ điểm TOEIC ≈ (L đúng × ~5) + (R đúng × ~5), làm tròn.
+Mục tiêu: 2 lần liên tiếp ≥ 620 → đăng ký thi.
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+→ ghi vào ../../Brain/progress_log.md
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_020 — Ghi chú sau khi làm (bộ ôn tổng cuối)</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Điểm quy đổi ước lượng:</strong> ~ <span class="fill"></span> / 990</p>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code>: </li>
+</ul>
+<h2>Chốt: đã đủ điều kiện đăng ký thi chưa?</h2>
+<ul>
+<li>[ ] Set này ≥ 620?</li>
+<li>[ ] Set full-test liền trước cũng ≥ 620?</li>
+<li>→ Nếu cả hai: <strong>đăng ký thi.</strong> Nếu chưa: xem 3 Part yếu nhất, quay lại drill bank + LC_Sets tương ứng 1–2 tuần rồi làm lại bộ full-test khác.</li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

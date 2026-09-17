@@ -1,0 +1,2190 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_008 — Retail & Customer Service</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="008">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_008</strong>
+    <span class="theme">Retail &amp; Customer Service</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_008 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Nhân viên cửa hàng đang sắp xếp quần áo trên giá.]</em><br />
+(A) A clerk is arranging clothes on a rack.<br />
+(B) Customers are trying on shoes.<br />
+(C) Someone is mopping the floor.<br />
+(D) A cashier is counting money.</p>
+<p><strong>2.</strong> <em>[Ảnh: Khách hàng thanh toán tại quầy thu ngân, nhân viên quẹt thẻ.]</em><br />
+(A) Shelves are being restocked.<br />
+(B) A shopping cart is being pushed down an aisle.<br />
+(C) A customer is paying at the checkout counter.<br />
+(D) Bags are being packed at a table.</p>
+<p><strong>3.</strong> <em>[Ảnh: Một nhân viên chỉ đường cho khách trong siêu thị.]</em><br />
+(A) An employee is giving directions to a shopper.<br />
+(B) People are waiting in a long line.<br />
+(C) A worker is unloading a delivery truck.<br />
+(D) Someone is reading a price tag.</p>
+<p><strong>4.</strong> <em>[Ảnh: Kệ hàng đầy ắp hộp và chai trong siêu thị.]</em><br />
+(A) The shelves are completely empty.<br />
+(B) A customer is reaching for an item.<br />
+(C) Boxes are stacked in the aisle.<br />
+(D) Products are stocked on the shelves.</p>
+<p><strong>5.</strong> <em>[Ảnh: Nhân viên tổng đài đeo tai nghe, gõ máy tính.]</em><br />
+(A) A meeting is taking place in a conference room.<br />
+(B) An agent is typing while wearing a headset.<br />
+(C) Someone is unplugging a phone.<br />
+(D) People are gathered around a desk.</p>
+<p><strong>6.</strong> <em>[Ảnh: Cửa hàng với biển "SALE" treo trên cửa sổ, khách bước vào.]</em><br />
+(A) The store is closed for the day.<br />
+(B) An employee is locking the door.<br />
+(C) A sale sign is displayed in the window.<br />
+(D) Mannequins are being moved outside.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the store close on Sundays?<br />
+(A) At six in the evening.<br />
+(B) On the second floor.<br />
+(C) It's a large store.</p>
+<p><strong>8.</strong> Where can I find the customer service desk?<br />
+(A) I bought this last week.<br />
+(B) A full refund, please.<br />
+(C) It's near the main entrance.</p>
+<p><strong>9.</strong> Who handles returns without a receipt?<br />
+(A) Within 30 days.<br />
+(B) The shift supervisor does.<br />
+(C) At the back counter.</p>
+<p><strong>10.</strong> Why is this item marked down?<br />
+(A) It's a display model.<br />
+(B) About twenty dollars.<br />
+(C) In the electronics section.</p>
+<p><strong>11.</strong> How many of these do you have in stock?<br />
+(A) They come in three colors.<br />
+(B) Only two left in your size.<br />
+(C) On the shelf by the window.</p>
+<p><strong>12.</strong> Could you check whether this is available in a larger size?<br />
+(A) Sure, let me look in the back.<br />
+(B) The size chart is online.<br />
+(C) It runs a bit small.</p>
+<p><strong>13.</strong> The new loyalty program starts Monday, doesn't it?<br />
+(A) The card is free to sign up.<br />
+(B) At the registers.<br />
+(C) Yes, customers earn points on every purchase.</p>
+<p><strong>14.</strong> Should we extend the sale through the weekend or end it Friday?<br />
+(A) The discount is thirty percent.<br />
+(B) Let's extend it — traffic is still strong.<br />
+(C) I saw the ad in the paper.</p>
+<p><strong>15.</strong> Isn't the delivery supposed to arrive this morning?<br />
+(A) Yes, but the truck is running late.<br />
+(B) It's a large delivery.<br />
+(C) To the loading dock.</p>
+<p><strong>16.</strong> Can you show me how to process an exchange?<br />
+(A) The exchange rate changed.<br />
+(B) Of course, it's just a few steps.<br />
+(C) She wanted a different color.</p>
+<p><strong>17.</strong> What did the customer complain about?<br />
+(A) He called this morning.<br />
+(B) The complaint form is online.<br />
+(C) A damaged package.</p>
+<p><strong>18.</strong> Where are the extra shopping bags kept?<br />
+(A) We ordered a thousand.<br />
+(B) They're paper, not plastic.<br />
+(C) Under the counter by register 3.</p>
+<p><strong>19.</strong> Do you know whether the manager approved the refund?<br />
+(A) It was about forty dollars.<br />
+(B) Let me ask her now.<br />
+(C) The customer was upset.</p>
+<p><strong>20.</strong> I think we should add more self-checkout machines.<br />
+(A) The lines get long on weekends.<br />
+(B) They were installed last year.<br />
+(C) Near the exit.</p>
+<p><strong>21.</strong> Could you restock the shelves before we open?<br />
+(A) I'll do that right now.<br />
+(B) The shelves are tall.<br />
+(C) I stocked up on snacks.</p>
+<p><strong>22.</strong> Has the customer's refund been processed yet?<br />
+(A) It's a small refund.<br />
+(B) I refunded my ticket.<br />
+(C) Not yet, it's processing now.</p>
+<p><strong>23.</strong> Where can I find the customer service desk?<br />
+(A) Right past the entrance.<br />
+(B) Service is important.<br />
+(C) I served a customer.</p>
+<p><strong>24.</strong> Would you prefer store credit or a refund?<br />
+(A) Store credit works for me.<br />
+(B) The store closes at nine.<br />
+(C) I credited the account.</p>
+<p><strong>25.</strong> Isn't the sale usually only on weekends?<br />
+(A) Weekends are busy.<br />
+(B) Yes, but it's extended through Monday this time.<br />
+(C) The sale went well.</p>
+<p><strong>26.</strong> How many complaints did we get this week?<br />
+(A) Only a couple.<br />
+(B) Complaints are rare here.<br />
+(C) We complained too.</p>
+<p><strong>27.</strong> Who's training the new cashiers?<br />
+(A) Training takes a week.<br />
+(B) Dana from the front office.<br />
+(C) Cashiers work hard.</p>
+<p><strong>28.</strong> Do you know if the return policy changed?<br />
+(A) Returns are common.<br />
+(B) I returned it already.<br />
+(C) Yes, it's now thirty days.</p>
+<p><strong>29.</strong> Should we offer a discount to loyal customers?<br />
+(A) Discounts attract customers.<br />
+(B) Let's discuss it with the manager first.<br />
+(C) I discounted the price.</p>
+<p><strong>30.</strong> Haven't you updated the price tags yet?<br />
+(A) Tags are printed daily.<br />
+(B) Almost done, just aisle five left.<br />
+(C) The tags looked correct.</p>
+<p><strong>31.</strong> Why was the customer upset?<br />
+(A) Customers visit daily.<br />
+(B) It happened before too.<br />
+(C) Because her order arrived damaged.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I bought this blender two weeks ago and it stopped working. I have the receipt.<br />
+<strong>M:</strong> I'm sorry to hear that. Since it's within 30 days and you have the receipt, I can offer a full refund or a replacement.<br />
+<strong>W:</strong> I'd like a replacement, if you have the same model.<br />
+<strong>M:</strong> We do. Let me get one from the back and swap it out for you.</p>
+<p><strong>32.</strong> What is the woman's problem?<br />
+(A) She lost her receipt<br />
+(B) She was charged twice<br />
+(C) A blender stopped working<br />
+(D) The wrong item was delivered</p>
+<p><strong>33.</strong> What does the man offer?<br />
+(A) A store credit only<br />
+(B) A refund or a replacement<br />
+(C) A repair<br />
+(D) A discount on a future purchase</p>
+<p><strong>34.</strong> What does the woman choose?<br />
+(A) A refund<br />
+(B) A repair<br />
+(C) A store credit<br />
+(D) A replacement</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> We've had a lot of complaints this week about long checkout lines on weekend afternoons.<br />
+<strong>W:</strong> I've noticed it too. We only have three registers open then, but we could open a fourth if we move someone from the floor.<br />
+<strong>M:</strong> Let's try that this Saturday and see if it helps. Track the wait times.<br />
+<strong>W:</strong> I'll set up a quick log at the front and share the numbers Monday.</p>
+<p><strong>35.</strong> What problem are the speakers discussing?<br />
+(A) Long checkout lines on weekends<br />
+(B) A shortage of staff<br />
+(C) A broken register<br />
+(D) Low sales</p>
+<p><strong>36.</strong> What does the woman suggest?<br />
+(A) Hiring more cashiers<br />
+(B) Opening a fourth register on weekends<br />
+(C) Extending store hours<br />
+(D) Adding self-checkout</p>
+<p><strong>37.</strong> What will the woman do?<br />
+(A) Interview candidates<br />
+(B) Order a new register<br />
+(C) Set up a log of wait times<br />
+(D) Rearrange the floor</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> The winter jackets aren't selling. We're three weeks from the end of the season and still have half the stock.<br />
+<strong>M1:</strong> We could mark them down 40% and move them to the front.<br />
+<strong>W:</strong> 40% might be too much this early. Let's start at 25% and a front display, and go deeper if they don't move.<br />
+<strong>M2:</strong> I'll update the tags tomorrow morning before we open.</p>
+<p><strong>38.</strong> What is not selling well?<br />
+(A) Winter jackets<br />
+(B) Summer sandals<br />
+(C) Home goods<br />
+(D) Electronics</p>
+<p><strong>39.</strong> What discount do they decide to start with?<br />
+(A) 15%<br />
+(B) 25%<br />
+(C) 40%<br />
+(D) 50%</p>
+<p><strong>40.</strong> What will one man do tomorrow morning?<br />
+(A) Reorder stock<br />
+(B) Contact the supplier<br />
+(C) Move the display outside<br />
+(D) Update the price tags</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> A customer online is saying her order arrived with one item missing.<br />
+<strong>W:</strong> Which order?<br />
+<strong>M:</strong> Number 55-8830. The packing slip lists three items, but she only got two.<br />
+<strong>W:</strong> Let me check the warehouse log... Yes, one was out of stock and shipped separately. It's on the way — she should have it in two days. I'll email her the tracking number and apologize for the confusion.</p>
+<p><strong>41.</strong> What is the customer's complaint?<br />
+(A) An item is missing from her order<br />
+(B) The wrong item was sent<br />
+(C) The order is late<br />
+(D) An item is damaged</p>
+<p><strong>42.</strong> Why was the item shipped separately?<br />
+(A) It was too large for one box<br />
+(B) It was out of stock at first<br />
+(C) The customer requested it<br />
+(D) It ships from a different warehouse</p>
+<p><strong>43.</strong> What will the woman do?<br />
+(A) Send a replacement<br />
+(B) Issue a refund<br />
+(C) Call the customer<br />
+(D) Email the tracking number and apologize</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The new returns policy signs went up, but customers keep asking staff the same questions.<br />
+<strong>M:</strong> What are they asking?<br />
+<strong>W:</strong> Mostly whether sale items can be returned. The sign says "final sale items" but people don't know which items those are.<br />
+<strong>M:</strong> Let's add a small "FINAL SALE" tag to each of those items directly. That's clearer than a policy sign.<br />
+<strong>W:</strong> Good idea. I'll get tags printed today.</p>
+<p><strong>44.</strong> What is the issue?<br />
+(A) The returns desk is understaffed<br />
+(B) Refunds are taking too long<br />
+(C) Customers keep asking the same returns questions<br />
+(D) The policy signs fell down</p>
+<p><strong>45.</strong> What are customers most confused about?<br />
+(A) The return time limit<br />
+(B) Whether sale items can be returned<br />
+(C) Where the returns desk is<br />
+(D) Whether they need a receipt</p>
+<p><strong>46.</strong> What solution do they agree on?<br />
+(A) A bigger policy sign<br />
+(B) Training all staff<br />
+(C) Adding "FINAL SALE" tags to specific items<br />
+(D) Removing the sale</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> How did the customer feedback survey go this quarter?<br />
+<strong>W:</strong> Overall scores are up. The one area that dropped was "ease of finding items." Several people said the store layout changed and they couldn't find things.<br />
+<strong>M:</strong> The reorganization was supposed to help.<br />
+<strong>W:</strong> It does for regulars once they adjust, but new signage would help. I've drafted a proposal for clearer aisle signs and end-cap labels.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) Customer feedback survey results<br />
+(B) A staff training plan<br />
+(C) A new store opening<br />
+(D) A supplier issue</p>
+<p><strong>48.</strong> Which area of feedback dropped?<br />
+(A) Staff friendliness<br />
+(B) Checkout speed<br />
+(C) Ease of finding items<br />
+(D) Product quality</p>
+<p><strong>49.</strong> What has the woman drafted?<br />
+(A) A new floor plan<br />
+(B) A staff schedule<br />
+(C) A survey for next quarter<br />
+(D) A proposal for clearer signage</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> A customer just called saying the item she ordered online arrived broken.<br />
+<strong>M:</strong> That's unfortunate. Did she already request a replacement?<br />
+<strong>W:</strong> She asked for a refund instead, since she no longer needs it.<br />
+<strong>M:</strong> No problem, let's process that today and send her a prepaid return label.</p>
+<p><strong>50.</strong> What problem does the customer report?<br />
+(A) A late delivery<br />
+(B) A damaged item<br />
+(C) A billing error<br />
+(D) A missing package</p>
+<p><strong>51.</strong> What does the customer want?<br />
+(A) A replacement<br />
+(B) A refund<br />
+(C) A store credit<br />
+(D) An apology only</p>
+<p><strong>52.</strong> What will the speakers send the customer?<br />
+(A) A discount coupon<br />
+(B) A prepaid return label<br />
+(C) A new catalog<br />
+(D) A gift card</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> We're getting a lot of questions about whether the winter jackets are still in stock.<br />
+<strong>W:</strong> They sold out online, but we still have a few sizes in the downtown store.<br />
+<strong>M:</strong> Should we update the website to reflect that?<br />
+<strong>W:</strong> Yes, let's add a note that customers can check store availability before visiting.</p>
+<p><strong>53.</strong> What are customers asking about?<br />
+(A) Store hours<br />
+(B) Whether winter jackets are in stock<br />
+(C) A return policy<br />
+(D) A loyalty program</p>
+<p><strong>54.</strong> What does the woman say about the downtown store?<br />
+(A) It is closed for renovation.<br />
+(B) It still has a few sizes.<br />
+(C) It is out of stock too.<br />
+(D) It only sells jackets online.</p>
+<p><strong>55.</strong> What does the woman suggest?<br />
+(A) Removing the jackets from the website<br />
+(B) Adding a note about checking store availability<br />
+(C) Offering a discount<br />
+(D) Closing the online store</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> I noticed we've had several complaints about long checkout lines on weekends.<br />
+<strong>M:</strong> We could open an extra register during peak hours.<br />
+<strong>W:</strong> That would help. Do we have enough staff scheduled for that?<br />
+<strong>M:</strong> I'll check the schedule and adjust it for this weekend.</p>
+<p><strong>56.</strong> What complaint have customers made?<br />
+(A) Rude staff<br />
+(B) Long checkout lines on weekends<br />
+(C) Limited product selection<br />
+(D) High prices</p>
+<p><strong>57.</strong> What does the man suggest?<br />
+(A) Closing early on weekends<br />
+(B) Opening an extra register during peak hours<br />
+(C) Raising prices<br />
+(D) Reducing store hours</p>
+<p><strong>58.</strong> What will the man do?<br />
+(A) Hire new staff immediately<br />
+(B) Check and adjust the schedule<br />
+(C) Cancel the weekend sale<br />
+(D) Close one register</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> A customer is asking if we price-match other stores.<br />
+<strong>W:</strong> We do, as long as they can show the competitor's current ad or website price.<br />
+<strong>M:</strong> Great, she has a screenshot on her phone.<br />
+<strong>W:</strong> Perfect, that should work — let's process the price match at the register.</p>
+<p><strong>59.</strong> What does the customer want to know?<br />
+(A) If the store delivers<br />
+(B) If the store price-matches<br />
+(C) If the store has a loyalty program<br />
+(D) If the store accepts returns without a receipt</p>
+<p><strong>60.</strong> What is required for a price match?<br />
+(A) A printed coupon<br />
+(B) Proof of the competitor's price<br />
+(C) A manager's approval<br />
+(D) A minimum purchase amount</p>
+<p><strong>61.</strong> What does the customer have?<br />
+(A) A printed flyer<br />
+(B) A screenshot on her phone<br />
+(C) A membership card<br />
+(D) A gift receipt</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's talk about staffing for the holiday season.<br />
+<strong>M1:</strong> Based on last year, we'll need about ten seasonal hires.<br />
+<strong>M2:</strong> I can start posting the job listings this week.<br />
+<strong>W:</strong> Great, let's aim to have everyone trained by the second week of November.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) Holiday staffing<br />
+(B) A store closure<br />
+(C) A new product line<br />
+(D) A pricing strategy</p>
+<p><strong>63.</strong> How many seasonal hires are needed?<br />
+(A) Five<br />
+(B) Ten<br />
+(C) Fifteen<br />
+(D) Twenty</p>
+<p><strong>64.</strong> What is the training deadline?<br />
+(A) End of October<br />
+(B) The second week of November<br />
+(C) December first<br />
+(D) Right before Black Friday</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I noticed our online reviews mention slow shipping more than anything else lately.<br />
+<strong>M:</strong> That matches what I've heard from the warehouse — they're short-staffed.<br />
+<strong>M:</strong> We might need to bring on temporary help until the backlog clears.<br />
+<strong>W:</strong> Agreed, let's talk to HR about that today.</p>
+<p><strong>65.</strong> What do recent reviews mention most?<br />
+(A) Poor product quality<br />
+(B) Slow shipping<br />
+(C) Rude staff<br />
+(D) High prices</p>
+<p><strong>66.</strong> What does the man say about the warehouse?<br />
+(A) It is fully staffed.<br />
+(B) It is short-staffed.<br />
+(C) It has closed.<br />
+(D) It has moved locations.</p>
+<p><strong>67.</strong> What will the speakers do today?<br />
+(A) Close the warehouse<br />
+(B) Talk to HR about temporary help<br />
+(C) Refund all customers<br />
+(D) Cancel online orders</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> A customer wants to return an item, but she doesn't have the receipt.<br />
+<strong>W:</strong> We can still look it up if she paid with a card — do you have her card on file?<br />
+<strong>M:</strong> She has the same card with her now.<br />
+<strong>W:</strong> Great, that should be enough to process the return.</p>
+<p><strong>68.</strong> What is the customer's problem?<br />
+(A) She lost her item.<br />
+(B) She does not have the receipt.<br />
+(C) Her card was declined.<br />
+(D) Her item is out of stock.</p>
+<p><strong>69.</strong> What does the woman suggest?<br />
+(A) Refusing the return<br />
+(B) Looking up the purchase by card<br />
+(C) Giving store credit only<br />
+(D) Calling a manager</p>
+<p><strong>70.</strong> What does the man confirm the customer has?<br />
+(A) A printed receipt<br />
+(B) The same card used to pay<br />
+(C) A gift card<br />
+(D) A membership ID</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Store announcement</h3>
+<p><em>"Attention shoppers. Our store will close in 30 minutes, at 9 P.M. Please bring your final selections to the registers on the ground floor; the second-floor registers are now closed. As a reminder, our weekend sale continues tomorrow, with an extra 10% off all clearance items before noon. Thank you for shopping with us, and have a good evening."</em></p>
+<p><strong>71.</strong> When will the store close?<br />
+(A) In 30 minutes<br />
+(B) In one hour<br />
+(C) Immediately<br />
+(D) At 10 P.M.</p>
+<p><strong>72.</strong> Where should shoppers go to pay?<br />
+(A) The second-floor registers<br />
+(B) The self-checkout only<br />
+(C) The ground-floor registers<br />
+(D) The customer service desk</p>
+<p><strong>73.</strong> What is offered before noon tomorrow?<br />
+(A) Free gift wrapping<br />
+(B) A free tote bag<br />
+(C) Double loyalty points<br />
+(D) An extra 10% off clearance items</p>
+<h3>Talk 2 (74–76) — Voicemail to a customer</h3>
+<p><em>"Hello, this is Sofia from Harborview Furniture. I'm calling about your sofa delivery scheduled for Thursday. Unfortunately, the fabric you chose is on back-order, and the sofa won't be ready until the following week. We can deliver a different in-stock fabric on Thursday as planned, or wait for your original choice. Please call me back at 555-0155 to let me know. Again, I'm sorry for the delay."</em></p>
+<p><strong>74.</strong> Why is Sofia calling?<br />
+(A) To confirm a payment<br />
+(B) About a delay with a sofa delivery<br />
+(C) To offer a discount<br />
+(D) To schedule a repair</p>
+<p><strong>75.</strong> What is the reason for the delay?<br />
+(A) The chosen fabric is on back-order<br />
+(B) A delivery truck broke down<br />
+(C) The customer's address was wrong<br />
+(D) A warehouse closure</p>
+<p><strong>76.</strong> What is one option the customer has?<br />
+(A) Cancel the order for a full refund<br />
+(B) Pick up the sofa at the store<br />
+(C) Choose a different sofa model<br />
+(D) Take a different in-stock fabric on Thursday</p>
+<h3>Talk 3 (77–79) — Training session for new staff</h3>
+<p><em>"Welcome to your first day on the floor. The single most important thing in customer service here is simple: acknowledge every customer within a few seconds, even if you're busy. A quick 'I'll be right with you' turns a frustrating wait into a manageable one. If you don't know an answer, that's fine — say so and find someone who does, rather than guessing. And when you resolve a complaint, tell your supervisor, so we can spot patterns."</em></p>
+<p><strong>77.</strong> What does the speaker say is most important?<br />
+(A) Knowing every product<br />
+(B) Acknowledging every customer quickly<br />
+(C) Working faster<br />
+(D) Upselling</p>
+<p><strong>78.</strong> What should staff do if they don't know an answer?<br />
+(A) Guess a reasonable answer<br />
+(B) Tell the customer to come back later<br />
+(C) Say so and find someone who knows<br />
+(D) Refer the customer to the website</p>
+<p><strong>79.</strong> Why should staff report resolved complaints?<br />
+(A) So the store can spot patterns<br />
+(B) To get a bonus<br />
+(C) It is required by law<br />
+(D) To update the customer's file</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"This weekend only, Maple &amp; Co. is clearing out last season's stock. Everything in the clearance section is at least half off, and members get an extra 15% on top. Not a member? Signing up is free and takes a minute at any register — do it before you shop and save on your first purchase. Doors open at 9 A.M. Saturday. Maple &amp; Co., on Third Street, across from the library."</em></p>
+<p><strong>80.</strong> What is the ad promoting?<br />
+(A) A grand opening<br />
+(B) A new product line<br />
+(C) A holiday event<br />
+(D) A clearance sale</p>
+<p><strong>81.</strong> What do members get?<br />
+(A) Free delivery<br />
+(B) An extra 15% off clearance<br />
+(C) A free gift<br />
+(D) Early access on Friday</p>
+<p><strong>82.</strong> How can someone become a member?<br />
+(A) Apply online in advance<br />
+(B) Spend over $100<br />
+(C) Sign up free at any register<br />
+(D) Bring a referral</p>
+<h3>Talk 5 (83–85) — Store announcement</h3>
+<p><em>"Attention, shoppers. Our store will be closing in fifteen minutes. Please bring your final selections to the checkout counters at the front of the store. If you need assistance finding an item, our staff members wearing green vests are happy to help. Thank you for shopping with us today."</em></p>
+<p><strong>83.</strong> What is being announced?<br />
+(A) A sale<br />
+(B) The store closing soon<br />
+(C) A fire drill<br />
+(D) A staff meeting</p>
+<p><strong>84.</strong> Where should shoppers go?<br />
+(A) To the fitting rooms<br />
+(B) To the checkout counters<br />
+(C) To the customer service desk<br />
+(D) To the parking lot</p>
+<p><strong>85.</strong> How can shoppers identify staff who can help?<br />
+(A) By their name tags<br />
+(B) By their green vests<br />
+(C) By their location near the exit<br />
+(D) By their clipboards</p>
+<h3>Talk 6 (86–88) — Customer service voicemail</h3>
+<p><em>"Hi, this is Priya calling from customer service about the order you placed last week. Unfortunately, one of the items you ordered is now out of stock, so we'd like to offer you a similar item at the same price, or a full refund for that item. Please call us back to let us know which you'd prefer."</em></p>
+<p><strong>86.</strong> Why is Priya calling?<br />
+(A) To confirm a delivery date<br />
+(B) To explain that an item is out of stock<br />
+(C) To apologize for a billing error<br />
+(D) To offer a coupon</p>
+<p><strong>87.</strong> What two options does Priya offer?<br />
+(A) A discount or free shipping<br />
+(B) A similar item or a full refund<br />
+(C) A gift card or store credit<br />
+(D) An exchange or a replacement</p>
+<p><strong>88.</strong> What does Priya ask the listener to do?<br />
+(A) Visit the store<br />
+(B) Call back with a decision<br />
+(C) Reply by mail<br />
+(D) Wait for the item to restock</p>
+<h3>Talk 7 (89–91) — New product training</h3>
+<p><em>"Before the store opens, let's quickly go over the new loyalty app we're rolling out today. Customers can download it to earn points on every purchase and redeem them for discounts. Please mention it at checkout, and if customers have questions, direct them to the flyer near the register."</em></p>
+<p><strong>89.</strong> What is being rolled out today?<br />
+(A) A new loyalty app<br />
+(B) A new register system<br />
+(C) A new store layout<br />
+(D) A new uniform</p>
+<p><strong>90.</strong> What can customers do with the app?<br />
+(A) Track shipments<br />
+(B) Earn and redeem points<br />
+(C) Schedule deliveries<br />
+(D) Chat with support</p>
+<p><strong>91.</strong> What should staff do if customers have questions?<br />
+(A) Call a manager<br />
+(B) Direct them to the flyer near the register<br />
+(C) Ask them to email support<br />
+(D) Tell them to download a second app</p>
+<h3>Talk 8 (92–94) — Warehouse update</h3>
+<p><em>"Just a reminder that starting today, all outgoing online orders need a second staff member to verify the contents before sealing the box. This adds a small amount of time per order but should significantly reduce shipping errors, which have been a common source of customer complaints."</em></p>
+<p><strong>92.</strong> What new step is being introduced?<br />
+(A) A second verification before sealing boxes<br />
+(B) A new packaging material<br />
+(C) A faster shipping method<br />
+(D) A barcode scanning step</p>
+<p><strong>93.</strong> Why is this change being made?<br />
+(A) To save money<br />
+(B) To reduce shipping errors<br />
+(C) To speed up shipping<br />
+(D) To reduce staff</p>
+<p><strong>94.</strong> What has been a common source of complaints?<br />
+(A) Late deliveries<br />
+(B) Shipping errors<br />
+(C) Damaged packaging<br />
+(D) High shipping costs</p>
+<h3>Talk 9 (95–97) — Radio advertisement</h3>
+<p><em>"This weekend only, Baxter's Home Goods is having its biggest sale of the year — up to fifty percent off furniture and home décor. Doors open at eight A.M. Saturday, and the first fifty customers will receive a free gift card. Visit our website for a full list of sale items."</em></p>
+<p><strong>95.</strong> What is being advertised?<br />
+(A) A grand opening<br />
+(B) A weekend sale<br />
+(C) A new store location<br />
+(D) A clearance closing sale</p>
+<p><strong>96.</strong> What can customers save on furniture?<br />
+(A) Up to twenty-five percent<br />
+(B) Up to fifty percent<br />
+(C) A flat ten dollars<br />
+(D) Nothing, only décor is discounted</p>
+<p><strong>97.</strong> What will the first fifty customers receive?<br />
+(A) A free gift card<br />
+(B) A free delivery<br />
+(C) A discount code<br />
+(D) A loyalty membership</p>
+<h3>Talk 10 (98–100) — Staff meeting recap</h3>
+<p><em>"Quick recap from this morning's meeting for anyone who missed it. Starting next week, we're extending our return window from fourteen to thirty days for all non-sale items. Please update the signage near the registers, and make sure to mention this to customers who ask about our return policy."</em></p>
+<p><strong>98.</strong> What change is being made next week?<br />
+(A) A longer return window<br />
+(B) A shorter return window<br />
+(C) A new refund method<br />
+(D) A change to store hours</p>
+<p><strong>99.</strong> What will the new return window be?<br />
+(A) Seven days<br />
+(B) Fourteen days<br />
+(C) Thirty days<br />
+(D) Sixty days</p>
+<p><strong>100.</strong> What are staff asked to update?<br />
+(A) The employee handbook<br />
+(B) The signage near the registers<br />
+(C) The store website<br />
+(D) The training manual</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_008 — READING (100 câu: 101–200) · Chủ đề: Retail &amp; Customer Service</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The store <span class="blk">________</span> its inventory levels every morning before opening.<br />
+(A) check  (B) checks  (C) checking  (D) to check</p>
+<p><strong>102.</strong> Customers must present a receipt <span class="blk">________</span> a return can be processed.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The customer service team responded to the complaint <span class="blk">________</span> and offered a full refund.<br />
+(A) prompt  (B) promptness  (C) promptly  (D) prompter</p>
+<p><strong>104.</strong> <span class="blk">________</span> the long line at checkout, most customers rated their visit positively.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Staff are trained to <span class="blk">________</span> every customer within a few seconds.<br />
+(A) acknowledge  (B) acknowledges  (C) acknowledging  (D) acknowledged</p>
+<p><strong>106.</strong> The policy sets out the rules <span class="blk">________</span> returning items bought online.<br />
+(A) for  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three payment options, paying by app is the <span class="blk">________</span> convenient for most shoppers.<br />
+(A) more  (B) most  (C) much  (D) many</p>
+<p><strong>108.</strong> The delivery was delayed <span class="blk">________</span> a shortage of drivers over the holiday.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The chain increased sales <span class="blk">________</span> redesigning its store layouts.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Foot traffic in the mall has declined <span class="blk">________</span> over the past two years.<br />
+(A) steady  (B) steadiness  (C) steadier  (D) steadily</p>
+<p><strong>111.</strong> Each store <span class="blk">________</span> responsible for meeting its own monthly targets.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The regional manager asked each location to <span class="blk">________</span> its opening-hours signage.<br />
+(A) update  (B) updating  (C) updated  (D) updation</p>
+<p><strong>113.</strong> The return address is printed <span class="blk">________</span> the inside flap of the box.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> an item is marked "final sale," it cannot be returned or exchanged.<br />
+(A) Despite  (B) However  (C) Unless  (D) If</p>
+<p><strong>115.</strong> The company <span class="blk">________</span> more than 200 stores across the region.<br />
+(A) operate  (B) operates  (C) operating  (D) operated</p>
+<p><strong>116.</strong> The store refit is expected <span class="blk">________</span> before the holiday shopping season.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Cashiers should give customers <span class="blk">________</span> receipts that clearly show any discounts applied.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The new mobile app lets customers check stock far <span class="blk">________</span> than calling the store.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The report suggests several <span class="blk">________</span> to shorten checkout wait times.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The staff meeting will be held <span class="blk">________</span> the break room behind the stockroom.<br />
+(A) at  (B) on  (C) in  (D) by</p>
+<p><strong>121.</strong> The supplier delivered the order <span class="blk">________</span> one item substituted, which was noted on the invoice.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> A consultant will <span class="blk">________</span> the store's customer-flow patterns before the redesign.<br />
+(A) analyze  (B) analyzes  (C) analyzing  (D) analysis</p>
+<p><strong>123.</strong> Members are <span class="blk">________</span> for free shipping on orders over $40.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The streamlined returns process lets staff issue refunds <span class="blk">________</span> than before.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The retailer is committed to <span class="blk">________</span> accurate stock information online.<br />
+(A) provide  (B) provides  (C) providing  (D) provided</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two suppliers can guarantee delivery before the sale, so we've ordered from both.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The seasonal pop-up store is open <span class="blk">________</span> 10 A.M. to 8 P.M. daily through December.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>128.</strong> Any price override at the register must be approved by an <span class="blk">________</span> shift lead.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The updated returns policy <span class="blk">________</span> posted at every register next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The training guide provides <span class="blk">________</span> responses for common customer questions.<br />
+(A) suggest  (B) suggestion  (C) suggested  (D) suggestive</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>Subject:</strong> New Return Handling — Starts Monday</p>
+<p>Beginning Monday, all returns <span class="blk">(131)</span> processed at the customer service desk, not at the regular registers. This keeps checkout lines moving during busy periods.</p>
+<p>When a customer comes to a register with a return, direct them to the desk politely. The desk <span class="blk">(132)</span> staffed from opening to close every day.</p>
+<p>Refunds to the original payment method usually appear within three to five business days. If a customer asks, that <span class="blk">(133)</span> the timeframe to give them.</p>
+<p>Thank you for helping this go smoothly. We'll review how it's working after a few weeks. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) are  (B) will be  (C) have been  (D) being<br />
+<strong>132.</strong> (A) will be  (B) is  (C) has been  (D) being<br />
+<strong>133.</strong> (A) was  (B) has been  (C) being  (D) is<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Registers will be removed from the sales floor entirely.<br />
+(B) Customers without a receipt will not be eligible for any refund.<br />
+(C) Let your supervisor know if you have any questions.<br />
+(D) This change was requested by corporate headquarters.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>NOTICE — Holiday Hours</strong></p>
+<p>From December 18 to December 24, the store <span class="blk">(135)</span> open until 10 P.M. instead of the usual 8 P.M. On December 25 the store is closed. Normal hours resume December 26.</p>
+<p>We expect these to be our busiest days of the year. If you can pick up an extra shift during this window, add your name to the sign-up sheet in the break room. Extra hours during the holiday period <span class="blk">(136)</span> paid at time-and-a-half.</p>
+<p>Please make sure your availability in the scheduling app <span class="blk">(137)</span> current by December 10 so managers can build the schedule.</p>
+<p>We appreciate your flexibility during this busy time. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>136.</strong> (A) is  (B) being  (C) be  (D) are<br />
+<strong>137.</strong> (A) are  (B) being  (C) is  (D) be<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) All requested time off during this period will be denied.<br />
+(B) Store hours will remain unchanged through the new year.<br />
+(C) Happy holidays to you and your family!<br />
+(D) Overtime pay will not apply during the holiday season.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>A CHECKOUT YOUR STAFF WILL ACTUALLY LIKE</strong></p>
+<p>TapPoint is a point-of-sale system for small retailers. It runs on a tablet, syncs your inventory in real time, and lets you take payments anywhere in the store, <span class="blk">(139)</span> customers don't have to wait in a single line.</p>
+<p>New staff learn it in about 20 minutes because the screen only shows what's <span class="blk">(140)</span> for the current step. Returns, discounts, and gift receipts are all one tap.</p>
+<p>There's no long-term contract and no <span class="blk">(141)</span> setup fee. Request a demo, book a 15-minute call on our website. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) so  (B) instead of  (C) despite  (D) unless<br />
+<strong>140.</strong> (A) relevance  (B) relevantly  (C) relevancy  (D) relevant<br />
+<strong>141.</strong> (A) cost  (B) costly  (C) costing  (D) costs<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) We'll walk you through everything in plain language.<br />
+(B) TapPoint currently only supports card payments.<br />
+(C) A minimum of two registers is required to start.<br />
+(D) Custom hardware must be purchased separately at full price.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> Store Managers <strong>FROM:</strong> Customer Experience <strong>RE:</strong> Shorter Feedback Survey</p>
+<p>Starting this month, the post-purchase survey <span class="blk">(143)</span> from twelve questions to four. The long version had a completion rate under 20%; we expect the short one to do much better.</p>
+<p>The four questions cover overall satisfaction, ease of finding items, checkout experience, and staff helpfulness. Each store's results <span class="blk">(144)</span> available on your dashboard, updated weekly.</p>
+<p>If a customer leaves a comment and a contact detail, someone from your team <span class="blk">(145)</span> follow up within two business days. Comments without contact details are still logged for trends.</p>
+<p>Please brief your teams so everyone knows what the new survey looks like. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) is dropping  (B) has dropped  (C) will drop  (D) drops<br />
+<strong>144.</strong> (A) is  (B) being  (C) are  (D) be<br />
+<strong>145.</strong> (A) should  (B) shows  (C) showing  (D) shown<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The survey will be discontinued if response rates don't improve.<br />
+(B) Reach out to customer experience with any questions.<br />
+(C) The twelve-question version will still be used for online orders.<br />
+(D) Store managers must review every single response personally.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Rex (2:14 P.M.):</strong> Register 2 is down — card reader frozen. Line's backing up.<br />
+<strong>Mina (2:15 P.M.):</strong> Move those customers to 4 and 5. I'll call the vendor. Try unplugging the reader for 30 sec and back in.<br />
+<strong>Rex (2:19 P.M.):</strong> That worked — it's back. Kept two registers on it just in case.<br />
+<strong>Mina (2:20 P.M.):</strong> Nice. I'll still log a ticket so they check it.</p>
+<p><strong>147.</strong> What was the problem?<br />
+(A) A card reader froze<br />
+(B) The store lost power<br />
+(C) A price was wrong<br />
+(D) A register ran out of receipt paper</p>
+<p><strong>148.</strong> What fixed it?<br />
+(A) Restarting the whole system<br />
+(B) Unplugging and reconnecting the card reader<br />
+(C) A vendor technician visit<br />
+(D) Switching to cash only</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>GROCERY CHAIN EXPANDS SAME-DAY DELIVERY TO SMALLER TOWNS</strong></p>
+<p>FreshRoute, a regional grocery chain, said it will bring its same-day delivery service to 30 additional towns over the next year, most with populations under 20,000. The service has been available in the chain's larger markets for three years.</p>
+<p>Instead of building new warehouses, FreshRoute will fill delivery orders from the shelves of its existing stores, using staff who also work the floor. Orders placed by 2 P.M. arrive the same evening; later orders arrive the next day.</p>
+<p>The company said the expansion responds to steady demand from smaller communities, where fewer delivery options exist. Delivery costs $6 per order, waived for orders over $75 or for members of the chain's $9-a-month subscription.</p>
+<p><strong>149.</strong> What is FreshRoute expanding?<br />
+(A) Its store hours<br />
+(B) Its product range<br />
+(C) Its same-day delivery service<br />
+(D) Its number of warehouses</p>
+<p><strong>150.</strong> How will delivery orders be filled in the new towns?<br />
+(A) From new dedicated warehouses<br />
+(B) By a third-party courier<br />
+(C) From a central distribution hub<br />
+(D) From the shelves of existing stores</p>
+<p><strong>151.</strong> When must an order be placed to arrive the same evening?<br />
+(A) By noon<br />
+(B) By 2 P.M.<br />
+(C) By 5 P.M.<br />
+(D) The day before</p>
+<p><strong>152.</strong> How can a customer avoid the $6 delivery fee?<br />
+(A) Order in the morning<br />
+(B) Pick up in store instead<br />
+(C) Use a coupon code<br />
+(D) Spend over $75 or subscribe for $9 a month</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Fitting Rooms</strong></p>
+<p>To reduce wait times, fitting rooms are now limited to six items at a time. An attendant at the entrance will give you a numbered tag. Items you don't want can be left on the return rack inside — please don't put them back on the sales floor.</p>
+<p>The fitting rooms close 15 minutes before the store closes.</p>
+<p><strong>153.</strong> What is the new limit for fitting rooms?<br />
+(A) Three items<br />
+(B) Ten items<br />
+(C) No limit<br />
+(D) Six items</p>
+<p><strong>154.</strong> What should customers do with items they don't want?<br />
+(A) Return them to the sales floor<br />
+(B) Hand them to a cashier<br />
+(C) Leave them on the return rack inside<br />
+(D) Take them to customer service</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>MAKE YOUR LOYALTY PROGRAM WORTH JOINING</strong></p>
+<p>Most store loyalty programs are just a slower checkout. LoyalLoop is different. Customers earn points automatically from their phone number — no card, no app required — and see their rewards at the register.</p>
+<p>You choose the rewards: a dollar amount, a free item, early sale access, or a birthday treat. Setup connects to your existing point-of-sale in an afternoon.</p>
+<p>Pricing is a flat monthly fee based on store size, with no per-transaction charge. Start a 60-day free trial at loyalloop.example.</p>
+<p><strong>155.</strong> How do customers earn points with LoyalLoop?<br />
+(A) By scanning a physical card<br />
+(B) Automatically from their phone number<br />
+(C) By downloading an app<br />
+(D) By entering a code online</p>
+<p><strong>156.</strong> What can the store choose?<br />
+(A) The monthly fee<br />
+(B) Which customers can join<br />
+(C) The checkout software<br />
+(D) The rewards customers get</p>
+<p><strong>157.</strong> How is LoyalLoop priced?<br />
+(A) A percentage of each transaction<br />
+(B) A one-time setup fee only<br />
+(C) A flat monthly fee based on store size<br />
+(D) Per enrolled customer</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> store-managers <strong>From:</strong> Loss Prevention <strong>Subject:</strong> New Bag-Check Guidance</p>
+<p>We've had reports of staff asking to check customers' bags at the exit in a way that feels accusatory. To be clear: we do not have the right to search a customer's bag, and doing so can create a serious problem for the company.</p>
+<p>If an alarm sounds, apologize for the inconvenience, ask the customer to walk back through, and check whether an item wasn't deactivated at the register. Do not demand to look inside bags, block a customer's path, or follow them out.</p>
+<p>If you genuinely believe theft occurred, note a description and let the customer leave; contact your manager and, if appropriate, the police. Never confront a customer physically.</p>
+<p><strong>158.</strong> What is the email mainly about?<br />
+(A) How staff should handle exit alarms and bag checks<br />
+(B) A new discount policy<br />
+(C) Changes to store hours<br />
+(D) A staff dress code</p>
+<p><strong>159.</strong> What should staff do if an alarm sounds?<br />
+(A) Search the customer's bag<br />
+(B) Apologize and ask the customer to walk back through<br />
+(C) Block the exit until a manager arrives<br />
+(D) Call the police immediately</p>
+<p><strong>160.</strong> What should staff do if they believe theft occurred?<br />
+(A) Physically stop the customer<br />
+(B) Demand to see inside the bag<br />
+(C) Note a description, let the customer leave, and contact a manager<br />
+(D) Follow the customer to their car</p>
+<h3>Passage 6 — Weekend staffing table (161–162)</h3>
+<p><strong>WEEKEND STAFFING — Store 12</strong></p>
+<table>
+<thead>
+<tr>
+<th>Shift</th>
+<th>Sat</th>
+<th>Sun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open (8 A.M.–1 P.M.)</td>
+<td>4 staff</td>
+<td>3 staff</td>
+</tr>
+<tr>
+<td>Mid (11 A.M.–4 P.M.)</td>
+<td>5 staff</td>
+<td>4 staff</td>
+</tr>
+<tr>
+<td>Close (3 P.M.–9 P.M.)</td>
+<td>4 staff</td>
+<td>3 staff</td>
+</tr>
+</tbody>
+</table>
+<p>Managers must be on-site during all open hours. At least one first-aid-trained staff member must be present at all times. Swaps must be approved by a manager 24 hours in advance.</p>
+<p><strong>161.</strong> How many staff are scheduled for the Saturday mid shift?<br />
+(A) 3<br />
+(B) 4<br />
+(C) 5<br />
+(D) 6</p>
+<p><strong>162.</strong> What is required for a shift swap?<br />
+(A) Manager approval 24 hours in advance<br />
+(B) A written request<br />
+(C) A replacement from another store<br />
+(D) HR sign-off</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Osei,</p>
+<p>Thank you for your letter about the treadmill you purchased on January 8, which developed a fault after six weeks.</p>
+<p>Under our one-year warranty, you are entitled to a repair or replacement at no cost. Because this model has had a small number of similar issues, we would prefer to replace the unit rather than repair it.</p>
+<p>We can deliver a new treadmill and remove the old one on any weekday next week. Delivery is free, and our team will set up the new unit and confirm it works before they leave. Please call 555-0140 to choose a day.</p>
+<p>We're sorry for the inconvenience and appreciate your patience.</p>
+<p>Sincerely,<br />
+Customer Care, FitHome</p>
+<p><strong>163.</strong> Why did Mr. Osei write to the company?<br />
+(A) Because a treadmill he bought developed a fault<br />
+(B) To ask about a delivery date<br />
+(C) To return a treadmill for a refund<br />
+(D) To ask about the warranty length</p>
+<p><strong>164.</strong> What does the company offer?<br />
+(A) A partial refund<br />
+(B) A repair only<br />
+(C) A free replacement and removal of the old unit<br />
+(D) A store credit</p>
+<p><strong>165.</strong> Why does the company prefer to replace rather than repair?<br />
+(A) Repair would take longer<br />
+(B) The model has had similar issues<br />
+(C) The customer requested it<br />
+(D) Parts are unavailable</p>
+<p><strong>166.</strong> What will the delivery team do?<br />
+(A) Leave the treadmill in the box<br />
+(B) Charge a setup fee<br />
+(C) Take payment on delivery<br />
+(D) Set up the new unit and confirm it works</p>
+<h3>Passage 8 — Online orders FAQ (167–169)</h3>
+<p><strong>ONLINE ORDERS — FAQ</strong></p>
+<p><strong>How long does standard shipping take?</strong><br />
+3–5 business days after your order ships. You'll get a tracking email when it does.</p>
+<p><strong>Can I change my order after placing it?</strong><br />
+Only within 30 minutes, from the "Order history" page. After that, the order is in the warehouse and can't be changed — but you can return anything you don't want.</p>
+<p><strong>What if an item is out of stock after I order?</strong><br />
+We'll email you. You can wait for a restock (we hold your price) or get a refund for that item; the rest of the order ships as normal.</p>
+<p><strong>Do you ship internationally?</strong><br />
+Not yet. We ship within the country only.</p>
+<p><strong>167.</strong> How long does standard shipping take after an order ships?<br />
+(A) 1–2 business days<br />
+(B) 3–5 business days<br />
+(C) 7–10 business days<br />
+(D) 2 weeks</p>
+<p><strong>168.</strong> How long does a customer have to change an order?<br />
+(A) 30 minutes<br />
+(B) 24 hours<br />
+(C) Until it ships<br />
+(D) It cannot be changed</p>
+<p><strong>169.</strong> What happens if an item goes out of stock after an order is placed?<br />
+(A) The whole order is canceled<br />
+(B) A substitute is shipped automatically<br />
+(C) The order is held until everything is in stock<br />
+(D) The customer is emailed with options to wait or get a refund for that item</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Sales Associates <strong>FROM:</strong> Store Manager <strong>RE:</strong> Price-Match Policy Reminder</p>
+<p>We match the current advertised price of any local competitor on an identical item — same brand, model, and size, in stock at both stores.</p>
+<p>We do not match: clearance or closeout prices, member-only prices, online-only retailers, prices from auction sites, or typographical errors in an ad.</p>
+<p>To do a match, verify the competitor's price (a photo of the ad or their website is fine), then call a manager for the override. Match one item per customer per day.</p>
+<p><strong>170.</strong> What does the store match?<br />
+(A) Any lower price a customer claims<br />
+(B) A local competitor's current advertised price on an identical item<br />
+(C) Online retailer prices<br />
+(D) Clearance prices</p>
+<p><strong>171.</strong> Which price does the store NOT match?<br />
+(A) A competitor's regular shelf price<br />
+(B) A price on a larger size<br />
+(C) A sale price on a different model<br />
+(D) A member-only price</p>
+<p><strong>172.</strong> What must an associate do before applying a price match?<br />
+(A) Verify the competitor's price and call a manager<br />
+(B) Get the customer's ID<br />
+(C) Fill out a form at customer service<br />
+(D) Wait until the end of the day</p>
+<h3>Passage 10 — Store review (173–175)</h3>
+<p>★★★★☆ <strong>Good selection, checkout is the weak point</strong> — regular shopper</p>
+<p>I shop here most weeks. The produce is fresh, the store is clean, and the staff on the floor are helpful — someone always seems to be around to point you to an aisle.</p>
+<p>The checkout is where it falls apart on weekends. There are eight lanes but usually only three open, and the self-checkout often has half the machines down. I've started coming on weekday mornings just to avoid it. If they staffed the registers to match the crowd, this would be a five-star store.</p>
+<p><strong>173.</strong> What does the reviewer like about the store?<br />
+(A) The low prices<br />
+(B) The fast checkout<br />
+(C) Fresh produce, cleanliness, and helpful floor staff<br />
+(D) The parking</p>
+<p><strong>174.</strong> What is the reviewer's main complaint?<br />
+(A) Poor product selection<br />
+(B) Rude staff<br />
+(C) Understaffed checkout on weekends<br />
+(D) A dirty store</p>
+<p><strong>175.</strong> What has the reviewer changed about their shopping?<br />
+(A) They come on weekday mornings<br />
+(B) They shop online instead<br />
+(C) They use only self-checkout<br />
+(D) They shop at a different store</p>
+<h3>Passages 11–12 — Order confirmation &amp; email (176–180)</h3>
+<p><strong>Document 1 — Order confirmation</strong></p>
+<p><strong>ORDER CONFIRMATION — #77-4021</strong> · Customer: Dana Whitfield<br />
+Items:<br />
+- Wool throw blanket (grey) — $60<br />
+- Ceramic table lamp — $85<br />
+- Set of 4 coasters — $18<br />
+Subtotal: $163 · Shipping: FREE (order over $75) · Total: $163<br />
+Estimated delivery: 5–7 business days<br />
+Note: The lamp ships from our partner warehouse and may arrive separately.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Dana Whitfield <strong>To:</strong> help@homestore.example <strong>Subject:</strong> Order #77-4021 — coasters missing</p>
+<p>Hi,</p>
+<p>I received the blanket and the lamp today, but not the coasters. The packing slip in the box lists all three items, though. Were they left out, or are they coming separately like the lamp?</p>
+<p>Also, the lamp box has a dent in one corner. The lamp itself looks fine and works, but I wanted to flag it in case there's hidden damage.</p>
+<p><strong>176.</strong> How did Dana qualify for free shipping?<br />
+(A) By being a member<br />
+(B) By spending over $75<br />
+(C) With a coupon code<br />
+(D) It was a promotion</p>
+<p><strong>177.</strong> What does the confirmation say about the lamp?<br />
+(A) It is out of stock<br />
+(B) It is final sale<br />
+(C) It requires assembly<br />
+(D) It ships from a partner warehouse and may arrive separately</p>
+<p><strong>178.</strong> What is Dana's main question?<br />
+(A) Whether the coasters were left out or are coming separately<br />
+(B) How to return the blanket<br />
+(C) When the order will ship<br />
+(D) Whether she can change the color</p>
+<p><strong>179.</strong> What did Dana receive?<br />
+(A) Only the blanket<br />
+(B) The blanket and the lamp<br />
+(C) All three items<br />
+(D) Nothing yet</p>
+<p><strong>180.</strong> Why does Dana mention the lamp box?<br />
+(A) To request a discount<br />
+(B) To report that the lamp doesn't work<br />
+(C) To flag a dent in case of hidden damage<br />
+(D) To ask for different packaging next time</p>
+<h3>Passages 13–14 — Two emails about a wholesale account (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Priya Nair, Buyer — Corner Market <strong>To:</strong> sales@bakerywholesale.example <strong>Subject:</strong> Setting up a standing order</p>
+<p>Hi,</p>
+<p>We'd like to set up a standing weekly order with you: 6 dozen sourdough loaves and 4 dozen baguettes, delivered Tuesday and Friday mornings before 7 A.M. so they're on the shelf when we open.</p>
+<p>Questions:<br />
+1. Is there a minimum order for wholesale pricing?<br />
+2. What's your lead time to change a standing order (e.g., for a holiday week)?<br />
+3. How is billing handled — per delivery or monthly?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> sales@bakerywholesale.example <strong>To:</strong> Priya Nair <strong>Subject:</strong> RE: Setting up a standing order</p>
+<p>Hi Priya,</p>
+<p>Happy to set this up.</p>
+<ol>
+<li>Wholesale pricing applies to any order of 5 dozen items or more, so your standing order qualifies easily.</li>
+<li>Changes to a standing order need 48 hours' notice — so for a Tuesday delivery, let us know by Sunday morning. For major holidays we send a reminder two weeks out.</li>
+<li>We invoice monthly, net 15. Your first delivery would be next Tuesday if you confirm by Friday.</li>
+</ol>
+<p><strong>181.</strong> What does Corner Market want to set up?<br />
+(A) A one-time large order<br />
+(B) A standing twice-weekly order<br />
+(C) A daily delivery<br />
+(D) A pickup arrangement</p>
+<p><strong>182.</strong> Does Corner Market's order qualify for wholesale pricing?<br />
+(A) No, it is too small<br />
+(B) Only the sourdough does<br />
+(C) Only after three months<br />
+(D) Yes, it is well above the minimum</p>
+<p><strong>183.</strong> How much notice is needed to change a standing order?<br />
+(A) 24 hours<br />
+(B) One week<br />
+(C) 48 hours<br />
+(D) Two weeks</p>
+<p><strong>184.</strong> How is billing handled?<br />
+(A) Per delivery, paid on the spot<br />
+(B) Weekly<br />
+(C) Prepaid quarterly<br />
+(D) Monthly, net 15</p>
+<p><strong>185.</strong> When would the first delivery be?<br />
+(A) Next Tuesday, if confirmed by Friday<br />
+(B) The same week<br />
+(C) In two weeks<br />
+(D) On the next holiday</p>
+<h3>Passages 15–17 — Return policy, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>RETURNS POLICY</strong></p>
+<ul>
+<li><strong>Standard items:</strong> return within 30 days with proof of purchase for a full refund to the original payment method.</li>
+<li><strong>Without proof of purchase:</strong> exchange or store credit at the current selling price; ID required.</li>
+<li><strong>Final sale items:</strong> no returns or exchanges. These are marked on the tag and on your receipt.</li>
+<li><strong>Opened electronics:</strong> 15-day return window; a 15% restocking fee applies unless the item is defective.</li>
+<li><strong>Large items (over 20 kg):</strong> contact customer service to arrange pickup; the return shipping fee is $25 unless the item is defective or was sent in error.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Park <strong>To:</strong> returns@retailco.example <strong>Subject:</strong> Returning a monitor</p>
+<p>Hi,</p>
+<p>I bought a 32-inch monitor 10 days ago and opened it, but it's larger than my desk allows. It works fine — I just need a smaller one. It's about 8 kg.</p>
+<p>What's the process, and will there be any fees?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> returns@retailco.example <strong>To:</strong> Owen Park <strong>Subject:</strong> RE: Returning a monitor</p>
+<p>Hi Owen,</p>
+<p>Since it's opened electronics and within the 15-day window, you can return it. Because it isn't defective — it just doesn't fit your space — the 15% restocking fee applies. On a monitor at that price, that's about $30.</p>
+<p>At 8 kg it's under the large-item threshold, so no $25 pickup fee — you can bring it to any store or ship it back with the prepaid label I'll email you.</p>
+<p>If you're buying a smaller monitor from us to replace it, mention this return at the register and we'll waive the restocking fee.</p>
+<p><strong>186.</strong> Within how many days can opened electronics be returned?<br />
+(A) 15 days<br />
+(B) 30 days<br />
+(C) 45 days<br />
+(D) They cannot be returned</p>
+<p><strong>187.</strong> Why does the restocking fee apply to Owen's return?<br />
+(A) The monitor is defective<br />
+(B) He is past the return window<br />
+(C) The item isn't defective; it just doesn't fit<br />
+(D) He has no proof of purchase</p>
+<p><strong>188.</strong> Why is there no $25 pickup fee?<br />
+(A) The monitor is defective<br />
+(B) Owen is a member<br />
+(C) It was sent in error<br />
+(D) The monitor is under the large-item weight threshold</p>
+<p><strong>189.</strong> How can Owen avoid the restocking fee?<br />
+(A) Return it within 24 hours<br />
+(B) Buy a replacement monitor from the same store and mention the return<br />
+(C) Provide the original box<br />
+(D) Ship it instead of bringing it in</p>
+<p><strong>190.</strong> What will the company email Owen?<br />
+(A) A prepaid return label<br />
+(B) A refund confirmation<br />
+(C) A store credit voucher<br />
+(D) A new invoice</p>
+<h3>Passages 18–20 — Gift card terms, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Terms</strong></p>
+<p><strong>GIFT CARD — TERMS</strong><br />
+- Gift cards do not expire and have no fees.<br />
+- Redeemable in store and online for merchandise only — not for buying other gift cards.<br />
+- If a purchase is less than the card balance, the remaining balance stays on the card.<br />
+- If a purchase is more than the card balance, pay the difference by another method.<br />
+- Lost or stolen cards can be replaced only if you have the original receipt or card number; the balance at the time of the report is transferred to a new card.<br />
+- Refunds for items bought with a gift card are issued as store credit or back to a gift card, not as cash.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Mara Lin <strong>To:</strong> support@retailco.example <strong>Subject:</strong> Gift card questions</p>
+<p>Hi,</p>
+<p>I have a $50 gift card. Two questions:<br />
+1. If I buy something for $32, what happens to the other $18?<br />
+2. My friend lost her gift card but has the receipt from when I bought it. Can it be replaced?</p>
+<p>Also — if I later return an item I bought with the card, do I get cash back?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> support@retailco.example <strong>To:</strong> Mara Lin <strong>Subject:</strong> RE: Gift card questions</p>
+<p>Hi Mara,</p>
+<ol>
+<li>The remaining $18 stays on the same card — you can use it on a future purchase, in store or online.</li>
+<li>Yes. With the original receipt or the card number, we can replace a lost card. The balance as of when the loss is reported goes onto the new card, so anything spent before the report isn't recovered.</li>
+<li>Refunds on gift-card purchases come back as store credit or onto a gift card, not as cash.</li>
+</ol>
+<p><strong>191.</strong> Do gift cards expire?<br />
+(A) Yes, after one year<br />
+(B) Yes, after two years<br />
+(C) No<br />
+(D) Only if unused for 18 months</p>
+<p><strong>192.</strong> What happens to the leftover balance after a smaller purchase?<br />
+(A) It is forfeited<br />
+(B) It is refunded as cash<br />
+(C) It is donated to charity<br />
+(D) It stays on the card</p>
+<p><strong>193.</strong> Can Mara's friend's lost card be replaced?<br />
+(A) No, lost cards cannot be replaced<br />
+(B) Yes, because she has the original receipt<br />
+(C) Only if reported within 24 hours<br />
+(D) Only in store, not online</p>
+<p><strong>194.</strong> When a lost card is replaced, what balance is transferred?<br />
+(A) The balance at the time the loss is reported<br />
+(B) The full original amount<br />
+(C) Half the balance<br />
+(D) Nothing</p>
+<p><strong>195.</strong> How are refunds on gift-card purchases issued?<br />
+(A) As cash<br />
+(B) To a credit card<br />
+(C) As store credit or onto a gift card<br />
+(D) They are not allowed</p>
+<h3>Passages 21–23 — Complaint procedure, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Procedure</strong></p>
+<p><strong>HANDLING WRITTEN COMPLAINTS — STORE PROCEDURE</strong></p>
+<ol>
+<li>Acknowledge every written complaint within 1 business day, even if you don't have an answer yet.</li>
+<li>Investigate: check receipts, camera footage if relevant, and talk to the staff involved.</li>
+<li>Reply with a decision within 5 business days. If it will take longer, tell the customer why and give a new date.</li>
+<li>For refunds or goodwill gestures up to $50, a shift lead can approve. Above $50, a store manager must approve.</li>
+<li>Log every complaint and outcome in the system so head office can see patterns.</li>
+</ol>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rex Adeyemi, Shift Lead <strong>To:</strong> Store Manager <strong>Subject:</strong> Complaint — INV-3391</p>
+<p>A customer emailed yesterday. She bought a coffee machine that leaked and damaged some papers on her counter. She's asking for a refund on the machine ($75) plus $40 for the ruined papers.</p>
+<p>I've acknowledged her email. The machine fault looks genuine — same complaint appeared once before. I can approve the $75 machine refund, but the extra $40 is above my limit. Can you approve it, or how should I respond?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> Store Manager <strong>To:</strong> Rex Adeyemi <strong>Subject:</strong> RE: Complaint — INV-3391</p>
+<p>Approve the full $75 machine refund now. For the $40, I'll approve it as a goodwill gesture given the fault is genuine and it's a small, reasonable amount — process it as store credit rather than cash, and note in the log that it's a goodwill payment, not an admission of liability for consequential damage.</p>
+<p>Reply to the customer today with both approved. Make sure it's logged.</p>
+<p><strong>196.</strong> How quickly must a written complaint be acknowledged?<br />
+(A) Within 1 business day<br />
+(B) Within 3 business days<br />
+(C) Within 5 business days<br />
+(D) Within 2 weeks</p>
+<p><strong>197.</strong> What can a shift lead approve?<br />
+(A) Any refund amount<br />
+(B) Only exchanges<br />
+(C) Nothing without head office<br />
+(D) Refunds or goodwill gestures up to $50</p>
+<p><strong>198.</strong> Why does Rex need the manager's approval?<br />
+(A) The $40 request is above his limit<br />
+(B) The machine refund is above his limit<br />
+(C) The complaint is more than 5 days old<br />
+(D) The customer demanded it</p>
+<p><strong>199.</strong> How does the manager decide to handle the $40?<br />
+(A) Deny it<br />
+(B) Pay it in cash<br />
+(C) Approve it as store credit, logged as a goodwill payment<br />
+(D) Send it to head office</p>
+<p><strong>200.</strong> What must Rex do after replying to the customer?<br />
+(A) Call head office<br />
+(B) Log the complaint and outcome<br />
+(C) Interview the staff involved<br />
+(D) Wait for the manager to sign a form</p>
+<hr />
+<p><em>Hết phần Reading — Set_008. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_008</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>2 C</strong> "paying at the checkout counter" · bẫy: "shelves are being restocked", "cart is being pushed"</li>
+<li><strong>4 D</strong> "products are stocked on the shelves" · bẫy: "shelves are empty", "boxes stacked in the aisle"</li>
+<li><strong>5 B</strong> "typing while wearing a headset" · bẫy: "a meeting is taking place"</li>
+<li><strong>6 C</strong> "a sale sign is displayed in the window" · bẫy: "the store is closed", "locking the door"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where can I find...?" → "It's near the main entrance" · bẫy: (A) lặp "bought", (B) lạc</li>
+<li><strong>13 C</strong> tag question → "Yes, customers earn points on every purchase" · bẫy: (A)(B) chi tiết lạc</li>
+<li><strong>17 C</strong> "What did the customer complain about?" → "A damaged package" · bẫy: trả lời When / Where</li>
+<li><strong>19 B</strong> "did the manager approve the refund?" → "Let me ask her now" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "The lines get long on weekends"</li>
+<li><strong>21 C</strong> yêu cầu bổ hàng → "I'll do that right now" · bẫy: lặp "shelves"</li>
+<li><strong>25 B</strong> "Isn't the sale usually weekends only?" → đính chính "extended through Monday" · bẫy: lặp "weekend"</li>
+<li><strong>31 C</strong> "Why was the customer upset?" → lý do cụ thể "arrived damaged" · bẫy: lặp "customer"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "this blender ... stopped working" · "a full refund or a replacement" · "I'd like a replacement"</li>
+<li>35–37: "long checkout lines on weekend afternoons" · "open a fourth [register]" · "set up a quick log at the front"</li>
+<li>38–40: "The winter jackets aren't selling" · "start at 25%" · "update the tags tomorrow morning"</li>
+<li>41–43: "her order arrived with one item missing" · "one was out of stock and shipped separately" · "email her the tracking number and apologize"</li>
+<li>44–46: "customers keep asking staff the same questions" · "whether sale items can be returned" · "add a small 'FINAL SALE' tag to each of those items"</li>
+<li>47–49: "customer feedback survey" · "'ease of finding items'" dropped · "drafted a proposal for clearer aisle signs"</li>
+<li>50–52: "item ... arrived broken" · "wants a refund" · "prepaid return label"</li>
+<li>53–55: "winter jackets ... in stock" · "a few sizes" downtown · "note about checking store availability"</li>
+<li>56–58: "long checkout lines on weekends" · "open an extra register" · "check and adjust the schedule"</li>
+<li>59–61: "price-match other stores" · "proof of the competitor's price" · "screenshot on her phone"</li>
+<li>62–64: "holiday staffing" · "ten seasonal hires" · "trained by the second week of November"</li>
+<li>65–67: "reviews mention slow shipping" · "warehouse ... short-staffed" · "talk to HR about temporary help"</li>
+<li>68–70: "no receipt" · "look up the purchase by card" · "same card used to pay"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "close in 30 minutes" · "registers on the ground floor" · "an extra 10% off all clearance items before noon"</li>
+<li>74–76: "about your sofa delivery" · "the fabric you chose is on back-order" · "deliver a different in-stock fabric on Thursday"</li>
+<li>77–79: "acknowledge every customer within a few seconds" · "say so and find someone who does" · "so we can spot patterns"</li>
+<li>80–82: "clearing out last season's stock" · "members get an extra 15%" · "Signing up is free ... at any register"</li>
+<li>83–85: "store will be closing in fifteen minutes" · "checkout counters at the front" · "staff ... wearing green vests"</li>
+<li>86–88: "item ... now out of stock" · "similar item or a full refund" · "call us back"</li>
+<li>89–91: "new loyalty app" · "earn and redeem points" · "direct them to the flyer near the register"</li>
+<li>92–94: "second staff member to verify" · "reduce shipping errors" · "common source of customer complaints"</li>
+<li>95–97: "biggest sale of the year" · "up to fifty percent off" · "first fifty customers ... free gift card"</li>
+<li>98–100: "extending our return window" · "fourteen to thirty days" · "update the signage near the registers"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The store</code> số ít + thói quen → <code>checks</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>responded</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be trained to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>rules for</code> + V-ing</td>
+</tr>
+<tr>
+<td>107</td>
+<td>B</td>
+<td><code>the <span class="fill"></span> convenient</code> (trong 3) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>increased sales by ... redesigning</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>has declined</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each store</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>update</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the inside flap</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>an item is marked...</code> → <code>If</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The company</code> số ít → <code>operates</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>receipts</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td><code>in the break room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"giao đơn <strong>kèm</strong> một món thay thế" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>analyze</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>issue refunds</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... can guarantee</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>shift lead</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (policy <strong>được</strong> dán)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>responses</code> → tính từ <code>suggested</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"all returns <span class="fill"></span> processed at the desk" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"The desk <span class="fill"></span> staffed" (sắp xếp mới) → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td>"that <span class="fill"></span> the timeframe to give them" → hiện tại <code>is</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn hỏi quản lý nếu cần, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>B</td>
+<td>"the store <span class="fill"></span> open until 10 P.M." (dịp lễ sắp tới) → <code>will be</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>D</td>
+<td>"Extra hours ... <span class="fill"></span> paid at time-and-a-half" (chủ ngữ số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>C</td>
+<td>"your availability ... <span class="fill"></span> current" (chủ ngữ <code>availability</code> số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> lời chúc mừng lễ, khép lại thông báo giờ mở cửa dịp lễ</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"<span class="fill"></span> customers don't have to wait in a single line" (mục đích) → <code>so</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>D</td>
+<td>"what's <span class="fill"></span> for the current step" → tính từ <code>relevant</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>B</td>
+<td>trước danh từ <code>setup fee</code> → tính từ <code>costly</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> lời trấn an dễ hiểu, khép lại quảng cáo POS</td>
+</tr>
+<tr>
+<td>143</td>
+<td>D</td>
+<td>"Starting this month, the survey <span class="fill"></span> from twelve to four" (nêu thay đổi, hiện tại đơn) → <code>drops</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>C</td>
+<td>"Each store's results <span class="fill"></span> available" (chủ ngữ <code>results</code> số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>A</td>
+<td>"someone from your team <span class="fill"></span> follow up within two business days" → <code>should</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu cần, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>D</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>B</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>A</td>
+<td>184</td>
+<td>D</td>
+<td>193</td>
+<td>B</td>
+</tr>
+<tr>
+<td>149</td>
+<td>C</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>A</td>
+<td>194</td>
+<td>A</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>B</td>
+<td>168</td>
+<td>A</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>A</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>D</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>A</td>
+</tr>
+<tr>
+<td>152</td>
+<td>D</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>B</td>
+<td>179</td>
+<td>B</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>D</td>
+<td>180</td>
+<td>C</td>
+<td>189</td>
+<td>B</td>
+<td>198</td>
+<td>A</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>A</td>
+<td>181</td>
+<td>B</td>
+<td>190</td>
+<td>A</td>
+<td>199</td>
+<td>C</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>C</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>C</td>
+<td>200</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "FreshRoute will fill delivery orders from the shelves of its existing stores"<br />
+- <strong>152 D</strong> — "waived for orders over $75 or for members of the chain's $9-a-month subscription"<br />
+- <strong>160 C</strong> — "note a description and let the customer leave; contact your manager"<br />
+- <strong>165 B</strong> — "this model has had a small number of similar issues"<br />
+- <strong>169 D</strong> — "You can wait for a restock ... or get a refund for that item"<br />
+- <strong>171 D</strong> — "We do not match: ... member-only prices"<br />
+- <strong>177 D</strong> — "The lamp ships from our partner warehouse and may arrive separately"<br />
+- <strong>182 D</strong> — "Wholesale pricing applies to any order of 5 dozen items or more" (đơn của Corner Market lớn hơn nhiều)<br />
+- <strong>187 C</strong> — "Because it isn't defective — it just doesn't fit your space — the ... restocking fee applies"<br />
+- <strong>188 D</strong> — "At 8 kg it's under the large-item threshold, so no $25 pickup fee"<br />
+- <strong>194 A</strong> — "The balance as of when the loss is reported goes onto the new card"<br />
+- <strong>199 C</strong> — "process it as store credit rather than cash ... note in the log that it's a goodwill payment"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_008 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Retail / Customer Service): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

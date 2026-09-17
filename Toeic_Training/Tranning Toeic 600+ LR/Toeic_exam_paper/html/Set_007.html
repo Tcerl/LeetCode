@@ -1,0 +1,2236 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_007 — Technology & IT</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="007">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_007</strong>
+    <span class="theme">Technology &amp; IT</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_007 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Một kỹ thuật viên đang cắm dây cáp vào tủ máy chủ.]</em><br />
+(A) A technician is connecting a cable to a server rack.<br />
+(B) Someone is carrying a monitor across the room.<br />
+(C) Workers are assembling desks.<br />
+(D) A person is typing on a laptop.</p>
+<p><strong>2.</strong> <em>[Ảnh: Nhóm lập trình viên ngồi quanh bàn, nhìn vào một màn hình có code.]</em><br />
+(A) People are unplugging computers.<br />
+(B) A team is looking at code on a screen.<br />
+(C) Someone is drawing a diagram on glass.<br />
+(D) They are packing equipment into boxes.</p>
+<p><strong>3.</strong> <em>[Ảnh: Một người đeo tai nghe đang hỗ trợ khách qua điện thoại tại bàn làm việc.]</em><br />
+(A) A customer is signing a form at a counter.<br />
+(B) Someone is repairing a keyboard.<br />
+(C) A support agent is speaking on a headset.<br />
+(D) People are gathered around a whiteboard.</p>
+<p><strong>4.</strong> <em>[Ảnh: Nhiều laptop mở sẵn xếp thành hàng trên bàn dài, chuẩn bị cho buổi training.]</em><br />
+(A) Laptops are arranged in a row on a table.<br />
+(B) A person is closing a laptop lid.<br />
+(C) Cables are being coiled and stored.<br />
+(D) Someone is projecting slides on a wall.</p>
+<p><strong>5.</strong> <em>[Ảnh: Một người đứng thuyết trình bên màn hình lớn hiển thị sơ đồ hệ thống.]</em><br />
+(A) The audience is leaving the room.<br />
+(B) A screen is being mounted on the wall.<br />
+(C) Someone is adjusting a camera.<br />
+(D) A presenter is standing beside a large screen.</p>
+<p><strong>6.</strong> <em>[Ảnh: Một người đang thay linh kiện bên trong thùng máy tính để bàn mở nắp.]</em><br />
+(A) A monitor is being wiped with a cloth.<br />
+(B) Boxes are stacked next to a desk.<br />
+(C) Someone is installing a part inside a computer.<br />
+(D) A cable is being plugged into a wall socket.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When will the system update be installed?<br />
+(A) Tonight after business hours.<br />
+(B) On all the workstations.<br />
+(C) It fixes a security issue.</p>
+<p><strong>8.</strong> Where do I go to reset my password?<br />
+(A) I changed mine last week.<br />
+(B) Twice a year, usually.<br />
+(C) On the IT self-service page.</p>
+<p><strong>9.</strong> Who's handling the migration to the new server?<br />
+(A) It should take a weekend.<br />
+(B) The infrastructure team.<br />
+(C) In the data center.</p>
+<p><strong>10.</strong> Why is the website loading so slowly today?<br />
+(A) One of the servers is overloaded.<br />
+(B) About two hundred visitors an hour.<br />
+(C) The design was updated recently.</p>
+<p><strong>11.</strong> How many tickets are still open?<br />
+(A) They come in through email.<br />
+(B) Around fifteen this morning.<br />
+(C) The queue is on the dashboard.</p>
+<p><strong>12.</strong> Could you send me the API documentation?<br />
+(A) Sure, I'll email the link now.<br />
+(B) The API was updated in March.<br />
+(C) It's a REST API.</p>
+<p><strong>13.</strong> The new laptops have arrived, haven't they?<br />
+(A) The laptops are quite light.<br />
+(B) We ordered thirty of them.<br />
+(C) Yes, they're in the storeroom.</p>
+<p><strong>14.</strong> Should we roll out the feature to everyone or just a test group?<br />
+(A) The feature took two months to build.<br />
+(B) Let's start with a small test group.<br />
+(C) I saw the demo yesterday.</p>
+<p><strong>15.</strong> Isn't the backup supposed to run every night?<br />
+(A) Yes, at 2 A.M. automatically.<br />
+(B) The backup drive is in the closet.<br />
+(C) It takes about an hour.</p>
+<p><strong>16.</strong> Can you show me how to connect to the VPN?<br />
+(A) The VPN was down this morning.<br />
+(B) Of course, it's a quick setup.<br />
+(C) I work from home on Fridays.</p>
+<p><strong>17.</strong> What did the security review find?<br />
+(A) It took about a week.<br />
+(B) The reviewer is external.<br />
+(C) A few outdated software versions.</p>
+<p><strong>18.</strong> Where are the old hard drives being stored before disposal?<br />
+(A) We wipe them first.<br />
+(B) There were about twenty.<br />
+(C) In the locked cabinet in room 3.</p>
+<p><strong>19.</strong> Do you know whether the outage has been resolved?<br />
+(A) It affected the east region.<br />
+(B) Let me check the status page.<br />
+(C) The outage started at noon.</p>
+<p><strong>20.</strong> I think we should move the file server to the cloud.<br />
+(A) That would simplify maintenance a lot.<br />
+(B) The server is five years old.<br />
+(C) In the second-floor server room.</p>
+<p><strong>21.</strong> Could you push the latest code update tonight?<br />
+(A) I'll deploy it after testing.<br />
+(B) The code is long.<br />
+(C) I pushed the cart already.</p>
+<p><strong>22.</strong> Has the server outage been resolved yet?<br />
+(A) It's a major server.<br />
+(B) I served coffee earlier.<br />
+(C) Not yet, engineers are still investigating.</p>
+<p><strong>23.</strong> Where should I report this software bug?<br />
+(A) In the tracking system.<br />
+(B) Bugs are annoying.<br />
+(C) I reported it already.</p>
+<p><strong>24.</strong> Would you rather use Python or Java for this project?<br />
+(A) Python would be faster to build.<br />
+(B) The project is due Friday.<br />
+(C) I used Java once.</p>
+<p><strong>25.</strong> Isn't the new feature usually tested before release?<br />
+(A) Features take time.<br />
+(B) Yes, but this one skipped QA by mistake.<br />
+(C) The release went well.</p>
+<p><strong>26.</strong> How many users are affected by the outage?<br />
+(A) About two thousand.<br />
+(B) The outage was brief.<br />
+(C) We outage every week.</p>
+<p><strong>27.</strong> Who's leading the migration to the cloud?<br />
+(A) The migration takes months.<br />
+(B) Sam from infrastructure is leading it.<br />
+(C) Clouds are unpredictable.</p>
+<p><strong>28.</strong> Do you know if the API documentation was updated?<br />
+(A) APIs are useful.<br />
+(B) I updated my password.<br />
+(C) Yes, it was updated this morning.</p>
+<p><strong>29.</strong> Should we patch the vulnerability now or during the maintenance window?<br />
+(A) Vulnerabilities are risky.<br />
+(B) Let's wait for the maintenance window.<br />
+(C) I patched it myself.</p>
+<p><strong>30.</strong> Haven't you finished testing the new build yet?<br />
+(A) Testing takes time.<br />
+(B) Almost — just two test cases left.<br />
+(C) The build was stable.</p>
+<p><strong>31.</strong> Why was the deployment rolled back?<br />
+(A) The deployment is scheduled weekly.<br />
+(B) It happened last time too.<br />
+(C) Because it caused a spike in errors.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> My laptop won't connect to any of the meeting room displays. It worked last week.<br />
+<strong>M:</strong> There was a firmware update over the weekend. You probably need the new screen-sharing app.<br />
+<strong>W:</strong> Where do I get it?<br />
+<strong>M:</strong> It's in the company software portal — search for "RoomCast." Install that and restart, and it should find the displays automatically.</p>
+<p><strong>32.</strong> What is the woman's problem?<br />
+(A) Her laptop won't turn on<br />
+(B) Her email is not syncing<br />
+(C) Her laptop won't connect to meeting room displays<br />
+(D) Her password expired</p>
+<p><strong>33.</strong> What does the man say caused it?<br />
+(A) A firmware update over the weekend<br />
+(B) A broken cable<br />
+(C) A network outage<br />
+(D) A hardware failure</p>
+<p><strong>34.</strong> What should the woman do?<br />
+(A) Replace her laptop<br />
+(B) Install an app from the software portal and restart<br />
+(C) Book a different room<br />
+(D) Call the display manufacturer</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The new ticketing system goes live Monday. Are the agents ready?<br />
+<strong>W:</strong> Mostly. Everyone's done the training, but a few are worried about the new categories.<br />
+<strong>M:</strong> Let's do a 20-minute refresher Friday afternoon and keep the old system read-only for two weeks as a fallback.<br />
+<strong>W:</strong> Good idea. I'll send the invite and post the fallback plan in the team channel.</p>
+<p><strong>35.</strong> What is happening Monday?<br />
+(A) A team reorganization<br />
+(B) An office move<br />
+(C) A software demo<br />
+(D) A new ticketing system goes live</p>
+<p><strong>36.</strong> What are some agents worried about?<br />
+(A) The new categories<br />
+(B) Losing old tickets<br />
+(C) The training schedule<br />
+(D) Longer hours</p>
+<p><strong>37.</strong> What will the woman do?<br />
+(A) Cancel the launch<br />
+(B) Extend the training<br />
+(C) Send an invite and post the fallback plan<br />
+(D) Contact the vendor</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> We've had three reports this week of the mobile app crashing on startup.<br />
+<strong>M1:</strong> All on the same phone model?<br />
+<strong>W:</strong> No, different models, but all on the latest OS version.<br />
+<strong>M2:</strong> That points to the OS update. I'll reproduce it on a test device and, if it's confirmed, we can push a hotfix by Thursday.<br />
+<strong>W:</strong> Let's also post a note in the app store reviews so users know we're on it.</p>
+<p><strong>38.</strong> What problem are the speakers discussing?<br />
+(A) The app store rejected an update<br />
+(B) Slow login times<br />
+(C) The mobile app crashes on startup<br />
+(D) A payment bug</p>
+<p><strong>39.</strong> What do the speakers think is the cause?<br />
+(A) A specific phone model<br />
+(B) The latest OS update<br />
+(C) A server issue<br />
+(D) A corrupted database</p>
+<p><strong>40.</strong> What does the woman suggest doing in addition to the fix?<br />
+(A) Removing the app temporarily<br />
+(B) Emailing all users<br />
+(C) Posting a note in app store reviews<br />
+(D) Rolling back the last update</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> The cloud bill jumped 40% last month. Do you know why?<br />
+<strong>W:</strong> I looked into it. A test environment was left running after a project ended — it's been on for six weeks.<br />
+<strong>M:</strong> Can we shut it down?<br />
+<strong>W:</strong> Already did. I've also set up an alert so we get notified if a test environment runs more than three days.</p>
+<p><strong>41.</strong> What is the man concerned about?<br />
+(A) A security breach<br />
+(B) A slow database<br />
+(C) A failed backup<br />
+(D) A 40% increase in the cloud bill</p>
+<p><strong>42.</strong> What caused it?<br />
+(A) A price increase from the provider<br />
+(B) A test environment left running<br />
+(C) A spike in website traffic<br />
+(D) A new project launch</p>
+<p><strong>43.</strong> What has the woman already done?<br />
+(A) Switched providers<br />
+(B) Filed a support ticket<br />
+(C) Requested a refund<br />
+(D) Shut it down and set up an alert</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> I'm trying to share this folder with the vendor, but the link keeps saying "access denied."<br />
+<strong>M:</strong> External sharing is off by default for that folder type. You'll need to request an exception through the security portal.<br />
+<strong>W:</strong> How long does that take?<br />
+<strong>M:</strong> Usually same day. Once it's approved, create a link that expires in 30 days and is view-only — that's the standard for vendors.</p>
+<p><strong>44.</strong> What is the woman trying to do?<br />
+(A) Share a folder with an external vendor<br />
+(B) Recover a deleted file<br />
+(C) Move a folder to the cloud<br />
+(D) Change a folder's owner</p>
+<p><strong>45.</strong> Why is it not working?<br />
+(A) The folder is full<br />
+(B) External sharing is off by default<br />
+(C) The vendor's email is wrong<br />
+(D) The link expired</p>
+<p><strong>46.</strong> What does the man recommend for the link?<br />
+(A) No expiration, edit access<br />
+(B) A password-protected link<br />
+(C) A 30-day, view-only link<br />
+(D) A one-time-use link</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> How did the disaster-recovery test go on Saturday?<br />
+<strong>W:</strong> Better than last time. We restored the main database to the backup site in about 90 minutes — the target is two hours.<br />
+<strong>M:</strong> That's a real improvement. Any issues?<br />
+<strong>W:</strong> One. The DNS change took longer than expected to propagate. I've documented a fix for next time.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) A software release<br />
+(B) A security audit<br />
+(C) A hiring plan<br />
+(D) A disaster-recovery test</p>
+<p><strong>48.</strong> How long did the database restore take?<br />
+(A) 30 minutes<br />
+(B) 90 minutes<br />
+(C) Two hours<br />
+(D) Half a day</p>
+<p><strong>49.</strong> What issue did the woman note?<br />
+(A) A DNS change was slow to propagate<br />
+(B) A backup was corrupted<br />
+(C) The backup site lost power<br />
+(D) Staff couldn't log in</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> The app keeps crashing whenever users try to upload a photo larger than five megabytes.<br />
+<strong>W:</strong> Let's check the upload limit in the config file — it might be set too low.<br />
+<strong>M:</strong> I already looked, and it seems correct on our end.<br />
+<strong>W:</strong> Then let's add better error handling so it fails gracefully instead of crashing.</p>
+<p><strong>50.</strong> What problem is being discussed?<br />
+(A) The app crashes on large photo uploads.<br />
+(B) The app is too slow.<br />
+(C) Users cannot log in.<br />
+(D) The app uses too much storage.</p>
+<p><strong>51.</strong> What has the man already checked?<br />
+(A) The server logs<br />
+(B) The upload limit in the config file<br />
+(C) The database<br />
+(D) The user accounts</p>
+<p><strong>52.</strong> What does the woman suggest?<br />
+(A) Removing the upload feature<br />
+(B) Adding better error handling<br />
+(C) Increasing server capacity<br />
+(D) Rolling back the last update</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> I'm reviewing the pull request you submitted — overall it looks solid.<br />
+<strong>M:</strong> Thanks, did you have any concerns?<br />
+<strong>W:</strong> Just one — the function names aren't very descriptive. Could you rename a few?<br />
+<strong>M:</strong> Sure, I'll update those and push the changes today.</p>
+<p><strong>53.</strong> What is the woman reviewing?<br />
+(A) A budget report<br />
+(B) A pull request<br />
+(C) A job application<br />
+(D) A customer survey</p>
+<p><strong>54.</strong> What concern does the woman raise?<br />
+(A) Missing comments<br />
+(B) Function names that aren't descriptive<br />
+(C) Slow performance<br />
+(D) Incorrect logic</p>
+<p><strong>55.</strong> What will the man do today?<br />
+(A) Rewrite the entire code<br />
+(B) Update the function names and push changes<br />
+(C) Cancel the pull request<br />
+(D) Assign the task to someone else</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> Our database queries have gotten noticeably slower this week.<br />
+<strong>W:</strong> Have we checked if there's a missing index somewhere?<br />
+<strong>M:</strong> Good thought — I'll run an analysis on the slow queries this afternoon.<br />
+<strong>W:</strong> Let me know what you find, and we can prioritize a fix before the weekend.</p>
+<p><strong>56.</strong> What problem are the speakers discussing?<br />
+(A) Slow database queries<br />
+(B) A security breach<br />
+(C) A billing error<br />
+(D) A failed backup</p>
+<p><strong>57.</strong> What does the woman suggest checking?<br />
+(A) Server temperature<br />
+(B) A missing index<br />
+(C) User permissions<br />
+(D) Network cables</p>
+<p><strong>58.</strong> What will the man do this afternoon?<br />
+(A) Restart the server<br />
+(B) Analyze the slow queries<br />
+(C) Contact the client<br />
+(D) Delete old data</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> We got a report that the login page isn't loading for some users on mobile.<br />
+<strong>M:</strong> Is it happening on a specific browser?<br />
+<strong>W:</strong> It seems to be mostly one particular mobile browser, based on the reports so far.<br />
+<strong>M:</strong> I'll pull up the error logs and see if I can reproduce it there.</p>
+<p><strong>59.</strong> What is the reported issue?<br />
+(A) The login page fails to load on some mobile browsers.<br />
+(B) The app crashes on desktop.<br />
+(C) Users cannot reset passwords.<br />
+(D) The site is slow on Wi-Fi.</p>
+<p><strong>60.</strong> What does the woman say about the issue?<br />
+(A) It affects all browsers equally.<br />
+(B) It seems limited to one mobile browser.<br />
+(C) It only affects desktop users.<br />
+(D) It has already been fixed.</p>
+<p><strong>61.</strong> What will the man do next?<br />
+(A) Ignore the report<br />
+(B) Check the error logs and try to reproduce it<br />
+(C) Disable the login page<br />
+(D) Contact the browser company</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's go over the plan for tonight's system upgrade.<br />
+<strong>M1:</strong> We're scheduled to start at 11 P.M. and should be done by 2 A.M.<br />
+<strong>M2:</strong> I'll monitor the servers throughout and alert the team if anything looks off.<br />
+<strong>W:</strong> Perfect, and I'll send the maintenance notice to customers this afternoon.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A system upgrade<br />
+(B) A product launch<br />
+(C) A hiring event<br />
+(D) A security audit</p>
+<p><strong>63.</strong> When is the upgrade scheduled to begin?<br />
+(A) 9 P.M.<br />
+(B) 10 P.M.<br />
+(C) 11 P.M.<br />
+(D) Midnight</p>
+<p><strong>64.</strong> What will the woman do this afternoon?<br />
+(A) Monitor the servers<br />
+(B) Send a maintenance notice to customers<br />
+(C) Test the new build<br />
+(D) Cancel the upgrade</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I noticed our cloud storage bill jumped significantly this month.<br />
+<strong>W:</strong> That's probably from the backup job we set to run daily instead of weekly.<br />
+<strong>M:</strong> Should we scale that back?<br />
+<strong>W:</strong> Yes, let's switch it to weekly again and set up alerts for unusual spikes going forward.</p>
+<p><strong>65.</strong> What did the man notice?<br />
+(A) A jump in the cloud storage bill<br />
+(B) A missing invoice<br />
+(C) A security alert<br />
+(D) A slow website</p>
+<p><strong>66.</strong> What does the woman think caused it?<br />
+(A) A new employee<br />
+(B) A daily backup job<br />
+(C) A software license<br />
+(D) A server upgrade</p>
+<p><strong>67.</strong> What will the speakers do going forward?<br />
+(A) Cancel all backups<br />
+(B) Switch to weekly backups and set up alerts<br />
+(C) Ignore the bill<br />
+(D) Switch cloud providers</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> The new employee onboarding checklist mentions setting up two-factor authentication, but it's not clear who does that.<br />
+<strong>M:</strong> IT usually handles it during the laptop setup.<br />
+<strong>W:</strong> Can we add that detail to the checklist so there's no confusion next time?<br />
+<strong>M:</strong> Good idea, I'll update the document today.</p>
+<p><strong>68.</strong> What is unclear in the checklist?<br />
+(A) Who sets up two-factor authentication<br />
+(B) Who orders new laptops<br />
+(C) Who approves vacation requests<br />
+(D) Who assigns email addresses</p>
+<p><strong>69.</strong> Who usually handles this task?<br />
+(A) HR<br />
+(B) IT, during laptop setup<br />
+(C) The new employee<br />
+(D) The employee's manager</p>
+<p><strong>70.</strong> What will the man do today?<br />
+(A) Ignore the request<br />
+(B) Update the checklist<br />
+(C) Assign the task to HR<br />
+(D) Delete the checklist</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — IT announcement</h3>
+<p><em>"A reminder that we're rolling out multi-factor authentication for all accounts starting Monday. From then on, when you log in, you'll be asked to approve the sign-in on your phone using the Authenticator app. If you haven't installed and set up the app yet, there's a five-minute guide on the intranet — please do it before Monday. If you don't have a work phone, contact IT for a hardware key instead."</em></p>
+<p><strong>71.</strong> What is being rolled out Monday?<br />
+(A) A new email system<br />
+(B) Multi-factor authentication<br />
+(C) New laptops<br />
+(D) A password manager</p>
+<p><strong>72.</strong> What should employees do before Monday?<br />
+(A) Change their passwords<br />
+(B) Back up their files<br />
+(C) Attend a training session<br />
+(D) Install and set up the Authenticator app</p>
+<p><strong>73.</strong> What is the option for employees without a work phone?<br />
+(A) A shared account<br />
+(B) An email code<br />
+(C) A hardware key from IT<br />
+(D) An exemption</p>
+<h3>Talk 2 (74–76) — Voicemail from a vendor</h3>
+<p><em>"Hi, this is Dana from CloudStore Support. I'm following up on your ticket about the slow file uploads. We've identified the cause — a routing issue affecting customers in your region — and our network team expects it resolved within 24 hours. As a workaround until then, uploads through the desktop app are unaffected; it's only the web uploader that's slow. I'll email you when it's fixed. Call me back at 555-0164 if you have questions."</em></p>
+<p><strong>74.</strong> What is the ticket about?<br />
+(A) Slow file uploads<br />
+(B) A login problem<br />
+(C) A billing error<br />
+(D) A missing file</p>
+<p><strong>75.</strong> What is the cause?<br />
+(A) A routing issue affecting the region<br />
+(B) A full storage account<br />
+(C) An expired subscription<br />
+(D) A browser bug</p>
+<p><strong>76.</strong> What workaround does Dana suggest?<br />
+(A) Using a different browser<br />
+(B) Splitting large files<br />
+(C) Uploading at night<br />
+(D) Uploading through the desktop app</p>
+<h3>Talk 3 (77–79) — Conference talk excerpt</h3>
+<p><em>"One lesson from our incident last year: the fix took two hours, but figuring out what was wrong took six. Our monitoring told us the site was slow, but not why. So this year we invested in better tracing — now, when something breaks, we can follow a single request through every service and see exactly where it stalls. Our average time to diagnose an issue has dropped from about 40 minutes to under 10."</em></p>
+<p><strong>77.</strong> What was the main problem during last year's incident?<br />
+(A) The fix was too complex<br />
+(B) Diagnosing the cause took a long time<br />
+(C) The team was understaffed<br />
+(D) The backup failed</p>
+<p><strong>78.</strong> What did the company invest in this year?<br />
+(A) Better request tracing<br />
+(B) More servers<br />
+(C) A new monitoring vendor<br />
+(D) On-call staff</p>
+<p><strong>79.</strong> What improved as a result?<br />
+(A) Website speed<br />
+(B) The number of incidents<br />
+(C) The time to diagnose issues<br />
+(D) Customer satisfaction scores</p>
+<h3>Talk 4 (80–82) — Software product advertisement</h3>
+<p><em>"Spending hours every week copying data between spreadsheets? SyncSheet connects your tools so your data updates itself. Set up a link once — say, from your sales system to a reporting sheet — and it stays current, automatically. No code required; if you can build a spreadsheet, you can build a sync. Plans start at $12 a month per user, and there's a free plan for up to three links. Start free at syncsheet.example."</em></p>
+<p><strong>80.</strong> What does SyncSheet do?<br />
+(A) Backs up spreadsheets<br />
+(B) Designs charts<br />
+(C) Stores files in the cloud<br />
+(D) Keeps data synced between tools automatically</p>
+<p><strong>81.</strong> What is required to use it?<br />
+(A) Programming knowledge<br />
+(B) A dedicated server<br />
+(C) No code — spreadsheet skills are enough<br />
+(D) An IT administrator</p>
+<p><strong>82.</strong> What does the free plan include?<br />
+(A) One user only<br />
+(B) Up to three links<br />
+(C) A 14-day trial<br />
+(D) Email support only</p>
+<h3>Talk 5 (83–85) — IT department announcement</h3>
+<p><em>"Attention, all staff. Our email system will undergo scheduled maintenance this Saturday from midnight to 4 A.M. During that window, email will be unavailable, so please plan accordingly if you need to send anything urgent beforehand. All other systems will remain online as usual."</em></p>
+<p><strong>83.</strong> What will happen this Saturday?<br />
+(A) Scheduled email maintenance<br />
+(B) A company-wide meeting<br />
+(C) A new software rollout<br />
+(D) An office closure</p>
+<p><strong>84.</strong> What time will the maintenance occur?<br />
+(A) Midnight to 4 A.M.<br />
+(B) 6 A.M. to 8 A.M.<br />
+(C) Noon to 2 P.M.<br />
+(D) All day</p>
+<p><strong>85.</strong> What does the speaker suggest doing beforehand?<br />
+(A) Backing up files<br />
+(B) Sending anything urgent early<br />
+(C) Changing passwords<br />
+(D) Restarting computers</p>
+<h3>Talk 6 (86–88) — Support voicemail</h3>
+<p><em>"Hi, this is technical support returning your call about the printer error on the third floor. It looks like a firmware update should fix it, and I can install that remotely this afternoon. I'll let you know once it's done, but the printer may be briefly unavailable during the update."</em></p>
+<p><strong>86.</strong> Why is technical support calling?<br />
+(A) To schedule a new printer delivery<br />
+(B) To follow up on a printer error<br />
+(C) To cancel a service request<br />
+(D) To request a password reset</p>
+<p><strong>87.</strong> What does the caller believe will fix the issue?<br />
+(A) Replacing the printer<br />
+(B) A firmware update<br />
+(C) A new cable<br />
+(D) A power reset</p>
+<p><strong>88.</strong> What will happen during the update?<br />
+(A) The printer will be briefly unavailable.<br />
+(B) The office will lose internet.<br />
+(C) A technician will visit in person.<br />
+(D) The printer will be removed.</p>
+<h3>Talk 7 (89–91) — Product demo introduction</h3>
+<p><em>"Thanks for joining today's demo of our new task management platform. I'll walk you through three main areas: creating projects, assigning tasks to team members, and tracking progress with the dashboard. Feel free to type questions in the chat, and I'll answer as many as I can at the end."</em></p>
+<p><strong>89.</strong> What is being demonstrated?<br />
+(A) A task management platform<br />
+(B) A video editing tool<br />
+(C) An accounting system<br />
+(D) A design app</p>
+<p><strong>90.</strong> How many main areas will be covered?<br />
+(A) Two<br />
+(B) Three<br />
+(C) Four<br />
+(D) Five</p>
+<p><strong>91.</strong> How can attendees ask questions?<br />
+(A) By raising their hand<br />
+(B) By typing in the chat<br />
+(C) By emailing afterward<br />
+(D) By calling in</p>
+<h3>Talk 8 (92–94) — Data security training</h3>
+<p><em>"Welcome to this quarter's security awareness training. Today we'll focus on phishing emails, which remain the most common way attackers gain access to company systems. Watch for urgent language, unexpected attachments, and sender addresses that look almost, but not quite, correct. When in doubt, report the email instead of clicking anything."</em></p>
+<p><strong>92.</strong> What is the focus of today's training?<br />
+(A) Password management<br />
+(B) Phishing emails<br />
+(C) Physical security<br />
+(D) Data backups</p>
+<p><strong>93.</strong> What should employees watch for?<br />
+(A) Long emails<br />
+(B) Urgent language and unexpected attachments<br />
+(C) Emails from coworkers<br />
+(D) Emails sent late at night</p>
+<p><strong>94.</strong> What should employees do when unsure?<br />
+(A) Click the link to check<br />
+(B) Forward it to a friend<br />
+(C) Report the email<br />
+(D) Reply asking for clarification</p>
+<h3>Talk 9 (95–97) — App store update notes</h3>
+<p><em>"Version 4.2 is now available. This update improves loading speed by nearly forty percent and fixes a bug that caused the app to log users out unexpectedly. We've also added dark mode, which can be turned on in settings. As always, thanks for your feedback — it helps us prioritize what to build next."</em></p>
+<p><strong>95.</strong> What does version 4.2 improve?<br />
+(A) Loading speed<br />
+(B) Battery life<br />
+(C) Storage space<br />
+(D) Camera quality</p>
+<p><strong>96.</strong> What bug was fixed?<br />
+(A) A crash on startup<br />
+(B) Users being logged out unexpectedly<br />
+(C) A payment error<br />
+(D) A notification delay</p>
+<p><strong>97.</strong> What new feature was added?<br />
+(A) Voice control<br />
+(B) Dark mode<br />
+(C) Offline mode<br />
+(D) Multi-language support</p>
+<h3>Talk 10 (98–100) — Conference keynote excerpt</h3>
+<p><em>"As we look at where our industry is headed, one thing is clear: the tools that win will be the ones that get out of the user's way. Over the next twenty minutes, I'll share three principles we use when designing new features, along with examples from products you probably use every day."</em></p>
+<p><strong>98.</strong> What does the speaker say about the tools that will succeed?<br />
+(A) They will be the most complex.<br />
+(B) They will get out of the user's way.<br />
+(C) They will be the cheapest.<br />
+(D) They will require training.</p>
+<p><strong>99.</strong> How long will the talk last?<br />
+(A) Ten minutes<br />
+(B) Twenty minutes<br />
+(C) Thirty minutes<br />
+(D) One hour</p>
+<p><strong>100.</strong> What will the speaker share?<br />
+(A) Sales figures<br />
+(B) Three design principles with examples<br />
+(C) A product roadmap<br />
+(D) A list of competitors</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_007 — READING (100 câu: 101–200) · Chủ đề: Technology &amp; IT</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The IT team <span class="blk">________</span> all servers every night for security patches.<br />
+(A) scan  (B) scans  (C) scanning  (D) to scan</p>
+<p><strong>102.</strong> Employees must save their work <span class="blk">________</span> the system is updated at midnight.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The support team resolved the issue <span class="blk">________</span>, within an hour of the report.<br />
+(A) quick  (B) quickness  (C) quickly  (D) quicker</p>
+<p><strong>104.</strong> <span class="blk">________</span> a brief outage, the payment system processed all transactions correctly.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Users are advised to <span class="blk">________</span> the app before contacting support.<br />
+(A) restart  (B) restarts  (C) restarting  (D) restarted</p>
+<p><strong>106.</strong> The manual includes instructions <span class="blk">________</span> setting up a secure connection.<br />
+(A) for  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three hosting plans, the enterprise plan offers the <span class="blk">________</span> storage.<br />
+(A) more  (B) most  (C) much  (D) many</p>
+<p><strong>108.</strong> The launch was pushed back <span class="blk">________</span> a bug found during final testing.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The company cut server costs <span class="blk">________</span> moving to a smaller instance type.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Response times have improved <span class="blk">________</span> since the database was optimized.<br />
+(A) marked  (B) markedness  (C) marker  (D) markedly</p>
+<p><strong>111.</strong> Each device <span class="blk">________</span> registered before it can access the network.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The lead developer asked the team to <span class="blk">________</span> the release notes before Friday.<br />
+(A) finalize  (B) finalizing  (C) finalized  (D) finalization</p>
+<p><strong>113.</strong> The error code is displayed <span class="blk">________</span> the bottom of the screen.<br />
+(A) in  (B) on  (C) at  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> the update finishes downloading, the device will restart automatically.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The platform <span class="blk">________</span> over 10,000 concurrent users during peak hours.<br />
+(A) support  (B) supports  (C) supporting  (D) supported</p>
+<p><strong>116.</strong> The security review is expected <span class="blk">________</span> by the end of the month.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Administrators should keep <span class="blk">________</span> logs of every configuration change.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The new caching layer serves pages far <span class="blk">________</span> than the previous setup.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The report lists several <span class="blk">________</span> to reduce the application's memory usage.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The training session will be held <span class="blk">________</span> the lab on the fifth floor.<br />
+(A) in  (B) at  (C) on  (D) by</p>
+<p><strong>121.</strong> The vendor delivered the software <span class="blk">________</span> a few known limitations, which are documented.<br />
+(A) for  (B) of  (C) with  (D) about</p>
+<p><strong>122.</strong> A consultant will <span class="blk">________</span> the network architecture before the expansion.<br />
+(A) assess  (B) assesses  (C) assessing  (D) assessment</p>
+<p><strong>123.</strong> Interns are <span class="blk">________</span> for access to the development environment, but not production.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The redesigned dashboard loads <span class="blk">________</span> than the version it replaced.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The team is committed to <span class="blk">________</span> clear documentation for every new feature.<br />
+(A) write  (B) writes  (C) writing  (D) written</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed frameworks meets our accessibility requirements, so the search continues.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The help desk operates <span class="blk">________</span> 7 A.M. to 9 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>128.</strong> Any change to a production system must be approved by an <span class="blk">________</span> reviewer.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The new API documentation <span class="blk">________</span> published on the developer portal next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The onboarding guide provides <span class="blk">________</span> steps for configuring a new workstation.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>Subject:</strong> Scheduled Maintenance — File Server</p>
+<p>Our main file server <span class="blk">(131)</span> offline this Saturday from 8 A.M. to 2 P.M. for a hardware upgrade.</p>
+<p>During this window, shared drives will be unavailable. Files stored in the cloud workspace <span class="blk">(132)</span> accessible as normal. If you have work that depends on the shared drives, please copy what you need to your local machine or the cloud workspace beforehand.</p>
+<p>The upgrade <span class="blk">(133)</span> roughly double the server's capacity and improve read speeds. We expect it to be back online by 2 P.M., and we'll post a confirmation in the IT channel.</p>
+<p>Thank you for your patience while we make this improvement. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) takes  (B) will be taken  (C) is taking  (D) took<br />
+<strong>132.</strong> (A) remain  (B) remains  (C) remaining  (D) to remain<br />
+<strong>133.</strong> (A) would  (B) is  (C) has  (D) will<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The new server will also support twice as many simultaneous users.<br />
+(B) Please back up all files before Friday at noon.<br />
+(C) Reach out to the IT help desk if you run into any issues.<br />
+(D) This is the first scheduled maintenance in over a year.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>UPDATE — Software Installation</strong></p>
+<p>Effective Monday, you <span class="blk">(135)</span> longer install software on your work computer yourself. Instead, request it through the Software Center, where pre-approved applications install with one click.</p>
+<p>If the app you need isn't listed, submit a request with a business reason. Most requests <span class="blk">(136)</span> reviewed within one business day. Apps that handle customer data require a security check and may take longer.</p>
+<p>This change reduces the risk of unlicensed or unsafe software <span class="blk">(137)</span> slowing you down for everyday tools.</p>
+<p>If you have an app installed that is later removed from the approved list, IT will contact you before it is uninstalled. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) will  (C) must  (D) should<br />
+<strong>136.</strong> (A) is  (B) being  (C) are  (D) be<br />
+<strong>137.</strong> (A) despite  (B) instead of  (C) without  (D) except<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) All currently installed software will be removed by default.<br />
+(B) The Software Center is only available to managers.<br />
+(C) Security checks typically take several weeks to complete.<br />
+(D) Thanks for helping us keep company systems secure.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>SEE PROBLEMS BEFORE YOUR USERS DO</strong></p>
+<p>PulseWatch checks your website and APIs from locations around the world, every minute. If something goes down or slows past your threshold, your team gets an <span class="blk">(139)</span> alert by chat, email, or phone.</p>
+<p>Setup takes minutes: add a URL, set your thresholds, and choose who to notify. Every check is <span class="blk">(140)</span> so you're not paged for a blip that recovers on its own.</p>
+<p>Pricing is per monitored endpoint, with no <span class="blk">(141)</span> commitment. Start a 14-day free trial — entering a card is not required. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) instant  (B) instantly  (C) instance  (D) instances<br />
+<strong>140.</strong> (A) configure  (B) configurable  (C) configuring  (D) configuration<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) PulseWatch integrates with over 50 chat and alerting tools.<br />
+(B) Enterprise customers receive a dedicated account manager.<br />
+(C) A minimum of ten monitored endpoints is required to start.<br />
+(D) Sign up today and start monitoring in minutes.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Developers <strong>FROM:</strong> Engineering <strong>RE:</strong> New Code Review Rule</p>
+<p>Starting this sprint, every pull request <span class="blk">(143)</span> at least one approval before it can be merged. For changes to shared libraries or the payments module, two approvals are required.</p>
+<p>Reviewers <span class="blk">(144)</span> to respond within one working day. If a review is blocking urgent work and no one has responded, message the team channel — don't merge without a review.</p>
+<p>The goal is to catch issues early and spread knowledge across the team. It <span class="blk">(145)</span> add a small delay to some merges; we think the trade-off is worth it.</p>
+<p>Please check your open pull requests and request reviews now so nothing is stuck when the rule takes effect. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) needs  (B) need  (C) needing  (D) needed<br />
+<strong>144.</strong> (A) expect  (B) are expected  (C) expecting  (D) expects<br />
+<strong>145.</strong> (A) would  (B) has  (C) is  (D) will<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Reach out to engineering leadership with any concerns.<br />
+(B) This rule applies only to the payments module.<br />
+(C) The new rule will be reversed if it slows the team down.<br />
+(D) Code reviews will now be conducted only on Fridays.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Owen (9:05 A.M.):</strong> Prod is throwing 500s on checkout. Started ~9:00.<br />
+<strong>Rina (9:06 A.M.):</strong> On it. Looks like the payments API is timing out. Rolling back the 8:50 deploy.<br />
+<strong>Owen (9:11 A.M.):</strong> Rollback done — errors stopped. Confirmed on my end too.<br />
+<strong>Rina (9:12 A.M.):</strong> I'll write the incident note and figure out what in that deploy caused it.</p>
+<p><strong>147.</strong> What problem started at about 9:00 A.M.?<br />
+(A) Checkout was returning errors<br />
+(B) The website went completely offline<br />
+(C) Users couldn't log in<br />
+(D) Emails weren't sending</p>
+<p><strong>148.</strong> What fixed the problem?<br />
+(A) Restarting the servers<br />
+(B) Contacting the payment provider<br />
+(C) Rolling back the recent deploy<br />
+(D) Clearing the cache</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>COMPANY MOVES INTERNAL TOOLS TO A "REMOTE-FIRST" SETUP</strong></p>
+<p>Vantea, a 400-person software company, said it has finished a two-year project to make all of its internal systems usable from anywhere without a special network connection. Previously, employees had to connect to a company VPN to reach tools like the code repository, the deployment system, and internal wikis.</p>
+<p>The new setup uses identity checks on every request instead of trusting the network. "If your account is verified and your device is healthy, you get access — whether you're in the office or a café," said IT director Marco Vidal.</p>
+<p>The company said the change has cut help-desk tickets about VPN connectivity to nearly zero and made it easier to bring on contractors, who previously needed company laptops just to reach basic tools. Vantea plans to publish a written guide so other companies can follow a similar path.</p>
+<p><strong>149.</strong> What did Vantea complete?<br />
+(A) A move to remote-first internal systems<br />
+(B) A merger with another software company<br />
+(C) A new office building<br />
+(D) A switch to a new code repository</p>
+<p><strong>150.</strong> How did employees previously reach internal tools?<br />
+(A) Through a public website<br />
+(B) By connecting to a company VPN<br />
+(C) Only from the office<br />
+(D) Through a mobile app</p>
+<p><strong>151.</strong> What does the new setup check on every request?<br />
+(A) The employee's location<br />
+(B) The manager's approval<br />
+(C) The account and device<br />
+(D) The time of day</p>
+<p><strong>152.</strong> What benefit is mentioned for contractors?<br />
+(A) They get higher pay<br />
+(B) They can work unlimited hours<br />
+(C) They get permanent contracts<br />
+(D) They no longer need company laptops for basic tools</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Wi-Fi Network Change</strong></p>
+<p>On Thursday, the guest Wi-Fi network "Office-Guest" will be replaced by "Office-Visitor." The old network stops working at 6 P.M. Wednesday.</p>
+<p>Staff devices use the separate "Office-Staff" network and are not affected. If you have guests on Thursday, the new password is printed on the cards at reception.</p>
+<p><strong>153.</strong> What is changing on Thursday?<br />
+(A) The guest Wi-Fi network name and password<br />
+(B) The staff Wi-Fi network<br />
+(C) The internet provider<br />
+(D) The office phone system</p>
+<p><strong>154.</strong> When does the old guest network stop working?<br />
+(A) Noon Thursday<br />
+(B) 6 P.M. Thursday<br />
+(C) 6 P.M. Wednesday<br />
+(D) Friday morning</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>STOP LOSING TIME TO PASSWORD RESETS</strong></p>
+<p>KeyVault is a password manager built for small teams. Everyone gets a personal vault plus shared vaults for team logins, so no one is emailing passwords around or keeping them in a spreadsheet.</p>
+<p>Admins can see which shared logins each person can access, remove access instantly when someone leaves, and require strong passwords everywhere. Setup for a team of ten takes about 20 minutes.</p>
+<p>Plans are $4 per user per month. Try it free for 30 days — no card required — at keyvault.example.</p>
+<p><strong>155.</strong> What problem does KeyVault address?<br />
+(A) Slow internet connections<br />
+(B) Teams sharing passwords insecurely<br />
+(C) Lost laptops<br />
+(D) Spam email</p>
+<p><strong>156.</strong> What can admins do?<br />
+(A) Read employees' personal emails<br />
+(B) Reset the company network<br />
+(C) Track employee locations<br />
+(D) Remove someone's access instantly when they leave</p>
+<p><strong>157.</strong> How long is the free trial?<br />
+(A) 7 days<br />
+(B) 14 days<br />
+(C) 30 days<br />
+(D) 60 days</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> engineering <strong>From:</strong> Platform Team <strong>Subject:</strong> Deprecating the v1 API on September 30</p>
+<p>We're retiring version 1 of our internal API on September 30. Version 2 has been available for a year and covers everything v1 does, plus better error messages and pagination.</p>
+<p>If your service still calls v1, you'll see a warning header in responses now, and hard failures after September 30. To check whether you're affected, search your code for the base URL "/api/v1/".</p>
+<p>We've written a migration guide with side-by-side examples. Most teams report the switch takes a few hours. If you need help, book time with the Platform Team through the shared calendar.</p>
+<p><strong>158.</strong> What is happening on September 30?<br />
+(A) Version 1 of the internal API is being retired<br />
+(B) A new API is being launched<br />
+(C) The API is moving to a new server<br />
+(D) API access is being restricted to admins</p>
+<p><strong>159.</strong> How can a team check whether it is affected?<br />
+(A) Run a performance test<br />
+(B) Search their code for "/api/v1/"<br />
+(C) Ask the Platform Team to audit them<br />
+(D) Wait for an email</p>
+<p><strong>160.</strong> What does the Platform Team provide to help?<br />
+(A) Automatic code changes<br />
+(B) A six-month extension<br />
+(C) A migration guide with examples<br />
+(D) A dedicated engineer per team</p>
+<h3>Passage 6 — Release schedule (161–162)</h3>
+<p><strong>RELEASE SCHEDULE — Q3</strong></p>
+<table>
+<thead>
+<tr>
+<th>Release</th>
+<th>Date</th>
+<th>Type</th>
+<th>Freeze starts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.4</td>
+<td>July 9</td>
+<td>Feature</td>
+<td>July 4</td>
+</tr>
+<tr>
+<td>3.4.1</td>
+<td>July 23</td>
+<td>Bug fixes</td>
+<td>July 21</td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>Aug 20</td>
+<td>Feature</td>
+<td>Aug 15</td>
+</tr>
+<tr>
+<td>3.5.1</td>
+<td>Sep 3</td>
+<td>Bug fixes</td>
+<td>Sep 1</td>
+</tr>
+</tbody>
+</table>
+<p>During a code freeze, only fixes for critical bugs may be merged. All other changes wait until after the release.</p>
+<p><strong>161.</strong> What can be merged during a code freeze?<br />
+(A) Any approved change<br />
+(B) Only critical bug fixes<br />
+(C) Documentation updates only<br />
+(D) Nothing at all</p>
+<p><strong>162.</strong> When does the freeze for release 3.5 start?<br />
+(A) August 20<br />
+(B) September 1<br />
+(C) September 3<br />
+(D) August 15</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Delgado,</p>
+<p>Thank you for reporting the issue with your account's two-factor authentication on March 12. We have investigated and want to explain what happened and what we've changed.</p>
+<p>A configuration error on our side caused verification codes to be sent to some users several minutes late, which meant the codes had expired by the time they arrived. This affected roughly 2% of sign-in attempts over a four-hour window. The error was corrected the same day.</p>
+<p>We have added an automated check that alerts our team if code delivery times rise above a safe threshold, so a similar delay would be caught within minutes rather than hours.</p>
+<p>As the disruption may have locked you out temporarily, we've credited your account with one free month of the Pro plan. We apologize for the inconvenience.</p>
+<p>Sincerely,<br />
+Account Security Team</p>
+<p><strong>163.</strong> Why is the company writing to Ms. Delgado?<br />
+(A) To explain a two-factor authentication problem she reported<br />
+(B) To confirm a subscription change she requested<br />
+(C) To warn her about suspicious activity<br />
+(D) To ask her to reset her password</p>
+<p><strong>164.</strong> What caused the problem?<br />
+(A) A phishing attack<br />
+(B) An expired security certificate<br />
+(C) A power outage<br />
+(D) A configuration error that delayed verification codes</p>
+<p><strong>165.</strong> What has the company added to prevent a recurrence?<br />
+(A) A backup verification method<br />
+(B) An automated check on code delivery times<br />
+(C) A 24-hour support line<br />
+(D) Longer code expiration times</p>
+<p><strong>166.</strong> What did the company give Ms. Delgado?<br />
+(A) A partial refund<br />
+(B) A new account<br />
+(C) A free month of the Pro plan<br />
+(D) A discount on next year's plan</p>
+<h3>Passage 8 — Developer FAQ (167–169)</h3>
+<p><strong>DEVELOPER FAQ — Rate Limits</strong></p>
+<p><strong>What are the rate limits?</strong><br />
+The default limit is 600 requests per minute per API key. Bulk endpoints have a separate limit of 60 requests per minute.</p>
+<p><strong>What happens if I exceed the limit?</strong><br />
+You receive a 429 response with a "Retry-After" header telling you how many seconds to wait. Repeated violations can lead to a temporary key suspension.</p>
+<p><strong>Can I get a higher limit?</strong><br />
+Yes. Describe your use case in a support ticket. Higher limits are granted for legitimate production needs, usually within two business days.</p>
+<p><strong>How do I track my usage?</strong><br />
+The developer dashboard shows request counts per key, updated every minute.</p>
+<p><strong>167.</strong> What is the default rate limit?<br />
+(A) 60 requests per minute<br />
+(B) 600 requests per minute per key<br />
+(C) 6,000 requests per hour<br />
+(D) There is no default limit</p>
+<p><strong>168.</strong> What does a 429 response include?<br />
+(A) A refund<br />
+(B) A new API key<br />
+(C) A list of blocked IPs<br />
+(D) A "Retry-After" header</p>
+<p><strong>169.</strong> How can a developer get a higher limit?<br />
+(A) Upgrade to a paid plan automatically<br />
+(B) Wait 30 days<br />
+(C) Describe the use case in a support ticket<br />
+(D) It is not possible</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> IT Security <strong>RE:</strong> Phishing Test Results and Next Steps</p>
+<p>Last week we sent a simulated phishing email to all staff. About 9% of recipients clicked the link, and 3% entered credentials on the fake page. That's an improvement over last year's 15% click rate, but still higher than we'd like.</p>
+<p>Anyone who clicked will receive a short 10-minute training module this week; it's not a disciplinary action, just a refresher. No individual results are shared with managers.</p>
+<p>The most common giveaway people missed: the sender address used a look-alike domain — "cornpany.com" instead of "company.com." When in doubt, hover over links and check the address carefully, or forward the message to security@company.com.</p>
+<p><strong>170.</strong> What did IT Security do last week?<br />
+(A) Sent a simulated phishing email<br />
+(B) Blocked all external email<br />
+(C) Reset everyone's passwords<br />
+(D) Audited manager accounts</p>
+<p><strong>171.</strong> What happens to people who clicked the link?<br />
+(A) They are reported to their manager<br />
+(B) They receive a short training module<br />
+(C) Their account is suspended<br />
+(D) Nothing</p>
+<p><strong>172.</strong> What was the common giveaway that people missed?<br />
+(A) A spelling error in the subject line<br />
+(B) An urgent tone<br />
+(C) A look-alike sender domain<br />
+(D) A request for money</p>
+<h3>Passage 10 — Online review (173–175)</h3>
+<p>★★★☆☆ <strong>Powerful, but the onboarding is rough</strong> — IT Manager, mid-size company</p>
+<p>Once it's set up, this tool does a lot — asset tracking, software licensing, and patch status all in one place, and the reporting is genuinely useful for audits.</p>
+<p>Getting there is the problem. The initial import of our device list failed twice with unhelpful errors, and it took two support tickets and a screen-share to get it working. The documentation assumes you already know the product's terminology. Support was friendly and eventually effective, just slow.</p>
+<p>If you have the patience for a bumpy first week, it's worth it. If you need something running by Friday, look elsewhere.</p>
+<p><strong>173.</strong> What does the reviewer say the tool does well once set up?<br />
+(A) Asset tracking, licensing, and patch status in one place<br />
+(B) Email filtering<br />
+(C) Network monitoring<br />
+(D) Backup and recovery</p>
+<p><strong>174.</strong> What was the main difficulty?<br />
+(A) High cost<br />
+(B) Missing features<br />
+(C) Poor security<br />
+(D) A rough onboarding and initial import</p>
+<p><strong>175.</strong> Who would the reviewer NOT recommend the tool to?<br />
+(A) Large companies<br />
+(B) Companies without an IT team<br />
+(C) Companies with old hardware<br />
+(D) Companies that need it running within days</p>
+<h3>Passages 11–12 — Support ticket &amp; reply (176–180)</h3>
+<p><strong>Document 1 — Support ticket</strong></p>
+<p><strong>SUPPORT TICKET #48120</strong> · Submitted by: Nadia Farah (external client) · Priority: High<br />
+Subject: Reports export failing for large date ranges</p>
+<p>When I export a report for a full quarter (about 90 days), the download fails after a minute or two with "request timed out." Exporting one month at a time works fine. This started about a week ago. I need the quarterly export for a board meeting on Friday.</p>
+<p><strong>Document 2 — Reply</strong></p>
+<p><strong>From:</strong> Support — DataHub <strong>To:</strong> Nadia Farah <strong>Subject:</strong> RE: Ticket #48120</p>
+<p>Hi Nadia,</p>
+<p>Thanks for the details — the "works for one month, fails for three" pattern is very helpful.</p>
+<p>We recently changed how large exports are generated, and reports above a certain size now need to be run as a background job rather than a direct download. The UI wasn't updated to reflect this, which is the bug. A fix is scheduled for next week.</p>
+<p>In the meantime, here's a workaround that will get you the quarterly report before Friday: in the export dialog, check "Email me the file when ready." The export then runs in the background and you'll get a download link by email, usually within 10 minutes. That path already works for large ranges.</p>
+<p><strong>176.</strong> What problem is Nadia reporting?<br />
+(A) Reports show the wrong numbers<br />
+(B) Large-range report exports time out<br />
+(C) She can't log in<br />
+(D) Reports are missing data</p>
+<p><strong>177.</strong> What does support say is the underlying cause?<br />
+(A) A slow internet connection<br />
+(B) A corrupted report template<br />
+(C) Large exports now need a background job, but the UI wasn't updated<br />
+(D) The client's date range is invalid</p>
+<p><strong>178.</strong> When is a fix scheduled?<br />
+(A) The same day<br />
+(B) After Friday's meeting<br />
+(C) In the next quarter<br />
+(D) Next week</p>
+<p><strong>179.</strong> What workaround does support suggest?<br />
+(A) Exporting one month at a time<br />
+(B) Using a different browser<br />
+(C) Checking "Email me the file when ready"<br />
+(D) Reducing the report's columns</p>
+<p><strong>180.</strong> How soon does the emailed export usually arrive?<br />
+(A) Within 10 minutes<br />
+(B) Within an hour<br />
+(C) The next day<br />
+(D) Within 24 hours</p>
+<h3>Passages 13–14 — Two emails about licensing (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Priya Anand, IT Procurement <strong>To:</strong> sales@devtools.example <strong>Subject:</strong> License count for the coming year</p>
+<p>Hi,</p>
+<p>Our annual renewal is coming up. We currently have 40 seats of your IDE. Over the past year our engineering team grew, and we now have 52 people who need it. A few questions:<br />
+1. Can we add 12 seats mid-term, or do we wait for renewal?<br />
+2. Is there a price break at a higher seat count?<br />
+3. Do unused seats roll over if someone leaves?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> sales@devtools.example <strong>To:</strong> Priya Anand <strong>Subject:</strong> RE: License count for the coming year</p>
+<p>Hi Priya,</p>
+<ol>
+<li>You can add seats any time. Mid-term additions are prorated to your renewal date, so the 12 seats would be billed for the remaining months only.</li>
+<li>Yes — at 50+ seats you move to the "Team" tier, which is about 15% cheaper per seat than your current rate. Adding the 12 seats would put you over that threshold, so your whole account would move to the lower rate at renewal.</li>
+<li>Seats are assigned, not consumed. If someone leaves, you can reassign their seat to a new hire at no cost. You only pay more if your total assigned seats increase.</li>
+</ol>
+<p><strong>181.</strong> Why is Priya writing?<br />
+(A) To cancel the subscription<br />
+(B) To ask about adding seats and pricing<br />
+(C) To report a bug in the IDE<br />
+(D) To request a refund</p>
+<p><strong>182.</strong> Can the company add seats before renewal?<br />
+(A) No, only at renewal<br />
+(B) Only if it doubles the seat count<br />
+(C) Only with a new contract<br />
+(D) Yes, prorated to the renewal date</p>
+<p><strong>183.</strong> What happens to pricing at 50+ seats?<br />
+(A) The price per seat increases<br />
+(B) A one-time setup fee applies<br />
+(C) The account moves to a cheaper "Team" tier<br />
+(D) Nothing changes</p>
+<p><strong>184.</strong> What happens to a seat when an employee leaves?<br />
+(A) It can be reassigned to a new hire at no cost<br />
+(B) It is lost<br />
+(C) It is refunded<br />
+(D) It expires after 30 days</p>
+<p><strong>185.</strong> When would the company move to the lower rate?<br />
+(A) At renewal<br />
+(B) Immediately<br />
+(C) After 12 months<br />
+(D) Only if requested again</p>
+<h3>Passages 15–17 — Plan comparison, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Plan comparison</strong></p>
+<p><strong>PROJECTFLOW — PLAN COMPARISON</strong></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Starter</th>
+<th>Business</th>
+<th>Enterprise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Users</td>
+<td>up to 10</td>
+<td>up to 100</td>
+<td>unlimited</td>
+</tr>
+<tr>
+<td>Projects</td>
+<td>5</td>
+<td>unlimited</td>
+<td>unlimited</td>
+</tr>
+<tr>
+<td>Guest access</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Single sign-on (SSO)</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Priority support</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Audit log</td>
+<td>✗</td>
+<td>30 days</td>
+<td>1 year</td>
+</tr>
+</tbody>
+</table>
+<p>Annual billing gives two months free on any plan. Nonprofits get 25% off Business and Enterprise.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Whitfield <strong>To:</strong> sales@projectflow.example <strong>Subject:</strong> Which plan for us</p>
+<p>Hi,</p>
+<p>We're a nonprofit with 45 staff. We need guest access for our partner organizations, and our security team requires single sign-on. We'd also like at least 90 days of audit history.</p>
+<p>Which plan fits, and what would it cost with the nonprofit discount, billed annually?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> sales@projectflow.example <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: Which plan for us</p>
+<p>Hi Sam,</p>
+<p>Because you need single sign-on, you'll need the Enterprise plan — SSO isn't available on Business. Enterprise also covers guest access and gives you a one-year audit log, well above your 90-day requirement.</p>
+<p>With the 25% nonprofit discount and annual billing (which adds two months free), I can put together a quote. I'll need your final user count to price it — you mentioned 45 staff; would you also be adding guest accounts? Guests don't count toward your user limit on Enterprise.</p>
+<p><strong>186.</strong> What does Sam's security team require?<br />
+(A) A one-year audit log<br />
+(B) Single sign-on<br />
+(C) Priority support<br />
+(D) Unlimited projects</p>
+<p><strong>187.</strong> Why does Sam need the Enterprise plan specifically?<br />
+(A) He has more than 100 users<br />
+(B) He needs guest access<br />
+(C) SSO is only on Enterprise<br />
+(D) He needs unlimited projects</p>
+<p><strong>188.</strong> What discount does Sam's organization qualify for?<br />
+(A) 10% for annual billing<br />
+(B) A free trial extension<br />
+(C) No discount<br />
+(D) 25% nonprofit discount</p>
+<p><strong>189.</strong> What does annual billing add?<br />
+(A) Two months free<br />
+(B) A free onboarding session<br />
+(C) An extra 10 users<br />
+(D) A longer audit log</p>
+<p><strong>190.</strong> What does the salesperson still need from Sam?<br />
+(A) A signed contract<br />
+(B) A purchase order number<br />
+(C) A list of projects<br />
+(D) His final user count</p>
+<h3>Passages 18–20 — Incident report, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Incident summary</strong></p>
+<p><strong>INCIDENT REPORT — INC-2291</strong><br />
+Summary: Search feature unavailable for 3 hours 20 minutes.<br />
+Impact: Users could browse and check out, but could not search products. Estimated 8% drop in orders during the window.<br />
+Cause: A routine index rebuild ran during peak hours instead of overnight, overloading the search cluster.<br />
+Fix: Rebuild paused; search restored. Rebuild rescheduled to 3 A.M.<br />
+Follow-up: Add a guard so index rebuilds cannot start between 8 A.M. and 10 P.M. (owner: Search team, due in 1 week).</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rana Osei, Customer Success <strong>To:</strong> Engineering — Incident Review <strong>Subject:</strong> INC-2291 — customer-facing questions</p>
+<p>Hi,</p>
+<p>Two large customers have asked about yesterday's search outage. Before I reply, can you confirm:<br />
+1. Was any customer data lost or exposed?<br />
+2. Is there anything customers need to do on their end?<br />
+3. When will the guard be in place so this can't recur the same way?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> Engineering — Incident Review <strong>To:</strong> Rana Osei <strong>Subject:</strong> RE: INC-2291 — customer-facing questions</p>
+<p>Hi Rana,</p>
+<ol>
+<li>No data was lost or exposed. The issue was purely availability of the search feature; all data was intact and other features worked normally.</li>
+<li>Nothing on the customer side — no action needed, no re-indexing of their data, nothing to reconfigure.</li>
+<li>The guard against daytime index rebuilds is due within a week; I'll confirm here when it's deployed. In the meantime, we've manually locked the rebuild schedule to overnight only.</li>
+</ol>
+<p><strong>191.</strong> What was the impact of the incident?<br />
+(A) Users couldn't check out<br />
+(B) Users couldn't search products<br />
+(C) The whole site was down<br />
+(D) Customer data was exposed</p>
+<p><strong>192.</strong> What caused the incident?<br />
+(A) A denial-of-service attack<br />
+(B) A failed deployment<br />
+(C) An index rebuild running during peak hours<br />
+(D) A hardware failure</p>
+<p><strong>193.</strong> Was any customer data lost or exposed?<br />
+(A) Yes, a small amount<br />
+(B) Only search history<br />
+(C) It is still being investigated<br />
+(D) No</p>
+<p><strong>194.</strong> What do customers need to do?<br />
+(A) Re-index their data<br />
+(B) Reset their search filters<br />
+(C) Nothing<br />
+(D) Contact support</p>
+<p><strong>195.</strong> What is the follow-up action?<br />
+(A) Add a guard preventing daytime index rebuilds<br />
+(B) Move search to a new server<br />
+(C) Hire more on-call engineers<br />
+(D) Disable the search feature during peak hours</p>
+<h3>Passages 21–23 — Data retention policy, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Policy (excerpt)</strong></p>
+<p><strong>DATA RETENTION POLICY</strong><br />
+- Active customer records: kept for as long as the account is active.<br />
+- Closed accounts: personal data is deleted 90 days after closure, unless the customer requests earlier deletion or a legal hold applies.<br />
+- Backups: retained for 35 days on a rolling basis; data in backups is not individually deleted but ages out within 35 days.<br />
+- Support tickets: kept for 2 years, then anonymized (name and email removed, content kept for trend analysis).<br />
+- Customers may request a copy of their data at any time; it is provided within 30 days.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Bright (customer) <strong>To:</strong> privacy@service.example <strong>Subject:</strong> Delete my data</p>
+<p>Hi,</p>
+<p>I closed my account last week. I'd like my personal data deleted now rather than waiting 90 days. Also, will my old support tickets be deleted too, and what about anything in your backups?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> privacy@service.example <strong>To:</strong> Owen Bright <strong>Subject:</strong> RE: Delete my data</p>
+<p>Hi Owen,</p>
+<p>We've received your request for early deletion. Your personal data in our active systems will be deleted within 30 days, ahead of the standard 90-day timeline.</p>
+<p>For support tickets: the name and email on your tickets will be removed as part of this request; we keep the ticket content in anonymized form for trend analysis, as noted in our policy.</p>
+<p>For backups: we don't delete individual records from backups, but backups roll off after 35 days, so any copy of your data there will be gone within about five weeks. Backups are access-restricted and only used for disaster recovery.</p>
+<p><strong>196.</strong> When is personal data from a closed account normally deleted?<br />
+(A) Immediately<br />
+(B) 30 days after closure<br />
+(C) 90 days after closure<br />
+(D) After 2 years</p>
+<p><strong>197.</strong> What does Owen request?<br />
+(A) A copy of his data<br />
+(B) Early deletion of his personal data<br />
+(C) To reopen his account<br />
+(D) A refund</p>
+<p><strong>198.</strong> What will happen to Owen's support tickets?<br />
+(A) They will be deleted entirely<br />
+(B) Nothing; they are kept as is<br />
+(C) They will be sent to him<br />
+(D) His name and email will be removed; content kept anonymized</p>
+<p><strong>199.</strong> Why can't individual data be deleted from backups?<br />
+(A) Backups are stored by a third party<br />
+(B) The company doesn't delete individual records from backups; they age out in 35 days<br />
+(C) It requires a court order<br />
+(D) Backups are permanent</p>
+<p><strong>200.</strong> What are backups used for?<br />
+(A) Disaster recovery<br />
+(B) Marketing analysis<br />
+(C) Training new staff<br />
+(D) Sharing with partners</p>
+<hr />
+<p><em>Hết phần Reading — Set_007. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_007</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A25/B24/C27/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>2 B</strong> "a team is looking at code on a screen" · bẫy: "unplugging computers", "packing equipment"</li>
+<li><strong>3 C</strong> "a support agent is speaking on a headset" · bẫy: "signing a form", "repairing a keyboard"</li>
+<li><strong>5 D</strong> "a presenter is standing beside a large screen" · bẫy: "audience is leaving", "screen is being mounted"</li>
+<li><strong>6 C</strong> "installing a part inside a computer" · bẫy: "monitor is being wiped", "cable is being plugged in"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where...reset my password?" → "On the IT self-service page" · bẫy: lặp "changed mine"</li>
+<li><strong>13 C</strong> tag question → "Yes, they're in the storeroom" · bẫy: nhận xét trọng lượng / số lượng</li>
+<li><strong>15 A</strong> "Isn't the backup supposed to run every night?" → "Yes, at 2 A.M. automatically"</li>
+<li><strong>17 C</strong> "What did the review find?" → "A few outdated software versions" · bẫy: trả lời How long / Who</li>
+<li><strong>19 B</strong> "has the outage been resolved?" → "Let me check the status page" (gián tiếp)</li>
+<li><strong>21 C</strong> yêu cầu deploy → "I'll deploy it after testing" · bẫy: lặp "code"</li>
+<li><strong>25 B</strong> "Isn't the feature usually tested?" → đính chính "skipped QA by mistake" · bẫy: lặp "feature"</li>
+<li><strong>31 C</strong> "Why was the deployment rolled back?" → lý do cụ thể "spike in errors" · bẫy: lặp "deployment"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "won't connect to any of the meeting room displays" · "a firmware update over the weekend" · "Install that [app] and restart"</li>
+<li>35–37: "new ticketing system goes live Monday" · "a few are worried about the new categories" · "send the invite and post the fallback plan"</li>
+<li>38–40: "mobile app crashing on startup" · "all on the latest OS version" → "points to the OS update" · "post a note in the app store reviews"</li>
+<li>41–43: "cloud bill jumped 40%" · "a test environment was left running" · "Already did [shut it down]. I've also set up an alert"</li>
+<li>44–46: "share this folder with the vendor" · "External sharing is off by default" · "a link that expires in 30 days and is view-only"</li>
+<li>47–49: "disaster-recovery test" · "in about 90 minutes" · "The DNS change took longer than expected to propagate"</li>
+<li>50–52: "app keeps crashing" on large uploads · "upload limit ... seems correct" · "better error handling"</li>
+<li>53–55: "reviewing the pull request" · "function names aren't descriptive" · "update those and push today"</li>
+<li>56–58: "database queries ... slower" · "missing index" · "analyze the slow queries"</li>
+<li>59–61: "login page isn't loading" on mobile · "limited to one mobile browser" · "check the error logs"</li>
+<li>62–64: "tonight's system upgrade" · "start at 11 P.M." · "send a maintenance notice to customers"</li>
+<li>65–67: "cloud storage bill jumped" · "daily backup job" · "switch to weekly backups and set up alerts"</li>
+<li>68–70: "who sets up two-factor authentication" · "IT, during laptop setup" · "update the checklist"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "multi-factor authentication for all accounts starting Monday" · "install and set up the app ... before Monday" · "contact IT for a hardware key instead"</li>
+<li>74–76: "slow file uploads" · "a routing issue affecting customers in your region" · "uploads through the desktop app are unaffected"</li>
+<li>77–79: "figuring out what was wrong took six [hours]" · "we invested in better tracing" · "time to diagnose ... dropped from about 40 minutes to under 10"</li>
+<li>80–82: "connects your tools so your data updates itself" · "No code required" · "a free plan for up to three links"</li>
+<li>83–85: "email system ... scheduled maintenance" Saturday · "midnight to 4 A.M." · "send anything urgent beforehand"</li>
+<li>86–88: "printer error on the third floor" · "firmware update should fix it" · "printer may be briefly unavailable"</li>
+<li>89–91: "task management platform" demo · "three main areas" · "type questions in the chat"</li>
+<li>92–94: "phishing emails" · "urgent language and unexpected attachments" · "report the email"</li>
+<li>95–97: "version 4.2" · "loading speed" · "dark mode"</li>
+<li>98–100: "tools that win ... get out of the user's way" · "twenty minutes" · "three design principles with examples"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The IT team</code> số ít + thói quen → <code>scans</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>resolved</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be advised to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>instructions for</code> + V-ing</td>
+</tr>
+<tr>
+<td>107</td>
+<td>B</td>
+<td><code>the <span class="fill"></span> storage</code> (trong 3) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>cut costs by ... moving</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>have improved</code> → trạng từ <code>markedly</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each device</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>finalize</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>at the bottom of</code></td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the update finishes</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The platform</code> số ít → <code>supports</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>logs</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>in the lab</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td>"giao phần mềm <strong>kèm</strong> vài hạn chế" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>assess</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>loads</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... meets</code> — cả hai đều không đạt</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>reviewer</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (docs <strong>được</strong> đăng)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>steps</code> → tính từ <code>clear</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"server <span class="fill"></span> offline this Saturday" → tương lai bị động <code>will be taken</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Files ... <span class="fill"></span> accessible as normal" (chủ ngữ số nhiều, hiện tại đơn — nêu sự thật) → <code>remain</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td>"The upgrade <span class="fill"></span> roughly double the capacity" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ IT, khép lại thông báo bảo trì</td>
+</tr>
+<tr>
+<td>135</td>
+<td>B</td>
+<td>"you <span class="fill"></span> longer install software yourself" → <code>will</code> (no longer)</td>
+</tr>
+<tr>
+<td>136</td>
+<td>C</td>
+<td>"Most requests <span class="fill"></span> reviewed" (chủ ngữ số nhiều) → bị động <code>are</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>C</td>
+<td>"reduces the risk ... <span class="fill"></span> slowing you down" + V-ing → <code>without</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo cài đặt phần mềm</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>trước danh từ <code>alert</code> → tính từ <code>instant</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>B</td>
+<td>"Every check is <span class="fill"></span>" → tính từ <code>configurable</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>commitment</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời kêu gọi đăng ký, khép lại quảng cáo dịch vụ</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"every pull request <span class="fill"></span> at least one approval" (chủ ngữ số ít) → <code>needs</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Reviewers <span class="fill"></span> to respond" → bị động <code>are expected</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>D</td>
+<td>"It <span class="fill"></span> add a small delay" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu có thắc mắc, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>D</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>D</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>C</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>D</td>
+<td>184</td>
+<td>A</td>
+<td>193</td>
+<td>D</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>A</td>
+<td>194</td>
+<td>C</td>
+</tr>
+<tr>
+<td>150</td>
+<td>B</td>
+<td>159</td>
+<td>B</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>C</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>A</td>
+</tr>
+<tr>
+<td>151</td>
+<td>C</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>C</td>
+<td>178</td>
+<td>D</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>C</td>
+</tr>
+<tr>
+<td>152</td>
+<td>D</td>
+<td>161</td>
+<td>B</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>B</td>
+</tr>
+<tr>
+<td>153</td>
+<td>A</td>
+<td>162</td>
+<td>D</td>
+<td>171</td>
+<td>B</td>
+<td>180</td>
+<td>A</td>
+<td>189</td>
+<td>A</td>
+<td>198</td>
+<td>D</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>B</td>
+<td>190</td>
+<td>D</td>
+<td>199</td>
+<td>B</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>D</td>
+<td>173</td>
+<td>A</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>B</td>
+<td>200</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>151 C</strong> — "identity checks on every request instead of trusting the network" (account + device)<br />
+- <strong>152 D</strong> — contractors "previously needed company laptops just to reach basic tools"<br />
+- <strong>154 C</strong> — "The old network stops working at 6 P.M. Wednesday"<br />
+- <strong>162 D</strong> — bảng: release 3.5 "Freeze starts Aug 15"<br />
+- <strong>164 D</strong> — "A configuration error on our side caused verification codes to be sent ... late"<br />
+- <strong>169 C</strong> — "Describe your use case in a support ticket"<br />
+- <strong>172 C</strong> — "the sender address used a look-alike domain"<br />
+- <strong>177 C</strong> — "reports above a certain size now need ... a background job ... The UI wasn't updated"<br />
+- <strong>182 D</strong> — "You can add seats any time. Mid-term additions are prorated to your renewal date"<br />
+- <strong>184 A</strong> — "you can reassign their seat to a new hire at no cost"<br />
+- <strong>187 C</strong> — "SSO isn't available on Business"<br />
+- <strong>193 D</strong> — "No data was lost or exposed"<br />
+- <strong>199 B</strong> — "we don't delete individual records from backups, but backups roll off after 35 days"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_007 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Technology / IT): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

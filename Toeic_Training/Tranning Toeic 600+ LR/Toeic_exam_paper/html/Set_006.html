@@ -1,0 +1,2227 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_006 — Marketing & Advertising</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="006">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_006</strong>
+    <span class="theme">Marketing &amp; Advertising</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_006 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Một nhóm trong phòng họp xem các bản thiết kế quảng cáo dán trên tường.]</em><br />
+(A) People are looking at designs on a wall.<br />
+(B) Someone is removing posters from a board.<br />
+(C) A woman is presenting from a laptop.<br />
+(D) They are rearranging the furniture.</p>
+<p><strong>2.</strong> <em>[Ảnh: Một người quay phim cầm máy quay, quay cảnh sản phẩm trên bàn có đèn studio.]</em><br />
+(A) Someone is assembling a shelf.<br />
+(B) A camera is being packed into a case.<br />
+(C) A product is being photographed in a studio.<br />
+(D) Lights are being turned off.</p>
+<p><strong>3.</strong> <em>[Ảnh: Hai người xem biểu đồ số liệu marketing trên màn hình lớn.]</em><br />
+(A) They are reviewing charts on a screen.<br />
+(B) One person is drawing on a whiteboard.<br />
+(C) A monitor is being unplugged.<br />
+(D) They are handing out brochures.</p>
+<p><strong>4.</strong> <em>[Ảnh: Một quầy giới thiệu sản phẩm ở hội chợ, nhân viên đưa mẫu thử cho khách.]</em><br />
+(A) Customers are paying at a register.<br />
+(B) A booth is being set up.<br />
+(C) People are carrying boxes to a car.<br />
+(D) A worker is offering samples to a visitor.</p>
+<p><strong>5.</strong> <em>[Ảnh: Người thiết kế ngồi tại bàn, chỉnh sửa hình ảnh trên hai màn hình máy tính.]</em><br />
+(A) Someone is printing a large banner.<br />
+(B) A designer is editing images on a computer.<br />
+(C) Papers are being sorted into folders.<br />
+(D) A screen is being mounted on the wall.</p>
+<p><strong>6.</strong> <em>[Ảnh: Một diễn giả đứng trên sân khấu trước khán giả, slide hiển thị phía sau.]</em><br />
+(A) The audience is leaving the room.<br />
+(B) Chairs are being stacked.<br />
+(C) A speaker is addressing an audience.<br />
+(D) A microphone is being tested.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the ad campaign launch?<br />
+(A) On the first of next month.<br />
+(B) On social media and TV.<br />
+(C) It cost about fifty thousand.</p>
+<p><strong>8.</strong> Where will the product photos be taken?<br />
+(A) Next Thursday afternoon.<br />
+(B) A professional photographer.<br />
+(C) We booked a studio downtown.</p>
+<p><strong>9.</strong> Who's writing the copy for the brochure?<br />
+(A) It's a tri-fold design.<br />
+(B) Someone on the content team.<br />
+(C) By the end of the week.</p>
+<p><strong>10.</strong> Why did engagement drop last week?<br />
+(A) We paused the paid ads.<br />
+(B) About two thousand clicks.<br />
+(C) On the company blog.</p>
+<p><strong>11.</strong> How many people attended the webinar?<br />
+(A) It ran for an hour.<br />
+(B) Just over three hundred.<br />
+(C) On Wednesday evening.</p>
+<p><strong>12.</strong> Could you send me the latest campaign report?<br />
+(A) The campaign did well.<br />
+(B) Sure, I'll share it now.<br />
+(C) It's a monthly report.</p>
+<p><strong>13.</strong> The new logo looks great, doesn't it?<br />
+(A) Yes, the team's really happy with it.<br />
+(B) The logo is on every page.<br />
+(C) We hired a design agency.</p>
+<p><strong>14.</strong> Should we run the promotion for one week or two?<br />
+(A) The discount is twenty percent.<br />
+(B) I saw the ad yesterday.<br />
+(C) Two weeks would give it more reach.</p>
+<p><strong>15.</strong> Isn't the trade show booth due to be confirmed?<br />
+(A) Yes, I'll send the deposit today.<br />
+(B) It's a large booth this year.<br />
+(C) Near the main entrance.</p>
+<p><strong>16.</strong> Can you show me how to schedule a post?<br />
+(A) The post got a lot of shares.<br />
+(B) Sure, it's under the "calendar" tab.<br />
+(C) We post three times a week.</p>
+<p><strong>17.</strong> What did the client think of the mock-ups?<br />
+(A) The meeting was this morning.<br />
+(B) There were three mock-ups.<br />
+(C) They preferred the second option.</p>
+<p><strong>18.</strong> Where are the printed flyers being stored?<br />
+(A) We ordered five hundred.<br />
+(B) They're bright yellow.<br />
+(C) In the closet by the mailroom.</p>
+<p><strong>19.</strong> Do you know whether the press release went out?<br />
+(A) It was about the new product.<br />
+(B) Let me check with communications.<br />
+(C) The release is two pages.</p>
+<p><strong>20.</strong> I think we should increase the budget for video ads.<br />
+(A) That's where we're seeing the best returns.<br />
+(B) The video is thirty seconds.<br />
+(C) On the streaming platforms.</p>
+<p><strong>21.</strong> Could you review the draft ad copy before it goes out?<br />
+(A) I'll take a look this afternoon.<br />
+(B) The ad ran last month.<br />
+(C) I copied the file already.</p>
+<p><strong>22.</strong> Has the social media campaign launched yet?<br />
+(A) It's a big campaign.<br />
+(B) I campaigned for office once.<br />
+(C) Not yet, it launches tomorrow morning.</p>
+<p><strong>23.</strong> Where should we place the new billboard?<br />
+(A) Near the highway exit.<br />
+(B) Billboards are expensive.<br />
+(C) We placed an order.</p>
+<p><strong>24.</strong> Would you rather target younger or older customers with this promo?<br />
+(A) Younger customers, I think.<br />
+(B) The promo runs for a week.<br />
+(C) I targeted the wrong group once.</p>
+<p><strong>25.</strong> Isn't the client presentation usually on Fridays?<br />
+(A) Fridays are quiet.<br />
+(B) Yes, but it moved to Thursday this week.<br />
+(C) The presentation went well.</p>
+<p><strong>26.</strong> How many people clicked on the email campaign?<br />
+(A) About three thousand.<br />
+(B) The campaign was colorful.<br />
+(C) We campaigned hard.</p>
+<p><strong>27.</strong> Who's designing the new logo?<br />
+(A) The logo took months.<br />
+(B) A freelancer we hired last week.<br />
+(C) Logos are important.</p>
+<p><strong>28.</strong> Do you know if the influencer confirmed the partnership?<br />
+(A) Influencers post often.<br />
+(B) I confirmed my flight.<br />
+(C) Yes, she signed the agreement today.</p>
+<p><strong>29.</strong> Should we run the ad on radio or podcasts?<br />
+(A) Radio reaches a wider audience.<br />
+(B) I listened to the radio.<br />
+(C) Podcasts are popular.</p>
+<p><strong>30.</strong> Haven't you finished the brand guidelines yet?<br />
+(A) The guidelines were clear.<br />
+(B) Almost, just the color section left.<br />
+(C) Brands need guidelines.</p>
+<p><strong>31.</strong> Why was the launch event postponed?<br />
+(A) The event hall is large.<br />
+(B) It happened last year too.<br />
+(C) Because the venue had a scheduling conflict.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I've reviewed the draft banner ads. The headline works, but the call-to-action button is hard to see against the background.<br />
+<strong>M:</strong> I noticed that too. I'll ask the designer to try a brighter color and maybe make it larger.<br />
+<strong>W:</strong> Good. Also, can we get a version sized for mobile? Most of our traffic is on phones.<br />
+<strong>M:</strong> Yes, I'll request both desktop and mobile by Thursday.</p>
+<p><strong>32.</strong> What problem does the woman mention?<br />
+(A) The headline is too long<br />
+(B) The call-to-action button is hard to see<br />
+(C) The images are low quality<br />
+(D) The colors clash with the logo</p>
+<p><strong>33.</strong> What does the woman also request?<br />
+(A) A mobile-sized version<br />
+(B) A shorter headline<br />
+(C) A different font<br />
+(D) A video version</p>
+<p><strong>34.</strong> When will the new versions be ready?<br />
+(A) Today<br />
+(B) Wednesday<br />
+(C) Thursday<br />
+(D) Next week</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The email campaign open rate was 22% — up from 15% last time.<br />
+<strong>W:</strong> That's a big jump. What changed?<br />
+<strong>M:</strong> We tested shorter subject lines and sent it Tuesday morning instead of Friday afternoon.<br />
+<strong>W:</strong> Let's keep both changes. Can you write that up so the other teams can use it?</p>
+<p><strong>35.</strong> What are the speakers discussing?<br />
+(A) An email campaign's open rate<br />
+(B) A website redesign<br />
+(C) A social media contest<br />
+(D) A print ad</p>
+<p><strong>36.</strong> What did the man change?<br />
+(A) The sender's name<br />
+(B) Shorter subject lines and the send time<br />
+(C) The email design<br />
+(D) The mailing list</p>
+<p><strong>37.</strong> What does the woman ask the man to do?<br />
+(A) Run another test<br />
+(B) Increase the budget<br />
+(C) Cancel Friday sends<br />
+(D) Write up the findings for other teams</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> For the product launch event, we've got the venue and catering booked. What's left?<br />
+<strong>M1:</strong> We still need to confirm the number of press passes and send the media kit.<br />
+<strong>W:</strong> How many journalists have RSVP'd?<br />
+<strong>M2:</strong> Twelve so far. I'd print fifteen passes to be safe.<br />
+<strong>W:</strong> OK. And the media kit — let's get it to communications for review by Monday so it can go out Wednesday.</p>
+<p><strong>38.</strong> What event are the speakers planning?<br />
+(A) A staff party<br />
+(B) A trade show<br />
+(C) A product launch<br />
+(D) A press conference about earnings</p>
+<p><strong>39.</strong> How many press passes will be printed?<br />
+(A) Ten<br />
+(B) Twelve<br />
+(C) Fifteen<br />
+(D) Twenty</p>
+<p><strong>40.</strong> When should the media kit go out?<br />
+(A) Monday<br />
+(B) Tuesday<br />
+(C) Friday<br />
+(D) Wednesday</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> The influencer we wanted for the campaign came back with a rate that's double our budget.<br />
+<strong>W:</strong> That's a lot. Are there alternatives?<br />
+<strong>M:</strong> There are two smaller creators with strong engagement in our niche. Together they'd cost less than the one big name and reach a similar total audience.<br />
+<strong>W:</strong> I like that better anyway — it feels more authentic. Let's go with the two.</p>
+<p><strong>41.</strong> What is the problem?<br />
+(A) An influencer's rate is over budget<br />
+(B) A campaign was rejected<br />
+(C) A video is late<br />
+(D) An event was canceled</p>
+<p><strong>42.</strong> What does the man suggest?<br />
+(A) Cutting the campaign<br />
+(B) Working with two smaller creators<br />
+(C) Delaying the launch<br />
+(D) Negotiating a lower rate</p>
+<p><strong>43.</strong> Why does the woman prefer this option?<br />
+(A) It is faster<br />
+(B) It requires less work<br />
+(C) It feels more authentic<br />
+(D) It uses video</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The landing page for the webinar isn't converting well — lots of visits, few sign-ups.<br />
+<strong>M:</strong> Have you looked at where people drop off?<br />
+<strong>W:</strong> Yes. Most leave at the form. It asks for eight fields.<br />
+<strong>M:</strong> That's probably it. Try cutting it to name and email, and move the other questions to a follow-up.<br />
+<strong>W:</strong> I'll set up an A/B test with the short form.</p>
+<p><strong>44.</strong> What is the woman's concern?<br />
+(A) The landing page has few visitors<br />
+(B) The landing page isn't converting visits to sign-ups<br />
+(C) The webinar was canceled<br />
+(D) The page loads slowly</p>
+<p><strong>45.</strong> What does the man think is causing the problem?<br />
+(A) The headline is weak<br />
+(B) The page has no images<br />
+(C) The webinar time is bad<br />
+(D) The form is too long</p>
+<p><strong>46.</strong> What will the woman do?<br />
+(A) Remove the form entirely<br />
+(B) Set up an A/B test with a shorter form<br />
+(C) Cancel the webinar<br />
+(D) Add more questions</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> Did the quarterly brand survey results come in?<br />
+<strong>W:</strong> Yes. Awareness is up 8 points, but people still associate us mainly with one product line.<br />
+<strong>M:</strong> So the broader message isn't landing.<br />
+<strong>W:</strong> Right. I think the next campaign should feature customers using the full range, not just the flagship.<br />
+<strong>M:</strong> Let's bring that to the planning meeting Friday.</p>
+<p><strong>47.</strong> What do the survey results show?<br />
+(A) Awareness is up but the brand is tied to one product line<br />
+(B) Sales fell in every region<br />
+(C) Customers dislike the new packaging<br />
+(D) The website is hard to use</p>
+<p><strong>48.</strong> What does the woman suggest for the next campaign?<br />
+(A) Focusing on the flagship product<br />
+(B) Lowering prices<br />
+(C) Featuring the full product range<br />
+(D) Redesigning the logo</p>
+<p><strong>49.</strong> What will the speakers do Friday?<br />
+(A) Launch the campaign<br />
+(B) Repeat the survey<br />
+(C) Meet the customers<br />
+(D) Discuss it at the planning meeting</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> The client wants us to redo the tagline — they feel it doesn't stand out enough.<br />
+<strong>W:</strong> Did they give any direction on tone?<br />
+<strong>M:</strong> They want something shorter and a bit more playful.<br />
+<strong>W:</strong> Okay, I'll draft three new options and send them over by tomorrow.</p>
+<p><strong>50.</strong> What does the client want changed?<br />
+(A) The logo<br />
+(B) The tagline<br />
+(C) The website<br />
+(D) The price</p>
+<p><strong>51.</strong> What tone does the client prefer?<br />
+(A) Formal and serious<br />
+(B) Short and playful<br />
+(C) Long and detailed<br />
+(D) Technical</p>
+<p><strong>52.</strong> What will the woman do by tomorrow?<br />
+(A) Meet the client in person<br />
+(B) Draft three new options<br />
+(C) Cancel the project<br />
+(D) Redesign the logo</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> Our latest campaign is getting a lot of engagement, but the click-through rate is still low.<br />
+<strong>M:</strong> Maybe the call-to-action button isn't clear enough.<br />
+<strong>W:</strong> That's possible. Should we test a different color and wording?<br />
+<strong>M:</strong> Yes, let's run an A/B test for a week and compare the results.</p>
+<p><strong>53.</strong> What problem are the speakers discussing?<br />
+(A) Low engagement<br />
+(B) A low click-through rate<br />
+(C) A budget overrun<br />
+(D) A missed deadline</p>
+<p><strong>54.</strong> What does the man suspect is the cause?<br />
+(A) The images used<br />
+(B) The unclear call-to-action button<br />
+(C) The posting time<br />
+(D) The target audience</p>
+<p><strong>55.</strong> What will the speakers do?<br />
+(A) Cancel the campaign<br />
+(B) Run an A/B test<br />
+(C) Hire a new designer<br />
+(D) Lower the ad budget</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> I'm finalizing the press release for the product launch — can you check the quotes from the CEO?<br />
+<strong>W:</strong> Sure, send it over. When does this need to go out?<br />
+<strong>M:</strong> Ideally by end of day so we can distribute it before tomorrow's announcement.<br />
+<strong>W:</strong> Got it, I'll review it within the hour.</p>
+<p><strong>56.</strong> What is the man preparing?<br />
+(A) A press release<br />
+(B) A budget report<br />
+(C) A training manual<br />
+(D) A customer survey</p>
+<p><strong>57.</strong> What does the man ask the woman to check?<br />
+(A) The pricing section<br />
+(B) The quotes from the CEO<br />
+(C) The images<br />
+(D) The contact information</p>
+<p><strong>58.</strong> When does the man want this finished?<br />
+(A) Next week<br />
+(B) By end of day<br />
+(C) Tomorrow afternoon<br />
+(D) In an hour</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> The survey results are in, and most customers say they found us through social media.<br />
+<strong>M:</strong> That's useful — should we shift more of the budget there?<br />
+<strong>W:</strong> I think so, especially since our print ads aren't performing as well this quarter.<br />
+<strong>M:</strong> Let's put together a revised budget proposal and present it at Monday's meeting.</p>
+<p><strong>59.</strong> What did the survey find?<br />
+(A) Most customers found the company through print ads<br />
+(B) Most customers found the company through social media<br />
+(C) Most customers were unhappy<br />
+(D) Most customers prefer email</p>
+<p><strong>60.</strong> What does the woman say about print ads?<br />
+(A) They are performing very well.<br />
+(B) They are not performing as well this quarter.<br />
+(C) They have been discontinued.<br />
+(D) They are the top priority.</p>
+<p><strong>61.</strong> What will the speakers do?<br />
+(A) Cancel the survey<br />
+(B) Put together a revised budget proposal<br />
+(C) Fire the print team<br />
+(D) Increase print spending</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's finalize the theme for next month's trade show booth.<br />
+<strong>M1:</strong> I like the idea of an interactive product demo instead of just banners.<br />
+<strong>M2:</strong> That would definitely draw more foot traffic than last year.<br />
+<strong>W:</strong> Agreed, let's move forward with that and start sourcing the equipment this week.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A product recall<br />
+(B) A trade show booth theme<br />
+(C) A new hire<br />
+(D) A press conference</p>
+<p><strong>63.</strong> What does the first man suggest?<br />
+(A) An interactive product demo<br />
+(B) More banners<br />
+(C) A raffle<br />
+(D) A smaller booth</p>
+<p><strong>64.</strong> What will the speakers do this week?<br />
+(A) Cancel the trade show<br />
+(B) Start sourcing equipment<br />
+(C) Interview vendors<br />
+(D) Finalize the budget</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I noticed our competitor just launched a very similar campaign to ours.<br />
+<strong>W:</strong> I saw that too. I don't think we should change our strategy though.<br />
+<strong>M:</strong> Agreed, our version has a stronger call to action anyway.<br />
+<strong>W:</strong> Let's just keep monitoring the results and stay the course for now.</p>
+<p><strong>65.</strong> What did the man notice?<br />
+(A) A competitor's similar campaign<br />
+(B) A budget cut<br />
+(C) A missed deadline<br />
+(D) A customer complaint</p>
+<p><strong>66.</strong> What does the woman think they should do?<br />
+(A) Copy the competitor exactly<br />
+(B) Keep their current strategy<br />
+(C) Cancel the campaign<br />
+(D) Lower prices</p>
+<p><strong>67.</strong> What will the speakers do?<br />
+(A) Change their strategy completely<br />
+(B) Continue monitoring the results<br />
+(C) Contact the competitor<br />
+(D) End the campaign early</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> The video ad we produced is getting great feedback, but it's a bit long for social media.<br />
+<strong>M:</strong> Should we cut it down to fifteen seconds for those platforms?<br />
+<strong>W:</strong> That sounds right, and we can keep the full version for our website.<br />
+<strong>M:</strong> I'll ask the editor to prepare a shorter cut by Friday.</p>
+<p><strong>68.</strong> What feedback did the video ad receive?<br />
+(A) Mostly negative<br />
+(B) Great feedback<br />
+(C) No feedback yet<br />
+(D) Mixed feedback</p>
+<p><strong>69.</strong> What is the concern about the video?<br />
+(A) It is too expensive.<br />
+(B) It is too long for social media.<br />
+(C) It has the wrong music.<br />
+(D) It was filmed poorly.</p>
+<p><strong>70.</strong> What will the man ask the editor to do?<br />
+(A) Reshoot the video<br />
+(B) Prepare a shorter cut<br />
+(C) Add subtitles<br />
+(D) Delete the video</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Internal announcement</h3>
+<p><em>"A quick update on the rebrand. The new visual identity — logo, colors, and typography — is finalized and goes live on our website and social channels on March 1. Between now and then, please don't use the old assets in anything new. A brand guidelines document and a folder of approved templates are on the shared drive under 'Brand 2.0.' If you need a custom asset, submit a request to the design team with at least three days' notice."</em></p>
+<p><strong>71.</strong> What is being announced?<br />
+(A) A new product line<br />
+(B) A completed rebrand<br />
+(C) A website outage<br />
+(D) A hiring plan</p>
+<p><strong>72.</strong> What are employees told not to do?<br />
+(A) Contact the design team<br />
+(B) Post on social media<br />
+(C) Use the old brand assets in new materials<br />
+(D) Access the shared drive</p>
+<p><strong>73.</strong> How much notice does the design team need for custom assets?<br />
+(A) One day<br />
+(B) One week<br />
+(C) One month<br />
+(D) At least three days</p>
+<h3>Talk 2 (74–76) — Voicemail from an agency</h3>
+<p><em>"Hi, this is Priya from Northlight Agency. I'm calling with the results of the first two weeks of your search campaign. Cost per click is 20% lower than we projected, which is great, but the conversion rate on the landing page is below target. We think the page and the ad promise different things. I'd like to set up a call this week to walk through some page changes. Let me know what times work — my number is 555-0176."</em></p>
+<p><strong>74.</strong> Why is Priya calling?<br />
+(A) To report campaign results and propose changes<br />
+(B) To request payment<br />
+(C) To cancel the campaign<br />
+(D) To schedule a photo shoot</p>
+<p><strong>75.</strong> What is below target?<br />
+(A) Cost per click<br />
+(B) The landing page conversion rate<br />
+(C) The number of impressions<br />
+(D) The ad budget</p>
+<p><strong>76.</strong> What does Priya want to do this week?<br />
+(A) Launch a new ad<br />
+(B) Meet in person<br />
+(C) Set up a call about page changes<br />
+(D) Pause the campaign</p>
+<h3>Talk 3 (77–79) — Conference presentation excerpt</h3>
+<p><em>"When we talk about content that performs, the pattern we see again and again is usefulness over cleverness. Audiences reward content that helps them do something — a checklist, a template, a clear explanation — far more than content that just entertains. In our study of 500 campaigns, the top performers on shares and saves were almost all practical. So before you publish, ask one question: what can the reader do after reading this that they couldn't before?"</em></p>
+<p><strong>77.</strong> What is the main point of the talk?<br />
+(A) Useful content outperforms clever content<br />
+(B) Video is more effective than text<br />
+(C) Paid promotion is essential<br />
+(D) Shorter content performs better</p>
+<p><strong>78.</strong> What did the speaker's study look at?<br />
+(A) 50 companies<br />
+(B) 5,000 social posts<br />
+(C) One year of data<br />
+(D) 500 campaigns</p>
+<p><strong>79.</strong> What question does the speaker suggest asking before publishing?<br />
+(A) Is this on brand?<br />
+(B) What can the reader do afterward that they couldn't before?<br />
+(C) How much will this cost?<br />
+(D) Who is the target audience?</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Small business owners — is your website working as hard as you are? PagePilot builds fast, mobile-friendly websites designed to turn visitors into customers. No templates that look like everyone else's — every site is built around your goals. Most sites go live in three weeks, and your first month of hosting is free. Book a free strategy call at pagepilot.example and see what a site built for results can do for you."</em></p>
+<p><strong>80.</strong> What service does PagePilot offer?<br />
+(A) Social media management<br />
+(B) Print advertising<br />
+(C) Website design for small businesses<br />
+(D) Email marketing</p>
+<p><strong>81.</strong> How long does it typically take for a site to go live?<br />
+(A) One week<br />
+(B) Six weeks<br />
+(C) Two months<br />
+(D) Three weeks</p>
+<p><strong>82.</strong> What is offered for free?<br />
+(A) The first month of hosting<br />
+(B) A logo design<br />
+(C) A year of updates<br />
+(D) Domain registration</p>
+<h3>Talk 5 (83–85) — Marketing team announcement</h3>
+<p><em>"Quick update before we wrap up today. Starting next week, all campaign requests need to go through the new project-intake form instead of being emailed directly to the design team. This will help us track requests and give more accurate turnaround times. The link to the form has been shared in our team channel."</em></p>
+<p><strong>83.</strong> What is changing next week?<br />
+(A) A new project-intake form process<br />
+(B) A new office location<br />
+(C) A new team leader<br />
+(D) A new client</p>
+<p><strong>84.</strong> Why is this change being made?<br />
+(A) To reduce costs<br />
+(B) To track requests and give accurate turnaround times<br />
+(C) To reduce staff<br />
+(D) To increase ad spending</p>
+<p><strong>85.</strong> Where can employees find the form?<br />
+(A) In their email inbox<br />
+(B) In the team channel<br />
+(C) On the company website<br />
+(D) On a printed flyer</p>
+<h3>Talk 6 (86–88) — Agency voicemail</h3>
+<p><em>"Hi, this is Marcus from Brightline Media. I'm calling about the media plan you sent over — overall it looks great, but we'd like to shift a bit more budget toward video ads based on last quarter's performance. Give me a call back when you get a chance so we can go over the numbers together."</em></p>
+<p><strong>86.</strong> Why is Marcus calling?<br />
+(A) To cancel the media plan<br />
+(B) To suggest a budget shift toward video ads<br />
+(C) To request payment<br />
+(D) To reject the proposal</p>
+<p><strong>87.</strong> What does Marcus base his suggestion on?<br />
+(A) A competitor's campaign<br />
+(B) Last quarter's performance<br />
+(C) A client complaint<br />
+(D) A new company policy</p>
+<p><strong>88.</strong> What does Marcus ask the listener to do?<br />
+(A) Send a new proposal<br />
+(B) Call him back<br />
+(C) Visit the office<br />
+(D) Approve the plan by email</p>
+<h3>Talk 7 (89–91) — Product launch briefing</h3>
+<p><em>"Before the doors open, let's do a final walk-through. The demo station should be running the looping video by nine, and all product samples need to be out and labeled. Remember that press check-in is at the side entrance, not the main doors, so please direct any reporters that way."</em></p>
+<p><strong>89.</strong> What should be running by nine?<br />
+(A) The demo station's looping video<br />
+(B) The sound system<br />
+(C) The lighting<br />
+(D) The registration desk</p>
+<p><strong>90.</strong> What needs to be labeled?<br />
+(A) The chairs<br />
+(B) The product samples<br />
+(C) The name tags<br />
+(D) The exit signs</p>
+<p><strong>91.</strong> Where should reporters check in?<br />
+(A) At the main doors<br />
+(B) At the side entrance<br />
+(C) In the lobby<br />
+(D) At the demo station</p>
+<h3>Talk 8 (92–94) — Radio ad script excerpt</h3>
+<p><em>"Looking for a coffee that actually wakes you up? Summit Roasters uses beans sourced from small farms and roasted in small batches every week for maximum freshness. Order online today and get free shipping on your first three bags. Visit summitroasters.example to get started."</em></p>
+<p><strong>92.</strong> What product is being advertised?<br />
+(A) Tea<br />
+(B) Coffee<br />
+(C) Energy drinks<br />
+(D) Bakery goods</p>
+<p><strong>93.</strong> What does the company emphasize about its beans?<br />
+(A) They are the cheapest available.<br />
+(B) They are roasted in small batches weekly.<br />
+(C) They are imported from overseas.<br />
+(D) They come in reusable containers.</p>
+<p><strong>94.</strong> What offer is mentioned?<br />
+(A) A discount code<br />
+(B) A loyalty program<br />
+(C) Free shipping on the first three bags<br />
+(D) A free sample pack</p>
+<h3>Talk 9 (95–97) — Internal strategy talk</h3>
+<p><em>"As we plan next year's marketing calendar, I want us to focus more on customer retention rather than just new customer acquisition. Our data shows that repeat customers spend significantly more over time, so we'll be introducing a loyalty program in the second quarter and increasing our email marketing efforts to existing customers."</em></p>
+<p><strong>95.</strong> What is the speaker's main focus for next year?<br />
+(A) New customer acquisition<br />
+(B) Customer retention<br />
+(C) Reducing marketing spend<br />
+(D) International expansion</p>
+<p><strong>96.</strong> What does company data show?<br />
+(A) New customers spend more.<br />
+(B) Repeat customers spend significantly more.<br />
+(C) Email marketing is ineffective.<br />
+(D) Retention has already improved.</p>
+<p><strong>97.</strong> What will be introduced in the second quarter?<br />
+(A) A new product line<br />
+(B) A loyalty program<br />
+(C) A price increase<br />
+(D) A new logo</p>
+<h3>Talk 10 (98–100) — Conference session intro</h3>
+<p><em>"Welcome to this session on content strategy. Over the next forty-five minutes, I'll share three case studies from brands that successfully grew their audience through consistent storytelling, and we'll leave the last ten minutes for questions. Feel free to take photos of the slides, but please hold questions until the end."</em></p>
+<p><strong>98.</strong> What is the topic of the session?<br />
+(A) Content strategy<br />
+(B) Product design<br />
+(C) Financial planning<br />
+(D) Customer service</p>
+<p><strong>99.</strong> How long will the session last?<br />
+(A) Twenty minutes<br />
+(B) Thirty minutes<br />
+(C) Forty-five minutes<br />
+(D) One hour</p>
+<p><strong>100.</strong> What are attendees asked to do?<br />
+(A) Avoid taking photos<br />
+(B) Hold questions until the end<br />
+(C) Leave early if needed<br />
+(D) Submit questions in writing beforehand</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_006 — READING (100 câu: 101–200) · Chủ đề: Marketing &amp; Advertising</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The marketing team <span class="blk">________</span> a new campaign every quarter.<br />
+(A) launch  (B) launches  (C) launching  (D) to launch</p>
+<p><strong>102.</strong> All social media posts must be approved <span class="blk">________</span> they are published.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The agency delivered the creative concepts <span class="blk">________</span>, ahead of the deadline.<br />
+(A) prompt  (B) promptness  (C) promptly  (D) prompter</p>
+<p><strong>104.</strong> <span class="blk">________</span> a limited budget, the campaign reached over a million people.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Clients are encouraged to <span class="blk">________</span> feedback on the draft designs within two days.<br />
+(A) provide  (B) provides  (C) providing  (D) provided</p>
+<p><strong>106.</strong> The report includes recommendations <span class="blk">________</span> improving email open rates.<br />
+(A) for  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three ad formats tested, the video ad had the <span class="blk">________</span> click-through rate.<br />
+(A) high  (B) higher  (C) highest  (D) more</p>
+<p><strong>108.</strong> The launch was delayed <span class="blk">________</span> a problem with the product packaging.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The company grew its audience <span class="blk">________</span> posting useful content consistently.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Website traffic has increased <span class="blk">________</span> since the new blog launched.<br />
+(A) sharp  (B) sharpness  (C) sharper  (D) sharply</p>
+<p><strong>111.</strong> Each campaign <span class="blk">________</span> reviewed against its goals at the end of the month.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The brand manager asked the team to <span class="blk">________</span> three headline options for the ad.<br />
+(A) prepare  (B) preparing  (C) prepared  (D) preparation</p>
+<p><strong>113.</strong> Full pricing details are listed <span class="blk">________</span> the last page of the brochure.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> the campaign ends, we compile a full performance report.<br />
+(A) Despite  (B) However  (C) Unless  (D) After</p>
+<p><strong>115.</strong> The agency <span class="blk">________</span> more than 30 clients across several industries.<br />
+(A) serve  (B) serves  (C) serving  (D) served</p>
+<p><strong>116.</strong> The website redesign is expected <span class="blk">________</span> before the holiday season.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Marketers should write <span class="blk">________</span> headlines that clearly state the benefit.<br />
+(A) clarity  (B) clear  (C) clearly  (D) clearness</p>
+<p><strong>118.</strong> The new analytics tool loads reports much <span class="blk">________</span> than the old dashboard.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The study identifies several <span class="blk">________</span> to boost customer engagement.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The press briefing will be held <span class="blk">________</span> the conference room on the eighth floor.<br />
+(A) in  (B) at  (C) on  (D) by</p>
+<p><strong>121.</strong> The client approved the proposal <span class="blk">________</span> a few changes to the timeline.<br />
+(A) for  (B) of  (C) with  (D) about</p>
+<p><strong>122.</strong> A consultant will <span class="blk">________</span> the brand's messaging before the relaunch.<br />
+(A) review  (B) reviews  (C) reviewing  (D) reviewal</p>
+<p><strong>123.</strong> Subscribers are <span class="blk">________</span> for early access to new product announcements.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The updated content workflow lets the team publish <span class="blk">________</span> than before.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The company is committed to <span class="blk">________</span> honest and transparent advertising.<br />
+(A) maintain  (B) maintains  (C) maintaining  (D) maintained</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two taglines tested well with the focus group, so we're starting over.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The pop-up shop is open <span class="blk">________</span> 11 A.M. to 7 P.M. through the weekend.<br />
+(A) since  (B) from  (C) between  (D) during</p>
+<p><strong>128.</strong> Every advertisement must include the disclaimer approved by an <span class="blk">________</span> legal reviewer.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The full media plan <span class="blk">________</span> shared with the client at next week's meeting.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The guide offers <span class="blk">________</span> tips for writing subject lines that get opened.<br />
+(A) practice  (B) practically  (C) practical  (D) practicality</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>Subject:</strong> Campaign Kickoff — Next Steps</p>
+<p>Dear Ms. Rowe,</p>
+<p>Thank you for approving the proposal. We're excited to get started on your spring campaign, which <span class="blk">(131)</span> on April 5.</p>
+<p>Over the next two weeks, our team <span class="blk">(132)</span> the ad creative and set up tracking. We'll send you drafts for review by March 24; please share any feedback within three business days so we stay on schedule.</p>
+<p>We've also scheduled a short weekly check-in call. <span class="blk">(133)</span> that time doesn't work for your team, let us know and we'll adjust.</p>
+<p>We look forward to working with you. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) launch  (B) launches  (C) will launch  (D) launching<br />
+<strong>132.</strong> (A) develops  (B) will develop  (C) developing  (D) developed<br />
+<strong>133.</strong> (A) Unless  (B) Even  (C) Despite  (D) Should<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) A dedicated account manager will be assigned for this project.<br />
+(B) Please note that all invoices are due within 30 days.<br />
+(C) The previous campaign generated a strong return on investment.<br />
+(D) Don't hesitate to reach out with any questions in the meantime.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>UPDATE — Asset Requests</strong></p>
+<p>Effective Monday, all requests for design assets must go through the project tool, not by direct message. Requests sent by message <span class="blk">(135)</span> longer be actioned, as they are hard to track.</p>
+<p>When you submit a request, include the deadline, the format needed, and where the asset will be used. The design team <span class="blk">(136)</span> to acknowledge every request within one business day.</p>
+<p>Rush requests (needed in under 48 hours) require your manager's approval and <span class="blk">(137)</span> be marked "urgent" in the tool.</p>
+<p>These steps help us balance workload without delaying anyone's project. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) will  (C) must  (D) should<br />
+<strong>136.</strong> (A) commit  (B) committing  (C) is committed  (D) commits<br />
+<strong>137.</strong> (A) can  (B) may  (C) should  (D) must<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The design team will be reduced in size next quarter.<br />
+(B) Exceptions can be made for any request regardless of urgency.<br />
+(C) Thank you for your patience as we adjust to this new process.<br />
+(D) The project tool will be replaced again in six months.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>KNOW WHAT YOUR MARKETING IS ACTUALLY DOING</strong></p>
+<p>Clearview pulls data from your ads, email, and website into one <span class="blk">(139)</span> dashboard. Instead of switching between five tools, you see what's working in one place.</p>
+<p>Every report is <span class="blk">(140)</span> so you can focus on the numbers that matter to your goals. Set it up once, and Clearview updates automatically.</p>
+<p>Plans start at $49 a month, and there is no <span class="blk">(141)</span> contract. Try it free for 14 days — no credit card needed. Create your account at clearview.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) simple  (B) simply  (C) simplify  (D) simplicity<br />
+<strong>140.</strong> (A) customize  (B) customizable  (C) customizing  (D) custom<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Setup takes less than five minutes.<br />
+(B) Enterprise plans include a dedicated support line.<br />
+(C) Clearview is currently available in select countries only.<br />
+(D) A written contract is required for annual billing.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Content Contributors <strong>FROM:</strong> Brand Editorial <strong>RE:</strong> Style Update — Headlines and Links</p>
+<p>Two small changes to our style, effective this week.</p>
+<p>First, headlines <span class="blk">(143)</span> sentence case, not title case. So "How to plan a launch," not "How To Plan A Launch." This matches how people read online and tests slightly better for clicks.</p>
+<p>Second, link text <span class="blk">(144)</span> describe where the link goes. Avoid "click here"; instead, write "read the full report" or "see the pricing page." This helps readers and <span class="blk">(145)</span> accessibility.</p>
+<p>The full style guide will be updated by Friday. Until then, follow this memo. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) uses  (B) will use  (C) using  (D) use<br />
+<strong>144.</strong> (A) should  (B) shows  (C) showing  (D) shown<br />
+<strong>145.</strong> (A) improve  (B) improves  (C) improving  (D) improved<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Reach out to the editorial team with any questions.<br />
+(B) These changes apply retroactively to all past articles.<br />
+(C) Headlines will now require editor approval before publishing.<br />
+(D) This memo replaces all previous style guidance permanently.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Mara Lin (3:10 P.M.):</strong> Client wants the launch email moved from Thursday to Tuesday.<br />
+<strong>Theo Nash (3:12 P.M.):</strong> Tuesday's tight — creative isn't final and we haven't tested the links.<br />
+<strong>Mara Lin (3:13 P.M.):</strong> I told them Wednesday is the earliest we can do it safely. They're OK with that.<br />
+<strong>Theo Nash (3:14 P.M.):</strong> Wednesday works. I'll update the schedule.</p>
+<p><strong>147.</strong> What does the client want?<br />
+(A) To cancel the launch email<br />
+(B) To move the email to an earlier date<br />
+(C) To change the email design<br />
+(D) To add more recipients</p>
+<p><strong>148.</strong> When will the email now be sent?<br />
+(A) Tuesday<br />
+(B) Next week<br />
+(C) Wednesday<br />
+(D) Thursday</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>RETAILER SHIFTS AD SPEND FROM TV TO STREAMING AND SEARCH</strong></p>
+<p>Delton Home, a national furniture retailer, said it will cut its television advertising budget by 40% next year and move the money into streaming video and search ads. The company said younger customers, who make up a growing share of its sales, are much harder to reach on broadcast TV.</p>
+<p>Marketing chief Rana Osei said early tests were promising: a streaming campaign last quarter reached the target age group at half the cost per view of the company's TV buys, and search ads drove a measurable lift in store visits.</p>
+<p>Delton Home will keep some TV advertising around major sale events, where it still performs well with older shoppers. The shift will be gradual, with the full change in place by the end of next year.</p>
+<p><strong>149.</strong> What is Delton Home changing?<br />
+(A) Its store layouts<br />
+(B) Its product range<br />
+(C) Where it spends its advertising budget<br />
+(D) Its return policy</p>
+<p><strong>150.</strong> Why is the company making this change?<br />
+(A) TV advertising has become more expensive<br />
+(B) A competitor stopped advertising on TV<br />
+(C) It is cutting its total marketing budget<br />
+(D) Younger customers are harder to reach on TV</p>
+<p><strong>151.</strong> What did the streaming test achieve?<br />
+(A) It reached the target group at half the cost per view of TV<br />
+(B) It doubled online sales<br />
+(C) It replaced the need for search ads<br />
+(D) It reduced returns</p>
+<p><strong>152.</strong> When will TV advertising still be used?<br />
+(A) Never again<br />
+(B) Only online<br />
+(C) Around major sale events<br />
+(D) Only in certain regions</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Photo Studio Booking Change</strong></p>
+<p>Starting next month, the in-house photo studio must be booked through the shared calendar at least three days in advance. Same-day and next-day requests can no longer be guaranteed, as the studio is now shared with the video team.</p>
+<p>When you book, note whether you need the lighting kit or the product table set up, so the studio is ready when you arrive.</p>
+<p><strong>153.</strong> What is changing about the photo studio?<br />
+(A) It is being moved to another floor<br />
+(B) It must be booked at least three days ahead<br />
+(C) It is being closed<br />
+(D) It requires a fee</p>
+<p><strong>154.</strong> Why is the change being made?<br />
+(A) The studio is now shared with the video team<br />
+(B) The lighting kit was replaced<br />
+(C) There were too many cancellations<br />
+(D) The studio is understaffed</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>GROW YOUR EMAIL LIST — THE RIGHT WAY</strong></p>
+<p>ListLift helps you build an engaged email list without buying contacts or using annoying pop-ups. We design sign-up offers your visitors actually want — a useful guide, a discount, a template — and place them where they convert best.</p>
+<p>Clients typically see list growth of 2–3x in the first three months, with better open rates because subscribers chose to join.</p>
+<p>Setup is a one-time project fee based on your website. There's no monthly charge, and you keep everything we build. Book a free audit to see what's possible.</p>
+<p><strong>155.</strong> What does ListLift help clients do?<br />
+(A) Buy email contacts in bulk<br />
+(B) Send automated newsletters<br />
+(C) Design a company website<br />
+(D) Build an engaged email list without buying contacts</p>
+<p><strong>156.</strong> What result do clients typically see?<br />
+(A) Lower email costs<br />
+(B) A doubling of website traffic<br />
+(C) 2–3x list growth in three months<br />
+(D) Fewer unsubscribes</p>
+<p><strong>157.</strong> How is ListLift priced?<br />
+(A) A monthly subscription<br />
+(B) A percentage of new subscribers<br />
+(C) A one-time project fee<br />
+(D) Per email sent</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> content-team <strong>From:</strong> Editorial Lead <strong>Subject:</strong> Repurposing our best posts</p>
+<p>Our top five blog posts from last year still get strong traffic. Rather than let them sit, let's repurpose each one into other formats this quarter.</p>
+<p>For each post: a short video summary (under 90 seconds), a carousel for social, and an email to our newsletter list. The core research doesn't change — we're just packaging it for people who won't read a long article.</p>
+<p>Nadia will assign one post per person. Please reuse the existing graphics where you can, and flag anything where the data needs a refresh before we republish.</p>
+<p><strong>158.</strong> What does the editorial lead want the team to do?<br />
+(A) Repurpose top posts into other formats<br />
+(B) Write five new blog posts<br />
+(C) Delete old posts<br />
+(D) Translate posts into other languages</p>
+<p><strong>159.</strong> What formats are mentioned?<br />
+(A) A podcast and a webinar<br />
+(B) A print magazine and a brochure<br />
+(C) A book and a course<br />
+(D) A short video, a social carousel, and an email</p>
+<p><strong>160.</strong> What should team members flag?<br />
+(A) Posts with low traffic<br />
+(B) Graphics that look outdated<br />
+(C) Data that needs a refresh<br />
+(D) Topics they dislike</p>
+<h3>Passage 6 — Content calendar (161–162)</h3>
+<p><strong>SOCIAL MEDIA CONTENT CALENDAR — Week of May 5</strong></p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Platform</th>
+<th>Post type</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mon</td>
+<td>LinkedIn</td>
+<td>Article link</td>
+<td>Sam</td>
+</tr>
+<tr>
+<td>Tue</td>
+<td>Instagram</td>
+<td>Product photo</td>
+<td>Priya</td>
+</tr>
+<tr>
+<td>Wed</td>
+<td>—</td>
+<td>(no post)</td>
+<td></td>
+</tr>
+<tr>
+<td>Thu</td>
+<td>LinkedIn + Instagram</td>
+<td>Customer story</td>
+<td>Sam</td>
+</tr>
+<tr>
+<td>Fri</td>
+<td>Instagram</td>
+<td>Behind-the-scenes video</td>
+<td>Priya</td>
+</tr>
+</tbody>
+</table>
+<p>Draft posts are due to the reviewer two working days before they go live. Wednesday is intentionally left open for reacting to news or trends.</p>
+<p><strong>161.</strong> On which day is no post scheduled?<br />
+(A) Monday<br />
+(B) Wednesday<br />
+(C) Thursday<br />
+(D) Friday</p>
+<p><strong>162.</strong> When are draft posts due to the reviewer?<br />
+(A) The same day<br />
+(B) One day before<br />
+(C) One week before<br />
+(D) Two working days before</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Halloran,</p>
+<p>Thank you for entering our "Show Us Your Space" photo contest. We received over 4,000 entries, and the quality made judging genuinely difficult.</p>
+<p>We're pleased to tell you that your entry was selected as one of ten runners-up. You'll receive a $200 store credit, which has been added to your account and is valid for one year.</p>
+<p>With your permission, we'd like to feature your photo in an upcoming social media post and on our blog, crediting you by first name and last initial. If that's fine, no action is needed. If you'd rather we not use it, reply to this email by June 1.</p>
+<p>Congratulations again, and thank you for being part of our community.</p>
+<p>Warm regards,<br />
+The Delton Home Team</p>
+<p><strong>163.</strong> Why is the company writing to Mr. Halloran?<br />
+(A) To tell him he is a runner-up<br />
+(B) To reject his contest entry<br />
+(C) To ask him to enter a new contest<br />
+(D) To confirm an order</p>
+<p><strong>164.</strong> What will Mr. Halloran receive?<br />
+(A) A cash prize<br />
+(B) A $200 store credit<br />
+(C) A free product<br />
+(D) A gift box</p>
+<p><strong>165.</strong> What does the company want to do with his photo?<br />
+(A) Enter it in a national contest<br />
+(B) Print it in a catalog<br />
+(C) Feature it on social media and the blog<br />
+(D) Sell prints of it</p>
+<p><strong>166.</strong> What should Mr. Halloran do if he does NOT want his photo used?<br />
+(A) Call customer service<br />
+(B) Return the store credit<br />
+(C) Nothing; it will not be used<br />
+(D) Reply to the email by June 1</p>
+<h3>Passage 8 — Partner program FAQ (167–169)</h3>
+<p><strong>PARTNER PROGRAM — FAQ</strong></p>
+<p><strong>What is the partner program?</strong><br />
+If you refer a customer who signs up for a paid plan, you earn 20% of their first-year subscription, paid as a one-time commission.</p>
+<p><strong>When am I paid?</strong><br />
+Commissions are paid 60 days after the customer's first payment, once the refund window has closed. Payments go out on the 15th of the month.</p>
+<p><strong>Is there a limit?</strong><br />
+No limit on the number of referrals. However, self-referrals and referrals of existing customers do not qualify.</p>
+<p><strong>How do I track referrals?</strong><br />
+Your partner dashboard shows every referral, its status, and expected payout.</p>
+<p><strong>167.</strong> How is the commission calculated?<br />
+(A) A flat $50 per referral<br />
+(B) 20% of the customer's first-year subscription<br />
+(C) 10% for the life of the customer<br />
+(D) A tiered bonus</p>
+<p><strong>168.</strong> When are commissions paid?<br />
+(A) Immediately<br />
+(B) At the end of the year<br />
+(C) 60 days after the customer's first payment<br />
+(D) When the partner requests it</p>
+<p><strong>169.</strong> Which referrals do NOT qualify?<br />
+(A) Referrals of existing customers<br />
+(B) Referrals from social media<br />
+(C) International referrals<br />
+(D) Referrals under $100</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> Regional Marketing Managers <strong>FROM:</strong> Central Marketing <strong>RE:</strong> Local Campaign Budget — Q3</p>
+<p>Each region has a Q3 local marketing budget of $15,000. You may spend it on local events, regional ads, or partnerships, but not on discounts or giveaways, which are handled centrally.</p>
+<p>Submit your plan by June 25 with expected reach and how you'll measure results. Plans over $10,000 in a single category need a second review.</p>
+<p>Anything unspent by September 30 returns to the central budget — it does not roll over.</p>
+<p><strong>170.</strong> What can the local budget be spent on?<br />
+(A) Discounts and giveaways<br />
+(B) Staff bonuses<br />
+(C) Office equipment<br />
+(D) Local events, regional ads, or partnerships</p>
+<p><strong>171.</strong> What must a regional plan include?<br />
+(A) A list of staff involved<br />
+(B) Expected reach and how results will be measured<br />
+(C) Competitor analysis<br />
+(D) A three-year forecast</p>
+<p><strong>172.</strong> What happens to money not spent by September 30?<br />
+(A) It returns to the central budget<br />
+(B) It rolls over to Q4<br />
+(C) It is split among regions<br />
+(D) It is lost with a penalty</p>
+<h3>Passage 10 — Online review (173–175)</h3>
+<p>★★★★☆ <strong>Strong strategy, thin on reporting</strong> — Marketing Director</p>
+<p>We hired Brightpath to rebuild our content strategy, and that part was excellent. They did real research — customer interviews, a content audit, competitor analysis — and gave us a clear plan we're still following a year later.</p>
+<p>Where it fell short was the monthly reporting during the retainer. The reports were generic and often late, and it was hard to see what our money was buying month to month. When we raised it, they improved, but it shouldn't have taken pushing. For strategy work, I'd hire them again. For ongoing management, I'd set clearer reporting expectations up front.</p>
+<p><strong>173.</strong> What does the reviewer praise?<br />
+(A) The monthly reports<br />
+(B) The content strategy work<br />
+(C) The low cost<br />
+(D) The fast turnaround</p>
+<p><strong>174.</strong> What was the main problem?<br />
+(A) The strategy was too generic<br />
+(B) Poor communication overall<br />
+(C) Missed deadlines on the strategy<br />
+(D) Generic and late monthly reporting</p>
+<p><strong>175.</strong> What does the reviewer advise for ongoing management?<br />
+(A) Setting clearer reporting expectations up front<br />
+(B) Choosing a different agency<br />
+(C) Avoiding retainers<br />
+(D) Doing it in-house</p>
+<h3>Passages 11–12 — Campaign brief &amp; email (176–180)</h3>
+<p><strong>Document 1</strong></p>
+<p><strong>CAMPAIGN BRIEF — Summer Sale</strong><br />
+Goal: increase online sales during July, especially of outdoor furniture.<br />
+Audience: past customers who haven't purchased in 6+ months.<br />
+Channels: email (3 sends), paid social, on-site banner.<br />
+Offer: 15% off outdoor furniture; free delivery over $500.<br />
+Key dates: teaser email July 1, main email July 8, last-chance email July 22. Sale ends July 25.<br />
+Budget: $18,000 (paid social $12,000, production $6,000).<br />
+Success measure: revenue from the campaign vs. the same period last year.</p>
+<p><strong>Document 2</strong></p>
+<p><strong>From:</strong> Priya Shah <strong>To:</strong> Campaign Team <strong>Subject:</strong> Summer Sale brief — two questions</p>
+<p>Hi,</p>
+<p>Two things on the Summer Sale brief:<br />
+1. The offer says "15% off outdoor furniture" — does that include items already on clearance, or full-price only?<br />
+2. For the audience, "haven't purchased in 6+ months" — is that from July 1, or from the send date of each email?</p>
+<p>Also, I'd suggest adding a mid-sale email around July 15; three sends over three weeks feels thin for a sale this size.</p>
+<p><strong>176.</strong> What is the main goal of the campaign?<br />
+(A) To launch a new product line<br />
+(B) To increase online sales in July<br />
+(C) To grow the email list<br />
+(D) To promote in-store events</p>
+<p><strong>177.</strong> Who is the target audience?<br />
+(A) New website visitors<br />
+(B) Customers who spent over $500<br />
+(C) Social media followers only<br />
+(D) Past customers who haven't purchased in 6+ months</p>
+<p><strong>178.</strong> What is Priya's first question about?<br />
+(A) Whether the discount applies to clearance items<br />
+(B) The total budget<br />
+(C) The sale end date<br />
+(D) Which channels to use</p>
+<p><strong>179.</strong> What does Priya suggest adding?<br />
+(A) A mid-sale email around July 15<br />
+(B) A print ad<br />
+(C) A second discount tier<br />
+(D) An influencer partnership</p>
+<p><strong>180.</strong> How will the campaign's success be measured?<br />
+(A) By email open rates<br />
+(B) By social media followers gained<br />
+(C) By revenue vs. the same period last year<br />
+(D) By website visits</p>
+<h3>Passages 13–14 — Two emails about an ad claim (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Legal Review <strong>To:</strong> Marketing — Campaign Team <strong>Subject:</strong> Hold on "Best in Class" ad claim</p>
+<p>Hi,</p>
+<p>We can't approve the digital ad as written. The headline says "The best air purifier you can buy," which is an absolute superiority claim. To use it, we'd need current, independent testing that supports it across the relevant market.</p>
+<p>Options:<br />
+1. Change the claim to something supportable, e.g. "Rated 5 stars by over 2,000 customers" (if accurate).<br />
+2. Provide the testing evidence for review.</p>
+<p>The rest of the ad is fine. Let us know how you want to proceed.</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> Campaign Team <strong>To:</strong> Legal Review <strong>Subject:</strong> RE: Hold on "Best in Class" ad claim</p>
+<p>Thanks. We don't have independent testing, so let's go with option 1. The "5 stars from over 2,000 customers" line is accurate — it's from our own verified reviews, current as of this week.</p>
+<p>I'll send the revised ad this afternoon. Does the review count need a date next to it, or is "over 2,000" enough?</p>
+<p><strong>181.</strong> Why can't the ad be approved as written?<br />
+(A) The image is unlicensed<br />
+(B) It makes an unsupported superiority claim<br />
+(C) It is missing a disclaimer<br />
+(D) The price is wrong</p>
+<p><strong>182.</strong> What would be needed to keep the original headline?<br />
+(A) Manager approval<br />
+(B) A larger budget<br />
+(C) A different image<br />
+(D) Independent testing evidence</p>
+<p><strong>183.</strong> Which option does the Campaign Team choose?<br />
+(A) Provide testing evidence<br />
+(B) Drop the ad entirely<br />
+(C) Change the claim to a review-based one<br />
+(D) Appeal the decision</p>
+<p><strong>184.</strong> What does the Campaign Team say about the "5 stars" claim?<br />
+(A) It is from a third-party site<br />
+(B) It is an estimate<br />
+(C) It is from last year<br />
+(D) It is from their own verified reviews and current</p>
+<p><strong>185.</strong> What does the Campaign Team ask Legal?<br />
+(A) Whether the review count needs a date<br />
+(B) For a budget increase<br />
+(C) To approve a new image<br />
+(D) For more time</p>
+<h3>Passages 15–17 — Sponsorship packages, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Sponsorship packages</strong></p>
+<p><strong>CITY MARATHON — SPONSORSHIP PACKAGES</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Cost</th>
+<th>Includes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bronze</td>
+<td>$2,000</td>
+<td>Logo on event website; 2 race entries</td>
+</tr>
+<tr>
+<td>Silver</td>
+<td>$5,000</td>
+<td>Bronze + logo on race bibs; a booth at the expo; 5 race entries</td>
+</tr>
+<tr>
+<td>Gold</td>
+<td>$12,000</td>
+<td>Silver + logo on the finish-line banner; a speaking slot at the awards ceremony; 15 race entries</td>
+</tr>
+</tbody>
+</table>
+<p>Booth space at the expo is limited and assigned in the order sponsorships are confirmed. All logos must be submitted by March 15.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Park, Brand Marketing <strong>To:</strong> sponsors@citymarathon.example <strong>Subject:</strong> Sponsorship — which tier</p>
+<p>Hi,</p>
+<p>We're interested in sponsoring the marathon. Our main goals are (1) a physical presence to hand out samples and (2) getting our logo in front of runners.</p>
+<p>We have a budget of about $6,000. Which tier fits? And if we confirm this week, will we still get a good booth location?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> sponsors@citymarathon.example <strong>To:</strong> Owen Park <strong>Subject:</strong> RE: Sponsorship — which tier</p>
+<p>Hi Owen,</p>
+<p>For your goals, Silver ($5,000) is the right fit — it includes the expo booth for handing out samples and your logo on the race bibs, which every runner wears.</p>
+<p>If you confirm this week, you'll be among the first ten sponsors, so you'll get a booth near the main entrance. Booths are assigned by confirmation order.</p>
+<p>Just remember the logo deadline is March 15 for print materials.</p>
+<p><strong>186.</strong> What are Owen's two main goals?<br />
+(A) A physical presence and logo visibility to runners<br />
+(B) Speaking at the ceremony and free race entries<br />
+(C) A finish-line banner and a website listing<br />
+(D) Handing out coupons and email sign-ups</p>
+<p><strong>187.</strong> Which tier does the marathon recommend?<br />
+(A) Bronze<br />
+(B) Silver<br />
+(C) Gold<br />
+(D) A custom package</p>
+<p><strong>188.</strong> Why does Silver fit Owen's goals?<br />
+(A) It is the cheapest option<br />
+(B) It includes a speaking slot<br />
+(C) It includes the finish-line banner<br />
+(D) It includes an expo booth and logo on race bibs</p>
+<p><strong>189.</strong> What determines booth location?<br />
+(A) The sponsorship tier<br />
+(B) A random draw<br />
+(C) The order sponsorships are confirmed<br />
+(D) The size of the company</p>
+<p><strong>190.</strong> What is the deadline for submitting logos?<br />
+(A) This week<br />
+(B) March 15<br />
+(C) March 1<br />
+(D) Race day</p>
+<h3>Passages 18–20 — Ad platform policy, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy summary</strong></p>
+<p><strong>AD PLATFORM — REVIEW &amp; BILLING</strong><br />
+- New ads go through automated review, usually within a few hours; some are held for manual review (up to 2 business days).<br />
+- Ads can run before review completes; if an ad is later rejected, it stops and you are not charged for impressions after the rejection.<br />
+- Billing is monthly. You are charged on the 1st for the previous month's spend, up to your set monthly cap.<br />
+- Editing a live ad's text or image sends it back through review. Changing only the budget or schedule does not.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lena Marsh <strong>To:</strong> support@adplatform.example <strong>Subject:</strong> Ad rejected after running for a day</p>
+<p>Hi,</p>
+<p>One of our ads ran for about a day, then got rejected for "unsupported claim." We've edited the text to remove the claim. Two questions:<br />
+1. Will we be charged for the day it ran before rejection?<br />
+2. Now that we've edited it, does the whole ad go back through review, or just continue?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> support@adplatform.example <strong>To:</strong> Lena Marsh <strong>Subject:</strong> RE: Ad rejected after running for a day</p>
+<p>Hi Lena,</p>
+<ol>
+<li>Yes — you're charged for impressions before the rejection, but not after. So you'll see charges for that first day only.</li>
+<li>Because you edited the ad's text, it goes back through review as a new submission. It may run during review, but if it's rejected again it will stop. If you'd only changed the budget, it would have continued without another review.</li>
+</ol>
+<p>Your edited version is in the queue now; automated review usually clears within a few hours.</p>
+<p><strong>191.</strong> How long can a manual ad review take?<br />
+(A) A few minutes<br />
+(B) A few hours<br />
+(C) Up to 2 business days<br />
+(D) Up to a week</p>
+<p><strong>192.</strong> What happens if an ad is rejected after it has been running?<br />
+(A) All charges are refunded<br />
+(B) It keeps running until the end of the day<br />
+(C) The account is suspended<br />
+(D) It stops, and you are not charged for impressions after the rejection</p>
+<p><strong>193.</strong> Will Lena be charged for the day the ad ran?<br />
+(A) No, rejected ads are always free<br />
+(B) Yes, for impressions before the rejection<br />
+(C) Only 50% of the cost<br />
+(D) Only if she appeals</p>
+<p><strong>194.</strong> Why does Lena's edited ad go back through review?<br />
+(A) She changed the budget<br />
+(B) She changed the schedule<br />
+(C) She edited the ad's text<br />
+(D) It is a monthly requirement</p>
+<p><strong>195.</strong> What would have avoided another review?<br />
+(A) Changing only the budget or schedule<br />
+(B) Waiting 24 hours<br />
+(C) Contacting support first<br />
+(D) Lowering the monthly cap</p>
+<h3>Passages 21–23 — Newsletter guidelines, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Guidelines</strong></p>
+<p><strong>MONTHLY NEWSLETTER — CONTRIBUTOR GUIDELINES</strong></p>
+<ul>
+<li>The newsletter goes out on the first Tuesday of each month.</li>
+<li>Section drafts are due to the editor 8 working days before send.</li>
+<li>Each section is 120–180 words plus one link. Longer pieces should be a blog post with a short teaser in the newsletter.</li>
+<li>Images must be from the approved library or properly licensed; credit the source.</li>
+<li>The editor may cut or combine sections for length. Contributors are shown the final version the day before send.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Odei <strong>To:</strong> Newsletter Editor <strong>Subject:</strong> My section this month</p>
+<p>Hi,</p>
+<p>My section this month is a product update that's running long — about 300 words because there are three features to cover.</p>
+<p>Should I cut it down, or would it work better as a blog post? Also, I have a screenshot from our own app — does that count as "approved library," or do I need to do something else with it?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> Newsletter Editor <strong>To:</strong> Sam Odei <strong>Subject:</strong> RE: My section this month</p>
+<p>Hi Sam,</p>
+<p>At 300 words with three features, let's make it a blog post and I'll put a 2–3 sentence teaser in the newsletter linking to it. That keeps the newsletter scannable and gives the features room to breathe.</p>
+<p>A screenshot of our own app is fine to use directly — no library needed. Just add a one-line caption so readers know what they're looking at.</p>
+<p>Send me the teaser and the blog draft by the usual deadline.</p>
+<p><strong>196.</strong> When does the newsletter go out?<br />
+(A) The first Tuesday of each month<br />
+(B) The last Friday of each month<br />
+(C) Every two weeks<br />
+(D) On request</p>
+<p><strong>197.</strong> What is the standard length of a newsletter section?<br />
+(A) 50–80 words<br />
+(B) 120–180 words<br />
+(C) 300 words<br />
+(D) There is no limit</p>
+<p><strong>198.</strong> What does the editor suggest for Sam's long piece?<br />
+(A) Cutting it to 120 words<br />
+(B) Splitting it across two months<br />
+(C) Removing one of the features<br />
+(D) Making it a blog post with a teaser in the newsletter</p>
+<p><strong>199.</strong> What does the editor say about Sam's app screenshot?<br />
+(A) It cannot be used<br />
+(B) It needs a license<br />
+(C) It is fine to use directly, with a caption<br />
+(D) It must be redrawn as a graphic</p>
+<p><strong>200.</strong> When should Sam send his material?<br />
+(A) The day before send<br />
+(B) By the usual deadline (8 working days before send)<br />
+(C) Immediately<br />
+(D) After the newsletter goes out</p>
+<hr />
+<p><em>Hết phần Reading — Set_006. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_006</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A25/B25/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>2 C</strong> "a product is being photographed in a studio" · bẫy: "packed into a case", "lights turned off"</li>
+<li><strong>4 D</strong> "offering samples to a visitor" · bẫy: "paying at a register", "booth is being set up"</li>
+<li><strong>5 B</strong> "editing images on a computer" · bẫy: "printing a large banner"</li>
+<li><strong>6 C</strong> "a speaker is addressing an audience" · bẫy: "audience is leaving", "microphone is being tested"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where...taken?" → "We booked a studio downtown" · bẫy: trả lời When / Who</li>
+<li><strong>14 C</strong> "one week or two?" → "Two weeks would give it more reach" · bẫy: nhận xét discount / ad</li>
+<li><strong>17 C</strong> "What did the client think?" → "They preferred the second option" · bẫy: trả lời When / How many</li>
+<li><strong>19 B</strong> "did the press release go out?" → "Let me check with communications" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "That's where we're seeing the best returns"</li>
+<li><strong>21 C</strong> yêu cầu xem trước → "I'll take a look this afternoon" · bẫy: lặp "ad"</li>
+<li><strong>25 B</strong> "Isn't the presentation usually on Fridays?" → đính chính "moved to Thursday" · bẫy: lặp "Friday"</li>
+<li><strong>31 C</strong> "Why was the launch postponed?" → lý do cụ thể "scheduling conflict" · bẫy: lặp "event"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "call-to-action button is hard to see" · "a version sized for mobile" · "both desktop and mobile by Thursday"</li>
+<li>35–37: "email campaign open rate was 22%" · "shorter subject lines and sent it Tuesday morning" · "write that up so the other teams can use it"</li>
+<li>38–40: "product launch event" · "I'd print fifteen passes" · "so it can go out Wednesday"</li>
+<li>41–43: "a rate that's double our budget" · "two smaller creators" · "it feels more authentic"</li>
+<li>44–46: "isn't converting well — lots of visits, few sign-ups" · "It asks for eight fields" (form too long) · "an A/B test with the short form"</li>
+<li>47–49: "associate us mainly with one product line" · "feature customers using the full range" · "bring that to the planning meeting Friday"</li>
+<li>50–52: "redo the tagline" · "short and playful" · "draft three new options"</li>
+<li>53–55: "click-through rate is still low" · "unclear call-to-action button" · "run an A/B test"</li>
+<li>56–58: "finalizing the press release" · "check the quotes from the CEO" · "by end of day"</li>
+<li>59–61: "found us through social media" · "print ads ... not performing as well" · "revised budget proposal"</li>
+<li>62–64: "trade show booth theme" · "interactive product demo" · "start sourcing equipment"</li>
+<li>65–67: "competitor's similar campaign" · "keep their current strategy" · "keep monitoring the results"</li>
+<li>68–70: "video ad ... great feedback" · "too long for social media" · "prepare a shorter cut"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "the rebrand ... is finalized" · "please don't use the old assets in anything new" · "with at least three days' notice"</li>
+<li>74–76: "results ... and ... some page changes" · "the conversion rate on the landing page is below target" · "set up a call this week to walk through some page changes"</li>
+<li>77–79: "usefulness over cleverness" · "our study of 500 campaigns" · "what can the reader do after reading this that they couldn't before?"</li>
+<li>80–82: "builds fast, mobile-friendly websites" · "Most sites go live in three weeks" · "your first month of hosting is free"</li>
+<li>83–85: "new project-intake form" · "track requests and accurate turnaround times" · "link ... shared in team channel"</li>
+<li>86–88: "shift ... budget toward video ads" · "based on last quarter's performance" · "call me back"</li>
+<li>89–91: "demo station ... running by nine" · "product samples ... labeled" · "press check-in ... side entrance"</li>
+<li>92–94: "coffee" ad · "roasted in small batches every week" · "free shipping on your first three bags"</li>
+<li>95–97: "focus more on customer retention" · "repeat customers spend significantly more" · "loyalty program in the second quarter"</li>
+<li>98–100: "content strategy" session · "forty-five minutes" · "hold questions until the end"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The marketing team</code> số ít + thói quen → <code>launches</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>delivered</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be encouraged to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>recommendations for</code> + V-ing</td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> click-through rate</code> (trong 3) → so sánh nhất <code>highest</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>grew its audience by ... posting</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>has increased</code> → trạng từ <code>sharply</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each campaign</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>prepare</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the last page</code></td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the campaign ends</code> (sau khi) → <code>After</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The agency</code> số ít → <code>serves</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>headlines</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>much</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>in the conference room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td>"phê duyệt <strong>kèm</strong> vài thay đổi" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>review</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>publish</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... tested well</code> — cả hai đều không đạt</td>
+</tr>
+<tr>
+<td>127</td>
+<td>B</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>reviewer</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (media plan <strong>được</strong> chia sẻ)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>tips</code> → tính từ <code>practical</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>C</td>
+<td>"which <span class="fill"></span> on April 5" (mốc tương lai) → <code>will launch</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>B</td>
+<td>"our team <span class="fill"></span> the ad creative" (2 tuần tới) → tương lai <code>will develop</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td>đảo ngữ điều kiện <code>Should that time not work</code> = "nếu"</td>
+</tr>
+<tr>
+<td>134</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời liên hệ, khép lại email khởi động chiến dịch</td>
+</tr>
+<tr>
+<td>135</td>
+<td>B</td>
+<td>"Requests ... <span class="fill"></span> longer be actioned" → <code>will</code> (no longer)</td>
+</tr>
+<tr>
+<td>136</td>
+<td>C</td>
+<td>"The design team <span class="fill"></span> to acknowledge" → cụm cố định <code>is committed to</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"require ... approval and <span class="fill"></span> be marked 'urgent'" → <code>must</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo quy trình mới</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>trước danh từ <code>dashboard</code> → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>B</td>
+<td>"Every report is <span class="fill"></span>" → tính từ <code>customizable</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> nhấn mạnh sự dễ dàng, khép lại quảng cáo phần mềm</td>
+</tr>
+<tr>
+<td>143</td>
+<td>D</td>
+<td>"headlines <span class="fill"></span> sentence case" (quy tắc, hiện tại đơn, chủ ngữ số nhiều) → <code>use</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>A</td>
+<td>"link text <span class="fill"></span> describe where the link goes" → <code>should</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"This helps readers and <span class="fill"></span> accessibility" (chủ ngữ <code>This</code> số ít) → <code>improves</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu cần, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>B</td>
+<td>156</td>
+<td>C</td>
+<td>165</td>
+<td>C</td>
+<td>174</td>
+<td>D</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>A</td>
+<td>184</td>
+<td>D</td>
+<td>193</td>
+<td>B</td>
+</tr>
+<tr>
+<td>149</td>
+<td>C</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>A</td>
+<td>194</td>
+<td>C</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>D</td>
+<td>168</td>
+<td>C</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>A</td>
+<td>195</td>
+<td>A</td>
+</tr>
+<tr>
+<td>151</td>
+<td>A</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>A</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>B</td>
+<td>196</td>
+<td>A</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>B</td>
+<td>170</td>
+<td>D</td>
+<td>179</td>
+<td>A</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>B</td>
+</tr>
+<tr>
+<td>153</td>
+<td>B</td>
+<td>162</td>
+<td>D</td>
+<td>171</td>
+<td>B</td>
+<td>180</td>
+<td>C</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>D</td>
+</tr>
+<tr>
+<td>154</td>
+<td>A</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>A</td>
+<td>181</td>
+<td>B</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>C</td>
+</tr>
+<tr>
+<td>155</td>
+<td>D</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>B</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>C</td>
+<td>200</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "younger customers ... are much harder to reach on broadcast TV"<br />
+- <strong>151 A</strong> — "reached the target age group at half the cost per view of the company's TV buys"<br />
+- <strong>156 C</strong> — "list growth of 2–3x in the first three months"<br />
+- <strong>162 D</strong> — "Draft posts are due to the reviewer two working days before"<br />
+- <strong>169 A</strong> — "self-referrals and referrals of existing customers do not qualify"<br />
+- <strong>172 A</strong> — "Anything unspent by September 30 returns to the central budget"<br />
+- <strong>178 A</strong> — "does that include items already on clearance, or full-price only?"<br />
+- <strong>182 D</strong> — "we'd need current, independent testing that supports it"<br />
+- <strong>184 D</strong> — "it's from our own verified reviews, current as of this week"<br />
+- <strong>188 D</strong> — "it includes the expo booth ... and your logo on the race bibs"<br />
+- <strong>192 D</strong> — "it stops and you are not charged for impressions after the rejection"<br />
+- <strong>195 A</strong> — "If you'd only changed the budget, it would have continued without another review"<br />
+- <strong>198 D</strong> — "let's make it a blog post and I'll put a ... teaser in the newsletter"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_006 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Marketing / Advertising): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

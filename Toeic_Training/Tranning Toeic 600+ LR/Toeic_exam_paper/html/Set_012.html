@@ -1,0 +1,2244 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_012 — Media & Publishing</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="012">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_012</strong>
+    <span class="theme">Media &amp; Publishing</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_012 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Người phụ nữ ngồi ở bàn, đang đọc một bản in thử trên giấy.]</em><br />
+(A) A woman is stacking newspapers on a cart.<br />
+(B) A woman is reading a printed proof at her desk.<br />
+(C) A woman is speaking into a microphone.<br />
+(D) A woman is loading paper into a printer.</p>
+<p><strong>2.</strong> <em>[Ảnh: Máy in cuộn công nghiệp lớn đang in báo trong xưởng.]</em><br />
+(A) A large press is printing newspapers.<br />
+(B) Workers are folding cardboard boxes.<br />
+(C) A roll of paper is being lifted by a crane.<br />
+(D) The machine is being taken apart for repair.</p>
+<p><strong>3.</strong> <em>[Ảnh: Hai người đội tai nghe ngồi trước micro trong phòng thu podcast.]</em><br />
+(A) People are watching a film in a theater.<br />
+(B) A camera is mounted on a tripod.<br />
+(C) Two people are recording in a podcast studio.<br />
+(D) Someone is adjusting stage lighting.</p>
+<p><strong>4.</strong> <em>[Ảnh: Nhân viên kho đang xếp sách vào các thùng carton.]</em><br />
+(A) Books are displayed in a shop window.<br />
+(B) A customer is browsing a shelf.<br />
+(C) A cart is being wheeled down an aisle.<br />
+(D) A worker is packing books into boxes.</p>
+<p><strong>5.</strong> <em>[Ảnh: Người giao báo sáng sớm đặt các bó báo trước một cửa hàng.]</em><br />
+(A) A delivery person is dropping off bundles of newspapers.<br />
+(B) A shop owner is unlocking the front door.<br />
+(C) Newspapers are being sold at a stand.<br />
+(D) A truck is parked at a loading dock.</p>
+<p><strong>6.</strong> <em>[Ảnh: Biên tập viên dùng bút đỏ đánh dấu sửa trên bản thảo giấy.]</em><br />
+(A) A manuscript is coming out of a printer.<br />
+(B) Someone is stapling a stack of documents.<br />
+(C) An editor is marking corrections on a manuscript.<br />
+(D) Papers are being filed in a cabinet.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the next issue go to print?<br />
+(A) Thursday at noon.<br />
+(B) About sixty pages.<br />
+(C) The features section.</p>
+<p><strong>8.</strong> Who's writing the cover story this month?<br />
+(A) It's on the newsstand now.<br />
+(B) Priya is, I think.<br />
+(C) Twice a month.</p>
+<p><strong>9.</strong> Where should I send my freelance invoice?<br />
+(A) To the accounts inbox.<br />
+(B) It was due last week.<br />
+(C) About eight hundred words.</p>
+<p><strong>10.</strong> Why was the article held back?<br />
+(A) On page three.<br />
+(B) The legal review isn't finished.<br />
+(C) The reporter is new.</p>
+<p><strong>11.</strong> How many subscribers did we add last month?<br />
+(A) Just over two thousand.<br />
+(B) Mostly digital ones.<br />
+(C) The campaign ran for weeks.</p>
+<p><strong>12.</strong> Could you fact-check this section before five?<br />
+(A) The facts were interesting.<br />
+(B) It's a fairly long section.<br />
+(C) I can have it done by four.</p>
+<p><strong>13.</strong> The podcast episode is already edited, isn't it?<br />
+(A) It runs about forty minutes.<br />
+(B) Yes, it's ready to publish.<br />
+(C) We record on Tuesdays.</p>
+<p><strong>14.</strong> Do you want the interview transcribed or summarized?<br />
+(A) The interview went well.<br />
+(B) In the meeting room.<br />
+(C) Just the key quotes is fine.</p>
+<p><strong>15.</strong> Isn't the print edition losing money?<br />
+(A) The printer is downtown.<br />
+(B) It comes out on Fridays.<br />
+(C) Not since we raised the cover price.</p>
+<p><strong>16.</strong> Can you show me how to schedule a post in the system?<br />
+(A) The post did really well.<br />
+(B) Of course — open the calendar view first.<br />
+(C) We post something every day.</p>
+<p><strong>17.</strong> What did the reader survey show?<br />
+(A) It was sent to five thousand people.<br />
+(B) The survey closed on Monday.<br />
+(C) That people want more local coverage.</p>
+<p><strong>18.</strong> Where are the back issues archived?<br />
+(A) In the basement storage room.<br />
+(B) They're from the nineties.<br />
+(C) We stopped printing those.</p>
+<p><strong>19.</strong> Do you know whether the translation rights sold?<br />
+(A) The book did well abroad.<br />
+(B) I'd have to ask the rights manager.<br />
+(C) It was translated into French.</p>
+<p><strong>20.</strong> I think we should drop the Saturday edition.<br />
+(A) Advertisers still want it, though.<br />
+(B) Saturday is a busy news day.<br />
+(C) The edition is quite thick.</p>
+<p><strong>21.</strong> Could you proofread this article before it's published?<br />
+(A) I'll read through it now.<br />
+(B) The article is long.<br />
+(C) I published one last year.</p>
+<p><strong>22.</strong> Has the podcast episode been edited yet?<br />
+(A) It's a long episode.<br />
+(B) I edited my photo.<br />
+(C) Not yet, it's still in progress.</p>
+<p><strong>23.</strong> Where should we place the author's byline?<br />
+(A) Right under the headline.<br />
+(B) Bylines are important.<br />
+(C) I placed the order.</p>
+<p><strong>24.</strong> Would you rather run the story online first or in print first?<br />
+(A) Online first makes more sense.<br />
+(B) The story is long.<br />
+(C) I read it in print.</p>
+<p><strong>25.</strong> Isn't the magazine usually released monthly?<br />
+(A) Months go by fast.<br />
+(B) Yes, but this is a special weekly edition.<br />
+(C) The magazine looks great.</p>
+<p><strong>26.</strong> How many subscribers do we have now?<br />
+(A) Around fifty thousand.<br />
+(B) Subscribers get discounts.<br />
+(C) We subscribed last year.</p>
+<p><strong>27.</strong> Who's writing the review of the new film?<br />
+(A) Reviews take time.<br />
+(B) Jordan from the arts desk.<br />
+(C) Films are entertaining.</p>
+<p><strong>28.</strong> Do you know if the interview was recorded?<br />
+(A) Interviews are useful.<br />
+(B) I recorded my meeting.<br />
+(C) Yes, it's saved on the server.</p>
+<p><strong>29.</strong> Should we run a correction for yesterday's article?<br />
+(A) Corrections matter.<br />
+(B) Let's confirm the error first.<br />
+(C) I corrected my mistake.</p>
+<p><strong>30.</strong> Haven't you finished laying out the front page yet?<br />
+(A) Layouts take time.<br />
+(B) Almost, just the photo captions left.<br />
+(C) The front page looked good.</p>
+<p><strong>31.</strong> Why was the print run delayed?<br />
+(A) Print runs happen weekly.<br />
+(B) It happened last issue too.<br />
+(C) Because the printer needed a part replaced.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I read your pitch on the community garden piece — I'd like to run it, but at twelve hundred words, not the two thousand you suggested.<br />
+<strong>M:</strong> That's fine. Do you want me to cut the history part or the interviews?<br />
+<strong>W:</strong> Keep the interviews, they're the heart of it. Bring the history down to one paragraph. And I need it by the fifteenth to make the spring issue.<br />
+<strong>M:</strong> I can get it to you by the thirteenth.</p>
+<p><strong>32.</strong> What are the speakers discussing?<br />
+(A) A new hire<br />
+(B) A subscription price<br />
+(C) A printing error<br />
+(D) An article the editor wants to publish</p>
+<p><strong>33.</strong> What does the editor ask the man to change?<br />
+(A) Add more interviews<br />
+(B) Rewrite the opening<br />
+(C) Shorten it and trim the history section<br />
+(D) Change the topic</p>
+<p><strong>34.</strong> When will the man deliver the piece?<br />
+(A) By the 13th<br />
+(B) By the 15th<br />
+(C) In the spring<br />
+(D) Next week</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The printer just called. They're short on our usual paper stock for next week's run.<br />
+<strong>W:</strong> Can they substitute something?<br />
+<strong>M:</strong> They've got a slightly heavier stock at the same price — but it would push each mailed copy into a higher postage bracket.<br />
+<strong>W:</strong> That postage adds up fast across the whole list. Ask them to track down the normal stock, even if it costs us a day.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) A press broke down<br />
+(B) An issue was misprinted<br />
+(C) Postage rates went up<br />
+(D) The printer is short on the usual paper stock</p>
+<p><strong>36.</strong> What is the drawback of the substitute paper?<br />
+(A) It costs more<br />
+(B) It is a different color<br />
+(C) It would raise postage costs<br />
+(D) It is lower quality</p>
+<p><strong>37.</strong> What does the woman suggest?<br />
+(A) Accepting the heavier stock<br />
+(B) Canceling the print run<br />
+(C) Reducing the page count<br />
+(D) Getting the normal stock even if it delays them a day</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> Where do we stand on the housing investigation?<br />
+<strong>M1:</strong> The data's solid. The problem is two key sources want to stay anonymous, and legal says we need at least one of them on the record.<br />
+<strong>M2:</strong> I went back to the tenants' association. Their director will go on the record — as long as we don't name her building.<br />
+<strong>W:</strong> That works. Let's aim to publish next Wednesday, with legal reading the final draft on Monday.</p>
+<p><strong>38.</strong> What are the speakers discussing?<br />
+(A) A housing investigation story<br />
+(B) A staff reorganization<br />
+(C) An advertising deal<br />
+(D) A website redesign</p>
+<p><strong>39.</strong> What did the legal department require?<br />
+(A) Removing the data<br />
+(B) A shorter article<br />
+(C) Delaying the story indefinitely<br />
+(D) At least one source on the record</p>
+<p><strong>40.</strong> What solution did the second man find?<br />
+(A) Dropping the anonymous sources<br />
+(B) Gathering new data<br />
+(C) A source who will go on the record if her building is not named<br />
+(D) Publishing without legal review</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> I'm calling because I haven't received my magazine in two months, but I'm still being charged.<br />
+<strong>M:</strong> I'm sorry about that. Let me check... here it is — the address change from your move never synced to the mailing list, so the copies went to your old place.<br />
+<strong>W:</strong> Is there any way to get those issues?<br />
+<strong>M:</strong> I'll send the two back issues out today, and I'm adding a free month to your subscription for the trouble.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To cancel her subscription<br />
+(B) Because she was charged but received no issues<br />
+(C) To change her payment method<br />
+(D) To complain about the content</p>
+<p><strong>42.</strong> What caused the problem?<br />
+(A) A payment failure<br />
+(B) Her address update did not sync to the mailing list<br />
+(C) The magazine stopped printing<br />
+(D) A delivery strike</p>
+<p><strong>43.</strong> What does the man offer?<br />
+(A) A full refund<br />
+(B) A phone credit<br />
+(C) To cancel with no fee<br />
+(D) The two back issues and a free month</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> The new sponsor wants a full sixty-second ad read at the very top of each episode, before the intro.<br />
+<strong>W:</strong> Sixty seconds before listeners even hear what the episode is about? We'll lose people right there.<br />
+<strong>M:</strong> They're the biggest sponsor we've ever had, though.<br />
+<strong>W:</strong> Then let's counter — thirty seconds right after the intro, and a longer spot in the middle. Same total time, much better for keeping listeners.</p>
+<p><strong>44.</strong> What does the sponsor want?<br />
+(A) A 60-second ad read before the intro of each episode<br />
+(B) A video advertisement<br />
+(C) To rename the show<br />
+(D) Exclusive rights to the show</p>
+<p><strong>45.</strong> Why is the woman concerned?<br />
+(A) The sponsor is controversial<br />
+(B) Listeners may drop off before the content starts<br />
+(C) The ad is too expensive to produce<br />
+(D) The show is too short</p>
+<p><strong>46.</strong> What does the woman propose?<br />
+(A) Rejecting the sponsor<br />
+(B) A 30-second read after the intro plus a longer mid-roll ad<br />
+(C) Making each episode shorter<br />
+(D) Doubling the advertising rate</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> The metered paywall goes live Monday. Readers get five free articles a month, then a prompt to subscribe.<br />
+<strong>M:</strong> What about people arriving from a search result or a shared link?<br />
+<strong>W:</strong> Those reads count toward the five, but we don't cut anyone off mid-article — the prompt only shows up when they open a sixth.<br />
+<strong>M:</strong> Good. Let's also keep an eye on the newsletter signup rate — that's usually where casual readers convert first.</p>
+<p><strong>47.</strong> What is launching on Monday?<br />
+(A) A metered paywall<br />
+(B) A print redesign<br />
+(C) A mobile app<br />
+(D) A new podcast</p>
+<p><strong>48.</strong> What happens after a reader views five free articles?<br />
+(A) Access is cut off immediately<br />
+(B) The reader sees only advertisements<br />
+(C) A subscribe prompt appears when they open the sixth<br />
+(D) The account is locked</p>
+<p><strong>49.</strong> What else does the man want to monitor?<br />
+(A) Print sales<br />
+(B) The newsletter signup rate<br />
+(C) Server costs<br />
+(D) Staff overtime</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> The editor wants us to shorten this feature story by about two hundred words.<br />
+<strong>W:</strong> That should be manageable if we trim the background section.<br />
+<strong>M:</strong> Agreed, I'll cut that down this afternoon.<br />
+<strong>W:</strong> Great, send it back to me once it's done so I can do a final read.</p>
+<p><strong>50.</strong> What does the editor want?<br />
+(A) A longer story<br />
+(B) A shortened story<br />
+(C) A new headline<br />
+(D) A different photo</p>
+<p><strong>51.</strong> What does the woman suggest trimming?<br />
+(A) The introduction<br />
+(B) The background section<br />
+(C) The quotes<br />
+(D) The conclusion</p>
+<p><strong>52.</strong> What will the woman do once the man finishes?<br />
+(A) Publish it immediately<br />
+(B) Do a final read<br />
+(C) Reject it<br />
+(D) Send it to another writer</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> Our latest podcast episode got way more downloads than usual.<br />
+<strong>M:</strong> Really? Do we know why?<br />
+<strong>W:</strong> I think the guest we featured has a large following, which probably helped.<br />
+<strong>M:</strong> Let's consider booking similar guests more often going forward.</p>
+<p><strong>53.</strong> What happened with the latest episode?<br />
+(A) It got fewer downloads than usual.<br />
+(B) It got more downloads than usual.<br />
+(C) It was delayed.<br />
+(D) It received complaints.</p>
+<p><strong>54.</strong> What does the woman think caused this?<br />
+(A) A new ad campaign<br />
+(B) The guest's large following<br />
+(C) A schedule change<br />
+(D) A shorter episode length</p>
+<p><strong>55.</strong> What does the man suggest?<br />
+(A) Canceling the podcast<br />
+(B) Booking similar guests more often<br />
+(C) Shortening future episodes<br />
+(D) Changing the release day</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> We got a complaint that yesterday's article had an incorrect date in it.<br />
+<strong>W:</strong> Let me check the original draft to see where the error came from.<br />
+<strong>M:</strong> Once we know, we should post a correction online.<br />
+<strong>W:</strong> Agreed, I'll draft that as soon as I confirm the mistake.</p>
+<p><strong>56.</strong> What was the complaint about?<br />
+(A) An incorrect date<br />
+(B) A missing photo<br />
+(C) A broken link<br />
+(D) A spelling error</p>
+<p><strong>57.</strong> What will the woman check?<br />
+(A) The reader's comment<br />
+(B) The original draft<br />
+(C) The publishing schedule<br />
+(D) The print version</p>
+<p><strong>58.</strong> What will the speakers post?<br />
+(A) An apology letter<br />
+(B) A correction<br />
+(C) A new article<br />
+(D) A survey</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> The photographer sent over the images for the cover story, but they're a bit dark.<br />
+<strong>M:</strong> Can we brighten them in editing, or do we need to reshoot?<br />
+<strong>W:</strong> I think editing should be enough — I'll send them to the design team.<br />
+<strong>M:</strong> Good, let's aim to have the final cover ready by tomorrow.</p>
+<p><strong>59.</strong> What problem is mentioned with the images?<br />
+(A) They are too dark.<br />
+(B) They are the wrong size.<br />
+(C) They are blurry.<br />
+(D) They are missing captions.</p>
+<p><strong>60.</strong> What does the woman think will solve the problem?<br />
+(A) A reshoot<br />
+(B) Editing<br />
+(C) Using stock photos<br />
+(D) Cropping the images</p>
+<p><strong>61.</strong> What is the deadline mentioned?<br />
+(A) Today<br />
+(B) Tomorrow<br />
+(C) Next week<br />
+(D) End of the month</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's plan next month's cover story topic.<br />
+<strong>M1:</strong> I think we should cover the rise of local independent bookstores.<br />
+<strong>M2:</strong> That's a great angle, and I already know a few owners we could interview.<br />
+<strong>W:</strong> Perfect, let's start scheduling those interviews this week.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) Next month's cover story<br />
+(B) A hiring plan<br />
+(C) A subscription drive<br />
+(D) A redesign</p>
+<p><strong>63.</strong> What topic does the first man suggest?<br />
+(A) Local independent bookstores<br />
+(B) A tech company<br />
+(C) A music festival<br />
+(D) A local election</p>
+<p><strong>64.</strong> What will the speakers do this week?<br />
+(A) Write the article<br />
+(B) Start scheduling interviews<br />
+(C) Design the cover<br />
+(D) Approve the budget</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> Our website traffic dropped after the redesign last month.<br />
+<strong>W:</strong> I noticed that too — maybe the new layout is harder to navigate.<br />
+<strong>M:</strong> Should we bring back the old menu structure?<br />
+<strong>W:</strong> Let's test both versions with a small group of readers before deciding.</p>
+<p><strong>65.</strong> What happened after the redesign?<br />
+(A) Traffic increased.<br />
+(B) Traffic dropped.<br />
+(C) The site crashed.<br />
+(D) Ad revenue increased.</p>
+<p><strong>66.</strong> What does the woman think might be the issue?<br />
+(A) Slow loading speed<br />
+(B) A harder-to-navigate layout<br />
+(C) Broken links<br />
+(D) Too many ads</p>
+<p><strong>67.</strong> What do the speakers decide to do?<br />
+(A) Revert immediately<br />
+(B) Test both versions with readers<br />
+(C) Ignore the issue<br />
+(D) Hire a new designer</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> We need a headline for the science piece — the current one feels a bit flat.<br />
+<strong>M:</strong> What if we made it more of a question to draw readers in?<br />
+<strong>W:</strong> I like that. Can you draft a few options for us to choose from?<br />
+<strong>M:</strong> Sure, I'll have three or four ready within the hour.</p>
+<p><strong>68.</strong> What are the speakers working on?<br />
+(A) A headline for a science piece<br />
+(B) A cover design<br />
+(C) A subscription email<br />
+(D) A social media post</p>
+<p><strong>69.</strong> What does the man suggest?<br />
+(A) Making the headline shorter<br />
+(B) Making the headline a question<br />
+(C) Using a bolder font<br />
+(D) Removing the headline</p>
+<p><strong>70.</strong> What will the man do within the hour?<br />
+(A) Publish the article<br />
+(B) Draft a few headline options<br />
+(C) Interview the scientist<br />
+(D) Edit the photos</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Staff announcement</h3>
+<p><em>"A heads-up that we're switching to the new publishing system on the first of the month. The biggest change: you'll write and file every story in the new editor, and it builds the web page and the print page automatically from that one file — the print desk won't reformat anything separately anymore. Training runs Tuesday and Wednesday; please sign up for one session. The old system stays available in read-only mode for ninety days, so you can still pull anything you need from the archive."</em></p>
+<p><strong>71.</strong> What is the announcement about?<br />
+(A) A new publishing system<br />
+(B) A staff party<br />
+(C) An office move<br />
+(D) A change in pay</p>
+<p><strong>72.</strong> What is the main change described?<br />
+(A) Longer deadlines<br />
+(B) A new dress code<br />
+(C) Fewer meetings<br />
+(D) One file produces both the web and print layout</p>
+<p><strong>73.</strong> How long will the old system remain available?<br />
+(A) 30 days<br />
+(B) One week<br />
+(C) 90 days, as read-only<br />
+(D) It is removed immediately</p>
+<h3>Talk 2 (74–76) — Voicemail from a book editor</h3>
+<p><em>"Hi, it's Marcus, your editor at Harbor Press. I've finished my first read of your manuscript and it's in good shape. I have two structural notes. First, the timeline in the middle third jumps back and forth enough that some readers will lose track — I'd make that section run in order. Second, the ending wraps up very fast; one more chapter would let it breathe. Can we talk Thursday? I want to keep us on schedule for the fall catalog."</em></p>
+<p><strong>74.</strong> Who is the message for?<br />
+(A) The author of a manuscript<br />
+(B) A printer<br />
+(C) A bookstore owner<br />
+(D) A literary agent</p>
+<p><strong>75.</strong> What is one of the editor's notes?<br />
+(A) The book is too long overall<br />
+(B) The characters need new names<br />
+(C) The middle section's timeline is confusing<br />
+(D) The title should be changed</p>
+<p><strong>76.</strong> Why does the editor want to talk on Thursday?<br />
+(A) To sign a new contract<br />
+(B) To stay on schedule for the fall catalog<br />
+(C) To arrange a book tour<br />
+(D) To discuss the cover art</p>
+<h3>Talk 3 (77–79) — Conference talk excerpt</h3>
+<p><em>"Our turnaround came from an unglamorous thing: a free email newsletter. Three mornings a week, one of our editors writes a short, plain-language summary of what's happening in town. It is not automated and it is not a feed of headlines — it's a person's writing. Within a year it had twelve thousand subscribers, and roughly one in eight of them went on to buy a membership, because they'd come to trust that editor's voice. It costs us a few hours of one person's time and essentially nothing else."</em></p>
+<p><strong>77.</strong> What does the speaker say drove the turnaround?<br />
+(A) A social media campaign<br />
+(B) A free email newsletter written by an editor<br />
+(C) A subscription price cut<br />
+(D) A new printing contract</p>
+<p><strong>78.</strong> What is emphasized about the newsletter?<br />
+(A) It is fully automated<br />
+(B) It is published every day<br />
+(C) It is only for paying members<br />
+(D) It is written by a real editor, not automated</p>
+<p><strong>79.</strong> About what share of subscribers became paying members?<br />
+(A) One in three<br />
+(B) About half<br />
+(C) One in eight<br />
+(D) Nearly all of them</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Running a small publication and buried in subscriber admin? SubHub puts it all in one place — new sign-ups, renewals, failed-payment recovery, address changes, and the mailing-list file your printer needs. Publications that switch tell us the automatic payment retries alone win back about twenty percent of the cancellations that would otherwise just happen. Setup takes about a day, and there's no per-subscriber fee until you pass five thousand. Book a demo at subhub.example."</em></p>
+<p><strong>80.</strong> What does SubHub help publications with?<br />
+(A) Writing articles<br />
+(B) Printing magazines<br />
+(C) Subscriber management<br />
+(D) Selling advertising</p>
+<p><strong>81.</strong> What benefit comes from the automatic payment retries?<br />
+(A) Faster printing<br />
+(B) Recovering about 20 percent of would-be cancellations<br />
+(C) More advertising revenue<br />
+(D) Lower postage costs</p>
+<p><strong>82.</strong> What is said about the pricing?<br />
+(A) There is no per-subscriber fee below 5,000 subscribers<br />
+(B) It is free forever<br />
+(C) It is a flat 10 percent of revenue<br />
+(D) It is a one-time payment</p>
+<h3>Talk 5 (83–85) — Newsroom announcement</h3>
+<p><em>"Before we start, a quick reminder that starting this week, all articles need editor approval before publishing, even for minor updates. This is to make sure we catch errors before they go live, not after. If you have questions about the new workflow, check the memo in your inbox."</em></p>
+<p><strong>83.</strong> What is changing this week?<br />
+(A) A new office location<br />
+(B) A requirement for editor approval before publishing<br />
+(C) A change in pay schedule<br />
+(D) A new writing style guide</p>
+<p><strong>84.</strong> Why is this change being made?<br />
+(A) To reduce staff<br />
+(B) To catch errors before articles go live<br />
+(C) To speed up publishing<br />
+(D) To increase ad revenue</p>
+<p><strong>85.</strong> Where can staff find more information?<br />
+(A) On the bulletin board<br />
+(B) In a memo in their inbox<br />
+(C) At a mandatory meeting<br />
+(D) On the company website</p>
+<h3>Talk 6 (86–88) — Publisher voicemail</h3>
+<p><em>"Hi, this is Renata calling about the manuscript you submitted. We loved the story, and we'd like to move forward with publication, pending a few revisions to the ending. Could you call me back this week so we can discuss the details and a possible timeline?"</em></p>
+<p><strong>86.</strong> Why is Renata calling?<br />
+(A) To reject the manuscript<br />
+(B) To discuss moving forward with publication<br />
+(C) To request payment<br />
+(D) To cancel a meeting</p>
+<p><strong>87.</strong> What does Renata mention needs revision?<br />
+(A) The title<br />
+(B) The ending<br />
+(C) The main character<br />
+(D) The cover design</p>
+<p><strong>88.</strong> What does Renata ask the listener to do?<br />
+(A) Send a new manuscript<br />
+(B) Call her back this week<br />
+(C) Visit the office<br />
+(D) Sign a contract immediately</p>
+<h3>Talk 7 (89–91) — Book fair announcement</h3>
+<p><em>"Welcome to this year's independent book fair. Author signings will take place at the main stage every hour on the hour, and a full schedule is posted near the entrance. Please note that photography is welcome, but flash photography is not permitted near the rare-books exhibit."</em></p>
+<p><strong>89.</strong> What happens every hour at the main stage?<br />
+(A) Author signings<br />
+(B) Live music<br />
+(C) Panel discussions<br />
+(D) Book giveaways</p>
+<p><strong>90.</strong> Where can visitors find the full schedule?<br />
+(A) On their phones only<br />
+(B) Near the entrance<br />
+(C) At the main stage<br />
+(D) In the program booklet only</p>
+<p><strong>91.</strong> What is not permitted near the rare-books exhibit?<br />
+(A) Photography of any kind<br />
+(B) Flash photography<br />
+(C) Bringing bags<br />
+(D) Eating or drinking</p>
+<h3>Talk 8 (92–94) — Radio station ID and promo</h3>
+<p><em>"You're listening to 98.3 The Wave. Coming up after the break, we'll have an exclusive interview with a local author about her new novel, followed by our regular Friday listener call-in segment. Stay tuned, and don't forget to follow us online for updates throughout the day."</em></p>
+<p><strong>92.</strong> What is coming up after the break?<br />
+(A) An interview with a local author<br />
+(B) A weather update<br />
+(C) A traffic report<br />
+(D) A cooking segment</p>
+<p><strong>93.</strong> What segment follows the interview?<br />
+(A) A news update<br />
+(B) A listener call-in segment<br />
+(C) A music countdown<br />
+(D) A sports recap</p>
+<p><strong>94.</strong> What are listeners encouraged to do?<br />
+(A) Call in immediately<br />
+(B) Follow the station online<br />
+(C) Buy the author's book<br />
+(D) Enter a contest</p>
+<h3>Talk 9 (95–97) — Journalism workshop intro</h3>
+<p><em>"Welcome, everyone, to this workshop on interviewing techniques. We'll spend the morning on preparing effective questions, and the afternoon on practicing active listening during real interviews. By the end of the day, you should feel more confident handling unexpected answers."</em></p>
+<p><strong>95.</strong> What is the workshop about?<br />
+(A) Interviewing techniques<br />
+(B) Photography basics<br />
+(C) Social media strategy<br />
+(D) Editing software</p>
+<p><strong>96.</strong> What will be covered in the morning?<br />
+(A) Active listening<br />
+(B) Preparing effective questions<br />
+(C) Editing interviews<br />
+(D) Legal considerations</p>
+<p><strong>97.</strong> What should participants feel by the end of the day?<br />
+(A) More confident handling unexpected answers<br />
+(B) Ready to publish immediately<br />
+(C) Certified as journalists<br />
+(D) Prepared to teach the workshop</p>
+<h3>Talk 10 (98–100) — Streaming platform update</h3>
+<p><em>"We're excited to announce a new feature rolling out this week: personalized reading lists based on what you've previously read. You'll also notice a faster search function and improved offline downloading. As always, let us know what you think through the feedback button in the app."</em></p>
+<p><strong>98.</strong> What new feature is rolling out?<br />
+(A) Personalized reading lists<br />
+(B) A new payment system<br />
+(C) A social sharing feature<br />
+(D) A print-on-demand service</p>
+<p><strong>99.</strong> What else is mentioned as improved?<br />
+(A) Customer support<br />
+(B) Search function and offline downloading<br />
+(C) App design<br />
+(D) Subscription pricing</p>
+<p><strong>100.</strong> How can users share feedback?<br />
+(A) By emailing support<br />
+(B) Through the feedback button in the app<br />
+(C) By calling customer service<br />
+(D) By posting on social media</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_012 — READING (100 câu: 101–200) · Chủ đề: Media &amp; Publishing</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The magazine <span class="blk">________</span> a themed issue on regional writers every spring.<br />
+(A) publish  (B) publishes  (C) publishing  (D) to publish</p>
+<p><strong>102.</strong> Contributors must submit their invoices <span class="blk">________</span> the last working day of the month.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> During editing, the fact-checker flagged three <span class="blk">________</span> in the draft.<br />
+(A) accurate  (B) accurately  (C) inaccuracies  (D) accuracy</p>
+<p><strong>104.</strong> The layout was finished on schedule <span class="blk">________</span> the very tight deadline.<br />
+(A) although  (B) however  (C) because  (D) despite</p>
+<p><strong>105.</strong> Reporters are required to <span class="blk">________</span> every quotation with the original source.<br />
+(A) confirm  (B) confirms  (C) confirming  (D) confirmation</p>
+<p><strong>106.</strong> The new typeface makes the printed page much <span class="blk">________</span> to read.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> Next week's print schedule is posted <span class="blk">________</span> the wall beside the press.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> Distribution to rural routes was delayed <span class="blk">________</span> a regional fuel shortage.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The paper reduced its overhead <span class="blk">________</span> moving its servers to a shared data center.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Digital subscription revenue has grown <span class="blk">________</span> over the past two years.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three opening drafts, the second still needs the <span class="blk">________</span> work.<br />
+(A) little  (B) less  (C) least  (D) fewer</p>
+<p><strong>112.</strong> The new system moves a story from draft to publication far <span class="blk">________</span> than the old one did.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> This year's press awards dinner will be held <span class="blk">________</span> the main hall of the library.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> an article clears copy-editing, it is scheduled for layout.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The media company <span class="blk">________</span> four regional weeklies and a monthly culture magazine.<br />
+(A) own  (B) owns  (C) owning  (D) to own</p>
+<p><strong>116.</strong> The website redesign is expected <span class="blk">________</span> before the anniversary issue.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior editor will <span class="blk">________</span> the final proof late tonight.<br />
+(A) review  (B) reviews  (C) reviewing  (D) reviewer</p>
+<p><strong>118.</strong> Subscribers renew <span class="blk">________</span> when they are billed once a year than when they are billed monthly.<br />
+(A) frequent  (B) frequently  (C) most frequently  (D) more frequently</p>
+<p><strong>119.</strong> The audience report lists several <span class="blk">________</span> for increasing newsletter signups.<br />
+(A) tactic  (B) tactics  (C) tactical  (D) tactically</p>
+<p><strong>120.</strong> The archive reading room is open <span class="blk">________</span> 9 A.M. to 6 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The reprint license was granted <span class="blk">________</span> conditions on which regions may run the column.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The updated style guide <span class="blk">________</span> distributed to every desk next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> Interns become <span class="blk">________</span> for a bylined article after three months on staff.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The editor's note gives readers a <span class="blk">________</span> summary of how the investigation was done.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> After a long debate, the board voted to <span class="blk">________</span> the Saturday edition.<br />
+(A) discontinue  (B) discontinues  (C) discontinuing  (D) discontinuation</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed covers performed well with the reader panel.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Back issues from the last decade are stored <span class="blk">________</span> the shared archive server.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any change to a published article must be approved by an <span class="blk">________</span> editor.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two photo spreads were cut from the issue <span class="blk">________</span> a shortage of space.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New contributors receive <span class="blk">________</span> guidance on the publication's house style.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Newsroom Moving to the Third Floor</strong></p>
+<p>The newsroom <span class="blk">(131)</span> to the third floor over the weekend of June 7.</p>
+<p>Movers <span class="blk">(132)</span> pack the shared reference library and the photo archive; please clear your own desk by Friday at 3 P.M. and label anything fragile.</p>
+<p>Phones and network connections on the third floor <span class="blk">(133)</span> already been tested, so you should be online Monday morning.</p>
+<p>We appreciate your patience during the transition. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) moves  (B) will move  (C) has moved  (D) moving<br />
+<strong>132.</strong> (A) will pack  (B) pack  (C) packing  (D) packed<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The third floor will also house the sales team starting next month.<br />
+(B) Desks that are not cleared by Friday will be discarded.<br />
+(C) Let us know if you run into any issues Monday morning.<br />
+(D) The move has been delayed by two weeks.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Process for Freelance Expenses</p>
+<p>Starting this month, freelance expense claims <span class="blk">(135)</span> be submitted through the online portal, not by email.</p>
+<p>The portal <span class="blk">(136)</span> accept photos of receipts, so you no longer need to mail the originals. Upload each receipt and tag it to the assignment.</p>
+<p>Claims under fifty dollars are approved automatically; larger claims <span class="blk">(137)</span> a manager's sign-off, which usually takes a day.</p>
+<p>Thanks for your cooperation as we move everything online. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) requires  (B) requiring  (C) required  (D) require<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Mailed receipts will still be accepted for claims over fifty dollars.<br />
+(B) All expense claims will now require manager approval.<br />
+(C) The portal will be unavailable during the transition period.<br />
+(D) If you have trouble uploading receipts, contact accounting.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>PRESSREADY — CATCH ERRORS BEFORE YOUR READERS DO</strong></p>
+<p>PressReady checks your articles for spelling, style-guide consistency, and broken links in seconds, right inside your editor.</p>
+<p>Most newsrooms find <span class="blk">(139)</span> useful: consistent hyphenation, correctly formatted names and titles, and links that actually resolve. Teams that adopt it cut published corrections by about a third.</p>
+<p>Setup is <span class="blk">(140)</span> and takes under an hour. There is no <span class="blk">(141)</span> contract, and the first two weeks are free. Book a walkthrough at pressready.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) PressReady only works with certain content management systems.<br />
+(B) A minimum newsroom size of ten editors is required.<br />
+(C) The tool replaces the need for a copy editor entirely.<br />
+(D) It takes just a few minutes to see it in action.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Desks <strong>FROM:</strong> Production <strong>RE:</strong> Fewer Printed Proofs</p>
+<p>Our default proofing method <span class="blk">(143)</span> to on-screen markup, starting with the next issue. You can still request a paper proof for complex layouts.</p>
+<p>Last year we printed roughly 9,000 proof pages. Screen proofing <span class="blk">(144)</span> remove almost all of that.</p>
+<p>The annotation tools in the layout software <span class="blk">(145)</span> now as good as a red pen, and comments are logged automatically. If a page really needs paper, email production and we will print it for you. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper proofs will no longer be available under any circumstance.<br />
+(B) The annotation tools require a separate paid subscription.<br />
+(C) This change takes effect at the end of the year.<br />
+(D) Thanks for helping us cut down on paper waste.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Editor (9:12 A.M.):</strong> The press stopped mid-run — about 4,000 copies done, 26,000 to go.<br />
+<strong>Plant (9:15 A.M.):</strong> Web break on unit 3. Splicing it now. Maybe 40 minutes.<br />
+<strong>Editor (9:16 A.M.):</strong> Will we still make the morning delivery trucks?<br />
+<strong>Plant (9:52 A.M.):</strong> Running again. We'll make the trucks if nothing else breaks — cutting it close.</p>
+<p><strong>147.</strong> What happened at the plant?<br />
+(A) The press stopped during the print run<br />
+(B) The wrong pages were printed<br />
+(C) The paper supply ran out<br />
+(D) A delivery truck broke down</p>
+<p><strong>148.</strong> What is the editor concerned about?<br />
+(A) The cost of the delay<br />
+(B) Meeting the morning delivery trucks<br />
+(C) The number of copies ordered<br />
+(D) A staffing shortage</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>REGIONAL DAILY TO END SATURDAY PRINT EDITION, EXPAND WEEKEND DIGITAL</strong></p>
+<p>The Tribune-Herald will stop printing its Saturday paper in March, moving to a six-day print week. The Saturday edition has the smallest circulation and the highest per-copy production cost of the week.</p>
+<p>Saturday subscribers will keep full digital access and a redesigned Saturday morning digital edition with the same sections. Print subscription prices will drop slightly to reflect the change. Home-delivery subscribers who want a physical weekend paper can switch to the Sunday edition at no extra cost.</p>
+<p>The paper says no newsroom jobs will be cut; the Saturday production and delivery savings will fund two additional reporting positions covering county government.</p>
+<p><strong>149.</strong> What is the newspaper changing?<br />
+(A) Ending the Saturday print edition<br />
+(B) Raising all subscription prices<br />
+(C) Closing the newsroom<br />
+(D) Merging with another paper</p>
+<p><strong>150.</strong> Why was the Saturday edition chosen for the change?<br />
+(A) It received the most complaints<br />
+(B) It was the oldest edition<br />
+(C) It had the smallest circulation and the highest per-copy cost<br />
+(D) Advertisers asked for the change</p>
+<p><strong>151.</strong> What will happen to print subscription prices?<br />
+(A) They will stay the same<br />
+(B) They will drop slightly<br />
+(C) They will increase<br />
+(D) They will be replaced with pay-per-article</p>
+<p><strong>152.</strong> What will the production and delivery savings fund?<br />
+(A) A new printing press<br />
+(B) Executive bonuses<br />
+(C) A marketing campaign<br />
+(D) Two additional reporting positions</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Archive Digitization: Reading Room Closed</strong></p>
+<p>The newspaper's bound-volume archive from 1900 to 1975 is being scanned this month. During scanning, the physical reading room is closed and volumes cannot be pulled.</p>
+<p>Issues from 1976 onward remain available on microfilm in Room 2. Once digitization is finished, the full archive will be keyword-searchable online and free to library card holders.</p>
+<p><strong>153.</strong> Why is the reading room closed?<br />
+(A) The archive is being scanned<br />
+(B) Water damaged the volumes<br />
+(C) There is a staff shortage<br />
+(D) The room is being renovated</p>
+<p><strong>154.</strong> What will be possible once digitization is finished?<br />
+(A) Same-day printed copies of any issue<br />
+(B) Home delivery of bound volumes<br />
+(C) Longer reading-room hours<br />
+(D) A keyword-searchable online archive, free to library card holders</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>INKWELL — SHORT-RUN BOOK PRINTING WITHOUT THE MINIMUMS</strong></p>
+<p>Inkwell prints paperback and hardcover books from a single copy up to a few thousand, with no setup fee and no minimum order. Upload a print-ready PDF and cover file; get a proof copy in four business days.</p>
+<p>Ideal for authors doing a small first run, publishers testing a title, or reprinting a backlist book that sells a few copies a month. Per-copy prices are higher than offset printing at large volumes, so above about 1,500 copies, offset is usually cheaper — we'll tell you when that's the case.</p>
+<p>Order a proof at inkwell.example.</p>
+<p><strong>155.</strong> What does Inkwell offer?<br />
+(A) E-book conversion<br />
+(B) Distribution to bookstores<br />
+(C) Short-run book printing with no minimum order<br />
+(D) Cover design services</p>
+<p><strong>156.</strong> How long does it take to get a proof copy?<br />
+(A) The same day<br />
+(B) Four business days<br />
+(C) Two weeks<br />
+(D) One month</p>
+<p><strong>157.</strong> When does Inkwell say offset printing is usually cheaper?<br />
+(A) For any hardcover book<br />
+(B) Below 100 copies<br />
+(C) It never is<br />
+(D) Above about 1,500 copies</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> contributors <strong>From:</strong> Features Desk <strong>Subject:</strong> Word Counts and Filing</p>
+<p>A reminder on a few things that slow the edit process.</p>
+<p>Please file to the assigned word count, within about 5 percent. If a piece needs to run long, email your editor before you file, not after — we plan page space days ahead.</p>
+<p>File as a plain document with no manual formatting: no columns, no inserted images, no styled headings. Put photo suggestions and captions in a separate note. Manual formatting has to be stripped out by hand, and that is where errors creep in.</p>
+<p>Finally, include your sources list at the bottom of every file, even for pieces that will not be fact-checked line by line.</p>
+<p><strong>158.</strong> What does the email ask contributors to do about length?<br />
+(A) File close to the assigned word count and flag any overrun before filing<br />
+(B) Always write as much as possible<br />
+(C) Ignore the assigned word count<br />
+(D) Cut every piece by five percent</p>
+<p><strong>159.</strong> Why does the desk want plain, unformatted files?<br />
+(A) The software cannot open styled files<br />
+(B) They look more professional<br />
+(C) Manual formatting must be removed by hand and is where errors creep in<br />
+(D) To save storage space</p>
+<p><strong>160.</strong> What must appear at the bottom of every file?<br />
+(A) A word count<br />
+(B) The writer's phone number<br />
+(C) A photo<br />
+(D) A sources list</p>
+<h3>Passage 6 — Rate table (161–162)</h3>
+<p><strong>FREELANCE RATES — STANDARD</strong> (per word unless noted)</p>
+<table>
+<thead>
+<tr>
+<th>Work type</th>
+<th>Rate</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>News report</td>
+<td>$0.40</td>
+<td>Filed within 24 hrs of assignment</td>
+</tr>
+<tr>
+<td>Feature</td>
+<td>$0.55</td>
+<td>1,000–2,500 words</td>
+</tr>
+<tr>
+<td>Q&amp;A / interview</td>
+<td>$0.45</td>
+<td>Includes transcription</td>
+</tr>
+<tr>
+<td>Photo (single, published)</td>
+<td>$75 flat</td>
+<td>Extra use billed separately</td>
+</tr>
+<tr>
+<td>Kill fee</td>
+<td>25% of agreed rate</td>
+<td>If a commissioned piece is not run</td>
+</tr>
+</tbody>
+</table>
+<p>Rates are for first print and digital rights. Invoices are paid within 30 days of publication.</p>
+<p><strong>161.</strong> What length does the feature rate apply to?<br />
+(A) Up to 500 words<br />
+(B) 1,000 to 2,500 words<br />
+(C) Any length<br />
+(D) Over 5,000 words</p>
+<p><strong>162.</strong> What is paid if a commissioned piece is not run?<br />
+(A) The full agreed rate<br />
+(B) Nothing<br />
+(C) A kill fee of 25 percent of the agreed rate<br />
+(D) A flat $75</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Alvarez,</p>
+<p>Thank you for writing about the error in our March 3 article on the school budget.</p>
+<p>You are correct: the article stated the budget increased 12 percent when the actual figure is 2 percent. The error came from a misread spreadsheet column during editing, not from the reporter's notes. We published a correction in the March 6 edition and online, and we have added a step to our budget-story checklist to confirm percentage changes against the source document.</p>
+<p>We take numerical errors seriously, particularly on public finance, and we appreciate you taking the time to point this out.</p>
+<p>Sincerely,<br />
+The Standards Editor</p>
+<p><strong>163.</strong> Why did Mr. Alvarez write?<br />
+(A) About a factual error in an article<br />
+(B) To cancel his subscription<br />
+(C) To praise the coverage<br />
+(D) To request a reporter's notes</p>
+<p><strong>164.</strong> What was the error?<br />
+(A) A misspelled name<br />
+(B) A wrong date<br />
+(C) A wrong photograph<br />
+(D) An incorrect percentage</p>
+<p><strong>165.</strong> What caused the error?<br />
+(A) The reporter's notes were wrong<br />
+(B) A spreadsheet column was misread during editing<br />
+(C) A printing fault<br />
+(D) A source provided false information</p>
+<p><strong>166.</strong> What did the paper do in response?<br />
+(A) Reassigned the reporter<br />
+(B) Added a checklist step to check percentages against the source document<br />
+(C) Stopped covering the school budget<br />
+(D) Hired a new editor</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>DIGITAL SUBSCRIPTION — FAQ</strong></p>
+<p><strong>Can I share my subscription?</strong><br />
+Your subscription covers one account, usable on up to five devices. Household plans for up to four separate accounts are available at a higher rate.</p>
+<p><strong>How do I get the daily crossword?</strong><br />
+It is included in all digital subscriptions, in the Puzzles section of the app and site.</p>
+<p><strong>Can I gift a subscription?</strong><br />
+Yes. Gift subscriptions are prepaid for 3, 6, or 12 months and do not auto-renew.</p>
+<p><strong>What if I'm a student?</strong><br />
+Students with a valid .edu email get 60 percent off the standard digital rate.</p>
+<p><strong>167.</strong> How many devices can a standard subscription be used on?<br />
+(A) One<br />
+(B) Two<br />
+(C) Up to five<br />
+(D) An unlimited number</p>
+<p><strong>168.</strong> What is stated about gift subscriptions?<br />
+(A) They renew automatically at the end of the term<br />
+(B) They are sold only in 12-month terms<br />
+(C) They cost more than a standard subscription<br />
+(D) They are prepaid and do not auto-renew</p>
+<p><strong>169.</strong> What do students with a valid .edu email receive?<br />
+(A) A free print copy<br />
+(B) 60 percent off the standard digital rate<br />
+(C) Free access to puzzles only<br />
+(D) A household plan</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Editorial Staff <strong>FROM:</strong> Legal <strong>RE:</strong> Using Reader-Submitted Photos</p>
+<p>Before publishing a photo sent in by a reader, confirm three things in writing: that the reader took the photo themselves, that they agree to publication and a credit line, and where and when it was taken.</p>
+<p>Do not crop out or alter anything that changes the meaning of an image. Basic exposure and color correction is fine; adding or removing objects is not.</p>
+<p>If a photo shows a recognizable person in a private setting, check with Legal before it runs. Photos taken in clearly public places are generally fine to publish.</p>
+<p><strong>170.</strong> What must be confirmed in writing before a reader's photo is published?<br />
+(A) That the reader took it, agrees to publication and a credit, and where and when it was taken<br />
+(B) Only the reader's full name<br />
+(C) The camera model used<br />
+(D) The photo's file size</p>
+<p><strong>171.</strong> What kind of editing is not allowed?<br />
+(A) Any color correction at all<br />
+(B) Cropping of any kind<br />
+(C) Adding or removing objects<br />
+(D) Reducing the image resolution</p>
+<p><strong>172.</strong> When should staff check with Legal before running a photo?<br />
+(A) For every reader-submitted photo<br />
+(B) Only for photos of buildings<br />
+(C) Never<br />
+(D) When it shows a recognizable person in a private setting</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★☆☆ <strong>Great reporting, frustrating app</strong> — two-year subscriber</p>
+<p>The journalism is why I subscribe, and that part is worth it — deep local coverage I can't get anywhere else.</p>
+<p>The app is another story. It logs me out every few days and makes me sign in again. Saved articles sometimes disappear from my reading list. And the "listen to this article" audio feature stops playing whenever the screen locks, which defeats the purpose for a commute.</p>
+<p>I've stayed because the writing is that good, but I'd think twice before recommending the app to a less patient friend.</p>
+<p><strong>173.</strong> Why does the reviewer keep the subscription?<br />
+(A) The mobile app features<br />
+(B) The deep local reporting<br />
+(C) The article audio feature<br />
+(D) The low price</p>
+<p><strong>174.</strong> What is one complaint about the app?<br />
+(A) It logs the user out every few days<br />
+(B) It shows too many ads<br />
+(C) It drains the phone battery<br />
+(D) It costs extra</p>
+<p><strong>175.</strong> What does the reviewer say about the audio feature?<br />
+(A) It is not available<br />
+(B) It costs extra<br />
+(C) It stops playing when the screen locks<br />
+(D) It offers only a few articles</p>
+<h3>Passages 11–12 — Submission guidelines &amp; email (176–180)</h3>
+<p><strong>Document 1 — Submission Guidelines</strong></p>
+<p><strong>HARBOR PRESS — FICTION SUBMISSIONS</strong></p>
+<ul>
+<li>We accept literary and upmarket fiction, 70,000–120,000 words. We do not publish poetry, children's books, or single-author short-story collections unless the stories were previously published in journals.</li>
+<li>Submit a query letter, a one-page synopsis, and the first 30 pages, pasted into the body of one email. No attachments.</li>
+<li>We accept simultaneous submissions (sent to other publishers at the same time) but ask that you tell us, and that you let us know promptly if the manuscript is picked up elsewhere.</li>
+<li>Response time is 10–12 weeks. If you have not heard back after 14 weeks, send one follow-up.</li>
+<li>We consider unagented submissions during two reading periods each year: the month of February and the month of September.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Dana Cole <strong>To:</strong> submissions@harborpress.example <strong>Subject:</strong> Questions before submitting</p>
+<p>Hello,</p>
+<p>I have a completed literary novel of 95,000 words and would like to submit during the September reading period.</p>
+<ol>
+<li>My manuscript is currently with two other publishers. Is that acceptable, and how should I note it?</li>
+<li>I don't have an agent. Does that affect how you read it?</li>
+<li>My email client strips formatting when I paste. Will plain text without italics be a problem for the sample pages?</li>
+</ol>
+<p>Thank you,<br />
+Dana</p>
+<p><strong>176.</strong> What kind of book does Harbor Press publish?<br />
+(A) Poetry and children's books<br />
+(B) Literary and upmarket fiction of 70,000 to 120,000 words<br />
+(C) Single-author short-story collections only<br />
+(D) Books in any genre</p>
+<p><strong>177.</strong> How should the sample pages be submitted?<br />
+(A) As a PDF attachment<br />
+(B) By postal mail<br />
+(C) Pasted into the body of one email<br />
+(D) Through an online form</p>
+<p><strong>178.</strong> Can Dana submit during the September reading period?<br />
+(A) Yes, September is one of the two reading periods for unagented submissions<br />
+(B) No, only February is open<br />
+(C) Only if she has an agent<br />
+(D) Only if the manuscript is not with other publishers</p>
+<p><strong>179.</strong> What is the stated response time?<br />
+(A) 2 to 3 weeks<br />
+(B) About 6 weeks<br />
+(C) 10 to 12 weeks<br />
+(D) About 6 months</p>
+<p><strong>180.</strong> What do the guidelines say about simultaneous submissions?<br />
+(A) They are not accepted<br />
+(B) They are accepted only for agented authors<br />
+(C) They require a reading fee<br />
+(D) They are accepted if you disclose it and report any offer promptly</p>
+<h3>Passages 13–14 — Two emails about an invoice (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Priya Raman <strong>To:</strong> payments@citymag.example <strong>Subject:</strong> Invoice #4471 — unpaid after 45 days</p>
+<p>Hi,</p>
+<p>Invoice #4471, for a 2,000-word feature published on April 2, is still unpaid at 45 days. Your terms are net 30. Two things:<br />
+1. Can you confirm it is in the system and give me a payment date?<br />
+2. The invoice was for $1,100 (2,000 words at $0.55). The assignment email said $0.55, but the contract PDF I signed later says $0.50. Which rate applies?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> payments@citymag.example <strong>To:</strong> Priya Raman <strong>Subject:</strong> RE: Invoice #4471 — unpaid after 45 days</p>
+<p>Hi Priya,</p>
+<p>Apologies for the delay. Invoice #4471 was held because of the rate mismatch you noticed, and no one flagged it to you — that is on us.</p>
+<p>On the rate: when the assignment email and the signed contract disagree, our policy is that the higher figure stands unless we notified you of a change in writing before you filed. We did not, so $0.55 applies. The invoice is approved at $1,100 and will be paid this Friday. We are also adding a $50 late fee, per our own terms.</p>
+<p>I have asked the desk to make sure the assignment email and the contract match before they go out.</p>
+<p><strong>181.</strong> Why did Priya email the magazine?<br />
+(A) To turn down an assignment<br />
+(B) About an unpaid invoice and a discrepancy in the rate<br />
+(C) To ask for more work<br />
+(D) To update her bank details</p>
+<p><strong>182.</strong> Why was the invoice held?<br />
+(A) The article had not been published<br />
+(B) Her bank details were missing<br />
+(C) A rate mismatch that was never flagged to her<br />
+(D) The word count was disputed</p>
+<p><strong>183.</strong> Which rate will be applied to invoice #4471?<br />
+(A) $0.50, the rate in the signed contract<br />
+(B) An average of the two rates<br />
+(C) The rate will be renegotiated<br />
+(D) $0.55, because the higher figure stands with no written notice of a change</p>
+<p><strong>184.</strong> What is being added to the payment?<br />
+(A) A $50 late fee<br />
+(B) A kill fee<br />
+(C) A bonus for the delay<br />
+(D) Nothing extra</p>
+<p><strong>185.</strong> What will the magazine do to prevent a repeat?<br />
+(A) Stop using written contracts<br />
+(B) Pay all invoices in advance<br />
+(C) Switch to a new payments system<br />
+(D) Make sure the assignment email and the contract match before they are sent</p>
+<h3>Passages 15–17 — Translation grants, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Grant list</strong></p>
+<p><strong>INTERNATIONAL LITERATURE TRANSLATION GRANTS — 2026</strong></p>
+<table>
+<thead>
+<tr>
+<th>Grant</th>
+<th>Covers</th>
+<th>Max</th>
+<th>Deadline</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sample Grant</td>
+<td>Translation of a 20-page sample + synopsis</td>
+<td>$1,500</td>
+<td>Rolling</td>
+<td>Publisher must not yet hold world rights</td>
+</tr>
+<tr>
+<td>Full Translation</td>
+<td>Translation of a full book under contract</td>
+<td>$12,000</td>
+<td>May 1</td>
+<td>Signed contract with the author or rights holder</td>
+</tr>
+<tr>
+<td>Promotion Grant</td>
+<td>Book tour, ads, events for a translated title</td>
+<td>$4,000</td>
+<td>May 1</td>
+<td>Book published within the last 12 months</td>
+</tr>
+</tbody>
+</table>
+<p>One grant per title per year. Translators must have at least one previously published book-length translation. Funds are paid half on signing, half on delivery of an accepted manuscript.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Elm &amp; Iron Books <strong>To:</strong> grants@ilt.example <strong>Subject:</strong> Which grant — Croatian novel</p>
+<p>Hello,</p>
+<p>We are a small press interested in a contemporary Croatian novel. We have not yet acquired rights; we want to commission a sample translation to decide, and to show the author's agent we are serious.</p>
+<p>Our translator, Marta Kovač, has published two book-length translations from Croatian.</p>
+<p>Which grant fits, and does not yet holding rights disqualify us?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> grants@ilt.example <strong>To:</strong> Elm &amp; Iron Books <strong>Subject:</strong> RE: Which grant — Croatian novel</p>
+<p>Hello,</p>
+<p>The Sample Grant is the right fit. It is designed for exactly your situation — deciding whether to acquire — and it specifically requires that you not yet hold world rights, so you are eligible.</p>
+<p>Marta's two published translations more than meet the translator requirement.</p>
+<p>Apply anytime; it is rolling. If you go on to acquire the book, you can then apply for the Full Translation grant by the May 1 deadline. Two grants can support the same title in the same year only if the first is the Sample Grant and the second is the Full Translation — that pairing is the one exception to the one-grant rule.</p>
+<p><strong>186.</strong> What does Elm &amp; Iron Books want to do first?<br />
+(A) Commission a sample translation before deciding whether to acquire the book<br />
+(B) Print a finished translated book<br />
+(C) Organize a book tour<br />
+(D) Hire a different translator</p>
+<p><strong>187.</strong> Why is the press eligible for the Sample Grant even though it does not hold rights?<br />
+(A) Its translator is very experienced<br />
+(B) It is a small press<br />
+(C) The grant specifically requires that the applicant not yet hold world rights<br />
+(D) The deadline is rolling</p>
+<p><strong>188.</strong> Does Marta Kovač meet the translator requirement?<br />
+(A) No, she needs at least three published translations<br />
+(B) Yes, she has more than the one required published translation<br />
+(C) Only if she works with a co-translator<br />
+(D) Not for translations from Croatian</p>
+<p><strong>189.</strong> According to the reply, when can two grants support the same title in one year?<br />
+(A) Never<br />
+(B) With any combination of two grants<br />
+(C) Only the Promotion Grant plus the Full Translation grant<br />
+(D) Only the Sample Grant followed by the Full Translation grant</p>
+<p><strong>190.</strong> How are grant funds paid?<br />
+(A) Half on signing and half on delivery of an accepted manuscript<br />
+(B) Entirely in advance<br />
+(C) Entirely on delivery<br />
+(D) In equal monthly installments</p>
+<h3>Passages 18–20 — Social media policy, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>NEWSROOM SOCIAL MEDIA POLICY (EXCERPT)</strong></p>
+<ul>
+<li>You may have personal accounts. Identify yourself as a staff member if you post about your beat or the news generally.</li>
+<li>Do not state a personal opinion on a matter your section covers or is likely to cover — for example, an endorsement in a race we report on.</li>
+<li>Breaking news you gather on the job goes to the desk first, then to our official accounts. Do not post it from a personal account ahead of publication.</li>
+<li>Sharing our own articles is encouraged. Adding brief context is fine; adding your take is not.</li>
+<li>Replying to readers is welcome. If a thread turns hostile, disengage and tell an editor; don't argue.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Tomas Reed, City Hall reporter <strong>To:</strong> standards@dailynews.example <strong>Subject:</strong> Two situations</p>
+<p>Hi,</p>
+<ol>
+<li>A council member blocked me on social media after a story. Can I say publicly that I've been blocked, or is that "my take"?</li>
+<li>There is a ballot measure on transit funding — my beat. A friend's account tagged me asking whether people should vote yes. Can I explain what the measure does without saying how to vote?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> standards@dailynews.example <strong>To:</strong> Tomas Reed <strong>Subject:</strong> RE: Two situations</p>
+<p>Hi Tomas,</p>
+<ol>
+<li>
+<p>Stating the fact that an official has blocked a reporter is reportable and fine to note, ideally in a straightforward way ("For the record, Councilmember X has blocked our City Hall reporter"). Keep it factual — no editorializing about what it says about them.</p>
+</li>
+<li>
+<p>Yes — explaining what a measure does, in neutral terms, is core journalism and encouraged. The line is a recommendation on how to vote, which you must not give, directly or by strong implication. If the thread pushes you to say "yes or no," point them to our explainer and step back.</p>
+</li>
+</ol>
+<p>When in doubt on beat-related posts, run it past me first.</p>
+<p><strong>191.</strong> What does the policy say about breaking news gathered on the job?<br />
+(A) It goes to the desk first, then to the official accounts<br />
+(B) It may be posted anywhere right away<br />
+(C) It must never be posted online<br />
+(D) It goes to personal accounts first</p>
+<p><strong>192.</strong> What is allowed when sharing the paper's own articles?<br />
+(A) Adding your personal opinion<br />
+(B) Sharing only with no comment at all<br />
+(C) Adding brief context but not your personal take<br />
+(D) Sharing only 24 hours after publication</p>
+<p><strong>193.</strong> Can Tomas state publicly that a council member has blocked him?<br />
+(A) No, that counts as his personal take<br />
+(B) Only with the council member's permission<br />
+(C) Yes, as a straightforward factual statement with no editorializing<br />
+(D) Only in a printed article, never on social media</p>
+<p><strong>194.</strong> Can Tomas explain what the transit measure does?<br />
+(A) No, because it is his beat<br />
+(B) Yes, in neutral terms, but not how to vote<br />
+(C) Only after the election<br />
+(D) Only if he also gives both campaigns' positions</p>
+<p><strong>195.</strong> What should Tomas do if a thread pressures him to say how to vote?<br />
+(A) Answer honestly<br />
+(B) Delete his account<br />
+(C) Argue for the neutral position<br />
+(D) Point them to the paper's explainer and step back</p>
+<h3>Passages 21–23 — Redesign announcement, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Announcement</strong></p>
+<p><strong>CROSSCURRENT MAGAZINE — REDESIGN COMING IN JANUARY</strong></p>
+<p>After 15 years, Crosscurrent is refreshing its look. Changes readers will notice:</p>
+<ul>
+<li>A larger, more readable body typeface and wider margins.</li>
+<li>The "Letters" section moves to the back and expands to two pages.</li>
+<li>A new 8-page regional culture section, replacing the standalone events insert.</li>
+<li>The trim size shrinks slightly, to fit standard mailboxes and cut postage.</li>
+</ul>
+<p>No change to the publishing frequency (monthly), the subscription price, or the editorial mix. Current subscriptions continue uninterrupted.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Reader panel member Jo Nkemdirim <strong>To:</strong> editor@crosscurrent.example <strong>Subject:</strong> Redesign feedback</p>
+<p>Hi,</p>
+<p>Overall I like the direction. Some reactions:<br />
+1. Bigger type is very welcome.<br />
+2. I'll miss the pull-out events insert — I used to stick it on my fridge. Will the new culture section have a tear-out calendar?<br />
+3. Will the smaller trim size mean fewer words per issue?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> editor@crosscurrent.example <strong>To:</strong> Jo Nkemdirim <strong>Subject:</strong> RE: Redesign feedback</p>
+<p>Hi Jo,</p>
+<p>Glad the direction lands.</p>
+<p>On the calendar: yes — the last page of the new culture section is a perforated month-at-a-glance calendar you can tear out, so you keep the fridge feature.</p>
+<p>On word count: the page is a bit narrower, but we've added four pages overall, so total editorial content goes up slightly, not down. The larger type offsets some of that, but net, you get a little more to read, not less.</p>
+<p>The events insert was also the most expensive single item to print and insert, so folding it into the section saves money we're putting back into reporting.</p>
+<p><strong>196.</strong> What is NOT changing in the redesign?<br />
+(A) The body typeface<br />
+(B) The trim size<br />
+(C) The Letters section<br />
+(D) The monthly frequency and the subscription price</p>
+<p><strong>197.</strong> What replaces the standalone events insert?<br />
+(A) A digital-only newsletter<br />
+(B) An 8-page regional culture section<br />
+(C) A second Letters section<br />
+(D) Nothing replaces it</p>
+<p><strong>198.</strong> Will the new culture section include a tear-out calendar?<br />
+(A) Yes, a perforated month-at-a-glance calendar on the last page<br />
+(B) No, that feature is being discontinued<br />
+(C) Only in the digital edition<br />
+(D) Only for reader panel members</p>
+<p><strong>199.</strong> What does the editor say about total editorial content?<br />
+(A) It goes up slightly because four pages were added<br />
+(B) It stays exactly the same<br />
+(C) It goes down because of the smaller trim size<br />
+(D) It varies from month to month</p>
+<p><strong>200.</strong> Why is the events insert being folded into the culture section?<br />
+(A) Readers complained about it<br />
+(B) It was often lost in the mail<br />
+(C) It was the most expensive single item to print and insert<br />
+(D) Advertisers withdrew from it</p>
+<hr />
+<p><em>Hết phần Reading — Set_012. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_012</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a woman is reading a printed proof at her desk" · bẫy: "stacking newspapers"</li>
+<li><strong>4 D</strong> "a worker is packing books into boxes" · bẫy: "browsing a shelf"</li>
+<li><strong>5 A</strong> "a delivery person is dropping off bundles of newspapers" · bẫy: "sold at a stand"</li>
+<li><strong>6 C</strong> "an editor is marking corrections on a manuscript" · bẫy: "coming out of a printer"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>12 C</strong> "before five?" → "I can have it done by four" · bẫy: nhắc lại "facts"</li>
+<li><strong>15 C</strong> câu phủ định → "Not since we raised the cover price"</li>
+<li><strong>17 C</strong> "What did the survey show?" → nội dung kết quả, không phải "sent to 5,000"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "I'd have to ask the rights manager" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → phản biện "Advertisers still want it, though"</li>
+<li><strong>21 C</strong> yêu cầu đọc bản nháp → "I'll read through it now" · bẫy: lặp "article"</li>
+<li><strong>25 B</strong> "Isn't the magazine usually monthly?" → đính chính "special weekly edition" · bẫy: lặp "magazine"</li>
+<li><strong>31 C</strong> "Why was the print run delayed?" → lý do cụ thể "printer needed a part replaced" · bẫy: lặp "print"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "I'd like to run it, but at twelve hundred words" · "Keep the interviews ... Bring the history down to one paragraph" · "I can get it to you by the thirteenth"</li>
+<li>35–37: "They're short on our usual paper stock" · "push each mailed copy into a higher postage bracket" · "track down the normal stock, even if it costs us a day"</li>
+<li>38–40: "Where do we stand on the housing investigation?" · "legal says we need at least one of them on the record" · "will go on the record — as long as we don't name her building"</li>
+<li>41–43: "haven't received my magazine in two months, but I'm still being charged" · "the address change ... never synced to the mailing list" · "the two back issues ... and a free month"</li>
+<li>44–46: "a full sixty-second ad read at the very top ... before the intro" · "We'll lose people right there" · "thirty seconds right after the intro, and a longer spot in the middle"</li>
+<li>47–49: "The metered paywall goes live Monday" · "the prompt only shows up when they open a sixth" · "keep an eye on the newsletter signup rate"</li>
+<li>50–52: "shorten this feature story" · "trim the background section" · "do a final read"</li>
+<li>53–55: "more downloads than usual" · "guest's large following" · "booking similar guests more often"</li>
+<li>56–58: "incorrect date" complaint · "check the original draft" · "post a correction"</li>
+<li>59–61: "images ... too dark" · "editing should be enough" · "final cover ready by tomorrow"</li>
+<li>62–64: "next month's cover story" · "local independent bookstores" · "start scheduling interviews"</li>
+<li>65–67: "traffic dropped after the redesign" · "harder-to-navigate layout" · "test both versions with readers"</li>
+<li>68–70: "headline for the science piece" · "make it a question" · "draft a few options within the hour"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "switching to the new publishing system" · "builds the web page and the print page automatically from that one file" · "read-only mode for ninety days"</li>
+<li>74–76: "your editor at Harbor Press ... first read of your manuscript" · "the timeline in the middle third jumps back and forth" · "keep us on schedule for the fall catalog"</li>
+<li>77–79: "a free email newsletter" · "It is not automated ... it's a person's writing" · "roughly one in eight of them went on to buy a membership"</li>
+<li>80–82: "SubHub puts it all in one place" (subscriber admin) · "automatic payment retries alone win back about twenty percent" · "no per-subscriber fee until you pass five thousand"</li>
+<li>83–85: "editor approval before publishing" · "catch errors before they go live" · "memo in your inbox"</li>
+<li>86–88: "manuscript you submitted" · "revisions to the ending" · "call her back this week"</li>
+<li>89–91: "book fair" · "author signings ... every hour" · "flash photography ... not permitted"</li>
+<li>92–94: "98.3 The Wave" · "interview with a local author" · "follow us online"</li>
+<li>95–97: "interviewing techniques" workshop · "preparing effective questions" morning · "confident handling unexpected answers"</li>
+<li>98–100: "personalized reading lists" · "faster search and offline downloading" · "feedback button in the app"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The magazine</code> số ít + thói quen → <code>publishes</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> the last working day</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>flagged three <span class="fill"></span></code> → danh từ số nhiều <code>inaccuracies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be required to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes the page much <span class="fill"></span> to read</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on the wall</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>reduced its overhead by moving</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> work</code> (trong 3) → so sánh nhất <code>least</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the main hall</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>an article clears copy-editing</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The media company</code> số ít → <code>owns</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>review</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more frequently</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>tactics</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"cấp phép <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (guide <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>summary</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>discontinue</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... performed well</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the server</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>editor</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>guidance</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"The newsroom <span class="fill"></span> to the third floor over the weekend of June 7" → tương lai <code>will move</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Movers <span class="fill"></span> pack the shared reference library" (sẽ) → <code>will pack</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Phones and network connections <span class="fill"></span> already been tested" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn phản hồi nếu gặp sự cố, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"expense claims <span class="fill"></span> be submitted through the online portal" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The portal <span class="fill"></span> accept photos of receipts" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"larger claims <span class="fill"></span> a manager's sign-off" (chủ ngữ số nhiều) → <code>require</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ kế toán nếu gặp khó khăn, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most newsrooms find <span class="fill"></span> useful" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> nhấn mạnh sự nhanh gọn, khép lại quảng cáo PressReady</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our default proofing method <span class="fill"></span> to on-screen markup, starting with the next issue" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Screen proofing <span class="fill"></span> remove almost all of that" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The annotation tools ... <span class="fill"></span> now as good as a red pen" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo giảm in ấn</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>B</td>
+<td>165</td>
+<td>B</td>
+<td>174</td>
+<td>A</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>C</td>
+</tr>
+<tr>
+<td>148</td>
+<td>B</td>
+<td>157</td>
+<td>D</td>
+<td>166</td>
+<td>B</td>
+<td>175</td>
+<td>C</td>
+<td>184</td>
+<td>A</td>
+<td>193</td>
+<td>C</td>
+</tr>
+<tr>
+<td>149</td>
+<td>A</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>C</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>C</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>C</td>
+<td>186</td>
+<td>A</td>
+<td>195</td>
+<td>D</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>A</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>D</td>
+</tr>
+<tr>
+<td>152</td>
+<td>D</td>
+<td>161</td>
+<td>B</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>B</td>
+<td>197</td>
+<td>B</td>
+</tr>
+<tr>
+<td>153</td>
+<td>A</td>
+<td>162</td>
+<td>C</td>
+<td>171</td>
+<td>C</td>
+<td>180</td>
+<td>D</td>
+<td>189</td>
+<td>D</td>
+<td>198</td>
+<td>A</td>
+</tr>
+<tr>
+<td>154</td>
+<td>D</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>D</td>
+<td>181</td>
+<td>B</td>
+<td>190</td>
+<td>A</td>
+<td>199</td>
+<td>A</td>
+</tr>
+<tr>
+<td>155</td>
+<td>C</td>
+<td>164</td>
+<td>D</td>
+<td>173</td>
+<td>B</td>
+<td>182</td>
+<td>C</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 C</strong> — "the smallest circulation and the highest per-copy production cost of the week"<br />
+- <strong>152 D</strong> — "the ... savings will fund two additional reporting positions covering county government"<br />
+- <strong>157 D</strong> — "above about 1,500 copies, offset is usually cheaper"<br />
+- <strong>159 C</strong> — "Manual formatting has to be stripped out by hand, and that is where errors creep in"<br />
+- <strong>166 B</strong> — "added a step to our budget-story checklist to confirm percentage changes against the source document"<br />
+- <strong>168 D</strong> — "Gift subscriptions are prepaid ... and do not auto-renew"<br />
+- <strong>172 D</strong> — "If a photo shows a recognizable person in a private setting, check with Legal"<br />
+- <strong>178 A</strong> — "two reading periods each year: the month of February and the month of September"<br />
+- <strong>180 D</strong> — "accept simultaneous submissions but ask that you tell us, and ... let us know promptly if ... picked up elsewhere"<br />
+- <strong>183 D</strong> — "the higher figure stands unless we notified you of a change in writing before you filed. We did not, so $0.55 applies"<br />
+- <strong>189 D</strong> — "only if the first is the Sample Grant and the second is the Full Translation — that pairing is the one exception"<br />
+- <strong>191 A</strong> — "goes to the desk first, then to our official accounts"<br />
+- <strong>193 C</strong> — "reportable and fine to note ... Keep it factual — no editorializing"<br />
+- <strong>199 A</strong> — "we've added four pages overall, so total editorial content goes up slightly"<br />
+- <strong>200 C</strong> — "the most expensive single item to print and insert, so folding it into the section saves money"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_012 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Media / Publishing): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2223 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_009 — Real Estate & Facilities</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="009">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_009</strong>
+    <span class="theme">Real Estate &amp; Facilities</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_009 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Môi giới BĐS đang chỉ cho một cặp đôi xem trong căn hộ trống.]</em><br />
+(A) A real estate agent is showing a couple an apartment.<br />
+(B) Movers are carrying boxes into a house.<br />
+(C) Someone is painting a wall.<br />
+(D) A family is having dinner at a table.</p>
+<p><strong>2.</strong> <em>[Ảnh: Một tòa nhà văn phòng nhiều tầng, cửa kính, có cây xanh phía trước.]</em><br />
+(A) Workers are washing the windows.<br />
+(B) Cars are parked in an underground garage.<br />
+(C) The building is under construction.<br />
+(D) An office building has trees in front of it.</p>
+<p><strong>3.</strong> <em>[Ảnh: Nhân viên bảo trì đang sửa hệ thống điều hòa trên trần.]</em><br />
+(A) A worker is repairing a ceiling unit.<br />
+(B) Someone is mopping the floor.<br />
+(C) A ladder is leaning against a wall.<br />
+(D) Lights are being installed.</p>
+<p><strong>4.</strong> <em>[Ảnh: Sảnh lễ tân tòa nhà, bàn tiếp tân, ghế sofa chờ.]</em><br />
+(A) People are waiting in a long line.<br />
+(B) A security guard is checking IDs.<br />
+(C) A reception desk sits in a lobby.<br />
+(D) Furniture is being moved out.</p>
+<p><strong>5.</strong> <em>[Ảnh: Người quản lý cầm bảng kê, đi kiểm tra một căn hộ.]</em><br />
+(A) Two people are signing a lease at a desk.<br />
+(B) A manager is inspecting an apartment with a checklist.<br />
+(C) A tenant is unpacking boxes.<br />
+(D) Someone is measuring a window.</p>
+<p><strong>6.</strong> <em>[Ảnh: Bãi đỗ xe của tòa nhà, các ô đỗ được đánh số.]</em><br />
+(A) A car is being towed away.<br />
+(B) Someone is painting lines on the pavement.<br />
+(C) The parking spaces are numbered.<br />
+(D) The lot is completely full.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is the apartment available to move in?<br />
+(A) The first of next month.<br />
+(B) On the third floor.<br />
+(C) It's a two-bedroom.</p>
+<p><strong>8.</strong> Where do tenants submit maintenance requests?<br />
+(A) I fixed it myself.<br />
+(B) It's been a week already.<br />
+(C) Through the building's online portal.</p>
+<p><strong>9.</strong> Who's responsible for landscaping in the complex?<br />
+(A) Every Tuesday morning.<br />
+(B) An outside contractor.<br />
+(C) Behind building C.</p>
+<p><strong>10.</strong> Why is the elevator out of service?<br />
+(A) It's being inspected today.<br />
+(B) On floors two through six.<br />
+(C) The stairs are over there.</p>
+<p><strong>11.</strong> How much is the monthly parking fee?<br />
+(A) One space per unit.<br />
+(B) Seventy-five dollars.<br />
+(C) In the covered garage.</p>
+<p><strong>12.</strong> Could you send me a copy of the lease agreement?<br />
+(A) Sure, I'll email it this afternoon.<br />
+(B) The lease is twelve months.<br />
+(C) It was signed last week.</p>
+<p><strong>13.</strong> The rent is due on the first, isn't it?<br />
+(A) The rent went up this year.<br />
+(B) Yes, with a five-day grace period.<br />
+(C) At the management office.</p>
+<p><strong>14.</strong> Should we renew the cleaning contract or find a new company?<br />
+(A) The lobby was spotless last week.<br />
+(B) They come three times a week.<br />
+(C) Let's get quotes from two others first.</p>
+<p><strong>15.</strong> Isn't the gym supposed to be open until eleven?<br />
+(A) Yes, but it closes early on Sundays.<br />
+(B) It's on the ground floor.<br />
+(C) The equipment is new.</p>
+<p><strong>16.</strong> Can you show me how to book the community room?<br />
+(A) The room holds about forty people.<br />
+(B) Of course, it's a simple form.<br />
+(C) There's a small deposit.</p>
+<p><strong>17.</strong> What did the inspector say about the roof?<br />
+(A) He came on Thursday.<br />
+(B) The inspection took two hours.<br />
+(C) It needs repairs within a year.</p>
+<p><strong>18.</strong> Where are the recycling bins located?<br />
+(A) We collect on Mondays.<br />
+(B) They're paper and glass only.<br />
+(C) By the loading dock behind the building.</p>
+<p><strong>19.</strong> Do you know whether the tenant renewed the lease?<br />
+(A) The unit is 4B.<br />
+(B) Let me check the file.<br />
+(C) The lease started in March.</p>
+<p><strong>20.</strong> I think we should upgrade the lobby lighting.<br />
+(A) It does feel a bit dim.<br />
+(B) The fixtures are original.<br />
+(C) Near the mailboxes.</p>
+<p><strong>21.</strong> Could you schedule a viewing for the downtown apartment?<br />
+(A) I'll set that up today.<br />
+(B) The apartment is bright.<br />
+(C) I viewed it last week.</p>
+<p><strong>22.</strong> Has the lease been signed yet?<br />
+(A) It's a two-year lease.<br />
+(B) I leased a car once.<br />
+(C) Not yet, the tenant is reviewing it.</p>
+<p><strong>23.</strong> Where is the maintenance request form?<br />
+(A) On the building's website.<br />
+(B) Maintenance takes time.<br />
+(C) I requested it already.</p>
+<p><strong>24.</strong> Would you rather list the house at the current price or lower it?<br />
+(A) Let's lower it slightly.<br />
+(B) The house has a garden.<br />
+(C) I listed it myself.</p>
+<p><strong>25.</strong> Isn't the property usually inspected before closing?<br />
+(A) Closing takes weeks.<br />
+(B) Yes, but this one already passed inspection.<br />
+(C) The property is large.</p>
+<p><strong>26.</strong> How many units are still vacant?<br />
+(A) About six right now.<br />
+(B) The units are spacious.<br />
+(C) We vacated last year.</p>
+<p><strong>27.</strong> Who's handling the elevator repair?<br />
+(A) Repairs take time.<br />
+(B) A contractor starting Monday.<br />
+(C) Elevators are convenient.</p>
+<p><strong>28.</strong> Do you know if the HOA fees increased?<br />
+(A) Fees are annoying.<br />
+(B) I paid my fee already.<br />
+(C) Yes, by a small amount.</p>
+<p><strong>29.</strong> Should we renovate the lobby before listing the building?<br />
+(A) Lobbies matter.<br />
+(B) Let's get a few estimates first.<br />
+(C) I renovated my kitchen.</p>
+<p><strong>30.</strong> Haven't you finished the property walkthrough yet?<br />
+(A) Walkthroughs take time.<br />
+(B) Almost, just two rooms left.<br />
+(C) The walkthrough was smooth.</p>
+<p><strong>31.</strong> Why was the closing delayed?<br />
+(A) Closings are stressful.<br />
+(B) It happened last time too.<br />
+(C) Because the buyer's financing fell through.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I'm calling about the two-bedroom listing on Ashford Road. Is it still available?<br />
+<strong>M:</strong> It is. It's on the third floor, 850 square feet, and includes one parking space. Rent is $1,650 a month.<br />
+<strong>W:</strong> Can I see it this week?<br />
+<strong>M:</strong> I have openings Thursday at 4 or Saturday at 10. The current tenant moves out Friday, so Saturday you'd see it empty.<br />
+<strong>W:</strong> Saturday at 10, then.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To report a maintenance issue<br />
+(B) To renew her lease<br />
+(C) To ask about a listing's availability<br />
+(D) To pay rent</p>
+<p><strong>33.</strong> What is included with the apartment?<br />
+(A) Utilities<br />
+(B) One parking space<br />
+(C) Furniture<br />
+(D) A storage unit</p>
+<p><strong>34.</strong> When will the woman view the apartment?<br />
+(A) Thursday at 4<br />
+(B) Friday<br />
+(C) Next week<br />
+(D) Saturday at 10</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> We've had five complaints this month about the parking gate not opening with the fobs.<br />
+<strong>W:</strong> I noticed it's slow to respond. The gate motor is eight years old — the vendor says it's near end of life.<br />
+<strong>M:</strong> A replacement is what, a few thousand?<br />
+<strong>W:</strong> About $4,000 installed. Given the complaints and the age, I think we should budget for it now rather than keep paying for service calls.</p>
+<p><strong>35.</strong> What is the problem?<br />
+(A) The parking gate isn't working reliably<br />
+(B) Fobs are being lost<br />
+(C) The garage is too full<br />
+(D) A parking fee increase</p>
+<p><strong>36.</strong> What does the woman say about the gate motor?<br />
+(A) It was recently replaced<br />
+(B) It is near the end of its life<br />
+(C) It is under warranty<br />
+(D) It was installed incorrectly</p>
+<p><strong>37.</strong> What does the woman recommend?<br />
+(A) Buying more fobs<br />
+(B) Removing the gate<br />
+(C) Hiring a parking attendant<br />
+(D) Budgeting to replace the gate motor</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> The lease for the ground-floor retail space is up in three months and the tenant hasn't said whether they're renewing.<br />
+<strong>M1:</strong> They've been good tenants — always pay on time.<br />
+<strong>W:</strong> Agreed. I'll reach out and offer a three-year renewal at a 4% increase, which is below market.<br />
+<strong>M2:</strong> If they pass, we should list it right away. Retail spaces on this street rent fast.<br />
+<strong>W:</strong> I'll send the renewal offer today and give them two weeks to decide.</p>
+<p><strong>38.</strong> What space is being discussed?<br />
+(A) A ground-floor retail space<br />
+(B) A rooftop terrace<br />
+(C) A basement storage area<br />
+(D) A parking lot</p>
+<p><strong>39.</strong> What will the woman offer the tenant?<br />
+(A) A month of free rent<br />
+(B) A rent reduction<br />
+(C) A three-year renewal at a 4% increase<br />
+(D) A shorter lease</p>
+<p><strong>40.</strong> How long will the tenant have to decide?<br />
+(A) One week<br />
+(B) Two weeks<br />
+(C) One month<br />
+(D) Three months</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> A tenant in 6C reported water stains on the ceiling. It's the unit below the rooftop mechanical room.<br />
+<strong>W:</strong> Could be a leak from the HVAC condensate line. I'll have the maintenance team check the drip pan and line today.<br />
+<strong>M:</strong> Should we move the tenant temporarily?<br />
+<strong>W:</strong> Not yet — the stain is small and dry right now. If we find active dripping, then yes. I'll update you by end of day.</p>
+<p><strong>41.</strong> What did the tenant in 6C report?<br />
+(A) Water stains on the ceiling<br />
+(B) A broken window<br />
+(C) No heat<br />
+(D) A noisy neighbor</p>
+<p><strong>42.</strong> What does the woman think may be the cause?<br />
+(A) A roof leak from rain<br />
+(B) A burst pipe<br />
+(C) A leak from an HVAC condensate line<br />
+(D) A plumbing issue in the unit above</p>
+<p><strong>43.</strong> Will the tenant be moved right away?<br />
+(A) Yes, immediately<br />
+(B) Yes, tomorrow<br />
+(C) Only if they request it<br />
+(D) No, unless active dripping is found</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The new key-card readers for the side entrances arrived, but the installer says the wiring in two of the doors doesn't meet the new standard.<br />
+<strong>M:</strong> How much extra to bring it up to standard?<br />
+<strong>W:</strong> About $600 per door, so $1,200. The other four doors are fine.<br />
+<strong>M:</strong> Let's do it. It's not worth leaving two entrances on the old locks. Can they finish this week?<br />
+<strong>W:</strong> They said Thursday and Friday for those two.</p>
+<p><strong>44.</strong> What is the issue with the two doors?<br />
+(A) The card readers are the wrong model<br />
+(B) The wiring doesn't meet the new standard<br />
+(C) The doors don't close properly<br />
+(D) The keys were lost</p>
+<p><strong>45.</strong> How much will the extra work cost in total?<br />
+(A) $600<br />
+(B) $2,400<br />
+(C) $1,200<br />
+(D) $4,000</p>
+<p><strong>46.</strong> When will the installer finish the two doors?<br />
+(A) Today<br />
+(B) Thursday and Friday<br />
+(C) Next Monday<br />
+(D) Next week</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> How did the annual fire-safety inspection go?<br />
+<strong>W:</strong> Passed overall. Two items to fix: one exit sign on the third floor is out, and the extinguisher in the parking garage is past its inspection date.<br />
+<strong>M:</strong> Both quick fixes.<br />
+<strong>W:</strong> Right. I've ordered the sign and scheduled the extinguisher service for Monday. The inspector wants photo confirmation once both are done.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) An annual fire-safety inspection<br />
+(B) A tenant complaint<br />
+(C) A lease renewal<br />
+(D) A budget review</p>
+<p><strong>48.</strong> What is one item that needs fixing?<br />
+(A) A broken elevator<br />
+(B) A leaking pipe<br />
+(C) An exit sign that is out<br />
+(D) A blocked stairwell</p>
+<p><strong>49.</strong> What does the inspector want after the fixes?<br />
+(A) A written report<br />
+(B) A follow-up visit<br />
+(C) A signed form from each tenant<br />
+(D) Photo confirmation</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> A tenant on the fourth floor is reporting a leak under the kitchen sink.<br />
+<strong>W:</strong> Let's send a plumber out today before it causes more damage.<br />
+<strong>M:</strong> I already called one — they can be there by three.<br />
+<strong>W:</strong> Great, let the tenant know so they can be home to let the plumber in.</p>
+<p><strong>50.</strong> What problem is being reported?<br />
+(A) A broken elevator<br />
+(B) A leak under the kitchen sink<br />
+(C) A power outage<br />
+(D) A noisy neighbor</p>
+<p><strong>51.</strong> What has the man already done?<br />
+(A) Fixed the leak himself<br />
+(B) Called a plumber<br />
+(C) Notified the tenant<br />
+(D) Filed an insurance claim</p>
+<p><strong>52.</strong> What does the woman ask the man to do?<br />
+(A) Cancel the appointment<br />
+(B) Let the tenant know<br />
+(C) Move the tenant to another unit<br />
+(D) Refund the tenant's rent</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> We have a potential buyer interested in the office building downtown.<br />
+<strong>M:</strong> Did they mention what they're looking for exactly?<br />
+<strong>W:</strong> Mainly more parking than the current building offers.<br />
+<strong>M:</strong> I'll pull up the zoning details to see if extra parking spaces could be added later.</p>
+<p><strong>53.</strong> What are the speakers discussing?<br />
+(A) A rental application<br />
+(B) A potential building sale<br />
+(C) A lease renewal<br />
+(D) A maintenance issue</p>
+<p><strong>54.</strong> What is the buyer looking for?<br />
+(A) A lower price<br />
+(B) More parking<br />
+(C) A shorter lease<br />
+(D) A larger lobby</p>
+<p><strong>55.</strong> What will the man check?<br />
+(A) The building's insurance<br />
+(B) The zoning details<br />
+(C) The tenant list<br />
+(D) The property tax records</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> The fire alarm testing is scheduled for tomorrow morning across the whole building.<br />
+<strong>W:</strong> Have all the tenants been notified?<br />
+<strong>M:</strong> Most of them, but I still need to email the third and fifth floors.<br />
+<strong>W:</strong> I'll take care of that this afternoon so everyone has enough notice.</p>
+<p><strong>56.</strong> What is scheduled for tomorrow?<br />
+(A) Fire alarm testing<br />
+(B) An elevator inspection<br />
+(C) A lease signing<br />
+(D) A building tour</p>
+<p><strong>57.</strong> Who has not yet been notified?<br />
+(A) The building owner<br />
+(B) Tenants on the third and fifth floors<br />
+(C) The maintenance staff<br />
+(D) The fire department</p>
+<p><strong>58.</strong> What will the woman do this afternoon?<br />
+(A) Cancel the testing<br />
+(B) Notify the remaining tenants<br />
+(C) Reschedule the testing<br />
+(D) Inspect the alarms herself</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> I noticed the parking garage gate has been getting stuck lately.<br />
+<strong>M:</strong> I'll take a look, but it might need a part we don't have on hand.<br />
+<strong>W:</strong> If so, how long would it take to order?<br />
+<strong>M:</strong> Probably two to three days, so let's prop it open safely in the meantime.</p>
+<p><strong>59.</strong> What problem does the woman mention?<br />
+(A) A leaking roof<br />
+(B) A parking garage gate getting stuck<br />
+(C) A broken elevator<br />
+(D) A flickering light</p>
+<p><strong>60.</strong> What does the man say might be needed?<br />
+(A) A new gate entirely<br />
+(B) A part that isn't on hand<br />
+(C) A professional inspection<br />
+(D) A software update</p>
+<p><strong>61.</strong> What will the speakers do in the meantime?<br />
+(A) Close the garage<br />
+(B) Prop the gate open safely<br />
+(C) Ask tenants to park elsewhere<br />
+(D) Remove the gate</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's review the quotes we received for the roof repair.<br />
+<strong>M1:</strong> Summit Roofing came in lowest, but their timeline is three weeks out.<br />
+<strong>M2:</strong> Given the current weather, I'd rather pay a bit more for someone who can start sooner.<br />
+<strong>W:</strong> Agreed, let's go with the second option and get started this week.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) A roof repair<br />
+(B) A lease agreement<br />
+(C) A new tenant<br />
+(D) A security upgrade</p>
+<p><strong>63.</strong> What is the drawback of Summit Roofing's quote?<br />
+(A) It is too expensive.<br />
+(B) Its timeline is three weeks out.<br />
+(C) It doesn't include materials.<br />
+(D) It requires a deposit.</p>
+<p><strong>64.</strong> What do the speakers decide?<br />
+(A) To wait for a cheaper quote<br />
+(B) To choose the option that can start sooner<br />
+(C) To cancel the repair<br />
+(D) To do the repair themselves</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I'm putting together the annual budget for the building's common areas.<br />
+<strong>W:</strong> Don't forget to include the landscaping contract renewal.<br />
+<strong>M:</strong> Right, and I think we should also budget for new lobby furniture this year.<br />
+<strong>W:</strong> Good call — let's finalize the numbers and present it at next month's board meeting.</p>
+<p><strong>65.</strong> What is the man preparing?<br />
+(A) A lease agreement<br />
+(B) An annual budget for common areas<br />
+(C) A tenant survey<br />
+(D) A maintenance schedule</p>
+<p><strong>66.</strong> What does the woman remind him to include?<br />
+(A) Security cameras<br />
+(B) The landscaping contract renewal<br />
+(C) A new elevator<br />
+(D) Parking permits</p>
+<p><strong>67.</strong> When will the budget be presented?<br />
+(A) This week<br />
+(B) At next month's board meeting<br />
+(C) At the tenant meeting<br />
+(D) Next year</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> A tenant is asking whether pets are allowed in the building.<br />
+<strong>M:</strong> Small pets are fine, but there's a weight limit and a monthly pet fee.<br />
+<strong>W:</strong> I'll let her know the details and send over the pet policy document.<br />
+<strong>M:</strong> Great, and remind her the fee is due along with rent each month.</p>
+<p><strong>68.</strong> What is the tenant asking about?<br />
+(A) Parking availability<br />
+(B) Whether pets are allowed<br />
+(C) Whether the unit has a balcony<br />
+(D) Whether smoking is allowed</p>
+<p><strong>69.</strong> What does the man mention about pets?<br />
+(A) They are not allowed at all.<br />
+(B) There is a weight limit and a fee.<br />
+(C) Only cats are allowed.<br />
+(D) A deposit is refundable.</p>
+<p><strong>70.</strong> What will the woman send the tenant?<br />
+(A) A new lease<br />
+(B) The pet policy document<br />
+(C) A maintenance form<br />
+(D) A welcome packet</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Building announcement</h3>
+<p><em>"Attention residents. The water will be shut off in Building B on Wednesday from 9 A.M. to 1 P.M. while the city replaces a main valve. Please store water for drinking and any essential use before 9. The shut-off affects only Building B; Buildings A and C are not affected. If work runs past 1 P.M., we'll post an update in the lobby and on the resident app."</em></p>
+<p><strong>71.</strong> Why will the water be shut off?<br />
+(A) A burst pipe<br />
+(B) To replace a main valve<br />
+(C) A scheduled cleaning<br />
+(D) A billing issue</p>
+<p><strong>72.</strong> What should residents do before 9 A.M.?<br />
+(A) Move their cars<br />
+(B) Leave the building<br />
+(C) Report leaks<br />
+(D) Store water for essential use</p>
+<p><strong>73.</strong> Which buildings are affected?<br />
+(A) All three buildings<br />
+(B) Buildings A and C<br />
+(C) Building B only<br />
+(D) The parking garage only</p>
+<h3>Talk 2 (74–76) — Voicemail from a property manager</h3>
+<p><em>"Hi, this is Nadia from Ashford Property Management. I'm calling about your application for unit 3A. Your references and income check both came back fine. The next step is the security deposit — one month's rent — and the signed lease. Once we have both, we can set your move-in for the date you requested, the 15th. Call me back at 555-0170 to arrange the deposit. Thanks."</em></p>
+<p><strong>74.</strong> Why is Nadia calling?<br />
+(A) To reject an application<br />
+(B) To confirm an application passed and explain next steps<br />
+(C) To schedule a repair<br />
+(D) To collect overdue rent</p>
+<p><strong>75.</strong> What is the next step for the applicant?<br />
+(A) A second interview<br />
+(B) A credit check<br />
+(C) An apartment viewing<br />
+(D) The security deposit and signed lease</p>
+<p><strong>76.</strong> When is the requested move-in date?<br />
+(A) The 1st<br />
+(B) The 10th<br />
+(C) The 15th<br />
+(D) The end of the month</p>
+<h3>Talk 3 (77–79) — Facilities conference presentation</h3>
+<p><em>"The biggest savings we found weren't in new equipment — they were in scheduling. We were running the heating and cooling on a fixed timer, seven days a week, even when floors were empty. By tying the system to the actual booking calendar and badge data, we cut energy use by about 22% with no complaints about comfort. The payback on the controls was under two years."</em></p>
+<p><strong>77.</strong> Where did the speaker's company find the biggest savings?<br />
+(A) In new equipment<br />
+(B) In smarter scheduling of heating and cooling<br />
+(C) In switching energy providers<br />
+(D) In reducing office space</p>
+<p><strong>78.</strong> What was the system previously tied to?<br />
+(A) A fixed timer<br />
+(B) The weather forecast<br />
+(C) Manual controls<br />
+(D) The booking calendar</p>
+<p><strong>79.</strong> How much did energy use drop?<br />
+(A) About 10%<br />
+(B) About 15%<br />
+(C) About 22%<br />
+(D) About 40%</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"Managing a building and drowning in maintenance requests? SiteDesk gives your tenants one place to report issues — by app, web, or a quick call — and gives you one dashboard to track every job from request to done. Assign work, message contractors, and pull a report for the owner in seconds. Setup takes a day, and your first month is free. See a demo at sitedesk.example."</em></p>
+<p><strong>80.</strong> What does SiteDesk help with?<br />
+(A) Tracking maintenance requests<br />
+(B) Collecting rent<br />
+(C) Marketing vacant units<br />
+(D) Screening tenants</p>
+<p><strong>81.</strong> How can tenants report issues?<br />
+(A) Only through the app<br />
+(B) By email only<br />
+(C) In person at the office<br />
+(D) By app, web, or phone</p>
+<p><strong>82.</strong> What is offered for free?<br />
+(A) The first month<br />
+(B) Contractor labor<br />
+(C) A year of support<br />
+(D) The setup only</p>
+<h3>Talk 5 (83–85) — Building announcement</h3>
+<p><em>"Attention, residents. Water service will be temporarily shut off tomorrow from 9 A.M. to noon while crews repair a valve in the basement. Please fill a container with water if needed beforehand. We apologize for the inconvenience and expect service to resume on schedule."</em></p>
+<p><strong>83.</strong> What will happen tomorrow?<br />
+(A) A power outage<br />
+(B) A temporary water shutoff<br />
+(C) A fire drill<br />
+(D) An elevator inspection</p>
+<p><strong>84.</strong> What time will this occur?<br />
+(A) 7 A.M. to 9 A.M.<br />
+(B) 9 A.M. to noon<br />
+(C) Noon to 3 P.M.<br />
+(D) All day</p>
+<p><strong>85.</strong> What are residents advised to do?<br />
+(A) Leave the building<br />
+(B) Fill a container with water beforehand<br />
+(C) Contact the front desk<br />
+(D) Avoid using electricity</p>
+<h3>Talk 6 (86–88) — Leasing office voicemail</h3>
+<p><em>"Hi, this is the leasing office calling about your application for unit 4B. Everything looks good, and we just need one more document — a copy of your most recent pay stub. Once we receive that, we can finalize your lease and schedule a move-in date."</em></p>
+<p><strong>86.</strong> Why is the leasing office calling?<br />
+(A) To reject an application<br />
+(B) To request one more document<br />
+(C) To offer a lower rent<br />
+(D) To cancel a viewing</p>
+<p><strong>87.</strong> What document is needed?<br />
+(A) A copy of a lease<br />
+(B) A recent pay stub<br />
+(C) A photo ID<br />
+(D) A reference letter</p>
+<p><strong>88.</strong> What will happen once the document is received?<br />
+(A) A background check will begin.<br />
+(B) The lease can be finalized and a move-in date scheduled.<br />
+(C) A deposit will be refunded.<br />
+(D) The application will be denied.</p>
+<h3>Talk 7 (89–91) — Property tour introduction</h3>
+<p><em>"Welcome, and thanks for coming to see this property today. We'll start with the main living area and kitchen, then head upstairs to the bedrooms, and finish outside in the backyard. Feel free to take photos and ask questions as we go — there's no rush."</em></p>
+<p><strong>89.</strong> Where will the tour begin?<br />
+(A) The bedrooms<br />
+(B) The main living area and kitchen<br />
+(C) The backyard<br />
+(D) The garage</p>
+<p><strong>90.</strong> What will visitors see after the main level?<br />
+(A) The basement<br />
+(B) The bedrooms upstairs<br />
+(C) The garage<br />
+(D) The neighborhood</p>
+<p><strong>91.</strong> What are visitors invited to do?<br />
+(A) Take photos and ask questions<br />
+(B) Sign a lease immediately<br />
+(C) Leave a deposit today<br />
+(D) Bring their own agent</p>
+<h3>Talk 8 (92–94) — Facilities maintenance update</h3>
+<p><em>"This is a reminder that the annual HVAC inspection for all units will take place next week. Technicians will need access to each apartment, so please make arrangements if you won't be home. The inspection typically takes about twenty minutes per unit."</em></p>
+<p><strong>92.</strong> What is scheduled for next week?<br />
+(A) A fire drill<br />
+(B) An annual HVAC inspection<br />
+(C) A lease renewal deadline<br />
+(D) A parking lot repaving</p>
+<p><strong>93.</strong> What do residents need to arrange if they won't be home?<br />
+(A) A neighbor to check mail<br />
+(B) Access for technicians<br />
+(C) A refund request<br />
+(D) Alternative parking</p>
+<p><strong>94.</strong> About how long does the inspection take per unit?<br />
+(A) Five minutes<br />
+(B) Twenty minutes<br />
+(C) One hour<br />
+(D) Half a day</p>
+<h3>Talk 9 (95–97) — Real estate radio segment</h3>
+<p><em>"In today's market update, home prices in the metro area rose about three percent compared to last year, while the number of homes for sale increased slightly. Real estate agents say this is giving buyers a bit more negotiating room than they had over the past two years."</em></p>
+<p><strong>95.</strong> What happened to home prices?<br />
+(A) They fell.<br />
+(B) They rose about three percent.<br />
+(C) They stayed flat.<br />
+(D) They doubled.</p>
+<p><strong>96.</strong> What happened to the number of homes for sale?<br />
+(A) It decreased sharply.<br />
+(B) It increased slightly.<br />
+(C) It stayed the same.<br />
+(D) It was not tracked.</p>
+<p><strong>97.</strong> What does this give buyers, according to agents?<br />
+(A) Lower interest rates<br />
+(B) More negotiating room<br />
+(C) Faster closings<br />
+(D) Free inspections</p>
+<h3>Talk 10 (98–100) — Board meeting excerpt</h3>
+<p><em>"Moving on to new business, the board has approved funding to repave the parking lot next spring. We're also looking into adding a small package room near the lobby, since deliveries have increased significantly. I'll bring a cost estimate for that to next month's meeting."</em></p>
+<p><strong>98.</strong> What did the board approve?<br />
+(A) A new elevator<br />
+(B) Funding to repave the parking lot<br />
+(C) A rent increase<br />
+(D) A new management company</p>
+<p><strong>99.</strong> Why is a package room being considered?<br />
+(A) Deliveries have increased significantly.<br />
+(B) The lobby is too small.<br />
+(C) Residents requested more storage.<br />
+(D) Security concerns.</p>
+<p><strong>100.</strong> What will be brought to next month's meeting?<br />
+(A) A tenant survey<br />
+(B) A cost estimate for the package room<br />
+(C) A new lease template<br />
+(D) A maintenance schedule</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_009 — READING (100 câu: 101–200) · Chủ đề: Real Estate &amp; Facilities</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The management office <span class="blk">________</span> all maintenance requests within 24 hours.<br />
+(A) acknowledge  (B) acknowledges  (C) acknowledging  (D) to acknowledge</p>
+<p><strong>102.</strong> Tenants must give written notice <span class="blk">________</span> they move out of a unit.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The contractor completed the lobby renovation <span class="blk">________</span>, two days ahead of schedule.<br />
+(A) prompt  (B) promptness  (C) promptly  (D) prompter</p>
+<p><strong>104.</strong> <span class="blk">________</span> the winter weather, the roof repair was finished on time.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Building staff are trained to <span class="blk">________</span> fire exits clear at all times.<br />
+(A) keep  (B) keeps  (C) keeping  (D) kept</p>
+<p><strong>106.</strong> The lease sets out the rules <span class="blk">________</span> subletting a unit.<br />
+(A) for  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three vacant units, the corner one gets the <span class="blk">________</span> natural light.<br />
+(A) more  (B) most  (C) much  (D) many</p>
+<p><strong>108.</strong> The move-in was delayed <span class="blk">________</span> a problem with the previous tenant's cleanup.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The building reduced its energy bill <span class="blk">________</span> upgrading to LED lighting.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Rents in the district have risen <span class="blk">________</span> over the past three years.<br />
+(A) sharp  (B) sharpness  (C) sharper  (D) sharply</p>
+<p><strong>111.</strong> Each unit <span class="blk">________</span> inspected before a new tenant moves in.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The property manager asked the vendor to <span class="blk">________</span> the fire extinguishers by Friday.<br />
+(A) service  (B) servicing  (C) serviced  (D) serviceable</p>
+<p><strong>113.</strong> The building rules are posted <span class="blk">________</span> the notice board in the lobby.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> a lease is signed, the tenant receives a copy and the key fobs.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The firm <span class="blk">________</span> more than 30 residential buildings in the city.<br />
+(A) manage  (B) manages  (C) managing  (D) managed</p>
+<p><strong>116.</strong> The garage resurfacing is expected <span class="blk">________</span> before the busy season.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Managers should keep <span class="blk">________</span> records of every repair and its cost.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The new online portal handles requests far <span class="blk">________</span> than the old phone line.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The report lists several <span class="blk">________</span> to lower the building's water usage.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The tenant meeting will be held <span class="blk">________</span> the community room on the ground floor.<br />
+(A) at  (B) on  (C) in  (D) by</p>
+<p><strong>121.</strong> The building was sold <span class="blk">________</span> a long-term lease already in place for the ground floor.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> A surveyor will <span class="blk">________</span> the property's boundaries before the sale closes.<br />
+(A) verify  (B) verifies  (C) verifying  (D) verification</p>
+<p><strong>123.</strong> Residents are <span class="blk">________</span> for a discounted rate at the on-site parking garage.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The updated request system lets staff close out jobs <span class="blk">________</span> than before.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The owner is committed to <span class="blk">________</span> the historic façade during the renovation.<br />
+(A) preserve  (B) preserves  (C) preserving  (D) preserved</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two elevators can be taken out of service at the same time, per code.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The leasing office is open <span class="blk">________</span> 9 A.M. to 6 P.M., Tuesday through Saturday.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>128.</strong> Any structural change to a unit must be approved by an <span class="blk">________</span> engineer.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The new pet policy <span class="blk">________</span> distributed to all residents next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The move-in guide provides <span class="blk">________</span> instructions for setting up utilities.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Balcony Inspections</strong></p>
+<p>The city requires all balconies <span class="blk">(131)</span> inspected every five years. Ours are due, and inspections will take place the week of April 14.</p>
+<p>An inspector will need access to each balcony for about ten minutes. You do not need to be home; building staff <span class="blk">(132)</span> the inspector, and no one will enter the interior of your unit beyond the balcony door.</p>
+<p>Please clear personal items from your balcony before April 14 so the inspector can check the railings and the surface. Anything <span class="blk">(133)</span> in the way may delay the inspection for that unit.</p>
+<p>We'll post the schedule by floor once it's set. Thank you for your cooperation. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) be  (B) to be  (C) being  (D) been<br />
+<strong>132.</strong> (A) accompany  (B) will accompany  (C) accompanying  (D) accompanied<br />
+<strong>133.</strong> (A) leave  (B) leaving  (C) left  (D) leaves<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Inspections outside this window will be scheduled individually.<br />
+(B) A fee of $50 will apply if you are not home.<br />
+(C) All balconies will be repainted following the inspection.<br />
+(D) If you have any questions, reach out to building management.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Contractor for HVAC Maintenance</p>
+<p>Starting May 1, HVAC maintenance for all three buildings <span class="blk">(135)</span> handled by CoolCare instead of our previous vendor.</p>
+<p>CoolCare will do the same quarterly service, but scheduling <span class="blk">(136)</span> through the resident app rather than by calling the office. If your unit needs a visit, you'll get a notification with a choice of time windows.</p>
+<p>For emergencies — no heat or no cooling in extreme weather — the phone line stays the same. CoolCare <span class="blk">(137)</span> to respond to emergencies within four hours.</p>
+<p>We expect the switch to be smooth. Please contact the office if you have questions. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) is  (B) has been  (C) being  (D) will be<br />
+<strong>136.</strong> (A) happens  (B) happened  (C) will happen  (D) happening<br />
+<strong>137.</strong> (A) commits  (B) committing  (C) commit  (D) is committed<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The previous vendor will continue emergency service only.<br />
+(B) Quarterly service will now occur twice a year.<br />
+(C) Thank you for your patience during the transition.<br />
+(D) Residents must be home for all scheduled visits.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>RIVERSIDE COMMONS — NOW LEASING</strong></p>
+<p>Riverside Commons offers one- and two-bedroom apartments a short walk from the transit station and the river path. Every unit has <span class="blk">(139)</span> appliances, in-unit laundry, and large windows.</p>
+<p>Residents enjoy a rooftop terrace, a fitness room, and a resident lounge that can be <span class="blk">(140)</span> for private events. Parking is available for an additional monthly fee.</p>
+<p>The building is professionally managed, with an on-site team and <span class="blk">(141)</span> maintenance requests through an app. Move-in specials are available on select units this month.</p>
+<p>Schedule a tour, visit riversidecommons.example or call the leasing office. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) modern  (B) modernly  (C) modernize  (D) modernity<br />
+<strong>140.</strong> (A) reserve  (B) reserved  (C) reserving  (D) reservation<br />
+<strong>141.</strong> (A) trackable  (B) track  (C) tracked  (D) tracking<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) We look forward to showing you around.<br />
+(B) A minimum one-year lease is required for all units.<br />
+(C) Pets are not permitted anywhere on the property.<br />
+(D) The rooftop terrace is currently closed for renovations.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Residents <strong>FROM:</strong> Building Management <strong>RE:</strong> Bulk-Item Disposal</p>
+<p>The trash room is for household waste only. Large items — furniture, mattresses, appliances — <span class="blk">(143)</span> be left there. Doing so blocks the room and can result in a $75 charge to the responsible unit.</p>
+<p>For bulk items, the city runs a pickup service. Book a slot on the city's website, and <span class="blk">(144)</span> your items to the curb by 7 A.M. on your scheduled day, not before.</p>
+<p>If you're not sure whether something counts as bulk, ask the office. We <span class="blk">(145)</span> happy to help you figure out the right way to dispose of it.</p>
+<p>Thanks for keeping the trash room usable for everyone. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) can  (B) may not  (C) should  (D) will<br />
+<strong>144.</strong> (A) bring  (B) bringing  (C) to bring  (D) brought<br />
+<strong>145.</strong> (A) is  (B) being  (C) be  (D) are<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The city pickup service is only available in the summer.<br />
+(B) Reach out to the office with any questions.<br />
+(C) Furniture and mattresses may now be left in the trash room.<br />
+(D) The $75 charge has been increased to $150 this year.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Priya (8:40 A.M.):</strong> Unit 2C has no hot water — tenant just called. Water heater's in the basement.<br />
+<strong>Devon (8:42 A.M.):</strong> The pilot may have gone out. I'll check now. If it's the element, I have one in the van.<br />
+<strong>Priya (8:55 A.M.):</strong> ?<br />
+<strong>Devon (8:56 A.M.):</strong> Relit the pilot, hot water's back. Told the tenant to call if it drops again — could mean the thermocouple.</p>
+<p><strong>147.</strong> What did the tenant in 2C report?<br />
+(A) No hot water<br />
+(B) A leak<br />
+(C) No heat<br />
+(D) A broken window</p>
+<p><strong>148.</strong> What fixed the problem?<br />
+(A) Replacing the heating element<br />
+(B) Relighting the pilot<br />
+(C) Replacing the thermocouple<br />
+(D) Resetting a breaker</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>CITY EASES RULES ON CONVERTING OFFICES TO APARTMENTS</strong></p>
+<p>The city council voted this week to make it easier for developers to convert older office buildings into residential units. Under the new rules, conversions no longer need a full zoning change if the building already allows mixed use, and some parking and window requirements are relaxed for existing structures.</p>
+<p>Officials said the change responds to two trends: high office vacancy downtown and a shortage of housing. A city report estimated that eligible buildings could add up to 4,000 apartments over five years.</p>
+<p>Not everyone is convinced. A residents' group raised concerns about strain on schools and transit, and some architects note that not all office layouts convert well — deep floor plates can leave interior units with no windows. The city said projects will still go through building-code and safety review.</p>
+<p><strong>149.</strong> What did the city council do?<br />
+(A) Banned new office construction<br />
+(B) Raised property taxes<br />
+(C) Made office-to-apartment conversions easier<br />
+(D) Built new public housing</p>
+<p><strong>150.</strong> What two problems is the change meant to address?<br />
+(A) Office vacancy and a housing shortage<br />
+(B) Traffic and pollution<br />
+(C) High rents and low wages<br />
+(D) Crime and vacant lots</p>
+<p><strong>151.</strong> What concern did architects raise?<br />
+(A) Conversions cost too much<br />
+(B) There is not enough demand<br />
+(C) Deep office floor plans can leave interior units without windows<br />
+(D) The buildings are too old to be safe</p>
+<p><strong>152.</strong> What review will conversion projects still face?<br />
+(A) A full zoning change<br />
+(B) A public vote<br />
+(C) An environmental impact study<br />
+(D) Building-code and safety review</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Lobby Floor Refinishing</strong></p>
+<p>The lobby floor will be refinished over the weekend of March 8–9. During this time, please use the side entrance on Oak Street to enter and exit the building. The main lobby, including the mailboxes, will be closed.</p>
+<p>Mail will be held at the post office; bring ID to pick it up, or wait until Monday when the lobby reopens.</p>
+<p><strong>153.</strong> What is happening the weekend of March 8–9?<br />
+(A) The lobby floor is being refinished<br />
+(B) The building is being painted<br />
+(C) The elevators are being serviced<br />
+(D) A fire drill</p>
+<p><strong>154.</strong> How can residents get their mail during the closure?<br />
+(A) It will be delivered to their units<br />
+(B) It will be forwarded automatically<br />
+(C) Pick it up at the post office with ID, or wait until Monday<br />
+(D) Ask a neighbor to collect it</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>MELROSE OFFICE SUITES — FLEXIBLE SPACE FOR GROWING TEAMS</strong></p>
+<p>Melrose Office Suites offers private offices for 2 to 20 people, with month-to-month terms and no long build-out. Move in with a desk and internet on day one.</p>
+<p>All suites include reception coverage, meeting-room credits, mail handling, and cleaning. Coffee and a stocked kitchen are shared. Scale up or down as your team changes — just give 30 days' notice.</p>
+<p>Pricing is all-in per month, based on suite size. Book a tour and get your first month at 50% off.</p>
+<p><strong>155.</strong> What is a feature of Melrose Office Suites?<br />
+(A) Month-to-month terms<br />
+(B) A minimum three-year lease<br />
+(C) Free parking for all tenants<br />
+(D) A required renovation</p>
+<p><strong>156.</strong> What is included in the price?<br />
+(A) Only the desk and chair<br />
+(B) A dedicated IT team<br />
+(C) Furniture the tenant buys<br />
+(D) Reception, meeting-room credits, mail handling, and cleaning</p>
+<p><strong>157.</strong> How much notice is needed to change suite size?<br />
+(A) 7 days<br />
+(B) 30 days<br />
+(C) 60 days<br />
+(D) 90 days</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-tenants <strong>From:</strong> Building Management <strong>Subject:</strong> Package Room Changes</p>
+<p>Starting next week, the package room will use a new pickup system. When a delivery arrives, you'll get a text and email with a one-time code. Enter the code on the keypad to open the locker with your package.</p>
+<p>Packages must be picked up within three days. After that, they're returned to the front desk, and after seven days, back to the sender.</p>
+<p>This replaces the sign-out sheet, which often led to packages being taken by the wrong person. If you're expecting an oversized item that won't fit a locker, it'll go straight to the front desk and you'll get a text to collect it there.</p>
+<p><strong>158.</strong> How will tenants pick up packages under the new system?<br />
+(A) By signing a sheet at the front desk<br />
+(B) By entering a one-time code on a keypad<br />
+(C) By showing ID to a staff member<br />
+(D) By scanning a personal card</p>
+<p><strong>159.</strong> What happens to a package not picked up within three days?<br />
+(A) It is returned to the sender<br />
+(B) It is delivered to the tenant's unit<br />
+(C) It is moved to the front desk<br />
+(D) A fee is charged</p>
+<p><strong>160.</strong> Why is the system changing?<br />
+(A) The old room was too small<br />
+(B) Deliveries increased sharply<br />
+(C) The building added more lockers<br />
+(D) The sign-out sheet led to packages being taken by the wrong person</p>
+<h3>Passage 6 — Amenity hours table (161–162)</h3>
+<p><strong>AMENITY HOURS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Amenity</th>
+<th>Weekdays</th>
+<th>Weekends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fitness room</td>
+<td>5 A.M.–11 P.M.</td>
+<td>7 A.M.–10 P.M.</td>
+</tr>
+<tr>
+<td>Rooftop terrace</td>
+<td>8 A.M.–10 P.M.</td>
+<td>8 A.M.–10 P.M.</td>
+</tr>
+<tr>
+<td>Resident lounge</td>
+<td>8 A.M.–11 P.M.</td>
+<td>8 A.M.–11 P.M.</td>
+</tr>
+<tr>
+<td>Business center</td>
+<td>24 hours</td>
+<td>24 hours</td>
+</tr>
+</tbody>
+</table>
+<p>The resident lounge can be booked for private events after 6 P.M. with 48 hours' notice and a refundable $50 deposit. Guests must be accompanied by a resident.</p>
+<p><strong>161.</strong> When does the fitness room open on weekends?<br />
+(A) 5 A.M.<br />
+(B) 7 A.M.<br />
+(C) 8 A.M.<br />
+(D) 24 hours</p>
+<p><strong>162.</strong> What is required to book the resident lounge for a private event?<br />
+(A) 48 hours' notice and a refundable $50 deposit<br />
+(B) Manager approval only<br />
+(C) A cleaning fee<br />
+(D) A one-week wait</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Chen,</p>
+<p>Thank you for your inquiry about leasing the ground-floor commercial unit at 40 Harbor Street.</p>
+<p>The unit is 1,200 square feet with a storefront on Harbor Street and a rear service door. It was previously a bakery, so it has a grease trap and reinforced flooring, though the equipment was removed. The asking rent is $3,400 per month, plus a share of common-area costs currently running about $400 per month.</p>
+<p>The landlord offers a two-month rent-free fit-out period on a five-year lease. The space is available now. Zoning permits retail and food service; a bar or club would require a separate permit.</p>
+<p>I'd be glad to arrange a viewing this week. Please let me know a few times that work.</p>
+<p>Sincerely,<br />
+Commercial Leasing, Harbor Property</p>
+<p><strong>163.</strong> What was the unit previously used as?<br />
+(A) A bakery<br />
+(B) A clothing store<br />
+(C) An office<br />
+(D) A gym</p>
+<p><strong>164.</strong> What does the landlord offer on a five-year lease?<br />
+(A) Free parking<br />
+(B) Free equipment<br />
+(C) A two-month rent-free fit-out period<br />
+(D) A lower deposit</p>
+<p><strong>165.</strong> What would require a separate permit?<br />
+(A) A retail shop<br />
+(B) A café<br />
+(C) A bar or club<br />
+(D) A takeout counter</p>
+<p><strong>166.</strong> What does the writer offer to arrange?<br />
+(A) A lease signing<br />
+(B) A meeting with the landlord<br />
+(C) A zoning review<br />
+(D) A viewing this week</p>
+<h3>Passage 8 — Resident FAQ (167–169)</h3>
+<p><strong>RESIDENT FAQ — Moving Out</strong></p>
+<p><strong>How much notice do I need to give?</strong><br />
+60 days in writing before your intended move-out date. Notice given after the 1st of a month counts from the following month.</p>
+<p><strong>What about my security deposit?</strong><br />
+Returned within 21 days of move-out, minus any charges for damage beyond normal wear. You'll get an itemized statement.</p>
+<p><strong>Do I need to be present for the move-out inspection?</strong><br />
+It's optional but recommended. You can schedule it for your last day. If you don't attend, we do it without you and email you the results.</p>
+<p><strong>What if I need to leave early?</strong><br />
+You're responsible for rent until the unit is re-rented or your lease ends, whichever comes first, plus a re-rental fee. Talk to the office as early as possible.</p>
+<p><strong>167.</strong> How much notice is required to move out?<br />
+(A) 30 days<br />
+(B) 60 days in writing<br />
+(C) 21 days<br />
+(D) One week</p>
+<p><strong>168.</strong> When is the security deposit returned?<br />
+(A) Within 21 days of move-out<br />
+(B) On move-out day<br />
+(C) After 60 days<br />
+(D) Only if requested</p>
+<p><strong>169.</strong> What happens if a tenant leaves before the lease ends?<br />
+(A) The lease is simply canceled<br />
+(B) They forfeit the deposit only<br />
+(C) Nothing, with 60 days' notice<br />
+(D) They owe rent until re-rented or lease-end, plus a re-rental fee</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Staff <strong>FROM:</strong> Facilities Director <strong>RE:</strong> Contractor Access Procedure</p>
+<p>All contractors must sign in at the security desk and receive a visitor badge before entering any non-public area. Contractors working after 6 P.M. or on weekends must be pre-approved by a building manager and escorted by staff at all times.</p>
+<p>For work in an occupied unit, the tenant must be notified at least 24 hours in advance except for emergencies. Staff should confirm the tenant received the notice before letting a contractor in.</p>
+<p>Log every contractor visit in the access system: name, company, area, and time in and out. Head office reviews these logs monthly.</p>
+<p><strong>170.</strong> What must all contractors do before entering a non-public area?<br />
+(A) Sign in and get a visitor badge<br />
+(B) Email the facilities director<br />
+(C) Provide proof of insurance<br />
+(D) Attend a safety briefing</p>
+<p><strong>171.</strong> What is required for contractor work after 6 P.M.?<br />
+(A) Double pay<br />
+(B) A written contract<br />
+(C) Tenant sign-off<br />
+(D) Pre-approval by a manager and a staff escort</p>
+<p><strong>172.</strong> How much advance notice must a tenant get for non-emergency work in their unit?<br />
+(A) 12 hours<br />
+(B) 24 hours<br />
+(C) 48 hours<br />
+(D) One week</p>
+<h3>Passage 10 — Building review (173–175)</h3>
+<p>★★★☆☆ <strong>Great location, slow maintenance</strong> — resident for 2 years</p>
+<p>The building is well located — near the station, quiet street, good light in my unit. The lobby and hallways are kept clean, and the front-desk staff are friendly.</p>
+<p>Maintenance is the weak spot. Non-urgent requests can sit for two weeks, and I've had to follow up more than once to get anything scheduled. When they do come, the work is fine. Urgent issues (I had a leak once) do get a same-day response, to be fair.</p>
+<p>If maintenance were faster on the small stuff, I'd renew without hesitation. As it is, I'm deciding.</p>
+<p><strong>173.</strong> What does the reviewer like about the building?<br />
+(A) The location, cleanliness, and front-desk staff<br />
+(B) The fast maintenance<br />
+(C) The low rent<br />
+(D) The parking</p>
+<p><strong>174.</strong> What is the reviewer's main complaint?<br />
+(A) Noisy neighbors<br />
+(B) Slow response to non-urgent maintenance<br />
+(C) A dirty lobby<br />
+(D) Rude staff</p>
+<p><strong>175.</strong> How does the building handle urgent issues, according to the reviewer?<br />
+(A) They are ignored<br />
+(B) They take two weeks<br />
+(C) Tenants must fix them<br />
+(D) They get a same-day response</p>
+<h3>Passages 11–12 — Rental application requirements &amp; email (176–180)</h3>
+<p><strong>Document 1 — Requirements</strong></p>
+<p><strong>RENTAL APPLICATION — WHAT YOU'LL NEED</strong></p>
+<ul>
+<li>Photo ID for each adult applicant.</li>
+<li>Proof of income: recent pay stubs or an offer letter showing at least 2.5× the monthly rent, OR six months of bank statements.</li>
+<li>Two years of rental history with landlord contact details. First-time renters may provide a guarantor.</li>
+<li>A $40 non-refundable screening fee per adult.</li>
+<li>Applications are reviewed in the order received. A completed application includes all of the above; incomplete applications are not queued.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Park <strong>To:</strong> leasing@maplewoodapts.example <strong>Subject:</strong> Application for unit 5B — a couple of questions</p>
+<p>Hi,</p>
+<p>My partner and I want to apply for 5B. Two questions before we submit:<br />
+1. My partner started a new job last month, so we don't have pay stubs going back far — just the offer letter. Is that enough for her, along with my two years of pay stubs?<br />
+2. I rented from family for the last two years, so I don't have a traditional landlord reference. Can I use a guarantor, or is that only for first-time renters?</p>
+<p><strong>176.</strong> What proof of income is accepted?<br />
+(A) Only pay stubs<br />
+(B) Pay stubs or an offer letter showing 2.5× rent, or six months of bank statements<br />
+(C) A tax return only<br />
+(D) A verbal statement</p>
+<p><strong>177.</strong> What can a first-time renter provide instead of rental history?<br />
+(A) A larger deposit<br />
+(B) A credit report<br />
+(C) A letter from an employer<br />
+(D) A guarantor</p>
+<p><strong>178.</strong> What makes an application "completed"?<br />
+(A) Paying double the screening fee<br />
+(B) Being submitted in person<br />
+(C) Including all required documents<br />
+(D) A manager's pre-approval</p>
+<p><strong>179.</strong> What is one of Owen's questions?<br />
+(A) Whether an offer letter is enough for his partner's income proof<br />
+(B) When the unit is available<br />
+(C) How much the rent is<br />
+(D) Whether pets are allowed</p>
+<p><strong>180.</strong> What happens to incomplete applications?<br />
+(A) They are reviewed last<br />
+(B) They are charged an extra fee<br />
+(C) They are not put in the queue<br />
+(D) They are automatically rejected</p>
+<h3>Passages 13–14 — Two emails about a repair charge (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Sam Whitfield (tenant, 3D) <strong>To:</strong> management@harborviewapts.example <strong>Subject:</strong> Charge for the disposal repair</p>
+<p>Hi,</p>
+<p>I got my move-out statement and there's a $180 charge for "garbage disposal replacement." The disposal jammed a month before I left; I reported it, maintenance came and said it was worn out and replaced it. I don't think I should be charged for a worn-out appliance.</p>
+<p>Can you review this?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> management@harborviewapts.example <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: Charge for the disposal repair</p>
+<p>Hi Sam,</p>
+<p>You're right — I've looked at the maintenance ticket. The technician's note says "unit failed due to age, no sign of misuse," and it had been in place for over eight years. That's normal wear, not tenant damage, so the charge should not have been applied.</p>
+<p>I've removed the $180 from your statement. Your revised security deposit refund is $520, and it will be sent to the forwarding address on file within the original 21-day window. You'll get an updated itemized statement by email today.</p>
+<p>Sorry for the error.</p>
+<p><strong>181.</strong> Why did Sam email management?<br />
+(A) To dispute a move-out charge<br />
+(B) To report a new repair<br />
+(C) To ask for his deposit early<br />
+(D) To extend his lease</p>
+<p><strong>182.</strong> What was Sam charged for?<br />
+(A) Cleaning<br />
+(B) Wall damage<br />
+(C) A lost key<br />
+(D) A garbage disposal replacement</p>
+<p><strong>183.</strong> What did the maintenance ticket say?<br />
+(A) The tenant caused the damage<br />
+(B) The unit failed due to age, with no sign of misuse<br />
+(C) The unit was never repaired<br />
+(D) The repair was under warranty</p>
+<p><strong>184.</strong> What did management do?<br />
+(A) Upheld the charge<br />
+(B) Split the charge in half<br />
+(C) Removed the $180 charge<br />
+(D) Asked for photos</p>
+<p><strong>185.</strong> What is Sam's revised deposit refund?<br />
+(A) $180<br />
+(B) $340<br />
+(C) $520<br />
+(D) $700</p>
+<h3>Passages 15–17 — Listings, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Listings</strong></p>
+<p><strong>OFFICE SPACE — AVAILABLE NOW</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ref</th>
+<th>Location</th>
+<th>Size</th>
+<th>Rent/mo</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A-11</td>
+<td>5 Elm St, 2nd floor</td>
+<td>900 sq ft</td>
+<td>$2,700</td>
+<td>Open plan; 1 parking space</td>
+</tr>
+<tr>
+<td>A-14</td>
+<td>22 Bridge Rd, ground floor</td>
+<td>1,400 sq ft</td>
+<td>$3,900</td>
+<td>Storefront; heavy foot traffic</td>
+</tr>
+<tr>
+<td>A-19</td>
+<td>5 Elm St, 4th floor</td>
+<td>1,300 sq ft</td>
+<td>$3,400</td>
+<td>3 private offices + open area; 2 parking spaces</td>
+</tr>
+</tbody>
+</table>
+<p>All leases are 3 years with a 3-month rent-free fit-out. Common-area charges are extra (about $3 per sq ft per year).</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Rana Osei <strong>To:</strong> leasing@elmproperties.example <strong>Subject:</strong> Office for a 9-person team</p>
+<p>Hi,</p>
+<p>We're a 9-person consulting team, growing to maybe 14 in two years. We need a couple of private offices for calls, plus open desks. Storefront visibility isn't important. Parking for 2–3 cars would help.</p>
+<p>Which of your listings fits, and roughly what's the all-in monthly cost including common-area charges?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> leasing@elmproperties.example <strong>To:</strong> Rana Osei <strong>Subject:</strong> RE: Office for a 9-person team</p>
+<p>Hi Rana,</p>
+<p>A-19 is the best fit: 1,300 sq ft with 3 private offices and an open area, and it comes with 2 parking spaces (a 3rd may be available in the building's visitor pool for an extra fee). Storefront isn't a factor for you, so A-14 doesn't add value.</p>
+<p>All-in monthly: $3,400 rent + common-area charges of about $325/month = roughly $3,725. The 3-month rent-free fit-out would apply.</p>
+<p>Happy to show it this week.</p>
+<p><strong>186.</strong> What does Rana's team need?<br />
+(A) Storefront visibility<br />
+(B) A couple of private offices plus open desks, and some parking<br />
+(C) A ground-floor unit<br />
+(D) A short-term lease</p>
+<p><strong>187.</strong> Which listing does the agent recommend?<br />
+(A) A-11<br />
+(B) A-14<br />
+(C) A-19<br />
+(D) None of them</p>
+<p><strong>188.</strong> Why isn't A-14 a good fit?<br />
+(A) It is too small<br />
+(B) It has no parking<br />
+(C) It is not available<br />
+(D) Storefront visibility isn't a factor for Rana's team</p>
+<p><strong>189.</strong> What is the estimated all-in monthly cost for the recommended space?<br />
+(A) About $3,725<br />
+(B) About $3,400<br />
+(C) About $2,700<br />
+(D) About $3,900</p>
+<p><strong>190.</strong> What lease term applies?<br />
+(A) Month-to-month<br />
+(B) One year<br />
+(C) Three years with a 3-month rent-free fit-out<br />
+(D) Five years</p>
+<h3>Passages 18–20 — HOA rules, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Rules excerpt</strong></p>
+<p><strong>HOMEOWNERS' ASSOCIATION — SELECTED RULES</strong></p>
+<ul>
+<li>Exterior changes (paint color, windows, doors, fences, satellite dishes) need approval from the Architectural Committee before work begins. Submit a request form with a description and any drawings.</li>
+<li>The committee meets on the first Monday of each month; requests are due 10 days before.</li>
+<li>Standard requests get a decision within one meeting cycle. Requests may be approved, approved with conditions, or denied with reasons.</li>
+<li>Emergency repairs that match the existing appearance (e.g., replacing a broken window with the same type) don't need pre-approval, but must be reported within 7 days.</li>
+<li>Fines for unapproved changes start at $100 and can require the change to be reversed.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lena Marsh <strong>To:</strong> arc-committee@oakridgehoa.example <strong>Subject:</strong> Replacing the front door + adding a storm door</p>
+<p>Hi,</p>
+<p>Two things:<br />
+1. Our front door is cracking and we want to replace it. We'd keep the same color and a similar six-panel style. Does that need approval, or does it count as a like-for-like repair?<br />
+2. We'd also like to add a glass storm door in front of it. That's a new addition, so I assume that needs a request?</p>
+<p>The committee meets next Monday — if I send the form today, would both be considered then?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> arc-committee@oakridgehoa.example <strong>To:</strong> Lena Marsh <strong>Subject:</strong> RE: Replacing the front door + adding a storm door</p>
+<p>Hi Lena,</p>
+<ol>
+<li>Replacing the door with the same color and a similar panel style counts as a like-for-like repair — no pre-approval needed, just send us a note with a photo of the new door within 7 days of installation.</li>
+<li>The storm door is a new exterior element, so it does need a request. Most storm-door requests are approved as long as the frame color matches the trim and the glass is clear (not tinted or decorative).</li>
+</ol>
+<p>Today is the 10-days-before cutoff for next Monday's meeting, so if your form is in by end of day, the storm door will be on the agenda.</p>
+<p><strong>191.</strong> When must a request be submitted to be considered at a meeting?<br />
+(A) The day of the meeting<br />
+(B) 10 days before the meeting<br />
+(C) One month before<br />
+(D) There is no deadline</p>
+<p><strong>192.</strong> Does Lena's door replacement need pre-approval?<br />
+(A) Yes, a full request<br />
+(B) Only if the color changes<br />
+(C) Only for the committee's records<br />
+(D) No, it's a like-for-like repair</p>
+<p><strong>193.</strong> What must Lena do after replacing the door?<br />
+(A) Nothing<br />
+(B) Pay a $100 fee<br />
+(C) Send a note with a photo within 7 days<br />
+(D) Schedule an inspection</p>
+<p><strong>194.</strong> What condition applies to most storm-door approvals?<br />
+(A) The frame color must match the trim and the glass must be clear<br />
+(B) It must be the same brand as the front door<br />
+(C) It must be installed by an approved contractor<br />
+(D) It cannot be visible from the street</p>
+<p><strong>195.</strong> Will the storm door be considered at next Monday's meeting?<br />
+(A) No, it's too late<br />
+(B) Only if a neighbor co-signs<br />
+(C) It will wait until the following month<br />
+(D) Yes, if the form is submitted by end of day today</p>
+<h3>Passages 21–23 — Lease clause, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Lease clause</strong></p>
+<p><strong>LEASE — MAINTENANCE AND REPAIRS (Clause 8)</strong></p>
+<p>8.1 The landlord is responsible for the structure, roof, exterior walls, and building systems serving multiple units (main HVAC, plumbing risers, electrical panels).<br />
+8.2 The tenant is responsible for the interior of the leased premises, including fixtures installed by the tenant, interior lighting, and the portion of HVAC serving only the premises.<br />
+8.3 The tenant must report any issue with a landlord-responsible item promptly. The landlord will make repairs within a reasonable time; for issues affecting safety or the ability to operate, within 24 hours.<br />
+8.4 If the tenant's use causes damage to a landlord-responsible item, the tenant pays for the repair.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Nair (tenant) <strong>To:</strong> landlord@bridgeproperties.example <strong>Subject:</strong> Water coming through the ceiling</p>
+<p>Hi,</p>
+<p>Since this morning, water has been dripping through the ceiling near the back of our shop, right under where I think the roof drain is. It's not a flood, but it's getting worse and it's over our stockroom.</p>
+<p>This seems like a roof/structure issue, so a landlord repair? And given it's spreading, can someone come today?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> landlord@bridgeproperties.example <strong>To:</strong> Priya Nair <strong>Subject:</strong> RE: Water coming through the ceiling</p>
+<p>Hi Priya,</p>
+<p>Yes — the roof and roof drains are landlord responsibility under clause 8.1. And since it's spreading and over your stock, it falls under the 24-hour requirement in 8.3; I've booked a roofer for this afternoon and asked them to tarp it if a full fix isn't possible today.</p>
+<p>Please move stock away from the area and put down a bucket and tarp in the meantime. Photograph any damage to your goods — if the roofer confirms it's a roof-drain blockage or failure (not something like a tenant rooftop unit), the repair is on us, and we can talk about your damaged stock separately.</p>
+<p><strong>196.</strong> Who is responsible for the roof under the lease?<br />
+(A) The tenant<br />
+(B) The landlord<br />
+(C) Split 50/50<br />
+(D) A third-party manager</p>
+<p><strong>197.</strong> Within what time must safety-affecting repairs be made?<br />
+(A) 3 days<br />
+(B) One week<br />
+(C) A reasonable time, unspecified<br />
+(D) 24 hours</p>
+<p><strong>198.</strong> Why does this issue fall under the 24-hour requirement?<br />
+(A) The tenant demanded it<br />
+(B) It is spreading and is over the tenant's stock<br />
+(C) It is a weekend<br />
+(D) The lease is about to expire</p>
+<p><strong>199.</strong> What does the landlord ask Priya to do in the meantime?<br />
+(A) Close the shop<br />
+(B) Call a roofer herself<br />
+(C) Move stock away and put down a bucket and tarp<br />
+(D) Wait for an inspector</p>
+<p><strong>200.</strong> When would the tenant have to pay for the repair?<br />
+(A) If a tenant rooftop unit caused the problem<br />
+(B) If she reports it late<br />
+(C) Always, for water damage<br />
+(D) If the roofer takes more than a day</p>
+<hr />
+<p><em>Hết phần Reading — Set_009. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_009</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>2 D</strong> "an office building has trees in front of it" · bẫy: "washing the windows", "under construction"</li>
+<li><strong>4 C</strong> "a reception desk sits in a lobby" · bẫy: "waiting in a long line", "checking IDs"</li>
+<li><strong>5 B</strong> "inspecting an apartment with a checklist" · bẫy: "signing a lease", "unpacking boxes"</li>
+<li><strong>6 C</strong> "the parking spaces are numbered" · bẫy: "a car is being towed", "the lot is completely full"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where do tenants submit...?" → "Through the building's online portal" · bẫy: lặp "fixed"</li>
+<li><strong>13 B</strong> tag question → "Yes, with a five-day grace period" · bẫy: lặp "rent"</li>
+<li><strong>17 C</strong> "What did the inspector say?" → "It needs repairs within a year" · bẫy: trả lời When / How long</li>
+<li><strong>19 B</strong> "did the tenant renew?" → "Let me check the file" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "It does feel a bit dim"</li>
+<li><strong>21 C</strong> yêu cầu đặt lịch xem nhà → "I'll set that up today" · bẫy: lặp "apartment"</li>
+<li><strong>25 B</strong> "Isn't the property usually inspected before closing?" → đính chính "already passed inspection" · bẫy: lặp "property"</li>
+<li><strong>31 C</strong> "Why was the closing delayed?" → lý do cụ thể "financing fell through" · bẫy: lặp "closing"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "the two-bedroom listing ... Is it still available?" · "includes one parking space" · "Saturday at 10"</li>
+<li>35–37: "the parking gate not opening with the fobs" · "it's near end of life" · "budget for it now"</li>
+<li>38–40: "the ground-floor retail space" · "a three-year renewal at a 4% increase" · "give them two weeks to decide"</li>
+<li>41–43: "water stains on the ceiling" · "a leak from the HVAC condensate line" · "If we find active dripping, then yes"</li>
+<li>44–46: "the wiring in two of the doors doesn't meet the new standard" · "$600 per door, so $1,200" · "Thursday and Friday"</li>
+<li>47–49: "the annual fire-safety inspection" · "one exit sign on the third floor is out" · "photo confirmation once both are done"</li>
+<li>50–52: "leak under the kitchen sink" · "called a plumber" · "let the tenant know"</li>
+<li>53–55: "potential building sale" · "more parking" · "check the zoning details"</li>
+<li>56–58: "fire alarm testing" tomorrow · "third and fifth floors" not notified · "notify the remaining tenants"</li>
+<li>59–61: "parking garage gate ... stuck" · "part that isn't on hand" · "prop the gate open safely"</li>
+<li>62–64: "quotes ... for the roof repair" · "Summit Roofing ... timeline is three weeks out" · "choose the option that can start sooner"</li>
+<li>65–67: "annual budget for common areas" · "landscaping contract renewal" · "present it at next month's board meeting"</li>
+<li>68–70: "whether pets are allowed" · "weight limit and a fee" · "send the pet policy document"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "the city replaces a main valve" · "store water for ... essential use before 9" · "affects only Building B"</li>
+<li>74–76: "Your references and income check both came back fine" · "the security deposit ... and the signed lease" · "the date you requested, the 15th"</li>
+<li>77–79: "the biggest savings ... were in scheduling" · "running the heating and cooling on a fixed timer" · "cut energy use by about 22%"</li>
+<li>80–82: "one place to report issues — by app, web, or a quick call" · same as 48 · "your first month is free"</li>
+<li>83–85: "water service will be temporarily shut off" · "9 A.M. to noon" · "fill a container with water beforehand"</li>
+<li>86–88: "application for unit 4B" · "recent pay stub" needed · "lease can be finalized ... move-in date scheduled"</li>
+<li>89–91: "main living area and kitchen" first · "bedrooms upstairs" · "take photos and ask questions"</li>
+<li>92–94: "annual HVAC inspection" · "access for technicians" · "about twenty minutes per unit"</li>
+<li>95–97: "home prices ... rose about three percent" · "homes for sale increased slightly" · "more negotiating room"</li>
+<li>98–100: "funding to repave the parking lot" · "deliveries have increased significantly" · "cost estimate ... next month's meeting"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The management office</code> số ít + thói quen → <code>acknowledges</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>completed</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be trained to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>rules for</code> + V-ing</td>
+</tr>
+<tr>
+<td>107</td>
+<td>B</td>
+<td><code>the <span class="fill"></span> natural light</code> (trong 3) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>reduced its bill by ... upgrading</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>have risen</code> → trạng từ <code>sharply</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each unit</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>service</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the notice board</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>a lease is signed</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The firm</code> số ít → <code>manages</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>records</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td><code>in the community room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"bán <strong>kèm</strong> một hợp đồng thuê dài hạn" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>verify</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>close out jobs</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... can be taken</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>engineer</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (policy <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>instructions</code> → tính từ <code>clear</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td><code>require + [O] + to V</code> → <code>requires all balconies to be inspected</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"building staff <span class="fill"></span> the inspector" (trong tuần kiểm tra) → tương lai <code>will accompany</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>C</td>
+<td>"Anything <span class="fill"></span> in the way" (phân từ quá khứ, bị bỏ lại) → <code>left</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ ban quản lý nếu cần, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>D</td>
+<td>"maintenance ... <span class="fill"></span> handled by CoolCare" (từ 1/5) → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>C</td>
+<td>"scheduling <span class="fill"></span> through the app" (thay đổi mới) → <code>will happen</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"CoolCare <span class="fill"></span> to respond" → cụm cố định <code>is committed to</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo đổi nhà thầu HVAC</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>trước danh từ <code>appliances</code> → tính từ <code>modern</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>B</td>
+<td>"a lounge that can be <span class="fill"></span> for private events" → phân từ quá khứ <code>reserved</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>maintenance requests</code> → phân từ <code>tracked</code> (được theo dõi)</td>
+</tr>
+<tr>
+<td>142</td>
+<td>A</td>
+<td><strong>[chọn câu]</strong> lời chào đón khép lại quảng cáo cho thuê căn hộ</td>
+</tr>
+<tr>
+<td>143</td>
+<td>B</td>
+<td>"Large items ... <span class="fill"></span> be left there" (cấm) → <code>may not</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>A</td>
+<td>câu mệnh lệnh → động từ nguyên <code>bring</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>D</td>
+<td>"We <span class="fill"></span> happy to help" (chủ ngữ <code>We</code>) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu cần, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>D</td>
+<td>165</td>
+<td>C</td>
+<td>174</td>
+<td>B</td>
+<td>183</td>
+<td>B</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>B</td>
+<td>157</td>
+<td>B</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>D</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>C</td>
+</tr>
+<tr>
+<td>149</td>
+<td>C</td>
+<td>158</td>
+<td>B</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>C</td>
+<td>194</td>
+<td>A</td>
+</tr>
+<tr>
+<td>150</td>
+<td>A</td>
+<td>159</td>
+<td>C</td>
+<td>168</td>
+<td>A</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>D</td>
+</tr>
+<tr>
+<td>151</td>
+<td>C</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>D</td>
+<td>178</td>
+<td>C</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>D</td>
+<td>161</td>
+<td>B</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>A</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>D</td>
+</tr>
+<tr>
+<td>153</td>
+<td>A</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>D</td>
+<td>180</td>
+<td>C</td>
+<td>189</td>
+<td>A</td>
+<td>198</td>
+<td>B</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>B</td>
+<td>181</td>
+<td>A</td>
+<td>190</td>
+<td>C</td>
+<td>199</td>
+<td>C</td>
+</tr>
+<tr>
+<td>155</td>
+<td>A</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>A</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>B</td>
+<td>200</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 A</strong> — "high office vacancy downtown and a shortage of housing"<br />
+- <strong>151 C</strong> — "deep floor plates can leave interior units with no windows"<br />
+- <strong>154 C</strong> — "bring ID to pick it up, or wait until Monday"<br />
+- <strong>157 B</strong> — "give 30 days' notice"<br />
+- <strong>160 D</strong> — "This replaces the sign-out sheet, which often led to packages being taken by the wrong person"<br />
+- <strong>165 C</strong> — "a bar or club would require a separate permit"<br />
+- <strong>169 D</strong> — "responsible for rent until the unit is re-rented or your lease ends ... plus a re-rental fee"<br />
+- <strong>178 C</strong> — "A completed application includes all of the above"<br />
+- <strong>183 B</strong> — "unit failed due to age, no sign of misuse"<br />
+- <strong>188 D</strong> — "Storefront isn't a factor for you, so A-14 doesn't add value"<br />
+- <strong>192 D</strong> — "counts as a like-for-like repair — no pre-approval needed"<br />
+- <strong>198 B</strong> — "since it's spreading and over your stock, it falls under the 24-hour requirement"<br />
+- <strong>200 A</strong> — repair on tenant "if the roofer confirms it's a roof-drain blockage ... (not something like a tenant rooftop unit)"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_009 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Real Estate / Facilities): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

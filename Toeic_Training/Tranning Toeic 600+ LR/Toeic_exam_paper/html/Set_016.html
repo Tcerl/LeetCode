@@ -1,0 +1,2240 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_016 — Construction & Development</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="016">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_016</strong>
+    <span class="theme">Construction &amp; Development</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_016 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Công nhân đội mũ bảo hộ đang xem bản vẽ tại công trường.]</em><br />
+(A) A worker is operating a crane.<br />
+(B) A worker in a hard hat is looking at a blueprint on site.<br />
+(C) Bricks are being stacked on a pallet.<br />
+(D) Two people are shaking hands in an office.</p>
+<p><strong>2.</strong> <em>[Ảnh: Máy xúc đang đào một rãnh tại công trường.]</em><br />
+(A) An excavator is digging a trench at a construction site.<br />
+(B) A truck is being loaded with lumber.<br />
+(C) Workers are pouring concrete by hand.<br />
+(D) A building is being painted.</p>
+<p><strong>3.</strong> <em>[Ảnh: Công nhân đang dựng giàn giáo dọc theo hông toà nhà.]</em><br />
+(A) A window is being installed.<br />
+(B) Materials are stacked on the sidewalk.<br />
+(C) Workers are putting up scaffolding along a building.<br />
+(D) A ladder is leaning against a wall.</p>
+<p><strong>4.</strong> <em>[Ảnh: Công trường buổi sáng, thiết bị đậu, chưa có công nhân.]</em><br />
+(A) Workers are lining up at the gate.<br />
+(B) A concrete mixer is running.<br />
+(C) An inspector is walking the site.<br />
+(D) The equipment is parked and the site is empty.</p>
+<p><strong>5.</strong> <em>[Ảnh: Người xem mô hình toà nhà đặt trên bàn trong văn phòng.]</em><br />
+(A) People are looking at a building model on a table.<br />
+(B) A presentation is being shown on a screen.<br />
+(C) Someone is rolling up a set of drawings.<br />
+(D) A meeting room is being cleaned.</p>
+<p><strong>6.</strong> <em>[Ảnh: Công nhân đang trải lớp nhựa đường mới trên mặt đường.]</em><br />
+(A) A road is being widened with barriers.<br />
+(B) A sign is being posted along the road.<br />
+(C) Workers are laying fresh asphalt on a road.<br />
+(D) A truck is spreading gravel.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When is the concrete pour scheduled?<br />
+(A) Early Thursday morning.<br />
+(B) On the north foundation.<br />
+(C) About twelve trucks.</p>
+<p><strong>8.</strong> Who's the site supervisor on this project?<br />
+(A) It's a nine-month build.<br />
+(B) Elena, from the main office.<br />
+(C) Around forty workers.</p>
+<p><strong>9.</strong> Where do I sign in for the site?<br />
+(A) At the trailer by the gate.<br />
+(B) Every morning at seven.<br />
+(C) You'll need a hard hat.</p>
+<p><strong>10.</strong> Why is the crane not running today?<br />
+(A) In the east yard.<br />
+(B) Since this morning.<br />
+(C) The wind is too strong.</p>
+<p><strong>11.</strong> How far behind is the project?<br />
+(A) About two weeks.<br />
+(B) The framing is done.<br />
+(C) Three subcontractors.</p>
+<p><strong>12.</strong> Could you check the drawings before the inspector comes?<br />
+(A) The inspection is Friday.<br />
+(B) I'll go through them this afternoon.<br />
+(C) They're revision C.</p>
+<p><strong>13.</strong> The permit finally came through, didn't it?<br />
+(A) It took almost three months.<br />
+(B) Yes, we can start excavation Monday.<br />
+(C) The city office is downtown.</p>
+<p><strong>14.</strong> Should we rent the larger lift or the compact one?<br />
+(A) The rental yard is close.<br />
+(B) It's a two-day job.<br />
+(C) The compact one fits through the doorway.</p>
+<p><strong>15.</strong> Isn't the safety meeting at eight?<br />
+(A) It's in the site trailer.<br />
+(B) Everyone has to attend.<br />
+(C) No, they moved it to seven thirty.</p>
+<p><strong>16.</strong> Can you show me how to log a delivery in the app?<br />
+(A) The delivery was short.<br />
+(B) Sure — scan the ticket, then confirm the count.<br />
+(C) We get deliveries all day.</p>
+<p><strong>17.</strong> What did the inspector flag?<br />
+(A) He came around ten.<br />
+(B) The report is two pages.<br />
+(C) The stair railings on the third floor.</p>
+<p><strong>18.</strong> Where are the extra respirators kept?<br />
+(A) In the locked cabinet in the trailer.<br />
+(B) We ordered a case last week.<br />
+(C) The dust is worst by the saw.</p>
+<p><strong>19.</strong> Do you know whether the change order was approved?<br />
+(A) It adds about eight thousand dollars.<br />
+(B) Ask the project manager.<br />
+(C) It's for the extra windows.</p>
+<p><strong>20.</strong> I think we're going to run short on rebar.<br />
+(A) We can put in a rush order.<br />
+(B) The rebar is stacked out back.<br />
+(C) It comes in twenty-foot lengths.</p>
+<p><strong>21.</strong> Could you check the site for safety hazards this morning?<br />
+(A) I'll walk the site now.<br />
+(B) Hazards are dangerous.<br />
+(C) I checked it yesterday.</p>
+<p><strong>22.</strong> Has the building permit been approved yet?<br />
+(A) It's a standard permit.<br />
+(B) I permitted the change.<br />
+(C) Not yet, it's still under review.</p>
+<p><strong>23.</strong> Where should we store the extra lumber?<br />
+(A) In the covered storage area.<br />
+(B) Lumber is heavy.<br />
+(C) We stored it already.</p>
+<p><strong>24.</strong> Would you rather pour the foundation this week or next?<br />
+(A) This week, if the weather holds.<br />
+(B) Foundations take time to cure.<br />
+(C) I poured one before.</p>
+<p><strong>25.</strong> Isn't the crane usually delivered on Mondays?<br />
+(A) Mondays are busy.<br />
+(B) Yes, but it's arriving a day early this time.<br />
+(C) The crane looks new.</p>
+<p><strong>26.</strong> How many workers are on site today?<br />
+(A) About twenty.<br />
+(B) Workers start early.<br />
+(C) We worked there before.</p>
+<p><strong>27.</strong> Who's inspecting the electrical wiring?<br />
+(A) Inspections take time.<br />
+(B) An inspector from the city.<br />
+(C) Wiring is complicated.</p>
+<p><strong>28.</strong> Do you know if the concrete delivery was confirmed?<br />
+(A) Concrete is heavy.<br />
+(B) I confirmed my flight.<br />
+(C) Yes, it's scheduled for eight.</p>
+<p><strong>29.</strong> Should we extend the project deadline given the delays?<br />
+(A) Deadlines matter.<br />
+(B) Let's talk to the client first.<br />
+(C) I extended mine already.</p>
+<p><strong>30.</strong> Haven't you finished the blueprint revisions yet?<br />
+(A) Blueprints take time.<br />
+(B) Almost, just the second floor left.<br />
+(C) The blueprints looked accurate.</p>
+<p><strong>31.</strong> Why was today's inspection postponed?<br />
+(A) Inspections happen monthly.<br />
+(B) It happened last month too.<br />
+(C) Because of heavy rain overnight.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> The kitchen wall we were going to remove — the framer says it's load-bearing. We'll need a beam.<br />
+<strong>M:</strong> How much does that change things?<br />
+<strong>W:</strong> About $6,000 for the beam and engineering, and it adds three days. I'll write it up as a change order for you to sign.<br />
+<strong>M:</strong> Send it today so we don't lose the time.</p>
+<p><strong>32.</strong> What is the problem?<br />
+(A) The client changed the design<br />
+(B) A wall is load-bearing and needs a beam<br />
+(C) The framer quit<br />
+(D) Materials were delivered late</p>
+<p><strong>33.</strong> What does the woman say about the schedule?<br />
+(A) It saves time<br />
+(B) There is no change<br />
+(C) It adds three days<br />
+(D) It adds three weeks</p>
+<p><strong>34.</strong> What will the woman prepare?<br />
+(A) A new blueprint<br />
+(B) An invoice<br />
+(C) A punch list<br />
+(D) A change order for the client to sign</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The electrical rough-in failed inspection — the inspector wants the panel moved 6 inches for clearance.<br />
+<strong>W:</strong> Six inches? That's a half day for the electrician plus a re-inspection.<br />
+<strong>M:</strong> I already called; the electrician can come Thursday and the re-inspect is Friday morning. It won't hold up drywall if we tell them Monday.<br />
+<strong>W:</strong> Fine. I'll push the drywall crew to Monday and let the GC know.</p>
+<p><strong>35.</strong> What failed inspection?<br />
+(A) The electrical rough-in<br />
+(B) The plumbing<br />
+(C) The framing<br />
+(D) The foundation</p>
+<p><strong>36.</strong> What does the inspector want?<br />
+(A) A new permit<br />
+(B) The panel moved for clearance<br />
+(C) The wiring replaced<br />
+(D) A licensed electrician on site</p>
+<p><strong>37.</strong> What will the woman do?<br />
+(A) Cancel the project<br />
+(B) Do the work herself<br />
+(C) Appeal the inspection<br />
+(D) Push the drywall crew to Monday and notify the GC</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> The window delivery slipped to the 20th. That's a problem for the exterior sequence.<br />
+<strong>M1:</strong> Can we close in the building without them?<br />
+<strong>M2:</strong> Not fully. But we could hang the doors, start the roof, and temporary-board the openings so interior work isn't blocked.<br />
+<strong>W:</strong> Do that. And ask the supplier for a firm date in writing — if it slips again we escalate.</p>
+<p><strong>38.</strong> What caused the scheduling problem?<br />
+(A) A permit issue<br />
+(B) A window delivery was delayed<br />
+(C) Bad weather<br />
+(D) A labor shortage</p>
+<p><strong>39.</strong> What do they decide to do in the meantime?<br />
+(A) Stop all work<br />
+(B) Order windows from another supplier<br />
+(C) Hang doors, start the roof, and board the openings<br />
+(D) Pour the foundation</p>
+<p><strong>40.</strong> What will they ask the supplier for?<br />
+(A) A discount<br />
+(B) A partial shipment<br />
+(C) A refund<br />
+(D) A firm delivery date in writing</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>W:</strong> I moved into the new unit last week and the guest bathroom fan doesn't work, plus there's a gap under the back door.<br />
+<strong>M:</strong> Both of those are on the punch list. Our warranty tech does a batch of units every Tuesday.<br />
+<strong>W:</strong> Can someone come sooner? The door gap is letting in cold air.<br />
+<strong>M:</strong> I'll flag the door as urgent and get someone out tomorrow; the fan can wait for Tuesday.</p>
+<p><strong>41.</strong> Why is the woman calling?<br />
+(A) To schedule a viewing<br />
+(B) To report defects in her new unit<br />
+(C) To ask about the closing date<br />
+(D) To complain about noise</p>
+<p><strong>42.</strong> What does the man say about the issues?<br />
+(A) They are on the punch list<br />
+(B) They are not covered<br />
+(C) They are the woman's responsibility<br />
+(D) They require a new contractor</p>
+<p><strong>43.</strong> What will the man do about the door?<br />
+(A) Nothing until Tuesday<br />
+(B) Refer it to the builder<br />
+(C) Ask her to fix it<br />
+(D) Send someone tomorrow</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>M:</strong> Two guys were up on the second-floor deck without fall protection this morning. No harnesses.<br />
+<strong>W:</strong> That's a stop-work situation. Who was it?<br />
+<strong>M:</strong> The new masonry sub's crew. Their foreman said they were "just there for a minute."<br />
+<strong>W:</strong> Doesn't matter. Pull that crew off, re-run the fall-protection orientation before they're back on, and document it. If it happens again the sub is off the job.</p>
+<p><strong>44.</strong> What is the safety problem?<br />
+(A) Workers without hard hats<br />
+(B) A blocked exit<br />
+(C) Workers on the deck without fall protection<br />
+(D) An overloaded scaffold</p>
+<p><strong>45.</strong> What does the woman say it is?<br />
+(A) A minor issue<br />
+(B) A stop-work situation<br />
+(C) A paperwork error<br />
+(D) Acceptable for a short time</p>
+<p><strong>46.</strong> What does the woman require before the crew returns?<br />
+(A) Re-run the fall-protection orientation<br />
+(B) A written apology<br />
+(C) New equipment purchases<br />
+(D) A meeting with the client</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>W:</strong> The latest cost estimate came back 12 percent over budget. We need to find about $90,000.<br />
+<strong>M:</strong> The biggest swings are the exterior stone and the custom windows. We could switch the stone to a veneer on the street face only and keep it where people touch it.<br />
+<strong>W:</strong> What does that save?<br />
+<strong>M:</strong> Around $55,000. The rest we can find in lighting and the landscape allowance without anyone noticing.</p>
+<p><strong>47.</strong> What is the problem?<br />
+(A) The design was rejected<br />
+(B) The permit was denied<br />
+(C) A subcontractor dropped out<br />
+(D) The estimate came back over budget</p>
+<p><strong>48.</strong> What does the architect suggest for the stone?<br />
+(A) Remove all the stone<br />
+(B) Delay that part of the work<br />
+(C) Use veneer on the street face only<br />
+(D) Find a cheaper supplier</p>
+<p><strong>49.</strong> Where else does the architect say savings can be found?<br />
+(A) Lighting and the landscape allowance<br />
+(B) The roof and windows<br />
+(C) Labor costs<br />
+(D) The foundation</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> The site inspector flagged an issue with the scaffolding on the north side.<br />
+<strong>W:</strong> What exactly did they find?<br />
+<strong>M:</strong> A few of the braces aren't secured properly.<br />
+<strong>W:</strong> Let's get that fixed before anyone goes back up there today.</p>
+<p><strong>50.</strong> What did the inspector flag?<br />
+(A) A wiring issue<br />
+(B) A scaffolding issue<br />
+(C) A permit problem<br />
+(D) A delivery delay</p>
+<p><strong>51.</strong> What exactly was found?<br />
+(A) Missing safety signs<br />
+(B) Braces not secured properly<br />
+(C) A cracked beam<br />
+(D) Rusted equipment</p>
+<p><strong>52.</strong> What does the woman want done?<br />
+(A) Ignored for now<br />
+(B) Fixed before anyone goes back up<br />
+(C) Reported to the client<br />
+(D) Documented only</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> We're behind schedule on the framing because of the material delay.<br />
+<strong>M:</strong> How far behind are we exactly?<br />
+<strong>W:</strong> About a week, but the supplier says the rest of the materials arrive Thursday.<br />
+<strong>M:</strong> Let's update the client on the revised timeline before they ask.</p>
+<p><strong>53.</strong> Why is the project behind schedule?<br />
+(A) A staffing shortage<br />
+(B) A material delay<br />
+(C) Bad weather<br />
+(D) A permit issue</p>
+<p><strong>54.</strong> How far behind is the project?<br />
+(A) Two days<br />
+(B) About a week<br />
+(C) A month<br />
+(D) Not specified</p>
+<p><strong>55.</strong> What will the man do?<br />
+(A) Cancel the project<br />
+(B) Update the client on the revised timeline<br />
+(C) Fire the supplier<br />
+(D) Hire more workers</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> The client wants to add a second bathroom to the design.<br />
+<strong>W:</strong> That will affect both the budget and the plumbing layout.<br />
+<strong>M:</strong> Can you put together a revised estimate this week?<br />
+<strong>W:</strong> Sure, I'll have it ready by Thursday for the client meeting.</p>
+<p><strong>56.</strong> What change does the client want?<br />
+(A) A larger kitchen<br />
+(B) An additional bathroom<br />
+(C) A bigger garage<br />
+(D) A second floor</p>
+<p><strong>57.</strong> What will this affect?<br />
+(A) The budget and plumbing layout<br />
+(B) The color scheme only<br />
+(C) The completion date only<br />
+(D) The permit type</p>
+<p><strong>58.</strong> When will the revised estimate be ready?<br />
+(A) Today<br />
+(B) By Thursday<br />
+(C) Next month<br />
+(D) After construction begins</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> A neighbor called to complain about the noise from early morning work.<br />
+<strong>M:</strong> We're following the city's approved hours, but let's double-check the exact start time.<br />
+<strong>W:</strong> I'll look into it and get back to the neighbor with an explanation.<br />
+<strong>M:</strong> Good, and let's also see if we can shift the noisiest work later in the morning.</p>
+<p><strong>59.</strong> What did the neighbor complain about?<br />
+(A) Dust<br />
+(B) Noise from early morning work<br />
+(C) Blocked parking<br />
+(D) Property damage</p>
+<p><strong>60.</strong> What does the man want to double-check?<br />
+(A) The permit number<br />
+(B) The exact approved start time<br />
+(C) The contractor's license<br />
+(D) The insurance policy</p>
+<p><strong>61.</strong> What does the man suggest?<br />
+(A) Stopping work entirely<br />
+(B) Shifting noisy work later in the morning<br />
+(C) Working only on weekends<br />
+(D) Moving the site</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's review the timeline for the roof installation.<br />
+<strong>M1:</strong> Weather looks good for Wednesday and Thursday, so we could start then.<br />
+<strong>M2:</strong> I'll confirm the crew is available those days.<br />
+<strong>W:</strong> Great, let's lock that in and notify the client of the schedule.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) A roof installation timeline<br />
+(B) A budget review<br />
+(C) A hiring plan<br />
+(D) A permit application</p>
+<p><strong>63.</strong> When could work possibly start?<br />
+(A) Monday<br />
+(B) Wednesday<br />
+(C) Friday<br />
+(D) Next week</p>
+<p><strong>64.</strong> What will the second man do?<br />
+(A) Order materials<br />
+(B) Confirm crew availability<br />
+(C) Contact the inspector<br />
+(D) Update the blueprint</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> I noticed the budget for electrical work is running higher than planned.<br />
+<strong>W:</strong> That's probably due to the upgraded panel the client requested.<br />
+<strong>M:</strong> Should we flag that as a change order?<br />
+<strong>W:</strong> Yes, let's document it properly so it's reflected in the final invoice.</p>
+<p><strong>65.</strong> What did the man notice?<br />
+(A) A delay in delivery<br />
+(B) The electrical budget running higher<br />
+(C) A missing permit<br />
+(D) A safety violation</p>
+<p><strong>66.</strong> What does the woman think caused it?<br />
+(A) A pricing error<br />
+(B) The upgraded panel the client requested<br />
+(C) A supplier shortage<br />
+(D) Overtime pay</p>
+<p><strong>67.</strong> What will the speakers do?<br />
+(A) Ignore the increase<br />
+(B) Document it as a change order<br />
+(C) Cancel the upgrade<br />
+(D) Absorb the cost themselves</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> The final walkthrough with the client is scheduled for next Friday.<br />
+<strong>M:</strong> Are we confident everything will be finished by then?<br />
+<strong>W:</strong> Mostly, though the landscaping might not be fully done.<br />
+<strong>M:</strong> Let's let the client know in advance so there are no surprises.</p>
+<p><strong>68.</strong> What is scheduled for next Friday?<br />
+(A) A permit inspection<br />
+(B) The final walkthrough with the client<br />
+(C) A material delivery<br />
+(D) A safety training</p>
+<p><strong>69.</strong> What might not be finished?<br />
+(A) The plumbing<br />
+(B) The landscaping<br />
+(C) The electrical work<br />
+(D) The roof</p>
+<p><strong>70.</strong> What does the man suggest?<br />
+(A) Delaying the walkthrough<br />
+(B) Letting the client know in advance<br />
+(C) Hiring more landscapers<br />
+(D) Canceling the meeting</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Site safety briefing</h3>
+<p><em>"Morning safety brief. Today the crane's lifting steel on the east side from nine to noon — that whole zone is off limits to anyone not on the rigging crew. Hard hats and boots at all times, no exceptions, and if you're within ten feet of an open edge, you're tied off. We've got a delivery of drywall at ten; keep the loading gate clear. Water and shade are set up by the trailer — it's going to hit 95 today, so take breaks."</em></p>
+<p><strong>71.</strong> What is happening on the east side this morning?<br />
+(A) The crane is lifting steel<br />
+(B) A concrete pour<br />
+(C) An inspection<br />
+(D) A demolition</p>
+<p><strong>72.</strong> What is the rule near an open edge?<br />
+(A) Wear a second hard hat<br />
+(B) Stay behind the barrier<br />
+(C) Work in pairs<br />
+(D) Be tied off within ten feet</p>
+<p><strong>73.</strong> Why does the speaker mention water and shade?<br />
+(A) A water line broke<br />
+(B) The trailer is being moved<br />
+(C) It will be very hot today<br />
+(D) Drinking water is limited</p>
+<h3>Talk 2 (74–76) — Voicemail from a supplier</h3>
+<p><em>"Hi, it's Trevor at Summit Building Supply. Your order of framing lumber is ready, but the truck we'd use for your site is down, so I can either deliver Thursday instead of tomorrow, or you can pick it up from our yard tomorrow with your own flatbed. Same price either way. Also, the engineered joists you spec'd are back-ordered three weeks — I'd suggest an equivalent from another mill that's in stock. Call me back."</em></p>
+<p><strong>74.</strong> What is the problem with tomorrow's delivery?<br />
+(A) The order isn't ready<br />
+(B) The delivery truck is out of service<br />
+(C) The site is closed<br />
+(D) The price went up</p>
+<p><strong>75.</strong> What alternative does Trevor offer?<br />
+(A) A partial delivery<br />
+(B) A later delivery only<br />
+(C) A discount for the delay<br />
+(D) Picking it up from the yard with your own flatbed</p>
+<p><strong>76.</strong> What does Trevor say about the engineered joists?<br />
+(A) They were discontinued<br />
+(B) The price doubled<br />
+(C) They are back-ordered and he suggests an equivalent<br />
+(D) They shipped early</p>
+<h3>Talk 3 (77–79) — Conference talk</h3>
+<p><em>"The change that cut our delays most wasn't software — it was a fifteen-minute stand-up every morning with one person from each trade on site. Before, a plumber would show up and find the framing wasn't ready, lose the day, and we'd hear about it a week later. Now the conflicts surface the day before. On our last three projects, that one habit pulled schedules in by an average of about three weeks."</em></p>
+<p><strong>77.</strong> What change reduced delays the most?<br />
+(A) A daily short stand-up meeting with each trade<br />
+(B) New scheduling software<br />
+(C) Hiring more workers<br />
+(D) Longer work hours</p>
+<p><strong>78.</strong> What problem did it solve?<br />
+(A) Material theft<br />
+(B) Safety violations<br />
+(C) Trades arriving to find the previous work not ready<br />
+(D) Budget overruns</p>
+<p><strong>79.</strong> What was the result across the last three projects?<br />
+(A) Costs dropped 20 percent<br />
+(B) Schedules shortened by about three weeks on average<br />
+(C) Fewer injuries<br />
+(D) Higher client ratings</p>
+<h3>Talk 4 (80–82) — Radio advertisement</h3>
+<p><em>"For general contractors: BuildTrack puts your schedule, your subs, your submittals, and your daily logs in one place. Subs get their part of the schedule on their phones and check off tasks as they finish — so you see slippage the day it happens, not at the next owner meeting. Photos from the field attach to the right task automatically. Set up your first project free at buildtrack.example."</em></p>
+<p><strong>80.</strong> What does BuildTrack combine in one place?<br />
+(A) The schedule, subcontractors, submittals, and daily logs<br />
+(B) Payroll and taxes<br />
+(C) Equipment rentals<br />
+(D) Permit applications</p>
+<p><strong>81.</strong> How do subcontractors use it?<br />
+(A) They call in updates<br />
+(B) They get their schedule on their phones and check off completed tasks<br />
+(C) They email a weekly report<br />
+(D) They visit the office</p>
+<p><strong>82.</strong> What happens to field photos?<br />
+(A) They are printed for the owner<br />
+(B) They are deleted after a week<br />
+(C) They attach to the right task automatically<br />
+(D) They are stored separately</p>
+<h3>Talk 5 (83–85) — Construction site announcement</h3>
+<p><em>"Attention, all crew members. Hard hats and safety vests are required in all active work zones starting immediately, not just near heavy equipment. Site supervisors will be conducting spot checks throughout the day, so please make sure your gear is on before entering the site."</em></p>
+<p><strong>83.</strong> What is now required in all active work zones?<br />
+(A) Steel-toed boots only<br />
+(B) Hard hats and safety vests<br />
+(C) Ear protection<br />
+(D) Gloves only</p>
+<p><strong>84.</strong> Who will conduct spot checks?<br />
+(A) City inspectors<br />
+(B) Site supervisors<br />
+(C) Clients<br />
+(D) Delivery drivers</p>
+<p><strong>85.</strong> What should workers do before entering the site?<br />
+(A) Sign in at the office<br />
+(B) Make sure their gear is on<br />
+(C) Attend a briefing<br />
+(D) Check the weather</p>
+<h3>Talk 6 (86–88) — Supplier voicemail</h3>
+<p><em>"Hi, this is Dean from Northgate Building Supply calling about your lumber order. We can deliver the full quantity, but it will need to be split into two shipments due to truck capacity. The first half arrives tomorrow, and the second by Friday."</em></p>
+<p><strong>86.</strong> Why is Dean calling?<br />
+(A) To cancel the order<br />
+(B) To explain a delivery split<br />
+(C) To request payment<br />
+(D) To offer a discount</p>
+<p><strong>87.</strong> Why is the order being split?<br />
+(A) A pricing issue<br />
+(B) Truck capacity<br />
+(C) A supplier shortage<br />
+(D) A scheduling conflict</p>
+<p><strong>88.</strong> When will the second half arrive?<br />
+(A) Tomorrow<br />
+(B) Wednesday<br />
+(C) Friday<br />
+(D) Next week</p>
+<h3>Talk 7 (89–91) — Site tour introduction</h3>
+<p><em>"Welcome to the site. Before we begin, please put on the hard hats and vests provided at the entrance. We'll walk through the foundation area first, then move up to the second floor where framing is nearly complete. Please stay behind the marked barriers at all times."</em></p>
+<p><strong>89.</strong> What are visitors asked to do first?<br />
+(A) Sign a waiver<br />
+(B) Put on hard hats and vests<br />
+(C) Watch a safety video<br />
+(D) Meet the site manager</p>
+<p><strong>90.</strong> Where will the tour go after the foundation area?<br />
+(A) The parking lot<br />
+(B) The second floor<br />
+(C) The basement<br />
+(D) The site office</p>
+<p><strong>91.</strong> What are visitors asked to stay behind?<br />
+(A) A rope line<br />
+(B) The marked barriers<br />
+(C) The main gate<br />
+(D) A fence</p>
+<h3>Talk 8 (92–94) — Permit office recording</h3>
+<p><em>"Thank you for calling the city permit office. For residential permit applications, press one. For commercial permit applications, press two. For inspection scheduling, press three. Office hours are Monday through Friday, eight to four."</em></p>
+<p><strong>92.</strong> What should a caller press for commercial applications?<br />
+(A) One<br />
+(B) Two<br />
+(C) Three<br />
+(D) Four</p>
+<p><strong>93.</strong> What is option three for?<br />
+(A) Billing questions<br />
+(B) Inspection scheduling<br />
+(C) Permit renewals<br />
+(D) General inquiries</p>
+<p><strong>94.</strong> What are the office hours?<br />
+(A) Eight to four, Monday through Friday<br />
+(B) Nine to five, every day<br />
+(C) Ten to six, weekdays only<br />
+(D) Twenty-four hours</p>
+<h3>Talk 9 (95–97) — Development project briefing</h3>
+<p><em>"As we move into the next phase of the riverside development, I want to highlight that community feedback has led us to increase the amount of green space in the final design. Construction on phase one is expected to begin this fall, with completion targeted for next summer."</em></p>
+<p><strong>95.</strong> What led to a design change?<br />
+(A) A budget increase<br />
+(B) Community feedback<br />
+(C) A city requirement<br />
+(D) A weather delay</p>
+<p><strong>96.</strong> What was increased in the final design?<br />
+(A) Parking spaces<br />
+(B) Green space<br />
+(C) Building height<br />
+(D) Retail space</p>
+<p><strong>97.</strong> When is phase one expected to begin?<br />
+(A) This spring<br />
+(B) This fall<br />
+(C) Next winter<br />
+(D) In two years</p>
+<h3>Talk 10 (98–100) — Safety training talk</h3>
+<p><em>"Today we're covering proper ladder use, which remains one of the leading causes of injury on job sites. Always maintain three points of contact, never stand on the top rung, and inspect the ladder for damage before each use. Report any damaged equipment immediately."</em></p>
+<p><strong>98.</strong> What is the topic of the training?<br />
+(A) Proper ladder use<br />
+(B) Electrical safety<br />
+(C) Heavy equipment operation<br />
+(D) First aid</p>
+<p><strong>99.</strong> What should workers maintain while climbing?<br />
+(A) One point of contact<br />
+(B) Three points of contact<br />
+(C) A constant speed<br />
+(D) A spotter below</p>
+<p><strong>100.</strong> What should workers do if equipment is damaged?<br />
+(A) Continue using it carefully<br />
+(B) Report it immediately<br />
+(C) Repair it themselves<br />
+(D) Ignore minor damage</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_016 — READING (100 câu: 101–200) · Chủ đề: Construction &amp; Development</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The firm <span class="blk">________</span> a safety audit on every active site each month.<br />
+(A) perform  (B) performs  (C) performing  (D) to perform</p>
+<p><strong>102.</strong> All permit applications must be filed <span class="blk">________</span> the first of the month to be reviewed that cycle.<br />
+(A) by  (B) until  (C) among  (D) during</p>
+<p><strong>103.</strong> The inspector found several <span class="blk">________</span> between the approved plans and the built work.<br />
+(A) different  (B) differently  (C) discrepancies  (D) difference</p>
+<p><strong>104.</strong> <span class="blk">________</span> the delayed materials, the crew kept the framing on schedule.<br />
+(A) Although  (B) However  (C) Because  (D) Despite</p>
+<p><strong>105.</strong> Subcontractors are required to <span class="blk">________</span> a certificate of insurance before starting work.<br />
+(A) submit  (B) submits  (C) submitting  (D) submission</p>
+<p><strong>106.</strong> The revised site plan makes the delivery route much <span class="blk">________</span> for large trucks.<br />
+(A) ease  (B) easier  (C) easily  (D) easiest</p>
+<p><strong>107.</strong> The daily inspection log is kept <span class="blk">________</span> a clipboard by the trailer door.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>108.</strong> Work on the upper floors was paused <span class="blk">________</span> high winds.<br />
+(A) although  (B) because  (C) since  (D) because of</p>
+<p><strong>109.</strong> The developer cut the project timeline <span class="blk">________</span> prefabricating the wall panels off site.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Material costs on the project have risen <span class="blk">________</span> since the contract was signed.<br />
+(A) steady  (B) steadily  (C) steadier  (D) steadiness</p>
+<p><strong>111.</strong> Of the three bids, the second offered the <span class="blk">________</span> completion time.<br />
+(A) short  (B) shorter  (C) shortest  (D) more short</p>
+<p><strong>112.</strong> The new tracking app surfaces schedule conflicts far <span class="blk">________</span> than the old process.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>113.</strong> The pre-construction meeting will be held <span class="blk">________</span> the developer's office downtown.<br />
+(A) in  (B) on  (C) at  (D) by</p>
+<p><strong>114.</strong> <span class="blk">________</span> the foundation passes inspection, framing can begin.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The construction group <span class="blk">________</span> four active sites and a fabrication shop.<br />
+(A) manage  (B) manages  (C) managing  (D) to manage</p>
+<p><strong>116.</strong> The parking structure is expected <span class="blk">________</span> before the office tower opens.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> A senior superintendent will <span class="blk">________</span> the new site engineers next month.<br />
+(A) train  (B) trains  (C) training  (D) trainer</p>
+<p><strong>118.</strong> Crews work <span class="blk">________</span> when the material is staged the day before than when it arrives that morning.<br />
+(A) efficient  (B) efficiently  (C) most efficiently  (D) more efficiently</p>
+<p><strong>119.</strong> The report lists several <span class="blk">________</span> for reducing waste on the job site.<br />
+(A) method  (B) methods  (C) methodical  (D) methodically</p>
+<p><strong>120.</strong> The site is open to deliveries <span class="blk">________</span> 6 A.M. to 4 P.M. on weekdays.<br />
+(A) since  (B) between  (C) from  (D) during</p>
+<p><strong>121.</strong> The contract was awarded <span class="blk">________</span> conditions on the use of local subcontractors.<br />
+(A) with  (B) for  (C) of  (D) about</p>
+<p><strong>122.</strong> The updated site-safety plan <span class="blk">________</span> posted at every entrance next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>123.</strong> A subcontractor is <span class="blk">________</span> for the early-completion bonus only if all inspections pass on the first try.<br />
+(A) able  (B) eligible  (C) capable  (D) possible</p>
+<p><strong>124.</strong> The project summary gives the owner a <span class="blk">________</span> picture of where the budget stands.<br />
+(A) clarity  (B) clearly  (C) clear  (D) clearness</p>
+<p><strong>125.</strong> The board voted to <span class="blk">________</span> the outdated equipment-inspection checklist.<br />
+(A) update  (B) updates  (C) updating  (D) updated</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two proposed crane locations gave enough clearance from the power lines.<br />
+(A) Neither  (B) None  (C) Both  (D) Either</p>
+<p><strong>127.</strong> Inspection records from the past six years are stored <span class="blk">________</span> the office server.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>128.</strong> Any change to the structural drawings must be approved by an <span class="blk">________</span> engineer.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> Two units were left off the phase-one schedule <span class="blk">________</span> a delay in the utility connection.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>130.</strong> New site workers receive <span class="blk">________</span> training on the fall-protection procedures.<br />
+(A) thoroughly  (B) thoroughness  (C) thorough  (D) more thoroughly</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>NOTICE — Sidewalk Closure on Maple Avenue</strong></p>
+<p>The north sidewalk on Maple Avenue between 4th and 6th <span class="blk">(131)</span> closed from April 8 through May 30 for building-facade work.</p>
+<p>Crews <span class="blk">(132)</span> set up a protected walkway on the south side, with signed crossings at both ends.</p>
+<p>Business entrances on the closed stretch <span class="blk">(133)</span> already been fitted with covered access so shops stay open.</p>
+<p>We appreciate your patience during construction. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) is  (B) will be  (C) has been  (D) being<br />
+<strong>132.</strong> (A) will  (B) are  (C) have  (D) being<br />
+<strong>133.</strong> (A) has  (B) have  (C) having  (D) had<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The sidewalk closure has been extended through the summer.<br />
+(B) All businesses on Maple Avenue will be closed during this period.<br />
+(C) Contact the city if you have questions about access.<br />
+(D) The south sidewalk will also be closed starting next week.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>Subject:</strong> New Site Access Procedure</p>
+<p>Starting Monday, everyone entering the site <span class="blk">(135)</span> sign in at the gate kiosk and scan their orientation badge, not the paper log.</p>
+<p>The kiosk <span class="blk">(136)</span> print a daily gate list for the superintendent automatically, so there is no separate roll call.</p>
+<p>Anyone without a current orientation badge <span class="blk">(137)</span> be turned away until they complete the site orientation.</p>
+<p>Thank you for your cooperation as we tighten site security. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) can  (B) should  (C) must  (D) may<br />
+<strong>136.</strong> (A) can  (B) can't  (C) doesn't  (D) won't<br />
+<strong>137.</strong> (A) must  (B) should  (C) would  (D) will<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper logs will still be accepted as a backup option.<br />
+(B) Orientation badges will no longer be required after this month.<br />
+(C) This procedure applies only to subcontractors.<br />
+(D) Reach out to the superintendent if you have questions.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>BIDLINE — SEND ACCURATE ESTIMATES IN HALF THE TIME</strong></p>
+<p>BidLine builds your estimate from digital plans: it counts openings, measures runs, and applies your cost database, so you're checking numbers instead of taking off by hand.</p>
+<p>Most contractors find <span class="blk">(139)</span> valuable: consistent markups, a clear scope letter generated with each bid, and a record of what you assumed if a dispute comes up later. Estimators report cutting takeoff time by about half.</p>
+<p>Setup is <span class="blk">(140)</span> and takes a day. There is no <span class="blk">(141)</span> contract, and the first three bids are free. Book a demo at bidline.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) something  (B) anything  (C) nothing  (D) everything<br />
+<strong>140.</strong> (A) simply  (B) simplify  (C) simple  (D) simplicity<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) BidLine requires uploading plans in a proprietary file format only.<br />
+(B) A minimum of five estimators is required to use the platform.<br />
+(C) Scope letters must be purchased separately from the main plan.<br />
+(D) See how it works with one of your own recent bids.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Field Staff <strong>FROM:</strong> Project Management <strong>RE:</strong> Tablets Replace Paper Plan Sets</p>
+<p>Our plan-distribution method <span class="blk">(143)</span> to tablets on site, starting with the next project. Paper plan sets stay in the trailer for reference only.</p>
+<p>Last year we reprinted revised plan sheets about 400 times across all sites. Digital plans <span class="blk">(144)</span> remove almost all of that — a revision pushes to every tablet at once.</p>
+<p>The markup tools on the tablets <span class="blk">(145)</span> now approved for RFIs and field notes, and everything syncs to the project record. If you need a full paper set, ask the project engineer and one will be printed. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) changes  (B) is changing  (C) has changed  (D) changed<br />
+<strong>144.</strong> (A) would  (B) will  (C) has  (D) is<br />
+<strong>145.</strong> (A) is  (B) are  (C) being  (D) be<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Paper plan sets will no longer be available under any circumstance.<br />
+(B) Tablets will be collected at the end of each project.<br />
+(C) This change takes effect only for projects starting next year.<br />
+(D) Thanks for helping us keep plans accurate and up to date on site.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Super (6:50 A.M.):</strong> Concrete's confirmed for 7:30 — first truck. Pump set up?<br />
+<strong>Foreman (6:52 A.M.):</strong> Pump's here, boom's still folded. Operator says 20 minutes to set and test.<br />
+<strong>Super (6:53 A.M.):</strong> Cutting it close. Have the crew start wetting the forms now.<br />
+<strong>Foreman (6:55 A.M.):</strong> On it. We'll be ready before the truck.</p>
+<p><strong>147.</strong> What is scheduled for 7:30?<br />
+(A) The first concrete truck<br />
+(B) An inspection<br />
+(C) A safety meeting<br />
+(D) A material delivery</p>
+<p><strong>148.</strong> What does the superintendent tell the foreman to do now?<br />
+(A) Send the crew home<br />
+(B) Delay the pour<br />
+(C) Have the crew start wetting the forms<br />
+(D) Call the operator</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>CITY SPEEDS UP PERMIT REVIEW FOR SMALL RESIDENTIAL PROJECTS</strong></p>
+<p>The city's building department will begin same-day permit review for small residential projects — decks, interior remodels, and additions under 500 square feet — that use pre-approved standard plans. Applicants who use their own custom plans stay in the normal queue, which currently runs three to five weeks.</p>
+<p>The department says routine projects were clogging the queue and delaying larger reviews. Pre-approved plan sets for common projects are free to download.</p>
+<p>The change does not affect inspection scheduling, which remains one to three business days after a request. Trade permits (electrical, plumbing) still follow their own timelines.</p>
+<p><strong>149.</strong> What is the city changing?<br />
+(A) Inspection fees<br />
+(B) Same-day permit review for small residential projects using standard plans<br />
+(C) The building code<br />
+(D) Contractor licensing</p>
+<p><strong>150.</strong> Who does NOT get the faster review?<br />
+(A) Homeowners doing the work themselves<br />
+(B) Projects over 200 square feet<br />
+(C) Commercial projects only<br />
+(D) Applicants using their own custom plans</p>
+<p><strong>151.</strong> Why is the city making the change?<br />
+(A) Routine projects were clogging the queue and delaying larger reviews<br />
+(B) To raise more revenue<br />
+(C) A staff shortage<br />
+(D) A new state law</p>
+<p><strong>152.</strong> What is NOT affected by the change?<br />
+(A) The permit fee<br />
+(B) The list of pre-approved plans<br />
+(C) Inspection scheduling<br />
+(D) The size limit for additions</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Temporary Power Shutdown, Building C</strong></p>
+<p>Electrical power to Building C will be shut off Saturday from 6 A.M. to 2 P.M. so the utility can connect the permanent service.</p>
+<p>Plan any work that needs power for another day or another building. The site office and Buildings A and B are not affected. Generators may not be run inside Building C during the shutdown for ventilation reasons.</p>
+<p><strong>153.</strong> Why is the power being shut off?<br />
+(A) A safety violation<br />
+(B) Non-payment<br />
+(C) An equipment failure<br />
+(D) To connect the permanent utility service</p>
+<p><strong>154.</strong> What are workers told to do?<br />
+(A) Leave the site for the day<br />
+(B) Move power-dependent work to another day or building<br />
+(C) Bring their own generators<br />
+(D) Work by flashlight</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>SITECAM — TIME-LAPSE AND SECURITY IN ONE</strong></p>
+<p>SiteCam mounts a solar-powered camera on your site fence. You get a daily time-lapse for the owner, motion alerts after hours, and a searchable archive if you ever need to see what happened on a given day.</p>
+<p>It's popular for disputes: "the trench was open on the 14th" is a lot easier to settle with footage. No wiring, no monthly data cost — it runs on cellular included in the price.</p>
+<p>One camera covers a small lot; larger sites use two or three. First month free at sitecam.example.</p>
+<p><strong>155.</strong> What does SiteCam provide?<br />
+(A) On-site security guards<br />
+(B) A daily time-lapse, motion alerts, and a searchable video archive<br />
+(C) Drone surveys<br />
+(D) Equipment tracking tags</p>
+<p><strong>156.</strong> Why is SiteCam popular for disputes?<br />
+(A) It is cheap<br />
+(B) It replaces inspections<br />
+(C) Footage makes it easier to settle what happened on a given day<br />
+(D) It is required by insurers</p>
+<p><strong>157.</strong> What is included in the price?<br />
+(A) The cellular data connection<br />
+(B) Installation labor<br />
+(C) A second camera<br />
+(D) Cloud storage upgrades</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-supers <strong>From:</strong> Safety Office <strong>Subject:</strong> Before You Sign Off on a Scaffold</p>
+<p>A reminder on scaffold inspections.</p>
+<p>A competent person has to inspect every scaffold before each shift and after anything that could affect it — weather, an impact, added load. Tag it green only after that inspection; a scaffold with no tag or a red tag is not to be used.</p>
+<p>Check the base plates and mud sills, the ties to the structure, full planking with no gaps, and guardrails at the right height. Missing guardrails on a working level is the violation we see most.</p>
+<p>If you're not the competent person for scaffolds, don't sign the tag — get the person who is.</p>
+<p><strong>158.</strong> Who must inspect a scaffold before each shift?<br />
+(A) The site owner<br />
+(B) Any two workers<br />
+(C) A competent person<br />
+(D) The equipment supplier</p>
+<p><strong>159.</strong> When can a scaffold be tagged green?<br />
+(A) Only after the required inspection<br />
+(B) At the end of the day<br />
+(C) When it is first assembled, permanently<br />
+(D) When the superintendent arrives</p>
+<p><strong>160.</strong> What violation does the Safety Office see most?<br />
+(A) Wrong base plates<br />
+(B) Overloading<br />
+(C) No ties to the structure<br />
+(D) Missing guardrails on a working level</p>
+<h3>Passage 6 — Inspection-sequence table (161–162)</h3>
+<p><strong>INSPECTION SEQUENCE — TYPICAL RESIDENTIAL BUILD</strong></p>
+<table>
+<thead>
+<tr>
+<th>Inspection</th>
+<th>When</th>
+<th>Must pass before</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Footing / foundation</td>
+<td>Trenches dug, rebar set, before concrete</td>
+<td>Pouring concrete</td>
+</tr>
+<tr>
+<td>Rough framing</td>
+<td>Framing complete, roof on, before insulation</td>
+<td>Insulation, drywall</td>
+</tr>
+<tr>
+<td>Rough electrical / plumbing / mechanical</td>
+<td>Systems in walls, before cover</td>
+<td>Insulation, drywall</td>
+</tr>
+<tr>
+<td>Insulation</td>
+<td>Insulation installed, before drywall</td>
+<td>Drywall</td>
+</tr>
+<tr>
+<td>Final</td>
+<td>All work complete, systems on</td>
+<td>Occupancy</td>
+</tr>
+</tbody>
+</table>
+<p>A failed inspection requires the noted corrections and a re-inspection request; there is no charge for the first re-inspection, and a fee for each one after.</p>
+<p><strong>161.</strong> When does the footing/foundation inspection happen?<br />
+(A) After the concrete is poured<br />
+(B) After framing<br />
+(C) After rebar is set, before pouring concrete<br />
+(D) At the end of the project</p>
+<p><strong>162.</strong> What is true about re-inspections?<br />
+(A) The first re-inspection is free; later ones have a fee<br />
+(B) All re-inspections are free<br />
+(C) Every re-inspection has a fee<br />
+(D) Re-inspections are not allowed</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. and Mrs. Tan,</p>
+<p>Thank you for your patience regarding the punch-list items in your new home at 12 Larch Court.</p>
+<p>You are right that the list has taken longer than the 30 days we promised at closing. Two items — the tile crack in the main bath and the sticking patio door — required parts we had to order, and we did not keep you updated as we should have.</p>
+<p>The parts are now in. Our finish carpenter and tile subcontractor will be at your home this Thursday between 8 and noon to complete both items and re-check the list with you. If Thursday does not work, call the number below and we will find another day this week.</p>
+<p>We take the one-year warranty seriously and want the list closed properly.</p>
+<p>Sincerely,<br />
+Larch Court Homes</p>
+<p><strong>163.</strong> Why is the builder writing?<br />
+(A) The punch list has taken longer than the promised 30 days<br />
+(B) To schedule the closing<br />
+(C) To collect a final payment<br />
+(D) To deny a warranty claim</p>
+<p><strong>164.</strong> Why were the two items delayed?<br />
+(A) The subcontractor was unavailable<br />
+(B) They required parts that had to be ordered<br />
+(C) The homeowners canceled an earlier visit<br />
+(D) A permit issue</p>
+<p><strong>165.</strong> What will happen on Thursday?<br />
+(A) A new inspection<br />
+(B) The closing<br />
+(C) A warranty expires<br />
+(D) The subcontractors will finish both items and review the list with the owners</p>
+<p><strong>166.</strong> What should the Tans do if Thursday does not work?<br />
+(A) Wait for the builder to call<br />
+(B) Email a complaint<br />
+(C) Call the number provided to arrange another day this week<br />
+(D) Hire their own contractor</p>
+<h3>Passage 8 — FAQ (167–169)</h3>
+<p><strong>NEW HOME WARRANTY — FREQUENTLY ASKED QUESTIONS</strong></p>
+<p><strong>What's covered, and for how long?</strong><br />
+Workmanship and materials for one year; major systems (plumbing, electrical, HVAC, heating) for two years; structural elements for ten years.</p>
+<p><strong>How do I make a claim?</strong><br />
+Submit the online warranty form with photos. For anything that isn't an emergency, we batch visits by neighborhood every two weeks.</p>
+<p><strong>What's an emergency?</strong><br />
+No heat in winter, a plumbing leak you can't shut off, a total electrical outage, or anything unsafe. Call the 24-hour line for those.</p>
+<p><strong>What's not covered?</strong><br />
+Normal wear, damage from a lack of maintenance, anything you or another contractor altered, and landscaping after the first 30 days.</p>
+<p><strong>167.</strong> How long are major systems covered?<br />
+(A) Two years<br />
+(B) One year<br />
+(C) Ten years<br />
+(D) 30 days</p>
+<p><strong>168.</strong> How are non-emergency claims handled?<br />
+(A) Same-day visits<br />
+(B) The homeowner pays a call-out fee<br />
+(C) They are not accepted<br />
+(D) Batched by neighborhood every two weeks</p>
+<p><strong>169.</strong> What counts as an emergency?<br />
+(A) A cracked tile<br />
+(B) No heat in winter or a leak that can't be shut off<br />
+(C) A sticking door<br />
+(D) Peeling paint</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Site Personnel <strong>FROM:</strong> Project Manager <strong>RE:</strong> Talking to the Owner and the Public</p>
+<p>The owner visits the site regularly and is welcome. But if the owner asks you to change something — move a wall, use a different fixture, add an outlet — do not act on it. Direct them to me. Verbal changes on the site are how projects end up with disputes over scope and cost.</p>
+<p>The same goes for the public: if a neighbor or a reporter asks about the project, be polite and refer them to the site office. Don't discuss the schedule, cost, or any incident.</p>
+<p>All changes go through a written change order, signed before the work is done.</p>
+<p><strong>170.</strong> What should a worker do if the owner asks for a change on site?<br />
+(A) Make the change if it's small<br />
+(B) Direct the owner to the project manager and not act on it<br />
+(C) Get it in writing from the owner<br />
+(D) Ask a coworker</p>
+<p><strong>171.</strong> Why does the memo give this rule?<br />
+(A) Verbal changes lead to disputes over scope and cost<br />
+(B) The owner is not allowed on site<br />
+(C) It is required by the permit<br />
+(D) To limit site visits</p>
+<p><strong>172.</strong> How must all changes be handled?<br />
+(A) By email confirmation<br />
+(B) By a note in the daily log<br />
+(C) Through a written change order signed before the work<br />
+(D) At the next owner meeting</p>
+<h3>Passage 10 — Product review (173–175)</h3>
+<p>★★★★☆ <strong>Great for scheduling subs, weak on cost tracking</strong> — GC, small commercial</p>
+<p>We brought this in to stop running our schedule off a whiteboard and a group text. That part is excellent — every sub sees their window, gets a reminder two days out, and marks tasks done, so I know about a slip the same day instead of at the walk-through.</p>
+<p>The cost side is thin. There's no real budget-vs-actual view, so I still export to a spreadsheet for the owner draws. And you can't attach a change order to a specific schedule task, which seems obvious.</p>
+<p>Onboarding my subs took a week of nagging, but once they were in, adoption stuck. Worth it for the scheduling alone.</p>
+<p><strong>173.</strong> Why did the GC adopt the tool?<br />
+(A) To track costs<br />
+(B) To store documents<br />
+(C) To manage payroll<br />
+(D) To stop running the schedule off a whiteboard and group text</p>
+<p><strong>174.</strong> What is a weakness the reviewer describes?<br />
+(A) Subs can't see the schedule<br />
+(B) Reminders don't send<br />
+(C) There is no real budget-vs-actual view<br />
+(D) It has no mobile access</p>
+<p><strong>175.</strong> What did the reviewer find difficult?<br />
+(A) Setting up the schedule<br />
+(B) Getting the subcontractors onboarded<br />
+(C) Exporting data<br />
+(D) Contacting support</p>
+<h3>Passages 11–12 — Change-order policy &amp; email (176–180)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>CHANGE ORDER POLICY</strong></p>
+<ul>
+<li>Any change to the contracted scope — additions, deletions, or substitutions — requires a written change order signed by the owner before the work is done.</li>
+<li>A change order states the price change, the schedule impact, and any effect on other trades.</li>
+<li>Changes requested during a phase that would disrupt work already scheduled carry a coordination fee in addition to the direct cost.</li>
+<li>Owner-supplied materials must be on site three days before they're needed; delays caused by late owner materials are not our responsibility and may extend the schedule.</li>
+<li>Emergency changes for safety or code can proceed on verbal approval, documented in writing within 24 hours.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Grace Liu <strong>To:</strong> office@meridianbuild.example <strong>Subject:</strong> Adding a skylight?</p>
+<p>Hi,</p>
+<p>Now that the roof framing is up, I can see the hallway is darker than I expected. Can we add a skylight there?</p>
+<p>A few questions:<br />
+1. Is it too late, now that framing is done?<br />
+2. Roughly what would it cost and add to the schedule?<br />
+3. If I buy the skylight unit myself, does that help?</p>
+<p><strong>176.</strong> What must happen before any scope change?<br />
+(A) A written change order signed by the owner before the work is done<br />
+(B) A verbal agreement on site<br />
+(C) A note in the daily log<br />
+(D) Approval at the final walk-through</p>
+<p><strong>177.</strong> What does a change order have to state?<br />
+(A) Only the price change<br />
+(B) Only the schedule impact<br />
+(C) The name of the worker doing it<br />
+(D) The price change, the schedule impact, and the effect on other trades</p>
+<p><strong>178.</strong> What is added when a change disrupts already-scheduled work?<br />
+(A) A permit fee<br />
+(B) A coordination fee<br />
+(C) A design fee<br />
+(D) Nothing extra</p>
+<p><strong>179.</strong> When must owner-supplied materials be on site?<br />
+(A) On the day they are needed<br />
+(B) One week before<br />
+(C) Three days before they are needed<br />
+(D) Before the project starts</p>
+<p><strong>180.</strong> What is one of Grace's questions?<br />
+(A) Who her project manager is<br />
+(B) Whether it is too late to add the skylight now that framing is done<br />
+(C) The color of the skylight<br />
+(D) The warranty length</p>
+<h3>Passages 13–14 — Two emails about a final payment (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Dana Kroll, GC <strong>To:</strong> billing@apexmech.example <strong>Subject:</strong> Invoice 3390 — deductions</p>
+<p>Hi,</p>
+<p>Invoice 3390 is your final mechanical payment, $18,000. Here's how we're paying it:<br />
+- Less a $3,500 backcharge: your crew demobilized early and left the third-floor mechanical room full of debris; we paid our laborers to clear it. Photos and the labor ticket are attached.<br />
+- Less 5% retainage ($900), held per the subcontract until the owner's final acceptance next month.</p>
+<p>That's $13,600 now and $900 on final acceptance. Let me know if you disagree on the backcharge.</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> billing@apexmech.example <strong>To:</strong> Dana Kroll <strong>Subject:</strong> RE: Invoice 3390 — deductions</p>
+<p>Hi Dana,</p>
+<p>The backcharge is fair — our foreman confirms the room was left in bad shape when the crew moved to another job early. $3,500 matches the labor ticket.</p>
+<p>The retainage is in the contract, so no issue there. $13,600 now and $900 on final acceptance is how we see it too.</p>
+<p>We've told our crews not to demobilize from any area without your superintendent's sign-off.</p>
+<p><strong>181.</strong> Why did Dana email Apex?<br />
+(A) To dispute the contract<br />
+(B) To request more work<br />
+(C) To explain deductions from the final mechanical payment<br />
+(D) To approve a change order</p>
+<p><strong>182.</strong> What is the backcharge for?<br />
+(A) Cleanup labor after the sub left a room full of debris<br />
+(B) Damaged equipment<br />
+(C) A missed deadline<br />
+(D) A permit fine</p>
+<p><strong>183.</strong> Why is $900 being held?<br />
+(A) A disputed invoice<br />
+(B) An unpaid fee<br />
+(C) A penalty<br />
+(D) 5% retainage until final acceptance</p>
+<p><strong>184.</strong> How much will Apex be paid now?<br />
+(A) $18,000<br />
+(B) $14,500<br />
+(C) $13,600<br />
+(D) $900</p>
+<p><strong>185.</strong> What did Apex tell its crews to do?<br />
+(A) Work faster<br />
+(B) Bill weekly<br />
+(C) Take more photos<br />
+(D) Not demobilize from an area without the superintendent's sign-off</p>
+<h3>Passages 15–17 — Delivery-method reference, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Reference</strong></p>
+<p><strong>PROJECT DELIVERY METHODS</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>How it works</th>
+<th>Owner's cost certainty</th>
+<th>Owner's involvement</th>
+<th>Best when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design-Bid-Build</td>
+<td>Design fully, then bid to contractors, then build</td>
+<td>High at bid, low during design</td>
+<td>High</td>
+<td>Scope is well defined; low change risk</td>
+</tr>
+<tr>
+<td>Design-Build</td>
+<td>One firm designs and builds under one contract</td>
+<td>Medium; set early</td>
+<td>Lower</td>
+<td>Speed matters; owner wants a single point of responsibility</td>
+</tr>
+<tr>
+<td>Construction Manager at Risk</td>
+<td>CM joins during design, gives a guaranteed maximum price</td>
+<td>Medium-high once GMP is set</td>
+<td>Medium</td>
+<td>Complex project; owner wants builder input during design</td>
+</tr>
+</tbody>
+</table>
+<p>Design-Bid-Build usually takes the longest overall because bidding can't start until design is complete.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Ellis Warde, owner <strong>To:</strong> advisor@buildconsult.example <strong>Subject:</strong> Delivery method for the clinic</p>
+<p>Hi,</p>
+<p>We need a new outpatient clinic open in about 14 months — that's tight. The program is still evolving; the medical group keeps refining room requirements. Budget is firm and we can't overrun.</p>
+<p>Which delivery method fits?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> advisor@buildconsult.example <strong>To:</strong> Ellis Warde <strong>Subject:</strong> RE: Delivery method for the clinic</p>
+<p>Hi Ellis,</p>
+<p>With a 14-month deadline and an evolving program, Design-Bid-Build is the wrong fit — you'd lose months waiting for a complete design before bidding, and mid-design changes would be painful.</p>
+<p>I'd recommend Construction Manager at Risk. The CM joins now, works with your medical group and the architect while the program firms up, and gives you a guaranteed maximum price once the design is far enough along. That protects your firm budget, and construction can start on early packages (site, foundation) before the whole design is done.</p>
+<p>Design-Build is also fast, but with a firm budget and a program still in flux, the GMP structure of CM at Risk gives you more cost control and more say in the design.</p>
+<p><strong>186.</strong> What is the owner's main constraint besides budget?<br />
+(A) A shortage of contractors<br />
+(B) A tight deadline with a program still evolving<br />
+(C) A difficult site<br />
+(D) A lack of financing</p>
+<p><strong>187.</strong> Why does the consultant reject Design-Bid-Build?<br />
+(A) It costs the most<br />
+(B) The owner has done it before<br />
+(C) It would delay the start and handle changes badly<br />
+(D) No contractors bid on clinics</p>
+<p><strong>188.</strong> What does the consultant recommend?<br />
+(A) Design-Bid-Build<br />
+(B) Hiring two contractors<br />
+(C) Design-Build<br />
+(D) Construction Manager at Risk</p>
+<p><strong>189.</strong> What protects the owner's firm budget under the recommended method?<br />
+(A) A guaranteed maximum price<br />
+(B) A fixed design fee<br />
+(C) A penalty clause<br />
+(D) A longer schedule</p>
+<p><strong>190.</strong> According to the reference, why does Design-Bid-Build take the longest?<br />
+(A) Inspections take longer<br />
+(B) Bidding cannot start until the design is complete<br />
+(C) It uses more subcontractors<br />
+(D) Permits are harder to get</p>
+<h3>Passages 18–20 — Site rules, subcontractor email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy</strong></p>
+<p><strong>SITE RULES — ALL WORKERS AND VISITORS</strong></p>
+<ul>
+<li><strong>Required at all times past the gate:</strong> hard hat, safety glasses, high-visibility vest, and boots with a protective toe. Gloves and hearing protection as the task requires.</li>
+<li><strong>Orientation:</strong> Everyone completes the site-specific orientation before their first day. It's about 30 minutes, done at the site office; bring photo ID.</li>
+<li><strong>Sign-in:</strong> Scan your orientation badge at the gate kiosk every entry and exit.</li>
+<li><strong>Fall protection:</strong> Required above 6 feet, or near any unprotected edge or floor opening regardless of height.</li>
+<li><strong>Vehicles:</strong> 5 mph on site. Back in when parking. Spotter required when backing near workers.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Raman, Coast Glazing <strong>To:</strong> safety@site.example <strong>Subject:</strong> Onboarding my crew</p>
+<p>Hi,</p>
+<p>We start the curtain wall next week. Questions:<br />
+1. Can my crew do the orientation as a group, and can we do it the morning of day one, or does it have to be a separate trip?<br />
+2. My crew has their own harnesses. Do they need to be inspected by you, or is our own inspection log enough?<br />
+3. We'll have a boom lift. Any site-specific rule beyond the manufacturer's?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> safety@site.example <strong>To:</strong> Priya Raman <strong>Subject:</strong> RE: Onboarding my crew</p>
+<p>Hi Priya,</p>
+<ol>
+<li>Group orientation is fine — up to 10 at a time. Morning of day one works; budget the first 45 minutes and they can start after. Everyone still needs photo ID.</li>
+<li>Your own inspection log is fine for daily checks. We do want to see the harnesses once during onboarding — a quick visual for damage and current inspection tags — then your log carries it from there.</li>
+<li>Beyond the manufacturer's rules: a spotter any time the lift moves with the platform occupied, and the lift is tied off / keyed out at night. The exclusion zone below an occupied lift must be barricaded.</li>
+</ol>
+<p><strong>191.</strong> Can Priya's crew do the orientation as a group on the morning of day one?<br />
+(A) Yes, in groups of up to 10, on the morning of day one<br />
+(B) No, it must be individual<br />
+(C) No, it must be a separate day<br />
+(D) Only if the safety office schedules it</p>
+<p><strong>192.</strong> What PPE is required at all times past the gate?<br />
+(A) Only a hard hat<br />
+(B) Hard hat and gloves<br />
+(C) A harness at all times<br />
+(D) Hard hat, safety glasses, high-visibility vest, and protective-toe boots</p>
+<p><strong>193.</strong> What does the safety office want regarding the crew's harnesses?<br />
+(A) A one-time visual check during onboarding, then the sub's log carries it<br />
+(B) A full inspection before every shift by the safety office<br />
+(C) New harnesses purchased on site<br />
+(D) Nothing; the sub's log is never reviewed</p>
+<p><strong>194.</strong> When is fall protection required on this site?<br />
+(A) Only above 10 feet<br />
+(B) Above 6 feet, or near any unprotected edge or opening at any height<br />
+(C) Only on scaffolds<br />
+(D) Only when the superintendent asks</p>
+<p><strong>195.</strong> What is the rule for the area below an occupied boom lift?<br />
+(A) It must be swept first<br />
+(B) A second worker must stand there<br />
+(C) It must be barricaded as an exclusion zone<br />
+(D) Nothing special</p>
+<h3>Passages 21–23 — Delivery-procedure notice, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Notice</strong></p>
+<p><strong>CHANGES TO MATERIAL DELIVERIES — EFFECTIVE MONDAY</strong></p>
+<ol>
+<li><strong>Scheduling:</strong> All deliveries must be scheduled through the online delivery calendar at least 48 hours ahead. Unscheduled trucks will be turned away.</li>
+<li><strong>Hours:</strong> Delivery window is 7 A.M. to 3 P.M. only. The last truck must be unloaded by 3:30.</li>
+<li><strong>Laydown:</strong> Each trade has an assigned laydown area, marked on the site plan. Material left outside your area will be moved at your cost.</li>
+<li><strong>Offloading:</strong> Trades are responsible for their own offloading crew and equipment. The tower crane is scheduled separately and is not available for general deliveries.</li>
+</ol>
+<p>Questions to the site office.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Marco Diaz, Ridgeline Steel <strong>To:</strong> siteoffice@project.example <strong>Subject:</strong> Delivery questions</p>
+<p>Hi,</p>
+<ol>
+<li>We have a steel delivery already booked for Tuesday that I scheduled last week by phone with your old coordinator. Is that still valid, or do I need to re-enter it in the calendar?</li>
+<li>Our load needs the crane — three bundles too heavy for a forklift. How do we arrange that?</li>
+<li>Our laydown area is small for the full delivery. Can we split it into two trucks on different days?</li>
+</ol>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> siteoffice@project.example <strong>To:</strong> Marco Diaz <strong>Subject:</strong> RE: Delivery questions</p>
+<p>Hi Marco,</p>
+<ol>
+<li>Phone bookings from before Monday are still honored, but please also enter Tuesday's in the calendar so it shows on the schedule everyone sees. Just this once, no 48-hour rule for it.</li>
+<li>Crane picks are arranged with the crane coordinator, not through the delivery calendar. Email crane@project.example with the weights and the delivery time; they'll give you a window. There may be a wait if the crane is committed to concrete that morning.</li>
+<li>Splitting into two days is fine and actually preferred given your laydown space. Book both in the calendar.</li>
+</ol>
+<p><strong>196.</strong> What must trades now do to deliver materials?<br />
+(A) Call the coordinator<br />
+(B) Get the superintendent's signature<br />
+(C) Nothing new<br />
+(D) Schedule through the online calendar at least 48 hours ahead</p>
+<p><strong>197.</strong> Is Marco's Tuesday phone booking still valid?<br />
+(A) Yes, but he should also enter it in the calendar<br />
+(B) No, he must rebook with 48 hours' notice<br />
+(C) Only if the coordinator confirms again<br />
+(D) No, phone bookings are canceled</p>
+<p><strong>198.</strong> How does Marco arrange a crane pick?<br />
+(A) Through the delivery calendar<br />
+(B) By emailing the crane coordinator with the weights and time<br />
+(C) By asking the forklift operator<br />
+(D) It is automatic for steel</p>
+<p><strong>199.</strong> What does the site office say about splitting the delivery into two days?<br />
+(A) It is not allowed<br />
+(B) It requires a fee<br />
+(C) It is fine and actually preferred<br />
+(D) Only with the GC's approval</p>
+<p><strong>200.</strong> What could delay Marco's crane pick?<br />
+(A) A permit issue<br />
+(B) A shortage of steel<br />
+(C) The laydown area being full<br />
+(D) The crane being committed to concrete that morning</p>
+<hr />
+<p><em>Hết phần Reading — Set_016. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_016</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C26/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 B</strong> "a worker in a hard hat is looking at a blueprint on site" · bẫy: "operating a crane"</li>
+<li><strong>3 C</strong> "workers are putting up scaffolding along a building" · bẫy: "a window is being installed"</li>
+<li><strong>4 D</strong> "the equipment is parked and the site is empty" · bẫy: "an inspector is walking the site"</li>
+<li><strong>6 C</strong> "workers are laying fresh asphalt on a road" · bẫy: "a truck is spreading gravel"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>10 C</strong> "Why not running?" → "The wind is too strong" · bẫy: trả lời Where / Since when</li>
+<li><strong>13 B</strong> tag question → "Yes, we can start excavation Monday"</li>
+<li><strong>15 C</strong> câu phủ định → "No, they moved it to seven thirty"</li>
+<li><strong>17 C</strong> "What did the inspector flag?" → "The stair railings on the third floor"</li>
+<li><strong>19 B</strong> "Do you know whether...?" → "Ask the project manager" (gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "We can put in a rush order"</li>
+<li><strong>21 C</strong> yêu cầu kiểm tra công trường → "I'll walk the site now" · bẫy: lặp "site"</li>
+<li><strong>25 B</strong> "Isn't the crane usually delivered Mondays?" → đính chính "arriving a day early" · bẫy: lặp "Monday"</li>
+<li><strong>31 C</strong> "Why was the inspection postponed?" → lý do cụ thể "heavy rain overnight" · bẫy: lặp "inspection"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "the framer says it's load-bearing. We'll need a beam" · "it adds three days" · "write it up as a change order for you to sign"</li>
+<li>35–37: "The electrical rough-in failed inspection" · "wants the panel moved 6 inches for clearance" · "push the drywall crew to Monday and let the GC know"</li>
+<li>38–40: "The window delivery slipped to the 20th" · "hang the doors, start the roof, and temporary-board the openings" · "ask the supplier for a firm date in writing"</li>
+<li>41–43: "the guest bathroom fan doesn't work, plus there's a gap under the back door" · "Both of those are on the punch list" · "get someone out tomorrow"</li>
+<li>44–46: "without fall protection this morning. No harnesses" · "That's a stop-work situation" · "re-run the fall-protection orientation before they're back on"</li>
+<li>47–49: "came back 12 percent over budget" · "switch the stone to a veneer on the street face only" · "lighting and the landscape allowance"</li>
+<li>50–52: "scaffolding on the north side" · "braces not secured properly" · "fixed before anyone goes back up"</li>
+<li>53–55: "behind schedule ... material delay" · "about a week" · "update the client on the revised timeline"</li>
+<li>56–58: "add a second bathroom" · "affect the budget and plumbing layout" · "revised estimate ... by Thursday"</li>
+<li>59–61: "complain about the noise" · "double-check the exact approved start time" · "shift noisy work later in the morning"</li>
+<li>62–64: "roof installation timeline" · "weather looks good ... Wednesday" · "confirm crew availability"</li>
+<li>65–67: "electrical budget running higher" · "upgraded panel the client requested" · "document it as a change order"</li>
+<li>68–70: "final walkthrough ... next Friday" · "landscaping might not be fully done" · "let the client know in advance"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "the crane's lifting steel on the east side from nine to noon" · "within ten feet of an open edge, you're tied off" · "it's going to hit 95 today, so take breaks"</li>
+<li>74–76: "the truck we'd use for your site is down" · "pick it up from our yard tomorrow with your own flatbed" · "the engineered joists ... are back-ordered ... I'd suggest an equivalent"</li>
+<li>77–79: "a fifteen-minute stand-up every morning with one person from each trade" · "a plumber would show up and find the framing wasn't ready" · "pulled schedules in by an average of about three weeks"</li>
+<li>80–82: "schedule, your subs, your submittals, and your daily logs in one place" · "Subs get their part of the schedule on their phones and check off tasks" · "Photos from the field attach to the right task automatically"</li>
+<li>83–85: "hard hats and safety vests ... required in all active work zones" · "site supervisors ... spot checks" · "gear on before entering"</li>
+<li>86–88: "lumber order ... split into two shipments" · "truck capacity" · "second half ... by Friday"</li>
+<li>89–91: "put on hard hats and vests" first · "second floor where framing is nearly complete" · "stay behind the marked barriers"</li>
+<li>92–94: "commercial permit applications, press two" · "inspection scheduling" · "eight to four, Monday through Friday"</li>
+<li>95–97: "riverside development" · "increase ... green space" · "phase one ... begin this fall"</li>
+<li>98–100: "proper ladder use" · "three points of contact" · "report ... damaged equipment immediately"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The firm</code> số ít + thói quen → <code>performs</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>hạn chót → <code>by</code> the first of the month</td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>discrepancies</code></td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be required to</code> + V nguyên → <code>submit</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>B</td>
+<td><code>makes the route much <span class="fill"></span> for large trucks</code> → so sánh hơn <code>easier</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>on a clipboard</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>because of</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>cut the timeline by prefabricating</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>B</td>
+<td>bổ nghĩa động từ <code>have risen</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> completion time</code> (trong 3) → so sánh nhất <code>shortest</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>D</td>
+<td>bổ nghĩa động từ + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>A</td>
+<td><code>in the office</code> (bên trong)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the foundation passes inspection</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The construction group</code> số ít → <code>manages</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>train</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>more efficiently</code></td>
+</tr>
+<tr>
+<td>119</td>
+<td>B</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>methods</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>C</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>121</td>
+<td>A</td>
+<td>"trao thầu <strong>kèm</strong> điều kiện" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (plan <strong>được</strong> dán)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code> the bonus</td>
+</tr>
+<tr>
+<td>124</td>
+<td>C</td>
+<td>trước danh từ <code>picture</code> → tính từ <code>clear</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>A</td>
+<td><code>voted to</code> + V nguyên → <code>update</code></td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... gave enough clearance</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>C</td>
+<td><code>on the server</code> (lưu trên)</td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>engineer</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>training</code> → tính từ <code>thorough</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"The north sidewalk ... <span class="fill"></span> closed from April 8 through May 30" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Crews <span class="fill"></span> set up a protected walkway" (sẽ) → <code>will</code> (will set up)</td>
+</tr>
+<tr>
+<td>133</td>
+<td>B</td>
+<td>"Business entrances ... <span class="fill"></span> already been fitted" (số nhiều) → <code>have</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ thành phố nếu cần, khép lại thông báo</td>
+</tr>
+<tr>
+<td>135</td>
+<td>C</td>
+<td>"everyone entering the site <span class="fill"></span> sign in at the gate kiosk" (bắt buộc) → <code>must</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>A</td>
+<td>"The kiosk <span class="fill"></span> print a daily gate list ... automatically" (có thể) → <code>can</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>D</td>
+<td>"Anyone without a current orientation badge <span class="fill"></span> be turned away" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ giám sát công trình nếu cần, khép lại memo</td>
+</tr>
+<tr>
+<td>139</td>
+<td>A</td>
+<td>"Most contractors find <span class="fill"></span> valuable" → <code>something</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>C</td>
+<td>"Setup is <span class="fill"></span>" → tính từ <code>simple</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời mời trải nghiệm thực tế, khép lại quảng cáo BidLine</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"Our plan-distribution method <span class="fill"></span> to tablets on site, starting with the next project" → hiện tại đơn <code>changes</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>B</td>
+<td>"Digital plans <span class="fill"></span> remove almost all of that" → tương lai <code>will</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>B</td>
+<td>"The markup tools on the tablets <span class="fill"></span> now approved for RFIs" (số nhiều) → <code>are</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo chuyển sang bản vẽ số</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>C</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>A</td>
+<td>166</td>
+<td>C</td>
+<td>175</td>
+<td>B</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>B</td>
+<td>158</td>
+<td>C</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>A</td>
+<td>185</td>
+<td>D</td>
+<td>194</td>
+<td>B</td>
+</tr>
+<tr>
+<td>150</td>
+<td>D</td>
+<td>159</td>
+<td>A</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>D</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>C</td>
+</tr>
+<tr>
+<td>151</td>
+<td>A</td>
+<td>160</td>
+<td>D</td>
+<td>169</td>
+<td>B</td>
+<td>178</td>
+<td>B</td>
+<td>187</td>
+<td>C</td>
+<td>196</td>
+<td>D</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>C</td>
+<td>170</td>
+<td>B</td>
+<td>179</td>
+<td>C</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>A</td>
+</tr>
+<tr>
+<td>153</td>
+<td>D</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>A</td>
+<td>180</td>
+<td>B</td>
+<td>189</td>
+<td>A</td>
+<td>198</td>
+<td>B</td>
+</tr>
+<tr>
+<td>154</td>
+<td>B</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>C</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>C</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>D</td>
+<td>182</td>
+<td>A</td>
+<td>191</td>
+<td>A</td>
+<td>200</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>150 D</strong> — "Applicants who use their own custom plans stay in the normal queue"<br />
+- <strong>151 A</strong> — "routine projects were clogging the queue and delaying larger reviews"<br />
+- <strong>152 C</strong> — "The change does not affect inspection scheduling"<br />
+- <strong>154 B</strong> — "Plan any work that needs power for another day or another building"<br />
+- <strong>158 C</strong> — "A competent person has to inspect every scaffold before each shift"<br />
+- <strong>160 D</strong> — "Missing guardrails on a working level is the violation we see most"<br />
+- <strong>161 C</strong> — bảng: "Footing / foundation — Trenches dug, rebar set, before concrete"<br />
+- <strong>168 D</strong> — "we batch visits by neighborhood every two weeks"<br />
+- <strong>178 B</strong> — "Changes ... that would disrupt work already scheduled carry a coordination fee"<br />
+- <strong>183 D</strong> — "5% retainage ($900), held ... until the owner's final acceptance"<br />
+- <strong>184 C</strong> — "$13,600 now and $900 on final acceptance"<br />
+- <strong>187 C</strong> — "you'd lose months waiting for a complete design before bidding, and mid-design changes would be painful"<br />
+- <strong>189 A</strong> — "gives you a guaranteed maximum price ... That protects your firm budget"<br />
+- <strong>193 A</strong> — "We do want to see the harnesses once during onboarding ... then your log carries it from there"<br />
+- <strong>200 D</strong> — "There may be a wait if the crane is committed to concrete that morning"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_016 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Construction / Development): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

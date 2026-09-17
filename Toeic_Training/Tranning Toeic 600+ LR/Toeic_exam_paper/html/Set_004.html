@@ -1,0 +1,2244 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_004 — Manufacturing & Logistics</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="004">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_004</strong>
+    <span class="theme">Manufacturing &amp; Logistics</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_004 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Công nhân đội mũ bảo hộ đang vận hành một máy trong xưởng cơ khí.]</em><br />
+(A) A worker is operating a machine.<br />
+(B) Workers are putting away their tools.<br />
+(C) A technician is reading a manual.<br />
+(D) Someone is cleaning the workshop floor.</p>
+<p><strong>2.</strong> <em>[Ảnh: Các thùng carton xếp chồng trên pallet trong kho, xe nâng đứng gần đó.]</em><br />
+(A) A forklift is lifting a pallet.<br />
+(B) Boxes are stacked on pallets.<br />
+(C) Workers are sealing cardboard boxes.<br />
+(D) A truck is being unloaded.</p>
+<p><strong>3.</strong> <em>[Ảnh: Hai người kiểm tra bảng kê hàng, một người cầm máy quét mã vạch.]</em><br />
+(A) They are loading crates onto a shelf.<br />
+(B) A delivery is being signed for.<br />
+(C) One of the men is scanning a barcode.<br />
+(D) They are pushing a cart down an aisle.</p>
+<p><strong>4.</strong> <em>[Ảnh: Dây chuyền lắp ráp với các chai nhựa di chuyển trên băng chuyền.]</em><br />
+(A) Bottles are moving along a conveyor belt.<br />
+(B) A worker is filling bottles by hand.<br />
+(C) The production line has been shut down.<br />
+(D) Empty crates are stacked beside the line.</p>
+<p><strong>5.</strong> <em>[Ảnh: Một xe tải giao hàng đỗ ở bến, cửa sau mở, có hộp bên trong.]</em><br />
+(A) A driver is closing the truck's rear door.<br />
+(B) Packages are being carried into a building.<br />
+(C) A worker is repairing the truck's engine.<br />
+(D) The truck is parked at a loading dock.</p>
+<p><strong>6.</strong> <em>[Ảnh: Một kỹ sư mặc áo blouse trắng đang ghi chú bên cạnh thiết bị trong nhà máy.]</em><br />
+(A) Machines are being installed in a row.<br />
+(B) An engineer is taking notes beside some equipment.<br />
+(C) A supervisor is addressing a group of workers.<br />
+(D) Safety signs are being posted on the wall.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When will the new machine be installed?<br />
+(A) Next Tuesday morning.<br />
+(B) In the assembly area.<br />
+(C) It runs on electricity.</p>
+<p><strong>8.</strong> Where should I put these returned items?<br />
+(A) They were returned yesterday.<br />
+(B) About twenty units.<br />
+(C) On the shelf marked "inspection."</p>
+<p><strong>9.</strong> Who's in charge of the night shift this week?<br />
+(A) It ends at 6 A.M.<br />
+(B) Marco is covering it.<br />
+(C) In building C.</p>
+<p><strong>10.</strong> Why did the production line stop?<br />
+(A) A sensor detected a jam.<br />
+(B) It produces 500 units an hour.<br />
+(C) The line supervisor is new.</p>
+<p><strong>11.</strong> How many pallets are on the truck?<br />
+(A) It leaves at noon.<br />
+(B) Twelve, according to the manifest.<br />
+(C) To the north warehouse.</p>
+<p><strong>12.</strong> Could you check whether the parts shipment arrived?<br />
+(A) The parts are quite expensive.<br />
+(B) I'll look in the receiving log now.<br />
+(C) We ordered them last month.</p>
+<p><strong>13.</strong> The safety training is mandatory, isn't it?<br />
+(A) Yes, for everyone on the floor.<br />
+(B) The trainer was very good.<br />
+(C) It's in the main hall.</p>
+<p><strong>14.</strong> Should we use the express carrier or standard shipping?<br />
+(A) The package weighs five kilos.<br />
+(B) The carrier called this morning.<br />
+(C) Express, since the client needs it Friday.</p>
+<p><strong>15.</strong> Isn't the quality report due today?<br />
+(A) No, the QA office confirmed it.<br />
+(B) No, it was moved to Thursday.<br />
+(C) The report is very detailed.</p>
+<p><strong>16.</strong> Can you show me how to log a defect in the system?<br />
+(A) The defect rate went down.<br />
+(B) Sure, it only takes a minute.<br />
+(C) There were three defects.</p>
+<p><strong>17.</strong> What did the inspector say about the batch?<br />
+(A) He arrived around nine.<br />
+(B) The inspection took an hour.<br />
+(C) It passed with no issues.</p>
+<p><strong>18.</strong> Where do we store the flammable materials?<br />
+(A) They were delivered on Monday.<br />
+(B) We use about ten liters a day.<br />
+(C) In the locked cabinet outside.</p>
+<p><strong>19.</strong> Do you know whether the forklift has been serviced?<br />
+(A) It was checked last Friday.<br />
+(B) The forklift is quite old.<br />
+(C) Two operators are certified.</p>
+<p><strong>20.</strong> I think we should order more packing tape.<br />
+(A) Good idea — we're almost out.<br />
+(B) The tape is in aisle four.<br />
+(C) It comes in rolls of fifty meters.</p>
+<p><strong>21.</strong> Could you check the inventory count for bolts?<br />
+(A) We have about four hundred left.<br />
+(B) The bolts are on aisle six.<br />
+(C) I counted them last week.</p>
+<p><strong>22.</strong> Has the shipment from the supplier arrived?<br />
+(A) It's a large shipment.<br />
+(B) I shipped it myself.<br />
+(C) Not yet, it's still in transit.</p>
+<p><strong>23.</strong> Where should we store the extra pallets?<br />
+(A) In the back warehouse.<br />
+(B) Pallets are heavy.<br />
+(C) We ordered more pallets.</p>
+<p><strong>24.</strong> Would you rather run the night shift or the day shift?<br />
+(A) The day shift works better for me.<br />
+(B) Night shift starts at ten.<br />
+(C) I worked nights before.</p>
+<p><strong>25.</strong> Isn't the production line usually faster than this?<br />
+(A) The line runs smoothly.<br />
+(B) Yes, but a machine is being serviced.<br />
+(C) It's a long line.</p>
+<p><strong>26.</strong> How many units did we produce this week?<br />
+(A) Around twelve thousand.<br />
+(B) The week was busy.<br />
+(C) We produce every week.</p>
+<p><strong>27.</strong> Who's responsible for the safety inspection?<br />
+(A) The inspection takes an hour.<br />
+(B) Marcus handles that this month.<br />
+(C) Safety is important.</p>
+<p><strong>28.</strong> Do you know if the forklift was repaired?<br />
+(A) Forklifts are useful.<br />
+(B) I drove it yesterday.<br />
+(C) Yes, it's back in service.</p>
+<p><strong>29.</strong> Should we reorder packaging materials now?<br />
+(A) Packaging looks fine.<br />
+(B) Let's wait until next week.<br />
+(C) I reordered them already.</p>
+<p><strong>30.</strong> Haven't you finished the quality check yet?<br />
+(A) The check was passed.<br />
+(B) Almost — just two more samples.<br />
+(C) Quality checks take time.</p>
+<p><strong>31.</strong> Why was the delivery truck delayed?<br />
+(A) The truck is white.<br />
+(B) It happened last time too.<br />
+(C) There was heavy traffic on the highway.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> The die set for the B-line run hasn't arrived from the tool room yet. We're supposed to start at 2.<br />
+<strong>M:</strong> I'll call over there. If it's not coming in the next hour, we should switch the schedule and run the A-line job first.<br />
+<strong>W:</strong> That works. The A-line materials are already staged.<br />
+<strong>M:</strong> OK. I'll let you know in fifteen minutes.</p>
+<p><strong>32.</strong> What is the problem?<br />
+(A) A machine broke down<br />
+(B) A die set has not arrived<br />
+(C) A worker is absent<br />
+(D) Materials were damaged</p>
+<p><strong>33.</strong> What does the man suggest doing if the part doesn't come soon?<br />
+(A) Cancel the shift<br />
+(B) Order a replacement<br />
+(C) Run the A-line job first<br />
+(D) Send workers home</p>
+<p><strong>34.</strong> Why is running the A-line job possible?<br />
+(A) Its materials are already staged<br />
+(B) It is a shorter job<br />
+(C) It uses a different machine<br />
+(D) The client requested it</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> The Q2 defect rate came in at 2.1%, down from 3.4% last quarter.<br />
+<strong>W:</strong> That's a big improvement. What do you think made the difference?<br />
+<strong>M:</strong> Mostly the new calibration schedule — we check the machines weekly now instead of monthly.<br />
+<strong>W:</strong> Let's mention that in the report to the plant manager. It might justify the extra maintenance hours.</p>
+<p><strong>35.</strong> What are the speakers discussing?<br />
+(A) A drop in the defect rate<br />
+(B) A new product design<br />
+(C) A supplier change<br />
+(D) A staffing shortage</p>
+<p><strong>36.</strong> What does the man credit for the improvement?<br />
+(A) New employees<br />
+(B) A weekly calibration schedule<br />
+(C) Better raw materials<br />
+(D) A software upgrade</p>
+<p><strong>37.</strong> What do the speakers plan to do?<br />
+(A) Hire a maintenance contractor<br />
+(B) Reduce inspections<br />
+(C) Buy new machines<br />
+(D) Include the change in a report</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> We've had three near-misses at the packing station this month — people reaching into the sealer while it's running.<br />
+<strong>M1:</strong> We put up warning signs after the first one.<br />
+<strong>W:</strong> Signs aren't enough. I want to add a guard that stops the machine if the cover is open.<br />
+<strong>M2:</strong> Maintenance can install that, but it'll take the line down for about half a day.<br />
+<strong>W:</strong> Then let's schedule it for Saturday, when the line is idle anyway.</p>
+<p><strong>38.</strong> What safety concern is being discussed?<br />
+(A) Slippery floors<br />
+(B) Poor lighting<br />
+(C) Heavy lifting injuries<br />
+(D) Workers reaching into a running machine</p>
+<p><strong>39.</strong> What does the woman want to install?<br />
+(A) More warning signs<br />
+(B) Security cameras<br />
+(C) A machine guard<br />
+(D) An alarm system</p>
+<p><strong>40.</strong> When will the work be done?<br />
+(A) Monday<br />
+(B) Wednesday<br />
+(C) Friday<br />
+(D) Saturday</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> The carrier says our Thursday pickup is now full and can't take our shipment.<br />
+<strong>W:</strong> How much do we have going out?<br />
+<strong>M:</strong> Four pallets to the eastern distribution center.<br />
+<strong>W:</strong> See if they can do a Friday morning pickup instead. If not, split it — two pallets by a courier today and the rest whenever the carrier has room.<br />
+<strong>M:</strong> I'll ask about Friday first.</p>
+<p><strong>41.</strong> What problem is the man reporting?<br />
+(A) A shipment was damaged<br />
+(B) The carrier can't take Thursday's shipment<br />
+(C) An order was canceled<br />
+(D) A pallet is missing</p>
+<p><strong>42.</strong> How many pallets need to ship?<br />
+(A) Two<br />
+(B) Three<br />
+(C) Four<br />
+(D) Six</p>
+<p><strong>43.</strong> What does the man say he will do first?<br />
+(A) Hire a courier<br />
+(B) Split the shipment<br />
+(C) Call the distribution center<br />
+(D) Ask about a Friday pickup</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> I can't get the new label printer to connect. It's not showing up on the network.<br />
+<strong>M:</strong> Is the ethernet cable plugged into the port on the left, or the one on the right? The right one is for service only.<br />
+<strong>W:</strong> Let me check... it's on the right.<br />
+<strong>M:</strong> That's the issue. Move it to the left port and restart the printer. If it still doesn't connect, the IT extension is 4400.</p>
+<p><strong>44.</strong> What is the woman having trouble with?<br />
+(A) A barcode scanner<br />
+(B) A label printer<br />
+(C) A conveyor motor<br />
+(D) A handheld terminal</p>
+<p><strong>45.</strong> What does the man identify as the problem?<br />
+(A) The cable is in the wrong port<br />
+(B) The printer is out of labels<br />
+(C) The network is down<br />
+(D) The driver is not installed</p>
+<p><strong>46.</strong> What should the woman do if it still won't connect?<br />
+(A) Replace the cable<br />
+(B) Use a different printer<br />
+(C) Call the IT extension<br />
+(D) Restart the network switch</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> Did the auditor finish the walkthrough of the warehouse?<br />
+<strong>W:</strong> Yes, this morning. Overall it went well. The main finding was that some aisle markings on the floor have worn off, which is a safety issue for the forklift routes.<br />
+<strong>M:</strong> That's an easy fix. I'll get facilities to repaint them this week.<br />
+<strong>W:</strong> Good. She'll want photos of the completed work for the follow-up report.</p>
+<p><strong>47.</strong> What did the auditor do?<br />
+(A) Interviewed staff<br />
+(B) Reviewed financial records<br />
+(C) Walked through the warehouse<br />
+(D) Tested the fire alarms</p>
+<p><strong>48.</strong> What was the main finding?<br />
+(A) Worn floor markings<br />
+(B) Blocked exits<br />
+(C) Expired fire extinguishers<br />
+(D) Overloaded shelves</p>
+<p><strong>49.</strong> What does the auditor want after the work is done?<br />
+(A) A signed form<br />
+(B) Photos of the completed work<br />
+(C) A staff meeting<br />
+(D) A second inspection</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>M:</strong> The packing line just stopped — the sensor keeps throwing an error.<br />
+<strong>W:</strong> Let's power it down and check the sensor connections before calling maintenance.<br />
+<strong>M:</strong> Good idea. I already tried resetting it once with no luck.<br />
+<strong>W:</strong> Okay, if the connections look fine, I'll put in a maintenance ticket right away.</p>
+<p><strong>50.</strong> What is the problem?<br />
+(A) A packing line sensor error<br />
+(B) A power outage<br />
+(C) A missing shipment<br />
+(D) A broken forklift</p>
+<p><strong>51.</strong> What has the man already tried?<br />
+(A) Calling maintenance<br />
+(B) Resetting the sensor<br />
+(C) Replacing the sensor<br />
+(D) Restarting the whole line</p>
+<p><strong>52.</strong> What will the woman do if the connections look fine?<br />
+(A) Ignore the issue<br />
+(B) Put in a maintenance ticket<br />
+(C) Shut down the factory<br />
+(D) Order a new machine</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>W:</strong> The client is asking whether we can increase next month's order by twenty percent.<br />
+<strong>M:</strong> That should be manageable if we get the raw materials in on time.<br />
+<strong>W:</strong> I'll confirm with our supplier today and get back to you.<br />
+<strong>M:</strong> Great, let me know so I can adjust the production schedule.</p>
+<p><strong>53.</strong> What is the client requesting?<br />
+(A) A price reduction<br />
+(B) A twenty-percent increase in the order<br />
+(C) A different product<br />
+(D) A delayed shipment</p>
+<p><strong>54.</strong> What does the man say is needed?<br />
+(A) More staff<br />
+(B) Raw materials on time<br />
+(C) A new supplier<br />
+(D) Extra storage space</p>
+<p><strong>55.</strong> What will the man do once he hears back?<br />
+(A) Cancel the order<br />
+(B) Adjust the production schedule<br />
+(C) Contact the client directly<br />
+(D) Raise prices</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>M:</strong> I'm reviewing the shipping manifest, and box 14 is missing from the count.<br />
+<strong>W:</strong> Let me check the loading log... it looks like it was left on the dock by mistake.<br />
+<strong>M:</strong> Can we get it on today's afternoon truck instead?<br />
+<strong>W:</strong> Yes, I'll have someone load it right now so it still arrives on schedule.</p>
+<p><strong>56.</strong> What problem does the man notice?<br />
+(A) A box is missing from the shipment.<br />
+(B) An invoice is incorrect.<br />
+(C) A truck broke down.<br />
+(D) A customer complained.</p>
+<p><strong>57.</strong> What happened to the box?<br />
+(A) It was damaged.<br />
+(B) It was left on the dock by mistake.<br />
+(C) It was sent to the wrong address.<br />
+(D) It was never packed.</p>
+<p><strong>58.</strong> What will the woman do?<br />
+(A) Cancel the shipment<br />
+(B) Load the box onto the afternoon truck<br />
+(C) Wait until tomorrow<br />
+(D) Refund the customer</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>W:</strong> We failed the quality audit on line two — too many units are out of spec.<br />
+<strong>M:</strong> Do we know what's causing it?<br />
+<strong>W:</strong> It looks like the calibration on one machine has drifted.<br />
+<strong>M:</strong> Let's shut that machine down, recalibrate it, and re-inspect this morning's batch before it ships.</p>
+<p><strong>59.</strong> What happened on line two?<br />
+(A) It exceeded its output goal.<br />
+(B) It failed a quality audit.<br />
+(C) It was upgraded.<br />
+(D) It ran out of materials.</p>
+<p><strong>60.</strong> What does the woman believe is the cause?<br />
+(A) A worker error<br />
+(B) A machine calibration drift<br />
+(C) A power surge<br />
+(D) A supplier defect</p>
+<p><strong>61.</strong> What does the man decide to do?<br />
+(A) Ship the batch anyway<br />
+(B) Recalibrate the machine and re-inspect the batch<br />
+(C) Replace the entire line<br />
+(D) File a complaint with the supplier</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Before the shift ends, let's go over tomorrow's production targets.<br />
+<strong>M1:</strong> We're aiming for fifteen thousand units, same as this week.<br />
+<strong>M2:</strong> That should be fine as long as the new shipment of components arrives on time.<br />
+<strong>W:</strong> I'll confirm delivery with the supplier before we leave today.</p>
+<p><strong>62.</strong> What are the speakers discussing?<br />
+(A) Tomorrow's production target<br />
+(B) A safety incident<br />
+(C) A hiring plan<br />
+(D) A client visit</p>
+<p><strong>63.</strong> What is tomorrow's target?<br />
+(A) Ten thousand units<br />
+(B) Twelve thousand units<br />
+(C) Fifteen thousand units<br />
+(D) Twenty thousand units</p>
+<p><strong>64.</strong> What does the woman say she will do before leaving?<br />
+(A) Inspect the line<br />
+(B) Confirm delivery with the supplier<br />
+(C) Train new staff<br />
+(D) Update the safety log</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>M:</strong> The new packaging design uses less plastic, but it's taking longer to assemble.<br />
+<strong>W:</strong> How much longer are we talking about?<br />
+<strong>M:</strong> About ten extra seconds per unit, which adds up over a full shift.<br />
+<strong>W:</strong> Let's test a revised design that's faster to assemble but keeps the same material savings.</p>
+<p><strong>65.</strong> What advantage does the new packaging have?<br />
+(A) It is cheaper to produce.<br />
+(B) It uses less plastic.<br />
+(C) It is more colorful.<br />
+(D) It ships faster.</p>
+<p><strong>66.</strong> What is the drawback of the new packaging?<br />
+(A) It breaks easily.<br />
+(B) It takes longer to assemble.<br />
+(C) Customers dislike it.<br />
+(D) It costs more.</p>
+<p><strong>67.</strong> What does the woman suggest?<br />
+(A) Abandoning the redesign<br />
+(B) Testing a faster revised design<br />
+(C) Hiring more workers<br />
+(D) Switching suppliers</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>W:</strong> I noticed the warehouse temperature log shows a spike overnight.<br />
+<strong>M:</strong> That's concerning, especially for the goods stored near the loading dock.<br />
+<strong>W:</strong> I already checked those pallets, and they seem fine, but I'd like to have maintenance look at the cooling unit.<br />
+<strong>M:</strong> Agreed, let's get someone out here today just to be safe.</p>
+<p><strong>68.</strong> What did the woman notice?<br />
+(A) A temperature spike overnight<br />
+(B) A broken pallet<br />
+(C) A missing shipment<br />
+(D) A staffing shortage</p>
+<p><strong>69.</strong> What is the man concerned about?<br />
+(A) Goods near the loading dock<br />
+(B) The office equipment<br />
+(C) The parking lot<br />
+(D) The delivery schedule</p>
+<p><strong>70.</strong> What does the woman want maintenance to do?<br />
+(A) Replace the loading dock<br />
+(B) Look at the cooling unit<br />
+(C) Repaint the warehouse<br />
+(D) Move the pallets outside</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Shift briefing</h3>
+<p><em>"Good morning, everyone. Two things before we start. First, Line 2 will be down until about 10 A.M. while maintenance replaces a worn belt, so those of you assigned to Line 2 will help with packing this morning. Second, we have a customer visit at 1 P.M. — please keep your work areas tidy and wear your safety glasses at all times on the floor, even at your desk. That's all; let's have a safe day."</em></p>
+<p><strong>71.</strong> Why will Line 2 be down?<br />
+(A) A power outage<br />
+(B) To replace a worn belt<br />
+(C) A safety inspection<br />
+(D) A staff shortage</p>
+<p><strong>72.</strong> What will Line 2 workers do this morning?<br />
+(A) Attend training<br />
+(B) Clean the warehouse<br />
+(C) Help with packing<br />
+(D) Take the day off</p>
+<p><strong>73.</strong> What are workers reminded to do for the customer visit?<br />
+(A) Wear safety glasses at all times<br />
+(B) Stay off the production floor<br />
+(C) Park in the visitor lot<br />
+(D) Submit a report</p>
+<h3>Talk 2 (74–76) — Voicemail from a supplier</h3>
+<p><em>"Hi, this is Deniz from Orbit Components. I'm calling about your order for 5,000 bearings. We can ship 3,000 of them tomorrow as planned, but the remaining 2,000 are on back-order for about ten days. If you need the full quantity sooner, we have a slightly different model in stock — same dimensions, a little more expensive. Let me know which you'd prefer, and I'll hold the stock for you until end of day. My number is 555-0198."</em></p>
+<p><strong>74.</strong> What is the caller's message about?<br />
+(A) A billing error<br />
+(B) A price increase<br />
+(C) A delivery address change<br />
+(D) A partial shipment of an order</p>
+<p><strong>75.</strong> What is the problem with the order?<br />
+(A) The wrong parts were sent<br />
+(B) The parts failed inspection<br />
+(C) 2,000 units are on back-order<br />
+(D) The order was lost</p>
+<p><strong>76.</strong> What alternative does the caller offer?<br />
+(A) A refund for the missing units<br />
+(B) A different model that is in stock<br />
+(C) Free express shipping<br />
+(D) A discount on the next order</p>
+<h3>Talk 3 (77–79) — Company announcement</h3>
+<p><em>"I'm pleased to share that our plant reached one million hours without a lost-time injury as of last Friday. This is a real achievement and reflects the care every one of you takes on the job. To mark it, lunch will be provided in the cafeteria on Thursday, and each employee will receive a small gift at the end of the shift. Our next goal is two million hours, and it starts today."</em></p>
+<p><strong>77.</strong> What achievement is being announced?<br />
+(A) One million hours without a lost-time injury<br />
+(B) A production record<br />
+(C) A new safety certification<br />
+(D) A cost-reduction target</p>
+<p><strong>78.</strong> What will happen on Thursday?<br />
+(A) A safety drill<br />
+(B) A plant tour<br />
+(C) A free lunch<br />
+(D) A training session</p>
+<p><strong>79.</strong> What is the plant's next goal?<br />
+(A) Zero defects<br />
+(B) A 10% output increase<br />
+(C) A new product line<br />
+(D) Two million injury-free hours</p>
+<h3>Talk 4 (80–82) — Training session introduction</h3>
+<p><em>"Welcome to today's session on the new warehouse management system. Over the next two hours, we'll cover receiving, put-away, and picking. You each have a handheld scanner in front of you — please don't turn it on yet. We'll practice on the test database, not the live one, so don't worry about making mistakes. After the session, you'll have a week to practice before we switch over on the 15th. There's a quick-reference card in your folder to take back to your station."</em></p>
+<p><strong>80.</strong> What is the session about?<br />
+(A) A new warehouse management system<br />
+(B) Fire safety procedures<br />
+(C) Forklift certification<br />
+(D) Customer service</p>
+<p><strong>81.</strong> What will trainees practice on?<br />
+(A) The live database<br />
+(B) A paper form<br />
+(C) Their own accounts<br />
+(D) A test database</p>
+<p><strong>82.</strong> When will the new system go live?<br />
+(A) Today<br />
+(B) On the 15th<br />
+(C) In one week<br />
+(D) Next month</p>
+<h3>Talk 5 (83–85) — Factory announcement</h3>
+<p><em>"Attention, all floor staff. Beginning next week, safety glasses will be required in all production areas, not just near the cutting machines. Boxes of glasses are available at every station entrance. Supervisors will be checking compliance during morning walk-throughs, so please make this part of your daily routine."</em></p>
+<p><strong>83.</strong> What new requirement is being announced?<br />
+(A) Steel-toed boots<br />
+(B) Safety glasses in all production areas<br />
+(C) Hard hats<br />
+(D) Ear protection</p>
+<p><strong>84.</strong> Where can workers find the required equipment?<br />
+(A) In the break room<br />
+(B) At every station entrance<br />
+(C) At the front office<br />
+(D) In the supply closet</p>
+<p><strong>85.</strong> Who will check compliance?<br />
+(A) Customers<br />
+(B) Supervisors<br />
+(C) Outside inspectors<br />
+(D) Delivery drivers</p>
+<h3>Talk 6 (86–88) — Supplier voicemail</h3>
+<p><em>"Hi, this is Raj from Meridian Components calling about your recent order. We're able to ship the full quantity, but the delivery date will move from Tuesday to Thursday due to a delay at our own supplier. Please call me back if that timeline doesn't work, and we'll look at alternatives."</em></p>
+<p><strong>86.</strong> Why is Raj calling?<br />
+(A) To cancel the order<br />
+(B) To announce a delivery delay<br />
+(C) To request payment<br />
+(D) To offer a discount</p>
+<p><strong>87.</strong> What caused the change?<br />
+(A) A shipping error<br />
+(B) A delay at Meridian's own supplier<br />
+(C) A weather event<br />
+(D) A staffing shortage</p>
+<p><strong>88.</strong> What does Raj ask the listener to do?<br />
+(A) Visit the warehouse<br />
+(B) Call him back if the new date doesn't work<br />
+(C) Send a purchase order<br />
+(D) Cancel the shipment</p>
+<h3>Talk 7 (89–91) — Logistics briefing</h3>
+<p><em>"Good morning. Today we have four outbound trucks, and I want to review the loading order. Truck one takes the downtown route and should be loaded first since it leaves earliest. Trucks two and three cover the regional stops, and truck four is the long-haul run, so load that one last since it won't leave until this afternoon."</em></p>
+<p><strong>89.</strong> How many outbound trucks are there today?<br />
+(A) Two<br />
+(B) Three<br />
+(C) Four<br />
+(D) Five</p>
+<p><strong>90.</strong> Which truck should be loaded first?<br />
+(A) The long-haul truck<br />
+(B) Truck one, the downtown route<br />
+(C) Truck three<br />
+(D) Whichever arrives first</p>
+<p><strong>91.</strong> Why is the long-haul truck loaded last?<br />
+(A) It has the most cargo.<br />
+(B) It won't leave until this afternoon.<br />
+(C) It needs a different driver.<br />
+(D) It is being repaired.</p>
+<h3>Talk 8 (92–94) — Plant tour introduction</h3>
+<p><em>"Welcome to our assembly plant. As we walk through, please stay within the marked yellow lines at all times and keep your visitor badge visible. We'll begin at the raw-materials receiving area, move through the fabrication floor, and end at the finished-goods warehouse, where you'll see products ready for shipment."</em></p>
+<p><strong>92.</strong> What are visitors asked to stay within?<br />
+(A) A roped-off area<br />
+(B) The marked yellow lines<br />
+(C) The parking lot<br />
+(D) A glass corridor</p>
+<p><strong>93.</strong> Where does the tour begin?<br />
+(A) The finished-goods warehouse<br />
+(B) The fabrication floor<br />
+(C) The raw-materials receiving area<br />
+(D) The main office</p>
+<p><strong>94.</strong> What will visitors see at the end of the tour?<br />
+(A) The employee cafeteria<br />
+(B) Products ready for shipment<br />
+(C) The safety training room<br />
+(D) The parking garage</p>
+<h3>Talk 9 (95–97) — Inventory system update</h3>
+<p><em>"This is a reminder that our new inventory tracking system goes live this Monday. All items will need to be scanned at both receiving and shipping, not just receiving as before. A short training video has been sent to your email, and IT will be on the floor Monday morning to help with any questions."</em></p>
+<p><strong>95.</strong> What is changing on Monday?<br />
+(A) A new inventory tracking system<br />
+(B) A new shift schedule<br />
+(C) A new warehouse location<br />
+(D) A new supplier</p>
+<p><strong>96.</strong> What extra step will now be required?<br />
+(A) Scanning items at shipping as well as receiving<br />
+(B) Weighing every item<br />
+(C) Photographing every item<br />
+(D) Double-counting pallets</p>
+<p><strong>97.</strong> What has been sent to employees' email?<br />
+(A) A new badge<br />
+(B) A training video<br />
+(C) A revised schedule<br />
+(D) A safety certificate</p>
+<h3>Talk 10 (98–100) — Union meeting excerpt</h3>
+<p><em>"Thanks for coming to this month's meeting. Management has agreed to our proposal for an additional ten-minute break during the night shift, starting next month. We're still negotiating on the equipment-upgrade request, and I expect to have an update for you by our next meeting."</em></p>
+<p><strong>98.</strong> What did management agree to?<br />
+(A) A pay raise<br />
+(B) An additional break during the night shift<br />
+(C) A shorter workweek<br />
+(D) New uniforms</p>
+<p><strong>99.</strong> When will the new break start?<br />
+(A) Immediately<br />
+(B) Next month<br />
+(C) Next year<br />
+(D) After a trial period</p>
+<p><strong>100.</strong> What is still being negotiated?<br />
+(A) Vacation days<br />
+(B) The equipment-upgrade request<br />
+(C) Overtime pay<br />
+(D) Parking spaces</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_004 — READING (100 câu: 101–200) · Chủ đề: Manufacturing &amp; Logistics</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The plant <span class="blk">________</span> three shifts a day to keep up with holiday demand.<br />
+(A) run  (B) runs  (C) running  (D) to run</p>
+<p><strong>102.</strong> All finished goods must be inspected <span class="blk">________</span> they leave the production line.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The maintenance team responded <span class="blk">________</span> to the equipment failure on Line 3.<br />
+(A) quick  (B) quickness  (C) quickly  (D) quicker</p>
+<p><strong>104.</strong> <span class="blk">________</span> a shortage of raw materials, the factory still met its monthly output target.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> Warehouse staff are expected to <span class="blk">________</span> all safety procedures at all times.<br />
+(A) follow  (B) follows  (C) following  (D) followed</p>
+<p><strong>106.</strong> The delay was caused <span class="blk">________</span> a problem with the main conveyor motor.<br />
+(A) by  (B) for  (C) of  (D) to</p>
+<p><strong>107.</strong> Of the three suppliers, Vertex offers the <span class="blk">________</span> delivery times.<br />
+(A) short  (B) shorter  (C) shortest  (D) less</p>
+<p><strong>108.</strong> Production was halted <span class="blk">________</span> a power outage in the industrial district.<br />
+(A) although  (B) because  (C) since  (D) due to</p>
+<p><strong>109.</strong> The company reduced its shipping costs <span class="blk">________</span> consolidating orders before dispatch.<br />
+(A) by  (B) for  (C) to  (D) with</p>
+<p><strong>110.</strong> Output at the new facility has increased <span class="blk">________</span> since it opened in March.<br />
+(A) steady  (B) steadiness  (C) steadier  (D) steadily</p>
+<p><strong>111.</strong> Each pallet <span class="blk">________</span> labeled with a barcode before it is moved to storage.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The supervisor asked the operators to <span class="blk">________</span> the machine settings twice per shift.<br />
+(A) check  (B) checking  (C) checked  (D) checkup</p>
+<p><strong>113.</strong> The loading instructions are printed <span class="blk">________</span> the side of each crate.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> the parts pass inspection, they are packed and moved to the shipping area.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The distribution center <span class="blk">________</span> more than 40 outbound trucks every day.<br />
+(A) handle  (B) handles  (C) handling  (D) handled</p>
+<p><strong>116.</strong> The equipment upgrade is expected <span class="blk">________</span> by the end of the quarter.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Line operators must keep <span class="blk">________</span> records of every batch they produce.<br />
+(A) accuracy  (B) accurate  (C) accurately  (D) accurateness</p>
+<p><strong>118.</strong> The automated system sorts packages far <span class="blk">________</span> than the manual process did.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The report identifies several <span class="blk">________</span> to reduce packaging waste.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The safety briefing will be held <span class="blk">________</span> the break room next to the production floor.<br />
+(A) in  (B) at  (C) on  (D) by</p>
+<p><strong>121.</strong> The order was shipped <span class="blk">________</span> a slight delay because of a customs hold.<br />
+(A) for  (B) of  (C) with  (D) about</p>
+<p><strong>122.</strong> A technician will <span class="blk">________</span> the calibration of all the floor scales next week.<br />
+(A) verify  (B) verifies  (C) verifying  (D) verification</p>
+<p><strong>123.</strong> Drivers are <span class="blk">________</span> for a fuel allowance if they cover more than 500 kilometers a week.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The redesigned layout lets workers move materials <span class="blk">________</span> than they could before.<br />
+(A) efficient  (B) efficiently  (C) efficientest  (D) more efficiently</p>
+<p><strong>125.</strong> The company is committed to <span class="blk">________</span> its carbon emissions across all of its plants.<br />
+(A) reduce  (B) reduces  (C) reducing  (D) reduced</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two forklifts is available right now, so the load will have to wait.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The shipping office is open <span class="blk">________</span> 6 A.M. to 4 P.M. on weekdays.<br />
+(A) since  (B) from  (C) between  (D) during</p>
+<p><strong>128.</strong> Every incoming shipment is checked against an <span class="blk">________</span> purchase order before it is received.<br />
+(A) approve  (B) approved  (C) approving  (D) approval</p>
+<p><strong>129.</strong> The updated production schedule <span class="blk">________</span> posted on the floor bulletin board tomorrow.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The assembly manual provides <span class="blk">________</span> diagrams for putting together each component.<br />
+(A) help  (B) helpfully  (C) helpful  (D) helpfulness</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>TO:</strong> All Production Staff <strong>FROM:</strong> Operations <strong>RE:</strong> End-of-Shift Cleanup</p>
+<p>Starting Monday, every workstation <span class="blk">(131)</span> cleaned and cleared before the end of each shift. This includes wiping down surfaces, returning tools to the shadow board, and removing any waste.</p>
+<p>The main reason for this change is safety: loose parts and spills left by the previous shift <span class="blk">(132)</span> to several minor injuries last month.</p>
+<p>Shift leads will do a quick check during the last ten minutes. If a station is not ready, the lead will note it, and repeated issues <span class="blk">(133)</span> discussed with the operator directly.</p>
+<p>We appreciate your cooperation as we build this into the daily routine. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) must be  (B) must  (C) is  (D) has been<br />
+<strong>132.</strong> (A) contribute  (B) contributed  (C) contributing  (D) contribution<br />
+<strong>133.</strong> (A) are  (B) being  (C) has been  (D) will be<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Any equipment issues should be reported to maintenance separately.<br />
+(B) This policy will be reviewed again in six months.<br />
+(C) Employees who miss cleanup duties twice will face suspension.<br />
+(D) A clean workstation keeps everyone safer.</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>NOTICE — Receiving Dock Hours</strong></p>
+<p>Effective April 1, the receiving dock will accept deliveries <span class="blk">(135)</span> 7 A.M. and 3 P.M., Monday through Friday. Deliveries outside these hours <span class="blk">(136)</span> be accepted only with prior approval from the warehouse manager.</p>
+<p>Carriers should book a slot through the online scheduling tool at least one day in advance. Unscheduled arrivals <span class="blk">(137)</span> be turned away or asked to wait.</p>
+<p>These changes will help us staff the dock more predictably and reduce congestion in the yard. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) between  (B) from  (C) during  (D) among<br />
+<strong>136.</strong> (A) will  (B) would  (C) can  (D) must<br />
+<strong>137.</strong> (A) can  (B) may  (C) should  (D) must<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The scheduling tool can also be used to track shipment history.<br />
+(B) Deliveries on weekends will now be accepted as well.<br />
+(C) We appreciate your help in following the new schedule.<br />
+(D) The warehouse manager's office has moved to Building B.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>MOVE YOUR FREIGHT SMARTER</strong></p>
+<p>CargoLink connects small and mid-size manufacturers with vetted regional carriers. Instead of calling around for quotes, you post your shipment once and receive <span class="blk">(139)</span> offers within an hour.</p>
+<p>Every carrier on our platform is <span class="blk">(140)</span> for insurance and safety compliance before they can bid. You choose the offer that fits your budget and timeline.</p>
+<p>There is no monthly fee — we take a small percentage only when you book. <span class="blk">(141)</span> your first three shipments, that percentage is waived entirely.</p>
+<p>Ready to ship? Open a free account at cargolink.example. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) compete  (B) competing  (C) competitive  (D) competitively<br />
+<strong>140.</strong> (A) check  (B) checks  (C) checking  (D) checked<br />
+<strong>141.</strong> (A) For  (B) During  (C) While  (D) Since<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) CargoLink currently operates only in three states.<br />
+(B) It only takes a few minutes to get started.<br />
+(C) A minimum shipment size of 500 pounds applies.<br />
+(D) Carrier applications are reviewed within 30 days.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>To:</strong> production-leads <strong>From:</strong> Quality Assurance <strong>Subject:</strong> Increased Rejects on Line 4</p>
+<p>Over the past week, the reject rate on Line 4 <span class="blk">(143)</span> from about 1% to nearly 5%. Almost all of the rejected units have the same fault — a misaligned seam.</p>
+<p>We believe the cause is a guide rail that <span class="blk">(144)</span> slightly out of position, possibly after last Tuesday's mold change. Maintenance is checking it this afternoon.</p>
+<p>Until the issue is confirmed and fixed, please have operators visually check every tenth unit on Line 4 and set aside anything <span class="blk">(145)</span> the seam looks off.</p>
+<p>We'll send an update by end of day. Thank you for your patience with the extra checks. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) rises  (B) has risen  (C) rising  (D) will rise<br />
+<strong>144.</strong> (A) has moved  (B) moving  (C) is moved  (D) moves<br />
+<strong>145.</strong> (A) when  (B) which  (C) where  (D) what<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Line 4 will be shut down completely until further notice.<br />
+(B) This is the second time this issue has occurred this year.<br />
+(C) The mold change was completed ahead of schedule.<br />
+(D) Please reach out to QA with any questions in the meantime.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Dana Ruiz (7:52 A.M.):</strong> Truck 14 has a flat. Driver's swapping to the spare but it'll be ~40 min late to the DC.<br />
+<strong>Sam Odei (7:54 A.M.):</strong> The DC closes its inbound window at 9. Can he still make it?<br />
+<strong>Dana Ruiz (7:55 A.M.):</strong> Should be — he's 25 min out normally. I'll call the DC to give them a heads-up just in case.<br />
+<strong>Sam Odei (7:56 A.M.):</strong> Thanks. Let me know if they push back.</p>
+<p><strong>147.</strong> Why will Truck 14 be late?<br />
+(A) It has a flat tire<br />
+(B) The driver is ill<br />
+(C) There is heavy traffic<br />
+(D) The load was not ready</p>
+<p><strong>148.</strong> What will Dana do?<br />
+(A) Send a second truck<br />
+(B) Call the distribution center<br />
+(C) Reschedule the delivery<br />
+(D) Unload the truck</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>LOCAL PLANT TO ADD PACKAGING LINE, 25 JOBS</strong></p>
+<p>Crestline Foods announced Wednesday that it will install a fourth packaging line at its Millbrook plant, a $6 million investment expected to be running by the third quarter. The company said demand for its single-serve products has outpaced what its three current lines can produce.</p>
+<p>The new line will create about 25 permanent jobs, mostly machine operators and quality technicians. Crestline will begin hiring in May and expects most positions to be filled by local candidates. The company already employs 310 people at the site.</p>
+<p>Plant manager Rosa Bianchi said the expansion also includes upgrades to the plant's wastewater system, which will cut water use by an estimated 15%. "We're growing, but we're trying to grow responsibly," she said.</p>
+<p><strong>149.</strong> What will Crestline Foods do at the Millbrook plant?<br />
+(A) Close one packaging line<br />
+(B) Move production overseas<br />
+(C) Reduce its workforce<br />
+(D) Add a fourth packaging line</p>
+<p><strong>150.</strong> Why is the company expanding?<br />
+(A) A competitor closed<br />
+(B) It received a government grant<br />
+(C) Demand has outpaced current capacity<br />
+(D) Raw materials became cheaper</p>
+<p><strong>151.</strong> When will hiring begin?<br />
+(A) In May<br />
+(B) In the third quarter<br />
+(C) Immediately<br />
+(D) Next year</p>
+<p><strong>152.</strong> What environmental benefit does the expansion include?<br />
+(A) Lower carbon emissions<br />
+(B) Less packaging waste<br />
+(C) Reduced water use<br />
+(D) Solar panels</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>NOTICE — Aisle 7 Closed for Racking Repair</strong></p>
+<p>Aisle 7 in the main warehouse will be closed from Monday to Wednesday while a damaged pallet rack is repaired and re-certified. Do not store or retrieve any product from Aisle 7 during this period.</p>
+<p>Items normally picked from Aisle 7 have been temporarily relocated to the overflow area near the north dock. An updated pick map is posted at each terminal.</p>
+<p><strong>153.</strong> What is happening in Aisle 7?<br />
+(A) A pallet rack is being repaired<br />
+(B) The floor is being repainted<br />
+(C) New shelving is being added<br />
+(D) An inventory count is underway</p>
+<p><strong>154.</strong> Where have Aisle 7 items been moved?<br />
+(A) To Aisle 8<br />
+(B) Off-site<br />
+(C) To the shipping area<br />
+(D) To the overflow area near the north dock</p>
+<h3>Passage 4 — Advertisement (155–157)</h3>
+<p><strong>REDUCE DOWNTIME WITH PREDICTIVE MAINTENANCE</strong></p>
+<p>MachineWatch sensors attach to your existing equipment and monitor vibration, temperature, and power draw. When a reading drifts toward a failure pattern, you get an alert days or weeks before a breakdown.</p>
+<p>Our customers report an average 30% drop in unplanned downtime within the first year. Installation takes a few hours per machine and requires no changes to your control systems.</p>
+<p>Pricing is a flat monthly fee per machine, with no long-term contract. Book a free assessment and we'll tell you which of your machines would benefit most.</p>
+<p><strong>155.</strong> What do MachineWatch sensors monitor?<br />
+(A) Product quality<br />
+(B) Vibration, temperature, and power draw<br />
+(C) Worker productivity<br />
+(D) Inventory levels</p>
+<p><strong>156.</strong> What benefit do customers report?<br />
+(A) Lower energy bills<br />
+(B) Fewer product defects<br />
+(C) Faster machine setup<br />
+(D) A drop in unplanned downtime</p>
+<p><strong>157.</strong> What is the pricing structure?<br />
+(A) A one-time purchase<br />
+(B) A percentage of savings<br />
+(C) A flat monthly fee per machine<br />
+(D) An annual license</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> shipping-team <strong>From:</strong> Logistics Coordinator <strong>Subject:</strong> New Pallet Labeling Standard</p>
+<p>Starting next week, all outbound pallets must carry a label in the new format. The label must show, in this order: destination code, purchase order number, pallet number (e.g., 2 of 5), and net weight.</p>
+<p>Place the label on the short side of the pallet, at eye level, so it can be scanned without moving the pallet. If a pallet is wrapped, the label goes on the outside of the wrap, not underneath.</p>
+<p>Old-format labels are being removed from the printers. If you find any, recycle them. Contact me with questions.</p>
+<p><strong>158.</strong> What is changing about pallet labels?<br />
+(A) They will be printed in color<br />
+(B) They must use a new format<br />
+(C) They will be applied by machine<br />
+(D) They are being discontinued</p>
+<p><strong>159.</strong> Where should the label be placed on a wrapped pallet?<br />
+(A) Underneath the wrap<br />
+(B) On the top of the pallet<br />
+(C) On the outside of the wrap<br />
+(D) On the forklift slot</p>
+<p><strong>160.</strong> What should staff do with old-format labels?<br />
+(A) Recycle them<br />
+(B) Keep them as backup<br />
+(C) Return them to the coordinator<br />
+(D) Use them until they run out</p>
+<h3>Passage 6 — Schedule (161–162)</h3>
+<p><strong>LINE 1 — MOLD CHANGE SCHEDULE (Week of June 3)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>From product</th>
+<th>To product</th>
+<th>Est. changeover</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mon</td>
+<td>—</td>
+<td>Cap A</td>
+<td>(start of week)</td>
+</tr>
+<tr>
+<td>Wed 2:00 P.M.</td>
+<td>Cap A</td>
+<td>Cap B</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Fri 10:00 A.M.</td>
+<td>Cap B</td>
+<td>Cap C</td>
+<td>2 hours</td>
+</tr>
+</tbody>
+</table>
+<p>Changeovers require the line to stop. Operators should stage the next mold and materials at least 30 minutes before the scheduled time.</p>
+<p><strong>161.</strong> How long is the Friday changeover expected to take?<br />
+(A) 30 minutes<br />
+(B) 90 minutes<br />
+(C) Half a day<br />
+(D) Two hours</p>
+<p><strong>162.</strong> What should operators do before a scheduled changeover?<br />
+(A) Run the line at reduced speed<br />
+(B) Stage the next mold and materials<br />
+(C) Clock out early<br />
+(D) Notify the client</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Ms. Faye,</p>
+<p>Thank you for your recent audit of our Ridgeway facility. We have reviewed your report and are writing to confirm the corrective actions we have taken.</p>
+<p>Regarding <strong>Finding 1</strong> (missing machine-guard interlock on Press 3): the interlock was installed on May 10, and the press was re-inspected and returned to service on May 12.</p>
+<p>Regarding <strong>Finding 2</strong> (incomplete forklift inspection logs): we have replaced the paper logbook with a digital checklist that a driver must complete before the forklift will start. Records are now stored automatically.</p>
+<p>We consider both findings closed and have attached photos and the new digital records. Your next scheduled audit is in November; please let us know if you need anything before then.</p>
+<p>Sincerely,<br />
+Ridgeway Plant Management</p>
+<p><strong>163.</strong> Why did the plant send this letter?<br />
+(A) To confirm corrective actions from an audit<br />
+(B) To request a new audit date<br />
+(C) To dispute an audit finding<br />
+(D) To apply for a safety award</p>
+<p><strong>164.</strong> What was done about the machine-guard finding?<br />
+(A) The press was scrapped<br />
+(B) An interlock was installed and the press re-inspected<br />
+(C) The press was moved to another area<br />
+(D) Operators were retrained</p>
+<p><strong>165.</strong> How did the plant address the forklift log issue?<br />
+(A) It hired an inspector<br />
+(B) It reduced the number of forklifts<br />
+(C) It switched to a digital checklist<br />
+(D) It posted a paper sign-in sheet</p>
+<p><strong>166.</strong> When is the next audit scheduled?<br />
+(A) May<br />
+(B) August<br />
+(C) Next year<br />
+(D) November</p>
+<h3>Passage 8 — Supplier portal FAQ (167–169)</h3>
+<p><strong>SUPPLIER PORTAL — Shipping &amp; ASN FAQ</strong></p>
+<p><strong>What is an ASN?</strong><br />
+An Advance Shipping Notice tells us what is on a shipment before it arrives. You must submit an ASN at least 24 hours before delivery.</p>
+<p><strong>What happens if I don't send an ASN?</strong><br />
+The shipment may be held at the dock and processed only after scheduled deliveries. Repeated failures can affect your supplier scorecard.</p>
+<p><strong>How do I label cartons?</strong><br />
+Each carton needs a label with the PO number, our part number, and quantity. One label per carton, on the top or the long side.</p>
+<p><strong>Can I combine multiple POs on one pallet?</strong><br />
+Yes, but each carton must clearly show its own PO, and the ASN must list the pallet contents by PO.</p>
+<p><strong>167.</strong> When must an ASN be submitted?<br />
+(A) At the time of delivery<br />
+(B) At least 24 hours before delivery<br />
+(C) Within 24 hours after delivery<br />
+(D) Once a week</p>
+<p><strong>168.</strong> What can happen if a supplier repeatedly fails to send an ASN?<br />
+(A) The account is closed<br />
+(B) A fine is charged<br />
+(C) Payments are frozen<br />
+(D) The supplier scorecard is affected</p>
+<p><strong>169.</strong> What is the rule for combining multiple POs on one pallet?<br />
+(A) Each carton must show its own PO<br />
+(B) It is not allowed<br />
+(C) All cartons must have the same PO<br />
+(D) A separate pallet label is not needed</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> All Warehouse Staff <strong>FROM:</strong> Safety Committee <strong>RE:</strong> Pedestrian Walkway Rules</p>
+<p>We have repainted the pedestrian walkways in yellow throughout the warehouse. From Monday, all staff on foot must stay within the marked walkways except when actively picking or loading.</p>
+<p>Forklift operators have been told to yield to pedestrians in crossing zones, but pedestrians must still stop, look both ways, and make eye contact with any operator before crossing.</p>
+<p>If a walkway is blocked by product, do not climb over or walk around through a forklift lane — report it to your shift lead so it can be cleared.</p>
+<p><strong>170.</strong> What has the Safety Committee done?<br />
+(A) Repainted the pedestrian walkways<br />
+(B) Bought new forklifts<br />
+(C) Added speed bumps<br />
+(D) Installed traffic lights</p>
+<p><strong>171.</strong> What must pedestrians do before crossing a forklift lane?<br />
+(A) Wear a reflective vest<br />
+(B) Stop, look both ways, and make eye contact with the operator<br />
+(C) Get permission from a shift lead<br />
+(D) Use a crossing signal</p>
+<p><strong>172.</strong> What should staff do if a walkway is blocked?<br />
+(A) Walk around through the forklift lane<br />
+(B) Climb over the product<br />
+(C) Report it to the shift lead<br />
+(D) Move the product themselves</p>
+<h3>Passage 10 — Online review (173–175)</h3>
+<p>★★★★☆ <strong>Reliable parts, slow on paperwork</strong> — by a Purchasing Manager</p>
+<p>We've bought precision fittings from Halcyon Machining for about two years. The parts themselves are excellent — tight tolerances, consistent, and I can't remember the last reject. Lead times are honest; if they say three weeks, it's three weeks.</p>
+<p>Where they fall short is documentation. Material certs and inspection reports often arrive days after the parts, and I've had to chase them more than once. For a regulated industry, that's a real headache. If they tightened up the paperwork, this would be a five-star supplier.</p>
+<p><strong>173.</strong> What does the reviewer praise about Halcyon Machining?<br />
+(A) The quality and consistency of the parts<br />
+(B) The low prices<br />
+(C) The customer service<br />
+(D) The fast documentation</p>
+<p><strong>174.</strong> What is the reviewer's main complaint?<br />
+(A) High reject rates<br />
+(B) Unpredictable lead times<br />
+(C) Late documentation<br />
+(D) Poor packaging</p>
+<p><strong>175.</strong> What would make the reviewer rate the supplier five stars?<br />
+(A) Lower prices<br />
+(B) Faster shipping<br />
+(C) A wider product range<br />
+(D) Better paperwork</p>
+<h3>Passages 11–12 — Purchase order &amp; email about a discrepancy (176–180)</h3>
+<p><strong>Document 1 — Purchase order</strong></p>
+<p><strong>PURCHASE ORDER PO-6642</strong> · Supplier: Northgate Steel · Buyer: Apex Fabrication</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+<th>Qty</th>
+<th>Unit price</th>
+<th>Line total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>6 mm plate, 1.2 × 2.4 m</td>
+<td>40</td>
+<td>$88.00</td>
+<td>$3,520.00</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10 mm plate, 1.2 × 2.4 m</td>
+<td>15</td>
+<td>$142.00</td>
+<td>$2,130.00</td>
+</tr>
+</tbody>
+</table>
+<p>Delivery required by: March 20 · Terms: Net 30</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Nair, Receiving — Apex Fabrication <strong>To:</strong> sales@northgatesteel.example <strong>Subject:</strong> PO-6642 — count and pricing issue</p>
+<p>Hi,</p>
+<p>We received PO-6642 today. Two issues:<br />
+1. We got 38 sheets of the 6 mm plate, not 40. Please confirm whether the other 2 are coming or credit us.<br />
+2. The invoice shows the 10 mm plate at $148, but our PO says $142. Please correct the invoice.</p>
+<p>The delivery itself arrived on time and the material looks good.</p>
+<p>Thanks,<br />
+Priya</p>
+<p><strong>176.</strong> What does PO-6642 order?<br />
+(A) Steel plate in two thicknesses<br />
+(B) Aluminum sheet<br />
+(C) Steel beams<br />
+(D) Fasteners and hardware</p>
+<p><strong>177.</strong> What is the first issue Priya raises?<br />
+(A) The delivery was late<br />
+(B) Two sheets of 6 mm plate are missing<br />
+(C) The plate is the wrong size<br />
+(D) The material failed inspection</p>
+<p><strong>178.</strong> What is wrong with the invoice?<br />
+(A) It is missing the PO number<br />
+(B) It bills for 40 sheets instead of 38<br />
+(C) It uses the wrong payment terms<br />
+(D) It charges more for the 10 mm plate than the PO price</p>
+<p><strong>179.</strong> What does Priya say was fine?<br />
+(A) The delivery time and material quality<br />
+(B) The total price<br />
+(C) The paperwork<br />
+(D) The packaging</p>
+<p><strong>180.</strong> What are the payment terms on the PO?<br />
+(A) Payment on delivery<br />
+(B) Net 15<br />
+(C) Net 30<br />
+(D) 50% deposit</p>
+<h3>Passages 13–14 — Two emails about a shipment delay (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Marcus Bell, Production Planner <strong>To:</strong> transport@fleetlink.example <strong>Subject:</strong> Delayed inbound — resin for Line 2</p>
+<p>Hi,</p>
+<p>Our tracking shows the resin shipment (ref RL-2290) is still at your Dayton terminal. It was due here yesterday. Line 2 has about a day and a half of resin left, and if it runs out we have to idle the line.</p>
+<p>Can you tell me where it actually is and when it will arrive?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> transport@fleetlink.example <strong>To:</strong> Marcus Bell <strong>Subject:</strong> RE: Delayed inbound — resin for Line 2</p>
+<p>Hi Marcus,</p>
+<p>Apologies. RL-2290 was mis-sorted at Dayton and put on a truck heading the wrong direction. We caught it this morning. It's now on a direct run to you and will arrive tomorrow between 6 and 8 A.M. — within your day-and-a-half window.</p>
+<p>I've flagged your account for priority handling on the next three shipments at no extra charge, and I'll send a service credit for the delay once this delivers.</p>
+<p><strong>181.</strong> What is Marcus worried about?<br />
+(A) A damaged shipment<br />
+(B) Line 2 running out of resin<br />
+(C) A price increase<br />
+(D) A lost purchase order</p>
+<p><strong>182.</strong> What caused the delay?<br />
+(A) A vehicle breakdown<br />
+(B) Bad weather<br />
+(C) The shipment was mis-sorted<br />
+(D) A missing customs form</p>
+<p><strong>183.</strong> When will the shipment now arrive?<br />
+(A) Today by noon<br />
+(B) In two days<br />
+(C) Next week<br />
+(D) Tomorrow between 6 and 8 A.M.</p>
+<p><strong>184.</strong> What will FleetLink do for the next three shipments?<br />
+(A) Charge a rush fee<br />
+(B) Use a different carrier<br />
+(C) Require advance payment<br />
+(D) Provide priority handling at no extra charge</p>
+<p><strong>185.</strong> What will Marcus receive for the delay?<br />
+(A) A service credit<br />
+(B) A full refund<br />
+(C) A replacement shipment<br />
+(D) A discount on future orders</p>
+<h3>Passages 15–17 — Production plan, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Weekly plan</strong></p>
+<p><strong>LINE 5 — PRODUCTION PLAN (Week 23)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Product</th>
+<th>Target</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mon</td>
+<td>Widget X</td>
+<td>4,000</td>
+<td></td>
+</tr>
+<tr>
+<td>Tue</td>
+<td>Widget X</td>
+<td>4,000</td>
+<td></td>
+</tr>
+<tr>
+<td>Wed</td>
+<td>Widget Y</td>
+<td>3,000</td>
+<td>Requires tooling swap (booked)</td>
+</tr>
+<tr>
+<td>Thu</td>
+<td>Widget Y</td>
+<td>3,000</td>
+<td></td>
+</tr>
+<tr>
+<td>Fri</td>
+<td>Preventive maintenance</td>
+<td>—</td>
+<td>Line down all day</td>
+</tr>
+</tbody>
+</table>
+<p>Widget Y uses the same base material as Widget X but a different top cap. Ensure at least 200 kg of cap resin is on hand before Wednesday.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Helena Cruz, Line 5 Lead <strong>To:</strong> Materials <strong>Subject:</strong> Cap resin for Wednesday</p>
+<p>Hi,</p>
+<p>Per the Week 23 plan, we switch to Widget Y on Wednesday and need cap resin. Stores shows only 90 kg on hand. Can we get another 150 kg delivered to Line 5 by Tuesday afternoon so we can start Wednesday on schedule?</p>
+<p>Also, is the tooling swap still booked for Tuesday evening? I want to confirm before I schedule the crew.</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> Materials <strong>To:</strong> Helena Cruz <strong>Subject:</strong> RE: Cap resin for Wednesday</p>
+<p>Hi Helena,</p>
+<p>150 kg of cap resin is scheduled to arrive tomorrow (Monday) afternoon and will be staged at Line 5 by end of day — so you'll have 240 kg total, above the 200 kg minimum.</p>
+<p>I checked with maintenance: the tooling swap is confirmed for Tuesday at 6 P.M. They'll need the line clear by 5:45.</p>
+<p><strong>186.</strong> What does Line 5 produce on Monday and Tuesday?<br />
+(A) Widget X<br />
+(B) Widget Y<br />
+(C) Both widgets<br />
+(D) Nothing; the line is down</p>
+<p><strong>187.</strong> What is different between Widget X and Widget Y?<br />
+(A) The base material<br />
+(B) The top cap<br />
+(C) The packaging<br />
+(D) The target quantity only</p>
+<p><strong>188.</strong> Why did Helena email Materials?<br />
+(A) To report a defect<br />
+(B) To change the production plan<br />
+(C) To request more cap resin and confirm the tooling swap<br />
+(D) To order new tooling</p>
+<p><strong>189.</strong> How much cap resin will Line 5 have after the delivery?<br />
+(A) 90 kg<br />
+(B) 150 kg<br />
+(C) 200 kg<br />
+(D) 240 kg</p>
+<p><strong>190.</strong> When is the tooling swap scheduled?<br />
+(A) Monday afternoon<br />
+(B) Tuesday at 6 P.M.<br />
+(C) Wednesday morning<br />
+(D) Friday</p>
+<h3>Passages 18–20 — Carrier contract terms, claim email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Contract terms (excerpt)</strong></p>
+<p><strong>FREIGHT SERVICE AGREEMENT — Key Terms</strong><br />
+- Standard transit: 2 business days within the region; 4 business days outside.<br />
+- Fuel surcharge: adjusted monthly, published on the carrier's portal.<br />
+- Claims for damage or loss must be filed within 15 days of delivery, with photos and the signed delivery receipt.<br />
+- Liability is limited to $10 per kg unless additional coverage is purchased at the time of booking.<br />
+- Detention charges apply after 2 hours of free loading/unloading time: $75 per hour.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Owen Park, Shipping — Delta Molding <strong>To:</strong> claims@regionalfreight.example <strong>Subject:</strong> Damage claim — shipment SF-8813</p>
+<p>Hi,</p>
+<p>Shipment SF-8813 (delivered March 4) arrived with two of the six crates crushed. The molds inside are unusable. Total weight of the damaged crates is about 300 kg; the molds are worth about $9,000 to replace.</p>
+<p>I have photos and the signed delivery receipt showing the driver noted the damage. We did not purchase additional coverage. What is the process and how much can we recover?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> claims@regionalfreight.example <strong>To:</strong> Owen Park <strong>Subject:</strong> RE: Damage claim — shipment SF-8813</p>
+<p>Hi Owen,</p>
+<p>Thanks for the details, and I'm sorry about the damage. Since the driver noted it on the receipt, the claim is straightforward.</p>
+<p>Because you did not purchase additional coverage, our liability is limited to $10 per kg. For the 300 kg of damaged crates, that comes to $3,000. I'll send the claim form today; return it with your photos and the receipt within the 15-day window (you have until March 19).</p>
+<p>If you ship high-value molds again, I'd strongly recommend adding coverage at booking — it's a small percentage of the declared value.</p>
+<p><strong>191.</strong> What is the standard transit time within the region?<br />
+(A) 1 business day<br />
+(B) 2 business days<br />
+(C) 4 business days<br />
+(D) 1 week</p>
+<p><strong>192.</strong> What is required to file a damage claim?<br />
+(A) A police report<br />
+(B) The original invoice only<br />
+(C) A witness statement<br />
+(D) Photos and the signed delivery receipt</p>
+<p><strong>193.</strong> What happened to shipment SF-8813?<br />
+(A) It was delivered to the wrong address<br />
+(B) It arrived a week late<br />
+(C) Two crates were crushed<br />
+(D) It was never delivered</p>
+<p><strong>194.</strong> How much can Delta Molding recover?<br />
+(A) $9,000<br />
+(B) $10,000<br />
+(C) $3,000<br />
+(D) Nothing</p>
+<p><strong>195.</strong> What does the carrier recommend for future shipments?<br />
+(A) Adding coverage at booking<br />
+(B) Using wooden crates<br />
+(C) Splitting shipments<br />
+(D) Shipping on weekdays only</p>
+<h3>Passages 21–23 — Warranty terms, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Warranty terms</strong></p>
+<p><strong>INDUSTRIAL PUMP — LIMITED WARRANTY</strong><br />
+- Covers defects in materials and workmanship for 24 months from the installation date.<br />
+- Requires that the pump be commissioned by a certified technician and that maintenance be performed per the schedule in the manual (every 500 running hours).<br />
+- Does not cover: normal wear parts (seals, gaskets), damage from running dry, or use outside rated pressure.<br />
+- Warranty claims require the maintenance log and the original commissioning certificate.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Lucia Marin, Maintenance — Foldtech <strong>To:</strong> warranty@pumpco.example <strong>Subject:</strong> Pump P-12 seal failure — warranty?</p>
+<p>Hi,</p>
+<p>Our pump P-12 (installed 14 months ago) has a failed shaft seal. The pump is otherwise fine. We have a complete maintenance log — all services done on schedule — and the commissioning certificate.</p>
+<p>Is the seal covered under warranty? If not, can you send a replacement seal kit and quote the price?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> warranty@pumpco.example <strong>To:</strong> Lucia Marin <strong>Subject:</strong> RE: Pump P-12 seal failure — warranty?</p>
+<p>Hi Lucia,</p>
+<p>The shaft seal is classified as a normal wear part, so it isn't covered by the warranty even though the pump is only 14 months old. The rest of the pump remains under warranty until the 24-month mark.</p>
+<p>I can ship a seal kit today. The kit is $210, and it's a straightforward replacement your team can do — the manual has the procedure in section 6. If you'd prefer, we can send a technician for a $180 service call plus the kit.</p>
+<p>Since your maintenance log is complete, if any covered component fails before the 24 months are up, you'll be in good shape for a claim.</p>
+<p><strong>196.</strong> How long does the warranty last?<br />
+(A) 12 months<br />
+(B) 24 months from installation<br />
+(C) 500 running hours<br />
+(D) The life of the pump</p>
+<p><strong>197.</strong> What does the warranty require regarding maintenance?<br />
+(A) Maintenance every 500 running hours per the manual<br />
+(B) Annual factory servicing<br />
+(C) Maintenance by the manufacturer only<br />
+(D) No specific requirement</p>
+<p><strong>198.</strong> Why is the seal not covered?<br />
+(A) The pump is too old<br />
+(B) The maintenance log is incomplete<br />
+(C) It is a normal wear part<br />
+(D) The pump was run dry</p>
+<p><strong>199.</strong> How much is the seal kit?<br />
+(A) $180<br />
+(B) $390<br />
+(C) It is free under warranty<br />
+(D) $210</p>
+<p><strong>200.</strong> What does the reply say about the rest of the pump?<br />
+(A) It is no longer under warranty<br />
+(B) It remains under warranty until 24 months<br />
+(C) It must be inspected first<br />
+(D) It should be replaced</p>
+<hr />
+<p><em>Hết phần Reading — Set_004. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_004</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B27/C28/D17 (Part 2 không có D), Reading A26/B25/C25/D24.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 A</strong> "operating a machine" · bẫy: "putting away their tools", "cleaning the floor"</li>
+<li><strong>3 C</strong> "one of the men is scanning a barcode" · bẫy: "loading crates onto a shelf"</li>
+<li><strong>5 D</strong> "the truck is parked at a loading dock" — trạng thái · bẫy: "closing the rear door", "repairing the engine"</li>
+<li><strong>6 B</strong> "taking notes beside some equipment" · bẫy: "machines are being installed"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where should I put...?" → vị trí (shelf marked "inspection") · bẫy: lặp "returned"</li>
+<li><strong>13 A</strong> tag question → "Yes, for everyone on the floor" · bẫy: trả lời Where / nhận xét trainer</li>
+<li><strong>15 B</strong> "Isn't...due today?" → "No, it was moved to Thursday" (đính chính) · bẫy: (A) lạc, (C) nhận xét</li>
+<li><strong>17 C</strong> "What did the inspector say?" → "It passed with no issues" · bẫy: trả lời When / How long</li>
+<li><strong>19 A</strong> "has been serviced?" → "It was checked last Friday" · bẫy: lặp "forklift"</li>
+<li><strong>21 C</strong> yêu cầu kiểm tra → "We have about four hundred left" · bẫy: lặp "bolts"</li>
+<li><strong>25 B</strong> "Isn't the line usually faster?" → đính chính "a machine is being serviced" · bẫy: lặp "line"</li>
+<li><strong>31 C</strong> "Why was the truck delayed?" → lý do cụ thể "heavy traffic" · bẫy: lặp "truck"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>D</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "die set for the B-line run hasn't arrived" · "run the A-line job first" · "A-line materials are already staged"</li>
+<li>35–37: "Q2 defect rate ... down from 3.4%" · "the new calibration schedule — we check ... weekly now" · "mention that in the report"</li>
+<li>38–40: "people reaching into the sealer while it's running" · "add a guard that stops the machine" · "schedule it for Saturday"</li>
+<li>41–43: "Thursday pickup is now full" · "Four pallets" · "I'll ask about Friday first"</li>
+<li>44–46: "the new label printer to connect" · "The right one is for service only" (→ cable in wrong port) · "the IT extension is 4400"</li>
+<li>47–49: "the walkthrough of the warehouse" · "aisle markings on the floor have worn off" · "photos of the completed work"</li>
+<li>50–52: "sensor keeps throwing an error" · "resetting it once" · "put in a maintenance ticket"</li>
+<li>53–55: "increase next month's order by twenty percent" · "raw materials on time" · "adjust the production schedule"</li>
+<li>56–58: "box 14 is missing" · "left on the dock by mistake" · "load the box onto the afternoon truck"</li>
+<li>59–61: "failed the quality audit on line two" · "machine calibration drift" · "recalibrate ... re-inspect the batch"</li>
+<li>62–64: "tomorrow's production target" · "fifteen thousand units" · "confirm delivery with the supplier"</li>
+<li>65–67: "uses less plastic" · "takes longer to assemble" · "test a faster revised design"</li>
+<li>68–70: "temperature ... spike overnight" · "goods near the loading dock" · "look at the cooling unit"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "maintenance replaces a worn belt" · "will help with packing this morning" · "wear your safety glasses at all times"</li>
+<li>74–76: "3,000 ... tomorrow ... the remaining 2,000 are on back-order" · same as 43 · "a slightly different model in stock"</li>
+<li>77–79: "one million hours without a lost-time injury" · "lunch will be provided ... on Thursday" · "next goal is two million hours"</li>
+<li>80–82: "the new warehouse management system" · "practice on the test database, not the live one" · "switch over on the 15th"</li>
+<li>83–85: "safety glasses ... in all production areas" · "available at every station entrance" · "supervisors will be checking compliance"</li>
+<li>86–88: "delivery date will move from Tuesday to Thursday" · "delay at our own supplier" · "call me back if that timeline doesn't work"</li>
+<li>89–91: "four outbound trucks" · "truck one ... loaded first" · "long-haul run ... loaded last"</li>
+<li>92–94: "stay within the marked yellow lines" · "begin at the raw-materials receiving area" · "products ready for shipment"</li>
+<li>95–97: "new inventory tracking system goes live" · "scanned at both receiving and shipping" · "training video ... sent to your email"</li>
+<li>98–100: "additional ten-minute break during the night shift" · "starting next month" · "still negotiating ... equipment-upgrade request"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The plant</code> số ít + thói quen → <code>runs</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>responded</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be expected to</code> + V nguyên</td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td>bị động + tác nhân → <code>caused by</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>C</td>
+<td><code>the <span class="fill"></span> delivery times</code> (trong 3) → so sánh nhất <code>shortest</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>D</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>A</td>
+<td><code>reduce costs by ... consolidating</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>has increased</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each pallet</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask somebody to</code> + V nguyên → <code>check</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on the side of</code> (bề mặt)</td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>the parts pass inspection</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The distribution center</code> số ít → <code>handles</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>records</code> → tính từ <code>accurate</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>far</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>in the break room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td>"gửi đi <strong>kèm</strong> một chút chậm trễ" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>verify</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>move</code> + <code>than</code> → <code>more efficiently</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... is</code> — cả hai đều không sẵn</td>
+</tr>
+<tr>
+<td>127</td>
+<td>B</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>purchase order</code> → tính từ <code>approved</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (schedule <strong>được</strong> đăng)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>diagrams</code> → tính từ <code>helpful</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>A</td>
+<td>"every workstation <span class="fill"></span> cleaned" → bị động <code>must be</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>B</td>
+<td>"spills ... <span class="fill"></span> to several injuries <strong>last month</strong>" → quá khứ đơn <code>contributed</code></td>
+</tr>
+<tr>
+<td>133</td>
+<td>D</td>
+<td>"repeated issues <span class="fill"></span> discussed" → tương lai bị động <code>will be</code></td>
+</tr>
+<tr>
+<td>134</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> nhắc lại lý do an toàn, khép lại thông báo dọn dẹp cuối ca</td>
+</tr>
+<tr>
+<td>135</td>
+<td>A</td>
+<td><code>between 7 A.M. and 3 P.M.</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>C</td>
+<td>"chỉ <strong>được</strong> nhận nếu có phê duyệt" → <code>can be accepted</code></td>
+</tr>
+<tr>
+<td>137</td>
+<td>B</td>
+<td>"Unscheduled arrivals <span class="fill"></span> be turned away" (khả năng) → <code>may</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>C</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo giờ nhận hàng</td>
+</tr>
+<tr>
+<td>139</td>
+<td>C</td>
+<td>trước danh từ <code>offers</code> → tính từ <code>competitive</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>D</td>
+<td>"Every carrier ... is <span class="fill"></span>" → bị động <code>checked</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>A</td>
+<td>"<span class="fill"></span> your first three shipments" (đối với / trong) → <code>For</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> lời kêu gọi hành động ngắn gọn, khép lại quảng cáo</td>
+</tr>
+<tr>
+<td>143</td>
+<td>B</td>
+<td>"Over the past week ... <span class="fill"></span>" → hiện tại hoàn thành <code>has risen</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>A</td>
+<td>"a guide rail that <span class="fill"></span> slightly out of position" → <code>has moved</code> (chủ động)</td>
+</tr>
+<tr>
+<td>145</td>
+<td>C</td>
+<td>"anything <span class="fill"></span> the seam looks off" → <code>where</code> (nơi mà)</td>
+</tr>
+<tr>
+<td>146</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ QA nếu cần, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>A</td>
+<td>156</td>
+<td>D</td>
+<td>165</td>
+<td>C</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>D</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>B</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>D</td>
+<td>184</td>
+<td>D</td>
+<td>193</td>
+<td>C</td>
+</tr>
+<tr>
+<td>149</td>
+<td>D</td>
+<td>158</td>
+<td>B</td>
+<td>167</td>
+<td>B</td>
+<td>176</td>
+<td>A</td>
+<td>185</td>
+<td>A</td>
+<td>194</td>
+<td>C</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>C</td>
+<td>168</td>
+<td>D</td>
+<td>177</td>
+<td>B</td>
+<td>186</td>
+<td>A</td>
+<td>195</td>
+<td>A</td>
+</tr>
+<tr>
+<td>151</td>
+<td>A</td>
+<td>160</td>
+<td>A</td>
+<td>169</td>
+<td>A</td>
+<td>178</td>
+<td>D</td>
+<td>187</td>
+<td>B</td>
+<td>196</td>
+<td>B</td>
+</tr>
+<tr>
+<td>152</td>
+<td>C</td>
+<td>161</td>
+<td>D</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>A</td>
+<td>188</td>
+<td>C</td>
+<td>197</td>
+<td>A</td>
+</tr>
+<tr>
+<td>153</td>
+<td>A</td>
+<td>162</td>
+<td>B</td>
+<td>171</td>
+<td>B</td>
+<td>180</td>
+<td>C</td>
+<td>189</td>
+<td>D</td>
+<td>198</td>
+<td>C</td>
+</tr>
+<tr>
+<td>154</td>
+<td>D</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>C</td>
+<td>181</td>
+<td>B</td>
+<td>190</td>
+<td>B</td>
+<td>199</td>
+<td>D</td>
+</tr>
+<tr>
+<td>155</td>
+<td>B</td>
+<td>164</td>
+<td>B</td>
+<td>173</td>
+<td>A</td>
+<td>182</td>
+<td>C</td>
+<td>191</td>
+<td>B</td>
+<td>200</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>151 A</strong> — "Crestline will begin hiring in May"<br />
+- <strong>152 C</strong> — "upgrades to the plant's wastewater system, which will cut water use"<br />
+- <strong>161 D</strong> — bảng: Fri changeover "2 hours"<br />
+- <strong>166 D</strong> — "Your next scheduled audit is in November"<br />
+- <strong>168 D</strong> — "Repeated failures can affect your supplier scorecard"<br />
+- <strong>169 A</strong> — "each carton must clearly show its own PO"<br />
+- <strong>178 D</strong> — "invoice shows the 10 mm plate at $148, but our PO says $142"<br />
+- <strong>183 D</strong> — "will arrive tomorrow between 6 and 8 A.M."<br />
+- <strong>184 D</strong> — "priority handling on the next three shipments at no extra charge"<br />
+- <strong>189 D</strong> — "you'll have 240 kg total"<br />
+- <strong>194 C</strong> — "$10 per kg. For the 300 kg ... that comes to $3,000"<br />
+- <strong>198 C</strong> — "The shaft seal is classified as a normal wear part"<br />
+- <strong>200 B</strong> — "The rest of the pump remains under warranty until the 24-month mark"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_004 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề Manufacturing / Logistics): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

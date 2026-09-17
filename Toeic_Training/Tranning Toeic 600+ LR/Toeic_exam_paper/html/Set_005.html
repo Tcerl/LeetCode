@@ -1,0 +1,2255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SET_005 — HR, Recruitment & Training</title>
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1f2328; --mut:#5b6570; --line:#e6e2d9; --card:#ffffff;
+  --accent:#8a5a2b; --accent-bg:#f3ead d; --blk:#c9762e; --sel:#fff2d9;
+  --fs:17px;
+}
+:root.dark{
+  --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+  --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#15171a; --fg:#e6e6e3; --mut:#9aa2ab; --line:#2c2f34; --card:#1d2024;
+    --accent:#d9a066; --accent-bg:#2a2318; --blk:#e0a35b; --sel:#33291a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:var(--fs)/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.top{position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; gap:10px; padding:8px 12px; max-width:860px; margin:0 auto; flex-wrap:wrap}
+.home{color:var(--accent); text-decoration:none; font-size:.82em; white-space:nowrap}
+.tt{font-size:.95em; letter-spacing:.5px}
+.theme{color:var(--mut); font-size:.8em}
+.spacer{flex:1}
+.ib{border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px;
+  padding:3px 9px; font-size:.8em; cursor:pointer; line-height:1.4}
+.ib:active{transform:translateY(1px)}
+.tabs{display:flex; gap:4px; padding:0 8px 8px; max-width:860px; margin:0 auto; overflow-x:auto}
+.tabbtn{flex:1; min-width:max-content; border:1px solid var(--line); background:var(--card); color:var(--mut);
+  border-radius:9px; padding:7px 12px; font-size:.86em; cursor:pointer; white-space:nowrap}
+.tabbtn.on{background:var(--accent-bg); color:var(--accent); border-color:var(--accent); font-weight:600}
+main{max-width:860px; margin:0 auto; padding:18px 16px 120px}
+.panel{display:none}
+.panel.on{display:block; animation:fade .18s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+h1,h2,h3{line-height:1.3; margin:1.5em 0 .5em}
+h1{font-size:1.35em; border-bottom:2px solid var(--line); padding-bottom:.25em}
+h2{font-size:1.15em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:.2em}
+h3{font-size:1em; color:var(--mut); text-transform:none}
+p{margin:.55em 0}
+blockquote{margin:.8em 0; padding:.5em .9em; background:var(--accent-bg); border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0; color:var(--mut); font-size:.92em}
+blockquote p{margin:.25em 0}
+hr{border:0; border-top:1px solid var(--line); margin:1.6em 0}
+code{background:var(--accent-bg); padding:.05em .35em; border-radius:5px; font-size:.88em}
+pre{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; overflow-x:auto}
+pre code{background:none; padding:0}
+strong{color:var(--fg)}
+em{color:var(--mut)}
+a{color:var(--accent)}
+
+/* câu hỏi + đáp án nằm sát dòng (nl2br) */
+main p{ }
+.blk{color:var(--blk); font-weight:700; letter-spacing:1px}
+.fill{display:inline-block; min-width:70px; border-bottom:1.5px solid var(--mut); margin:0 2px}
+
+table{border-collapse:collapse; width:100%; margin:.9em 0; font-size:.9em; display:block; overflow-x:auto}
+th,td{border:1px solid var(--line); padding:5px 9px; text-align:left}
+th{background:var(--accent-bg); color:var(--accent)}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--card) 55%, var(--bg))}
+
+/* gate đáp án */
+.gate{text-align:center; padding:38px 16px}
+.gate button{background:var(--accent); color:#fff; border:0; border-radius:10px; padding:12px 22px;
+  font-size:1em; cursor:pointer}
+.gate p{color:var(--mut); font-size:.9em; margin-top:14px}
+.keybody{display:none}
+.keybody.show{display:block}
+
+#toTop{position:fixed; right:14px; bottom:16px; z-index:30; width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:var(--card); color:var(--fg); font-size:1.1em; cursor:pointer;
+  opacity:0; pointer-events:none; transition:opacity .2s}
+#toTop.show{opacity:.92; pointer-events:auto}
+
+/* index */
+.idx .wrap{max-width:860px; margin:0 auto; padding:22px 16px 80px}
+.lead{color:var(--mut); font-size:.92em}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin-top:18px}
+.card{display:flex; flex-direction:column; gap:3px; padding:14px 15px; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--fg)}
+.card:hover{border-color:var(--accent)}
+.cn{font-weight:700; letter-spacing:.5px; color:var(--accent)}
+.ct{font-size:.95em}
+.cm{font-size:.75em; color:var(--mut)}
+.foot{margin-top:26px; color:var(--mut); font-size:.8em}
+
+@media print{
+  /* ép về nền sáng bất kể prefers-color-scheme của trình in */
+  :root, :root.dark, :root:not(.light){
+    --bg:#ffffff; --fg:#1a1a1a; --mut:#3d444c; --line:#d9d4c8; --card:#ffffff;
+    --accent:#7a4a1f; --accent-bg:#f5efe4; --blk:#b5641f; --sel:#fff2d9;
+  }
+  body{background:#fff; color:#1a1a1a}
+  .top,#toTop{display:none}
+  .panel{display:block !important; opacity:1 !important; animation:none !important}
+  .keybody{display:block !important}
+  .gate{display:none}
+  main{max-width:none; padding:0}
+  h2,h3{break-after:avoid}
+  p,tr,blockquote,pre{break-inside:avoid}
+}
+</style>
+<noscript><style>
+.tabs{display:none} .panel{display:block !important}
+.keybody{display:block !important} .gate{display:none}
+</style></noscript>
+</head>
+<body data-set="005">
+<header class="top">
+  <div class="bar">
+    <a class="home" href="index.html">☰ Mục lục</a>
+    <strong class="tt">SET_005</strong>
+    <span class="theme">HR, Recruitment &amp; Training</span>
+    <span class="spacer"></span>
+    <button class="ib" id="fdn" title="Chữ nhỏ">A-</button>
+    <button class="ib" id="fup" title="Chữ to">A+</button>
+    <button class="ib" id="thm" title="Sáng/Tối">◐</button>
+  </div>
+  <nav class="tabs">
+    <button class="tabbtn on" data-tab="listening">🎧 Listening</button>
+    <button class="tabbtn" data-tab="reading">📖 Reading</button>
+    <button class="tabbtn" data-tab="key">🗝️ Đáp án</button>
+    <button class="tabbtn" data-tab="notes">📝 Ghi chú</button>
+  </nav>
+</header>
+<main>
+  <section class="panel on" data-tab="listening"><h1>🎧 SET_005 — LISTENING (100 câu)</h1>
+<blockquote>
+<p><strong>Không có audio</strong> — phần này gồm câu hỏi + <strong>full script</strong>. Dùng để:<br />
+1) Luyện Part 3/4 đọc-hiểu &amp; paraphrase · 2) Luyện logic Part 2 · 3) Đọc to / shadowing script.<br />
+Muốn luyện NGHE thật: mở <code>../LC_Sets/README.md</code> + <code>../../Brain/audio_playlist.md</code>.</p>
+<p><strong>Cách làm như thi:</strong> che script, đọc câu hỏi Part 3/4 trước, chọn đáp án. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 1 — Photographs (1–6)</h2>
+<p><strong>1.</strong> <em>[Ảnh: Một người phỏng vấn bắt tay ứng viên qua bàn trong phòng họp nhỏ.]</em><br />
+(A) An interviewer is shaking hands with a candidate.<br />
+(B) A group is seated around a large table.<br />
+(C) Someone is filling out a form.<br />
+(D) A man is presenting slides on a screen.</p>
+<p><strong>2.</strong> <em>[Ảnh: Một giảng viên đứng trước bảng trắng, nhóm nhân viên mới ngồi nghe.]</em><br />
+(A) An instructor is writing on a whiteboard.<br />
+(B) Employees are leaving a classroom.<br />
+(C) A trainer is standing in front of a group.<br />
+(D) People are moving chairs into a circle.</p>
+<p><strong>3.</strong> <em>[Ảnh: Một nhân viên mới nhận thẻ nhân viên và túi tài liệu chào mừng từ HR.]</em><br />
+(A) Two people are signing a contract.<br />
+(B) A worker is photocopying documents.<br />
+(C) An ID badge is being scanned at a door.<br />
+(D) A new employee is receiving a welcome packet.</p>
+<p><strong>4.</strong> <em>[Ảnh: Bàn làm việc với các hồ sơ xin việc xếp thành chồng, một tay cầm bút.]</em><br />
+(A) A person is stapling papers together.<br />
+(B) Résumés are stacked on a desk.<br />
+(C) Files are being placed in a cabinet.<br />
+(D) Someone is shredding documents.</p>
+<p><strong>5.</strong> <em>[Ảnh: Một ứng viên đang trình bày trước hội đồng phỏng vấn ba người.]</em><br />
+(A) Colleagues are eating lunch together.<br />
+(B) A manager is handing out paychecks.<br />
+(C) A candidate is being interviewed by a panel.<br />
+(D) People are applauding a speaker.</p>
+<p><strong>6.</strong> <em>[Ảnh: Hai đồng nghiệp xem chung một tài liệu trên máy tính tại quầy làm việc.]</em><br />
+(A) Two coworkers are looking at a document together.<br />
+(B) One person is unplugging a computer.<br />
+(C) A woman is answering a phone call.<br />
+(D) Employees are gathered around a printer.</p>
+<hr />
+<hr />
+<h2>PART 2 — Question–Response (7–31)</h2>
+<blockquote>
+<p>Nghe câu hỏi/câu nói và 3 phản hồi. Chọn phản hồi phù hợp nhất.</p>
+</blockquote>
+<p><strong>7.</strong> When does the new hire start?<br />
+(A) Next Monday.<br />
+(B) In the marketing team.<br />
+(C) She has five years of experience.</p>
+<p><strong>8.</strong> Where do I submit my time-off request?<br />
+(A) I took two days last week.<br />
+(B) For a family event.<br />
+(C) Through the HR portal.</p>
+<p><strong>9.</strong> Who's running the onboarding session tomorrow?<br />
+(A) In conference room 2.<br />
+(B) Ana from HR.<br />
+(C) It lasts about three hours.</p>
+<p><strong>10.</strong> Why was the interview rescheduled?<br />
+(A) The candidate had a conflict.<br />
+(B) At ten in the morning.<br />
+(C) There are three candidates.</p>
+<p><strong>11.</strong> How many people applied for the analyst role?<br />
+(A) The job was posted last week.<br />
+(B) Around sixty so far.<br />
+(C) On the careers page.</p>
+<p><strong>12.</strong> Could you email me the updated org chart?<br />
+(A) The chart is a bit out of date.<br />
+(B) Sure, I'll send it right now.<br />
+(C) There are four departments.</p>
+<p><strong>13.</strong> The performance reviews are due Friday, right?<br />
+(A) Yes, all of them by end of day.<br />
+(B) The review went well.<br />
+(C) In the manager's office.</p>
+<p><strong>14.</strong> Should we advertise the position internally first?<br />
+(A) The salary range is competitive.<br />
+(B) I applied for a transfer.<br />
+(C) Yes, for two weeks before we post it externally.</p>
+<p><strong>15.</strong> Isn't the training mandatory for all staff?<br />
+(A) Yes, everyone must complete it by month-end.<br />
+(B) The trainer was excellent.<br />
+(C) It's held in the main hall.</p>
+<p><strong>16.</strong> Can you walk me through how to approve a leave request?<br />
+(A) I approved it yesterday.<br />
+(B) Of course, it's just a few clicks.<br />
+(C) She's on leave until Thursday.</p>
+<p><strong>17.</strong> What did the candidate say about the offer?<br />
+(A) The offer was competitive.<br />
+(B) The interview lasted an hour.<br />
+(C) She'll let us know by Wednesday.</p>
+<p><strong>18.</strong> Where are the new employee handbooks kept?<br />
+(A) They were updated in January.<br />
+(B) About fifty pages long.<br />
+(C) In the cabinet behind the reception desk.</p>
+<p><strong>19.</strong> Do you know whether Mr. Lee accepted the position?<br />
+(A) He starts on the first.<br />
+(B) Let me check with the recruiter.<br />
+(C) The position is full-time.</p>
+<p><strong>20.</strong> I think we should offer remote work to attract more applicants.<br />
+(A) That's worth discussing with the team.<br />
+(B) The applicants were strong.<br />
+(C) Upstairs, in the HR office.</p>
+<p><strong>21.</strong> Could you post the job opening on our careers page?<br />
+(A) I'll do that this afternoon.<br />
+(B) The page loads slowly.<br />
+(C) I applied for that job.</p>
+<p><strong>22.</strong> Has the background check come back for the new hire?<br />
+(A) It's a thorough check.<br />
+(B) I checked the background image.<br />
+(C) Not yet, it usually takes a few days.</p>
+<p><strong>23.</strong> Where should new employees report on their first day?<br />
+(A) To the HR office on the second floor.<br />
+(B) The office is busy today.<br />
+(C) They reported an issue.</p>
+<p><strong>24.</strong> Would you prefer to interview candidates in the morning or afternoon?<br />
+(A) Morning works better for me.<br />
+(B) The interview lasted an hour.<br />
+(C) I interviewed there once.</p>
+<p><strong>25.</strong> Isn't open enrollment usually in November?<br />
+(A) November is a busy month.<br />
+(B) Yes, but it's been moved up this year.<br />
+(C) Enrollment was easy.</p>
+<p><strong>26.</strong> How many candidates applied for the position?<br />
+(A) Around ninety so far.<br />
+(B) The position pays well.<br />
+(C) We posted the position.</p>
+<p><strong>27.</strong> Who's leading the onboarding session tomorrow?<br />
+(A) The session starts at nine.<br />
+(B) Priya from HR is leading it.<br />
+(C) Onboarding is important.</p>
+<p><strong>28.</strong> Do you know if the training materials were updated?<br />
+(A) The materials are printed.<br />
+(B) I updated my resume.<br />
+(C) Yes, just last week.</p>
+<p><strong>29.</strong> Should we extend the application deadline?<br />
+(A) The deadline was strict.<br />
+(B) Let's give it one more week.<br />
+(C) I applied before the deadline.</p>
+<p><strong>30.</strong> Haven't you reviewed the performance evaluations yet?<br />
+(A) Evaluations take time.<br />
+(B) Almost done, just a few left.<br />
+(C) The evaluations were fair.</p>
+<p><strong>31.</strong> Why was the exit interview rescheduled?<br />
+(A) The interview room is small.<br />
+(B) It happened last time too.<br />
+(C) The employee had a family emergency.</p>
+<hr />
+<h2>PART 3 — Conversations (32–70)</h2>
+<blockquote>
+<p>Nghe hội thoại và trả lời 3 câu hỏi. Đọc trước câu hỏi giúp bắt ý nhanh hơn.</p>
+</blockquote>
+<h3>Conversation 1 (32–34)</h3>
+<p><strong>W:</strong> I'm calling to follow up on my application for the operations coordinator role. I submitted it two weeks ago.<br />
+<strong>M:</strong> Let me pull that up... Yes, I see it. We've finished the first round of screening, and we're inviting a shortlist to interviews next week. You're on that list — HR will email you three time slots to choose from.<br />
+<strong>W:</strong> That's great. Do I need to prepare anything?<br />
+<strong>M:</strong> Just bring examples of process improvements you've led. It's a conversational interview, not a test.</p>
+<p><strong>32.</strong> Why is the woman calling?<br />
+(A) To withdraw her application<br />
+(B) To follow up on her application<br />
+(C) To negotiate her salary<br />
+(D) To reschedule an interview</p>
+<p><strong>33.</strong> What will HR do next?<br />
+(A) Send her a rejection letter<br />
+(B) Call her references<br />
+(C) Email her interview time slots<br />
+(D) Request a writing sample</p>
+<p><strong>34.</strong> What does the man tell her to prepare?<br />
+(A) A presentation<br />
+(B) A skills test<br />
+(C) A list of questions<br />
+(D) Examples of process improvements</p>
+<h3>Conversation 2 (35–37)</h3>
+<p><strong>M:</strong> We've had four people leave the support team in the last three months. That's a lot.<br />
+<strong>W:</strong> I ran the exit interviews. The common theme was limited growth — no clear path to senior roles.<br />
+<strong>M:</strong> So it's not pay?<br />
+<strong>W:</strong> Pay came up once. Mostly it's that people can't see a future here. I think we should build a career ladder for the team and communicate it clearly.</p>
+<p><strong>35.</strong> What problem are the speakers discussing?<br />
+(A) High turnover on the support team<br />
+(B) A budget shortfall<br />
+(C) A hiring freeze<br />
+(D) Poor customer reviews</p>
+<p><strong>36.</strong> According to the woman, why are people leaving?<br />
+(A) Low pay<br />
+(B) Long hours<br />
+(C) Limited growth opportunities<br />
+(D) A difficult manager</p>
+<p><strong>37.</strong> What does the woman suggest doing?<br />
+(A) Raising salaries across the board<br />
+(B) Building and communicating a career ladder<br />
+(C) Hiring a new team lead<br />
+(D) Reducing the team's workload</p>
+<h3>Conversation 3 (38–40) — three speakers</h3>
+<p><strong>W:</strong> For the new-hire orientation, we're at three hours and people are fading by the end.<br />
+<strong>M1:</strong> A lot of it is policy reading. Could we move that to a self-paced module they do before day one?<br />
+<strong>W:</strong> Yes. Then in-person we focus on meeting the team and a tour.<br />
+<strong>M2:</strong> We'd need the online module ready two weeks before the next start date, which is the 20th.<br />
+<strong>W:</strong> I'll ask learning and development to build it this week.</p>
+<p><strong>38.</strong> What are the speakers trying to improve?<br />
+(A) The interview process<br />
+(B) The new-hire orientation<br />
+(C) The performance review form<br />
+(D) The office layout</p>
+<p><strong>39.</strong> What do they decide to move to a self-paced module?<br />
+(A) The office tour<br />
+(B) Team introductions<br />
+(C) Policy reading<br />
+(D) Safety training</p>
+<p><strong>40.</strong> What will the woman do this week?<br />
+(A) Ask L&amp;D to build the module<br />
+(B) Reschedule the next start date<br />
+(C) Print new handbooks<br />
+(D) Interview candidates</p>
+<h3>Conversation 4 (41–43)</h3>
+<p><strong>M:</strong> I got the job offer letter, but the start date is two weeks earlier than we discussed in the interview.<br />
+<strong>W:</strong> Let me check... You're right, it says the 6th. We can move that. When works for you?<br />
+<strong>M:</strong> The 20th, as we talked about. I need to give notice at my current job.<br />
+<strong>W:</strong> No problem. I'll send a corrected letter today. Everything else — salary, title, benefits — stays the same.</p>
+<p><strong>41.</strong> What is the problem with the offer letter?<br />
+(A) The salary is wrong<br />
+(B) The start date is too early<br />
+(C) The title is incorrect<br />
+(D) The benefits are missing</p>
+<p><strong>42.</strong> Why does the man need the later date?<br />
+(A) He is finishing a degree<br />
+(B) He is relocating<br />
+(C) He must give notice at his current job<br />
+(D) He is on vacation</p>
+<p><strong>43.</strong> What will the woman do today?<br />
+(A) Call his references<br />
+(B) Cancel the offer<br />
+(C) Schedule a second interview<br />
+(D) Send a corrected offer letter</p>
+<h3>Conversation 5 (44–46)</h3>
+<p><strong>W:</strong> The learning portal says I've completed the compliance course, but my manager's dashboard still shows it as incomplete.<br />
+<strong>M:</strong> There's usually a delay of a few hours for it to sync. If it's been more than a day, though, that's a bug.<br />
+<strong>W:</strong> It's been three days.<br />
+<strong>M:</strong> OK, that's not normal. Send me a screenshot of your completion certificate and I'll have it manually marked complete on the back end.</p>
+<p><strong>44.</strong> What is the woman's problem?<br />
+(A) She can't log in to the portal<br />
+(B) The course won't load<br />
+(C) Her completed course shows as incomplete to her manager<br />
+(D) She was enrolled in the wrong course</p>
+<p><strong>45.</strong> What does the man say usually causes this?<br />
+(A) A sync delay of a few hours<br />
+(B) An expired login<br />
+(C) A browser issue<br />
+(D) A missing enrollment</p>
+<p><strong>46.</strong> What does the man ask the woman to send?<br />
+(A) Her employee number<br />
+(B) The course link<br />
+(C) Her manager's email<br />
+(D) A screenshot of her completion certificate</p>
+<h3>Conversation 6 (47–49)</h3>
+<p><strong>M:</strong> Did you see we're doing a referral bonus again? A thousand dollars if your referral stays six months.<br />
+<strong>W:</strong> I did. I know someone who'd be great for the data role — she's a former colleague.<br />
+<strong>M:</strong> Send her the posting. You submit the referral through the portal, and you have to put your name in the "referred by" field or you won't get credit.<br />
+<strong>W:</strong> Good to know. I'll reach out to her tonight.</p>
+<p><strong>47.</strong> What are the speakers discussing?<br />
+(A) A referral bonus program<br />
+(B) A salary increase<br />
+(C) A new data tool<br />
+(D) A team reorganization</p>
+<p><strong>48.</strong> What must an employee do to get referral credit?<br />
+(A) Interview the candidate<br />
+(B) Enter their name in the "referred by" field<br />
+(C) Get manager approval<br />
+(D) Wait six months</p>
+<p><strong>49.</strong> What will the woman do tonight?<br />
+(A) Apply for the data role<br />
+(B) Update the job posting<br />
+(C) Submit her own résumé<br />
+(D) Contact her former colleague</p>
+<h3>Conversation 7 (50–52)</h3>
+<p><strong>W:</strong> I just got off the phone with a candidate who wants to negotiate the salary offer.<br />
+<strong>M:</strong> What's she asking for?<br />
+<strong>W:</strong> About eight percent more than what we offered, based on her experience.<br />
+<strong>M:</strong> That's within our range. Go ahead and approve it, and let's get the offer letter out today.</p>
+<p><strong>50.</strong> Why did the woman call the man?<br />
+(A) To report a resignation<br />
+(B) To discuss a salary negotiation<br />
+(C) To schedule an interview<br />
+(D) To cancel a job offer</p>
+<p><strong>51.</strong> How much more is the candidate requesting?<br />
+(A) Three percent<br />
+(B) Five percent<br />
+(C) Eight percent<br />
+(D) Fifteen percent</p>
+<p><strong>52.</strong> What does the man decide?<br />
+(A) To reject the request<br />
+(B) To approve it and send the offer letter<br />
+(C) To offer a lower amount<br />
+(D) To delay the decision</p>
+<h3>Conversation 8 (53–55)</h3>
+<p><strong>M:</strong> We've had three people call in sick for the same shift again this week.<br />
+<strong>W:</strong> That's the fourth time this month. Should we look at adjusting the schedule?<br />
+<strong>M:</strong> Let's survey the team first to see if the shift itself is the issue.<br />
+<strong>W:</strong> Good idea, I'll send that out today and share the results by Friday.</p>
+<p><strong>53.</strong> What problem are the speakers discussing?<br />
+(A) Low sales<br />
+(B) Frequent call-outs for a specific shift<br />
+(C) A safety violation<br />
+(D) A hiring freeze</p>
+<p><strong>54.</strong> What does the man suggest doing first?<br />
+(A) Firing the team<br />
+(B) Surveying the team<br />
+(C) Canceling the shift<br />
+(D) Hiring more staff</p>
+<p><strong>55.</strong> When will the woman share the results?<br />
+(A) Today<br />
+(B) Tomorrow<br />
+(C) By Friday<br />
+(D) Next month</p>
+<h3>Conversation 9 (56–58)</h3>
+<p><strong>W:</strong> How did the new manager training go last week?<br />
+<strong>M:</strong> Overall positive, though a few participants said the session ran too long.<br />
+<strong>W:</strong> Should we shorten it for the next group?<br />
+<strong>M:</strong> Yes, I'll trim the afternoon module and send the updated agenda by Wednesday.</p>
+<p><strong>56.</strong> What are the speakers discussing?<br />
+(A) A recent training session<br />
+(B) A job fair<br />
+(C) A salary review<br />
+(D) A company merger</p>
+<p><strong>57.</strong> What feedback did some participants give?<br />
+(A) It was too short.<br />
+(B) It ran too long.<br />
+(C) It was too easy.<br />
+(D) It was canceled.</p>
+<p><strong>58.</strong> What will the man do?<br />
+(A) Cancel the training<br />
+(B) Shorten the session<br />
+(C) Add another day<br />
+(D) Change the location</p>
+<h3>Conversation 10 (59–61)</h3>
+<p><strong>M:</strong> I noticed the new hire paperwork for Daniel is still incomplete.<br />
+<strong>W:</strong> He's waiting on his background check to clear before we can finalize it.<br />
+<strong>M:</strong> Do we know when that will be done?<br />
+<strong>W:</strong> The agency said by Thursday, so I'll follow up with him then.</p>
+<p><strong>59.</strong> What is incomplete?<br />
+(A) Daniel's paperwork<br />
+(B) A training video<br />
+(C) A job posting<br />
+(D) An exit interview</p>
+<p><strong>60.</strong> What is Daniel waiting on?<br />
+(A) A signed contract<br />
+(B) His background check<br />
+(C) His first paycheck<br />
+(D) A parking permit</p>
+<p><strong>61.</strong> What will the woman do on Thursday?<br />
+(A) Cancel Daniel's offer<br />
+(B) Follow up with him<br />
+(C) Start his training<br />
+(D) Submit his resignation</p>
+<h3>Conversation 11 (62–64)  — three speakers</h3>
+<p><strong>W:</strong> Let's talk about next quarter's recruiting goals before we wrap up.<br />
+<strong>M1:</strong> We're aiming to fill the two open engineering roles by the end of March.<br />
+<strong>M2:</strong> I can post those on three more job boards this week to widen our reach.<br />
+<strong>W:</strong> Great, and I'll reach out to our referral network as well.</p>
+<p><strong>62.</strong> What are the speakers planning?<br />
+(A) A layoff<br />
+(B) Recruiting goals for next quarter<br />
+(C) A company picnic<br />
+(D) A benefits change</p>
+<p><strong>63.</strong> What is the goal for the engineering roles?<br />
+(A) To eliminate them<br />
+(B) To fill them by the end of March<br />
+(C) To outsource them<br />
+(D) To combine them into one role</p>
+<p><strong>64.</strong> What will the woman do?<br />
+(A) Post the roles online<br />
+(B) Reach out to the referral network<br />
+(C) Interview candidates herself<br />
+(D) Cancel the search</p>
+<h3>Conversation 12 (65–67)</h3>
+<p><strong>W:</strong> I'm putting together the agenda for next month's all-staff training day.<br />
+<strong>M:</strong> Don't forget the new harassment-prevention module — it's required for everyone this year.<br />
+<strong>W:</strong> Right, I'll schedule that for the morning when attendance is highest.<br />
+<strong>M:</strong> Sounds good. I'll also reserve the large conference room for the full day.</p>
+<p><strong>65.</strong> What is the woman preparing?<br />
+(A) A performance review<br />
+(B) An all-staff training day agenda<br />
+(C) A hiring plan<br />
+(D) A budget report</p>
+<p><strong>66.</strong> What module is required this year?<br />
+(A) Time management<br />
+(B) Harassment prevention<br />
+(C) Customer service<br />
+(D) Data security</p>
+<p><strong>67.</strong> What will the man do?<br />
+(A) Lead the training himself<br />
+(B) Reserve the large conference room<br />
+(C) Cancel the training day<br />
+(D) Hire an outside trainer</p>
+<h3>Conversation 13 (68–70)</h3>
+<p><strong>M:</strong> I've drafted the new employee handbook, but I want a second opinion on the remote-work section.<br />
+<strong>W:</strong> Send it over — I can review it this afternoon.<br />
+<strong>M:</strong> Thanks. I'm mainly unsure whether the approval process is too complicated.<br />
+<strong>W:</strong> I'll flag anything unclear and we can revise it together tomorrow.</p>
+<p><strong>68.</strong> What has the man drafted?<br />
+(A) A job posting<br />
+(B) An employee handbook<br />
+(C) A training video<br />
+(D) A performance review</p>
+<p><strong>69.</strong> What section is he unsure about?<br />
+(A) Vacation policy<br />
+(B) The remote-work section<br />
+(C) The dress code<br />
+(D) The benefits summary</p>
+<p><strong>70.</strong> What will the woman do this afternoon?<br />
+(A) Rewrite the whole handbook<br />
+(B) Review the section<br />
+(C) Approve it without changes<br />
+(D) Forward it to legal</p>
+<hr />
+<h2>PART 4 — Short Talks (71–100)</h2>
+<blockquote>
+<p>Nghe bài nói ngắn và trả lời 3 câu hỏi.</p>
+</blockquote>
+<h3>Talk 1 (71–73) — Company-wide announcement</h3>
+<p><em>"Good afternoon. I'm pleased to announce that our annual employee engagement survey is now open. It takes about ten minutes and closes in two weeks. Your responses are anonymous — they go directly to an outside firm, and we only see results grouped by department. Last year, feedback from this survey led to the new flexible-hours policy and the upgrade to the break rooms. Please take the time to complete it; the link is in your email."</em></p>
+<p><strong>71.</strong> What is being announced?<br />
+(A) A new benefits package<br />
+(B) The opening of an engagement survey<br />
+(C) A company reorganization<br />
+(D) A hiring event</p>
+<p><strong>72.</strong> How are individual responses handled?<br />
+(A) They are reviewed by managers<br />
+(B) They are posted on the intranet<br />
+(C) They are discussed in team meetings<br />
+(D) They are anonymous and go to an outside firm</p>
+<p><strong>73.</strong> What resulted from last year's survey?<br />
+(A) A pay raise<br />
+(B) A new office building<br />
+(C) A four-day workweek<br />
+(D) The flexible-hours policy</p>
+<h3>Talk 2 (74–76) — Voicemail from a recruiter</h3>
+<p><em>"Hi, this is Marco from talent acquisition. I'm calling about the two candidates you interviewed for the designer role. Both were strong, and the panel is split. Before we make a decision, could you send me your written feedback by tomorrow afternoon? I especially want your read on how each one would work with the existing team. If we move forward with an offer, we'd want the person to start by the first of next month."</em></p>
+<p><strong>74.</strong> Why is Marco calling?<br />
+(A) To schedule more interviews<br />
+(B) To extend a job offer<br />
+(C) To request written feedback on two candidates<br />
+(D) To reschedule a meeting</p>
+<p><strong>75.</strong> What does Marco especially want to know?<br />
+(A) The candidates' salary expectations<br />
+(B) How each would work with the existing team<br />
+(C) Which one has more experience<br />
+(D) Whether either can start immediately</p>
+<p><strong>76.</strong> When would a new hire be expected to start?<br />
+(A) By the first of next month<br />
+(B) Immediately<br />
+(C) In two weeks<br />
+(D) After a trial period</p>
+<h3>Talk 3 (77–79) — Training session introduction</h3>
+<p><em>"Welcome to the manager training on giving feedback. Over the next 90 minutes, we'll practice a simple structure: describe the specific behavior, explain its impact, and agree on a next step. You'll work in pairs on real scenarios you bring — so take a minute now to think of one recent situation where you needed to give feedback and weren't sure how. We won't share names, and nothing leaves this room. Let's get started."</em></p>
+<p><strong>77.</strong> What is the training about?<br />
+(A) Conducting interviews<br />
+(B) Giving feedback<br />
+(C) Managing budgets<br />
+(D) Writing job descriptions</p>
+<p><strong>78.</strong> What are participants asked to think of?<br />
+(A) A recent situation needing feedback<br />
+(B) A career goal<br />
+(C) A team conflict<br />
+(D) A training topic</p>
+<p><strong>79.</strong> How will participants practice?<br />
+(A) By writing essays<br />
+(B) By watching videos<br />
+(C) In pairs, using their own scenarios<br />
+(D) In a large group discussion</p>
+<h3>Talk 4 (80–82) — Benefits enrollment reminder</h3>
+<p><em>"This is a reminder that open enrollment for next year's benefits closes this Friday at 5 P.M. If you don't make any changes, your current plan carries over automatically — except for the flexible spending account, which you must re-enroll in every year or it lapses. New this year: a second dental plan option and a commuter benefit. If you have questions, the benefits team is holding drop-in sessions in room 210 all week."</em></p>
+<p><strong>80.</strong> When does open enrollment close?<br />
+(A) Wednesday at noon<br />
+(B) The end of the month<br />
+(C) Monday morning<br />
+(D) Friday at 5 P.M.</p>
+<p><strong>81.</strong> What must employees re-enroll in every year?<br />
+(A) Their health plan<br />
+(B) Life insurance<br />
+(C) The flexible spending account<br />
+(D) The retirement plan</p>
+<p><strong>82.</strong> What is new this year?<br />
+(A) A second dental plan option<br />
+(B) A gym membership<br />
+(C) A higher retirement match<br />
+(D) Extra vacation days</p>
+<h3>Talk 5 (83–85) — Orientation welcome</h3>
+<p><em>"Welcome to your first day. Over the next two hours, we'll cover benefits enrollment, your workstation setup, and an introduction to your team. Please keep your ID badge with you at all times, and don't hesitate to ask any of us questions as we go — there's no such thing as a silly question on day one."</em></p>
+<p><strong>83.</strong> What will the first two hours cover?<br />
+(A) Benefits, workstation setup, and team introductions<br />
+(B) A performance review<br />
+(C) A client meeting<br />
+(D) A safety inspection</p>
+<p><strong>84.</strong> What are new employees asked to keep with them?<br />
+(A) A laptop<br />
+(B) Their ID badge<br />
+(C) A parking pass<br />
+(D) A printed schedule</p>
+<p><strong>85.</strong> What does the speaker encourage new employees to do?<br />
+(A) Stay quiet<br />
+(B) Ask questions<br />
+(C) Take notes only<br />
+(D) Wait until next week</p>
+<h3>Talk 6 (86–88) — Recruiter voicemail</h3>
+<p><em>"Hi, this is Elena calling from the talent team. We'd like to move forward with a second interview for the marketing coordinator role. Are you available next Tuesday or Wednesday afternoon? Please call me back or reply by email, and I'll send a calendar invite once we confirm a time."</em></p>
+<p><strong>86.</strong> Why is Elena calling?<br />
+(A) To reject a candidate<br />
+(B) To schedule a second interview<br />
+(C) To offer a job<br />
+(D) To cancel an interview</p>
+<p><strong>87.</strong> What role is being discussed?<br />
+(A) Marketing coordinator<br />
+(B) Sales manager<br />
+(C) Software engineer<br />
+(D) Office assistant</p>
+<p><strong>88.</strong> What will Elena send once a time is confirmed?<br />
+(A) A contract<br />
+(B) A calendar invite<br />
+(C) A background check form<br />
+(D) A parking permit</p>
+<h3>Talk 7 (89–91) — Benefits information session</h3>
+<p><em>"Thanks for joining today's benefits overview. This year we're introducing a new wellness reimbursement, covering up to two hundred dollars annually for gym memberships or fitness classes. Open enrollment runs through the end of the month, and our benefits portal has detailed plan comparisons if you'd like to review your options."</em></p>
+<p><strong>89.</strong> What new benefit is being introduced?<br />
+(A) A wellness reimbursement<br />
+(B) A dental plan<br />
+(C) A tuition reimbursement<br />
+(D) A travel stipend</p>
+<p><strong>90.</strong> How much does the new benefit cover annually?<br />
+(A) One hundred dollars<br />
+(B) Two hundred dollars<br />
+(C) Three hundred dollars<br />
+(D) Five hundred dollars</p>
+<p><strong>91.</strong> Where can employees compare plans?<br />
+(A) In a printed booklet<br />
+(B) On the benefits portal<br />
+(C) By calling HR directly<br />
+(D) At a in-person session only</p>
+<h3>Talk 8 (92–94) — Training kickoff</h3>
+<p><em>"Good morning, and welcome to leadership development week. Over the next five days, you'll rotate through workshops on communication, delegation, and conflict resolution, led by both internal managers and outside facilitators. Each session includes a short group exercise, so please come ready to participate actively."</em></p>
+<p><strong>92.</strong> What is the program called?<br />
+(A) Leadership development week<br />
+(B) New hire orientation<br />
+(C) Sales training<br />
+(D) Safety week</p>
+<p><strong>93.</strong> How long does the program last?<br />
+(A) Two days<br />
+(B) Three days<br />
+(C) Five days<br />
+(D) Ten days</p>
+<p><strong>94.</strong> What does each session include?<br />
+(A) A written exam<br />
+(B) A short group exercise<br />
+(C) A one-on-one meeting<br />
+(D) A guest speaker only</p>
+<h3>Talk 9 (95–97) — Exit interview excerpt</h3>
+<p><em>"Thank you for taking the time to meet with me before your last day. We'd really like to understand what led to your decision to leave, and whether there's anything we could have done differently. Everything you share will be kept confidential and used only to improve the employee experience going forward."</em></p>
+<p><strong>95.</strong> What is the purpose of this meeting?<br />
+(A) To offer a promotion<br />
+(B) To conduct an exit interview<br />
+(C) To discuss a raise<br />
+(D) To review a complaint</p>
+<p><strong>96.</strong> What does the speaker want to understand?<br />
+(A) Why the employee is leaving<br />
+(B) The employee's next job<br />
+(C) The employee's salary history<br />
+(D) The employee's vacation balance</p>
+<p><strong>97.</strong> How will the information be used?<br />
+(A) Shared publicly<br />
+(B) Sent to the employee's new employer<br />
+(C) Kept confidential to improve the experience<br />
+(D) Used to deny a reference</p>
+<h3>Talk 10 (98–100) — Town hall Q&amp;A excerpt</h3>
+<p><em>"Before we close, I want to address a few common questions from this year's engagement survey. Many of you asked about flexible scheduling, and I'm pleased to say we'll pilot a flexible-hours program in two departments starting next quarter. If it goes well, we plan to expand it company-wide by year end."</em></p>
+<p><strong>98.</strong> What topic did many employees ask about?<br />
+(A) Flexible scheduling<br />
+(B) Office relocation<br />
+(C) Parking availability<br />
+(D) Dress code</p>
+<p><strong>99.</strong> What will happen next quarter?<br />
+(A) A company-wide rollout<br />
+(B) A pilot in two departments<br />
+(C) A survey<br />
+(D) A hiring freeze</p>
+<p><strong>100.</strong> What might happen by year end?<br />
+(A) The pilot will be canceled.<br />
+(B) The program may expand company-wide.<br />
+(C) The survey will be repeated.<br />
+(D) A new department will be created.</p></section>
+  <section class="panel" data-tab="reading"><h1>📖 SET_005 — READING (100 câu: 101–200) · Chủ đề: HR, Recruitment &amp; Training</h1>
+<blockquote>
+<p><strong>Part 5:</strong> 101–130 · <strong>Part 6:</strong> 131–146 · <strong>Part 7:</strong> 147–200 · <strong>75 phút</strong>, bấm giờ, không tra từ.<br />
+Câu bí &gt; 1 phút → chọn đại, đánh dấu <code>?</code>. Đáp án phân bố đều A/B/C/D. Chấm bằng <code>answer_key.md</code>.</p>
+</blockquote>
+<hr />
+<h2>PART 5 — Incomplete Sentences (101–130)</h2>
+<p><strong>101.</strong> The HR department <span class="blk">________</span> all job applications within five business days.<br />
+(A) review  (B) reviews  (C) reviewing  (D) to review</p>
+<p><strong>102.</strong> New employees must complete the orientation module <span class="blk">________</span> their first day.<br />
+(A) before  (B) despite  (C) during  (D) unless</p>
+<p><strong>103.</strong> The recruiter responded to every candidate <span class="blk">________</span>, even those who were not selected.<br />
+(A) prompt  (B) promptness  (C) promptly  (D) prompter</p>
+<p><strong>104.</strong> <span class="blk">________</span> her limited experience, Ms. Aziz was hired for her strong problem-solving skills.<br />
+(A) Although  (B) Because of  (C) However  (D) Despite</p>
+<p><strong>105.</strong> All managers are required to <span class="blk">________</span> performance reviews with their team twice a year.<br />
+(A) conduct  (B) conducts  (C) conducting  (D) conducted</p>
+<p><strong>106.</strong> The training team is responsible <span class="blk">________</span> updating the course materials each quarter.<br />
+(A) for  (B) of  (C) to  (D) with</p>
+<p><strong>107.</strong> Of the three finalists, Mr. Bako has the <span class="blk">________</span> relevant background.<br />
+(A) more  (B) most  (C) much  (D) many</p>
+<p><strong>108.</strong> The interview was postponed <span class="blk">________</span> a scheduling conflict on the panel.<br />
+(A) although  (B) because  (C) due to  (D) since</p>
+<p><strong>109.</strong> The company improved retention <span class="blk">________</span> offering clearer career paths.<br />
+(A) for  (B) to  (C) with  (D) by</p>
+<p><strong>110.</strong> The number of internal applicants has grown <span class="blk">________</span> since the policy changed.<br />
+(A) steady  (B) steadiness  (C) steadier  (D) steadily</p>
+<p><strong>111.</strong> Each candidate <span class="blk">________</span> given the same set of questions to ensure fairness.<br />
+(A) are  (B) is  (C) were  (D) being</p>
+<p><strong>112.</strong> The hiring manager asked the panel to <span class="blk">________</span> their interview notes within 24 hours.<br />
+(A) submit  (B) submitting  (C) submitted  (D) submission</p>
+<p><strong>113.</strong> Details of the benefits plan are explained <span class="blk">________</span> page 12 of the handbook.<br />
+(A) in  (B) at  (C) on  (D) to</p>
+<p><strong>114.</strong> <span class="blk">________</span> an offer is accepted, HR begins the background-check process.<br />
+(A) Despite  (B) However  (C) Unless  (D) Once</p>
+<p><strong>115.</strong> The learning platform <span class="blk">________</span> more than 200 courses across all departments.<br />
+(A) offer  (B) offers  (C) offering  (D) offered</p>
+<p><strong>116.</strong> The onboarding checklist is expected <span class="blk">________</span> by the end of the week.<br />
+(A) completing  (B) to complete  (C) to be completed  (D) completed</p>
+<p><strong>117.</strong> Interviewers should take <span class="blk">________</span> notes so that feedback can be compared fairly.<br />
+(A) detail  (B) detailed  (C) details  (D) detailing</p>
+<p><strong>118.</strong> The new applicant-tracking system screens résumés much <span class="blk">________</span> than the old one.<br />
+(A) fast  (B) fastest  (C) more fast  (D) faster</p>
+<p><strong>119.</strong> The report suggests several <span class="blk">________</span> to shorten the time-to-hire.<br />
+(A) way  (B) waying  (C) ways  (D) wayed</p>
+<p><strong>120.</strong> The exit interview will take place <span class="blk">________</span> the small meeting room on the fourth floor.<br />
+(A) in  (B) at  (C) on  (D) by</p>
+<p><strong>121.</strong> The candidate accepted the role <span class="blk">________</span> a minor adjustment to the start date.<br />
+(A) for  (B) of  (C) with  (D) about</p>
+<p><strong>122.</strong> A specialist will <span class="blk">________</span> each department's staffing plan before the budget is finalized.<br />
+(A) review  (B) reviews  (C) reviewing  (D) reviewal</p>
+<p><strong>123.</strong> Employees are <span class="blk">________</span> for tuition reimbursement after one year of service.<br />
+(A) able  (B) eligible  (C) possible  (D) capable</p>
+<p><strong>124.</strong> The redesigned application form lets candidates apply <span class="blk">________</span> than they could before.<br />
+(A) quick  (B) quickly  (C) quickest  (D) more quickly</p>
+<p><strong>125.</strong> The company is committed to <span class="blk">________</span> a diverse and inclusive workforce.<br />
+(A) build  (B) builds  (C) building  (D) built</p>
+<p><strong>126.</strong> <span class="blk">________</span> of the two candidates has the required certification, so we've reopened the search.<br />
+(A) Neither  (B) None  (C) Both  (D) Whichever</p>
+<p><strong>127.</strong> The careers fair runs <span class="blk">________</span> 10 A.M. to 4 P.M. this Saturday.<br />
+(A) from  (B) since  (C) between  (D) during</p>
+<p><strong>128.</strong> All offer letters must be signed by an <span class="blk">________</span> HR representative.<br />
+(A) authorize  (B) authorized  (C) authorizing  (D) authorization</p>
+<p><strong>129.</strong> The updated employee handbook <span class="blk">________</span> distributed to all staff next week.<br />
+(A) will  (B) being  (C) been  (D) will be</p>
+<p><strong>130.</strong> The workshop provides <span class="blk">________</span> techniques for handling difficult conversations.<br />
+(A) practice  (B) practically  (C) practical  (D) practicality</p>
+<hr />
+<h2>PART 6 — Text Completion (131–146)</h2>
+<blockquote>
+<p>Mỗi đoạn có 3 chỗ trống ngữ pháp/từ vựng + <strong>1 chỗ trống chọn CÂU</strong> (luôn là câu cuối cùng của đoạn) — đúng định dạng Part 6 thật của ETS.</p>
+</blockquote>
+<h3>Passage 1 (131–134)</h3>
+<p><strong>Subject:</strong> Your First Week at Brightline</p>
+<p>Dear Ms. Osei,</p>
+<p>Welcome to the team! We're looking forward to your start on Monday, June 10.</p>
+<p>Please arrive at the main reception by 9:00 A.M., where someone from HR <span class="blk">(131)</span> you and take you to orientation. Bring a photo ID and your signed paperwork; if anything is still outstanding, we can sort it out on the day.</p>
+<p>Your laptop and accounts <span class="blk">(132)</span> set up before you arrive. Your manager, Tomas, will meet you after lunch to go over your first projects.</p>
+<p>The dress code is business casual. <span class="blk">(133)</span> you have any questions before Monday, feel free to reply to this email.</p>
+<p>We're glad you're joining us. <span class="blk">(134)</span></p>
+<p><strong>131.</strong> (A) meets  (B) will meet  (C) met  (D) meeting<br />
+<strong>132.</strong> (A) will be  (B) is  (C) has been  (D) being<br />
+<strong>133.</strong> (A) Should  (B) Unless  (C) Despite  (D) Even<br />
+<strong>134.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Parking passes are issued on your third day.<br />
+(B) The main office is located downtown near the train station.<br />
+(C) Your first performance review will be in six months.<br />
+(D) See you Monday!</p>
+<h3>Passage 2 (135–138)</h3>
+<p><strong>UPDATE — Sick Leave Notification</strong></p>
+<p>Effective July 1, employees who are unable to work due to illness must notify their direct manager <span class="blk">(135)</span> 9:00 A.M. on the day of absence, by phone or message.</p>
+<p>An email to the team alias <span class="blk">(136)</span> longer be sufficient, as messages there are sometimes missed. If your manager is unavailable, contact their manager or HR.</p>
+<p>For absences of three or more consecutive days, a doctor's note <span class="blk">(137)</span> required. HR will send a reminder on the second day.</p>
+<p>These changes are intended to make sure teams can plan around absences with as much notice as possible. <span class="blk">(138)</span></p>
+<p><strong>135.</strong> (A) by  (B) until  (C) since  (D) for<br />
+<strong>136.</strong> (A) can  (B) will  (C) must  (D) should<br />
+<strong>137.</strong> (A) are  (B) being  (C) is  (D) be<br />
+<strong>138.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Employees who violate this policy will be terminated immediately.<br />
+(B) We appreciate your cooperation as we roll this out.<br />
+(C) This policy replaces our vacation request process entirely.<br />
+(D) HR will no longer track sick leave going forward.</p>
+<h3>Passage 3 (139–142)</h3>
+<p><strong>BUILD YOUR TEAM'S SKILLS — ON YOUR SCHEDULE</strong></p>
+<p>SkillBridge delivers <span class="blk">(139)</span> workshops for teams of 5 to 25, either at your office or online. Topics range from project management to communication and data literacy.</p>
+<p>Every workshop is led by a practitioner, not a lecturer, and includes exercises based on your team's <span class="blk">(140)</span> work. You tell us the challenge; we build the session around it.</p>
+<p>Pricing is per workshop, with a discount for booking three or more. There is no <span class="blk">(141)</span> contract. To see availability, complete a short form on our website and we'll respond within a day. <span class="blk">(142)</span></p>
+<p><strong>139.</strong> (A) customize  (B) customizing  (C) custom  (D) customarily<br />
+<strong>140.</strong> (A) actual  (B) act  (C) actually  (D) actuality<br />
+<strong>141.</strong> (A) long  (B) length  (C) lengthy  (D) longer<br />
+<strong>142.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) Workshops are only offered on weekdays.<br />
+(B) All facilitators are certified in adult learning theory.<br />
+(C) A minimum of 25 participants is required.<br />
+(D) We look forward to working with your team.</p>
+<h3>Passage 4 (143–146)</h3>
+<p><strong>TO:</strong> All Hiring Managers <strong>FROM:</strong> Talent Acquisition <strong>RE:</strong> New Self-Scheduling for Interviews</p>
+<p>Starting next week, candidates <span class="blk">(143)</span> their own interview times from slots you provide, using our scheduling tool. This replaces the back-and-forth emails that often <span class="blk">(144)</span> the process by several days.</p>
+<p>To use it, open a role in the system, mark your available blocks for the next two weeks, and the tool sends candidates a link. You'll get a calendar invite once they book.</p>
+<p>Please keep your availability current. A candidate <span class="blk">(145)</span> no open slots may lose interest or accept another offer.</p>
+<p>Thank you for helping us move quickly on strong candidates. <span class="blk">(146)</span></p>
+<p><strong>143.</strong> (A) will choose  (B) choosing  (C) to choose  (D) chosen<br />
+<strong>144.</strong> (A) delays  (B) delaying  (C) delayed  (D) delay<br />
+<strong>145.</strong> (A) who  (B) which  (C) whose  (D) with<br />
+<strong>146.</strong> Câu nào hợp ngữ cảnh nhất để điền vào chỗ trống?<br />
+(A) The scheduling tool will also handle offer letters.<br />
+(B) If you have questions, reach out to talent acquisition.<br />
+(C) This tool replaces our applicant tracking system entirely.<br />
+(D) Interviews will now be limited to 15 minutes each.</p>
+<hr />
+<h2>PART 7 — Reading Comprehension (147–200)</h2>
+<h3>Passage 1 — Text-message chain (147–148)</h3>
+<p><strong>Kai Larsen (11:20 A.M.):</strong> The 2 PM candidate just emailed — car trouble, can we do 3:30?<br />
+<strong>Nora Reyes (11:22 A.M.):</strong> I have a hard stop at 3. Can we push to tomorrow morning, 9?<br />
+<strong>Kai Larsen (11:23 A.M.):</strong> I'll offer 9 or 10 tomorrow and let you know what they pick.<br />
+<strong>Nora Reyes (11:24 A.M.):</strong> Thanks. 9 is better for me but either works.</p>
+<p><strong>147.</strong> Why did the candidate email?<br />
+(A) To withdraw from the process<br />
+(B) To ask for a later time due to car trouble<br />
+(C) To accept a job offer<br />
+(D) To request directions</p>
+<p><strong>148.</strong> What will Kai do?<br />
+(A) Cancel the interview<br />
+(B) Interview the candidate alone<br />
+(C) Offer two times tomorrow morning<br />
+(D) Reschedule for next week</p>
+<h3>Passage 2 — Article (149–152)</h3>
+<p><strong>COMPANY DROPS DEGREE REQUIREMENT FOR MOST ROLES</strong></p>
+<p>Harbor Systems announced this week that it has removed the four-year degree requirement from about 70% of its job postings, including many technical and operations roles. The company said it will instead assess candidates on demonstrated skills, work samples, and short practical exercises.</p>
+<p>HR director Lena Voss said the change followed an internal review showing that degree requirements were screening out capable applicants, particularly those who had learned on the job or through short programs. Roles that require a specific license or accreditation, such as certain engineering and finance positions, are not affected.</p>
+<p>Harbor Systems also plans to expand its apprenticeship program from 20 to 60 places over two years. "We want to widen the door, not lower the bar," Voss said.</p>
+<p><strong>149.</strong> What did Harbor Systems change?<br />
+(A) It raised salaries for technical roles<br />
+(B) It moved hiring to an outside agency<br />
+(C) It reduced the number of open roles<br />
+(D) It removed the degree requirement from most postings</p>
+<p><strong>150.</strong> How will most candidates now be assessed?<br />
+(A) By years of experience only<br />
+(B) By a written test<br />
+(C) By demonstrated skills and practical exercises<br />
+(D) By references</p>
+<p><strong>151.</strong> Which roles are NOT affected by the change?<br />
+(A) Operations roles<br />
+(B) Roles requiring a specific license or accreditation<br />
+(C) Entry-level roles<br />
+(D) Management roles</p>
+<p><strong>152.</strong> What will happen to the apprenticeship program?<br />
+(A) It will be discontinued<br />
+(B) It will be moved online<br />
+(C) It will be limited to graduates<br />
+(D) It will expand to 60 places</p>
+<h3>Passage 3 — Notice (153–154)</h3>
+<p><strong>REMINDER — Annual Compliance Training</strong></p>
+<p>All employees must complete the annual compliance training by August 31. The training is on the learning portal and takes about 45 minutes. It covers data protection, anti-harassment, and safety basics.</p>
+<p>Managers can see completion status on their dashboard. Employees who have not completed the training by the deadline will have portal access to non-essential systems suspended until they do.</p>
+<p><strong>153.</strong> How long does the training take?<br />
+(A) About 45 minutes<br />
+(B) 15 minutes<br />
+(C) Two hours<br />
+(D) Half a day</p>
+<p><strong>154.</strong> What happens if an employee misses the deadline?<br />
+(A) They receive a written warning<br />
+(B) Their pay is docked<br />
+(C) Some system access is suspended until they finish<br />
+(D) They must attend an in-person session</p>
+<h3>Passage 4 — Job posting (155–157)</h3>
+<p><strong>JOIN OUR CUSTOMER SUCCESS TEAM</strong><br />
+Brightline Software · Remote (within the region) · Full-time</p>
+<p>We're hiring three Customer Success Associates to help new clients get value from our platform. You'll run onboarding calls, answer questions, and flag risks to the account team.</p>
+<p><strong>You'll do well here if you:</strong><br />
+- have 1+ year in a customer-facing role<br />
+- write clearly and calmly under pressure<br />
+- enjoy explaining things</p>
+<p>No specific software background is required — we provide four weeks of paid training. Benefits include health coverage, 22 days of paid leave, and a home-office stipend.</p>
+<p>Apply by June 15 with a résumé and a two-paragraph note about a time you helped someone solve a problem.</p>
+<p><strong>155.</strong> What will Customer Success Associates do?<br />
+(A) Run onboarding calls and answer client questions<br />
+(B) Write marketing content<br />
+(C) Develop new software features<br />
+(D) Manage the company's finances</p>
+<p><strong>156.</strong> What does the company provide to new hires?<br />
+(A) A company car<br />
+(B) Relocation assistance<br />
+(C) Stock options<br />
+(D) Four weeks of paid training</p>
+<p><strong>157.</strong> What must applicants submit in addition to a résumé?<br />
+(A) A portfolio<br />
+(B) Two references<br />
+(C) A short note about helping someone solve a problem<br />
+(D) A cover letter of at least one page</p>
+<h3>Passage 5 — Email (158–160)</h3>
+<p><strong>To:</strong> all-managers <strong>From:</strong> HR <strong>Subject:</strong> Probation Reviews Due</p>
+<p>For everyone who joined between March and May, the end of the three-month probation period is coming up. Please complete a probation review for each of your new hires before their date.</p>
+<p>The form is short: confirm the role is a good fit, note any concerns you've already raised, and choose one of three outcomes — confirm employment, extend probation by one month, or end employment.</p>
+<p>If you're planning to extend or end, talk to your HR partner first so we can make sure the conversation and paperwork are handled correctly. Confirmations you can submit directly.</p>
+<p><strong>158.</strong> What must managers complete?<br />
+(A) A probation review for each new hire<br />
+(B) An annual performance appraisal<br />
+(C) A salary adjustment form<br />
+(D) An exit interview</p>
+<p><strong>159.</strong> What are the three possible outcomes?<br />
+(A) Promote, transfer, or dismiss<br />
+(B) Confirm employment, extend probation, or end employment<br />
+(C) Raise pay, keep pay, or cut pay<br />
+(D) Approve, defer, or escalate</p>
+<p><strong>160.</strong> What should a manager do before extending or ending probation?<br />
+(A) Notify the whole team<br />
+(B) Get the employee's written consent<br />
+(C) Talk to their HR partner first<br />
+(D) Wait until the next quarter</p>
+<h3>Passage 6 — Orientation agenda (161–162)</h3>
+<p><strong>NEW-HIRE ORIENTATION — Day 1 Agenda</strong></p>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Session</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9:00–9:30</td>
+<td>Welcome &amp; introductions</td>
+<td>Room 210</td>
+</tr>
+<tr>
+<td>9:30–10:30</td>
+<td>Company overview &amp; values</td>
+<td>Room 210</td>
+</tr>
+<tr>
+<td>10:30–11:00</td>
+<td>Break</td>
+<td></td>
+</tr>
+<tr>
+<td>11:00–12:00</td>
+<td>Benefits &amp; payroll (bring ID)</td>
+<td>Room 214</td>
+</tr>
+<tr>
+<td>12:00–1:00</td>
+<td>Lunch with your team</td>
+<td></td>
+</tr>
+<tr>
+<td>1:00–2:30</td>
+<td>IT setup &amp; security</td>
+<td>IT lab</td>
+</tr>
+<tr>
+<td>2:30–3:00</td>
+<td>Office tour</td>
+<td>Meet in lobby</td>
+</tr>
+</tbody>
+</table>
+<p>Please complete the online policy module before Day 1. Parking is in Lot C; bring your confirmation email for a temporary pass.</p>
+<p><strong>161.</strong> What should new hires bring to the benefits session?<br />
+(A) A laptop<br />
+(B) A photo ID<br />
+(C) A signed contract<br />
+(D) A parking pass</p>
+<p><strong>162.</strong> What must new hires do before Day 1?<br />
+(A) Complete the online policy module<br />
+(B) Meet their manager<br />
+(C) Set up their email<br />
+(D) Take a company tour</p>
+<h3>Passage 7 — Letter (163–166)</h3>
+<p>Dear Mr. Nkemelu,</p>
+<p>Thank you for your interest in the Senior Analyst position and for meeting with our team on May 8.</p>
+<p>After careful consideration, we have decided to move forward with another candidate whose experience more closely matched the specific requirements of this role. This was a difficult decision; the panel was impressed with your analytical approach and your communication.</p>
+<p>We would like to keep your details on file and contact you about future openings, particularly on the forecasting team, where we expect to be hiring later this year. If you'd prefer we not keep your information, simply reply to this email.</p>
+<p>We wish you the best and hope our paths cross again.</p>
+<p>Sincerely,<br />
+Talent Acquisition, Meridian Group</p>
+<p><strong>163.</strong> What is the purpose of this letter?<br />
+(A) To inform Mr. Nkemelu he was not selected<br />
+(B) To offer him a job<br />
+(C) To invite him to a second interview<br />
+(D) To request additional documents</p>
+<p><strong>164.</strong> What does the letter say about the panel's view of Mr. Nkemelu?<br />
+(A) He lacked communication skills<br />
+(B) He was overqualified<br />
+(C) They were impressed with his analytical approach<br />
+(D) He was late to the interview</p>
+<p><strong>165.</strong> What does the company want to do with his details?<br />
+(A) Delete them immediately<br />
+(B) Share them with other companies<br />
+(C) Add him to a mailing list<br />
+(D) Keep them on file for future openings</p>
+<p><strong>166.</strong> What should Mr. Nkemelu do if he does not want his information kept?<br />
+(A) Call the office<br />
+(B) Fill out a form<br />
+(C) Nothing; it will be deleted automatically<br />
+(D) Reply to the email</p>
+<h3>Passage 8 — Employee FAQ (167–169)</h3>
+<p><strong>EMPLOYEE FAQ — Paid Time Off</strong></p>
+<p><strong>How much PTO do I get?</strong><br />
+Full-time employees accrue 1.75 days per month (21 days a year). Accrual starts on your first day.</p>
+<p><strong>Can I carry PTO over to the next year?</strong><br />
+You may carry over up to 5 days. Anything above that is lost on December 31.</p>
+<p><strong>How far in advance should I request time off?</strong><br />
+For 1–2 days, at least a week's notice. For longer periods, at least a month, so your team can plan.</p>
+<p><strong>What about sick days?</strong><br />
+Sick leave is separate and does not count against your PTO. Report a sick day to your manager, not through the PTO system.</p>
+<p><strong>167.</strong> How many PTO days does a full-time employee earn per year?<br />
+(A) 21<br />
+(B) 12<br />
+(C) 15<br />
+(D) 25</p>
+<p><strong>168.</strong> What is the carry-over limit?<br />
+(A) 2 days<br />
+(B) 5 days<br />
+(C) 10 days<br />
+(D) All unused days</p>
+<p><strong>169.</strong> How should an employee report a sick day?<br />
+(A) To their manager directly<br />
+(B) Through the PTO system<br />
+(C) By emailing HR<br />
+(D) On the company intranet</p>
+<h3>Passage 9 — Memo (170–172)</h3>
+<p><strong>TO:</strong> Department Heads <strong>FROM:</strong> HR <strong>RE:</strong> Headcount Requests for Next Year</p>
+<p>Budget planning for next year begins in October. If your team needs additional headcount, submit a headcount request by September 20 with: the role, why it's needed now, and what happens if it's not filled.</p>
+<p>Requests to replace someone who has left are handled separately and don't need this form — just notify your HR partner.</p>
+<p>We expect more requests than budget this year, so be specific about impact. Vague requests ("we're busy") are hard to prioritize against ones that name a concrete risk or opportunity.</p>
+<p><strong>170.</strong> What is the deadline to submit a headcount request?<br />
+(A) September 20<br />
+(B) October 1<br />
+(C) The end of the year<br />
+(D) There is no deadline</p>
+<p><strong>171.</strong> What should a headcount request explain?<br />
+(A) The candidate's name<br />
+(B) Why the role is needed and the impact of not filling it<br />
+(C) The exact salary<br />
+(D) The interview panel</p>
+<p><strong>172.</strong> How are requests to replace someone who left handled?<br />
+(A) With the same form<br />
+(B) They are not allowed<br />
+(C) Only in October<br />
+(D) Separately; just notify the HR partner</p>
+<h3>Passage 10 — Employer review (173–175)</h3>
+<p>★★★★☆ <strong>Good place to learn, watch the workload</strong> — Former Associate</p>
+<p>I was here two years and grew a lot. Managers actually invest in your development — I had regular one-on-ones, a training budget, and real feedback. The team was supportive and the mission felt meaningful.</p>
+<p>The downside is workload. During busy periods, "we'll hire more" turned into "cover it for now," and that stretched on longer than it should have. If you go in with clear boundaries and your manager backs you up, it's manageable. Compensation is fair, not generous.</p>
+<p><strong>173.</strong> What does the reviewer praise?<br />
+(A) The compensation<br />
+(B) Manager investment in development<br />
+(C) The office location<br />
+(D) The short hours</p>
+<p><strong>174.</strong> What is the reviewer's main criticism?<br />
+(A) Poor management<br />
+(B) A lack of feedback<br />
+(C) Heavy workload during busy periods<br />
+(D) An unclear mission</p>
+<p><strong>175.</strong> What does the reviewer say about compensation?<br />
+(A) It is generous<br />
+(B) It is below market<br />
+(C) It was not disclosed<br />
+(D) It is fair but not generous</p>
+<h3>Passages 11–12 — Job posting &amp; application email (176–180)</h3>
+<p><strong>Document 1</strong></p>
+<p><strong>HIRING — Warehouse Team Lead</strong> · Fairway Distribution · On-site · Full-time · $52,000–$58,000</p>
+<p>We're looking for a Team Lead to run a shift of 10–12 warehouse associates. You'll assign work, track productivity, handle first-line issues, and coach new hires.</p>
+<p><strong>Requirements:</strong><br />
+- 2+ years in a warehouse or logistics role<br />
+- Some experience leading or training others (formal supervisor title not required)<br />
+- Comfortable with a warehouse management system<br />
+- Available for the afternoon shift (2–10 P.M.)</p>
+<p>Apply by April 30. We interview on a rolling basis, so early applications are an advantage.</p>
+<p><strong>Document 2</strong></p>
+<p><strong>From:</strong> Dele Coker <strong>To:</strong> jobs@fairwaydist.example <strong>Subject:</strong> Warehouse Team Lead application</p>
+<p>Dear Hiring Team,</p>
+<p>I'd like to apply for the Team Lead role. I've spent three years as a warehouse associate at Cardinal Freight, and for the last year I've been the informal "go-to" for training new hires and covering for my supervisor when she's out.</p>
+<p>I'm very familiar with WMS software and I currently work an afternoon shift, so the hours are a good fit.</p>
+<p>My résumé is attached. I can interview any afternoon before my shift.</p>
+<p>Best,<br />
+Dele Coker</p>
+<p><strong>176.</strong> How large is the team the Team Lead will run?<br />
+(A) 5–6 associates<br />
+(B) 10–12 associates<br />
+(C) 20 associates<br />
+(D) 30 associates</p>
+<p><strong>177.</strong> What does the posting say about a formal supervisor title?<br />
+(A) It is required<br />
+(B) It is preferred but not required<br />
+(C) It is not required<br />
+(D) It disqualifies applicants</p>
+<p><strong>178.</strong> What shift is the role for?<br />
+(A) Morning<br />
+(B) Overnight<br />
+(C) Weekends only<br />
+(D) Afternoon (2–10 P.M.)</p>
+<p><strong>179.</strong> What leadership experience does Dele describe?<br />
+(A) Managing a department of 30<br />
+(B) Training new hires and covering for a supervisor<br />
+(C) Running a distribution center<br />
+(D) None</p>
+<p><strong>180.</strong> Why does the posting encourage early applications?<br />
+(A) Interviews are on a rolling basis<br />
+(B) The salary decreases over time<br />
+(C) Only the first 10 applicants are considered<br />
+(D) The role starts immediately</p>
+<h3>Passages 13–14 — Two emails about a benefits change (181–185)</h3>
+<p><strong>Email 1</strong></p>
+<p><strong>From:</strong> Yuki Tanaka <strong>To:</strong> HR Benefits <strong>Subject:</strong> Adding my spouse to health coverage</p>
+<p>Hi,</p>
+<p>My partner and I got married last month. I'd like to add them to my health plan. What do I need to do, and by when?</p>
+<p>Also, does this change my premium, and when would the new amount start coming out of my paycheck?</p>
+<p><strong>Email 2</strong></p>
+<p><strong>From:</strong> HR Benefits <strong>To:</strong> Yuki Tanaka <strong>Subject:</strong> RE: Adding my spouse to health coverage</p>
+<p>Congratulations, Yuki!</p>
+<p>Marriage is a qualifying life event, so you can make this change now even though it's outside open enrollment. You have 30 days from the wedding date to submit the request — so the deadline for you is the 28th of this month.</p>
+<p>In the benefits portal, choose "Life event &gt; Marriage," add your spouse's details, and upload a copy of the marriage certificate. Your premium will increase to the "employee + spouse" rate; the new amount starts on the first paycheck of the month after your request is approved. Approval usually takes 2–3 business days.</p>
+<p><strong>181.</strong> Why does Yuki want to change the health plan?<br />
+(A) To switch to a cheaper plan<br />
+(B) To add a spouse after getting married<br />
+(C) To remove a dependent<br />
+(D) To cancel coverage</p>
+<p><strong>182.</strong> Why can Yuki make this change now?<br />
+(A) It is open enrollment<br />
+(B) HR made an exception<br />
+(C) The plan year just started<br />
+(D) Marriage is a qualifying life event</p>
+<p><strong>183.</strong> What is the deadline for Yuki's request?<br />
+(A) The end of the year<br />
+(B) The next open enrollment<br />
+(C) 30 days from the wedding date<br />
+(D) Immediately</p>
+<p><strong>184.</strong> What must Yuki upload?<br />
+(A) A photo ID<br />
+(B) A pay stub<br />
+(C) A marriage certificate<br />
+(D) A new tax form</p>
+<p><strong>185.</strong> When will the new premium amount take effect?<br />
+(A) The first paycheck of the month after approval<br />
+(B) The next paycheck<br />
+(C) At the start of the next plan year<br />
+(D) Retroactively to the wedding date</p>
+<h3>Passages 15–17 — Training catalog, email &amp; reply (186–190)</h3>
+<p><strong>Document 1 — Catalog</strong></p>
+<p><strong>LEADERSHIP DEVELOPMENT CATALOG (Q3)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Course</th>
+<th>Format</th>
+<th>Duration</th>
+<th>Prerequisite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Foundations of Management</td>
+<td>In person</td>
+<td>2 days</td>
+<td>New or aspiring managers</td>
+</tr>
+<tr>
+<td>Coaching for Performance</td>
+<td>Online, live</td>
+<td>4 × 90 min</td>
+<td>Foundations of Management</td>
+</tr>
+<tr>
+<td>Leading Change</td>
+<td>In person</td>
+<td>1 day</td>
+<td>1+ year as a manager</td>
+</tr>
+<tr>
+<td>Difficult Conversations</td>
+<td>Online, live</td>
+<td>2 × 2 hr</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Enrollment is through the learning portal. Courses with a prerequisite will not let you enroll until the prerequisite shows complete. Managers must approve their team members' enrollments.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Priya Shah <strong>To:</strong> L&amp;D <strong>Subject:</strong> Enrolling in Coaching for Performance</p>
+<p>Hi,</p>
+<p>I tried to enroll in "Coaching for Performance" but the portal won't let me. I did "Foundations of Management" last year — I'm sure I completed it. Can you check?</p>
+<p>Also, I'd like to do "Leading Change" this quarter. I've been a manager for 8 months. Am I eligible?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> L&amp;D <strong>To:</strong> Priya Shah <strong>Subject:</strong> RE: Enrolling in Coaching for Performance</p>
+<p>Hi Priya,</p>
+<p>You did complete "Foundations of Management" — it was recorded under your maiden name, so the system didn't match it. I've merged the records; you should be able to enroll in "Coaching for Performance" now.</p>
+<p>For "Leading Change," the prerequisite is one year as a manager. At 8 months you're not eligible yet, but you will be in Q1 next year, and we run it every quarter. In the meantime, "Difficult Conversations" has no prerequisite and covers related ground — I'd recommend it.</p>
+<p><strong>186.</strong> Why couldn't Priya enroll in "Coaching for Performance"?<br />
+(A) The course was full<br />
+(B) Her prerequisite wasn't matched in the system<br />
+(C) Her manager hadn't approved it<br />
+(D) She missed the enrollment deadline</p>
+<p><strong>187.</strong> What is the prerequisite for "Coaching for Performance"?<br />
+(A) Foundations of Management<br />
+(B) Leading Change<br />
+(C) One year as a manager<br />
+(D) None</p>
+<p><strong>188.</strong> Why is Priya not eligible for "Leading Change"?<br />
+(A) She hasn't done Foundations of Management<br />
+(B) The course is not offered this quarter<br />
+(C) Her manager didn't approve it<br />
+(D) She has been a manager for less than a year</p>
+<p><strong>189.</strong> What does L&amp;D recommend Priya take instead?<br />
+(A) Foundations of Management<br />
+(B) Coaching for Performance<br />
+(C) Difficult Conversations<br />
+(D) Nothing</p>
+<p><strong>190.</strong> How often is "Leading Change" offered?<br />
+(A) Once a year<br />
+(B) Only in Q1<br />
+(C) On request<br />
+(D) Every quarter</p>
+<h3>Passages 18–20 — Relocation policy, email &amp; reply (191–195)</h3>
+<p><strong>Document 1 — Policy (summary)</strong></p>
+<p><strong>DOMESTIC RELOCATION ASSISTANCE</strong></p>
+<p>Offered to employees who transfer to a role at another company site more than 80 km from their current home.</p>
+<ul>
+<li>Moving company costs (household goods): covered in full, using an approved vendor.</li>
+<li>Temporary housing: up to 30 days.</li>
+<li>Travel to the new location for the employee and immediate family: one trip, economy class.</li>
+<li>A one-time "settling-in" payment of $2,000.</li>
+<li>Assistance must be used within 6 months of the transfer date. Unused portions are not paid out.</li>
+</ul>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Sam Whitfield <strong>To:</strong> HR Mobility <strong>Subject:</strong> Relocation for the Denver transfer</p>
+<p>Hi,</p>
+<p>I've accepted the transfer to the Denver site, effective October 1. My current home is about 600 km away, so I believe I qualify for relocation assistance.</p>
+<p>A few questions:<br />
+1. Can I choose my own moving company, or does it have to be from a list?<br />
+2. My family will visit Denver in September to look at schools — is that trip covered?<br />
+3. Is the $2,000 payment taxed?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> HR Mobility <strong>To:</strong> Sam Whitfield <strong>Subject:</strong> RE: Relocation for the Denver transfer</p>
+<p>Hi Sam,</p>
+<p>You qualify — 600 km is well over the 80 km threshold.</p>
+<ol>
+<li>The move must go through one of our three approved vendors; I'll send the list and they'll each quote. This keeps the cost covered in full.</li>
+<li>Yes, one trip to the new location for you and immediate family is covered, economy class. A September trip works as long as it's the only one you claim.</li>
+<li>The $2,000 settling-in payment is treated as taxable income and will appear on a paycheck, with tax withheld.</li>
+</ol>
+<p>Remember to use everything within 6 months of October 1.</p>
+<p><strong>191.</strong> Who is eligible for relocation assistance?<br />
+(A) Any employee who requests it<br />
+(B) Employees transferring to a site more than 80 km from home<br />
+(C) New hires only<br />
+(D) Employees who have been with the company 5+ years</p>
+<p><strong>192.</strong> What does the policy say about the moving company?<br />
+(A) The employee chooses any company<br />
+(B) The employee pays and is reimbursed<br />
+(C) Only local moves are covered<br />
+(D) It must be an approved vendor</p>
+<p><strong>193.</strong> Is the family's September trip to Denver covered?<br />
+(A) Yes, as the one covered trip<br />
+(B) No, only the employee's travel is covered<br />
+(C) Only if it is in October<br />
+(D) Only the flights, not the trip</p>
+<p><strong>194.</strong> How is the $2,000 payment treated?<br />
+(A) It is tax-free<br />
+(B) It is paid in installments<br />
+(C) It is taxable income with tax withheld<br />
+(D) It is only paid after 6 months</p>
+<p><strong>195.</strong> By when must Sam use the assistance?<br />
+(A) By September 1<br />
+(B) By the end of the year<br />
+(C) There is no deadline<br />
+(D) Within 6 months of October 1</p>
+<h3>Passages 21–23 — Mid-year check-in process, email &amp; reply (196–200)</h3>
+<p><strong>Document 1 — Process overview</strong></p>
+<p><strong>MID-YEAR CHECK-IN — How It Works</strong></p>
+<p>The mid-year check-in is a lighter version of the annual review. It is not scored and does not affect pay.</p>
+<ol>
+<li>Employee fills in a short self-reflection (3 questions) in the HR system by June 15.</li>
+<li>Manager reviews it and adds brief comments by June 22.</li>
+<li>Employee and manager meet for 30–45 minutes by June 30 to discuss progress and adjust goals if needed.</li>
+<li>Manager marks the check-in complete. No sign-off from the employee is required.</li>
+</ol>
+<p>The purpose is to catch issues early, not to grade. The scored review happens in December.</p>
+<p><strong>Document 2 — Email</strong></p>
+<p><strong>From:</strong> Aria Bello <strong>To:</strong> HR <strong>Subject:</strong> Mid-year check-in questions</p>
+<p>Hi,</p>
+<p>Two quick questions about the mid-year check-in:<br />
+1. Does it affect my bonus or rating?<br />
+2. My manager is on leave until June 25. Will we still be able to meet by June 30?</p>
+<p><strong>Document 3 — Reply</strong></p>
+<p><strong>From:</strong> HR <strong>To:</strong> Aria Bello <strong>Subject:</strong> RE: Mid-year check-in questions</p>
+<p>Hi Aria,</p>
+<ol>
+<li>No — the mid-year check-in is not scored and has no effect on your rating or bonus. That's the December review.</li>
+<li>With your manager back on the 25th, a meeting by June 30 is tight but doable. Go ahead and submit your self-reflection by June 15 as normal. If the schedule genuinely doesn't work, it's fine for your meeting to slip a few days into early July — just let me know so I can note it.</li>
+</ol>
+<p><strong>196.</strong> How is the mid-year check-in different from the annual review?<br />
+(A) It is not scored and does not affect pay<br />
+(B) It is longer<br />
+(C) It requires the employee's sign-off<br />
+(D) It is done by HR, not the manager</p>
+<p><strong>197.</strong> By when must the employee submit the self-reflection?<br />
+(A) June 15<br />
+(B) June 22<br />
+(C) June 30<br />
+(D) December</p>
+<p><strong>198.</strong> Does the check-in affect Aria's bonus?<br />
+(A) Yes, directly<br />
+(B) Yes, but only partly<br />
+(C) No<br />
+(D) Only if she scores low</p>
+<p><strong>199.</strong> What issue does Aria raise about scheduling?<br />
+(A) She is on leave<br />
+(B) The HR system is down<br />
+(C) She has not received the form<br />
+(D) Her manager is on leave until June 25</p>
+<p><strong>200.</strong> What does HR say about the meeting timing?<br />
+(A) It must happen by June 30 with no exceptions<br />
+(B) It can slip a few days into early July if needed<br />
+(C) It should be moved to December<br />
+(D) It can be skipped this year</p>
+<hr />
+<p><em>Hết phần Reading — Set_005. Đáp án ở <code>answer_key.md</code>.</em></p></section>
+  <section class="panel" data-tab="key"><div class="gate"><button id="gatebtn">🗝️ Bấm để hiện đáp án</button><p>Chỉ mở sau khi đã làm xong cả Listening và Reading.</p></div><div class="keybody"><h1>🗝️ ANSWER KEY — SET_005</h1>
+<blockquote>
+<p>Chỉ mở sau khi đã làm xong. Đáp án cân bằng: Listening A28/B26/C29/D17 (Part 2 không có D), Reading A26/B24/C25/D25.</p>
+</blockquote>
+<hr />
+<h2>🎧 LISTENING</h2>
+<h3>Part 1 — Photographs</h3>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>1 A</strong> "shaking hands with a candidate" · bẫy: "filling out a form", "presenting slides"</li>
+<li><strong>3 D</strong> "receiving a welcome packet" · bẫy: "signing a contract", "ID badge is being scanned"</li>
+<li><strong>4 B</strong> "résumés are stacked on a desk" — trạng thái · bẫy: "stapling", "shredding"</li>
+<li><strong>5 C</strong> "being interviewed by a panel" · bẫy: "eating lunch", "handing out paychecks"</li>
+</ul>
+<h3>Part 2 — Question–Response</h3>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>27</th>
+<th>28</th>
+<th>29</th>
+<th>30</th>
+<th>31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>8 C</strong> "Where do I submit...?" → "Through the HR portal" · bẫy: (A)(B) lạc đề</li>
+<li><strong>14 C</strong> "Should we advertise internally first?" → "Yes, for two weeks..." · bẫy: nhận xét lương / transfer</li>
+<li><strong>17 C</strong> "What did the candidate say about the offer?" → "She'll let us know by Wednesday" · bẫy: nhận xét offer / interview</li>
+<li><strong>19 B</strong> "Do you know if Mr. Lee accepted?" → "Let me check with the recruiter" (trả lời gián tiếp)</li>
+<li><strong>20 A</strong> câu ý kiến → "That's worth discussing with the team"</li>
+<li><strong>21 C</strong> yêu cầu đăng tin → "I'll do that this afternoon" · bẫy: lặp "page"</li>
+<li><strong>25 B</strong> "Isn't open enrollment usually in November?" → đính chính "moved up this year" · bẫy: lặp "November"</li>
+<li><strong>31 C</strong> "Why was the exit interview rescheduled?" → lý do cụ thể "family emergency" · bẫy: lặp "interview"</li>
+</ul>
+<h3>Part 3 — Conversations</h3>
+<table>
+<thead>
+<tr>
+<th>32</th>
+<th>33</th>
+<th>34</th>
+<th>35</th>
+<th>36</th>
+<th>37</th>
+<th>38</th>
+<th>39</th>
+<th>40</th>
+<th>41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>C</td>
+<td>B</td>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>42</th>
+<th>43</th>
+<th>44</th>
+<th>45</th>
+<th>46</th>
+<th>47</th>
+<th>48</th>
+<th>49</th>
+<th>50</th>
+<th>51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>C</td>
+<td>A</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>D</td>
+<td>A</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>52</th>
+<th>53</th>
+<th>54</th>
+<th>55</th>
+<th>56</th>
+<th>57</th>
+<th>58</th>
+<th>59</th>
+<th>60</th>
+<th>61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>62</th>
+<th>63</th>
+<th>64</th>
+<th>65</th>
+<th>66</th>
+<th>67</th>
+<th>68</th>
+<th>69</th>
+<th>70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>32–34: "follow up on my application" · "HR will email you three time slots" · "bring examples of process improvements"</li>
+<li>35–37: "four people leave the support team" · "the common theme was limited growth" · "build a career ladder ... and communicate it"</li>
+<li>38–40: "the new-hire orientation" · "move that [policy reading] to a self-paced module" · "I'll ask learning and development to build it this week"</li>
+<li>41–43: "the start date is two weeks earlier than we discussed" · "I need to give notice at my current job" · "I'll send a corrected letter today"</li>
+<li>44–46: "my manager's dashboard still shows it as incomplete" · "a delay of a few hours for it to sync" · "Send me a screenshot of your completion certificate"</li>
+<li>47–49: "we're doing a referral bonus again" · "put your name in the 'referred by' field" · "I'll reach out to her tonight"</li>
+<li>50–52: "negotiate the salary offer" · "eight percent more" · "approve it and send the offer letter"</li>
+<li>53–55: "three people call in sick" · "survey the team first" · "share the results by Friday"</li>
+<li>56–58: "new manager training" · "ran too long" · "shorten the session"</li>
+<li>59–61: "new hire paperwork ... incomplete" · "waiting on his background check" · "follow up with him"</li>
+<li>62–64: "next quarter's recruiting goals" · "fill them by the end of March" · "reach out to the referral network"</li>
+<li>65–67: "all-staff training day agenda" · "harassment-prevention module ... required" · "reserve the large conference room"</li>
+<li>68–70: "drafted the new employee handbook" · "unsure about the remote-work section" · "review the section this afternoon"</li>
+</ul>
+<h3>Part 4 — Short Talks</h3>
+<table>
+<thead>
+<tr>
+<th>71</th>
+<th>72</th>
+<th>73</th>
+<th>74</th>
+<th>75</th>
+<th>76</th>
+<th>77</th>
+<th>78</th>
+<th>79</th>
+<th>80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>D</td>
+<td>D</td>
+<td>C</td>
+<td>B</td>
+<td>A</td>
+<td>B</td>
+<td>A</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>81</th>
+<th>82</th>
+<th>83</th>
+<th>84</th>
+<th>85</th>
+<th>86</th>
+<th>87</th>
+<th>88</th>
+<th>89</th>
+<th>90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>A</td>
+<td>A</td>
+<td>C</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>91</th>
+<th>92</th>
+<th>93</th>
+<th>94</th>
+<th>95</th>
+<th>96</th>
+<th>97</th>
+<th>98</th>
+<th>99</th>
+<th>100</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>71–73: "annual employee engagement survey is now open" · "anonymous — they go directly to an outside firm" · "led to the new flexible-hours policy"</li>
+<li>74–76: "could you send me your written feedback" · "how each one would work with the existing team" · "start by the first of next month"</li>
+<li>77–79: "manager training on giving feedback" · "think of one recent situation where you needed to give feedback" · "work in pairs on real scenarios you bring"</li>
+<li>80–82: "closes this Friday at 5 P.M." · "the flexible spending account, which you must re-enroll in every year" · "a second dental plan option and a commuter benefit"</li>
+<li>83–85: "benefits enrollment, workstation setup, team introductions" · "keep your ID badge with you" · "ask ... questions"</li>
+<li>86–88: "second interview for the marketing coordinator role" · "available next Tuesday or Wednesday" · "send a calendar invite"</li>
+<li>89–91: "new wellness reimbursement" · "two hundred dollars annually" · "detailed plan comparisons" on the portal</li>
+<li>92–94: "leadership development week" · "five days" · "short group exercise"</li>
+<li>95–97: "exit interview" purpose · "why led to your decision to leave" · "kept confidential"</li>
+<li>98–100: "flexible scheduling" · "pilot ... in two departments" next quarter · "expand it company-wide by year end"</li>
+</ul>
+<hr />
+<h2>📖 READING</h2>
+<h3>Part 5 (101–130)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>B</td>
+<td>chủ ngữ <code>The HR department</code> số ít + thói quen → <code>reviews</code></td>
+</tr>
+<tr>
+<td>102</td>
+<td>A</td>
+<td>+ mệnh đề, hành động trước → <code>before</code></td>
+</tr>
+<tr>
+<td>103</td>
+<td>C</td>
+<td>bổ nghĩa động từ <code>responded</code> → trạng từ</td>
+</tr>
+<tr>
+<td>104</td>
+<td>D</td>
+<td>+ cụm danh từ + tương phản → <code>Despite</code></td>
+</tr>
+<tr>
+<td>105</td>
+<td>A</td>
+<td><code>be required to</code> + V nguyên → <code>conduct</code></td>
+</tr>
+<tr>
+<td>106</td>
+<td>A</td>
+<td><code>responsible for</code></td>
+</tr>
+<tr>
+<td>107</td>
+<td>B</td>
+<td><code>the <span class="fill"></span> relevant</code> (trong 3) → so sánh nhất <code>most</code></td>
+</tr>
+<tr>
+<td>108</td>
+<td>C</td>
+<td>+ cụm danh từ + nguyên nhân → <code>due to</code></td>
+</tr>
+<tr>
+<td>109</td>
+<td>D</td>
+<td><code>improved retention by ... offering</code> (bằng cách)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>has grown</code> → trạng từ <code>steadily</code></td>
+</tr>
+<tr>
+<td>111</td>
+<td>B</td>
+<td><code>Each candidate</code> (số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>112</td>
+<td>A</td>
+<td><code>ask ... to</code> + V nguyên → <code>submit</code></td>
+</tr>
+<tr>
+<td>113</td>
+<td>C</td>
+<td><code>on page 12</code></td>
+</tr>
+<tr>
+<td>114</td>
+<td>D</td>
+<td>+ mệnh đề <code>an offer is accepted</code> (khi) → <code>Once</code></td>
+</tr>
+<tr>
+<td>115</td>
+<td>B</td>
+<td>chủ ngữ <code>The learning platform</code> số ít → <code>offers</code></td>
+</tr>
+<tr>
+<td>116</td>
+<td>C</td>
+<td><code>be expected</code> + to-inf bị động → <code>to be completed</code></td>
+</tr>
+<tr>
+<td>117</td>
+<td>B</td>
+<td>trước danh từ <code>notes</code> → tính từ <code>detailed</code></td>
+</tr>
+<tr>
+<td>118</td>
+<td>D</td>
+<td>so sánh hơn + <code>than</code> → <code>faster</code> (<code>much</code> + so sánh)</td>
+</tr>
+<tr>
+<td>119</td>
+<td>C</td>
+<td><code>several <span class="fill"></span></code> → danh từ số nhiều <code>ways</code></td>
+</tr>
+<tr>
+<td>120</td>
+<td>A</td>
+<td><code>in the meeting room</code> (bên trong)</td>
+</tr>
+<tr>
+<td>121</td>
+<td>C</td>
+<td>"nhận vai <strong>kèm</strong> một điều chỉnh nhỏ" → <code>with</code></td>
+</tr>
+<tr>
+<td>122</td>
+<td>A</td>
+<td><code>will</code> + V nguyên → <code>review</code></td>
+</tr>
+<tr>
+<td>123</td>
+<td>B</td>
+<td><code>eligible for</code></td>
+</tr>
+<tr>
+<td>124</td>
+<td>D</td>
+<td>bổ nghĩa động từ <code>apply</code> + <code>than</code> → <code>more quickly</code></td>
+</tr>
+<tr>
+<td>125</td>
+<td>C</td>
+<td><code>committed to</code> + V-ing</td>
+</tr>
+<tr>
+<td>126</td>
+<td>A</td>
+<td><code>Neither of the two ... has</code> — cả hai đều không</td>
+</tr>
+<tr>
+<td>127</td>
+<td>A</td>
+<td>cặp <code>from ... to ...</code></td>
+</tr>
+<tr>
+<td>128</td>
+<td>B</td>
+<td>trước danh từ <code>representative</code> → tính từ <code>authorized</code></td>
+</tr>
+<tr>
+<td>129</td>
+<td>D</td>
+<td><code>will be</code> + P.P. bị động (handbook <strong>được</strong> phát)</td>
+</tr>
+<tr>
+<td>130</td>
+<td>C</td>
+<td>trước danh từ <code>techniques</code> → tính từ <code>practical</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Part 6 (131–146)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>Luật</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>131</td>
+<td>B</td>
+<td>"someone from HR <span class="fill"></span> you" (mốc tương lai — ngày bắt đầu) → <code>will meet</code></td>
+</tr>
+<tr>
+<td>132</td>
+<td>A</td>
+<td>"Your laptop and accounts <span class="fill"></span> set up" → tương lai bị động <code>will be</code> (chủ ngữ số nhiều)</td>
+</tr>
+<tr>
+<td>133</td>
+<td>A</td>
+<td>đảo ngữ điều kiện <code>Should you have any questions</code> = "nếu"</td>
+</tr>
+<tr>
+<td>134</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời chào thân mật khép lại email chào mừng</td>
+</tr>
+<tr>
+<td>135</td>
+<td>A</td>
+<td>"notify ... <span class="fill"></span> 9:00 A.M." (hạn chót) → <code>by</code></td>
+</tr>
+<tr>
+<td>136</td>
+<td>B</td>
+<td>"An email ... <span class="fill"></span> longer be sufficient" → <code>will</code> (no longer)</td>
+</tr>
+<tr>
+<td>137</td>
+<td>C</td>
+<td>"a doctor's note <span class="fill"></span> required" (chủ ngữ số ít) → <code>is</code></td>
+</tr>
+<tr>
+<td>138</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> lời cảm ơn khép lại thông báo chính sách nghỉ ốm</td>
+</tr>
+<tr>
+<td>139</td>
+<td>C</td>
+<td>trước danh từ <code>workshops</code> → tính từ <code>custom</code></td>
+</tr>
+<tr>
+<td>140</td>
+<td>A</td>
+<td>trước danh từ <code>work</code> → tính từ <code>actual</code></td>
+</tr>
+<tr>
+<td>141</td>
+<td>C</td>
+<td>trước danh từ <code>contract</code> → tính từ <code>lengthy</code></td>
+</tr>
+<tr>
+<td>142</td>
+<td>D</td>
+<td><strong>[chọn câu]</strong> lời chào khép lại quảng cáo dịch vụ workshop</td>
+</tr>
+<tr>
+<td>143</td>
+<td>A</td>
+<td>"candidates <span class="fill"></span> their own interview times" (mốc tương lai) → <code>will choose</code></td>
+</tr>
+<tr>
+<td>144</td>
+<td>D</td>
+<td>"emails that often <span class="fill"></span> the process" (hiện tại đơn, chủ ngữ số nhiều <code>emails</code>) → <code>delay</code></td>
+</tr>
+<tr>
+<td>145</td>
+<td>D</td>
+<td>"A candidate <span class="fill"></span> no open slots" (cụm giới từ) → <code>with</code></td>
+</tr>
+<tr>
+<td>146</td>
+<td>B</td>
+<td><strong>[chọn câu]</strong> hướng dẫn liên hệ nếu cần, khép lại memo</td>
+</tr>
+</tbody>
+</table>
+<h3>Part 7 (147–200)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+<th>#</th>
+<th>ĐA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>147</td>
+<td>B</td>
+<td>156</td>
+<td>D</td>
+<td>165</td>
+<td>D</td>
+<td>174</td>
+<td>C</td>
+<td>183</td>
+<td>C</td>
+<td>192</td>
+<td>D</td>
+</tr>
+<tr>
+<td>148</td>
+<td>C</td>
+<td>157</td>
+<td>C</td>
+<td>166</td>
+<td>D</td>
+<td>175</td>
+<td>D</td>
+<td>184</td>
+<td>C</td>
+<td>193</td>
+<td>A</td>
+</tr>
+<tr>
+<td>149</td>
+<td>D</td>
+<td>158</td>
+<td>A</td>
+<td>167</td>
+<td>A</td>
+<td>176</td>
+<td>B</td>
+<td>185</td>
+<td>A</td>
+<td>194</td>
+<td>C</td>
+</tr>
+<tr>
+<td>150</td>
+<td>C</td>
+<td>159</td>
+<td>B</td>
+<td>168</td>
+<td>B</td>
+<td>177</td>
+<td>C</td>
+<td>186</td>
+<td>B</td>
+<td>195</td>
+<td>D</td>
+</tr>
+<tr>
+<td>151</td>
+<td>B</td>
+<td>160</td>
+<td>C</td>
+<td>169</td>
+<td>A</td>
+<td>178</td>
+<td>D</td>
+<td>187</td>
+<td>A</td>
+<td>196</td>
+<td>A</td>
+</tr>
+<tr>
+<td>152</td>
+<td>D</td>
+<td>161</td>
+<td>B</td>
+<td>170</td>
+<td>A</td>
+<td>179</td>
+<td>B</td>
+<td>188</td>
+<td>D</td>
+<td>197</td>
+<td>A</td>
+</tr>
+<tr>
+<td>153</td>
+<td>A</td>
+<td>162</td>
+<td>A</td>
+<td>171</td>
+<td>B</td>
+<td>180</td>
+<td>A</td>
+<td>189</td>
+<td>C</td>
+<td>198</td>
+<td>C</td>
+</tr>
+<tr>
+<td>154</td>
+<td>C</td>
+<td>163</td>
+<td>A</td>
+<td>172</td>
+<td>D</td>
+<td>181</td>
+<td>B</td>
+<td>190</td>
+<td>D</td>
+<td>199</td>
+<td>D</td>
+</tr>
+<tr>
+<td>155</td>
+<td>A</td>
+<td>164</td>
+<td>C</td>
+<td>173</td>
+<td>B</td>
+<td>182</td>
+<td>D</td>
+<td>191</td>
+<td>B</td>
+<td>200</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Căn cứ nhanh (câu suy luận / dễ nhầm):</strong><br />
+- <strong>151 B</strong> — "Roles that require a specific license or accreditation ... are not affected"<br />
+- <strong>152 D</strong> — "expand its apprenticeship program from 20 to 60 places"<br />
+- <strong>154 C</strong> — "will have portal access to non-essential systems suspended until they do"<br />
+- <strong>165 D</strong> — "We would like to keep your details on file and contact you about future openings"<br />
+- <strong>167 A</strong> — "1.75 days per month (21 days a year)"<br />
+- <strong>177 C</strong> — "formal supervisor title not required"<br />
+- <strong>179 B</strong> — "the informal 'go-to' for training new hires and covering for my supervisor"<br />
+- <strong>182 D</strong> — "Marriage is a qualifying life event"<br />
+- <strong>185 A</strong> — "starts on the first paycheck of the month after your request is approved"<br />
+- <strong>188 D</strong> — "the prerequisite is one year as a manager. At 8 months you're not eligible yet"<br />
+- <strong>193 A</strong> — "one trip ... is covered ... A September trip works as long as it's the only one you claim"<br />
+- <strong>194 C</strong> — "treated as taxable income ... with tax withheld"<br />
+- <strong>198 C</strong> — "the mid-year check-in is not scored and has no effect on your rating or bonus"<br />
+- <strong>200 B</strong> — "it's fine for your meeting to slip a few days into early July"</p>
+<hr />
+<h2>Ghi điểm</h2>
+<pre><code>Ngày làm:  L: <span class="fill"></span>/100   R: <span class="fill"></span>/100   TỔNG: <span class="fill"></span>/200   Thời gian R: <span class="fill"></span>/75′
+
+Theo Part: P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/14 · P3 <span class="fill"></span>/18 · P4 <span class="fill"></span>/12 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54
+
+3 Part yếu nhất: <span class="fill"></span>
+</code></pre></div></section>
+  <section class="panel" data-tab="notes"><h1>📝 SET_005 — Ghi chú sau khi làm</h1>
+<p><strong>Ngày làm:</strong> <span class="fill"></span>  <strong>Thời gian Reading:</strong> <span class="fill"></span> / 75 phút</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Listening</th>
+<th>Reading</th>
+<th>Tổng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số câu đúng</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 100</td>
+<td><span class="fill"></span> / 200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Theo Part:</strong> P1 <span class="fill"></span>/6 · P2 <span class="fill"></span>/25 · P3 <span class="fill"></span>/39 · P4 <span class="fill"></span>/30 · P5 <span class="fill"></span>/30 · P6 <span class="fill"></span>/16 · P7 <span class="fill"></span>/54</p>
+<h2>Câu đánh dấu <code>?</code> hoặc làm sai</h2>
+<table>
+<thead>
+<tr>
+<th>Câu</th>
+<th>Part</th>
+<th>Chọn</th>
+<th>Đúng</th>
+<th>Lý do sai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Nhận xét</h2>
+<ul>
+<li>Điểm mạnh: </li>
+<li>Điểm yếu cần cải thiện: </li>
+<li>Nhóm bẫy lặp lại: </li>
+<li>Từ mới → <code>../../Review/Vocab_Bank/</code> (chủ đề HR / Recruitment): </li>
+</ul></section>
+</main>
+<button id="toTop" title="Lên đầu">↑</button>
+<script>
+(function(){
+  var root=document.documentElement, LS=window.localStorage;
+  try{
+    var t=LS.getItem('toeic-theme');
+    if(t==='dark') root.classList.add('dark');
+    if(t==='light') root.classList.add('light');
+    var f=parseInt(LS.getItem('toeic-fs')||'0',10);
+    if(f) root.style.setProperty('--fs',(17+f)+'px');
+  }catch(e){}
+  function bind(id,fn){var el=document.getElementById(id); if(el) el.addEventListener('click',fn);}
+  bind('thm',function(){
+    var d=root.classList.toggle('dark'); root.classList.remove('light');
+    if(!d) root.classList.add('light');
+    try{LS.setItem('toeic-theme', d?'dark':'light');}catch(e){}
+  });
+  var fs=parseInt((LS&&LS.getItem('toeic-fs'))||'0',10)||0;
+  function setfs(){root.style.setProperty('--fs',(17+fs)+'px'); try{LS.setItem('toeic-fs',fs);}catch(e){}}
+  bind('fup',function(){if(fs<8){fs++;setfs();}});
+  bind('fdn',function(){if(fs>-4){fs--;setfs();}});
+
+  // tabs
+  var btns=document.querySelectorAll('.tabbtn'), pans=document.querySelectorAll('.panel');
+  function show(name){
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===name);});
+    pans.forEach(function(p){p.classList.toggle('on', p.dataset.tab===name);});
+    try{LS.setItem('toeic-tab-'+document.body.dataset.set, name);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+  if(btns.length){
+    var saved=null; try{saved=LS.getItem('toeic-tab-'+document.body.dataset.set);}catch(e){}
+    show(saved && document.querySelector('.tabbtn[data-tab="'+saved+'"]') ? saved : btns[0].dataset.tab);
+  }
+
+  // answer gate
+  var g=document.getElementById('gatebtn');
+  if(g) g.addEventListener('click',function(){
+    document.querySelector('.keybody').classList.add('show');
+    g.closest('.gate').style.display='none';
+  });
+
+  // to top
+  var tt=document.getElementById('toTop');
+  if(tt){
+    tt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    window.addEventListener('scroll',function(){tt.classList.toggle('show', window.scrollY>600);});
+  }
+})();
+</script>
+</body>
+</html>

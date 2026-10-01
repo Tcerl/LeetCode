@@ -125,12 +125,12 @@ def add_item(item, cart=None):
 
 **Clean Architecture / Hexagonal Architecture.** Ý tưởng cốt lõi: **business logic không được phụ thuộc vào framework hay DB**. Framework/DB chỉ là "chi tiết kỹ thuật" nằm ở lớp ngoài, business logic nằm ở lõi trong cùng, giao tiếp qua interface. Lợi ích: đổi Django sang FastAPI, hoặc Postgres sang MongoDB, không phải viết lại logic nghiệp vụ. Đây là khác biệt rõ nhất giữa code Junior ("nhét hết logic vào view") và code Middle ("logic nằm ở service layer riêng, view chỉ gọi service").
 
-**Đọc chi tiết:** [`03-Python-Expert/Python_Core_Mastery.md`](../03-Python-Expert/Python_Core_Mastery.md), bài tập thêm ở [`03-Python-Expert/Python_Mastery_Challenges.md`](../03-Python-Expert/Python_Mastery_Challenges.md). Phần Design Pattern/DI/Clean Architecture: [`03-Python-Expert/Python_Backend_Professional_Guide.md`](../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 4B, 10, 11.
+**Đọc chi tiết:** [`03-Python-Expert/Python_Core_Mastery.md`](../03-Python-Expert/Python_Core_Mastery.md), bài tập thêm ở [`03-Python-Expert/Python_Mastery_Challenges.md`](../03-Python-Expert/Python_Mastery_Challenges.md). Phần Design Pattern/DI/Clean Architecture: [`03-Python-Expert/Python_Backend_Professional_Guide.md`](../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 4B, 10, 11. Bộ câu hỏi OOP/SOLID/Design Patterns đầy đủ (Q61-75): [`interview_prep/07_Cau_Hoi_Phong_Van.md`](../interview_prep/07_Cau_Hoi_Phong_Van.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
 
-> Nguồn: `03-Python-Expert/Python_Core_Mastery.md`, `03-Python-Expert/Python_Mastery_Challenges.md`, `03-Python-Expert/Python_Backend_Professional_Guide.md` (mục 1, 2, 6, 7, 10, 11).
+> Nguồn: `03-Python-Expert/Python_Core_Mastery.md`, `03-Python-Expert/Python_Mastery_Challenges.md`, `03-Python-Expert/Python_Backend_Professional_Guide.md` (mục 1, 2, 6, 7, 10, 11), `interview_prep/07_Cau_Hoi_Phong_Van.md` (Q61-75, OOP & Design Patterns).
 
 #### A. List, Dict, Set Comprehension
 ```python
@@ -304,6 +304,97 @@ class ReportFactory:
 def process_payment(payment_strategy: PaymentStrategy, amount: float):
     return payment_strategy.pay(amount)
 ```
+
+#### L2. SOLID principles
+**S**ingle Responsibility (1 class chỉ 1 lý do để thay đổi) · **O**pen/Closed (mở rộng được, không sửa code cũ) · **L**iskov Substitution (subclass thay thế được superclass mà không break behavior) · **I**nterface Segregation (nhiều interface nhỏ thay vì 1 interface lớn) · **D**ependency Inversion (phụ thuộc vào abstraction, không phụ thuộc vào implementation cụ thể).
+```python
+# Vi phạm SRP: 1 class làm quá nhiều việc
+class UserManager:
+    def create_user(self): ...
+    def send_email(self): ...   # nên tách ra EmailService
+    def save_to_db(self): ...   # nên tách ra UserRepository
+
+# Tuân thủ OCP: thêm platform mới không sửa code cũ
+class BaseConnector:
+    def fetch_products(self): raise NotImplementedError
+
+class ShopifyConnector(BaseConnector):
+    def fetch_products(self): ...  # override, không sửa BaseConnector
+```
+
+#### L3. Abstract class vs Protocol, `__slots__`, Composition vs Inheritance
+```python
+from abc import ABC, abstractmethod
+from typing import Protocol
+
+class BaseConnector(ABC):
+    def authenticate(self): return self._get_token()      # shared implementation
+    @abstractmethod
+    def fetch_products(self) -> list: ...                  # bắt buộc override
+
+class Fetchable(Protocol):           # duck typing — không cần kế thừa
+    def fetch_products(self) -> list: ...
+```
+Dùng **Abstract class** khi các subclass có code dùng chung; dùng **Protocol** khi chỉ cần định nghĩa hợp đồng (contract) mà không muốn ép kế thừa.
+```python
+class Point:
+    __slots__ = ['x', 'y']   # chỉ cho phép đúng 2 attribute, không tạo __dict__
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+```
+`__slots__` tiết kiệm ~40-50% RAM và truy cập attribute nhanh hơn — dùng khi tạo hàng triệu object (trading, game, parser); đánh đổi: không thể gán attribute động.
+
+**"Favor composition over inheritance"** (Gang of Four): Inheritance là quan hệ "is-a" (Dog IS-A Animal); Composition là quan hệ "has-a" (Car HAS-A Engine). Kế thừa sâu nhiều tầng dễ tạo "fragile base class" (sửa lớp cha làm hỏng lớp con ở xa) và tight coupling — composition linh hoạt hơn vì có thể đổi "linh kiện" lúc runtime.
+
+#### L4. Singleton, Observer, Decorator Pattern, Repository, Dependency Injection
+```python
+# Singleton — thread-safe, nhưng khó test (global state) nên cân nhắc DI thay thế
+class DatabaseConnection:
+    _instance = None
+    _lock = threading.Lock()
+    def __new__(cls):
+        if not cls._instance:
+            with cls._lock:
+                if not cls._instance:
+                    cls._instance = super().__new__(cls)
+        return cls._instance
+
+# Observer/pub-sub — 1 sự kiện, nhiều listener độc lập
+class EventEmitter:
+    def __init__(self):
+        self._listeners = defaultdict(list)
+    def on(self, event, callback):
+        self._listeners[event].append(callback)
+    def emit(self, event, data=None):
+        for cb in self._listeners[event]:
+            cb(data)
+# Ứng dụng: WebSocket events, Django signals, React state management
+
+# Decorator Pattern (GoF) — bọc object để thêm hành vi, khác @decorator của Python
+class CachedConnector:
+    def __init__(self, connector):
+        self._connector, self._cache = connector, {}
+    def fetch_products(self):
+        if 'products' not in self._cache:
+            self._cache['products'] = self._connector.fetch_products()
+        return self._cache['products']
+
+# Repository Pattern — tách business logic khỏi data access, dễ test/swap DB
+class UserRepository:
+    def __init__(self, db_session): self.db = db_session
+    def find_by_id(self, user_id): return self.db.query(User).filter_by(id=user_id).first()
+    def save(self, user): self.db.add(user); self.db.commit(); return user
+
+# Dependency Injection — truyền dependency từ ngoài vào thay vì tự tạo bên trong
+class OrderService:
+    def __init__(self, repo: OrderRepository, notifier: Notifier):
+        self.repo, self.notifier = repo, notifier   # inject được mock khi test
+```
+**MVC vs MVP vs MVVM:** MVC (Flask/Django) — Controller cập nhật Model, View đọc Model trực tiếp. MVP — Presenter làm trung gian giữa View và Model, View hoàn toàn thụ động. MVVM (Vue/React+MobX) — ViewModel expose data stream, View tự bind theo dõi thay đổi.
+
+**Event-driven architecture:** các thành phần giao tiếp qua event thay vì gọi trực tiếp nhau — VD `user_registered` → trigger song song `send_welcome_email`, `create_profile`, `notify_admin`; công cụ: Celery+Redis/RabbitMQ, Kafka, AWS EventBridge.
+
+**Anti-pattern cần tránh:** God Object (1 class ôm hết, vi phạm SRP); Spaghetti Code (logic không có cấu trúc); Copy-paste programming (vi phạm DRY, sửa bug phải sửa nhiều chỗ); Premature Optimization (tối ưu trước khi có bottleneck thật); Magic Numbers (hardcode số vô nghĩa thay vì named constant); Callback Hell (nested callback sâu — dùng Promise/async-await thay thế).
 
 #### M. Bài tập rèn luyện theo Tier (Python Mastery Challenges)
 
@@ -540,6 +631,8 @@ engine = create_engine(
 
 Khi số lượng app server tăng lên nhiều (VD chạy trên K8s với nhiều Pod), tổng connection từ tất cả Pod cộng lại có thể vượt giới hạn DB cho phép — lúc đó cần thêm **PgBouncer** (external pooler đứng giữa app và DB) để gộp hàng nghìn connection từ app xuống còn vài chục connection thật tới Postgres.
 
+**Sự cố thật hay gặp:** Postgres mặc định `max_connections = 100`. Deploy nhiều instance app (auto-scaling) mà mỗi instance mở pool riêng — VD pool size 20 × 10 instance = 200 connection — sẽ **vượt giới hạn DB**, gây lỗi `"too many connections"` làm sập **toàn bộ** hệ thống, kể cả khi CPU/RAM của DB vẫn còn dư thừa. Luôn tính: `số instance × pool size mỗi instance ≤ max_connections DB - buffer cho admin/migration`. Set `pool_timeout` hợp lý — request chờ connection quá lâu nên fail nhanh (fail-fast) thay vì xếp hàng vô hạn làm nghẽn toàn hệ thống.
+
 🔴 *Chuyên sâu/Thực chiến.* **Transaction & Isolation Level.** Transaction đảm bảo tính chất ACID — nhóm nhiều câu lệnh SQL thành 1 khối "tất cả thành công hoặc tất cả thất bại". Isolation level quyết định 2 transaction chạy song song nhìn thấy dữ liệu của nhau tới mức nào: `Read Committed` (mặc định ở Postgres) chỉ thấy dữ liệu đã commit, nhưng đọc 2 lần trong cùng transaction có thể ra kết quả khác nhau nếu ai đó commit ở giữa; `Repeatable Read` trong 1 transaction đọc lại luôn ra cùng kết quả; `Serializable` chặt nhất, giả lập như các transaction chạy tuần tự — an toàn nhất nhưng dễ bị **deadlock** (2 transaction cùng khóa chéo nhau, cả hai cùng chờ, phải có 1 cái bị DB hủy).
 
 **Replication, Sharding.** Replication: 1 DB chính (primary, nhận write) đồng bộ dữ liệu sang 1+ bản sao (replica, chỉ đọc) — vừa tăng khả năng chịu lỗi, vừa san tải đọc sang replica. Sharding: chia dữ liệu theo 1 khóa (VD `user_id % N`) ra nhiều DB vật lý riêng biệt — chỉ làm khi đã hết cách scale bằng replication, vì sharding khiến JOIN giữa các shard gần như bất khả thi và vận hành phức tạp hơn hẳn. MongoDB có **Replica Set** (tương đương Replication) và hỗ trợ Sharding sẵn trong engine — dễ scale ghi hơn Postgres ở quy mô cực lớn, đánh đổi lấy việc mất transaction đa document mạnh như SQL.
@@ -569,6 +662,22 @@ EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 123 AND status = 'pending';
 -- Seq Scan → BAD (đọc toàn bộ bảng, thiếu index)
 -- Index Scan → GOOD (dùng index)
 -- Index Only Scan → BEST (không cần đọc heap)
+```
+
+#### Full Text Search & Bitmap Index Scan (Postgres)
+Thay vì `LIKE '%keyword%'` (quét toàn bảng, rất chậm), dùng `tsvector`/`tsquery` để tìm kiếm từ khóa trong tích tắc:
+```sql
+CREATE INDEX idx_posts_content_fts ON posts USING GIN(to_tsvector('english', content));
+SELECT * FROM posts WHERE to_tsvector('english', content) @@ to_tsquery('postgres & index');
+```
+**Bitmap Index Scan:** khi query cần kết hợp nhiều index cùng lúc (VD `WHERE status = 'pending' AND category_id = 5`, mỗi điều kiện có index riêng), Postgres gộp kết quả nhiều index trước khi đọc dữ liệu thật — nhanh hơn Seq Scan nhưng chậm hơn 1 Index Scan đơn thuần.
+
+#### Query Tuning — tránh `IN` với danh sách lớn
+```sql
+-- Chậm khi danh sách lớn
+SELECT * FROM orders WHERE user_id IN (SELECT id FROM users WHERE is_vip = true);
+-- Nhanh hơn — dùng EXISTS hoặc JOIN
+SELECT * FROM orders o WHERE EXISTS (SELECT 1 FROM users u WHERE u.id = o.user_id AND u.is_vip = true);
 ```
 
 #### JOINs — loại và khi nào dùng
@@ -606,9 +715,24 @@ SELECT * FROM category_tree ORDER BY level;
 -- Window functions
 SELECT name, salary, department,
     ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank_in_dept,
-    LAG(salary) OVER (ORDER BY salary) as prev_salary
+    RANK() OVER (ORDER BY salary DESC) as overall_rank,
+    LAG(salary) OVER (ORDER BY salary) as prev_salary,
+    LEAD(salary) OVER (ORDER BY salary) as next_salary
 FROM employees;
+
+-- Running total & moving average
+SELECT date, amount,
+    SUM(amount) OVER (ORDER BY date ROWS UNBOUNDED PRECEDING) as running_total,
+    AVG(amount) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) as moving_avg_7d
+FROM sales;
+
+-- Top N per group (VD: top 3 sản phẩm bán chạy mỗi category)
+WITH ranked AS (
+    SELECT *, ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY sales DESC) as rn FROM products
+)
+SELECT * FROM ranked WHERE rn <= 3;
 ```
+**Subquery vs CTE vs JOIN:** Subquery khó đọc, có thể chậm; CTE (`WITH`) dễ đọc hơn, tái sử dụng được trong cùng query, hợp với query nhiều bước/hierarchical data; JOIN hiệu quả nhất khi có index đúng — chỉ dùng Subquery khi không thể viết lại bằng JOIN. **Câu hỏi phỏng vấn hay:** "Tại sao query vẫn chậm dù đã có index?" → có thể query không dùng được index (bọc hàm lên cột trong `WHERE`, implicit type cast), hoặc do data skew (1 giá trị chiếm phần lớn bảng khiến planner chọn Seq Scan thay vì Index Scan).
 
 #### Transaction, Locking, Deadlock
 ```sql
@@ -624,6 +748,17 @@ SELECT * FROM jobs WHERE status = 'pending'
 ORDER BY created_at LIMIT 1 FOR UPDATE SKIP LOCKED;
 ```
 Deadlock: Transaction A khóa row 1 đợi row 2, Transaction B khóa row 2 đợi row 1 → circular wait. **Tránh:** luôn khóa tài nguyên theo thứ tự nhất quán (VD: luôn khóa `id` nhỏ trước), giữ transaction ngắn, retry logic khi gặp deadlock.
+
+**4 mức Isolation Level (tăng dần độ chặt):**
+
+| Mức | Dirty Read | Non-repeatable Read | Phantom Read |
+|---|---|---|---|
+| READ UNCOMMITTED | Có thể | Có thể | Có thể |
+| READ COMMITTED (mặc định Postgres) | Không | Có thể | Có thể |
+| REPEATABLE READ | Không | Không | Có thể |
+| SERIALIZABLE | Không | Không | Không |
+
+Càng chặt càng an toàn nhưng càng giảm throughput (DB phải retry nhiều transaction xung đột hơn) — chỉ dùng `SERIALIZABLE` cho nghiệp vụ cực nhạy cảm (giao dịch tài chính, đặt vé giới hạn số lượng).
 
 #### JSONB & Array trong Postgres
 ```sql
@@ -697,6 +832,18 @@ def downgrade():
     op.drop_column("users", "role")
 ```
 **Quy tắc:** luôn có cả `upgrade()` và `downgrade()`; không xóa column trong cùng release với code dùng nó; thêm column với default value, KHÔNG nullable ngay.
+
+#### Thứ tự scale DB thật (từ rẻ nhất tới tốn kém nhất)
+1. **Tối ưu query + đúng index** — rẻ nhất, hiệu quả nhất, luôn làm trước.
+2. **Thêm cache layer (Redis)** trước các query đọc lặp lại nhiều (Chương 11) — giảm tải DB mà không cần đổi kiến trúc.
+3. **Read Replica** — tách query `SELECT` báo cáo/dashboard sang bản sao chỉ đọc, giữ DB chính cho ghi.
+4. **Connection pooler (PgBouncer)** — gộp hàng nghìn connection từ nhiều Pod xuống còn vài chục connection thật tới Postgres.
+5. **Partitioning** — chia bảng lớn theo thời gian/khu vực, vẫn trong cùng 1 DB, quản lý đơn giản hơn sharding.
+6. **Sharding** — chia dữ liệu ra nhiều DB vật lý, **phương án cuối cùng** vì mất khả năng JOIN/transaction xuyên shard, độ phức tạp vận hành tăng vọt. Nhiều công ty "sharding sớm" rồi hối hận vì độ phức tạp vượt xa lợi ích thật ở quy mô của họ.
+
+**Câu hỏi senior hay hỏi khi review:** "Bạn chọn Mongo/Postgres cho service này dựa trên tiêu chí gì — hay chỉ vì quen tay?" / "2 transaction này có thể deadlock không? Thứ tự khóa tài nguyên có nhất quán trong toàn bộ codebase không?" / "Trước khi nghĩ tới sharding, đã thử cache + read replica + tối ưu index chưa?"
+
+**Index — con dao hai lưỡi vận hành thật:** index không dùng vẫn tốn dung lượng + I/O khi ghi — senior định kỳ rà soát bằng `pg_stat_user_indexes` để dọn index thừa. Bảng ghi nhiều (event log) mà thêm quá nhiều index → ghi chậm hẳn, đây là sự cố thật khi "tối ưu đọc" vô tình phá "hiệu năng ghi".
 
 #### Sự cố thực chiến — database full disk, query chậm
 **Production DB full disk — xử lý ngay:** alert team, không panic → `du -sh /var/lib/postgresql/*` tìm nguồn (logs/temp/bloat) → xóa log cũ, `VACUUM FULL` nếu bloat lớn → extend disk (cloud resize không downtime) → archive dữ liệu cũ sang S3 → thiết lập alert disk >80%, log rotation.
@@ -898,6 +1045,20 @@ async def timing_middleware(request, call_next):
     return response
 ```
 **Bài học senior:** middleware chạy theo **thứ tự khai báo** — lỗi phổ biến nhất là đặt sai thứ tự (VD: middleware nén response chạy trước middleware auth → có thể rò rỉ dữ liệu lỗi chưa auth check).
+
+#### N+1 Query — con quái vật âm thầm giết hiệu năng production
+```python
+# ❌ N+1: 1 query lấy orders + N query lấy customer cho MỖI order
+orders = Order.objects.all()          # 1 query
+for order in orders:
+    print(order.customer.name)        # +1 query MỖI vòng lặp → 1 + N query!
+
+# ✅ Senior fix: JOIN trước bằng select_related (foreign key) / prefetch_related (many-to-many)
+orders = Order.objects.select_related("customer").all()   # đúng 1 query duy nhất
+```
+**Vì sao nguy hiểm hơn junior nghĩ:** với 20 đơn hàng demo, N+1 chỉ chậm thêm vài ms — không ai để ý. Với 50.000 đơn hàng trên production, đây là 50.001 lần round-trip tới DB → timeout, và tệ hơn: **rút cạn connection pool** (Chương 3), khiến các request KHÁC không liên quan cũng bị treo theo. Đây là lý do senior luôn bật **query logging** ở staging trước khi deploy tính năng liên quan tới danh sách dữ liệu.
+
+**Câu hỏi senior hay hỏi khi review PR/thiết kế:** "Endpoint này trả về danh sách — đã kiểm tra query log xem có N+1 không?" / "Nếu traffic tăng 10x đột ngột, connection pool có bảo vệ được DB không, hay sẽ sập dây chuyền?" / "Middleware auth có chạy TRƯỚC middleware log response body không? Có rủi ro lộ dữ liệu nhạy cảm trong log không?"
 
 #### Thử thách thực tế & giải pháp
 - **Xung đột Migration:** khắc phục bằng `--merge` hoặc quản lý tập trung trong team.
@@ -1134,6 +1295,85 @@ def create_app(config_name="development"):
 ```
 **Dùng khi nào:** tránh circular imports khi app lớn; cho phép tạo nhiều instance khác nhau (testing, prod, dev) — best practice cho Flask production apps.
 
+#### Blueprint Pattern — chia code theo feature module
+```python
+# routes/auth.py
+from flask import Blueprint, request, jsonify
+
+auth_bp = Blueprint("auth", __name__)
+
+@auth_bp.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    return jsonify({"token": generate_token()})
+
+@auth_bp.route("/logout", methods=["POST"])
+@jwt_required()
+def logout():
+    return jsonify({"message": "Logged out"})
+```
+**Dùng khi nào:** mỗi blueprint là 1 mini-app (auth, users, products, orders) — chia project lớn thành module độc lập thay vì nhét hết route vào 1 file.
+
+#### SQLAlchemy — Query nâng cao, Pagination
+```python
+from sqlalchemy import and_, or_, desc, func
+
+users = (User.query
+    .filter(and_(User.is_active == True, User.age > 18))
+    .order_by(desc(User.created_at))
+    .limit(20).offset(0).all())
+
+result = (db.session.query(User, Post)
+    .join(Post, User.id == Post.author_id)
+    .filter(User.is_active == True).all())
+
+count = db.session.query(func.count(User.id)).scalar()
+avg_age = db.session.query(func.avg(User.age)).scalar()
+
+page = User.query.paginate(page=1, per_page=20, error_out=False)
+# page.items, page.total, page.pages, page.has_next
+```
+
+#### Request Hooks — before/after/teardown
+```python
+@app.before_request
+def log_request():
+    g.start_time = time.time()
+    logger.info(f"{request.method} {request.path}")
+
+@app.after_request
+def log_response(response):
+    elapsed = time.time() - g.start_time
+    logger.info(f"Response {response.status_code} in {elapsed:.3f}s")
+    return response
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.session.remove()   # cleanup DB session sau mỗi request
+```
+
+#### Error Handling & Logging tập trung
+```python
+from logging.handlers import RotatingFileHandler
+
+def setup_logging(app):
+    handler = RotatingFileHandler("app.log", maxBytes=10*1024*1024, backupCount=5)
+    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s"))
+    app.logger.addHandler(handler)
+
+@app.errorhandler(500)
+def server_error(e):
+    app.logger.error(f"Server error: {e}", exc_info=True)
+    return jsonify({"error": "Internal server error"}), 500
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    if isinstance(e, HTTPException):
+        return e
+    app.logger.error(f"Unhandled exception: {e}", exc_info=True)
+    return jsonify({"error": "Something went wrong"}), 500
+```
+
 #### SQLAlchemy ORM — Model, Query, Lazy vs Eager Loading
 ```python
 class User(db.Model):
@@ -1256,7 +1496,21 @@ async def get_user_data(user_id: int):
 ```
 
 #### Worker model — vì sao `gunicorn -w 4` quan trọng hơn code
-Sync worker (Flask mặc định): mỗi worker xử lý 1 request/thời điểm — cần nhiều worker (`workers = 2 × số_lõi_CPU + 1`). Async worker (Uvicorn): 1 worker xử lý hàng nghìn kết nối I/O-bound trên 1 event loop — nhưng vẫn cần nhiều worker process để tận dụng nhiều lõi CPU. **Sự cố thật:** deploy FastAPI với `--workers 1` → chỉ dùng 1 lõi trên máy 8 lõi, throughput giảm 8 lần.
+Sync worker (Flask mặc định): mỗi worker xử lý 1 request/thời điểm — cần nhiều worker (`workers = 2 × số_lõi_CPU + 1`). Async worker (Uvicorn): 1 worker xử lý hàng nghìn kết nối I/O-bound trên 1 event loop — nhưng vẫn cần nhiều worker process để tận dụng nhiều lõi CPU. **Sự cố thật:** deploy FastAPI với `--workers 1` → chỉ dùng 1 lõi trên máy 8 lõi, throughput giảm 8 lần. Senior luôn benchmark số worker tối ưu bằng load test thật (Locust/k6, Chương 8), không đoán mò.
+
+#### Background Task — giới hạn của `BackgroundTasks` (FastAPI)
+```python
+from fastapi import BackgroundTasks
+
+@app.post("/register")
+async def register(user: UserCreate, background_tasks: BackgroundTasks):
+    new_user = create_user(user)
+    background_tasks.add_task(send_welcome_email, new_user.email)  # không block response
+    return {"id": new_user.id}
+```
+**Giới hạn cần biết:** `BackgroundTasks` chạy **trong cùng process** — server restart giữa lúc task đang chạy thì task **mất luôn**, không retry. Với tác vụ quan trọng (email xác nhận thanh toán), dùng **queue thật** (Celery + Redis/RabbitMQ, hoặc AWS SQS) có persistence + retry + dead-letter-queue thay vì BackgroundTasks.
+
+**Câu hỏi senior hay hỏi khi review:** "Hàm `async def` này có gọi hàm blocking nào ẩn bên trong không (thư viện sync, `time.sleep`, driver DB đồng bộ)?" / "Bạn set bao nhiêu worker process — dựa trên benchmark thật hay đoán?" / "Nếu server crash giữa lúc xử lý background task, dữ liệu có bị mất không? Có cơ chế retry không?"
 
 </details>
 **Bài tập:** FL-01 → FL-04 trong [`02-Flask-Exercises/Checklist_Bai_Tap.md`](02-Flask-Exercises/Checklist_Bai_Tap.md). Nâng cao: viết lại 1 API đã làm ở Django/Flask bằng FastAPI + Pydantic, so sánh lượng code phải viết.
@@ -1399,6 +1653,17 @@ class APIUser(HttpUser):
 # Chạy: locust -f locustfile.py --host=http://localhost:5000
 # Monitor: response time p50/p95/p99, error rate, RPS
 ```
+
+#### Structured logging — log JSON thay vì print()
+```python
+import logging, json
+
+def log_request(request_id: str, event: str, **kwargs):
+    # Mỗi dòng log là JSON có thể query được — khác print() vô dụng khi cần
+    # tìm 1 request cụ thể giữa hàng triệu dòng log/ngày trên production.
+    logging.info(json.dumps({"request_id": request_id, "event": event, **kwargs}))
+```
+**Bẫy junior hay gặp:** chỉ có logs, không có metrics/traces → khi hệ thống chậm phải "mò" từng dòng log thủ công, không biết bottleneck nằm ở service nào. Structured logging (JSON, có `request_id` xuyên suốt service) phải thiết kế từ đầu — cực khó bổ sung sau khi hệ thống đã lớn.
 
 #### Debug endpoint chậm trên production — quy trình senior
 1. Xem metrics trước: chậm từ khi nào, trùng deploy gần nhất hay traffic tăng đột biến?
@@ -1888,12 +2153,7 @@ Rule: Estimate × 1.5 cho task quen thuộc, × 2 cho task chưa từng làm.
 5. Circuit breaker: nếu downstream unreliable, fail fast thay vì wait.
 6. Resource exhaustion: thread pool đầy? connection pool đầy?
 
-#### VPC Design — defense in depth
-```
-Internet → Public Subnet (ALB/NAT Gateway) → Private Subnet App tier (EC2/ECS)
-         → Private Subnet Data tier (RDS, chỉ App tier được kết nối vào)
-```
-**Sự cố kinh điển:** đặt RDS ở public subnet "để dễ debug" rồi quên đổi lại — nguyên nhân nhiều vụ rò rỉ dữ liệu thật (bot scan tự động, brute-force). Nguyên tắc: data tier không bao giờ có route trực tiếp ra internet.
+*(VPC Design 3-tier "defense in depth" — xem [Chương 16](#chuong-16), không lặp lại ở đây để tránh trùng lặp.)*
 
 </details>
 
@@ -2584,6 +2844,23 @@ IAM Policy trên chỉ cho phép đọc/ghi đúng 1 bucket cụ thể — thay 
 - **RDS connection timeout** — Security Group RDS chưa cho phép inbound từ SG của EC2 (nên trỏ SG-to-SG thay vì IP cứng).
 - **IAM Access Denied** — dùng **IAM Policy Simulator** để debug.
 
+#### VPC Design — "defense in depth", không phải tạo cho có
+```
+Internet
+   │
+   ▼
+Public Subnet (ALB/NAT Gateway)         ← chỉ đặt thứ BẮT BUỘC phải public
+   │
+   ▼
+Private Subnet — App tier (EC2/ECS)     ← không có IP public, ra internet qua NAT
+   │
+   ▼
+Private Subnet — Data tier (RDS)        ← chỉ App tier được phép kết nối vào, SG hẹp nhất
+```
+**Sự cố thật kinh điển:** đặt RDS ở **public subnet** để "dễ debug từ máy cá nhân" rồi quên đổi lại — nguyên nhân của rất nhiều vụ rò rỉ dữ liệu thật (DB bị bot quét tự động, brute-force password). Nguyên tắc bất di bất dịch: **data tier không bao giờ có route trực tiếp ra internet**, muốn truy cập từ xa phải qua Bastion Host/VPN/Session Manager.
+
+**Câu hỏi senior hay hỏi khi review kiến trúc:** "Database của bạn có route trực tiếp ra internet không? Ai có thể SSH/kết nối trực tiếp vào nó?" / "IAM Role này có quyền gì — dựa vào managed policy mặc định hay đã audit theo usage thật?" / "Kiến trúc này chi phí bao nhiêu/tháng ở quy mô hiện tại, và ở quy mô gấp 10 lần?"
+
 </details>
 **Bài tập:** DO-04 (deploy qua pipeline lên localstack/EC2).
 
@@ -2717,6 +2994,10 @@ Deploy Frontend + Backend API + Database lên Minikube/Kind, dùng Service để
 - **Pod `Pending` mãi** — cluster không đủ tài nguyên, hoặc thiếu `nodeSelector`/taint-toleration.
 - **Service không route tới Pod** — `labels` Deployment và `selector` Service không khớp (lỗi kinh điển nhất).
 - **Config ConfigMap đổi nhưng Pod không nhận** — ConfigMap mount không tự reload, cần rolling restart Deployment.
+
+**`requests` quá thấp so với nhu cầu thật** → Scheduler nhồi quá nhiều pod vào 1 node → node quá tải thật sự dù theo config "vẫn còn chỗ". Senior luôn xác định requests/limits dựa trên **load test thật** (Locust/k6, Chương 8), không đoán theo cảm tính, rồi tinh chỉnh lại sau khi lên production.
+
+**Câu hỏi senior hay hỏi khi review:** "Container này chạy bằng user nào? Có set resource limits chưa?" / "Liveness và readiness probe có dùng chung endpoint không — nếu DB chậm, pod có bị restart oan không?" / "Khi rolling update, request đang xử lý dở trên pod cũ có bị cắt ngang không?"
 
 </details>
 **Bài tập:** DO-06.
@@ -2987,7 +3268,7 @@ kubectl rollout status deployment/backend-api   # theo dõi tiến trình rollou
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
 
-> Nguồn: `Mastery/Backend-Mastery/06-Fresher-To-Senior-Knowledge-And-Interview-Map/README.md`, `Mastery/Career-Mastery/03-Technical-Interview-Strategy-By-Stack/README.md`, `interview_prep/07_Cau_Hoi_Phong_Van.md` (Q1-13, Q57-65, phần MATLAB/MCR nếu liên quan tới domain riêng).
+> Nguồn: `Mastery/Backend-Mastery/06-Fresher-To-Senior-Knowledge-And-Interview-Map/README.md`, `Mastery/Career-Mastery/03-Technical-Interview-Strategy-By-Stack/README.md`, `interview_prep/07_Cau_Hoi_Phong_Van.md` (Q1-13, Q57-60, Q120-123; Q61-65 OOP/SOLID đã nhúng ở [Chương 1](#chuong-1) để tránh trùng lặp; phần MATLAB/MCR nếu liên quan tới domain riêng).
 
 #### Công thức trả lời câu hỏi lý thuyết — không chỉ định nghĩa suông
 **Cấu trúc:** Định nghĩa ngắn → **Ví dụ thực tế đã áp dụng** → **Tradeoff/giới hạn**.
@@ -3020,6 +3301,15 @@ kubectl rollout status deployment/backend-api   # theo dõi tiến trình rollou
 1. Với mỗi công nghệ trong CV, có ít nhất 1 ví dụ THẬT đã áp dụng không?
 2. Có thể giải thích tradeoff của MỌI quyết định kỹ thuật mình từng đưa ra không?
 3. Đã chuẩn bị 2-3 câu hỏi ngược lại cho người phỏng vấn chưa?
+
+#### Câu hỏi tình huống kỹ thuật + hành vi (Q120-123) — không có đáp án đúng tuyệt đối
+**"Team member commit thẳng vào main và gây bug — xử lý thế nào?"** → Kỹ thuật: `git revert <commit>` (an toàn hơn `git reset` vì không xóa history), deploy revert ngay, verify production ổn. Quy trình (ngăn lần sau): bật branch protection trên `main`, bắt buộc Pull Request + Code Review, bắt buộc CI pass trước merge, viết postmortem blameless. Giao tiếp: không đổ lỗi cá nhân, tập trung cải thiện quy trình.
+
+**"Nhận task không rõ requirements — làm sao?"** → Không code ngay khi mơ hồ: hỏi lại stakeholder ("Ai là người dùng? Đang giải quyết vấn đề gì?"), viết lại hiểu biết của mình để xác nhận ("Tôi hiểu task này là X, Y, Z — đúng không?"), xác định edge case, thống nhất scope (MVP trước, nice-to-have sau), chỉ estimate SAU khi đã rõ, ghi lại quyết định trong ticket/PR.
+
+**"Nhận feedback code review rất tiêu cực — xử lý thế nào?"** → Mindset: review không phải công kích cá nhân, mà để cải thiện sản phẩm. Đọc kỹ xem reviewer đúng không; nếu đồng ý → sửa + cảm ơn; nếu không đồng ý → giải thích lý do, có thể đưa ra team thảo luận; nếu feedback không rõ → hỏi lại; không phòng thủ ("sao anh/chị không thích code em?"); nếu lặp lại nhiều lần → 1-1 với reviewer để thống nhất coding standard.
+
+**"Deadline gấp nhưng chất lượng code phải hạ thấp — xử lý thế nào?"** → Đây là tradeoff, không có đáp án tuyệt đối: báo sớm cho lead/manager ngay khi thấy rủi ro; cắt scope (tính năng nào thực sự cần cho deadline, cái nào nice-to-have); lên kế hoạch technical debt rõ ràng (ship kèm TODO, tạo ticket, lên lịch dọn sau); ghi lại tradeoff đã chọn ("dùng cách X vì deadline, dự định refactor Y sau"); **không bao giờ** thỏa hiệp bảo mật/mất dữ liệu — có thể bỏ qua tối ưu hiệu năng, không được bỏ qua input validation.
 
 </details>
 
@@ -3068,6 +3358,7 @@ def require_roles(*roles):
         return wrapper
     return decorator
 ```
+**"Scale platform thế nào nếu user tăng 10x?"** → Thêm Redis cache cho sản phẩm hay truy cập; PostgreSQL read replica cho query báo cáo; CDN cho static asset (ảnh sản phẩm); background job (Celery) cho email/report thay vì xử lý đồng bộ.
 
 #### Ví dụ 2: Dịch vụ migrate dữ liệu eCommerce (Python, Docker, Adapter Pattern)
 **Kiến trúc:** Source Platform APIs → Source Adapter → Extract/Transform/Load → Migration Engine → Job Queue (Celery+Redis) → Progress WebSocket.
@@ -3088,6 +3379,22 @@ def create_adapter(platform: str, credentials: dict) -> ECommerceAdapter:
 ```
 **"Làm sao đảm bảo migration không mất data?"** → Pre-migration: count + checksum nguồn. During: transaction per batch, log mọi record. Post: count + spot-check target. Rollback: giữ source không đổi, drop target nếu fail.
 
+**"Tại sao dùng Docker trong dự án này?"** → Mỗi nguồn eCommerce cần SDK/client library khác nhau (Shopify SDK, Magento 2 API, WooCommerce REST client) — có thể xung đột dependency; Docker cô lập dependency theo từng service, đồng thời đảm bảo dev environment = production environment.
+
+**"PrestaShop connection error — debug thế nào?"** → Bật logging verbose, test từng bước riêng lẻ → phát hiện driver version không tương thích với MariaDB → fix: pin đúng version driver, ghi lại cho team, thêm integration test để bắt sớm lần sau.
+```python
+class MigrationValidator:
+    def validate_product(self, product: dict) -> ValidationResult:
+        errors = []
+        if not product.get("sku"):
+            errors.append("SKU is required")
+        if product.get("price", 0) < 0:
+            errors.append("Price cannot be negative")
+        if product.get("category_id") and not self.category_exists(product["category_id"]):
+            errors.append(f"Category {product['category_id']} not found")
+        return ValidationResult(is_valid=len(errors) == 0, errors=errors)
+```
+
 #### Ví dụ 3: Hệ thống kiosk (Next.js, WebSocket, tích hợp thanh toán)
 ```javascript
 function useWebSocket(url) {
@@ -3101,6 +3408,8 @@ function useWebSocket(url) {
 }
 ```
 **"Banking integration — security considerations?"** → HTTPS/TLS mọi giao tiếp; signature verification (HMAC) cho webhook; idempotency key tránh duplicate charge; audit log mọi transaction; timeout + retry với circuit breaker.
+
+**"Kiosk bị offline thì xử lý thế nào?"** → Thiết kế offline-first: cache dữ liệu bệnh nhân vào LocalStorage; background sync khi reconnect; UI thông báo rõ trạng thái offline; tính năng tối quan trọng (in biên lai) phải hoạt động được cả khi offline.
 
 #### Ví dụ 4: Nền tảng AI tuyển dụng (LLM integration, validation)
 ```python
@@ -3119,12 +3428,26 @@ def generate_cv(self, candidate_info: dict) -> GeneratedCV:
 ```
 **"Tránh hallucination khi LLM generate CV?"** → Structured output (yêu cầu JSON schema cụ thể); Few-shot prompting; Validation layer (reject nếu sai schema); Human review cho case nhạy cảm; Fallback template-based nếu LLM fail.
 
+**"Làm sao integrate 6+ microservices trong 1 platform?"** → Dùng Frappe Framework làm application server chính (có sẵn authentication/permissions/REST API/real-time); mỗi app con là Frappe app riêng, dùng chung database và authentication; giao tiếp qua event system của Frappe và REST API nội bộ.
+
+**"Làm sao ensure accuracy khi có phần tính toán ngoài (MATLAB MCR)?"** → Unit test với input/output đã biết trước; cross-validation chạy song song bản fallback Python và so sánh; monitoring log chênh lệch nếu vượt ngưỡng; regression test mỗi lần deploy; A/B test với mẫu nhỏ trước khi áp dụng production.
+
 #### Template trả lời về dự án — khung STAR
 ```
 S - Situation: Bối cảnh, vấn đề cần giải quyết
 T - Task: Nhiệm vụ cụ thể của bạn
 A - Action: Hành động cụ thể BẠN đã làm (dùng "tôi", không "chúng tôi")
 R - Result: Kết quả định lượng được
+```
+**Ví dụ áp dụng (mẫu, không phải của bạn):**
+```
+S: "Client cần migrate 50.000 sản phẩm từ Shopify sang PrestaShop mà không downtime"
+T: "Tôi phụ trách migration engine phía backend và tích hợp PrestaShop"
+A: "Tôi thiết kế Adapter Pattern để trừu tượng hóa nhiều nguồn/đích khác nhau,
+    implement batch processing có checkpoint/resume, debug lỗi driver không
+    tương thích với MariaDB"
+R: "Migration hoàn thành trong 8 tiếng, 0 data loss, nền tảng tái sử dụng
+    được cho nhiều client khác"
 ```
 
 </details>
@@ -3199,6 +3522,11 @@ Công ty trả theo **mức độ khó thay thế bạn** và **quy mô thiệt 
 1. "Chờ được ghi nhận" thay vì chủ động tạo bằng chứng (kể lại giá trị bằng khung STAR).
 2. Học dàn trải nhiều công nghệ nhưng không có dự án thật chứng minh — nhà tuyển dụng định giá "bạn từng tự tay giải quyết vấn đề gì", không phải "bạn biết gì".
 3. Không bao giờ phỏng vấn công ty khác vì "đang ổn định" — mất cơ chế duy nhất để tự kiểm chứng giá trị thật trên thị trường.
+
+#### Case study minh họa — 2 lộ trình khác nhau từ cùng 1 điểm xuất phát
+*(Tình huống mang tính điển hình, tổng hợp từ các mẫu hình phổ biến trên thị trường, không phải 1 cá nhân cụ thể.)* Kỹ sư X và Y cùng vào nghề với mức lương 10-12 triệu, vị trí Junior Fullstack outsource. **X sau 2 năm vẫn ở mức ~14 triệu:** ở lại 1 công ty, nhận task đều đặn, hoàn thành đúng hạn — nhưng chưa từng chủ động đề xuất thay đổi kiến trúc, chưa viết test trừ khi được yêu cầu, chưa từng phỏng vấn công ty khác để biết mình đang được định giá bao nhiêu. **Y sau 18 tháng đạt ~28 triệu:** sau 6 tháng đầu tương tự X, Y bắt đầu tự làm 1 dự án cá nhân có CI/CD + test + deploy thật, chủ động đề xuất thêm cache khi phát hiện API chậm (dù không được giao), và **đi phỏng vấn 3 công ty khác ở tháng thứ 10** dù chưa chắc nghỉ — nhận ra mình đang bị trả dưới giá thị trường, dùng offer đó đàm phán lại, rồi nhảy việc. Khác biệt cốt lõi không phải "Y giỏi hơn X 2 lần" — mà là Y liên tục tạo ra **bằng chứng đo lường được** và **liên tục kiểm tra lại giá trị bản thân với thị trường thật**, thay vì tự đánh giá một mình rồi chờ công ty tự nhận ra.
+
+**Câu hỏi tự đánh giá:** Trong 3 tháng gần nhất, bạn có làm điều gì mà **nếu nghỉ, người khác sẽ khó thay thế ngay** không? Bạn có đang giữ 1 dự án thật (không phải bài tập) làm bằng chứng năng lực, cập nhật định kỳ không? Lần gần nhất bạn phỏng vấn 1 công ty khác (kể cả không có ý định nghỉ) là khi nào?
 
 #### Lộ trình Expert Mastery — tài nguyên học tập tham khảo
 Giai đoạn 1 (Foundations, tháng 1-6): Vue 3, Python nâng cao (AsyncIO/Decorators/FastAPI), SQL nâng cao, chứng chỉ AWS SAA-C03. Giai đoạn 2 (Cloud-Native, tháng 7-18): CI/CD, Dockerize, IaC (CDK/Terraform), Lambda/API Gateway/SQS/SNS. Giai đoạn 3 (Master Architect, tháng 19+): Microservices, Event-Driven Architecture, AWS WAF/KMS, mentoring/code review.

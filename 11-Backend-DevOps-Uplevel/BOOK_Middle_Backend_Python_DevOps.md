@@ -1,10 +1,8 @@
 # 📘 Cuốn Sách Lộ Trình Middle Backend Developer (Python) / DevOps
 
-> **Mục đích:** Đây là cuốn sách tổng hợp **toàn bộ kiến thức cần ôn lại + cần mở rộng** để đi từ trình độ hiện tại (Fullstack Python với Frappe + Vue) lên **Middle Backend Developer (Python) có kỹ năng DevOps**. Mỗi chương gồm 3 phần: **Kiến thức cần học** (bullet point, kèm nhãn 🔁/🆕), **Giải thích chi tiết** (vì sao quan trọng, hoạt động thế nào, dễ sai ở đâu — viết bằng ngôn ngữ dễ hiểu, đọc trước khi vào tài liệu gốc), và **Đọc chi tiết** (điều hướng tới đúng tài liệu sâu hơn đã có sẵn trong repo, không viết lại từ đầu).
-> - 🔁 **Ôn lại** — bạn đã biết khái niệm qua Frappe/Vue, chương này giúp chuẩn hóa lại đúng thuật ngữ/chuẩn ngành.
-> - 🆕 **Mở rộng** — kiến thức mới, chưa từng làm qua trong công việc hiện tại.
+> **Mục đích:** Đây là cuốn sách tổng hợp **toàn bộ kiến thức cần ôn lại + cần mở rộng** để đi từ trình độ hiện tại (Fullstack Python với Frappe + Vue) lên **Middle Backend Developer (Python) có kỹ năng DevOps**. Sách **tự đủ (self-contained)** — mỗi chương gồm 4 phần: **Kiến thức cần học** (bullet point, chia theo 3 cấp độ 🟢/🟡/🔴), **Giải thích chi tiết** (vì sao quan trọng, hoạt động thế nào, dễ sai ở đâu — kèm code ví dụ), **📚 Nội dung đầy đủ** (khối thu gọn, bấm để mở — nhúng toàn bộ nội dung gốc từ ~30 tài liệu liên quan trong repo, không cần mở file khác), và **Đọc chi tiết** (link gốc để tra cứu/cập nhật sau này nếu tài liệu nguồn thay đổi).
 >
-> Dùng cùng với [README.md](README.md) (cách dùng folder) và [00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md](00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md) (lịch học tối 21h-22h/22h30) — sách này là "bản đồ kiến thức + người dịch bản đồ" gộp lại, lịch học là "thời gian biểu đọc bản đồ đó".
+> Dùng cùng với [README.md](README.md) (cách dùng folder) và [00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md](00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md) (lịch học tối 21h-22h/22h30) — sách này là "bản đồ kiến thức + toàn bộ nội dung" gộp làm một, lịch học là "thời gian biểu đọc".
 >
 > **Mỗi chương chia 3 cấp độ để ôn đúng tốc độ, không học dàn trải:**
 > - 🟢 **Cơ bản** — nền tảng phải vững, phần lớn đã biết/chạm qua ở công việc hiện tại, chỉ cần ôn lại cho đúng chuẩn ngành.
@@ -158,6 +156,30 @@ def senior_function(*args, **kwargs):
 - **Hiệu năng:** Comprehensions chạy nhanh hơn vòng lặp `for` thông thường vì được tối ưu ở tầng C-Level.
 - **Duy trì:** Viết code trên 1 dòng giúp giảm "độ loãng" của file, đồng nghiệp nắm logic nhanh hơn.
 - **Linh hoạt:** `*args/**kwargs` cho phép viết hàm Wrapper/Decorator cực mạnh mà không cần biết hàm gốc nhận bao nhiêu tham số.
+
+#### B2. Syntactic Sugar — so sánh Junior vs Senior
+Comprehension — Junior viết 5 dòng, Senior viết 1 dòng mà vẫn dễ đọc:
+```python
+# Junior:
+squares = []
+for x in range(10):
+    if x % 2 == 0:
+        squares.append(x**2)
+
+# Senior:
+squares = [x**2 for x in range(10) if x % 2 == 0]
+```
+Merge dictionaries (Python 3.9+) — dùng toán tử `|` thay vì `.update()`:
+```python
+dict1 = {"a": 1, "b": 2}
+dict2 = {"b": 3, "c": 4}
+merged = dict1 | dict2  # {"a": 1, "b": 3, "c": 4}
+```
+F-Strings formatting (số thập phân, phân tách hàng nghìn):
+```python
+price = 1200.5678
+print(f"Giá sản phẩm: {price:,.2f} VNĐ")  # 1,200.57 VNĐ
+```
 
 #### C. OOP — class, property, kế thừa
 ```python
@@ -403,6 +425,18 @@ chore(docker): optimize Dockerfile layer cache
 
 #### Semantic Versioning (SemVer)
 **MAJOR.MINOR.PATCH** (ví dụ: 2.4.1) — PATCH (bug fix, backward compatible), MINOR (new feature, backward compatible), MAJOR (breaking changes). Pre-release: `1.0.0-alpha.1`, `1.0.0-beta.2`, `1.0.0-rc.1`.
+
+#### Lab thực chiến (Học phần 5 — GITS)
+1. Mô phỏng 2 người cùng sửa 1 file, tạo conflict thật, thực hành resolve bằng cả `merge` và `rebase`, so sánh lịch sử commit (`git log --graph`).
+2. Setup pre-commit hook chạy `lint` + `test` tự động trước khi cho phép commit.
+3. Dùng `git bisect` để tìm ra commit nào làm hỏng 1 test case trong repo demo.
+
+#### Sự cố thường gặp (Git)
+- **`detached HEAD`** — checkout nhầm vào 1 commit thay vì branch, commit tiếp bị "mồ côi" nếu không tạo branch mới kịp thời.
+- **Force push làm mất commit của đồng nghiệp** — luôn ưu tiên `git push --force-with-lease` thay vì `--force`.
+- **Merge conflict lặp lại nhiều lần trên cùng 1 branch dài ngày** — dấu hiệu branch sống quá lâu, nên áp dụng Trunk-Based + feature flag thay vì giữ branch feature hàng tuần.
+- **Commit nhầm secret (API key, `.env`)** — cần `git filter-repo` hoặc BFG Repo-Cleaner để xóa khỏi lịch sử, đồng thời **revoke key ngay lập tức** (xóa khỏi git chưa đủ, key đã lộ coi như "cháy").
+- **`fatal: refusing to merge unrelated histories`** — khi merge 2 repo tách biệt, cần cờ `--allow-unrelated-histories` và hiểu rõ hệ quả.
 
 #### `.gitignore` — những gì cần ignore
 ```gitignore
@@ -2074,12 +2108,18 @@ SLO luôn phải **chặt hơn** SLA — là nền tảng của **Error Budget**
 #### Postmortem — văn hóa phân biệt team trưởng thành
 **Blameless** (không quy trách nhiệm cá nhân) là nguyên tắc bắt buộc. Gồm: Timeline chi tiết, Impact (bao nhiêu user/bao lâu), 5 Whys để đào tới nguyên nhân gốc thật (thường là vấn đề quy trình — thiếu test/alert/review, không phải "dev đó code dở"), Action items cụ thể có người phụ trách + deadline.
 
-#### Thiết lập Prometheus + Grafana + Node Exporter (Lab)
-```bash
-# Docker Compose dựng Prometheus + Grafana + Node Exporter
-# Tạo dashboard theo dõi CPU/RAM/Disk server
-# Cấu hình Alertmanager gửi cảnh báo qua Telegram khi CPU > 80% trong 5 phút
-```
+#### Lab thực chiến (Học phần 7 — Monitoring)
+1. Dựng bộ Prometheus + Grafana + Node Exporter bằng Docker Compose, tạo dashboard theo dõi CPU/RAM/Disk của server.
+2. Cấu hình Alertmanager gửi cảnh báo qua Telegram khi CPU > 80% trong 5 phút.
+3. Thêm `/metrics` endpoint tùy chỉnh (custom metrics) vào 1 app Node.js/Flask để Prometheus scrape (VD: số request/giây, latency).
+
+**Node Exporter / cAdvisor** — exporter thu thập metrics hệ thống (Node Exporter) và container (cAdvisor) để Prometheus scrape; đây là cách Prometheus "nhìn thấy" CPU/RAM/Disk của host và container mà không cần sửa code app.
+
+**ELK/EFK Stack** (Elasticsearch – Logstash/Fluentd – Kibana) hoặc **Grafana Loki** — 2 trường phái tập trung & tìm kiếm log: ELK mạnh về full-text search nhưng nặng tài nguyên; Loki index theo label (giống Prometheus) nên nhẹ hơn nhiều, phù hợp khi đã dùng sẵn Grafana.
+
+**Distributed Tracing** (Jaeger/OpenTelemetry) — theo dõi 1 request đi qua nhiều microservice, mỗi service ghi lại 1 "span" gắn `trace_id` chung — đây là cách duy nhất debug được "request chậm ở đâu" khi hệ thống có hơn 1 service.
+
+**SLO-based Alerting** — cảnh báo dựa trên error budget (vd: "đã dùng 80% error budget tháng này") thay vì ngưỡng CPU/Memory đơn thuần, giúp tránh "alert fatigue" vì chỉ báo khi thực sự ảnh hưởng tới cam kết SLO.
 
 #### Sự cố thường gặp (Học phần 7 Monitoring)
 - **Alert Fatigue** — ngưỡng quá nhạy khiến Slack/Telegram spam, team bỏ qua cả alert thật.
@@ -2249,6 +2289,42 @@ Kiến trúc client-server, mô hình OSI 7 tầng (tối thiểu tầng 3-Netwo
 - **Disk full** — log không rotate, Docker image/container rác (`docker system prune`).
 - **Port đã bị chiếm** — `lsof -i :PORT` hoặc `ss -tulpn | grep PORT`.
 - **Zombie/Defunct process** — quy trình cha không "reap" con đúng cách, cần hiểu init process (PID 1) trong container.
+- **"Permission denied" khi chạy script** — quên `chmod +x`, hoặc chạy sai user (dùng `sudo` cho lệnh cần quyền root).
+- **Cron job không chạy** — PATH trong cron khác với shell tương tác, hoặc quên `2>&1` để redirect log lỗi ra file mà debug.
+
+#### Shell scripting, cron, systemd, SSH (Học phần 2 — Nâng cao)
+```bash
+# Bash script tự động backup /var/www thành .tar.gz gắn timestamp, đẩy lên S3, chạy cron 2h sáng
+#!/bin/bash
+TS=$(date +%Y%m%d_%H%M%S)
+tar -czf /backup/www_$TS.tar.gz /var/www
+aws s3 cp /backup/www_$TS.tar.gz s3://my-backup-bucket/
+# crontab -e:
+0 2 * * * /opt/scripts/backup_www.sh >> /var/log/backup.log 2>&1
+```
+```ini
+# Unit file systemd để chạy app như 1 service
+# /etc/systemd/system/myapp.service
+[Unit]
+Description=My Flask App
+After=network.target
+
+[Service]
+User=appuser
+WorkingDirectory=/app
+ExecStart=/usr/bin/gunicorn app:app --bind 0.0.0.0:5000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+```bash
+systemctl enable myapp && systemctl start myapp
+# SSH key-based auth (không cần mật khẩu)
+ssh-keygen -t ed25519 -C "deploy@myapp"
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server   # hoặc append thủ công vào ~/.ssh/authorized_keys trên server
+```
+**Lab:** service Node.js bị "Out of Memory" và bị kill — debug bằng `dmesg | grep -i kill`, `journalctl -u <service>`.
 
 </details>
 **Bài tập:** FL-04, DO-01, DO-02 trong [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md).
@@ -2342,6 +2418,36 @@ jobs:
             docker-compose up -d --build
             docker-compose exec app flask db upgrade
 ```
+
+#### Pipeline tương đương — GitLab CI (`.gitlab-ci.yml`)
+```yaml
+stages: [test, build, deploy]
+
+test:
+  stage: test
+  image: python:3.11
+  services: [postgres:15]
+  variables:
+    POSTGRES_DB: test_db
+    DATABASE_URL: postgresql://postgres:postgres@postgres/test_db
+  script:
+    - pip install -r requirements.txt
+    - pytest --cov=app tests/
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+deploy_production:
+  stage: deploy
+  only: [main]
+  when: manual        # Manual Approval tương đương GitHub Environments
+  script:
+    - ssh $SERVER_USER@$SERVER_HOST "cd /app && docker-compose pull && docker-compose up -d"
+```
+Khác biệt chính với GitHub Actions: GitLab CI dùng `stages`/`only`/`when: manual` thay vì `needs`/`if`/environment protection rule; cơ chế cache khai báo qua khối `cache:` cấp pipeline thay vì action `actions/cache`.
 
 #### 4 nền tảng CI/CD phổ biến
 - **GitHub Actions** — tích hợp sẵn GitHub, YAML trong `.github/workflows`.
@@ -3043,12 +3149,75 @@ R - Result: Kết quả định lượng được
 
 **Đọc chi tiết:** [`Mastery/Career-Mastery/04-Behavioral-And-Salary-Negotiation`](../Mastery/Career-Mastery/04-Behavioral-And-Salary-Negotiation), [`05-Salary-Growth-Playbook`](../Mastery/Career-Mastery/05-Salary-Growth-Playbook).
 
+<details>
+<summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
+
+> Nguồn: `Mastery/Career-Mastery/04-Behavioral-And-Salary-Negotiation/README.md`, `Mastery/Career-Mastery/05-Salary-Growth-Playbook/README.md`, `01-Roadmaps/Expert_Mastery_Roadmap_Project.md`, `interview_prep/07_Cau_Hoi_Phong_Van.md` (Q57-60).
+
+#### Khung STAR — ví dụ đầy đủ
+> Câu hỏi: *"Kể về 1 lần bạn gặp bug khó và cách giải quyết."*
+> - **S:** "Hệ thống thanh toán bị lỗi double-charge cho ~0.1% giao dịch, chỉ xảy ra khi user bấm submit nhanh liên tiếp."
+> - **T:** "Em được giao điều tra và fix trong 2 ngày vì ảnh hưởng trực tiếp tới tiền khách hàng."
+> - **A:** "Em xác định đây là race condition — 2 request gần như đồng thời cùng đọc trạng thái đơn hàng 'chưa thanh toán' trước khi cái nào kịp cập nhật. Em fix bằng unique constraint ở DB kết hợp idempotency key gửi từ client."
+> - **R:** "Sau khi deploy, tỷ lệ lỗi giảm về 0 trong 3 tháng theo dõi, và em viết thêm postmortem để team áp dụng idempotency key cho toàn bộ API thanh toán khác."
+
+#### 4-5 câu chuyện "lõi" — dùng linh hoạt cho nhiều câu hỏi
+
+| Câu chuyện lõi | Dùng trả lời cho câu hỏi dạng |
+|---|---|
+| 1 lần bug khó đã giải quyết | "Thử thách kỹ thuật khó nhất", "Cách bạn debug vấn đề phức tạp" |
+| 1 lần bất đồng quan điểm kỹ thuật với đồng nghiệp | "Xử lý xung đột" |
+| 1 lần deadline gấp / ưu tiên công việc | "Quản lý thời gian", "Áp lực công việc" |
+| 1 lần mắc lỗi và cách khắc phục | "Điểm yếu của bạn", "Bài học từ thất bại" |
+| 1 lần chủ động đề xuất cải tiến ngoài phạm vi được giao | "Chủ động trong công việc" |
+
+#### Đàm phán lương — nguyên tắc thực tế
+- **Không nói con số trước nếu có thể tránh:** "Em muốn tìm hiểu thêm về phạm vi công việc trước, nhưng tin công ty có mức lương cạnh tranh — anh/chị có thể chia sẻ range không?" — người hỏi trước ở thế bất lợi hơn.
+- **Luôn có khoảng (range)**, neo mức thấp nhất = mức thật sự chấp nhận được, không phải mức mong muốn tối đa.
+- **Tổng thu nhập (Total Compensation):** thưởng, bảo hiểm, ngày nghỉ phép, remote policy, ngân sách học tập — đều quy đổi được giá trị.
+- **Có offer khác là đòn bẩy mạnh nhất** — nhưng phải trung thực, không bịa offer giả (ngành công nghệ "nhỏ", tin đồn lan nhanh).
+- **Im lặng là công cụ:** sau khi nêu số mong muốn, đừng vội giải thích/xin lỗi thêm — để khoảng lặng cho phía tuyển dụng phản hồi.
+
+#### Câu hỏi ngược lại nhà tuyển dụng
+- "Đâu là thử thách kỹ thuật lớn nhất team đang đối mặt trong 6 tháng tới?"
+- "Quy trình xử lý sự cố (incident response) của team ra sao — có postmortem văn hóa không?"
+- "Technical debt lớn nhất hiện tại của hệ thống là gì, và có kế hoạch giải quyết không?"
+
+#### Sự thật đầu tiên: lương phản ánh RỦI RO công ty gánh khi thiếu bạn, không phản ánh nỗ lực
+Công ty trả theo **mức độ khó thay thế bạn** và **quy mô thiệt hại nếu bạn làm sai/nghỉ việc**. Kỹ sư A làm đúng task được giao, ai cũng làm được tương tự → dễ thay thế → lương neo thấp. Kỹ sư B là người duy nhất hiểu tại sao hệ thống thiết kế như vậy, tự phát hiện và ngăn sự cố trước khi xảy ra → khó thay thế → lương phản ánh đúng rủi ro.
+
+#### Bảng tín hiệu theo cấp độ
+
+| Cấp độ | Tín hiệu kỹ thuật | Câu hỏi phỏng vấn điển hình |
+|---|---|---|
+| Fresher | Code chạy đúng logic được giao | "Giải thích code này làm gì" |
+| Junior | Tự debug lỗi không rõ nguyên nhân, viết test cơ bản | "Kể 1 lần bạn tự tìm ra nguyên nhân 1 lỗi khó" |
+| Mid | Tự ra quyết định kỹ thuật có tradeoff | "Tại sao bạn chọn X thay vì Y?" |
+| Senior | Thiết kế kiến trúc/quy trình ngăn CẢ LỚP vấn đề lặp lại | "Kể 1 lần bạn thay đổi QUY TRÌNH của team" |
+
+#### Ba bẫy tư duy khiến người có năng lực vẫn bị trả lương thấp
+1. "Chờ được ghi nhận" thay vì chủ động tạo bằng chứng (kể lại giá trị bằng khung STAR).
+2. Học dàn trải nhiều công nghệ nhưng không có dự án thật chứng minh — nhà tuyển dụng định giá "bạn từng tự tay giải quyết vấn đề gì", không phải "bạn biết gì".
+3. Không bao giờ phỏng vấn công ty khác vì "đang ổn định" — mất cơ chế duy nhất để tự kiểm chứng giá trị thật trên thị trường.
+
+#### Lộ trình Expert Mastery — tài nguyên học tập tham khảo
+Giai đoạn 1 (Foundations, tháng 1-6): Vue 3, Python nâng cao (AsyncIO/Decorators/FastAPI), SQL nâng cao, chứng chỉ AWS SAA-C03. Giai đoạn 2 (Cloud-Native, tháng 7-18): CI/CD, Dockerize, IaC (CDK/Terraform), Lambda/API Gateway/SQS/SNS. Giai đoạn 3 (Master Architect, tháng 19+): Microservices, Event-Driven Architecture, AWS WAF/KMS, mentoring/code review.
+
+**Thử thách Expert:** (1) Zero Downtime — cập nhật code không ngắt quãng (Blue-Green); (2) Cost Optimization — Lifecycle Policy tự xóa/nén file cũ; (3) High Security — DB không truy cập trực tiếp từ Internet, mọi truy cập qua API Gateway + Lambda.
+
+#### Checklist chuẩn bị
+1. Đã viết 4-5 câu chuyện lõi theo khung STAR, có số liệu kết quả cụ thể chưa?
+2. Đã xác định rõ range lương chấp nhận được (dựa trên nghiên cứu thị trường thật) chưa?
+3. Đã chuẩn bị 3 câu hỏi ngược lại thể hiện tư duy chủ động chưa?
+
+</details>
+
 ---
 
 ## 📌 Cách dùng cuốn sách này
 
 1. Đi theo đúng thứ tự Chương 1 → 23, khớp với 5 chặng trong [`Lich_Trinh_Toi_Den_Tet.md`](00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md) (Chặng 1 ≈ Chương 1-5, Chặng 2 ≈ Chương 6+2, Chặng 3 ≈ Chương 7+14, Chặng 4 ≈ Chương 15-16, Chặng 5 ≈ Chương 17-22, trong đó Chương 18 — IaC — làm ngay sau K8s cơ bản, trước khi ghép project cuối khóa).
-2. Mỗi chương đọc theo thứ tự: **Kiến thức cần học** (biết cần nắm gì, chia theo 3 cấp độ) → **Giải thích chi tiết** (hiểu vì sao quan trọng, hoạt động thế nào, dễ sai ở đâu — đọc phần này trước khi vào tài liệu gốc sẽ dễ hiểu hơn nhiều) → **Đọc chi tiết** (chỉ đọc đúng phần tài liệu gốc được trỏ tới, không cần đọc hết toàn bộ file).
+2. Mỗi chương đọc theo thứ tự: **Kiến thức cần học** (biết cần nắm gì, chia theo 3 cấp độ) → **Giải thích chi tiết** (hiểu vì sao quan trọng, hoạt động thế nào, dễ sai ở đâu, có code ví dụ) → nếu cần sâu hơn, bấm mở khối **📚 Nội dung đầy đủ** (đã nhúng sẵn toàn bộ tài liệu gốc liên quan — không cần rời khỏi sách) → **Đọc chi tiết** chỉ còn là link tham khảo/tra cứu khi tài liệu nguồn cập nhật sau này, không bắt buộc phải mở.
 3. Dùng 3 cấp độ 🟢/🟡/🔴 để **ôn đúng tốc độ** thay vì đọc dàn trải như nhau cho mọi mục:
    - Lần ôn đầu tiên trong tuần: đọc hết 🟢, lướt nhanh 🟡, bỏ qua 🔴 — mục tiêu là có bản đồ tổng thể.
    - Lần học chính (code theo): tập trung 🟡 — đây là khối lượng kiến thức Middle thật sự cần nắm chắc.

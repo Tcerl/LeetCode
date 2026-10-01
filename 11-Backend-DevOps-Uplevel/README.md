@@ -19,6 +19,7 @@ Bối cảnh cá nhân (để không quên khi quay lại):
 | [02-Flask-Exercises/](02-Flask-Exercises/) | Checklist bài tập tay Flask |
 | [03-DevOps-Exercises/](03-DevOps-Exercises/) | Checklist bài tập tay Git/Docker/CI-CD/AWS/K8s cơ bản |
 | [04-Tien-Do-Ca-Nhan/](04-Tien-Do-Ca-Nhan/) | Bảng theo dõi tiến độ theo tuần — tick vào mỗi tối học xong |
+| [BOOK_Middle_Backend_Python_DevOps.md](BOOK_Middle_Backend_Python_DevOps.md) | Sách lộ trình 23 chương (🟢/🟡/🔴 theo cấp độ, có code ví dụ) + Glossary tra cứu nhanh ở cuối sách — mỗi chương gồm Kiến thức cần học + Giải thích chi tiết + link tới tài liệu gốc trong repo |
 
 ## 🔗 Nguồn lý thuyết gốc (folder này chỉ trỏ tới, không copy lại)
 - Django/Flask: [`03-Python-Expert/`](../03-Python-Expert/), [`09-Example-Projects/`](../09-Example-Projects/)

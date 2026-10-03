@@ -1,9 +1,9 @@
 # 🎯 Backend-DevOps-Uplevel — Folder Tổng Hợp Nâng Trình Trước Tết
 
-> **Mục đích:** Đây là folder **trung tâm** gom lại toàn bộ kiến thức, skill, bài tập (Exercise) cần dùng trong nghề (Django/Flask + DevOps) từ nay tới ra Tết Nguyên Đán 2027. Folder này **không lặp lại nội dung** đã có sẵn ở các folder khác trong repo — nó chỉ **trỏ tới đúng phần cần đọc mỗi buổi tối** + **thêm bài tập tay** + **theo dõi tiến độ**.
+> **Mục đích:** Đây là folder **trung tâm** gom lại toàn bộ kiến thức, skill, bài tập (Exercise) cần dùng trong nghề (Django/Flask + DevOps) từ nay tới ra Tết Nguyên Đán 2027 + **theo dõi tiến độ**. Cuốn sách (`BOOK_Middle_Backend_Python_DevOps.md`) giờ đã **tự đủ (self-contained)** — nội dung đầy đủ từ ~30 tài liệu gốc trong repo đã được nhúng trực tiếp vào từng chương (dạng khối thu gọn, bấm để mở) nên không cần mở file khác để đọc nữa; link tới tài liệu gốc vẫn giữ lại để tham khảo sâu hơn khi cần.
 
 Bối cảnh cá nhân (để không quên khi quay lại):
-- Đang đi làm full-time Python Fullstack (Frappe + Vue).
+- Định hướng phát triển chuyên sâu Python Fullstack / Backend Engineer.
 - Mục tiêu: nâng trình Django/Flask + DevOps để đủ phỏng vấn "Backend Engineer (Django/Flask) with DevOps skills" ngay sau Tết.
 - Quỹ thời gian: **9h00 – 10h00/10h30 tối mỗi ngày** (trước đó đã học tiếng Anh, nên khung này chỉ dành riêng cho Backend/DevOps).
 - Mốc kết thúc: ra Tết Âm lịch 2027 (~giữa tháng 2/2027) — tổng cộng **~20 tuần**.
@@ -15,11 +15,11 @@ Bối cảnh cá nhân (để không quên khi quay lại):
 | Folder | Nội dung |
 |---|---|
 | [00-Lich-Hoc-Toi/](00-Lich-Hoc-Toi/) | Lịch học tối chi tiết theo khung 9h-10h/10h30, chia 5 chặng tới ra Tết |
-| [01-Django-Exercises/](01-Django-Exercises/) | Checklist bài tập tay Django (theo tuần, tăng dần độ khó) |
-| [02-Flask-Exercises/](02-Flask-Exercises/) | Checklist bài tập tay Flask |
-| [03-DevOps-Exercises/](03-DevOps-Exercises/) | Checklist bài tập tay Git/Docker/CI-CD/AWS/K8s cơ bản |
+| [01-Django-Exercises/](01-Django-Exercises/) | Checklist + **Hướng dẫn thực hành từng bước & Giải thích chuyên sâu** bài tập Django (DJ-01 → DJ-07) |
+| [02-Flask-Exercises/](02-Flask-Exercises/) | Checklist + **Hướng dẫn thực hành từng bước & Giải thích chuyên sâu** bài tập Flask (FL-01 → FL-04) |
+| [03-DevOps-Exercises/](03-DevOps-Exercises/) | Checklist + **Hướng dẫn thực hành từng bước & Giải thích chuyên sâu** Docker/CI-CD/AWS/K8s + **Lab tự gây sự cố & sửa lỗi** (DO-01 → DO-06 & LAB-01 → LAB-05) |
 | [04-Tien-Do-Ca-Nhan/](04-Tien-Do-Ca-Nhan/) | Bảng theo dõi tiến độ theo tuần — tick vào mỗi tối học xong |
-| [BOOK_Middle_Backend_Python_DevOps.md](BOOK_Middle_Backend_Python_DevOps.md) | Sách lộ trình 23 chương (🟢/🟡/🔴 theo cấp độ, có code ví dụ) + Glossary tra cứu nhanh ở cuối sách — mỗi chương gồm Kiến thức cần học + Giải thích chi tiết + link tới tài liệu gốc trong repo |
+| [BOOK_Middle_Backend_Python_DevOps.md](BOOK_Middle_Backend_Python_DevOps.md) | Sách lộ trình 23 chương, **tự đủ (self-contained)** — mỗi chương gồm 5 phần: Kiến thức cần học (🟢/🟡/🔴) + **🔬 Giải thích chuyên sâu & Cơ chế bên dưới** + **🛠️ Hướng dẫn thực hành & Verification** + khối "📚 Nội dung đầy đủ" nhúng tài liệu gốc + Glossary tra cứu nhanh |
 
 ## 🔗 Nguồn lý thuyết gốc (folder này chỉ trỏ tới, không copy lại)
 - Django/Flask: [`03-Python-Expert/`](../03-Python-Expert/), [`09-Example-Projects/`](../09-Example-Projects/)

@@ -1,30 +1,32 @@
 # 🌙 Lịch Học Tối 9h00 – 10h00/10h30 — Từ 25/09/2026 Đến Ra Tết (~12/02/2027)
 
-> Khung giờ cố định: **21h00 – 22h00 (hoặc 22h30 nếu còn sức)**, sau khi đã học tiếng Anh. Mỗi tối chỉ 1 chủ đề nhỏ, KHÔNG ôm đồm — mục tiêu là đều đặn 6 tối/tuần, nghỉ 1 tối tùy chọn (khuyến nghị Chủ Nhật để nghỉ ngơi/ôn nhẹ).
+> Khung giờ cố định: **21h00 – 22h00 (hoặc 22h30 nếu còn sức)**, sau khi đã học tiếng Anh. Mỗi tối chỉ 1 chủ đề nhỏ, KHÔNG ôm đồm — mục tiêu là đều đặn 6 tối/tuần.
+>
+> **💡 Nguyên tắc Học & Thực hành Xen kẽ (Interleaved Learning):** Tất cả các phần **Giải thích chuyên sâu (Lý thuyết)** và **Hướng dẫn thực hành từng bước (Hands-on Lab)** đã được **nhúng xen kẽ trực tiếp vào từng chương của cuốn sách [BOOK_Middle_Backend_Python_DevOps.md](../BOOK_Middle_Backend_Python_DevOps.md)**. Khi đọc xong phần cơ chế/lý thuyết ở Tối Thứ 2 & 4, bạn có thể thực hành ngay đoạn code & lệnh terminal ở mục `🛠️ Hướng dẫn thực hành từng bước` nằm ngay bên dưới của chính chương đó!
 
 **Nhịp tuần cố định (lặp lại xuyên suốt 20 tuần):**
 
 | Tối | Nội dung | Thời lượng |
 |---|---|---|
-| Thứ 2 | Lý thuyết mới (đọc + note) | 45-60 phút |
-| Thứ 3 | Code theo lý thuyết thứ 2 (hands-on) | 45-60 phút |
-| Thứ 4 | Lý thuyết mới (đọc + note) | 45-60 phút |
-| Thứ 5 | Code theo lý thuyết thứ 4 (hands-on) | 45-60 phút |
-| Thứ 6 | Làm 1 bài trong Exercise checklist (không xem hướng dẫn trước) | 60-90 phút |
-| Thứ 7 | Lab lớn hơn / ghép nối kiến thức cả tuần | 60-90 phút |
+| Thứ 2 | Đọc Lý thuyết & Cơ chế chuyên sâu trong `BOOK_Middle_Backend_Python_DevOps.md` | 45-60 phút |
+| Thứ 3 | Thực hành theo mục `🛠️ Hướng dẫn thực hành` ngay dưới chương đó (Hands-on) | 45-60 phút |
+| Thứ 4 | Đọc Lý thuyết & Cơ chế chuyên sâu tiếp theo trong `BOOK_Middle_Backend_Python_DevOps.md` | 45-60 phút |
+| Thứ 5 | Thực hành theo mục `🛠️ Hướng dẫn thực hành` ngay dưới chương đó (Hands-on) | 45-60 phút |
+| Thứ 6 | Làm 1 bài trong Exercise checklist (kiểm tra lại không nhìn hướng dẫn) | 60-90 phút |
+| Thứ 7 | Lab lớn hơn / ghép nối kiến thức cả tuần / Debug lỗi thực tế | 60-90 phút |
 | CN | Nghỉ hoặc đọc nhẹ + tick Progress Tracker + xem trước tuần sau | 15-30 phút |
 
 ---
 
 ## 🟢 CHẶNG 1 — Django Core (Tuần 1-4, 28/09 → 25/10)
 
-> Bạn đã hiểu ORM qua Frappe → tập trung vào **khác biệt cú pháp + tư duy Django**, không học lại khái niệm ORM từ đầu.
+> Tập trung vào **tư duy kiến trúc + cú pháp Django**, so sánh với Flask để hiểu rõ ưu/nhược điểm từng framework.
 
 | Tuần | Thứ 2 & 4 (Lý thuyết) | Thứ 3 & 5 (Code theo) |
 |---|---|---|
 | 1 (28/9-4/10) | `Django_Mastery_Guide.md` — Models, Migrations, Admin | Tạo 1 Django project mới, 2 model có quan hệ ForeignKey |
 | 2 (5/10-11/10) | `Django_Mastery_Guide.md` — Views, URLs, Templates cơ bản | Viết 3 view (list/detail/create) cho model tuần 1 |
-| 3 (12/10-18/10) | `Python_Functions_Flask_Django_Guide.md` — so sánh cách Django xử lý request vs Frappe | Refactor code tuần 2 theo Class-Based View |
+| 3 (12/10-18/10) | `Python_Functions_Flask_Django_Guide.md` — so sánh cách Django vs Flask xử lý request | Refactor code tuần 2 theo Class-Based View |
 | 4 (19/10-25/10) | `Mastery/Backend-Mastery/01-Request-Lifecycle-And-Architecture` — N+1 query, middleware | Bật query log, tự tạo N+1 query rồi tự fix bằng `select_related` |
 
 **Thứ 6/Thứ 7 tuần 4:** làm Exercise DJ-01 → DJ-04 trong [01-Django-Exercises/Checklist_Bai_Tap.md](../01-Django-Exercises/Checklist_Bai_Tap.md).

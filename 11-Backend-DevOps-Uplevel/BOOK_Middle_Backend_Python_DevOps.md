@@ -1,8 +1,15 @@
-# 📘 Cuốn Sách Lộ Trình Middle Backend Developer (Python) / DevOps
-
-> **Mục đích:** Đây là cuốn sách tổng hợp **toàn bộ kiến thức cần ôn lại + cần mở rộng** để đi từ trình độ hiện tại (Fullstack Python với Frappe + Vue) lên **Middle Backend Developer (Python) có kỹ năng DevOps**. Sách **tự đủ (self-contained)** — mỗi chương gồm 4 phần: **Kiến thức cần học** (bullet point, chia theo 3 cấp độ 🟢/🟡/🔴), **Giải thích chi tiết** (vì sao quan trọng, hoạt động thế nào, dễ sai ở đâu — kèm code ví dụ), **📚 Nội dung đầy đủ** (khối thu gọn, bấm để mở — nhúng toàn bộ nội dung gốc từ ~30 tài liệu liên quan trong repo, không cần mở file khác), và **Đọc chi tiết** (link gốc để tra cứu/cập nhật sau này nếu tài liệu nguồn thay đổi).
+> **Mục đích:** Đây là cuốn sách tổng hợp **toàn bộ kiến thức cần ôn lại + cần mở rộng** để nâng cao trình độ **Middle Backend Developer (Python - Django & Flask) có kỹ năng DevOps**. Sách **tự đủ (self-contained)** — mỗi chương gồm 5 phần chuẩn hóa:
+> 1. **Kiến thức cần học** (bullet point, chia theo 3 cấp độ 🟢/🟡/🔴).
+> 2. **🔬 Giải thích chuyên sâu & Cơ chế bên dưới**: Mổ xẻ chi tiết từng kiến thức theo chuẩn 4 câu hỏi thực chiến:
+>    - 🎯 **Dùng để làm gì?** (Mục đích & Giá trị kỹ thuật mang lại trong hệ thống)
+>    - 💡 **Khi nào dùng?** (Kịch bản áp dụng thực tế & Khi nào KHÔNG nên dùng)
+>    - 🏭 **Thực tế sử dụng ra sao?** (Mẫu code / Lệnh terminal sản xuất thực tế)
+>    - ⚙️ **Hoạt động ra sao?** (Cơ chế hoạt động sâu bên dưới / Inner mechanics)
+> 3. **🛠️ Hướng dẫn thực hành & Verification** (các bước thực hành từng bước, terminal commands, phương pháp test & kiểm chứng code).
+> 4. **📚 Nội dung đầy đủ** (khối thu gọn, bấm để mở — nhúng toàn bộ nội dung gốc từ ~30 tài liệu liên quan trong repo, không cần mở file khác).
+> 5. **Đọc chi tiết** (link gốc để tra cứu/cập nhật sau này nếu tài liệu nguồn thay đổi).
 >
-> Dùng cùng với [README.md](README.md) (cách dùng folder) và [00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md](00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md) (lịch học tối 21h-22h/22h30) — sách này là "bản đồ kiến thức + toàn bộ nội dung" gộp làm một, lịch học là "thời gian biểu đọc".
+> Dùng cùng với [README.md](README.md) (cách dùng folder) và [00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md](00-Lich-Hoc-Toi/Lich_Trinh_Toi_Den_Tet.md) (lịch học tối 21h-22h/22h30) — sách này là "bản đồ kiến thức + toàn bộ nội dung" gộp làm một, lịch học là "thời gian biểu đọc và thực hành".
 >
 > **Mỗi chương chia 3 cấp độ để ôn đúng tốc độ, không học dàn trải:**
 > - 🟢 **Cơ bản** — nền tảng phải vững, phần lớn đã biết/chạm qua ở công việc hiện tại, chỉ cần ôn lại cho đúng chuẩn ngành.
@@ -56,74 +63,150 @@
 **Kiến thức cần học:**
 
 🟢 **Cơ bản (ôn nhanh):**
-- OOP (class, inheritance, composition) — bạn đã dùng qua Frappe DocType, giờ chuẩn hóa lại theo Python thuần (dataclass, property, classmethod/staticmethod).
+- OOP (class, inheritance, composition) — chuẩn hóa lại theo Python thuần (dataclass, property, classmethod/staticmethod).
 - Type hinting (`typing`) — ngành đang chuẩn hóa dùng type hint, nên tập thói quen viết từ đầu.
 
 🟡 **Nâng cao (trọng tâm Middle):**
-- Decorator, generator/iterator, context manager (`with`) — Frappe ít bắt bạn tự viết decorator, đây là kỹ năng hay bị hỏi khi phỏng vấn Middle.
+- Decorator, generator/iterator, context manager (`with`) — kỹ năng cốt lõi hay bị hỏi khi phỏng vấn Middle Backend.
 - `asyncio` cơ bản (coroutine, event loop) — nền cho Chương 10.
-- **Design Pattern cơ bản cho Backend**: Factory Pattern, Strategy Pattern, Dependency Injection (DI) — không cần học hết Gang of Four, chỉ cần 2-3 pattern hay gặp nhất khi đọc code Django/FastAPI thực tế.
+- **Design Pattern cơ bản cho Backend**: Factory Pattern, Strategy Pattern, Dependency Injection (DI) — không cần học hết Gang of Four, chỉ cần 2-3 pattern hay gặp nhất khi đọc code Django/Flask/FastAPI thực tế.
 - **Quản lý dependency & môi trường chuyên nghiệp**: `venv`/`poetry` (khóa version bằng lock file), code style tự động (`black`/`ruff`), type check tĩnh (`mypy`).
 
 🔴 **Chuyên sâu / Thực chiến:**
 - GIL, memory model, mutable vs immutable, shallow/deep copy — câu hỏi kinh điển phỏng vấn Middle/Senior Python, dễ trả lời sai nếu chỉ học khái niệm suông.
-- **Clean Architecture / Hexagonal Architecture** — tư duy tách business logic ra khỏi framework để dễ test và dễ đổi công nghệ sau này; đây là ranh giới rõ nhất giữa code Middle và code Junior.
+- **Clean Architecture / Hexagonal Architecture** — tư tư tưởng tách business logic ra khỏi framework để dễ test và dễ đổi công nghệ sau này; đây là ranh giới rõ nhất giữa code Middle và code Junior.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **OOP nâng cao (dataclass, property, classmethod/staticmethod).** Frappe đã cho bạn quen với class (DocType), nhưng Python thuần có vài công cụ gọn hơn: `@dataclass` tự sinh `__init__`, `__repr__`, `__eq__` cho class chỉ chứa data — khỏi viết tay; `@property` cho phép gọi `obj.full_name` như thuộc tính nhưng thực chất chạy 1 hàm phía sau (tính toán động, hoặc validate trước khi set); `classmethod` nhận `cls` (dùng để tạo object theo cách khác, VD `User.from_json(...)`), `staticmethod` không nhận `self`/`cls` gì cả (chỉ là hàm tiện ích nằm trong class cho gọn namespace). Dễ sai: dùng `@property` cho phép tính tốn kém (query DB) mà không ai ngờ — người gọi tưởng đọc thuộc tính là rẻ, hóa ra mỗi lần đọc là 1 query.
+#### 1. Decorators & Context Managers (`with`)
+* 🎯 **Dùng để làm gì?** 
+  * Decorator dùng để can thiệp / mở rộng hành vi của một hàm mà không cần sửa mã nguồn của hàm đó (DRY - Don't Repeat Yourself).
+  * Context Manager dùng để quản lý vòng đời tài nguyên (File, DB Connection, Lock), đảm bảo tự động dọn dẹp (cleanup) dù có exception xảy ra.
+* ⏰ **Khi nào sử dụng?**
+  * **Decorator:** Dùng khi muốn tái sử dụng logic cắt ngang (Cross-cutting Concerns) như `@login_required`, `@permission_check`, `@rate_limit`, `@cache_result`, `@log_execution_time`.
+  * **Context Manager:** Dùng khi thao tác với File I/O, mở kết nối Database Transaction, Acquire/Release Lock trong Concurrency.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  import time
+  from functools import wraps
 
-**Type hinting.** Viết `def get_user(id: int) -> User:` không bắt buộc Python kiểm tra lúc chạy (Python vẫn dynamic typing), nhưng `mypy` (check tĩnh, chạy riêng trước khi deploy) sẽ báo lỗi nếu truyền sai kiểu — bắt lỗi sớm hơn thay vì đợi lỗi lúc chạy production.
+  # Decorator đo thời gian thực thi API/Function trong Production
+  def measure_performance(func):
+      @wraps(func)  # Giữ lại metadata (__name__, __doc__) của hàm gốc
+      def wrapper(*args, **kwargs):
+          start_time = time.perf_counter()
+          result = func(*args, **kwargs)
+          execution_time = time.perf_counter() - start_time
+          print(f"[METRIC] {func.__name__} executed in {execution_time:.4f}s")
+          return result
+      return wrapper
 
-🟡 *Nâng cao.* **Decorator, generator/iterator, context manager.** Decorator là 1 hàm bọc quanh hàm khác để thêm hành vi mà không sửa code gốc — VD `@login_required`, `@cache_result`; về bản chất `@foo` trên hàm `bar` tương đương `bar = foo(bar)`. Generator (`yield`) tạo ra giá trị từng cái một thay vì tạo hết list trong RAM cùng lúc — quan trọng khi xử lý file/log hàng triệu dòng, nhưng dễ sai vì generator chỉ duyệt được **1 lần**, duyệt lần 2 sẽ ra rỗng (khác với list). Context manager (`with open(...) as f`) đảm bảo dọn dẹp tài nguyên (đóng file, đóng connection DB, release lock) dù code bên trong có lỗi hay không — tương đương `try/finally` nhưng gọn hơn.
+  @measure_performance
+  def process_payment(amount: float):
+      time.sleep(0.1) # Giả lập xử lý DB
+      return True
 
-```python
-# Decorator — @foo trên bar tương đương bar = foo(bar)
-def log_time(func):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        result = func(*args, **kwargs)
-        print(f"{func.__name__} took {time.time() - start:.3f}s")
-        return result
-    return wrapper
+  # Context Manager tự động đóng DB Connection
+  class DatabaseTransaction:
+      def __enter__(self):
+          print("BEGIN TRANSACTION")
+          return self
+      def __exit__(self, exc_type, exc_val, exc_tb):
+          if exc_type:
+              print(f"ROLLBACK due to {exc_val}")
+          else:
+              print("COMMIT TRANSACTION")
+          return False  # Không swallow exception
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * **Decorator:** Khi Python dịch code, `@measure_performance` trên `def process_payment` tương đương với câu lệnh: `process_payment = measure_performance(process_payment)`. Hàm `process_payment` bị ghi đè bởi hàm `wrapper`, tạo thành một closure lưu trữ tham chiếu tới hàm gốc.
+  * **Context Manager:** Lệnh `with DatabaseTransaction() as tx:` thực chất gọi method `__enter__()` trước khi vào block code, và luôn luôn tự động gọi `__exit__()` trong khối `finally` ngầm định khi thoát ra (dù code trong block throw error hay return).
 
-@log_time
-def get_user(id: int) -> User: ...
+---
 
-# Generator — chỉ duyệt được 1 lần
-def read_huge_log(path):
-    with open(path) as f:          # context manager: tự đóng file dù lỗi hay không
-        for line in f:
-            yield line.strip()     # trả từng dòng, không load hết file vào RAM
-```
+#### 2. Generators & Iterators (`yield`)
+* 🎯 **Dùng để làm gì?** Giúp xử lý các tập dữ liệu khổng lồ (Stream Data / Large Datasets) với dung lượng RAM tiệm cận 0 (O(1) Memory Complexity), tránh crash OOM (Out of Memory).
+* ⏰ **Khi nào sử dụng?** Dùng khi đọc log file hàng triệu dòng, export file CSV/Excel lớn từ DB, hoặc đọc data theo chunk từ S3/Stream API. KHÔNG dùng khi cần truy cập ngẫu nhiên theo index (`gen[5]`) hoặc cần duyệt danh sách nhiều lần.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  def read_large_log_file(file_path: str):
+      with open(file_path, "r") as file:
+          for line in file:
+              if "ERROR" in line:
+                  yield line.strip()  # Trả từng dòng lỗi, không nạp cả file 2GB vào RAM
 
-Dễ sai: `for line in read_huge_log(...)` chạy lần 2 sẽ ra rỗng — generator đã "dùng hết" sau lần duyệt đầu.
+  # Sử dụng trong Service
+  for error_log in read_large_log_file("/var/log/nginx/access.log"):
+      send_alert_to_slack(error_log)
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?** Khi hàm chứa từ khóa `yield`, Python biến hàm đó thành một **Generator Function**. Gọi hàm này không chạy code ngay mà trả về một **Generator Object** tuân theo Iterator Protocol (`__iter__` và `__next__`). Mỗi khi hàm `next()` được gọi, code chạy tới lệnh `yield`, đóng đống (freeze) toàn bộ stack frame (biến cục bộ, con trỏ lệnh) và trả về giá trị. Lần `next()` tiếp theo sẽ khôi phục stack frame và chạy tiếp từ dòng sau `yield`.
 
-**`asyncio` cơ bản.** `async def` tạo ra 1 coroutine — không chạy ngay, phải `await` hoặc đưa vào event loop mới chạy. Event loop là 1 vòng lặp duy nhất, luân phiên chạy nhiều coroutine, mỗi coroutine **tự nguyện nhường** quyền chạy tại điểm `await` (khác thread, nơi hệ điều hành ép ngắt). Async chỉ có lợi khi code đang **chờ I/O** — nếu code async mà tính toán CPU nặng không `await` ở đâu cả, nó sẽ chặn toàn bộ event loop, làm chậm mọi request khác.
+---
 
-**Design Pattern: Factory, Strategy, Dependency Injection.** Factory Pattern: thay vì gọi `User()` trực tiếp khắp nơi, gọi `UserFactory.create(type)` — nơi quyết định tạo loại User nào được gom về 1 chỗ, dễ đổi logic sau này. Strategy Pattern: đóng gói nhiều cách làm cùng 1 việc (VD nhiều cách tính phí ship) thành các class cùng interface, để đổi thuật toán lúc runtime mà không `if/elif` chằng chịt. Dependency Injection: thay vì 1 class tự tạo dependency của nó (VD tự `self.db = PostgresConnection()`), bạn **truyền** dependency vào từ bên ngoài — lợi ích lớn nhất là dễ test (truyền fake DB khi test) và dễ đổi implementation.
+#### 3. GIL (Global Interpreter Lock) & Python Memory Model
+* 🎯 **Dùng để làm gì?** 
+  * GIL là cơ chế khóa của CPython đảm bảo chỉ một Native Thread thực thi Python Bytecode tại một thời điểm để bảo vệ thread-safety cho bộ nhớ (Reference Counting).
+* ⏰ **Khi nào sử dụng / Ảnh hưởng ra sao?**
+  * Ảnh hưởng trực tiếp đến việc lựa chọn kiến trúc Concurrency:
+    * Với tác vụ **I/O-bound** (Chờ DB, Chờ Network REST API): Dùng **Multi-threading** hoặc **Asyncio** (GIL được release khi chờ I/O).
+    * Với tác vụ **CPU-bound** (Xử lý ảnh, mã hóa, nén dữ liệu): Phải dùng **Multi-processing** (mỗi process có CPython instance & GIL riêng) để tận dụng Multi-core CPU.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  # Bug kinh điển: Dùng Mutable Default Argument
+  def append_to_cart(item: str, cart: list = []) -> list:  # cart=[] tạo 1 LẦN DUY NHẤT lúc load module
+      cart.append(item)
+      return cart
 
-**Quản lý dependency & môi trường.** `requirements.txt` chỉ ghi `django==4.2`, không khóa version của package phụ thuộc gián tiếp, nên 2 máy cài có thể ra 2 bộ package hơi khác nhau ("works on my machine"). `poetry`/`pip-tools` tạo **lock file** ghi chính xác version toàn bộ cây dependency. `black`/`ruff` tự format code theo 1 chuẩn duy nhất (hết tranh cãi style trong code review). `mypy` check type tĩnh như trên.
+  print(append_to_cart("Apple"))   # ['Apple']
+  print(append_to_cart("Banana"))  # ['Apple', 'Banana'] -> Bug: Dữ liệu user trước rò sang user sau!
 
-🔴 *Chuyên sâu/Thực chiến.* **GIL, memory model, mutable/immutable, shallow/deep copy.** GIL (Global Interpreter Lock): tại 1 thời điểm chỉ 1 thread Python được thực thi bytecode — multi-thread Python **không** tăng tốc code CPU-bound (tính toán nặng), chỉ có lợi cho I/O-bound (chờ mạng/DB); đây là lý do Chương 10 phải phân biệt rõ Thread/Process/Async. Mutable (list, dict) đổi được nội dung tại chỗ; immutable (tuple, string, int) thì không — hệ quả: dùng list làm default argument (`def f(x=[])`) là bug kinh điển vì list đó bị **chia sẻ** giữa các lần gọi hàm. Shallow copy chỉ copy lớp ngoài cùng (list con bên trong vẫn là cùng 1 object); deep copy copy toàn bộ xuống tận cùng — `list.copy()` tưởng an toàn nhưng list lồng nhau vẫn bị ảnh hưởng chéo.
+  # Cách viết chuẩn Production:
+  def append_to_cart_correct(item: str, cart: list | None = None) -> list:
+      if cart is None:
+          cart = []
+      cart.append(item)
+      return cart
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * **GIL Mechanics:** CPython sử dụng Reference Counting cho Garbage Collection. Nếu không có GIL, 2 thread cùng tăng/giảm `sys.getrefcount(obj)` sẽ bị race condition dẫn đến rò rỉ bộ nhớ hoặc deallocate nhầm object đang dùng.
+  * **Mutable Default Argument:** Khi Python parse định nghĩa hàm `def`, nó evaluate tham số mặc định `cart=[]` **ngay lúc load file lần đầu** và lưu trong thuộc tính `append_to_cart.__defaults__`. Mọi lần gọi hàm tiếp theo nếu không truyền `cart` đều dùng chung reference tới cùng 1 list trong bộ nhớ Heap.
 
-```python
-# Bug kinh điển: mutable default argument
-def add_item(item, cart=[]):   # cart=[] chỉ tạo 1 LẦN DUY NHẤT lúc định nghĩa hàm
-    cart.append(item)
-    return cart
+---
 
-add_item("apple")   # ['apple']
-add_item("banana")  # ['apple', 'banana']  <- bug: cart cũ bị dùng lại, không rỗng!
+#### 4. Design Patterns: Dependency Injection (DI) & Factory Pattern
+* 🎯 **Dùng để làm gì?** Tách rời (Decouple) sự phụ thuộc giữa các class, giúp hệ thống dễ mở rộng, dễ bảo trì và dễ viết Unit Test (Mocking).
+* ⏰ **Khi nào sử dụng?** Dùng khi xây dựng Service Layer trong Django/Flask/FastAPI, khi ứng dụng cần giao tiếp với các dịch vụ bên ngoài (Payment Gateway, Email Service, Cloud Storage) mà có thể thay đổi provider trong tương lai.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  from abc import ABC, abstractmethod
 
-# Cách đúng:
-def add_item(item, cart=None):
-    cart = cart if cart is not None else []
-    cart.append(item)
-    return cart
-```
+  # Abstract Interface
+  class PaymentGateway(ABC):
+      @abstractmethod
+      def pay(self, amount: float) -> bool: pass
 
-**Clean Architecture / Hexagonal Architecture.** Ý tưởng cốt lõi: **business logic không được phụ thuộc vào framework hay DB**. Framework/DB chỉ là "chi tiết kỹ thuật" nằm ở lớp ngoài, business logic nằm ở lõi trong cùng, giao tiếp qua interface. Lợi ích: đổi Django sang FastAPI, hoặc Postgres sang MongoDB, không phải viết lại logic nghiệp vụ. Đây là khác biệt rõ nhất giữa code Junior ("nhét hết logic vào view") và code Middle ("logic nằm ở service layer riêng, view chỉ gọi service").
+  class StripePayment(PaymentGateway):
+      def pay(self, amount: float) -> bool:
+          print(f"Paid ${amount} via Stripe")
+          return True
+
+  class PaypalPayment(PaymentGateway):
+      def pay(self, amount: float) -> bool:
+          print(f"Paid ${amount} via Paypal")
+          return True
+
+  # Dependency Injection Service
+  class OrderService:
+      def __init__(self, payment_gateway: PaymentGateway):  # Inject dependency từ bên ngoài
+          self.payment_gateway = payment_gateway
+
+      def checkout(self, amount: float):
+          return self.payment_gateway.pay(amount)
+
+  # Trong Production code: order_service = OrderService(StripePayment())
+  # Trong Unit Test code:   order_service = OrderService(MockPayment())
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?** Thay vì `OrderService` tự mình khởi tạo `self.payment_gateway = StripePayment()` bên trong `__init__` (gắn chặt cứng vào Stripe), dependency được "tiêm" (inject) vào qua constructor. Lớp `OrderService` chỉ phụ thuộc vào `PaymentGateway` Abstraction (Inversion of Control - IoC Principle thuộc SOLID), không phụ thuộc vào Concrete Class.
 
 **Đọc chi tiết:** [`03-Python-Expert/Python_Core_Mastery.md`](../03-Python-Expert/Python_Core_Mastery.md), bài tập thêm ở [`03-Python-Expert/Python_Mastery_Challenges.md`](../03-Python-Expert/Python_Mastery_Challenges.md). Phần Design Pattern/DI/Clean Architecture: [`03-Python-Expert/Python_Backend_Professional_Guide.md`](../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 4B, 10, 11. Bộ câu hỏi OOP/SOLID/Design Patterns đầy đủ (Q61-75): [`interview_prep/07_Cau_Hoi_Phong_Van.md`](../interview_prep/07_Cau_Hoi_Phong_Van.md).
 
@@ -430,39 +513,60 @@ class OrderService:
 🔴 **Chuyên sâu / Thực chiến:**
 - `git bisect` (tìm chính xác commit gây lỗi giữa hàng trăm commit), `cherry-pick` (lấy đúng 1 commit từ nhánh khác), `reflog` (cứu commit tưởng đã mất) — kỹ năng "cứu hỏa" ít dùng hàng ngày nhưng cực giá trị khi sự cố thật xảy ra.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **Conventional Commits.** `feat:`, `fix:`, `chore:`... giúp tự sinh changelog và biết ngay loại thay đổi mà không cần đọc diff — thói quen nhỏ nhưng chuẩn hóa cách cả team đọc lịch sử Git.
+#### 1. `rebase` vs `merge` & Git Workflow (Git Flow vs Trunk-Based)
+* 🎯 **Dùng để làm gì?** Hợp nhất công việc của nhiều dev vào nhánh chính. `merge` giữ nguyên lịch sử thật; `rebase` viết lại lịch sử thành 1 đường thẳng dễ đọc. Workflow quy định cách cả team tổ chức nhánh.
+* 💡 **Khi nào dùng?**
+  - `rebase`: cập nhật nhánh feature **của riêng bạn** theo `main` mới nhất trước khi mở PR. **KHÔNG** rebase nhánh đã push chung với người khác (đổi commit hash → đồng đội bị xung đột lịch sử).
+  - `merge`: gộp PR vào `main` khi muốn giữ nguyên dấu vết thật.
+  - **Trunk-Based** (commit nhỏ, PR ngắn ngày + feature flag): phù hợp CI/CD liên tục. **Git Flow** (develop/release/hotfix): phù hợp sản phẩm có chu kỳ release cố định (mobile app, phần mềm đóng gói).
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```bash
+  git switch feature/payment
+  git fetch origin
+  git rebase origin/main          # đặt commit của bạn lên đầu main mới nhất
+  # có conflict -> sửa file -> git add . -> git rebase --continue
+  git push --force-with-lease     # chỉ force push nhánh CỦA BẠN, an toàn hơn --force
+  ```
+* ⚙️ **Hoạt động ra sao?** `merge` tạo 1 *merge commit* có 2 cha. `rebase` lấy từng commit của nhánh bạn, **tạo commit mới** (hash mới) áp lần lượt lên đỉnh `main` — nên lịch sử thẳng, nhưng commit cũ bị thay thế. Đó là lý do không được rebase nhánh dùng chung.
 
-🟡 *Nâng cao.* **`rebase` vs `merge`.** `merge` tạo thêm 1 commit "nối" 2 nhánh, giữ nguyên lịch sử thật (kể cả lộn xộn). `rebase` viết lại lịch sử bằng cách "đặt lại" các commit của nhánh bạn lên trên đầu nhánh chính — lịch sử thẳng, dễ đọc hơn, nhưng **không rebase nhánh đã push lên chung với người khác** vì sẽ làm commit hash đổi hết, gây xung đột lịch sử cho đồng đội.
+#### 2. Pre-commit Hook & Conventional Commits
+* 🎯 **Dùng để làm gì?** Chặn code sai chuẩn (lint, format, secret lộ) **trước khi** vào lịch sử Git; Conventional Commits chuẩn hóa message để tự sinh changelog/version.
+* 💡 **Khi nào dùng?** Mọi dự án làm nhóm. Không nhét test nặng (chạy >30 giây) vào pre-commit vì dev sẽ `--no-verify` bỏ qua — test nặng để CI chạy.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```yaml
+  # .pre-commit-config.yaml
+  repos:
+    - repo: https://github.com/astral-sh/ruff-pre-commit
+      rev: v0.4.4
+      hooks: [{ id: ruff }, { id: ruff-format }]
+  ```
+  ```bash
+  pip install pre-commit && pre-commit install   # từ giờ mỗi lần git commit sẽ tự chạy hook
+  git commit -m "feat(order): thêm API hủy đơn"  # Conventional Commit
+  ```
+* ⚙️ **Hoạt động ra sao?** `pre-commit install` ghi script vào `.git/hooks/pre-commit`. Khi `git commit`, Git chạy script đó trước; nếu exit code ≠ 0, commit bị hủy. Message dạng `feat:`/`fix:` được công cụ (semantic-release) đọc để quyết định tăng minor/patch version.
 
-**Pre-commit hook.** Script tự chạy **trước khi** commit được tạo (lint, format, chạy test nhanh) — chặn code lỗi/không đúng chuẩn trước khi nó vào lịch sử Git, thay vì để CI/CD phát hiện muộn hơn.
+#### 3. Quy trình PR: Squash vs Preserve History
+* 🎯 **Dùng để làm gì?** Quyết định lịch sử `main` trông thế nào sau khi merge PR — gọn gàng 1 commit/tính năng hay chi tiết từng bước.
+* 💡 **Khi nào dùng?** **Squash**: PR có nhiều commit nháp ("fix typo", "wip") → gộp thành 1 commit sạch, dễ `revert` cả tính năng. **Merge commit/Rebase-merge**: mỗi commit có ý nghĩa riêng cần tra cứu (refactor lớn chia nhiều bước).
+* 🏭 **Thực tế sử dụng ra sao?** Trên GitHub: nút *Squash and merge* trong PR. Checklist review: có test chưa? có migration không? có ảnh hưởng backward-compat không? có log/metric chưa?
+* ⚙️ **Hoạt động ra sao?** Squash tạo 1 commit mới trên `main` chứa tổng diff của PR, rồi bỏ các commit nháp. Hệ quả: `git revert <hash>` hoàn tác trọn vẹn tính năng chỉ bằng 1 lệnh.
 
-**Quy trình PR chuẩn.** Squash (gộp nhiều commit nháp thành 1 commit sạch khi merge) phù hợp khi lịch sử nháp không có giá trị; giữ nguyên lịch sử (merge commit) phù hợp khi mỗi commit đã có ý nghĩa riêng cần tra cứu sau này.
+#### 4. Công cụ "cứu hỏa": `bisect`, `cherry-pick`, `reflog`
+* 🎯 **Dùng để làm gì?** `bisect`: tìm commit gây lỗi. `cherry-pick`: lấy đúng 1 commit sang nhánh khác. `reflog`: cứu commit tưởng đã mất.
+* 💡 **Khi nào dùng?** `bisect` khi biết "bản cũ chạy đúng, bản mới lỗi" nhưng không biết commit nào. `cherry-pick` khi cần đưa hotfix từ `main` sang nhánh `release`. `reflog` ngay sau khi lỡ `reset --hard`/xóa nhầm nhánh.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```bash
+  git bisect start && git bisect bad HEAD && git bisect good v1.2.0
+  git bisect run pytest tests/test_order.py   # tự động tìm commit lỗi, không cần tự test tay
+  git bisect reset
 
-**Git Flow vs Trunk-Based Development.** Git Flow tách nhiều nhánh dài hạn (`develop`, `release`, `hotfix`) — rõ ràng nhưng nặng nề, dễ bị merge conflict lớn khi nhánh feature sống quá lâu. Trunk-Based Development: mọi người commit thẳng (hoặc qua PR rất ngắn ngày) vào 1 nhánh chính (`main`/`trunk`), dùng **feature flag** để ẩn tính năng chưa hoàn thiện thay vì giữ nhánh riêng — phù hợp hơn với CI/CD chạy liên tục vì luôn có 1 nhánh chính deploy-được, đây cũng là lý do hầu hết công ty áp dụng CI/CD hiện đại (Chương 15) đều nghiêng về Trunk-Based.
-
-🔴 *Chuyên sâu/Thực chiến.* **`git bisect`.** Khi biết "commit A chạy đúng, commit Z đang lỗi" nhưng không biết lỗi bắt đầu từ đâu giữa hàng trăm commit — `git bisect` tự động chia đôi để tìm (binary search trên lịch sử commit), bạn chỉ cần trả lời "tốt" hay "lỗi" ở mỗi bước.
-
-```bash
-git bisect start
-git bisect bad HEAD           # commit hiện tại đang lỗi
-git bisect good v1.2.0        # tag/commit này từng chạy đúng
-# Git tự checkout commit giữa khoảng good-bad -> bạn test rồi:
-git bisect good               # hoặc: git bisect bad
-# lặp lại tới khi Git chỉ đúng commit gây lỗi, rồi:
-git bisect reset
-```
-
-**`cherry-pick`, `reflog`.** `cherry-pick` lấy đúng 1 commit từ nhánh khác áp vào nhánh hiện tại (không cần merge cả nhánh). `reflog` là "nhật ký mọi thứ HEAD từng trỏ tới" — cứu cánh khi lỡ `reset --hard` mất commit: commit vẫn còn trong Git, chỉ là không còn nhánh nào trỏ tới, `reflog` giúp tìm lại.
-
-```bash
-git cherry-pick a1b2c3d        # áp đúng 1 commit hotfix từ main sang release branch
-
-git reset --hard HEAD~3        # lỡ tay mất 3 commit gần nhất
-git reflog                     # xem lại mọi vị trí HEAD từng trỏ tới, tìm commit bị mất
-git reset --hard a1b2c3d       # quay lại đúng commit vừa tìm thấy trong reflog
-```
+  git cherry-pick a1b2c3d                      # áp 1 hotfix sang nhánh hiện tại
+  git reflog && git reset --hard a1b2c3d       # cứu lại commit vừa mất
+  ```
+* ⚙️ **Hoạt động ra sao?** `bisect` là **binary search** trên lịch sử: 1000 commit chỉ cần ~10 bước. `reflog` là nhật ký cục bộ mọi vị trí HEAD đã trỏ tới; commit "mất" thực ra vẫn nằm trong Git tới khi bị garbage-collect (mặc định ~30-90 ngày).
 
 **Đọc chi tiết:** [`10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md`](../10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md) — Học phần Git nâng cao.
 **Bài tập:** Exercise DO (xem [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md)), mục "tự gây sự cố rồi dùng `git bisect` để tìm".
@@ -581,7 +685,7 @@ docker-compose.override.yml
 **Kiến thức cần học:**
 
 🟢 **Cơ bản (ôn nhanh):**
-- Viết query SQL cơ bản, hiểu bảng/quan hệ — đã quen qua Frappe (dùng MariaDB).
+- Viết query SQL cơ bản, hiểu bảng/quan hệ (DML, DDL, Foreign Keys).
 - PostgreSQL (khác MySQL/MariaDB ở JSONB, CTE, window function) vì hầu hết công ty Backend Python dùng PostgreSQL.
 - **Backup & Restore** định kỳ (`pg_dump`/snapshot) — việc đầu tiên phải có trước khi "chơi lớn" với DB production.
 - **NoSQL cơ bản (MongoDB)**: document vs table, schema-less — CRUD không khác nhiều so với SQL, chỉ đổi tư duy lưu trữ.
@@ -600,7 +704,48 @@ docker-compose.override.yml
 - **Polyglot persistence** — dùng nhiều loại DB khác nhau cho đúng từng bài toán trong cùng 1 hệ thống, thay vì cố nhét mọi thứ vào 1 loại DB duy nhất.
 - **Zero-downtime migration** — thêm/sửa cột trên bảng production triệu dòng mà không gây downtime hay breaking app cũ.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. Index (B-Tree, Composite) & `EXPLAIN ANALYZE`
+* 🎯 **Dùng để làm gì?** Tăng tốc truy vấn đọc từ quét toàn bảng O(n) xuống tìm kiếm ~O(log n); `EXPLAIN ANALYZE` cho biết query thực sự chạy thế nào để biết cần index ở đâu.
+* 💡 **Khi nào dùng?** Index cột xuất hiện trong `WHERE`, `JOIN`, `ORDER BY` của query chạy thường xuyên trên bảng lớn. **Không** index bừa: mỗi index làm chậm `INSERT/UPDATE/DELETE` và tốn dung lượng; bảng nhỏ (<vài nghìn dòng) hoặc cột có ít giá trị phân biệt (vd `is_active`) thường không đáng.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```sql
+  EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 123 AND status = 'pending';
+  -- Seq Scan  -> quét cả bảng (xấu nếu bảng lớn)
+  CREATE INDEX idx_orders_user_status ON orders (user_id, status);
+  -- chạy lại EXPLAIN ANALYZE -> Index Scan, thời gian giảm từ giây xuống mili-giây
+  ```
+  Ở production dùng `CREATE INDEX CONCURRENTLY` để không khóa bảng khi đang có traffic.
+* ⚙️ **Hoạt động ra sao?** B-Tree là cây cân bằng đã sắp xếp theo giá trị cột; DB đi từ gốc xuống lá để tìm đúng vị trí thay vì đọc hết. Composite index `(a, b)` sắp xếp theo `a` rồi `b`, nên chỉ dùng được khi lọc theo `a` (hoặc `a` + `b`) — lọc riêng `b` thì không tận dụng được (quy tắc *leftmost prefix*).
+
+#### 2. Transaction, ACID & Isolation Level
+* 🎯 **Dùng để làm gì?** Gom nhiều câu lệnh thành 1 khối "tất cả hoặc không gì cả", đảm bảo dữ liệu luôn nhất quán dù lỗi giữa chừng hoặc nhiều người cùng ghi.
+* 💡 **Khi nào dùng?** Bất kỳ thao tác nhiều bước ảnh hưởng tiền/kho/trạng thái (chuyển tiền, đặt hàng + trừ kho). Chọn isolation: `Read Committed` (mặc định, đủ cho đa số), `Repeatable Read` khi báo cáo cần đọc nhất quán, `Serializable` khi sai sót không chấp nhận được (chấp nhận retry khi conflict).
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```python
+  from django.db import transaction
+  with transaction.atomic():
+      order = Order.objects.create(user=user, total=total)
+      Product.objects.select_for_update().filter(id=pid).update(stock=F('stock') - 1)
+  # exception bất kỳ trong khối -> ROLLBACK toàn bộ
+  ```
+* ⚙️ **Hoạt động ra sao?** Postgres dùng **MVCC**: mỗi transaction thấy 1 "ảnh chụp" dữ liệu theo isolation level, ghi tạo phiên bản dòng mới thay vì ghi đè ngay. Khi 2 transaction khóa chéo nhau → **deadlock**, DB tự hủy 1 bên; app cần bắt lỗi và retry.
+
+#### 3. Connection Pooling & PgBouncer
+* 🎯 **Dùng để làm gì?** Tái sử dụng connection DB đã mở thay vì mở/đóng mỗi request (mỗi connection tốn ~5MB RAM + ~100ms thiết lập).
+* 💡 **Khi nào dùng?** Luôn dùng ở production. Thêm **PgBouncer** khi nhiều instance/Pod app cộng lại có nguy cơ vượt `max_connections` của Postgres.
+* 🏭 **Thực tế sử dụng ra sao?** Công thức an toàn: `số instance × pool_size ≤ max_connections − buffer cho admin/migration`. Ví dụ 10 Pod × pool 20 = 200 > 100 mặc định → lỗi `too many connections` sập toàn hệ thống dù CPU DB còn rảnh. Cấu hình `pool_size`, `max_overflow`, `pool_timeout` (fail-fast), `pool_pre_ping=True` (xem code ở phần diễn giải bên dưới).
+* ⚙️ **Hoạt động ra sao?** Pool giữ sẵn N connection "nóng"; request mượn → dùng → trả lại. PgBouncer đứng giữa app và Postgres, gom hàng nghìn connection phía app thành vài chục connection thật phía DB (transaction pooling).
+
+#### 4. Replication, Sharding & Zero-downtime Migration
+* 🎯 **Dùng để làm gì?** Replication: san tải đọc + chịu lỗi. Sharding: chia dữ liệu ra nhiều DB khi 1 máy không chứa/ghi nổi. Zero-downtime migration: đổi schema bảng lớn mà không ngắt dịch vụ.
+* 💡 **Khi nào dùng?** Theo thứ tự: tối ưu index/query → cache → read replica → **cuối cùng mới** sharding (JOIN xuyên shard gần như bất khả thi, vận hành rất phức tạp). Migration an toàn dùng cho mọi thay đổi schema trên bảng đang có traffic.
+* 🏭 **Thực tế sử dụng ra sao?** Thêm cột `NOT NULL` trên bảng triệu dòng: (1) thêm cột nullable → (2) backfill theo batch bằng job riêng → (3) thêm ràng buộc `NOT NULL`. `DROP/RENAME COLUMN`: deploy app đọc được cả 2 dạng trước, xóa cột cũ ở lần deploy sau.
+* ⚙️ **Hoạt động ra sao?** Replica nhận WAL (nhật ký ghi) từ primary và replay → có **độ trễ replication**, nên đọc ngay sau khi ghi có thể thấy dữ liệu cũ (cần đọc từ primary với luồng nhạy cảm). `ALTER TABLE` kiểu cũ giữ khóa độc quyền lên bảng → mọi query chờ → downtime; chia nhỏ bước giúp mỗi bước chỉ giữ khóa rất ngắn.
+
+<details>
+<summary>📖 Diễn giải bổ sung chi tiết (Backup, NoSQL/MongoDB, Normalization, SQL vs NoSQL, Polyglot...)</summary>
 
 🟢 *Cơ bản.* **Backup & Restore.** Backup (`pg_dump` hoặc snapshot ổ đĩa) là việc đầu tiên phải có — không có backup thì không có "production" thực sự, chỉ là đang đùa với dữ liệu thật.
 
@@ -640,6 +785,8 @@ Khi số lượng app server tăng lên nhiều (VD chạy trên K8s với nhi�
 **Polyglot persistence.** Thực tế senior hay gặp nhất không phải chọn 1 DB duy nhất cho toàn hệ thống, mà là dùng **nhiều công cụ khác nhau cho đúng bài toán**: PostgreSQL cho dữ liệu giao dịch lõi (cần ACID), Redis cho cache/session (Chương 11), Elasticsearch cho full-text search, MongoDB cho dữ liệu schema linh hoạt (log, config người dùng), S3 cho file lớn — mỗi công cụ giải quyết đúng 1 bài toán nó mạnh nhất, thay vì cố ép 1 loại DB làm mọi việc.
 
 **Zero-downtime migration.** Thêm 1 cột `NOT NULL` trực tiếp vào bảng đang có hàng triệu dòng sẽ khóa bảng trong lúc migration chạy (downtime thật) — cách an toàn là chia nhỏ thành 3 bước triển khai riêng: (1) thêm cột ở dạng **nullable** trước (không breaking, không khóa bảng lâu), (2) chạy job riêng để populate dữ liệu cho cột mới (batch, không chạy 1 câu UPDATE khổng lồ), (3) chỉ thêm ràng buộc `NOT NULL` sau khi toàn bộ dữ liệu đã có giá trị. Nguy hiểm nhất là `DROP COLUMN`/`RENAME COLUMN` — app phiên bản cũ (đang chạy song song lúc rolling update, liên hệ Chương 19) sẽ lập tức lỗi vì vẫn tham chiếu tên cột cũ; luôn deploy theo thứ tự "app đọc được cả 2 dạng cũ+mới" trước, rồi mới xóa cột cũ ở lần deploy sau.
+
+</details>
 
 **Đọc chi tiết:** [`04-Database-Mastery/PostgreSQL_Expert_Guide.md`](../04-Database-Mastery/PostgreSQL_Expert_Guide.md), NoSQL: [`04-Database-Mastery/MongoDB_Expert_Guide.md`](../04-Database-Mastery/MongoDB_Expert_Guide.md), và phần DB scaling + khung quyết định SQL vs NoSQL ở [`Mastery/Backend-Mastery/03-Database-Choice-And-Scaling-Playbook`](../Mastery/Backend-Mastery/03-Database-Choice-And-Scaling-Playbook) mục 1 và 4. Connection Pooling (SQLAlchemy pool config, PgBouncer) và Zero-downtime migration (Alembic strategy): [`interview_prep/07_Cau_Hoi_Phong_Van.md`](../interview_prep/07_Cau_Hoi_Phong_Van.md) — phần Database & SQL nâng cao (Q83, Q115).
 
@@ -871,7 +1018,28 @@ def downgrade():
 🔴 **Chuyên sâu / Thực chiến:**
 - Union-Find, Graph cơ bản (BFS/DFS) — ít dùng trực tiếp trong code CRUD hàng ngày nhưng hay bị hỏi lý thuyết ở vòng phỏng vấn sâu hơn.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. Big-O & chọn cấu trúc dữ liệu: `list` vs `set` vs `dict`
+* 🎯 **Dùng để làm gì?** Ước lượng code sẽ chậm đi thế nào khi dữ liệu tăng, từ đó chọn đúng cấu trúc dữ liệu ngay từ đầu thay vì "chạy được là xong".
+* 💡 **Khi nào dùng?** `set`/`dict` khi cần kiểm tra tồn tại/tra cứu theo khóa trong vòng lặp lớn (O(1)); `list` khi cần giữ thứ tự/cho phép trùng lặp và dữ liệu nhỏ. Không cần tối ưu khi dữ liệu chỉ vài chục phần tử — đọc dễ hiểu quan trọng hơn.
+* 🏭 **Thực tế sử dụng ra sao?** Lọc 100.000 bản ghi theo danh sách `blocked_ids` 10.000 phần tử: dùng `list` → ~10⁹ phép so sánh (vài chục giây); đổi sang `set` → ~10⁵ phép tra (mili-giây). (Code minh họa ngay bên dưới.)
+* ⚙️ **Hoạt động ra sao?** `set`/`dict` là **hash table**: tính `hash(x)` → nhảy thẳng tới ô nhớ tương ứng, không duyệt. `list` phải so sánh từng phần tử từ đầu. Đánh đổi của hash table: tốn thêm RAM, không giữ thứ tự đảm bảo như list.
+
+#### 2. LRU Cache (`functools.lru_cache`)
+* 🎯 **Dùng để làm gì?** Nhớ kết quả của hàm theo tham số để lần gọi sau trả ngay, không tính/gọi API lại; khi đầy thì loại phần tử **lâu không dùng nhất**.
+* 💡 **Khi nào dùng?** Hàm thuần (cùng input → cùng output), tốn kém, được gọi lặp lại với cùng tham số (tỷ giá, cấu hình, kết quả tra cứu ít đổi). **Không** dùng cho dữ liệu hay đổi (số dư tài khoản) hoặc khi chạy nhiều server — mỗi process có cache riêng, luôn lệch nhau (khi đó dùng Redis, Chương 11).
+* 🏭 **Thực tế sử dụng ra sao?** `@lru_cache(maxsize=128)` quanh hàm gọi API tỷ giá; `get_exchange_rate.cache_info()` xem hit/miss; `.cache_clear()` khi cần làm mới.
+* ⚙️ **Hoạt động ra sao?** Bên trong là dict (key = tham số) + danh sách liên kết hai chiều để đưa phần tử vừa dùng lên đầu và bỏ phần cuối khi đầy → mọi thao tác O(1). Tham số phải *hashable*.
+
+#### 3. Union-Find & Graph (BFS/DFS)
+* 🎯 **Dùng để làm gì?** Union-Find trả lời nhanh "2 phần tử có cùng nhóm không" và gộp nhóm; BFS/DFS duyệt quan hệ dạng mạng lưới.
+* 💡 **Khi nào dùng?** Phát hiện tài khoản liên quan/gian lận, nhóm bạn bè, phụ thuộc giữa module/task (BFS/DFS), tìm đường ngắn nhất (BFS). Hiếm dùng trong CRUD thuần; chủ yếu gặp ở phỏng vấn và bài toán quan hệ.
+* 🏭 **Thực tế sử dụng ra sao?** Gộp các tài khoản dùng chung thiết bị/IP vào 1 nhóm để đánh dấu rủi ro; sắp xếp thứ tự chạy migration/task theo đồ thị phụ thuộc.
+* ⚙️ **Hoạt động ra sao?** Union-Find giữ cây cha cho mỗi phần tử; `find` tìm gốc (có *path compression*), `union` nối hai gốc → gần O(1) trung bình. BFS dùng hàng đợi (duyệt theo lớp), DFS dùng ngăn xếp/đệ quy (đi sâu trước).
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa</summary>
 
 🟢 *Cơ bản.* **Set vs List khi check tồn tại.** `x in my_list` là O(n) — Python phải duyệt từng phần tử. `x in my_set` là O(1) trung bình — set dùng hash table y hệt dict. Khi code có `if x in collection` chạy trong vòng lặp lớn, đổi `list` → `set` là tối ưu rẻ nhất, hay bị bỏ qua trong code thực tế.
 
@@ -897,6 +1065,8 @@ get_exchange_rate("USD")  # trả ngay từ cache, không gọi lại API
 ```
 
 🔴 *Chuyên sâu/Thực chiến.* **Union-Find, Graph cơ bản.** Union-Find trả lời nhanh "2 phần tử có cùng nhóm không" (VD: phát hiện gian lận). Graph cơ bản (BFS/DFS) ít dùng trực tiếp trong code CRUD hàng ngày, nhưng là nền cho các câu hỏi lý thuyết phỏng vấn.
+
+</details>
 
 **Đọc chi tiết:** [`Mastery/DSA-Mastery/01-Foundations`](../Mastery/DSA-Mastery/01-Foundations) → `02-Linear-Structures-And-Hashing`. Không cần học hết toàn bộ DSA-Mastery — ưu tiên 2 module này + `08-Junior-To-Senior-Problem-Playbook`.
 
@@ -981,41 +1151,140 @@ def find_paths(node, path=None):
 **Kiến thức cần học:**
 
 🟢 **Cơ bản (ôn nhanh):**
-- ORM, migration, quan hệ ForeignKey/ManyToMany — đã hiểu tư duy qua Frappe, chỉ cần đổi cú pháp.
-- Admin interface — tương tự Frappe Desk, học nhanh.
+- ORM, migration, quan hệ ForeignKey/ManyToMany — so sánh với SQLAlchemy (Flask).
+- Admin interface — Django Admin (sinh tự động) vs Flask (tự dựng hoặc dùng Flask-Admin).
 
 🟡 **Nâng cao (trọng tâm Middle):**
 - **Middleware** — nơi xử lý request/response xuyên suốt toàn app (auth, logging, CORS).
 - Class-Based View vs Function-Based View — khi nào nên dùng loại nào.
 
 🔴 **Chuyên sâu / Thực chiến:**
-- **Signal** (post_save, pre_delete...) — khác với Frappe hook nhưng cùng ý tưởng; dễ lạm dụng khiến luồng xử lý bị "ẩn", khó debug.
+- **Signal** (post_save, pre_delete...) — cơ chế Event-driven decoupling của Django; dễ lạm dụng khiến luồng xử lý bị "ẩn", khó debug.
 - **N+1 query problem** + cách fix bằng `select_related`/`prefetch_related` — câu hỏi phỏng vấn Middle gần như chắc chắn gặp.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟡 *Nâng cao.* **Middleware.** Lớp xử lý nằm giữa request đến và response trả về, chạy cho **mọi** request đi qua (auth check, log, thêm CORS header, nén response...). Middleware xếp thành chuỗi — request đi qua từng middleware theo thứ tự khai báo, response đi ngược lại.
+#### 1. Xử lý Lỗi N+1 Query (`select_related` vs `prefetch_related`)
+* 🎯 **Dùng để làm gì?** Tối ưu số lượng truy vấn SQL gửi tới Database, giải quyết hiện tượng suy giảm hiệu năng nghiêm trọng (rút cạn DB connection pool) khi lấy danh sách dữ liệu có quan hệ.
+* ⏰ **Khi nào sử dụng?** 
+  * Dùng `select_related`: Cho quan hệ **Single-valued** (ForeignKey, OneToOne).
+  * Dùng `prefetch_related`: Cho quan hệ **Multi-valued** (ManyToMany, Reverse ForeignKey).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  # ❌ BAD (N+1 Query): 1 query lấy 100 posts + 100 query lấy author cho từng post
+  posts = Post.objects.all()
+  for post in posts:
+      print(post.author.name)  # Truy cập .author gây ra 1 query mới mỗi vòng lặp!
 
-**CBV vs FBV.** FBV viết tường minh, dễ đọc với logic đơn giản. CBV (VD `ListView`, `CreateView`) tận dụng kế thừa để tái sử dụng logic chuẩn — mạnh khi nhiều view giống nhau, nhưng "ảo thuật" (nhiều hành vi ẩn trong class cha) khiến người mới đọc khó theo dõi luồng chạy thật.
+  # ✅ GOOD (Tối ưu bằng SQL JOIN): Chỉ đúng 1 query duy nhất
+  posts = Post.objects.select_related('author').all()
+  for post in posts:
+      print(post.author.name)  # Author đã được JOIN nạp sẵn vào memory!
 
-🔴 *Chuyên sâu/Thực chiến.* **Signal.** Cho phép 1 đoạn code tự chạy khi 1 sự kiện xảy ra ở model khác, **không cần** model đó biết tới code của bạn — VD: tự gửi email chào mừng mỗi khi có `User` mới, bằng cách lắng nghe signal `post_save` của model `User`. Giống ý tưởng Frappe hook (`doc_events`) nhưng cú pháp khác. Dễ sai: lạm dụng signal khiến luồng xử lý bị "ẩn" — đọc code tạo `User` không thấy gì, nhưng thực tế có 5 signal khác đang chạy ngầm, rất khó debug.
+  # ✅ GOOD (Tối ưu cho Many-to-Many): Đúng 2 queries, join bằng Python Memory
+  posts = Post.objects.prefetch_related('tags').all()
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * `select_related`: Django ORM tự động sinh ra câu lệnh SQL `INNER JOIN` hoặc `LEFT OUTER JOIN` để gộp bảng `blog_post` và `blog_author` lại trong **đúng 1 query**.
+  * `prefetch_related`: Django chạy **2 query độc lập**: Query 1 lấy danh sách Post IDs, Query 2 lấy Tags có `post_id IN (1, 2, 3...)`. Sau đó Django ORM ghép 2 tập kết quả lại với nhau trong bộ nhớ Python RAM.
 
-**N+1 query problem.** Lỗi kinh điển: lấy danh sách 100 đơn hàng (1 query), rồi với **mỗi** đơn hàng lại query thêm để lấy tên khách hàng (100 query nữa) → tổng 101 query thay vì 2. `select_related` (SQL JOIN, cho FK/OneToOne) và `prefetch_related` (query riêng rồi ghép ở Python, cho ManyToMany/reverse FK) gom lại thành 1-2 query duy nhất. Câu hỏi phỏng vấn Middle gần như chắc chắn sẽ gặp.
+---
 
-```python
-# BAD: 1 query lấy orders + 100 query lấy customer (N+1)
-orders = Order.objects.all()
-for o in orders:
-    print(o.customer.name)        # mỗi lần truy cập .customer -> 1 query mới
+#### 2. Django Middleware Pipeline
+* 🎯 **Dùng để làm gì?** Đóng vai trò là chuỗi bộ lọc cắm vào HTTP Request/Response Lifecycle để thực thi các tác vụ dùng chung toàn hệ thống (Authentication, Logging, CORS, Security Headers, Rate Limiting).
+* ⏰ **Khi nào sử dụng?** Dùng khi cần can thiệp trước khi request tới được View hoặc sau khi View đã trả về Response (VD: Bắt exception toàn cục, đính kèm Header security, verify JWT Token).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  import time
+  import logging
 
-# GOOD: select_related dùng SQL JOIN (cho FK/OneToOne) -> chỉ 1 query
-orders = Order.objects.select_related("customer").all()
+  logger = logging.getLogger(__name__)
 
-# GOOD: prefetch_related cho ManyToMany/reverse FK -> 2 query, ghép ở Python
-orders = Order.objects.prefetch_related("items").all()
+  class RequestTimingMiddleware:
+      def __init__(self, get_response):
+          self.get_response = get_response  # Callable response handler tiếp theo
+
+      def __call__(self, request):
+          # 1. Code chạy TRƯỚC KHI View xử lý (Request Phase)
+          start_time = time.time()
+
+          response = self.get_response(request)  # Chuyển request cho view/middleware tiếp theo
+
+          # 2. Code chạy SẠU KHI View đã trả về (Response Phase)
+          duration = time.time() - start_time
+          response['X-Process-Time'] = f"{duration:.3f}s"
+          if duration > 1.0:
+              logger.warning(f"SLOW REQUEST: {request.path} took {duration:.2f}s")
+
+          return response
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?** Middleware được tổ chức dưới dạng cấu trúc vỏ hành (Onion Architecture). Khi WSGI Server nhận request, request sẽ chạy lồng qua lần lượt từng middleware trong `MIDDLEWARE` setting từ trên xuống dưới. Response trả về sẽ chạy ngược lại từ dưới lên trên qua các middleware đó.
+
+---
+
+#### 3. Django Signals (`post_save`, `pre_delete`)
+* 🎯 **Dùng để làm gì?** Tạo cơ chế Event-driven Publisher/Subscriber nội bộ ứng dụng, giúp gỡ bỏ sự phụ thuộc trực tiếp (Decoupling) giữa các module.
+* ⏰ **Khi nào sử dụng?** Dùng khi một hành động ở Model A cần kích hoạt tự động các xử lý phụ ở Module B (VD: Tạo `User` xong tự động tạo `UserProfile`, hoặc tự xóa file trên S3 khi `ImageModel` bị delete). KHÔNG dùng cho core business logic phức tạp vì dễ làm ẩn luồng chạy (Implicit flow).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  from django.db.models.signals import post_save
+  from django.dispatch import receiver
+  from django.contrib.auth.models import User
+  from .models import UserProfile
+
+  @receiver(post_save, sender=User)
+  def create_user_profile(sender, instance, created, **kwargs):
+      if created:  # Chỉ chạy khi bản ghi mới được INSERT
+          UserProfile.objects.create(user=instance)
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?** Khi method `instance.save()` của Model kết thúc thành công, Django Dispatcher sẽ duyệt qua danh sách các hàm được đăng ký decorator `@receiver` đối với sender `User` và thực thi lần lượt các callback function đó **đồng bộ (synchronously)** trong cùng thread/transaction ngoại trừ khi được đẩy sang Celery async task.
+
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập DJ-01 → DJ-04):
+
+#### 1. Thực hành DJ-01 — Khởi tạo App & Chạy Migration:
+```bash
+python -m venv venv && source venv/bin/activate
+pip install django
+django-admin startproject myproject .
+python manage.py startapp blog
 ```
+- **Code `blog/models.py`:**
+  ```python
+  from django.db import models
 
-**Đọc chi tiết:** [`03-Python-Expert/Django_Mastery_Guide.md`](../03-Python-Expert/Django_Mastery_Guide.md). Đọc code thật: [`09-Example-Projects/Django_RealWorld`](../09-Example-Projects/Django_RealWorld), [`09-Example-Projects/Django_Rest_Pro`](../09-Example-Projects/Django_Rest_Pro).
+  class Author(models.Model):
+      name = models.CharField(max_length=100)
+      email = models.EmailField(unique=True)
+
+  class Post(models.Model):
+      title = models.CharField(max_length=200)
+      content = models.TextField()
+      author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='posts')
+  ```
+- **Chạy Migration & Verify:** `python manage.py makemigrations blog` -> `python manage.py sqlmigrate blog 0001` (xem SQL JOIN/INDEX) -> `python manage.py migrate`.
+
+#### 2. Thực hành DJ-02 — FBV vs CBV:
+- **Tạo FBV & CBV (`blog/views.py`):**
+  ```python
+  # FBV
+  def post_list_fbv(request):
+      return render(request, 'blog/post_list.html', {'posts': Post.objects.all()})
+
+  # CBV (Generic)
+  from django.views.generic import ListView
+  class PostListView(ListView):
+      model = Post
+      template_name = 'blog/post_list.html'
+  ```
+
+#### 3. Thực hành DJ-03 — Bật Debug Toolbar & Fix N+1 Query:
+- **Tạo lỗi N+1:** Render `{% for p in posts %}{{ p.author.name }}{% endfor %}` không dùng `select_related`. Đếm SQL Queries hiển thị **N+1 queries** trên Debug Toolbar.
+- **Fix lỗi:** `posts = Post.objects.select_related('author').all()[:20]` -> Verify trên Debug Toolbar chỉ còn **1 SQL query JOIN duy nhất**!
+
+#### 4. Thực hành DJ-04 — Bảng tổng hợp so sánh Django vs Flask:
+- Ghi chép note so sánh: Architecture (Batteries-included vs Micro-framework), ORM (Django ORM Active Record vs Flask-SQLAlchemy Data Mapper), Routing (Django URLs/CBV vs Flask Route Decorators/Blueprints).
+
+**Đọc chi tiết:** [`03-Python-Expert/Django_Mastery_Guide.md`](../03-Python-Expert/Django_Mastery_Guide.md). Đọc code thật: [`09-Example-Projects/Django_RealWorld`](../09-Example-Projects/Django_RealWorld), [`09-Example-Projects/Django_Rest_Pro`](../09-Example-Projects/Django_Rest_Pro). Dẫn chiếu thực hành: [`01-Django-Exercises/Checklist_Bai_Tap.md`](01-Django-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -1115,45 +1384,103 @@ Client → Load Balancer/CDN → Web Server (Nginx/Gunicorn) → WSGI/ASGI
 🔴 **Chuyên sâu / Thực chiến:**
 - Throttling (rate limit) — chặn brute-force/lạm dụng API; thiết kế permission class tùy biến theo role phức tạp (không chỉ dùng class có sẵn).
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **Serializer.** Làm 2 việc ngược nhau: chuyển object Python (model instance) thành JSON để trả về client (serialize), và chuyển JSON client gửi lên thành object Python có validate (deserialize) — tương tự Pydantic nhưng gắn chặt với Django ORM.
+#### 1. DRF Serializer & Validation Engine
+* 🎯 **Dùng để làm gì?** Chuyển đổi dữ liệu hai chiều (Two-way Data Transformation): Serialize Python Model Instance thành JSON payload cho Frontend và Deserialize/Validate JSON payload đầu vào thành Python Object hợp lệ.
+* 💡 **Khi nào dùng?** Dùng bắt buộc trong mọi DRF API Endpoint để đảm bảo contract dữ liệu giữa Client-Server và bảo vệ Database khỏi bẩn dữ liệu. KHÔNG dùng khi xây dựng Server-side Rendering HTML (dùng Django Form).
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```python
+  from rest_framework import serializers
+  from .models import Order
 
-```python
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = ["id", "customer", "total", "created_at"]
+  class OrderSerializer(serializers.ModelSerializer):
+      class Meta:
+          model = Order
+          fields = ["id", "customer", "total", "created_at"]
 
-    def validate_total(self, value):
-        if value <= 0:
-            raise serializers.ValidationError("total phải lớn hơn 0")
-        return value
-```
+      def validate_total(self, value):
+          if value <= 0:
+              raise serializers.ValidationError("total phải lớn hơn 0")
+          return value
+  ```
+* ⚙️ **Hoạt động ra sao?** Khi gọi `serializer.is_valid()`, DRF chạy qua 3 tầng validation: Field-level validation -> Object-level `validate()` -> Model clean execution. Nếu thất bại, ném `ValidationError` chứa dict thông báo chi tiết cấu trúc JSON lỗi (400 Bad Request).
 
-🟡 *Nâng cao.* **ViewSet + Router.** `ViewSet` gom các action CRUD vào 1 class, `Router` tự động sinh URL chuẩn REST cho các action đó — giảm code lặp (không cần viết tay 5 URL pattern cho mỗi resource).
+#### 2. ViewSet & Router Automation
+* 🎯 **Dùng để làm gì?** Gom toàn bộ logic CRUD (List, Create, Retrieve, Update, Destroy) của 1 Resource vào một Class duy nhất và tự động hóa sinh chuẩn RESTful URL Routes.
+* 💡 **Khi nào dùng?** Khi xây dựng các chuẩn REST resource tuân thủ mô hình CRUD tiêu chuẩn. KHÔNG dùng khi endpoint mang tính chất RPC hoặc thao tác xử lý đặc thù không thuộc 5 hành vi CRUD chuẩn (nên dùng `APIView` hoặc `@action`).
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```python
+  from rest_framework import viewsets
+  from rest_framework.routers import DefaultRouter
+  from rest_framework.permissions import IsAuthenticated
 
-```python
-class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.select_related("customer").all()  # tránh N+1 (Chương 5)
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+  class OrderViewSet(viewsets.ModelViewSet):
+      queryset = Order.objects.select_related("customer").all()  # Tối ưu N+1
+      serializer_class = OrderSerializer
+      permission_classes = [IsAuthenticated]
 
-router = DefaultRouter()
-router.register("orders", OrderViewSet)
-# tự sinh: GET/POST /orders/, GET/PUT/DELETE /orders/{id}/
-```
+  router = DefaultRouter()
+  router.register("orders", OrderViewSet, basename="order")
+  # Tự động map: GET/POST /orders/, GET/PUT/PATCH/DELETE /orders/{id}/
+  ```
+* ⚙️ **Hoạt động ra sao?** Router đứng ở tầng `urls.py`, sử dụng Regex/Path converters bóc tách HTTP Verb và URL Path để map chính xác vào các handler method tương ứng (`list`, `create`, `retrieve`, `update`, `destroy`) trong ViewSet instance.
 
-**JWT access/refresh token.** Access token sống ngắn (VD 15 phút) — nếu bị lộ, thiệt hại giới hạn trong thời gian ngắn. Refresh token sống dài (VD 7 ngày), chỉ dùng để xin access token mới, không dùng để gọi API trực tiếp — giảm số lần phải gửi token "mạnh" qua mạng.
+#### 3. JWT Authentication (Access & Refresh Tokens)
+* 🎯 **Dùng để làm gì?** Xác thực Stateless (không lưu session trên RAM/DB server), giúp API scale dễ dàng qua hàng chục server đằng sau Load Balancer.
+* 💡 **Khi nào dùng?** Khi làm hệ thống Microservices, Single Page Application (React/Vue), Mobile App. KHÔNG nên dùng nếu cần thu hồi quyền tức thì trong milliseconds ngoại trừ có Blacklist Redis hỗ trợ.
+* 🏭 **Thực tế sử dụng ra sao?** Header đính kèm: `Authorization: Bearer <access_token>`. Khi Access token hết hạn (15 phút), Client gửi Refresh Token đến `/api/token/refresh/` để lấy Access Token mới mà không bắt user login lại.
+* ⚙️ **Hoạt động ra sao?** JWT gồm 3 phần `Header.Payload.Signature`. Server verify token bằng cách băm lại `Header.Payload` với `SECRET_KEY`. Nếu khớp chữ ký và `exp` chưa quá hạn, Request được cấp quyền đi tiếp mà Server KHÔNG cần query Database tìm User Session.
 
-🔴 *Chuyên sâu/Thực chiến.* **Throttling.** Giới hạn số request/phút theo user hoặc IP — chặn 1 client gọi API quá dồn dập làm quá tải server hoặc để chống brute-force login.
+#### 4. Rate Limiting & Throttling
+* 🎯 **Dùng để làm gì?** Bảo vệ API Server khỏi tấn công DoS, Brute-force Login và lạm dụng tài nguyên mạng bằng cách giới hạn số lượng HTTP request trong khoảng thời gian.
+* 💡 **Khi nào dùng?** Bắt buộc cho Public APIs, Login Endpoint, Payment Gateway integrations.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```python
+  from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
-```python
-class OrderViewSet(viewsets.ModelViewSet):
-    throttle_classes = [UserRateThrottle]  # "user": "100/min" khai báo trong settings.py
-```
+  class LoginViewSet(viewsets.GenericViewSet):
+      throttle_classes = [AnonRateThrottle] # Cấu hình anon: 5/min trong settings.py
+  ```
+* ⚙️ **Hoạt động ra sao?** DRF Throttling dùng thuật toán Leaky Bucket / Sliding Window lưu trên Cache backend (Redis/Memcached). Đếm số lượt truy cập gắn với IP Client hoặc User ID trong cửa sổ thời gian. Nếu vượt ngưỡng, ném ngay `HTTP 429 Too Many Requests`.
 
-**Đọc chi tiết:** phần DRF trong [`03-Python-Expert/Django_Mastery_Guide.md`](../03-Python-Expert/Django_Mastery_Guide.md) + [`interview_prep/03_Database.md`](../interview_prep/03_Database.md) cho phần liên quan ORM/API.
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập DJ-05 & DJ-06):
+
+#### 1. Thực hành DJ-05 — DRF ViewSet & Router:
+- **Khai báo Serializer & ViewSet (`blog/serializers.py` & `blog/views.py`):**
+  ```python
+  from rest_framework import serializers, viewsets
+  from rest_framework.routers import DefaultRouter
+  from .models import Post
+
+  class PostSerializer(serializers.ModelSerializer):
+      class Meta:
+          model = Post
+          fields = ['id', 'title', 'content', 'author', 'published_at']
+
+  class PostViewSet(viewsets.ModelViewSet):
+      queryset = Post.objects.select_related('author').all()
+      serializer_class = PostSerializer
+  ```
+- **Cấu hình Router (`blog/urls.py`):**
+  ```python
+  router = DefaultRouter()
+  router.register('posts', PostViewSet, basename='post')
+  urlpatterns = router.urls
+  ```
+
+#### 2. Thực hành DJ-06 — JWT Authentication & Permission:
+- **Cài đặt SimpleJWT:** `pip install djangorestframework-simplejwt`
+- **Thêm Auth endpoints (`urls.py`):**
+  ```python
+  from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+  path('api/token/', TokenObtainPairView.as_view())
+  path('api/token/refresh/', TokenRefreshView.as_view())
+  ```
+- **Áp dụng Permission:** Thêm `permission_classes = [IsAuthenticatedOrReadOnly]` vào `PostViewSet`.
+- **Verify:** Send request `POST /api/posts/` không đính kèm `Authorization: Bearer <token>` -> Nhận `401 Unauthorized`. Đính kèm Token -> Tạo mới `201 Created`.
+
+**Đọc chi tiết:** phần DRF trong [`03-Python-Expert/Django_Mastery_Guide.md`](../03-Python-Expert/Django_Mastery_Guide.md) + [`interview_prep/03_Database.md`](../interview_prep/03_Database.md) cho phần liên quan ORM/API. Dẫn chiếu thực hành: [`01-Django-Exercises/Checklist_Bai_Tap.md`](01-Django-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -1229,45 +1556,131 @@ def test_create_user(client, db):
 - Dockerize Flask app (nền cho Chương 14); trả lời được câu hỏi senior kinh điển "khi nào chọn Flask, khi nào chọn Django, khi nào chọn FastAPI" kèm ví dụ cụ thể.
 - **Sự cố thực tế khi dùng FastAPI sai cách**: gọi thư viện I/O đồng bộ (`requests`, `time.sleep()`, driver DB đồng bộ) bên trong `async def` — event loop bị block, toàn bộ server đứng hình dù code "trông có vẻ" bất đồng bộ.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* Flask không có ORM/Admin sẵn như Django — triết lý "micro-framework": bạn tự chọn thư viện, tự ghép lại theo ý mình. Đổi lại là tự do kiến trúc cao hơn, phù hợp project nhỏ/microservice; Django phù hợp hơn khi cần "có sẵn mọi thứ" để ra sản phẩm nhanh (CMS, admin dashboard nội bộ).
+#### 1. Architecture Comparison: Django vs Flask vs FastAPI
+* 🎯 **Dùng để làm gì?** Giúp kiến trúc sư hệ thống lựa chọn đúng Python Web Framework phù hợp nhất với quy mô, bài toán kinh doanh và yêu cầu hiệu năng của dự án.
+* 💡 **Khi nào dùng?** 
+  - **Django:** Chọn khi cần làm ứng dụng Enterprise, CMS, E-commerce, Admin Portal cần sẵn ORM, Admin Interface, Authentication, Security out-of-the-box để ra sản phẩm nhanh (Time-to-market).
+  - **Flask:** Chọn khi làm Microservices nhỏ gọn, Utility APIs, hoặc project đòi hỏi tự do lựa chọn kiến trúc (Clean Architecture, ORM tùy chọn như SQLAlchemy).
+  - **FastAPI:** Chọn khi xây dựng High-performance REST/GraphQL APIs, Microservices giao tiếp I/O dồn dập (WebSockets, Real-time Streaming, ML Model Serving), yêu cầu tự động hóa OpenAPI/Swagger doc.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - Django: Monolith architecture cho startup giai đoạn 0 -> 1.
+  - Flask: Lightweight Gateway hoặc Cronjob Worker Service.
+  - FastAPI: Microservices Async đón hàng trăm ngàn request/phút.
+* ⚙️ **Hoạt động ra sao?** Django và Flask chạy mặc định trên chuẩn **WSGI** (Synchronous, 1 Request/Thread). FastAPI chạy trên chuẩn **ASGI** (Asynchronous Server Gateway Interface) kết hợp với **uvicorn/starlette** event loop, xử lý non-blocking I/O hiệu năng vượt trội.
 
-**FastAPI & Pydantic.** FastAPI được thiết kế **async-first** ngay từ đầu (chạy trên ASGI, nối trực tiếp với kiến thức WSGI vs ASGI ở Chương 10) — khác với Django/Flask vốn sync-first rồi mới thêm hỗ trợ async sau. Thay vì viết Serializer (DRF) hay Form (Flask) riêng để validate input, FastAPI dùng **Pydantic model** — chỉ cần khai báo type hint, framework tự validate + tự sinh tài liệu OpenAPI/Swagger (liên hệ Chương 9) mà không cần viết thêm gì.
+#### 2. FastAPI Pydantic Validation Engine
+* 🎯 **Dùng để làm gì?** Tự động ép kiểu (Type Casting), Validate dữ liệu đầu vào HTTP Request theo Python Type Hints và sinh tự động tài liệu OpenAPI/Swagger UI `/docs`.
+* 💡 **Khi nào dùng?** Dùng trong 100% endpoint của FastAPI thay cho việc viết validation thủ công.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```python
+  from fastapi import FastAPI
+  from pydantic import BaseModel, Field
 
-```python
-from fastapi import FastAPI
-from pydantic import BaseModel
+  app = FastAPI()
 
-app = FastAPI()
+  class OrderIn(BaseModel):
+      customer_id: int = Field(..., gt=0)
+      total: float = Field(..., gt=0)
 
-class OrderIn(BaseModel):
-    customer_id: int
-    total: float            # FastAPI tự validate: gửi lên string "abc" -> tự trả lỗi 422
+  @app.post("/orders")
+  async def create_order(order: OrderIn):
+      return {"id": 1, **order.model_dump()}
+  ```
+* ⚙️ **Hoạt động ra sao?** Khi Client nộp JSON, Pydantic parse các field theo type hint. Nếu gửi sai kiểu (ví dụ `total: "abc"`), FastAPI tự chặn ngay ở tầng middleware và trả về HTTP `422 Unprocessable Entity` với thông tin chi tiết lỗi field nào mà dev không cần viết `try...except`.
 
-@app.post("/orders")
-async def create_order(order: OrderIn):   # không cần viết Serializer/Form riêng
-    return {"id": 1, **order.dict()}
-```
+#### 3. FastAPI Dependency Injection System (`Depends`)
+* 🎯 **Dùng để làm gì?** Tách rời các mối phụ thuộc (Database Session, Auth User Token, Shared Config), tái sử dụng code sạch sẽ và hỗ trợ Override Dependencies cực kỳ dễ dàng khi viết Unit Test.
+* 💡 **Khi nào dùng?** Dùng để extract logic dùng chung như Authenticate User, Check Permissions, Open/Close DB Session per request.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```python
+  from fastapi import Depends, Header, HTTPException
 
-🟡 *Nâng cao.* **Flask-SQLAlchemy, Flask-Migrate, Blueprint.** `Flask-SQLAlchemy` (ORM), `Flask-Migrate` (migration) là 2 extension bù lại phần Flask không có sẵn. **Blueprint** là cách chia code thành nhiều module độc lập (giống Django app) khi project lớn dần — không dùng Blueprint, mọi route dồn vào 1 file sẽ không scale được về mặt tổ chức code.
+  def get_current_user(token: str = Header(...)) -> dict:
+      if token != "secret-token":
+          raise HTTPException(status_code=401, detail="Invalid Token")
+      return {"user_id": 42, "role": "admin"}
 
-**FastAPI Dependency Injection.** `Depends()` cho phép khai báo 1 hàm/class là dependency của endpoint (VD lấy current user từ token, mở connection DB) — FastAPI tự gọi và inject kết quả vào tham số hàm, tương tự ý tưởng Dependency Injection đã học ở Chương 1 nhưng được framework hỗ trợ sẵn cú pháp thay vì tự thiết kế từ đầu.
+  @app.get("/me")
+  async def read_me(current_user: dict = Depends(get_current_user)):
+      return current_user
+  ```
+* ⚙️ **Hoạt động ra sao?** FastAPI xây dựng một Dependency Graph trước khi gọi route handler. Nó tự giải quyết các tầng phụ thuộc lồng nhau, gọi các hàm dependency, inject kết quả vào tham số và tự động dọn dẹp tài nguyên (nếu dùng `yield`).
 
-```python
-def get_current_user(token: str = Header(...)) -> User:
-    return decode_jwt_and_fetch_user(token)
+#### 4. Sự cố nguy hiểm: Blocking Event Loop trong FastAPI
+* 🎯 **Dùng để làm gì?** Nhận biết và phòng tránh thảm họa treo toàn bộ Server FastAPI Production khi lỡ dùng thư viện đồng bộ (Sync I/O) trong hàm `async def`.
+* 💡 **Khi nào dùng?** Áp dụng quy tắc kiểm thử code review bắt buộc đối với mọi dự án Async Python.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - ❌ **Code sai gây sập server:**
+    ```python
+    @app.get("/slow")
+    async def slow_endpoint():
+        time.sleep(5) # HOẶC requests.get("https://api.external.com")
+        return {"status": "done"}
+    ```
+  - ✅ **Code đúng chuẩn Async:**
+    ```python
+    import asyncio, httpx
 
-@app.get("/me")
-async def read_me(user: User = Depends(get_current_user)):  # FastAPI tự gọi + inject
-    return user
-```
+    @app.get("/fast")
+    async def fast_endpoint():
+        await asyncio.sleep(5)
+        async with httpx.AsyncClient() as client:
+            res = await client.get("https://api.external.com")
+        return {"status": "done"}
+    ```
+* ⚙️ **Hoạt động ra sao?** `async def` chạy trực tiếp trên **Main Event Loop Thread**. Nếu gọi lệnh Blocking Sync (`time.sleep` hay `psycopg2`), Thread duy nhất này bị phong tỏa hoàn toàn. Mọi request của các User khác gửi tới Server đều bị đứng hình đợt timeout. Nếu buộc phải dùng thư viện Sync, phải đẩy sang ThreadPool bằng `def` thường (không có `async`) hoặc `anyio.to_thread.run_sync()`.
 
-🔴 *Chuyên sâu/Thực chiến.* **So sánh 3 framework.** Django: "có sẵn mọi thứ" (ORM, Admin, Auth) — nhanh nhất để ra sản phẩm hoàn chỉnh, hợp CMS/dashboard nội bộ. Flask: tối giản, tự do kiến trúc cao nhất — hợp project nhỏ/microservice cần kiểm soát từng phần. FastAPI: async-first + validate tự động qua Pydantic + tự sinh docs — hợp API thuần túy (không cần UI render sẵn), đặc biệt khi cần throughput cao với nhiều I/O đồng thời (gọi nhiều service khác, websocket).
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập FL-01 → FL-03):
 
-**Sự cố block event loop.** Đây là lỗi production có thật và rất phổ biến khi chuyển từ Flask (sync) sang FastAPI (async): dev quen tay dùng `requests`, `time.sleep()`, hoặc driver DB đồng bộ (`psycopg2`) bên trong `async def` — vì thư viện đó không `await` đúng cách, nó chặn đứng toàn bộ event loop (liên hệ trực tiếp cơ chế asyncio đã học ở Chương 1), khiến **mọi** request khác trên cùng worker bị đứng theo dù code "nhìn có vẻ" async. Khắc phục: mọi I/O trong code async phải dùng bản async thật (`httpx` thay `requests`, `asyncpg`/`motor` thay driver sync).
+#### 1. Thực hành FL-01 — Flask Thuần không ORM:
+- **Viết API (`app.py`):**
+  ```python
+  from flask import Flask, request, jsonify
+  app = Flask(__name__)
+  posts_db = [{"id": 1, "title": "Flask Basics"}]
 
-**Đọc chi tiết:** [`interview_prep/02_Flask_Backend.md`](../interview_prep/02_Flask_Backend.md). Đọc code thật: [`09-Example-Projects/Flask_RealWorld`](../09-Example-Projects/Flask_RealWorld), [`09-Example-Projects/Flask_SaaS_Boilerplate`](../09-Example-Projects/Flask_SaaS_Boilerplate). FastAPI: [`03-Python-Expert/Python_Backend_Professional_Guide.md`](../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 3-4, [`Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production`](../Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production).
+  @app.route('/api/posts', methods=['GET', 'POST'])
+  def handle_posts():
+      if request.method == 'POST':
+          data = request.get_json()
+          new_post = {"id": len(posts_db) + 1, "title": data['title']}
+          posts_db.append(new_post)
+          return jsonify(new_post), 201
+      return jsonify(posts_db), 200
+  ```
+- **Chạy & Verify:** `python app.py` và test cURL `GET /api/posts` và `POST /api/posts`.
+
+#### 2. Thực hành FL-02 — Tích hợp Flask-SQLAlchemy:
+- **Cài đặt & Code:** `pip install flask-sqlalchemy`
+  ```python
+  from flask_sqlalchemy import SQLAlchemy
+  db = SQLAlchemy(app)
+  class Post(db.Model):
+      id = db.Column(db.Integer, primary_key=True)
+      title = db.Column(db.String(100))
+
+  with app.app_context(): db.create_all()
+  ```
+
+#### 3. Thực hành FL-03 — Blueprints & Application Factory Pattern:
+- **Tổ chức Module (`app/posts/routes.py`):**
+  ```python
+  from flask import Blueprint, jsonify
+  posts_bp = Blueprint('posts', __name__, url_prefix='/api/posts')
+  @posts_bp.route('/', methods=['GET'])
+  def get_posts(): return jsonify([])
+  ```
+- **Factory (`app/__init__.py`):**
+  ```python
+  def create_app():
+      app = Flask(__name__)
+      app.register_blueprint(posts_bp)
+      return app
+  ```
+
+**Đọc chi tiết:** [`interview_prep/02_Flask_Backend.md`](../interview_prep/02_Flask_Backend.md). Đọc code thật: [`09-Example-Projects/Flask_RealWorld`](../09-Example-Projects/Flask_RealWorld), [`09-Example-Projects/Flask_SaaS_Boilerplate`](../09-Example-Projects/Flask_SaaS_Boilerplate). FastAPI: [`03-Python-Expert/Python_Backend_Professional_Guide.md`](../03-Python-Expert/Python_Backend_Professional_Guide.md) mục 3-4. Dẫn chiếu thực hành: [`02-Flask-Exercises/Checklist_Bai_Tap.md`](02-Flask-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -1534,7 +1947,28 @@ async def register(user: UserCreate, background_tasks: BackgroundTasks):
 - TDD (viết test trước code) — không cần theo cứng nhắc, nhưng phải hiểu tư duy để trả lời phỏng vấn và áp dụng đúng lúc.
 - **Load testing** (Locust, k6) — kiểm tra hệ thống chịu được bao nhiêu request/giây trước khi gãy, khác hẳn mục tiêu của Unit/Integration test (đúng logic) — đây là loại test duy nhất trả lời được câu "hệ thống chịu tải được bao nhiêu" thay vì "code có đúng không".
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. Unit Test & Test Coverage
+* 🎯 **Dùng để làm gì?** Kiểm tra từng hàm/method độc lập đúng logic, chạy cực nhanh, làm "lưới an toàn" khi refactor.
+* 💡 **Khi nào dùng?** Mọi logic nghiệp vụ thuần (tính giá, validate, phân quyền). Coverage chỉ là độ phủ — không chạy theo 100%; ưu tiên test các nhánh lỗi/biên (giá trị 0, âm, rỗng).
+* 🏭 **Thực tế sử dụng ra sao?** `pytest --cov=app --cov-report=term-missing` trong CI, đặt ngưỡng (vd 80%) để chặn PR tụt coverage nghiêm trọng.
+* ⚙️ **Hoạt động ra sao?** pytest tự tìm `test_*.py`, chạy từng hàm `test_*`, `assert` sai → fail kèm diff dễ đọc. Coverage đánh dấu dòng nào đã được thực thi — dòng được chạy qua ≠ được kiểm chứng đúng.
+
+#### 2. Integration Test & Mock/Patch
+* 🎯 **Dùng để làm gì?** Integration: kiểm tra các phần thật nối đúng nhau (API + DB). Mock/Patch: thay thế tạm thành phần bên ngoài (email, thanh toán) để test chạy nhanh, ổn định, không gây tác dụng phụ thật.
+* 💡 **Khi nào dùng?** Integration cho các luồng quan trọng (đăng ký, thanh toán) với DB test thật. Mock cho dịch vụ bên thứ 3 (gửi mail, gọi API ngoài). Đừng mock quá tay: mock hết mọi thứ thì test chỉ kiểm tra chính cái mock.
+* 🏭 **Thực tế sử dụng ra sao?** `patch("app.services.send_email")` rồi `assert_called_once_with(...)`; Integration dùng `APIClient` (DRF) / `client` fixture + DB test tự rollback sau mỗi test.
+* ⚙️ **Hoạt động ra sao?** `patch` thay tên `send_email` trong module bằng `MagicMock` chỉ trong phạm vi `with`, rồi khôi phục. Lưu ý patch đúng nơi **được dùng** (`app.services.send_email`), không phải nơi định nghĩa.
+
+#### 3. TDD & Load Testing (Locust/k6)
+* 🎯 **Dùng để làm gì?** TDD: viết test trước để ép nghi rõ yêu cầu. Load test: trả lời "hệ thống chịu được bao nhiêu request/giây trước khi gãy".
+* 💡 **Khi nào dùng?** TDD khi logic phức tạp/bug-fix (viết test tái hiện bug trước). Load test trước mùa cao điểm, trước khi chọn số replica/`requests-limits` K8s, sau thay đổi kiến trúc lớn.
+* 🏭 **Thực tế sử dụng ra sao?** Locust mô tả hành vi user bằng Python, tăng dần 100 → 1000 user; theo dõi p95 latency, error rate; chạy trên môi trường giống production (không phải prod thật).
+* ⚙️ **Hoạt động ra sao?** TDD theo vòng Red → Green → Refactor. Load test sinh nhiều user ảo gọi song song để đo throughput/latency và tìm "điểm gãy" (CPU, pool DB, timeout), từ đó biết cần scale ở đâu.
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa</summary>
 
 🟢 *Cơ bản.* **Unit test, Test coverage.** Unit test kiểm tra 1 hàm/method độc lập, **giả lập (mock) hết** mọi thứ bên ngoài nó — chạy cực nhanh, chỉ fail khi chính logic đó sai. Test coverage là % dòng code được test chạy qua ít nhất 1 lần — con số này **không nói lên chất lượng test**, chỉ nói lên độ phủ; 100% coverage vẫn có thể thiếu test cho case lỗi quan trọng nếu assertion viết hời hợt.
 
@@ -1564,7 +1998,39 @@ def test_register_sends_welcome_email():
 
 **Load testing.** Locust/k6 giả lập hàng trăm/nghìn user gọi API đồng thời để đo throughput (request/giây), latency dưới tải, và tìm điểm hệ thống bắt đầu trả lỗi/timeout — dùng để trả lời câu hỏi thực tế "server hiện tại chịu được bao nhiêu traffic trước khi cần scale" (liên hệ trực tiếp Horizontal Scaling ở Chương 11), thay vì đoán mò hoặc đợi tới khi sập thật ở production mới biết giới hạn.
 
-**Đọc chi tiết:** [`Mastery/Backend-Mastery/04-Testing-Observability-And-Debugging-Prod`](../Mastery/Backend-Mastery/04-Testing-Observability-And-Debugging-Prod). Load testing: [`Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production`](../Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production) (phần benchmark số worker bằng Locust/k6).
+</details>
+
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập DJ-07):
+
+#### 1. Thực hành DJ-07 — Integration Test API với DRF (`APITestCase`):
+- **Viết Test Suite (`blog/tests.py`):**
+  ```python
+  from rest_framework.test import APITestCase
+  from rest_framework import status
+  from django.contrib.auth.models import User
+  from .models import Author, Post
+
+  class PostAPITestCase(APITestCase):
+      def setUp(self):
+          self.user = User.objects.create_user(username='tester', password='pass')
+          self.author = Author.objects.create(name='Author 1', email='a1@test.com')
+
+      def test_get_posts_list_unauthenticated(self):
+          res = self.client.get('/api/posts/')
+          self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+      def test_create_post_unauthenticated_fails(self):
+          res = self.client.post('/api/posts/', {'title': 'New', 'content': 'C', 'author': self.author.id})
+          self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+      def test_create_post_authenticated_success(self):
+          self.client.force_authenticate(user=self.user)
+          res = self.client.post('/api/posts/', {'title': 'New', 'content': 'C', 'author': self.author.id})
+          self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+  ```
+- **Chạy Test Suite & Verify:** `python manage.py test blog` hoặc `pytest`.
+
+**Đọc chi tiết:** [`Mastery/Backend-Mastery/04-Testing-Observability-And-Debugging-Prod`](../Mastery/Backend-Mastery/04-Testing-Observability-And-Debugging-Prod). Load testing: [`Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production`](../Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production). Dẫn chiếu thực hành: [`01-Django-Exercises/Checklist_Bai_Tap.md`](01-Django-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -1713,7 +2179,34 @@ def test_migration_handles_null_sku():
 - So sánh nhanh REST vs **GraphQL** (client tự quyết định data shape, tránh over-fetching/under-fetching) — khi nào thực sự cần, khi nào REST vẫn đủ.
 - **WebSocket vs SSE (Server-Sent Events) vs Long Polling** — 3 cách làm tính năng real-time, chọn đúng theo chiều giao tiếp cần thiết.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. REST chuẩn, Versioning & Pagination (cursor vs offset)
+* 🎯 **Dùng để làm gì?** Thiết kế API nhất quán, dễ dùng, đổi được mà không phá client cũ; phân trang để không trả cả triệu dòng 1 lần.
+* 💡 **Khi nào dùng?** Mọi API public/nội bộ có nhiều client. Versioning (`/api/v1/`) khi cần thay đổi *breaking*. `offset/limit` cho danh sách nhỏ/admin cần nhảy trang; `cursor` cho feed/danh sách lớn, dữ liệu thay đổi liên tục.
+* 🏭 **Thực tế sử dụng ra sao?** `GET /api/v1/orders?after=<id_cuối>&limit=20` → trả `{ "results": [...], "next_cursor": "..." }`. Thêm field mới = không breaking; đổi tên/xóa field = breaking → ra `v2`, giữ `v1` một thời gian.
+* ⚙️ **Hoạt động ra sao?** `OFFSET 100000` buộc DB đọc rồi bỏ 100000 dòng → chậm dần, và dòng mới chèn vào làm lệch trang. Cursor dùng `WHERE id > :cursor ORDER BY id LIMIT 20` tận dụng index → luôn nhanh và ổn định.
+
+#### 2. Idempotency (API thanh toán/retry)
+* 🎯 **Dùng để làm gì?** Gửi cùng 1 request nhiều lần (mạng lỗi, client retry) vẫn chỉ tạo **1 kết quả** — tránh trừ tiền/tạo đơn trùng.
+* 💡 **Khi nào dùng?** Mọi `POST` có tác dụng phụ quan trọng (thanh toán, tạo đơn, gửi tiền). `GET/PUT/DELETE` vốn đã idempotent theo thiết kế REST.
+* 🏭 **Thực tế sử dụng ra sao?** Client sinh `Idempotency-Key` (UUID) cho mỗi *ý định* thanh toán, gửi kèm header; retry dùng lại đúng key. Stripe/các cổng thanh toán dùng cách này. (Code minh họa bên dưới.)
+* ⚙️ **Hoạt động ra sao?** Server lưu `key → response` (có ràng buộc UNIQUE trên key). Request đầu: xử lý + lưu. Request trùng: thấy key đã có → trả lại response cũ, **không xử lý lại**. Phải xử lý cả trường hợp 2 request đến cùng lúc (khóa/UNIQUE) để không race condition.
+
+#### 3. REST vs gRPC vs GraphQL
+* 🎯 **Dùng để làm gì?** Chọn giao thức giao tiếp phù hợp giữa client–server/service–service.
+* 💡 **Khi nào dùng?** **REST**: API public, CRUD thông thường (mặc định an toàn). **gRPC**: service-to-service nội bộ, cần tốc độ cao/streaming. **GraphQL**: nhiều loại client (web/mobile) cần hình dạng dữ liệu khác nhau, tránh over/under-fetching. Không dùng GraphQL cho API đơn giản — thêm phức tạp cache/bảo mật.
+* 🏭 **Thực tế sử dụng ra sao?** Thường kết hợp: REST/GraphQL ra ngoài, gRPC giữa các microservice (bảng so sánh ngay bên dưới).
+* ⚙️ **Hoạt động ra sao?** gRPC: Protocol Buffers (nhị phân) + HTTP/2 → nhỏ, nhanh. GraphQL: 1 endpoint, client gửi query nêu rõ field, server “ghép” dữ liệu từ nhiều nguồn; đánh đổi là khó cache HTTP và phải giới hạn độ sâu query.
+
+#### 4. WebSocket vs SSE vs Long Polling
+* 🎯 **Dùng để làm gì?** Đẩy dữ liệu real-time từ server tới client mà không phải client hỏi liên tục.
+* 💡 **Khi nào dùng?** **WebSocket**: cần 2 chiều (chat, game, cộng tác). **SSE**: chỉ server→client (thông báo, tiến độ job, giá realtime) — đơn giản hơn, tự reconnect. **Long Polling**: chỉ khi môi trường không hỗ trợ 2 cách trên.
+* 🏭 **Thực tế sử dụng ra sao?** Thông báo "đơn hàng đã giao" → SSE là đủ; chat nhóm → WebSocket (cần sticky session hoặc pub/sub Redis khi nhiều server).
+* ⚙️ **Hoạt động ra sao?** WebSocket nâng cấp HTTP thành kết nối TCP 2 chiều giữ mở. SSE giữ 1 HTTP response mở, server ghi từng `event:`/`data:`. Long polling: client gọi, server giữ request đến khi có dữ liệu rồi trả, client gọi lại — tốn kết nối.
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa (OpenAPI, bảng so sánh...)</summary>
 
 🟡 *Nâng cao.* **Cursor-based vs offset-based pagination.** `offset/limit` (VD `?page=5`) đơn giản nhưng chậm dần khi offset lớn, và bị lệch dữ liệu nếu có dòng mới chèn vào giữa lúc đang phân trang. `cursor-based` (VD `?after=<id cuối cùng>`) ổn định hơn với dữ liệu thay đổi liên tục — đánh đổi là không nhảy thẳng tới "trang 5" được.
 
@@ -1748,6 +2241,8 @@ def create_payment(payload: PaymentIn, idempotency_key: str = Header(...)):
 **REST vs GraphQL.** Với REST, mỗi endpoint trả về 1 cấu trúc cố định — client nhiều khi phải gọi nhiều endpoint (under-fetching) hoặc nhận về dư thừa field không dùng tới (over-fetching). GraphQL cho client tự khai báo chính xác field cần lấy trong 1 query duy nhất, kể cả khi dữ liệu đó nằm rải rác ở nhiều "bảng" khác nhau — mạnh khi có nhiều loại client khác nhau cùng dùng chung 1 API (web, mobile, dashboard) với nhu cầu data khác nhau. Đánh đổi: khó cache ở tầng HTTP/CDN hơn REST (vì mọi request đều là `POST` tới cùng 1 endpoint), và dễ bị lạm dụng query lồng sâu gây tốn tài nguyên server nếu không giới hạn độ sâu.
 
 **WebSocket vs SSE vs Long Polling.** WebSocket mở 1 kết nối **2 chiều** (bi-directional), giữ liên tục — phù hợp khi cả client và server đều cần chủ động gửi dữ liệu (chat, game, cập nhật trạng thái real-time 2 chiều). SSE (Server-Sent Events) chỉ **1 chiều** (server → client), chạy trên HTTP thường và tự động reconnect khi mất kết nối — đơn giản hơn WebSocket, đủ dùng cho thông báo/notification không cần client gửi ngược lại. Long Polling (client liên tục gọi lại API, server giữ request chờ tới khi có dữ liệu mới) là cách cũ, kém hiệu quả hơn 2 cách trên — chỉ nên biết để hiểu lịch sử, không nên chọn cho thiết kế mới.
+
+</details>
 
 **Đọc chi tiết:** tổng hợp trong [`01-Roadmaps/Expert_Mastery_Roadmap_Project.md`](../01-Roadmaps/Expert_Mastery_Roadmap_Project.md) phần API Design. GraphQL/WebSocket/SSE: [`interview_prep/07_Cau_Hoi_Phong_Van.md`](../interview_prep/07_Cau_Hoi_Phong_Van.md) (Q20, Q33).
 
@@ -1833,7 +2328,34 @@ CORS là security của browser, server nhận request bình thường. Browser 
 - **Tuning số worker process** (`--workers` ở Gunicorn/Uvicorn) — sự cố thật hay gặp khi nghĩ "đã dùng async rồi nên khỏi cần nhiều worker".
 - **Giới hạn của `BackgroundTasks`** (FastAPI) so với queue thật (Celery) — chọn sai công cụ cho task quan trọng sẽ mất dữ liệu khi server restart.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. Request Lifecycle (Nginx → WSGI/ASGI → Middleware → View → DB)
+* 🎯 **Dùng để làm gì?** Hiểu 1 request đi qua những tầng nào để biết lỗi/chậm nằm ở tầng nào (Nginx 502/504, app lỗi 500, DB chậm).
+* 💡 **Khi nào dùng?** Mỗi khi debug production, cấu hình timeout, thêm middleware/auth/log, hoặc tính toán điểm nghẽn.
+* 🏭 **Thực tế sử dụng ra sao?** `Client → Nginx (SSL, gzip, static) → Gunicorn/Uvicorn → Middleware → View → ORM → DB`. Nginx trả `502` = không nối được app server; `504` = app trả lời quá timeout; `500` = exception trong code.
+* ⚙️ **Hoạt động ra sao?** Nginx là reverse proxy nhận kết nối từ internet rồi chuyển tiếp. WSGI/ASGI server "dịch" HTTP thành lời gọi Python; middleware chạy theo thứ tự vào và ngược lại khi ra; response đi ngược chiều.
+
+#### 2. WSGI (Gunicorn) vs ASGI (Uvicorn)
+* 🎯 **Dùng để làm gì?** Quy định cách server xử lý nhiều request cùng lúc: 1 request = 1 thread/process (WSGI) hay nhiều request đang chờ I/O chia sẻ 1 event loop (ASGI).
+* 💡 **Khi nào dùng?** WSGI cho CRUD thông thường (Django/Flask mặc định — đơn giản, ổn định). ASGI khi I/O-bound nặng (gọi nhiều API ngoài, WebSocket, SSE). Đừng đổi "cho sang" nếu code vẫn gọi thư viện sync bên trong.
+* 🏭 **Thực tế sử dụng ra sao?** `gunicorn app:app -w 4` (WSGI) hoặc `gunicorn -k uvicorn.workers.UvicornWorker app:app -w 4` (ASGI, mỗi worker 1 event loop).
+* ⚙️ **Hoạt động ra sao?** WSGI: thread chờ I/O thì đứng yên. ASGI: khi `await` I/O, event loop đổi sang request khác; 1 lời gọi sync chặn giữa chừng sẽ chặn toàn bộ loop (xem Chương 7).
+
+#### 3. Thread vs Process vs Async & Tuning số Worker
+* 🎯 **Dùng để làm gì?** Chọn mô hình song song phù hợp bài toán (CPU-bound hay I/O-bound) và đặt số worker để tận dụng hết CPU.
+* 💡 **Khi nào dùng?** **Process**: tính toán nặng (resize ảnh, xử lý dữ liệu) — mỗi process 1 GIL riêng. **Thread/Async**: chờ I/O (gọi API, DB). Quy tắc khởi điểm worker: ~`2 × số core + 1` (WSGI), rồi **load test** để chốt.
+* 🏭 **Thực tế sử dụng ra sao?** Sự cố hay gặp: chạy `--workers 1` vì nghi "async đã nhanh" trên máy 8 lõi → chỉ dùng 1 lõi, thông lượng thấp gần 8 lần so với khả năng.
+* ⚙️ **Hoạt động ra sao?** GIL chỉ cho 1 thread chạy bytecode tại 1 thời điểm trong 1 process → thread không tăng tốc CPU-bound. 1 event loop chạy trên 1 lõi → muốn dùng nhiều lõi phải nhiều process (worker).
+
+#### 4. Background Task: `BackgroundTasks` vs Celery Queue
+* 🎯 **Dùng để làm gì?** Đẩy việc nặng/chậm (gửi email, xuất PDF, gọi API chậm) ra khỏi vòng request–response để trả user ngay.
+* 💡 **Khi nào dùng?** `BackgroundTasks`: việc nhỏ, mất cũng được (ghi log phụ). **Celery/RQ + Redis/RabbitMQ**: việc quan trọng (email xác nhận thanh toán, xử lý đơn) cần retry, persistence, theo dõi.
+* 🏭 **Thực tế sử dụng ra sao?** View `POST /reports` → `generate_report.delay(user_id)` → trả `202 Accepted` + `task_id`; client poll `/reports/<task_id>`. Worker riêng: `celery -A app worker -l info`.
+* ⚙️ **Hoạt động ra sao?** `BackgroundTasks` chạy **cùng process** → server restart là mất task, không retry. Celery: producer đẩy message vào broker (persistent), worker lấy ra xử lý, lỗi thì retry/đẩy vào dead-letter queue.
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa</summary>
 
 🟢 *Cơ bản.* **Request lifecycle.** Nginx (nhận request từ internet, có thể cache/nén/terminate SSL) → forward vào WSGI/ASGI server (Gunicorn/Uvicorn — "dịch" request HTTP thành thứ code Python hiểu) → middleware → view → DB → response đi ngược lại.
 
@@ -1867,6 +2389,8 @@ async def fetch_all(urls):
 **Tuning số worker.** 1 worker async (Uvicorn) xử lý được hàng nghìn kết nối I/O-bound đồng thời trên **1 event loop** — nhưng 1 event loop chỉ chạy trên **1 lõi CPU**. Sự cố thật hay gặp: deploy với `--workers 1` vì nghĩ "async đã nhanh rồi", chạy trên máy 8 lõi nhưng chỉ dùng được 1 lõi, throughput giảm tới 8 lần so với khả năng thật của server — luôn cần nhiều worker process (mỗi worker chạy 1 event loop riêng) để tận dụng hết CPU, số lượng tối ưu nên benchmark bằng load test thật (Chương 8), không đoán mò.
 
 **Giới hạn của `BackgroundTasks`.** `BackgroundTasks` của FastAPI chạy **trong cùng process** với request — tiện cho việc nhỏ, nhưng nếu server restart giữa lúc task đang chạy, task **mất luôn**, không có cơ chế retry. Với tác vụ quan trọng (gửi email xác nhận thanh toán, xử lý đơn hàng), phải dùng **queue thật** (Celery + Redis/RabbitMQ đã học ở Chương 11) có persistence + retry + dead-letter-queue — đừng nhầm "chạy nền được" với "chạy nền an toàn".
+
+</details>
 
 **Đọc chi tiết:** [`Mastery/Backend-Mastery/01-Request-Lifecycle-And-Architecture`](../Mastery/Backend-Mastery/01-Request-Lifecycle-And-Architecture), [`02-Concurrency-And-Async-In-Production`](../Mastery/Backend-Mastery/02-Concurrency-And-Async-In-Production) (phần tuning worker + BackgroundTasks vs Celery).
 
@@ -1906,6 +2430,62 @@ async def register(user: UserCreate, background_tasks: BackgroundTasks):
 > - **Buổi 2 — Hạ tầng mạng & lý thuyết phân tán:** [11.4 Load Balancing](#chuong-11-4) → [11.5 CDN](#chuong-11-5) → [11.6 CAP/PACELC](#chuong-11-6) → [11.7 Replication lag](#chuong-11-7)
 > - **Buổi 3 — Thực hành thiết kế (nặng nhất, cần đầu óc tỉnh táo):** [11.8 URL Shortener](#chuong-11-8) → [11.9 Rate Limiter](#chuong-11-9) → [11.10 Circuit Breaker](#chuong-11-10)
 
+### 🧭 Tóm tắt 4 câu hỏi cho từng chủ đề (đọc trước khi vào chi tiết)
+
+#### 11.1 Caching (Cache-aside / Write-through / Write-behind)
+* 🎯 **Dùng để làm gì?** Giảm tải DB và giảm latency bằng cách giữ kết quả hay đọc ở nơi truy cập nhanh (RAM/Redis).
+* 💡 **Khi nào dùng?** Dữ liệu đọc nhiều – ghi ít, tính toán/truy vấn tốn kém (trang chủ, cấu hình, profile). **Không** cache dữ liệu bắt buộc luôn đúng tức thì (số dư, tồn kho cuối) nếu chưa có cơ chế invalidate chắc chắn.
+* 🏭 **Thực tế?** Cache-aside: `v = redis.get(k); if v is None: v = db.query(); redis.setex(k, 300, v)`. Luôn đặt TTL; xóa key khi dữ liệu gốc đổi.
+* ⚙️ **Hoạt động?** Cache-aside: app tự đọc/ghi cache. Write-through: ghi DB + cache cùng lúc (chậm ghi, cache luôn mới). Write-behind: ghi cache trước, đẩy DB sau (nhanh nhưng có thể mất dữ liệu). Stampede: key hot hết hạn → hàng loạt request đổ vào DB → chống bằng lock/gia hạn sớm ngẫu nhiên.
+
+#### 11.2 Message Queue vs Pub/Sub
+* 🎯 **Dùng để làm gì?** Tách rời hai phía (producer/consumer), làm đệm khi tải đột biến và xử lý bất đồng bộ.
+* 💡 **Khi nào dùng?** Queue (RabbitMQ/SQS): mỗi message cần **đúng 1** nơi xử lý (task nền). Pub/Sub, Kafka/SNS: **nhiều** nơi cùng cần biết 1 sự kiện (đơn hàng được tạo → kho, email, thống kê).
+* 🏭 **Thực tế?** Celery dùng RabbitMQ/Redis làm broker; sự kiện nghiệp vụ lớn đẩy qua Kafka hoặc SNS→SQS (fan-out).
+* ⚙️ **Hoạt động?** Queue: message bị xóa sau khi 1 consumer xác nhận (ack). Kafka: ghi vào log bền vững, mỗi consumer group giữ offset riêng → đọc độc lập và có thể đọc lại.
+
+#### 11.3 Celery & Task Idempotent
+* 🎯 **Dùng để làm gì?** Chạy việc nặng/chậm ở worker riêng, có retry, lịch chạy (beat).
+* 💡 **Khi nào dùng?** Gửi email, xuất báo cáo, đồng bộ dữ liệu. Task phải **idempotent** vì có thể chạy lại (retry, worker crash sau khi xử lý nhưng trước khi ack).
+* 🏭 **Thực tế?** `@shared_task(bind=True, max_retries=3, autoretry_for=(Exception,), retry_backoff=True)`; truyền **ID** vào task thay vì object lớn; kiểm tra "đã xử lý chưa" bằng khóa/trạng thái trước khi tác động.
+* ⚙️ **Hoạt động?** `.delay()` serialize tham số → đẩy vào broker → worker nhận, chạy, ack. Mặc định ack *sau khi chạy xong* (at-least-once) → có thể chạy 2 lần → cần idempotent.
+
+#### 11.4 Load Balancing
+* 🎯 **Dùng để làm gì?** Phân phối request tới nhiều server để chịu tải và không có điểm chết đơn lẻ.
+* 💡 **Khi nào dùng?** Khi 1 server không đủ tải hoặc cần HA. L4 cho tốc độ/TCP thuần; L7 cho routing theo path/host, SSL termination.
+* 🏭 **Thực tế?** Nginx/ALB trước nhiều instance; health check tự loại instance lỗi; thuật toán round-robin / least-connections; sticky session chỉ khi bắt buộc (app stateless thì không cần).
+* ⚙️ **Hoạt động?** LB nhận kết nối, chọn backend theo thuật toán, chuyển tiếp; backend không qua health check bị rút khỏi pool tạm thời.
+
+#### 11.5 CDN
+* 🎯 **Dùng để làm gì?** Phục vụ nội dung tĩnh từ máy chủ gần người dùng nhất → nhanh hơn, giảm tải origin.
+* 💡 **Khi nào dùng?** Ảnh, JS/CSS, video, file tải về. Không cache nội dung riêng tư theo user nếu không cấu hình đúng `Cache-Control`/`Vary`.
+* 🏭 **Thực tế?** CloudFront/Cloudflare trước S3/Nginx; đặt `Cache-Control: public, max-age=31536000, immutable` cho file có hash trong tên; invalidate khi đổi.
+* ⚙️ **Hoạt động?** Request tới edge gần nhất → có cache thì trả luôn (HIT), không thì lấy từ origin rồi lưu lại (MISS).
+
+#### 11.6–11.7 CAP/PACELC & Replication lag
+* 🎯 **Dùng để làm gì?** Hiểu đánh đổi khi dữ liệu nằm trên nhiều node: khi mạng bị chia cắt phải chọn **nhất quán (C)** hay **sẵn sàng (A)**; khi bình thường vẫn đánh đổi **độ trễ vs nhất quán**.
+* 💡 **Khi nào dùng?** Chọn DB/kiến trúc multi-region; quyết định luồng nào được đọc từ replica (chấp nhận dữ liệu cũ vài giây) và luồng nào phải đọc từ primary.
+* 🏭 **Thực tế?** Sau khi user cập nhật hồ sơ, trang kế tiếp đọc từ replica có thể thấy dữ liệu cũ → đọc từ primary trong vài giây đầu ("read-your-writes").
+* ⚙️ **Hoạt động?** Replica nhận log thay đổi bất đồng bộ nên luôn trễ chút; CP: từ chối phục vụ để giữ đúng; AP: vẫn phục vụ nhưng có thể thấy dữ liệu cũ.
+
+#### 11.8 Thiết kế URL Shortener
+* 🎯 **Dùng để làm gì?** Bài mẫu để tập quy trình thiết kế: yêu cầu → ước lượng tải → API → lưu trữ → scale → trade-off.
+* 💡 **Khi nào dùng?** Phỏng vấn system design; mẫu tư duy cho mọi dịch vụ đọc nhiều (read-heavy).
+* 🏭 **Thực tế?** `POST /shorten` sinh mã base62 từ ID tăng dần hoặc hash; `GET /{code}` → 301/302; cache mã nóng bằng Redis; DB khóa chính theo `code`.
+* ⚙️ **Hoạt động?** Đọc >> ghi nên cache chặn đa số truy vấn; mã sinh từ bộ đếm phân tán/Snowflake để tránh trùng giữa nhiều server.
+
+#### 11.9 Rate Limiter
+* 🎯 **Dùng để làm gì?** Chặn lạm dụng/brute-force, bảo vệ backend khỏi quá tải.
+* 💡 **Khi nào dùng?** Login, OTP, API public, endpoint tốn kém. Đặt ở API Gateway/Nginx và/hoặc tầng ứng dụng.
+* 🏭 **Thực tế?** Token Bucket trên Redis: key theo `user_id/IP`; vượt ngưỡng trả `429` kèm `Retry-After`.
+* ⚙️ **Hoạt động?** Token Bucket: xô chứa token, nạp đều theo thời gian, mỗi request lấy 1 token; hết token thì từ chối. Dùng thao tác nguyên tử (Lua/`INCR`+`EXPIRE`) để đúng khi nhiều server cùng đếm.
+
+#### 11.10 Circuit Breaker
+* 🎯 **Dùng để làm gì?** Ngăn lỗi lan chuyền: khi service phụ thuộc đang hỏng/chậm, ngừng gọi nó để không treo luôn service của mình.
+* 💡 **Khi nào dùng?** Mọi lời gọi tới service ngoài/microservice khác có thể chậm hoặc chết (thanh toán, gửi SMS, API đối tác).
+* 🏭 **Thực tế?** Thư viện (`pybreaker`, Resilience4j...) + timeout + retry có backoff + fallback (trả dữ liệu cache/giá trị mặc định).
+* ⚙️ **Hoạt động?** 3 trạng thái: **Closed** (gọi bình thường) → vượt ngưỡng lỗi → **Open** (từ chối ngay, không gọi) → sau thời gian chờ → **Half-open** (thử vài request): thành công thì về Closed, thất bại thì quay lại Open.
+
 <a id="chuong-11-1"></a>
 ### 11.1 Caching sâu — 🟡 Nâng cao
 
@@ -1914,154 +2494,127 @@ async def register(user: UserCreate, background_tasks: BackgroundTasks):
 - 🟡 Nâng cao: 3 chiến lược ghi cache: **Cache-aside** (lazy loading), **Write-through**, **Write-behind** (write-back); eviction policy **LRU** vs **LFU**.
 - 🔴 Chuyên sâu/Thực chiến: **Cache stampede** (thundering herd) và 2 cách chống phổ biến — lỗi gây sập DB thật trong production nếu không biết trước.
 
-**Giải thích chi tiết:**
-- **Cache-aside** (phổ biến nhất): app tự kiểm tra cache trước, miss thì query DB rồi tự ghi lại vào cache. Đơn giản, chỉ cache đúng data đã từng được đọc — nhưng có khoảng trống giữa lúc DB đổi và cache cập nhật (phải tự invalidate đúng lúc).
-- **Write-through**: mọi lần ghi DB đều ghi đồng thời vào cache trong cùng 1 luồng xử lý — cache luôn mới, nhưng chậm hơn ở write path, hợp khi đọc nhiều hơn hẳn ghi và bắt buộc cache phải đúng.
-- **Write-behind** (write-back): ghi vào cache trước, bất đồng bộ đẩy xuống DB sau — write cực nhanh, nhưng rủi ro **mất dữ liệu** nếu cache sập trước khi kịp flush xuống DB; ít dùng cho dữ liệu quan trọng (tiền, đơn hàng), hay dùng cho dữ liệu chấp nhận mất được (view count, like count).
-- **Cache stampede**: khi 1 cache key rất "hot" hết hạn, hàng loạt request cùng lúc đều miss cache và cùng dồn vào DB truy vấn lại → có thể làm sập DB trong tích tắc. Chống bằng: (1) **probabilistic early expiration** — gia hạn/tính lại cache sớm hơn 1 chút một cách ngẫu nhiên trước khi hết hạn thật, tránh hàng loạt key cùng hết hạn 1 lúc; (2) **lock/mutex** — chỉ cho 1 request được phép đi query DB tính lại, các request khác đợi hoặc nhận tạm bản cache cũ (stale-while-revalidate).
-- **Eviction**: LRU xóa phần tử lâu không được dùng tới nhất; LFU xóa phần tử ít được dùng tới nhất (đếm tần suất truy cập) — Redis hỗ trợ cả 2 qua cấu hình `maxmemory-policy`.
+**Giải thích chi tiết chuyên sâu:**
 
-<a id="chuong-11-2"></a>
-### 11.2 Message Queue vs Pub/Sub — phân biệt rõ, không gộp chung — 🟡 Nâng cao
+#### 1. Distributed Caching & Cache Strategies (Cache-Aside, Write-Through, Write-Behind, Stampede)
+* 🎯 **Dùng để làm gì?** Tăng tốc độ đọc dữ liệu gấp 10-100 lần bằng cách nạp dữ liệu hot vào bộ nhớ RAM (Redis/Memcached), giảm tải trực tiếp cho Database chính.
+* ⏰ **Khi nào sử dụng?**
+  * **Cache-aside (Lazy Loading):** Phổ biến nhất. App check Redis trước, miss thì query DB rồi ghi lại vào Redis. Dùng cho dữ liệu đọc nhiều ghi ít (User Profile, Product Catalog).
+  * **Write-through:** App ghi vào Cache + DB đồng thời. Dùng cho hệ thống yêu cầu Cache luôn nhất quán với DB (User Session, Auth Token).
+  * **Write-behind (Write-back):** Ghi vào Cache trước, async ghi xuống DB sau. Dùng cho dữ liệu ghi cực lớn nhưng chấp nhận mất mát rủi ro (View count, Like count, Page Analytics).
+  * **Chống Cache Stampede (Thundering Herd):** Dùng Mutex/Lock hoặc Probabilistic Early Expiration khi có 1 key cực hot bị hết hạn.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  import json
+  import time
+  from django.core.cache import cache
 
-**Kiến thức cần học:**
-- 🟡 Nâng cao: **Message Queue** (point-to-point): RabbitMQ, SQS — 1 message chỉ được **đúng 1 consumer** xử lý.
-- 🔴 Chuyên sâu/Thực chiến: **Pub/Sub / log-based streaming**: Kafka, SNS — 1 message được **nhiều consumer group độc lập** cùng đọc; so sánh RabbitMQ vs Kafka vs SQS/SNS để chọn đúng công cụ theo đúng nhu cầu, không phải "cái nào mạnh hơn".
+  def get_user_profile(user_id: int):
+      cache_key = f"user_profile:{user_id}"
+      
+      # 1. Try get from Cache-aside
+      data = cache.get(cache_key)
+      if data:
+          return json.loads(data)
+      
+      # 2. Lock / Mutex để chống Cache Stampede
+      lock_acquired = cache.add(f"lock:{cache_key}", "1", timeout=5)
+      if lock_acquired:
+          try:
+              profile = DB.query_user_profile(user_id)  # Query DB nặng
+              cache.set(cache_key, json.dumps(profile), timeout=3600)
+              return profile
+          finally:
+              cache.delete(f"lock:{cache_key}")
+      else:
+          time.sleep(0.05)
+          return get_user_profile(user_id)  # Retry sau khi thread chính ghi cache xong
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * LRU (Least Recently Used) tự động xóa key lâu nhất không được đọc khi RAM đầy. LFU (Least Frequently Used) xóa key có tần suất đọc thấp nhất.
+  * Mutex Lock đảm bảo chỉ **1 request duy nhất** đi xuống DB tính toán lại key hot khi hết hạn, các request khác chờ vài mili-giây để đọc bản cache mới.
 
-**Giải thích chi tiết:**
-Đây là điểm hay bị nhầm: "Message Queue" không phải là 1 khái niệm duy nhất.
-- **RabbitMQ** (queue cổ điển): producer đẩy message vào queue, **1 consumer duy nhất** lấy ra xử lý rồi message biến mất — đúng mô hình "hàng đợi công việc" (task queue), dùng cho Celery. Có `exchange` để routing linh hoạt (fanout, topic, direct).
-- **Kafka** (log-based pub/sub): message được ghi vào 1 log bền vững, giữ lại theo thời gian cấu hình (retention) thay vì biến mất sau khi đọc — **nhiều consumer group khác nhau** có thể đọc **độc lập** cùng 1 message (VD: 1 group ghi vào DB, 1 group khác tính metrics, cùng từ 1 sự kiện "đơn hàng được tạo"). Throughput cực cao, phù hợp event streaming, audit log, không phù hợp làm "task queue" đơn giản vì phức tạp hơn hẳn RabbitMQ.
-- **SQS** (AWS managed queue): giống RabbitMQ về vai trò (point-to-point), nhưng AWS tự vận hành — không cần tự host/scale broker.
-- **SNS** (AWS managed pub/sub): thường đi kèm SQS theo pattern **fan-out** — 1 event publish vào SNS, SNS tự động đẩy bản sao vào nhiều SQS queue khác nhau để nhiều service cùng xử lý độc lập.
-Chọn công cụ nào phụ thuộc câu hỏi: "message này cần đúng 1 nơi xử lý, hay nhiều nơi cùng cần biết?" — câu đầu dùng Queue, câu sau dùng Pub/Sub.
+---
 
-<a id="chuong-11-3"></a>
-### 11.3 Background Task với Celery — idempotent task cụ thể hơn — 🟡 Nâng cao
+#### 2. Message Queue vs Pub/Sub (RabbitMQ vs Kafka vs AWS SQS/SNS)
+* 🎯 **Dùng để làm gì?** Giúp giao tiếp bất đồng bộ (Asynchronous Communication) giữa các service, san phẳng lưu lượng truy cập (Traffic Leveling / Rate Smoothing) và gỡ bỏ phụ thuộc trực tiếp (Decoupling).
+* ⏰ **Khi nào sử dụng?**
+  * **Message Queue (Point-to-Point - RabbitMQ, AWS SQS):** Một message gửi ra chỉ được **đúng 1 worker** lấy xử lý rồi xóa bỏ (Task queue cho Celery, gửi Email/SMS, xử lý thanh toán).
+  * **Pub/Sub & Log-based Streaming (Kafka, AWS SNS):** Một message/event phát ra được **nhiều Subscriber / Consumer Groups** cùng đọc độc lập (Event-driven Architecture, Audit Log, Real-time Analytics).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * Khi đơn hàng tạo thành công: Event `OrderCreated` được publish lên Kafka Topic. Group 1 (Order Service) lưu DB, Group 2 (Inventory Service) trừ kho, Group 3 (Notification Service) gửi SMS — cả 3 chạy song song không block lẫn nhau.
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * **RabbitMQ:** Sử dụng `Exchange` (Direct, Fanout, Topic) đính kèm `Routing Key` để đẩy message vào các `Queue` nằm trên RAM worker.
+  * **Kafka:** Lưu trữ message dưới dạng Append-only Commit Log ghi trên đĩa cứng (Disk Persistence), các Consumer quản lý vị trí đọc thông qua `Offset`.
 
-**Kiến thức cần học:**
-- 🟡 Nâng cao: Celery cần 1 **broker** (Redis hoặc RabbitMQ) làm nơi trung chuyển task; retry với **exponential backoff**.
-- 🔴 Chuyên sâu/Thực chiến: Task phải **idempotent** — ví dụ cụ thể cách làm đúng, không chỉ nói khái niệm suông; đây là lỗi thực tế hay gặp nhất khi dùng background task cho nghiệp vụ tiền/điểm thưởng.
+---
 
-**Giải thích chi tiết:**
-Task **không idempotent** (sai): `increment_points(user_id, 10)` — nếu Celery retry task này 2 lần do lỗi mạng tạm thời (worker đã làm xong nhưng bị mất tín hiệu ACK), user bị cộng nhầm 20 điểm thay vì 10.
-Task **idempotent** (đúng): `apply_points_transaction(user_id, transaction_id, 10)` — trước khi cộng điểm, kiểm tra `transaction_id` này đã được xử lý chưa (lưu vào bảng `processed_transactions` với unique constraint trên `transaction_id`, hoặc dùng Redis `SETNX` để đánh dấu "đã xử lý"). Retry bao nhiêu lần cũng chỉ cộng điểm đúng 1 lần.
+#### 3. Background Task với Celery & Idempotent Execution
+* 🎯 **Dùng để làm gì?** Đẩy các tác vụ tốn thời gian (Gửi email, Export PDF, xử lý video, gọi API bên thứ 3) ra khỏi luồng HTTP Request/Response chính để trả về phản hồi lập tức cho client.
+* ⏰ **Khi nào sử dụng?** Bắt buộc sử dụng cho mọi tác vụ I/O chậm (> 200ms) hoặc dễ gặp sự cố gián đoạn mạng.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  @celery_app.task(bind=True, max_retries=5)
+  def apply_points_transaction(self, user_id: int, transaction_id: str, points: int):
+      # Idempotency Check: Đảm bảo retry không bị cộng điểm 2 lần
+      if ProcessedTransaction.objects.filter(id=transaction_id).exists():
+          return  # Đã xử lý rồi -> Bỏ qua an toàn
 
-```python
-@app.task(bind=True, max_retries=5)
-def apply_points_transaction(self, user_id, transaction_id, points):
-    if ProcessedTransaction.objects.filter(id=transaction_id).exists():
-        return  # đã xử lý rồi, retry lần 2/3 không làm gì thêm
+      try:
+          with transaction.atomic():
+              User.objects.filter(id=user_id).update(points=F("points") + points)
+              ProcessedTransaction.objects.create(id=transaction_id)
+      except Exception as exc:
+          # Exponential Backoff: 2s, 4s, 8s, 16s...
+          raise self.retry(exc=exc, countdown=2 ** self.request.retries)
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * Celery Producer gửi payload (JSON) mô tả tên task và tham số vào Broker (Redis/RabbitMQ). Worker process lắng nghe Broker, nhặt payload ra thực thi ngầm.
+  * **Idempotency:** Kết hợp `transaction_id` duy nhất và DB Unique Constraint để đảm bảo dù Celery retry nhiều lần do rớt mạng (network ACK fail), kết quả hệ thống vẫn chính xác tuyệt đối.
 
-    try:
-        with transaction.atomic():
-            User.objects.filter(id=user_id).update(points=F("points") + points)
-            ProcessedTransaction.objects.create(id=transaction_id)
-    except Exception as exc:
-        raise self.retry(exc=exc, countdown=2 ** self.request.retries)  # exponential backoff
-```
+---
 
-**Retry với backoff**: `countdown=2 ** retry_count` — thời gian chờ giữa các lần retry tăng dần theo cấp số nhân (exponential backoff), tránh việc hàng ngàn task cùng retry dồn dập làm quá tải 1 service đang gặp sự cố (càng làm sự cố nặng thêm).
+#### 4. Load Balancing, Stateful vs Stateless & Consistent Hashing
+* 🎯 **Dùng để làm gì?** Phân phối đều lưu lượng HTTP/TCP tới cụm các máy chủ (App Instances) phía sau, nâng cao khả năng mở rộng ngang (Horizontal Scaling) và tính sẵn sàng cao (High Availability).
+* ⏰ **Khi nào sử dụng?** Dùng Nginx/HAProxy/AWS ALB đứng trước hệ thống Backend khi lưu lượng tăng vượt quá khả năng xử lý của 1 máy chủ đơn lẻ.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * Thuật toán **Round Robin** cho các app instance đồng đều.
+  * Thuật toán **Least Connections** khi các request có thời gian xử lý lệch nhau lớn.
+  * **Consistent Hashing** trong cụm Redis Cluster hoặc DB Sharding để giảm thiểu 90% số key bị map lại khi thêm/bớt node.
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * **Stateless App:** Không lưu Session trong bộ nhớ RAM của Server mà lưu trong Redis hay JWT Token, giúp Load Balancer đẩy request tới bất kỳ máy chủ nào cũng xử lý được.
+  * **Consistent Hashing:** Hash các node server và data key lên một vòng tròn băm 360 độ (`Ring`). Khi 1 node sập, chỉ các key thuộc về node đó bị rehash sang node kế tiếp, không ảnh hưởng tới toàn bộ hệ thống như `key % N`.
 
-<a id="chuong-11-4"></a>
-### 11.4 Load Balancing — thuật toán cụ thể, không chỉ nói chung chung — 🟡 Nâng cao
+---
 
-**Kiến thức cần học:**
-- 🟢 Cơ bản: Horizontal vs Vertical scaling — khái niệm chung.
-- 🟡 Nâng cao: 3 thuật toán LB phổ biến: **Round Robin**, **Least Connections**, **IP Hash**; vì sao horizontal scaling đòi hỏi service phải **stateless**.
-- 🔴 Chuyên sâu/Thực chiến: **Consistent Hashing** — vì sao quan trọng hơn hash thường (`key % N`) khi scale cache/DB phân tán (Redis Cluster, sharding).
+#### 5. CAP / PACELC Theorem & Eventual Consistency
+* 🎯 **Dùng để làm gì?** Cung cấp khung lý thuyết nền tảng giúp Software Architect lựa chọn cơ sở dữ liệu (PostgreSQL vs MongoDB vs Cassandra) và thiết kế chiến lược nhân bản (Replication).
+* ⏰ **Khi nào sử dụng?** Khi thiết kế hệ thống phân tán đa vùng (Multi-region) hoặc hệ thống đọc ghi phân tách (Read Replicas).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * **CP System (Consistency / Partition Tolerance):** Ngân hàng, Ví điện tử, Hệ thống Đặt vé — Thà từ chối giao dịch (Fail fast) chứ nhất quyết không trả về số dư/vé sai.
+  * **AP System (Availability / Partition Tolerance):** Social Newsfeed, Giỏ hàng E-commerce, Like Count — Thà hiển thị tin tức chậm 1 vài giây còn hơn báo lỗi sập trang.
+  * **Read-Your-Writes Pattern:** Sau khi User sửa Profile (Ghi vào Primary DB), lần đọc ngay tiếp theo sẽ bắt buộc đọc từ Primary DB thay vì Read Replica để tránh dính Replication Lag.
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * PACELC mở rộng CAP: Nếu có Partition (P) -> chọn A hay C; Else (Mạng bình thường) -> chọn Latency (L) hay Consistency (C).
 
-**Giải thích chi tiết:**
-- **Round Robin**: chia request lần lượt đều cho từng server — đơn giản, không quan tâm tải thực tế mỗi server đang gánh.
-- **Least Connections**: gửi request tới server đang có ít connection đang xử lý nhất — tốt hơn Round Robin khi các request có độ nặng xử lý không đều nhau.
-- **IP Hash / Consistent Hashing**: cùng 1 client luôn được route vào cùng 1 server ("session affinity"/"sticky session") — cần khi server giữ state cục bộ (VD session lưu trong RAM thay vì Redis). **Consistent Hashing** còn quan trọng hơn trong thiết kế cache phân tán (Redis Cluster) hoặc sharding: hash thường kiểu `key % N` khi đổi N (thêm/bớt node) sẽ làm xáo trộn gần như toàn bộ key sang node khác; Consistent Hashing chỉ làm xáo trộn 1 phần nhỏ key khi thêm/bớt 1 node — đây là lý do nó được dùng trong Redis Cluster, DynamoDB, Cassandra.
-- **Horizontal vs Vertical scaling**: scale ngang (thêm server) được ưu tiên hơn scale dọc (nâng cấp 1 server mạnh hơn) ở hệ thống hiện đại vì không có giới hạn trên và chịu lỗi tốt hơn (1 server chết không sập cả hệ thống) — nhưng đòi hỏi service phải **stateless** (không lưu state cục bộ gắn với 1 server cụ thể, VD session/file upload tạm) để load balancer tự do phân phối request tới bất kỳ server nào.
+---
 
-<a id="chuong-11-5"></a>
-### 11.5 CDN — 🟢 Cơ bản
+#### 6. System Design Walkthrough: Rate Limiter & Circuit Breaker
+* 🎯 **Dùng để làm gì?** Bảo vệ hệ thống khỏi bị quá tải (DoS/DDoS) và ngăn ngừa lỗi dây chuyền (Cascading Failure) khi các microservice gọi lẫn nhau.
+* ⏰ **Khi nào sử dụng?** Đặt Rate Limiter ở API Gateway để giới hạn request theo IP/User ID. Đặt Circuit Breaker ở các HTTP Client / Service Call đểfail fast khi downstream service bị rớt.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  ```python
+  from circuitbreaker import circuit
 
-**Kiến thức cần học:**
-- 🟢 Cơ bản: CDN (CloudFront, Cloudflare) là gì, hoạt động thế nào, dùng cho loại nội dung nào.
-
-**Giải thích chi tiết:**
-CDN đặt bản sao nội dung tĩnh (ảnh, JS, CSS, video) ở nhiều điểm (edge location) gần người dùng về mặt địa lý — giảm độ trễ (không phải đi tới tận origin server ở xa) và giảm tải trực tiếp cho origin. Chỉ hiệu quả với nội dung ít đổi (static asset) hoặc cache được theo TTL ngắn; không thay thế được cache ở tầng ứng dụng (Redis) cho dữ liệu động/cá nhân hóa theo từng user.
-
-<a id="chuong-11-6"></a>
-### 11.6 CAP theorem — phiên bản chính xác hơn + PACELC — 🔴 Chuyên sâu/Thực chiến
-
-**Kiến thức cần học:**
-- 🔴 Chuyên sâu/Thực chiến: CAP theorem đúng bản chất (không phải "chọn 2 trong 3" một cách tùy ý); **CP vs AP** — ví dụ thực tế mỗi loại; **PACELC** — mở rộng chính xác hơn CAP, áp dụng cả lúc hệ thống bình thường. Đây là nội dung hay bị dạy sai nhất trong các tài liệu phổ thông — nắm đúng sẽ ghi điểm rõ rệt ở vòng phỏng vấn senior.
-
-**Giải thích chi tiết:**
-Phiên bản hay bị hiểu sai: "hệ thống phân tán chỉ chọn được 2 trong 3 giữa Consistency, Availability, Partition tolerance". Thực tế chính xác hơn: trong hệ thống phân tán thật, **network partition (P) sẽ luôn có thể xảy ra** — đây không phải là 1 lựa chọn, mà là thực tế phải chấp nhận (mạng lúc nào cũng có thể trục trặc). Lựa chọn thật sự chỉ xuất hiện **khi partition thực sự xảy ra**: hệ thống phải chọn giữa:
-- **CP** (Consistency ưu tiên hơn Availability): khi mạng bị chia cắt, thà từ chối trả lời (tạm ngưng phục vụ 1 phần) còn hơn trả về dữ liệu cũ/sai — VD hệ thống ngân hàng, hệ thống đặt vé/đặt chỗ (không được bán trùng 1 vé cho 2 người).
-- **AP** (Availability ưu tiên hơn Consistency): khi mạng bị chia cắt, vẫn tiếp tục trả lời (có thể bằng dữ liệu hơi cũ) thay vì từ chối phục vụ — VD newsfeed mạng xã hội, giỏ hàng thương mại điện tử.
-Mở rộng chính xác hơn nữa là **PACELC**: "**nếu có Partition (P)** thì đánh đổi Availability và Consistency (giống CAP) — **Else** (lúc mạng hoạt động bình thường, không có partition) thì vẫn phải đánh đổi giữa **Latency (L)** và **Consistency (C)**". Lý do: ngay cả khi mạng ổn định hoàn toàn, muốn dữ liệu nhất quán tuyệt đối giữa nhiều node (phải chờ tất cả node xác nhận ghi xong) vẫn tốn thời gian hơn hẳn so với trả lời ngay từ node gần nhất (nhưng có thể hơi cũ). PACELC giải thích được nhiều quyết định thiết kế DB mà CAP một mình không giải thích nổi.
-
-<a id="chuong-11-7"></a>
-### 11.7 Consistency model & Replication lag (liên hệ trực tiếp Chương 3) — 🔴 Chuyên sâu/Thực chiến
-
-**Kiến thức cần học:**
-- 🔴 Chuyên sâu/Thực chiến: **Eventual consistency** khi dùng read replica — replication lag là gì; kỹ thuật "read-your-writes" để xử lý lag đúng chỗ cần — thường chỉ phát hiện ra vấn đề này sau khi đã gặp bug thật trong production.
-
-**Giải thích chi tiết:**
-Khi dùng read replica (Chương 3) để scale read, phải chấp nhận **eventual consistency**: dữ liệu vừa ghi vào primary có thể chưa kịp đồng bộ sang replica (replication lag thường vài chục mili-giây tới vài giây tùy tải). Hệ quả thực tế: user vừa tạo đơn hàng (ghi vào primary) rồi load lại trang ngay lập tức (đọc từ replica do cân bằng tải), có thể **tạm thời không thấy đơn hàng vừa tạo** — đây không phải bug, mà là đặc tính cố hữu của kiến trúc replica. Cách xử lý đúng: những màn hình cần đọc lại chính xác dữ liệu vừa ghi (VD trang xác nhận đơn hàng ngay sau khi submit) thì đọc từ **primary** ("read-your-writes"); các màn hình khác không cần tức thời tuyệt đối (VD danh sách sản phẩm) thì đọc từ **replica** để giảm tải cho primary.
-
-<a id="chuong-11-8"></a>
-### 11.8 Design walkthrough: URL Shortener — 🔴 Chuyên sâu/Thực chiến (bài phỏng vấn kinh điển)
-
-**Giải thích chi tiết (đi từng bước thiết kế thật):**
-1. API: `POST /shorten {long_url}` → trả về `short_code`; `GET /{short_code}` → redirect sang `long_url`.
-2. Sinh `short_code`: cách phổ biến và rẻ nhất là lấy 1 **counter tăng dần** (ID auto-increment từ DB hoặc `INCR` trong Redis) rồi **encode sang base62** (gồm `0-9a-zA-Z`, 62 ký tự) để ra 1 chuỗi ngắn — tránh sinh ngẫu nhiên vì sinh ngẫu nhiên phải query kiểm tra trùng trước khi lưu, tốn thêm round-trip DB không cần thiết.
-3. Lưu mapping `short_code → long_url` vào DB; **cache** các `short_code` hot bằng Redis theo kiểu cache-aside (mục 11.1), vì hành vi đọc (redirect) xảy ra nhiều hơn hành vi ghi (tạo link mới) gấp nhiều lần.
-4. Chọn **301 (Permanent Redirect)** hay **302 (Temporary Redirect)**: 301 được trình duyệt/CDN tự cache lại — giảm tải cho server về sau nhưng mất khả năng đổi đích link hoặc đếm chính xác số lượt click (trình duyệt sẽ không gọi lại server những lần sau); 302 không bị cache, tốn tải hơn nhưng cho phép tracking/analytics chính xác mỗi lần click — hầu hết dịch vụ rút gọn link thật (bit.ly) dùng 302 vì cần đếm click.
-5. Khi scale: nếu 1 DB không chịu nổi tải ghi/đọc, cân nhắc sharding theo khoảng giá trị của `short_code` (liên hệ Chương 3) — nhưng ở mức phỏng vấn Middle, nêu đúng "counter + base62 encode + cache-aside + trade-off 301 vs 302" là đã thể hiện đủ chiều sâu.
-
-<a id="chuong-11-9"></a>
-### 11.9 Design walkthrough: Rate Limiter — 🔴 Chuyên sâu/Thực chiến (nối trực tiếp thuật toán Token Bucket đã nêu ở Chương 12)
-
-**Giải thích chi tiết (cách cài đặt thật bằng Redis):**
-1. Mỗi user/IP có 1 key Redis lưu "số token hiện có" + "thời điểm nạp token gần nhất".
-2. Mỗi khi có request tới: tính số token được nạp thêm kể từ lần trước tới giờ (theo tốc độ nạp cố định, VD 10 token/giây), cộng dồn vào (không vượt quá dung lượng bucket tối đa), rồi trừ đi 1 token cho request hiện tại.
-3. Nếu số token còn lại ≥ 0 → cho request đi qua; nếu âm → từ chối, trả về **HTTP 429 Too Many Requests**.
-4. Dùng **Redis** vì 2 lý do: (a) cần tốc độ cực cao vì **mọi** request đều phải check qua bước này; (b) cần **chia sẻ trạng thái giữa nhiều instance server** — không thể lưu số token trong RAM của 1 server vì load balancer có thể route cùng 1 user sang server khác ở request kế tiếp, khiến giới hạn bị vô hiệu.
-
-```python
-def is_allowed(user_id: str, rate: int = 10, capacity: int = 20) -> bool:
-    key = f"rate_limit:{user_id}"
-    now = time.time()
-    tokens, last_refill = redis.hmget(key, "tokens", "last_refill") or (capacity, now)
-
-    elapsed = now - float(last_refill)
-    tokens = min(capacity, float(tokens) + elapsed * rate)  # nạp token theo thời gian trôi qua
-
-    if tokens < 1:
-        return False  # hết token -> HTTP 429
-
-    redis.hmset(key, {"tokens": tokens - 1, "last_refill": now})
-    return True
-```
-
-5. Thuật toán thay thế: **Sliding Window Log** (lưu lại timestamp của từng request trong cửa sổ thời gian, chính xác tuyệt đối nhưng tốn bộ nhớ theo số lượng request) vs **Sliding Window Counter** (xấp xỉ bằng cách nội suy có trọng số giữa số request ở window hiện tại và window ngay trước đó — tốn ít bộ nhớ hơn hẳn, đủ chính xác cho tuyệt đại đa số use case thực tế).
-
-<a id="chuong-11-10"></a>
-### 11.10 Circuit Breaker Pattern — 🔴 Chuyên sâu/Thực chiến
-
-**Kiến thức cần học:**
-- 🔴 Chuyên sâu/Thực chiến: Circuit Breaker — ngăn 1 service lỗi làm sập dây chuyền cả hệ thống; khác với retry/backoff ở mục 11.3 (retry giúp chịu lỗi **tạm thời**, circuit breaker giúp chịu lỗi **kéo dài**).
-
-**Giải thích chi tiết:**
-Khi service A gọi service B mà B đang lỗi/chết, nếu A cứ tiếp tục gọi và **chờ timeout** mỗi lần (VD 5 giây/request) — hàng trăm request đồng thời tới A sẽ đều bị giữ lại chờ B, làm cạn kiệt thread/connection pool của chính A, khiến A cũng sập theo dù lỗi gốc chỉ ở B (hiệu ứng lỗi dây chuyền). Circuit Breaker "ngắt mạch" sau khi phát hiện B lỗi liên tục quá 1 ngưỡng (VD 5 lần lỗi liên tiếp): trong khoảng thời gian tiếp theo (VD 30 giây), A **fail fast** — trả lỗi ngay lập tức cho mọi request gọi tới B mà **không cần chờ timeout**, tự bảo vệ tài nguyên của chính mình. Sau thời gian đó, circuit tự chuyển sang trạng thái "half-open" — cho phép 1 request thử lại; nếu thành công thì đóng mạch trở lại (hoạt động bình thường), nếu vẫn lỗi thì tiếp tục mở mạch.
-
-```python
-from circuitbreaker import circuit
-
-@circuit(failure_threshold=5, recovery_timeout=30)
-def call_payment_service(order_id):
-    response = requests.post(PAYMENT_URL, json={"order": order_id}, timeout=5)
-    return response.json()
-# Sau 5 lần lỗi liên tiếp: mở mạch 30s, fail fast ngay (không chờ timeout 5s mỗi lần)
-```
+  # Circuit Breaker ngắt mạch sau 5 lần lỗi liên tiếp, thử lại sau 30s
+  @circuit(failure_threshold=5, recovery_timeout=30)
+  def call_third_party_payment(order_id: str):
+      response = requests.post("https://payment-api.com/v1/charge", json={"id": order_id}, timeout=3)
+      return response.json()
+  ```
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * **Token Bucket (Rate Limiter):** Mỗi request đến tốn 1 token trong xô (Bucket). Xô được nạp thêm token theo tốc độ cố định `R`. Nếu xô hết token -> Trả HTTP 429 Too Many Requests.
+  * **Circuit Breaker States:** Closed (Bình thường) -> Open (Ngắt mạch, fail fast ngay trong 0ms không chờ timeout 3s) -> Half-Open (Cho 1 request chạy thử để xem downstream khôi phục chưa).
 
 Đây là câu hỏi debug kinh điển ở vòng phỏng vấn senior: "1 microservice liên tục timeout, bạn debug thế nào" — quy trình chuẩn là kiểm tra health service → kiểm tra downstream nó gọi → xem distributed tracing (Chương 13) → kiểm tra timeout config → áp dụng circuit breaker nếu downstream không ổn định.
 
@@ -2180,7 +2733,34 @@ Rule: Estimate × 1.5 cho task quen thuộc, × 2 cho task chưa từng làm.
 - **Secret management ở quy mô production**: HashiCorp Vault, AWS Secrets Manager, Kubernetes Secrets (nên kết hợp Sealed Secrets/External Secrets Operator thay vì Secret thuần vì base64 không phải mã hóa).
 - **Dependency vulnerability scanning**: tìm lỗ hổng bảo mật nằm trong chính thư viện bên thứ 3 đang dùng, không phải trong code tự viết.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. OWASP Top 10: SQL Injection, XSS, CSRF
+* 🎯 **Dùng để làm gì?** Danh sách rủi ro bảo mật web phổ biến nhất — dùng làm checklist để không mắc lỗi cơ bản gây lộ/mất dữ liệu.
+* 💡 **Khi nào dùng?** Mọi lần nhận input từ người dùng, render HTML, xử lý form/cookie, viết login. Django chặn sẵn nhiều thứ nhưng **chỉ khi bạn dùng đúng cách** (ORM, template, `{% csrf_token %}`).
+* 🏭 **Thực tế sử dụng ra sao?** Không nối chuỗi SQL tay → dùng ORM/tham số `%s`; không `mark_safe()`/`|safe` với dữ liệu user; bật `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`, `SECURE_HSTS_SECONDS` ở production; chạy `python manage.py check --deploy`.
+* ⚙️ **Hoạt động ra sao?** ORM gửi tham số *tách riêng* khỏi câu SQL (prepared statement) nên `1 OR 1=1` chỉ là chuỗi thường. Template auto-escape `<script>` thành `&lt;script&gt;`. CSRF token gắn vào form và được server so với cookie → trang web lạ không thể giả request thay bạn.
+
+#### 2. Authentication vs Authorization & JWT
+* 🎯 **Dùng để làm gì?** Authentication = *bạn là ai*; Authorization = *bạn được làm gì*. JWT là cách mang danh tính *stateless* giữa client–server.
+* 💡 **Khi nào dùng?** JWT cho API/SPA/mobile/microservices. Session cookie phù hợp web server-rendered. Không nhét dữ liệu nhạy cảm vào payload JWT (ai cũng đọc được).
+* 🏭 **Thực tế sử dụng ra sao?** Access token ~15 phút + refresh token ~7 ngày; kiểm quyền ở **mỗi** endpoint (`permission_classes`), không chỉ ẩn nút ở frontend. Trả `401` khi chưa đăng nhập, `403` khi đăng nhập nhưng không đủ quyền.
+* ⚙️ **Hoạt động ra sao?** JWT = `header.payload.signature`; server ký bằng secret/private key. Nhận token: tính lại chữ ký + kiểm `exp` → không cần tra DB. Đánh đổi: khó thu hồi ngay (cần blacklist/đổi key).
+
+#### 3. Secret Management & Logging Security
+* 🎯 **Dùng để làm gì?** Giữ bí mật (mật khẩu DB, API key) không lọt vào Git/log/image; log đủ để điều tra nhưng không tự tạo kênh rò rỉ.
+* 💡 **Khi nào dùng?** Mọi dự án. `.env` cho local; production dùng Vault/AWS Secrets Manager/K8s Secret (kèm Sealed/External Secrets). **Log**: login thành công/thất bại, 403, thao tác sửa/xóa dữ liệu nhạy cảm. **Không log**: mật khẩu, token, số thẻ, API key.
+* 🏭 **Thực tế sử dụng ra sao?** `.gitignore` chứa `.env`; quét repo bằng `gitleaks`/`trufflehog`; lỡ commit secret → **xoay (rotate) secret ngay** rồi mới dọn lịch sử Git (xem LAB-02).
+* ⚙️ **Hoạt động ra sao?** App đọc secret từ biến môi trường/secret store lúc khởi động thay vì nằm trong code. K8s Secret mặc định chỉ base64 (không phải mã hóa) nên cần thêm lớp mã hóa/đồng bộ từ Vault.
+
+#### 4. OAuth2, Rate Limiting & Dependency Scanning
+* 🎯 **Dùng để làm gì?** OAuth2: "đăng nhập bằng Google/Facebook" mà không chia sẻ mật khẩu. Rate limit: chặn brute-force/lạm dụng. Dependency scanning: phát hiện CVE trong thư viện bên thứ 3.
+* 💡 **Khi nào dùng?** OAuth2 khi muốn SSO/giảm ma sát đăng ký. Rate limit cho login/OTP/API public. Quét dependency trong CI mỗi PR.
+* 🏭 **Thực tế sử dụng ra sao?** Authorization Code flow (backend đổi `code` lấy token); Token Bucket cho rate limit; `pip-audit`/`safety`/Dependabot chạy tự động, pin version trong lock file.
+* ⚙️ **Hoạt động ra sao?** OAuth2: app → redirect sang Google → user đồng ý → Google trả `code` về backend → backend đổi lấy access token (token không lộ ra trình duyệt). Fixed Window có kẽ hở ở biên thời gian (200 request trong 2 giây) nên Token Bucket mượt hơn. Scanner đối chiếu version package với cơ sở dữ liệu CVE.
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa</summary>
 
 🟢 *Cơ bản.* **OWASP Top 10 — Django đã chặn gì sẵn.** Django tự chống SQL Injection (ORM tự escape tham số, miễn không tự nối chuỗi SQL tay), tự chống CSRF (CSRF token trong form), tự escape HTML trong template (chống XSS cơ bản). Vẫn phải tự lo: XSS khi tự render HTML không qua template engine, broken auth nếu tự viết logic login thay vì dùng hệ thống auth có sẵn.
 
@@ -2211,6 +2791,8 @@ eyJhbGciOiJIUzI1NiJ9 . eyJ1c2VyX2lkIjoxMjN9 . 4f8a2c1e9b...
 **Secret management ở quy mô production.** `.env` chỉ đủ cho local/dev. Ở production: HashiCorp Vault (quản lý secret tập trung, hỗ trợ xoay vòng tự động và audit log ai đọc secret gì), AWS Secrets Manager (bản managed tương đương trên AWS, liên hệ Chương 16), Kubernetes Secret mặc định chỉ encode base64 (không phải mã hóa — ai có quyền đọc etcd đều đọc được) nên production nên dùng thêm Sealed Secrets (mã hóa secret ngay trong Git, chỉ cluster đích mới giải mã được) hoặc External Secrets Operator (đồng bộ secret từ Vault/AWS Secrets Manager vào K8s tự động thay vì lưu trực tiếp).
 
 **Dependency vulnerability scanning.** Lỗ hổng bảo mật không chỉ nằm trong code tự viết mà còn nằm trong hàng trăm package bên thứ 3 project đang phụ thuộc (CVE đã công bố). `safety check`/`pip-audit` quét `requirements.txt` tìm CVE đã biết; GitHub Dependabot tự động tạo PR cập nhật khi phát hiện dependency có lỗ hổng; Snyk/OWASP Dependency-Check là lựa chọn mạnh hơn cho công ty lớn. Nguyên tắc: pin chính xác version trong `requirements.txt`/lock file (Chương 1), cập nhật định kỳ thay vì để quá cũ, đọc changelog trước khi nâng version lớn (major) để tránh breaking change bất ngờ.
+
+</details>
 
 **Đọc chi tiết:** [`interview_prep/05_Docker_DevOps.md`](../interview_prep/05_Docker_DevOps.md) phần security, bài tập DO-05 (Secret Management) trong [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md). Logging security, Vault/K8s Secrets, Dependency scanning: [`interview_prep/07_Cau_Hoi_Phong_Van.md`](../interview_prep/07_Cau_Hoi_Phong_Van.md) (Q40, Q94, Q95).
 
@@ -2290,7 +2872,34 @@ Talisman(app, force_https=True, strict_transport_security=True,
 - **Distributed Tracing** (Jaeger/OpenTelemetry) — theo dõi 1 request đi qua nhiều service.
 - Alerting — SLO-based alerting (theo error budget), tránh "alert fatigue".
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. Structured Logging
+* 🎯 **Dùng để làm gì?** Ghi log dạng JSON có trường rõ ràng để *truy vấn* được (vd tìm mọi log của `order_id=42`) thay vì `print()` vô dụng khi có hàng triệu dòng.
+* 💡 **Khi nào dùng?** Mọi service production, thiết kế **từ đầu** (rất khó bổ sung khi hệ thống đã lớn). Luôn kèm `request_id`/`trace_id`, không log dữ liệu nhạy cảm.
+* 🏭 **Thực tế sử dụng ra sao?** `logger.info("order_created", extra={"order_id":..., "user_id":...})` → đẩy về ELK/Loki; query `order_id=42` ra ngay toàn bộ hành trình.
+* ⚙️ **Hoạt động ra sao?** Formatter JSON biến mỗi bản ghi thành object → agent (Promtail/Filebeat) thu thập → đẩy vào kho log → index theo field để lọc/thống kê.
+
+#### 2. Metrics & Golden Signals (Prometheus + Grafana)
+* 🎯 **Dùng để làm gì?** Đo *sức khỏe hệ thống theo thời gian* bằng con số (latency, traffic, errors, saturation) để phát hiện và cảnh báo sự cố sớm.
+* 💡 **Khi nào dùng?** Luôn bật cho production; nhìn 4 Golden Signals trước khi đào sâu. Logs trả lời *chuyện gì xảy ra*; metrics trả lời *có bất thường không/bất thường từ lúc nào*.
+* 🏭 **Thực tế sử dụng ra sao?** App expose `/metrics` (`Counter`, `Histogram`); Prometheus scrape mỗi 15s; Grafana vẽ dashboard; Node Exporter/cAdvisor cung cấp CPU/RAM/disk của host/container; Alertmanager gửi cảnh báo Telegram/Slack.
+* ⚙️ **Hoạt động ra sao?** Prometheus kiểu **pull**: định kỳ gọi HTTP vào `/metrics`, lưu chuỗi thời gian; Grafana truy vấn bằng PromQL; Alertmanager gom/chống trùng cảnh báo.
+
+#### 3. Debug Production
+* 🎯 **Dùng để làm gì?** Tìm nguyên nhân lỗi/chậm không tái hiện được ở local mà *không* làm hệ thống tệ hơn.
+* 💡 **Khi nào dùng?** Khi có alert/than phiền. Quy trình: metrics (chậm từ khi nào, trùng deploy không?) → trace 1 request chậm → slow query log → CPU/RAM/connection pool → chỉ khi cần mới profile (`py-spy`).
+* 🏭 **Thực tế sử dụng ra sao?** `kubectl logs <pod> --previous`, `py-spy top --pid <pid>` (không cần restart), `pg_stat_statements` tìm query chậm; luôn ưu tiên *giảm thiểu tác động* (rollback) trước khi tìm nguyên nhân gốc.
+* ⚙️ **Hoạt động ra sao?** Thu hẹp theo tầng (mạng → app → DB → hạ tầng) dựa trên dữ liệu thay vì đoán; `py-spy` lấy mẫu stack của process đang chạy để thấy hàm nào tốn thời gian.
+
+#### 4. Distributed Tracing & SLO-based Alerting
+* 🎯 **Dùng để làm gì?** Tracing: thấy 1 request đi qua nhiều service mất bao lâu ở từng chặng. SLO alerting: chỉ báo khi thực sự đe dọa cam kết chất lượng, tránh alert fatigue.
+* 💡 **Khi nào dùng?** Tracing khi có ≥2 service (microservices). SLO alerting khi team bị spam cảnh báo CPU/RAM vô thưởng và đã có SLO/SLA rõ ràng.
+* 🏭 **Thực tế sử dụng ra sao?** OpenTelemetry gắn `trace_id` vào header, Jaeger hiển thị "cây span"; alert theo *tốc độ tiêu thụ error budget* (vd "dùng hết 2% ngân sách tháng trong 1 giờ") thay vì "CPU > 80%".
+* ⚙️ **Hoạt động ra sao?** Mỗi service tạo 1 *span* (bắt đầu/kết thúc) cùng `trace_id`, gửi về collector; UI ghép thành biểu đồ thác nước. Error budget = 100% − SLO (vd SLO 99.9% → được lỗi 0.1%).
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa</summary>
 
 🟢 *Cơ bản.* **3 trụ cột: Metrics — Logs — Traces (phần Metrics & Logs).** Metrics là con số theo thời gian (latency, CPU, số request/giây). Logs là chi tiết từng sự kiện (biết **chuyện gì** đã xảy ra) — nên là structured logging (JSON) để query được, thay vì text tự do khó parse.
 
@@ -2326,6 +2935,8 @@ async def track_metrics(request, call_next):
 🔴 *Chuyên sâu/Thực chiến.* **Distributed Tracing.** Traces theo dõi 1 request đi qua **nhiều service** mất bao lâu ở từng chặng — cần gắn `trace_id` xuyên suốt để nối log/span lại với nhau (Jaeger/OpenTelemetry).
 
 **SLO-based alerting, alert fatigue.** Thay vì báo động ngay khi CPU > 80% (có thể chỉ là spike tạm thời, vô hại), SLO-based alerting báo động khi **error budget** (ngân sách lỗi cho phép, theo cam kết SLA) sắp cạn — giảm số lần báo động giả, tránh team "quen tay" bỏ qua alert vì bị spam quá nhiều.
+
+</details>
 
 **Đọc chi tiết:** [`Mastery/Backend-Mastery/04-Testing-Observability-And-Debugging-Prod`](../Mastery/Backend-Mastery/04-Testing-Observability-And-Debugging-Prod), [`Mastery/Cloud-DevOps-Mastery/05-Observability-Incident-Response`](../Mastery/Cloud-DevOps-Mastery/05-Observability-Incident-Response). Công cụ Prometheus/Grafana/ELK/Tracing: [`10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md`](../10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md) — Học phần 7 (Monitoring).
 
@@ -2417,42 +3028,107 @@ SLO luôn phải **chặt hơn** SLA — là nền tảng của **Error Budget**
 - Phân biệt Load Balancer **Layer 4** vs **Layer 7**.
 - Debug container: `docker logs`, `docker exec`, lỗi hết dung lượng ổ đĩa ảo — sự cố thực tế hay gặp nhất khi vận hành Docker lâu dài.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **Networking nền tảng.** Mô hình OSI 7 tầng chỉ cần nhớ 3 tầng hay dùng: tầng 3 (Network — định tuyến theo IP), tầng 4 (Transport — TCP/UDP, nơi khái niệm "port" sống), tầng 7 (Application — HTTP/HTTPS, nơi code của bạn thực sự làm việc). Hiểu đúng tầng nào xử lý gì giúp đọc lỗi mạng (connection refused, timeout, DNS not found) nhanh hơn thay vì đoán mò.
+#### 1. Virtualization (VM) vs Containerization (Docker)
+* 🎯 **Dùng để làm gì?** Đóng gói ứng dụng kèm đầy đủ môi trường thực thi (Dependencies, System Libraries, Config) để đảm bảo "chạy đúng trên máy dev thì chắc chắn chạy đúng trên production".
+* 💡 **Khi nào dùng?** Dùng Container (Docker) cho 95% dự án Microservices, Web APIs hiện đại. Dùng Virtualization (VMware/KVM) khi cần cô lập phần cứng tuyệt đối (Multi-tenant Security), hoặc chạy các OS Kernel khác nhau trên cùng Host.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - VM: Nặng vài GB, khởi động tính bằng phút (chạy cả OS kernel riêng).
+  - Docker Container: Nặng vài MB/GB, khởi động trong 1-2 giây (dùng chung Linux Host Kernel).
+* ⚙️ **Hoạt động ra sao?** Docker dùng 2 tính năng có sẵn của Linux Kernel: **cgroups** (giới hạn tài nguyên CPU/RAM) và **namespaces** (cô lập Process ID, Network, Filesystem, User ID).
 
-**Virtualization vs Containerization.** Máy ảo (VM) chạy qua hypervisor, mỗi VM có kernel OS riêng — cô lập mạnh nhưng nặng, khởi động chậm (tính bằng phút). Container (Docker) dùng chung kernel của host, chỉ cô lập ở tầng process/filesystem — nhẹ hơn nhiều, khởi động nhanh (tính bằng giây), nhưng cô lập yếu hơn VM (nếu kernel host có lỗ hổng, ảnh hưởng tới mọi container).
+#### 2. Docker Multi-Stage Build & Layer Caching Optimization
+* 🎯 **Dùng để làm gì?** Giảm kích thước Image từ vài GB xuống còn vài chục MB và tăng tốc độ Build Image gấp 10 lần nhờ tối ưu Layer Caching.
+* 💡 **Khi nào dùng?** Bắt buộc cho mọi ứng dụng Production để giảm cước phí lưu trữ Container Registry và tăng tốc Deployment CI/CD.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```dockerfile
+  # Stage 1: Build stage (Chứa đầy đủ Compiler & Dev Header)
+  FROM python:3.11 AS builder
+  WORKDIR /app
+  COPY requirements.txt .
+  RUN pip install --user --no-cache-dir -r requirements.txt
 
-**Docker: image vs container.** Image là "bản thiết kế đóng gói sẵn", container là "1 instance đang chạy" từ image đó — giống class vs object.
+  # Stage 2: Runtime stage (Chỉ giữ lại binary nhẹ nhất)
+  FROM python:3.11-slim
+  WORKDIR /app
+  COPY --from=builder /root/.local /root/.local
+  COPY --from=builder /app .
+  ENV PATH=/root/.local/bin:$PATH
+  CMD ["gunicorn", "app:app", "-w", "4", "-b", "0.0.0.0:5000"]
+  ```
+* ⚙️ **Hoạt động ra sao?** Mỗi lệnh trong Dockerfile (`COPY`, `RUN`) tạo ra một Read-Only Image Layer. Docker chỉ rebuild lại layer khi file nguồn của layer đó thay đổi. Copy `requirements.txt` và `pip install` TRƯỚC khi `COPY . .` giúp tận dụng cache layer khi sửa source code Python.
 
-🟡 *Nâng cao.* **Network troubleshooting.** `ss -tulpn` xem port nào đang mở/process nào giữ port đó. `dig`/`nslookup` tra DNS (tên miền → IP).
+#### 3. Docker Volume Persistence & Compose Internal DNS
+* 🎯 **Dùng để làm gì?** Lưu giữ dữ liệu bền vững (Data Persistence) cho Database/Upload files vượt ngoài vòng đời Container và cho phép các Container giao tiếp nội bộ qua tên Service.
+* 💡 **Khi nào dùng?** Khi chạy các Service có trạng thái (Stateful) như Postgres, Redis, MinIO trong Docker.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```yaml
+  version: '3.8'
+  services:
+    web:
+      build: .
+      environment:
+        - DB_HOST=db  # Docker Compose tự resolve DNS 'db' -> IP Container db
+      depends_on: [db]
+    db:
+      image: postgres:15
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+  volumes:
+    postgres_data:    # Data còn nguyên ngay cả khi container db bị hủy
+  ```
+* ⚙️ **Hoạt động ra sao?** Docker Volume mount trực tiếp một thư mục trên Host OS (`/var/lib/docker/volumes/`) vào bên trong Container Filesystem, bypass qua Storage Driver layer của Docker nên đạt tốc độ I/O đĩa tối đa.
 
-**Docker multi-stage build.** Dùng 1 stage để build (đầy đủ compiler, dependency build) rồi chỉ copy **kết quả cuối cùng** sang stage runtime tối giản — giảm size image cuối cùng đáng kể.
+#### 4. Load Balancer Layer 4 (Transport) vs Layer 7 (Application)
+* 🎯 **Dùng để làm gì?** Phân phối lưu lượng truy cập HTTP/TCP đến danh sách Backend Servers để chịu tải và nâng cao tính sẵn sàng (High Availability).
+* 💡 **Khi nào dùng?** 
+  - **Layer 4 (TCP/UDP):** Chọn khi làm Database Proxy (PgBouncer), Gaming Server, DNS, hoặc cần throughput cực khủng (triệu req/s) mà không quan tâm nội dung HTTP payload.
+  - **Layer 7 (HTTP/HTTPS):** Chọn cho Web APIs, Microservices cần Path-based routing (`/api` -> Service A, `/auth` -> Service B), SSL Termination, Cookie Sticky Sessions.
+* 🏭 **Thực tế sử dụng ra sao?** Layer 4: AWS NLB (Network Load Balancer). Layer 7: Nginx, Traefik, HAProxy, AWS ALB (Application Load Balancer).
+* ⚙️ **Hoạt động ra sao?** Layer 4 chỉ mở header TCP (IP + Port) để forwarding gói tin (packet fast-forwarding). Layer 7 giải mã hoàn toàn HTTP/HTTPS Request (Terminates SSL), đọc Header, Path, Cookies rồi mới thiết lập 1 Connection mới tới Backend Server.
 
-```dockerfile
-# Stage 1: build — có đầy đủ compiler, dependency chỉ cần lúc cài đặt
-FROM python:3.11 AS builder
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --user -r requirements.txt   # copy requirements TRƯỚC code -> cache layer, build lại nhanh hơn
-COPY . .
+**Đọc chi tiết:** [`10-DevOps-Architect/Docker_Kubernetes_Mastery.md`](../10-DevOps-Architect/Docker_Kubernetes_Mastery.md) (phần Docker). Network troubleshooting: [`10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md`](../10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md).
 
-# Stage 2: runtime — image gốc tối giản, không mang theo compiler/cache build
-FROM python:3.11-slim
-WORKDIR /app
-COPY --from=builder /root/.local /root/.local
-COPY --from=builder /app .
-ENV PATH=/root/.local/bin:$PATH
-CMD ["gunicorn", "app:app", "--workers", "4"]
-```
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập FL-04, DO-01, DO-02 & LAB-01):
 
-Dễ sai: copy toàn bộ code **trước** `pip install` khiến Docker cache bị miss liên tục mỗi lần sửa code (dù `requirements.txt` không đổi) — luôn copy `requirements.txt` riêng và cài đặt trước, copy code sau cùng.
+#### 1. Thực hành FL-04 — Dockerize Flask App:
+- **Tạo Dockerfile:**
+  ```dockerfile
+  FROM python:3.11-slim
+  WORKDIR /app
+  COPY requirements.txt .
+  RUN pip install --no-cache-dir -r requirements.txt gunicorn
+  COPY . .
+  CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "run:app"]
+  ```
+- **Build & Run:** `docker build -t flask-app:v1 .` -> `docker run -d -p 5000:5000 --name flask_running flask-app:v1`.
 
-**Docker Compose, volume.** Compose định nghĩa nhiều service chạy cùng lúc, tự tạo network nội bộ để chúng gọi nhau qua tên service. Volume là nơi lưu data **ngoài** vòng đời container — container bị xóa/restart thì data trong volume vẫn còn.
+#### 2. Thực hành DO-01 — Docker Compose & Persistence Volume:
+- **Khai báo `docker-compose.yml` (Flask + Postgres + Redis):**
+  ```yaml
+  version: '3.8'
+  services:
+    web:
+      build: .
+      ports: ["5000:5000"]
+      environment: [- DATABASE_URL=postgresql://user:pass@db:5432/mydb]
+      depends_on: [db]
+    db:
+      image: postgres:15-alpine
+      environment: {POSTGRES_USER: user, POSTGRES_PASSWORD: pass, POSTGRES_DB: mydb}
+      volumes: [postgres_data:/var/lib/postgresql/data]
+  volumes:
+    postgres_data:
+  ```
+- **Verify Persistence:** `docker-compose up -d` -> Tạo dữ liệu -> `docker-compose down` -> `docker-compose up -d` -> Verify dữ liệu vẫn còn nguyên vẹn trong Named Volume.
 
-🔴 *Chuyên sâu/Thực chiến.* **Layer 4 vs Layer 7.** Load balancer **Layer 4** chỉ nhìn TCP/UDP (IP + port), chuyển tiếp gói tin nhanh, không đọc được nội dung HTTP — dùng khi cần tốc độ tối đa. **Layer 7** đọc được HTTP header/path, route thông minh hơn (VD `/api` vào service A, `/static` vào service B) nhưng chậm hơn 1 chút vì phải "mở gói" ra đọc.
+#### 3. Thực hành DO-02 — Debug Startup Failure:
+- **Cố tình đổi pass DB:** `docker-compose up -d` -> Container web crash -> Debug qua `docker logs flask_app_web_1` -> Thấy lỗi DB connection auth failure -> Khắc phục lại pass.
 
-**Đọc chi tiết:** [`10-DevOps-Architect/Docker_Kubernetes_Mastery.md`](../10-DevOps-Architect/Docker_Kubernetes_Mastery.md) (phần Docker). Network troubleshooting: [`10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md`](../10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md) — Học phần 2 (Basic Linux).
+#### 4. Thực hành LAB-01 — Xử lý lỗi `No space left on device`:
+- **Tạo rác ổ đĩa:** `dd if=/dev/zero of=huge.img bs=1M count=2000`
+- **Debug & Cleanup:** `df -h` kiểm tra -> `du -sh /* | sort -rh | head -n 5` tìm file rác -> Dọn dẹp Docker bằng `docker system prune -a --volumes`. Dẫn chiếu thực hành: [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -2610,38 +3286,96 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server   # hoặc append thủ công v
 - **Security Scan (SAST)** — quét lỗ hổng bảo mật ngay trong code trước khi merge, là 1 bước chuẩn trong multi-stage pipeline chuyên nghiệp.
 - **Self-hosted Runner** — khi cần build trong mạng nội bộ (không public ra internet) hoặc cần tài nguyên đặc thù (GPU, RAM lớn) mà runner mặc định của GitHub không đáp ứng.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
 🟢 *Cơ bản.* Pipeline là chuỗi bước tự động chạy khi có sự kiện (push/PR): test → build Docker image → deploy.
 
-**GitHub Actions vs GitLab CI.** Cả 2 đều theo đúng mô hình Pipeline → Job (GitLab gọi là `stage`) → Step (GitLab gọi là `script`), chỉ khác cú pháp YAML và nơi chạy. GitHub Actions tiện nhất khi code đã nằm sẵn trên GitHub (không cần cấu hình thêm). GitLab CI mạnh hơn ở khả năng tự host runner trong hạ tầng riêng (phù hợp công ty cần build trong mạng nội bộ, không muốn code rời khỏi VPC) và có `.gitlab-ci.yml` khai báo gọn hơn cho pipeline nhiều stage phức tạp. Về bản chất tư duy, học vững 1 nền tảng là chuyển sang nền tảng còn lại (hay cả Azure DevOps/CircleCI) chỉ mất vài giờ làm quen cú pháp.
+#### 1. Pipeline Architecture: GitHub Actions vs GitLab CI
+* 🎯 **Dùng để làm gì?** Tự động hóa toàn bộ chuỗi kiểm thử, đóng gói và triển khai ứng dụng (CI/CD Pipeline) mỗi khi có thay đổi code, đảm bảo chất lượng phần mềm đồng nhất và loại bỏ sai sót thủ công.
+* 💡 **Khi nào dùng?** Bắt buộc dùng cho mọi dự án phát triển phần mềm hiện đại từ cá nhân tới Enterprise.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **GitHub Actions:** Sử dụng `.github/workflows/ci.yml` khai báo các Workflows -> Jobs -> Steps. Tích hợp sâu với GitHub Pull Requests.
+  - **GitLab CI:** Sử dụng `.gitlab-ci.yml` khai báo `stages` -> `jobs` -> `script`. Rất mạnh về Self-hosted runner và On-premise deployment.
+* ⚙️ **Hoạt động ra sao?** Khi nhận Event (Push/PR), Webhook kích hoạt CI Server khởi tạo Container/VM Runner sạch, checkout code, thực thi lần lượt các câu lệnh trong `script`/`run` và trả trạng thái (Success/Failed) về cho PR/Commit.
 
-🟡 *Nâng cao.* Mỗi **job** chạy trên 1 máy ảo riêng (song song được nếu không phụ thuộc nhau), mỗi job gồm nhiều **step** tuần tự. **Matrix build** chạy cùng 1 job với nhiều tổ hợp biến (VD test trên Python 3.10 và 3.11 cùng lúc). Cache dependency giúp pipeline không phải tải lại toàn bộ package mỗi lần — tiết kiệm vài phút mỗi lần chạy, cộng dồn rất đáng kể.
+#### 2. Matrix Builds & Cache Dependency Optimization
+* 🎯 **Dùng để làm gì?** Chạy kiểm thử song song trên nhiều phiên bản môi trường (Python 3.10, 3.11, 3.12) và tăng tốc thời gian thực thi CI Pipeline nhờ bộ nhớ tạm (Cache).
+* 💡 **Khi nào dùng?** Dùng Matrix Build khi duy trì Thư viện/Open Source/SDK cần tương thích nhiều bản runtime. Dùng Caching trong mọi pipeline để tiết kiệm băng thông và chi phí runner.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```yaml
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          python-version: ["3.10", "3.11"]  # Chạy song song 2 job độc lập
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-python@v5
+          with:
+            python-version: ${{ matrix.python-version }}
+            cache: "pip"                   # Tự động cache pip packages theo hash requirements.txt
+        - run: pip install -r requirements.txt
+        - run: pytest
+  ```
+* ⚙️ **Hoạt động ra sao?** Matrix sinh ra một đồ thị công việc (Job Graph) chạy song song trên các Worker node khác nhau. Cache lưu trữ thư mục `~/.cache/pip` lên Storage của CI Server và tự động khôi phục (Restore) ở lần chạy tiếp theo dựa trên Cache Key (MD5 Hash của file `requirements.txt`).
 
-```yaml
-# .github/workflows/ci.yml
-on: [push, pull_request]
+#### 3. Security Scanning: SAST vs SCA trong Production Pipeline
+* 🎯 **Dùng để làm gì?** Phát hiện lỗ hổng bảo mật ngay trong quá trình phát triển (Shift-Left Security), ngăn chặn mã độc hoặc thư viện dính lỗi CVE lọt vào Production.
+* 💡 **Khi nào dùng?** Tích hợp làm bước bắt buộc (Quality Gate) trong Pipeline trước khi cho phép Merge code vào nhánh `main` hoặc `production`.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **SAST (Static Application Security Testing):** Dùng Bandit (`bandit -r .`) quét trực tiếp code Python tìm lỗi nối chuỗi SQL, dùng hardcoded passwords.
+  - **SCA (Software Composition Analysis):** Dùng Safety (`safety check`) hoặc Dependabot quét file `requirements.txt` tìm các package đang dùng bị dính lỗ hổng công bố công khai.
+* ⚙️ **Hoạt động ra sao?** Công cụ phân tích cú pháp (AST Parser) hoặc đối chiếu bảng băm hash của dependency với cơ sở dữ liệu lỗi (NVD - National Vulnerability Database). Nếu mức độ nghiêm trọng vượt ngưỡng (High/Critical), Job CI trả về trạng thái Exit Code 1 và khóa việc Deploy.
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10", "3.11"]   # matrix build: chạy song song cả 2 version
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: "pip"                      # cache dependency theo hash của requirements.txt
-      - run: pip install -r requirements.txt
+#### 4. Secrets Security & Self-Hosted Runner Infrastructure
+* 🎯 **Dùng để làm gì?** Bảo vệ tuyệt đối thông tin nhạy cảm (API Keys, SSH Keys, Database Passwords) và cho phép chạy CI/CD trong mạng nội bộ kín (Private VPC/On-Premise).
+* 💡 **Khi nào dùng?** Dùng Secrets cho 100% biến môi trường nhạy cảm. Dùng Self-Hosted Runner khi ứng dụng cần truy cập DB nội bộ không mở IP ra Internet hoặc cần Server có GPU/RAM cực khủng.
+* 🏭 **Thực tế sử dụng ra sao?** Khai báo trong GitHub Settings -> Secrets. Trong YAML truy xuất qua `${{ secrets.DOCKER_PASSWORD }}`. Giá trị này tự động bị mã hóa masking (`***`) trong toàn bộ màn hình Console Logs của CI.
+* ⚙️ **Hoạt động ra sao?** Runner tự quản lý thiết lập một luồng Long-Polling WebSocket bảo mật đi TỪ TRONG MẠNG NỘI BỘ RA NGOÀI tới GitHub API. Do đó, Firewall nội bộ KHÔNG CẦN mở bất kỳ Inbound Port nào mà vẫn nhận được lệnh Build an toàn.
+
+**Đọc chi tiết:** tài liệu CI/CD trong [`10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md`](../10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md) — Học phần 6.
+
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập DO-03, DO-04 & LAB-04):
+
+#### 1. Thực hành DO-03 — CI Pipeline Automation với GitHub Actions:
+- **Tạo workflow `.github/workflows/ci.yml`:**
+  ```yaml
+  name: Python Backend CI
+  on: [push, pull_request]
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: {python-version: '3.11'}
+      - run: pip install -r requirements.txt pytest flake8
+      - run: flake8 . --max-line-length=100
       - run: pytest
       - run: docker build -t myapp:${{ github.sha }} .
-```
+  ```
+- **Push & Verify:** Push lên GitHub và xem tab Actions xanh hết các bước.
 
-🔴 *Chuyên sâu/Thực chiến.* Secret (GitHub Secrets) được inject vào lúc chạy, không bao giờ nằm trong code — tránh lộ khi push nhầm lên public repo; thiết kế pipeline nhiều stage (test → staging → production) để không deploy thẳng code chưa qua kiểm tra lên production. Pipeline chuyên nghiệp đầy đủ thường có thứ tự: Build → Test (unit + integration) → **Security Scan** → Deploy Staging → Manual Approval → Deploy Production — gồm 2 loại quét khác nhau, hay bị nhầm là 1: **SAST** (Static Application Security Testing) quét chính code bạn viết để tìm pattern nguy hiểm (SQL Injection do nối chuỗi tay, secret bị hardcode); **SCA** (Software Composition Analysis — `safety`/`pip-audit`/Dependabot đã học ở Chương 12) quét các package bên thứ 3 đang phụ thuộc để tìm CVE đã công bố. Self-hosted Runner là máy do chính bạn (hoặc công ty) tự quản lý để chạy job CI/CD thay vì dùng máy ảo mặc định của GitHub — cần khi job phải truy cập tài nguyên nội bộ (VD database chỉ mở trong VPC riêng) mà runner public không với tới được.
+#### 2. Thực hành DO-04 — Continuous Deployment (CD) via SSH:
+- **Thêm secrets:** `DOCKER_USERNAME`, `DOCKER_PASSWORD`, `HOST_IP`, `SSH_PRIVATE_KEY` vào Repo Settings.
+- **Bổ sung CD step vào workflow:**
+  ```yaml
+      - uses: docker/build-push-action@v4
+        with: {push: true, tags: "${{ secrets.DOCKER_USERNAME }}/app:latest"}
+      - uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/app:latest
+            docker stop app || true && docker rm app || true
+            docker run -d -p 5000:5000 --name app ${{ secrets.DOCKER_USERNAME }}/app:latest
+  ```
 
-**Đọc chi tiết:** tài liệu CI/CD trong [`10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md`](../10-DevOps-Architect/DevOps_Roadmap_9_HocPhan.md) — Học phần 6 (có cả phần so sánh GitHub Actions/GitLab CI/Azure DevOps/CircleCI), thực hành thêm ở [`Mastery/Cloud-DevOps-Mastery/04-CICD-Deployment-Strategies`](../Mastery/Cloud-DevOps-Mastery/04-CICD-Deployment-Strategies).
+#### 3. Thực hành LAB-04 — Debug CI Build Fail:
+- **Cố tình đổi dependency lỗi trong `requirements.txt`:** Push code -> Tab Actions báo đỏ ở step `Install Dependencies` -> Đọc log pip error -> Sửa lại version đúng -> Push lại. Dẫn chiếu thực hành: [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -2776,40 +3510,72 @@ Build → Unit Test → Integration Test → Security Scan (SAST/dependency chec
 - **Cost optimization**: Reserved Instance, Spot Instance, Savings Plan — kỹ năng hay bị bỏ qua lúc học nhưng ảnh hưởng trực tiếp tới đánh giá "tư duy vận hành" ở phỏng vấn Middle/Senior.
 - **Security nâng cao**: KMS (mã hóa), Secrets Manager, WAF, VPC Peering.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **EC2, S3, VPC.** EC2 là máy chủ ảo, bạn kiểm soát toàn bộ OS bên trong. S3 lưu file dạng object (ảnh, video, backup) — không phải ổ cứng gắn vào máy, mà là dịch vụ lưu trữ độc lập gọi qua API. VPC là mạng riêng ảo — ranh giới cô lập hạ tầng của bạn với phần còn lại của AWS.
+#### 1. AWS Cloud Core Infrastructure (EC2, S3, VPC & GCP Equivalents)
+* 🎯 **Dùng để làm gì?** Cung cấp tài nguyên ảo hóa linh hoạt (Compute, Storage, Networking) trên đám mây để vận hành hệ thống phần mềm mà không cần đầu tư máy chủ vật lý (Datacenter).
+* 💡 **Khi nào dùng?** Dùng EC2 khi cần tự do cài đặt OS/Runtime. Dùng S3 cho file tĩnh/Upload/Backup. Dùng VPC để cô lập mạng bảo mật cho dự án.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **AWS ↔ GCP Mapping:** EC2 ↔ Compute Engine | S3 ↔ Cloud Storage | VPC ↔ VPC | RDS ↔ Cloud SQL | EKS ↔ GKE | Lambda ↔ Cloud Functions.
+* ⚙️ **Hoạt động ra sao?** AWS phân chia theo Region (vùng địa lý) và Availability Zone (AZ - Datacenter vật lý cô lập điện/mạng). VPC tạo một dải mạng ảo riêng (`10.0.0.0/16`) nằm trên các AZs để bảo mật traffic nội bộ.
 
-**AWS ↔ GCP — bảng ánh xạ nhanh.** EC2 ↔ **Compute Engine**; S3 ↔ **Cloud Storage**; VPC ↔ **VPC** (tên giống nhau); RDS ↔ **Cloud SQL**; EKS ↔ **GKE** (Google Kubernetes Engine — thường được đánh giá là bản K8s managed mượt nhất thị trường vì Google là nơi khai sinh ra Kubernetes); Lambda ↔ **Cloud Functions**; IAM ↔ **IAM** (tên giống nhau, cơ chế tương tự); CloudWatch ↔ **Cloud Monitoring/Cloud Logging**; Route 53 ↔ **Cloud DNS**. Khác biệt lớn nhất về tư duy: GCP mạng mặc định là **global VPC** (1 VPC trải across mọi region), trong khi AWS VPC luôn gắn với 1 region cụ thể — ảnh hưởng tới cách thiết kế kiến trúc multi-region.
+#### 2. Network & Identity Security: Security Groups & IAM Least Privilege
+* 🎯 **Dùng để làm gì?** Bảo vệ máy chủ EC2 ở tầng Network và kiểm soát quyền hạn thao tác API (Who can access What) ở tầng Identity.
+* 💡 **Khi nào dùng?** Áp dụng ngay khi khởi tạo bất kỳ tài nguyên Cloud nào.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **IAM Policy chuẩn Least Privilege:**
+    ```json
+    {
+      "Version": "2012-10-17",
+      "Statement": [{
+        "Effect": "Allow",
+        "Action": ["s3:GetObject", "s3:PutObject"],
+        "Resource": "arn:aws:s3:::my-app-uploads/*"
+      }]
+    }
+    ```
+* ⚙️ **Hoạt động ra sao?** Security Group đóng vai trò là **Stateful Firewall** gắn ở tầng Network Interface (ENI) của EC2 (nếu cho phép Inbound Port 80 thì Outbound tự động được phép). IAM băm hóa Signature của Request bằng Access/Secret Key để verify quyền hạn với IAM Policy trước khi cho phép gọi AWS API.
 
-🟡 *Nâng cao.* **Security Group, RDS.** Security Group là firewall gắn vào từng EC2 — lỗi mở Security Group quá rộng (`0.0.0.0/0` cho port DB) là lỗi bảo mật phổ biến nhất của người mới. RDS là Database as a Service — AWS tự lo backup, patch, failover, đổi lại bạn không có quyền root vào máy DB.
+#### 3. AWS API Gateway & Thảm họa 29s Hard Timeout
+* 🎯 **Dùng để làm gì?** Đóng vai trò làm Single Entry Point cho toàn bộ hệ thống APIs, quản lý Routing, Throttling, Authentication, CORS và API Versioning.
+* 💡 **Khi nào dùng?** Khi làm kiến trúc Microservices, Serverless APIs (Lambda).
+* 🏭 **Thực tế sử dụng ra sao?**
+  - ⚠️ **Sự cố 29s Timeout:** API Gateway trả về `HTTP 504 Gateway Timeout` cứng nếu backend xử lý quá 29 giây.
+  - ✅ **Giải pháp:** Đối với tác vụ nặng (Export Excel 100k dòng, gửi email hàng loạt), API Gateway nộp công việc vào **AWS SQS** hoặc **Celery Redis Queue**, trả ngay `202 Accepted` cho Frontend kèm `job_id`, xử lý ngầm dưới Background Worker.
+* ⚙️ **Hoạt động ra sao?** API Gateway nhận HTTP Request từ Client, thực thi Custom Authorizer (JWT), kiểm tra Quotas/Rate limits, biến đổi Header/Payload nếu cần rồi mới proxy tới HTTP Backend / AWS Lambda.
 
-**Load Balancer + Auto Scaling Group, Route 53, CloudWatch.** ALB (Layer 7) route theo path/domain, NLB (Layer 4) nhanh hơn nhưng không đọc được HTTP — liên hệ trực tiếp khái niệm L4/L7 đã học ở Chương 14. Auto Scaling Group tự thêm/bớt EC2 theo tải, luôn đi kèm Load Balancer để phân phối traffic tới các instance mới. Route 53 là DNS Service của AWS, hỗ trợ routing policy thông minh (VD Failover — tự chuyển traffic sang region dự phòng khi region chính chết). CloudWatch thu thập Metrics/Logs/Alarms của mọi service AWS — tương đương vai trò Prometheus+Grafana nhưng là bản managed của AWS.
+#### 4. AWS Cost Optimization Strategy
+* 🎯 **Dùng để làm gì?** Tối ưu chi phí hạ tầng Cloud hàng tháng, giảm từ 30% đến 70% bill AWS mà không làm giảm hiệu năng hệ thống.
+* 💡 **Khi nào dùng?** Áp dụng bắt buộc khi ứng dụng lên giai đoạn Production ổn định.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **On-Demand Instance:** Trả tiền theo giờ/giây. Dùng cho dự án thử nghiệm, tải biến động không đoán trước.
+  - **Reserved Instances (RI) / Savings Plans:** Cam kết sử dụng 1 hoặc 3 năm. Tiết kiệm tới 60-72%. Dùng cho Production DB, Master Nodes chạy 24/7.
+  - **Spot Instances:** Dùng tài nguyên dư thừa của AWS với giá rẻ tới 90%, nhưng có thể bị AWS thu hồi trước 2 phút. Dùng cho Celery Batch Workers, CI/CD Runner, ML Training.
+* ⚙️ **Hoạt động ra sao?** AWS Billing Engine tính toán dựa trên mức độ cam kết tài nguyên trong tài khoản. Nếu dùng Spot Instance, daemon `ec2-spot-interrupted-notice` lắng nghe thông báo thu hồi để Graceful Shutdown worker trước khi VM bị xóa.
 
-🔴 *Chuyên sâu/Thực chiến.* **IAM.** Quản lý "ai được làm gì" — nguyên tắc least privilege: chỉ cấp đúng quyền cần thiết, không cấp `AdministratorAccess` cho mọi thứ vì tiện.
+**Đọc chi tiết:** [`07-AWS-Mastery/AWS_90Days_Mastery_Plan.md`](../07-AWS-Mastery/AWS_90Days_Mastery_Plan.md).
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [{
-    "Effect": "Allow",
-    "Action": ["s3:GetObject", "s3:PutObject"],
-    "Resource": "arn:aws:s3:::my-app-uploads/*"
-  }]
-}
-```
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập DO-05 & LAB-02):
 
-IAM Policy trên chỉ cho phép đọc/ghi đúng 1 bucket cụ thể — thay vì gắn `AmazonS3FullAccess` (truy cập được mọi bucket trong account) chỉ vì "cho tiện lúc setup", đúng tinh thần least privilege.
+#### 1. Thực hành DO-05 — Secret Management Hygiene:
+- **Tạo `.gitignore`:** Khai báo `.env`, `*.pem`, `*.sqlite3` không commit vào Git.
+- **Tích hợp `python-dotenv`:**
+  ```python
+  import os
+  from dotenv import load_dotenv
+  load_dotenv()
+  SECRET_KEY = os.getenv("SECRET_KEY")
+  ```
 
-**ECR/ECS/EKS.** ECR là registry lưu Docker image (giống Docker Hub nhưng riêng tư, gắn với IAM). ECS là dịch vụ chạy container theo cách AWS tự quản lý (đơn giản hơn K8s nhưng chỉ chạy được trên AWS). EKS là Kubernetes managed của AWS — Control Plane do AWS vận hành, bạn chỉ quản lý Worker Node — đây chính là nơi áp dụng toàn bộ kiến thức K8s ở Chương 17 vào môi trường cloud thật.
-
-**API Gateway.** Thay vì để client gọi thẳng vào từng service/Lambda, API Gateway đứng làm 1 cổng vào duy nhất — xử lý chung routing, authentication, rate limiting (liên hệ Token Bucket ở Chương 11), rồi mới chuyển tiếp vào backend thật. Sự cố thực tế hay gặp nhất: API Gateway có **timeout cố định 29 giây** — nếu backend (VD Lambda xử lý export báo cáo, gửi email hàng loạt) chạy lâu hơn, client nhận `504 Gateway Timeout` dù backend vẫn đang chạy bình thường phía sau. Cách xử lý đúng: không xử lý tác vụ nặng đồng bộ qua API Gateway — chuyển sang mô hình bất đồng bộ (liên hệ Background task ở Chương 10): API Gateway nhận request → đẩy vào queue (SQS/EventBridge) → trả về ngay `202 Accepted` cho client → worker xử lý ngầm phía sau, client poll hoặc nhận callback khi xong.
-
-**Cost optimization.** Reserved Instance (cam kết dùng dài hạn để được giá rẻ hơn On-Demand), Spot Instance (dùng tài nguyên dư thừa của AWS, rẻ nhưng có thể bị thu hồi bất kỳ lúc nào — chỉ hợp với tải chịu được gián đoạn), Savings Plan (linh hoạt hơn Reserved Instance). Quên tắt EC2/NAT Gateway sau khi test là nguyên nhân phổ biến nhất khiến bill AWS tăng bất thường.
-
-**Security nâng cao.** KMS quản lý khóa mã hóa tập trung cho các service khác dùng chung. Secrets Manager lưu secret có xoay vòng tự động (khác `.env` tĩnh ở Chương 12). WAF lọc request độc hại (SQL Injection, XSS, rate-based) ngay trước khi tới ALB/CloudFront. VPC Peering kết nối riêng tư giữa 2 VPC khác nhau mà không đi qua internet công cộng.
-
-**Đọc chi tiết:** [`07-AWS-Mastery/AWS_90Days_Mastery_Plan.md`](../07-AWS-Mastery/AWS_90Days_Mastery_Plan.md) (chỉ cần phần nền tảng, không cần học hết 90 ngày). GCP hiện chưa có tài liệu chi tiết riêng trong repo — bảng ánh xạ trên là điểm khởi đầu, nên tra thêm docs chính thức của Google Cloud khi công ty mục tiêu thực sự dùng GCP.
+#### 2. Thực hành LAB-02 — Purge Secret khỏi Git History (`git filter-repo`):
+- **Cố tình commit nhầm secret:** File `passwords.txt` bị lỡ push.
+- **Cleanup Lịch sử Commit:**
+  ```bash
+  pip install git-filter-repo
+  git filter-repo --path passwords.txt --invert-paths
+  git push origin --force --all
+  ```
+- **Hành động bắt buộc:** Lập tức Rotate secret đã lộ. Dẫn chiếu thực hành: [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -2890,58 +3656,120 @@ Private Subnet — Data tier (RDS)        ← chỉ App tier được phép kế
 - **HPA (Horizontal Pod Autoscaler)** — tự động scale theo tải thực tế.
 - **Service Mesh (Istio/Linkerd)** — lớp hạ tầng riêng xử lý giao tiếp giữa các service (mTLS tự động, retry, traffic shifting) mà không cần sửa code app — chỉ nên học khi đã vững Ingress/HPA, vì đây là tầng phức tạp thêm vào trên K8s, không phải thay thế.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **Kiến trúc K8s.** Control Plane là "bộ não" của cluster: API Server nhận mọi lệnh (kể cả từ `kubectl`), Scheduler quyết định Pod mới chạy ở Node nào, Controller Manager đảm bảo trạng thái thực tế khớp trạng thái mong muốn (VD tự tạo lại Pod chết), etcd là nơi lưu toàn bộ state của cluster (mất etcd = mất cluster). Worker Node là nơi Pod thực sự chạy: Kubelet nhận lệnh từ Control Plane và điều khiển container runtime, Kube-proxy xử lý network rule để traffic tới đúng Pod.
+#### 1. Kubernetes Architecture: Control Plane vs Worker Node
+* 🎯 **Dùng để làm gì?** Tự động hóa điều phối (Orchestration), mở rộng (Auto-scaling), tự phục hồi (Self-healing) và quản lý vòng đời hàng trăm microservices chạy trên một cụm máy chủ (Cluster).
+* 💡 **Khi nào dùng?** Dùng khi hệ thống mở rộng thành nhiều Microservices chạy trên nhiều máy chủ mà Docker Compose 1 máy không chịu nổi.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **Control Plane (Master Node - Bộ não):** `kube-apiserver` (Cổng giao tiếp), `etcd` (Lưu trạng thái Cluster), `kube-scheduler` (Xếp Pod vào Node), `kube-controller-manager` (Duy trì mong muốn trạng thái).
+  - **Worker Node (Nơi thực thi):** `kubelet` (Đại lý quản lý Container), `kube-proxy` (Mạng & Rule NAT), `containerd/cri-o` (Container Runtime).
+* ⚙️ **Hoạt động ra sao?** Người dùng nộp file YAML qua `kubectl`. API Server ghi thông số vào `etcd`. Controller Manager phát hiện chênh lệch (ví dụ: mong muốn 3 Pod mà hiện có 2 Pod) và lệnh cho Scheduler chọn Node thích hợp. Kubelet tại Node đó kéo Image và khởi động Pod mới.
 
-**Vì sao cần K8s.** Compose chạy tốt trên **1 máy**. Khi cần chạy trên **nhiều máy** (cluster) và tự động hồi phục khi 1 container/máy chết, cần 1 "bộ não" điều phối — đó là K8s.
-
-**Pod, Deployment, Service, Namespace.** Pod là đơn vị nhỏ nhất K8s triển khai, chứa 1+ container luôn chạy cùng nhau. Deployment khai báo "tôi muốn luôn có N Pod chạy phiên bản X" — K8s tự tạo/xóa Pod để giữ đúng trạng thái đó. Service là địa chỉ mạng **ổn định** trỏ tới nhóm Pod (Pod có thể chết/tái tạo liên tục với IP mới, Service che giấu sự thay đổi đó). Namespace chia 1 cluster vật lý thành nhiều "cluster ảo" logic — tiện cho việc tách quyền truy cập và resource quota giữa các team/môi trường mà không cần dựng nhiều cluster thật.
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: backend-api
-spec:
-  replicas: 3                        # luôn giữ đúng 3 Pod chạy
-  selector:
-    matchLabels: { app: backend-api } # phải khớp labels bên dưới — lỗi kinh điển khi không khớp
-  template:
-    metadata:
-      labels: { app: backend-api }
-    spec:
-      containers:
+#### 2. K8s Core Abstractions: Pod, Deployment, Service, Namespace
+* 🎯 **Dùng để làm gì?** Tạo ra các lớp trừu tượng để quản lý ứng dụng một cách khai báo (Declarative Infrastructure).
+* 💡 **Khi nào dùng?** 
+  - **Pod:** Đơn vị tính toán nhỏ nhất (chứa 1 hoặc nhiều container cùng namespace network).
+  - **Deployment:** Quản lý bản nâng cấp (Rolling Update), Rollback và số lượng bản sao Replicas.
+  - **Service:** Địa chỉ IP & DNS ảo cố định cho nhóm Pods biến động.
+  - **Namespace:** Cô lập tài nguyên giữa các môi trường (dev/staging/prod) trên cùng 1 Cluster.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata: { name: backend-api, namespace: production }
+  spec:
+    replicas: 3
+    selector: { matchLabels: { app: backend-api } } # PHẢI KHỚP LBL BÊN DƯỚI
+    template:
+      metadata: { labels: { app: backend-api } }
+      spec:
+        containers:
         - name: api
-          image: myapp:v1.2
+          image: myregistry.com/backend:v1.2.0
           ports: [{ containerPort: 8000 }]
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-api-svc
-spec:
-  selector: { app: backend-api }      # Service tìm Pod qua labels này, không qua IP
-  ports: [{ port: 80, targetPort: 8000 }]
-```
+  ---
+  apiVersion: v1
+  kind: Service
+  metadata: { name: backend-api-svc, namespace: production }
+  spec:
+    selector: { app: backend-api }                  # Match label trỏ tới Pods
+    ports: [{ port: 80, targetPort: 8000 }]
+  ```
+* ⚙️ **Hoạt động ra sao?** Service lắng nghe iptables/IPVS rules được sinh ra bởi `kube-proxy`. Khi Pod bị hỏng và được tái tạo với IP mới, Service tự động cập nhật danh sách Endpoint IP thông qua Label Selector mà không làm gián đoạn kết nối của Client.
 
-Lỗi kinh điển nhất của người mới học K8s: `labels` trong Deployment và `selector` trong Service không khớp nhau — Service tồn tại nhưng không route được traffic tới Pod nào cả.
+#### 3. Container Health Checks: Liveness vs Readiness Probes
+* 🎯 **Dùng để làm gì?** Tự động phát hiện ứng dụng bị treo (Deadlock) hoặc ngưng nhận traffic khi chưa khởi động xong (Warming up).
+* 💡 **Khi nào dùng?** Bắt buộc cấu hình cho mọi Production Container.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **Liveness Probe:** Trả lời "Ứng dụng còn sống không?". Nếu FAIL -> K8s restart (kill) Pod.
+  - **Readiness Probe:** Trả lời "Ứng dụng sẵn sàng nhận Request chưa?". Nếu FAIL -> K8s rút Pod ra khỏi danh sách Service Endpoints (KHÔNG kill Pod).
+  ```yaml
+  livenessProbe:
+    httpGet: { path: /healthz, port: 8000 }
+    initialDelaySeconds: 15
+    periodSeconds: 10
+  readinessProbe:
+    httpGet: { path: /ready, port: 8000 }
+    initialDelaySeconds: 5
+    periodSeconds: 5
+  ```
+* ⚙️ **Hoạt động ra sao?** Kubelet định kỳ gửi HTTP Get/TCP Socket/Exec command tới Container. Nếu số lần thất bại vượt ngưỡng `failureThreshold`, Kubelet thực hiện hành động restart hoặc rút Pod khỏi Load Balancer.
 
-🟡 *Nâng cao.* **ConfigMap/Secret.** Inject cấu hình vào Pod mà không hardcode trong image — đổi cấu hình không cần build lại image.
+#### 4. Helm Package Manager & Ingress Gateway
+* 🎯 **Dùng để làm gì?** Helm quản lý các bản phát hành K8s (Package Manager) thông qua Templating YAML. Ingress quản lý định tuyến HTTP/HTTPS Inbound ở tầng Layer 7 vào Cluster.
+* 💡 **Khi nào dùng?** Dùng Helm khi cần triển khai 1 ứng dụng lên nhiều môi trường (Dev/Staging/Prod) chỉ bằng việc thay đổi file `values.yaml`. Dùng Ingress làm Single Domain Router & SSL Termination point cho Cluster.
+* 🏭 **Thực tế sử dụng ra sao?** 
+  - Triển khai Prometheus Stack qua Helm: `helm install prometheus prometheus-community/kube-prometheus-stack`.
+  - Ingress Routing:
+    ```yaml
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata: { name: main-ingress }
+    spec:
+      rules:
+      - host: api.example.com
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: backend-api-svc, port: { number: 80 } }
+    ```
+* ⚙️ **Hoạt động ra sao?** Ingress Controller (như Nginx Ingress) lắng nghe K8s API Server. Khi có Ingress mới được nộp, Nginx Controller tự động ghi lại file `nginx.conf` bên trong Pod và thực thi `nginx -s reload` để mở đường truyền traffic công khai.
 
-**Liveness/Readiness Probe.** Liveness Probe trả lời "container này còn sống không" — fail thì K8s tự kill và tạo Pod mới. Readiness Probe trả lời "Pod đã sẵn sàng nhận traffic chưa" — fail thì Service tạm ngưng gửi request tới Pod đó (không kill).
+**Đọc chi tiết:** [`10-DevOps-Architect/Docker_Kubernetes_Mastery.md`](../10-DevOps-Architect/Docker_Kubernetes_Mastery.md) (phần K8s).
 
-**Volume & PVC.** Mặc định, dữ liệu ghi trong container mất khi Pod bị xóa/tái tạo (giống container Docker thường). PersistentVolumeClaim là "đơn xin cấp" 1 vùng lưu trữ bền vững (PersistentVolume) tồn tại độc lập với vòng đời Pod — cần cho mọi dữ liệu không được phép mất (DB chạy trong K8s, file upload).
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập DO-06 & LAB-03):
 
-**Helm.** Helm Chart đóng gói toàn bộ YAML (Deployment, Service, ConfigMap...) của 1 app thành 1 package có tham số hóa — deploy 1 app phức tạp chỉ bằng `helm install`, và dùng chung 1 chart cho dev/staging/prod chỉ bằng cách đổi file giá trị (`values.yaml`) thay vì copy-paste YAML.
+#### 1. Thực hành DO-06 — Minikube Deployment & Service:
+- **Khởi động Minikube:** `minikube start`
+- **Tạo Deployment & Service Manifest (`app.yaml`):**
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata: { name: flask-deployment }
+  spec:
+    replicas: 2
+    selector: { matchLabels: { app: flask-web } }
+    template:
+      metadata: { labels: { app: flask-web } }
+      spec:
+        containers: [{ name: flask, image: "nginx:alpine", ports: [{ containerPort: 80 }] }]
+  ---
+  apiVersion: v1
+  kind: Service
+  metadata: { name: flask-service }
+  spec:
+    type: ClusterIP
+    selector: { app: flask-web }
+    ports: [{ port: 80, targetPort: 80 }]
+  ```
+- **Deploy & Port Forward:** `kubectl apply -f app.yaml` -> `kubectl port-forward service/flask-service 8080:80` -> Truy cập `http://localhost:8080`.
 
-**RBAC.** Role-Based Access Control quyết định ai (user/service account) được làm gì (verb: get/list/create/delete) trên resource nào (Pod/Secret/...) trong Namespace nào — áp dụng đúng nguyên tắc least privilege đã học ở Chương 16 nhưng ở cấp độ cluster thay vì cấp độ AWS account.
-
-🔴 *Chuyên sâu/Thực chiến.* **Ingress, HPA.** Ingress đóng vai trò 1 Layer-7 load balancer ngay trong cluster, route theo domain/path vào đúng Service. HPA tự tăng/giảm số Pod theo CPU/Memory — bản chất giống Auto Scaling Group ở EC2 nhưng ở cấp độ Pod.
-
-**Service Mesh.** Khi số lượng service tăng lên (kiến trúc microservice thật), mỗi service tự implement retry/timeout/mTLS/circuit breaker riêng sẽ trùng lặp và dễ sai. Service Mesh (Istio, Linkerd) gắn 1 "sidecar proxy" (thường là Envoy) vào mỗi Pod để xử lý toàn bộ phần giao tiếp mạng đó **bên ngoài** code app — app chỉ cần gọi service khác như bình thường, mesh tự lo retry/mã hóa/đo lường traffic. Đánh đổi: thêm 1 tầng hạ tầng phức tạp, chỉ nên áp dụng khi số lượng microservice đủ lớn để lợi ích vượt chi phí vận hành thêm.
-
-**Đọc chi tiết:** [`10-DevOps-Architect/Docker_Kubernetes_Mastery.md`](../10-DevOps-Architect/Docker_Kubernetes_Mastery.md) (phần K8s), [`Mastery/Cloud-DevOps-Mastery/03-Container-Orchestration-In-Practice`](../Mastery/Cloud-DevOps-Mastery/03-Container-Orchestration-In-Practice).
+#### 2. Thực hành LAB-03 — Debug Mismatch Selector:
+- **Tạo sự cố:** Sửa `selector: app: wrong-tag` trong `Service`.
+- **Debug:** Lệnh `kubectl port-forward` báo lỗi hoặc `kubectl get endpoints flask-service` trả `<none>`. Sửa lại `selector` khớp với `template.labels` của Deployment. Dẫn chiếu thực hành: [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -3025,7 +3853,34 @@ Deploy Frontend + Backend API + Database lên Minikube/Kind, dùng Service để
 - Sự cố thường gặp: state conflict khi 2 người `apply` cùng lúc, `apply` xóa nhầm resource do đổi tên code, drift hạ tầng khi ai đó sửa tay trên Console.
 - **GitOps (ArgoCD/Flux)** — Git repo là **nguồn chân lý duy nhất** (single source of truth) cho trạng thái mong muốn của cluster K8s; 1 agent chạy trong cluster tự động đồng bộ theo repo thay vì CI "push" trực tiếp vào cluster — khác biệt tư duy quan trọng nhất so với CI/CD truyền thống ở Chương 15.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
+
+#### 1. Terraform (IaC): `plan` → `apply` → `destroy`
+* 🎯 **Dùng để làm gì?** Mô tả hạ tầng (VPC, EC2, RDS...) bằng code để tạo lại y hệt, review qua PR, có lịch sử thay đổi — thay vì click tay trên Console (không lặp lại được, không audit được).
+* 💡 **Khi nào dùng?** Mọi hạ tầng cloud ngoài thử nghiệm nhanh; khi cần nhiều môi trường giống nhau (dev/staging/prod). Không dùng để cấu hình *bên trong* máy (cài package, sửa file) — việc của Ansible.
+* 🏭 **Thực tế sử dụng ra sao?** Khai báo `resource "aws_instance" ...` → `terraform plan` (xem trước, **luôn chạy trước apply**) → `terraform apply` → xong demo chạy `terraform destroy` để không tốn tiền.
+* ⚙️ **Hoạt động ra sao?** Terraform đọc code (trạng thái **mong muốn**) + file state (trạng thái **đã tạo**) + hỏi API cloud (trạng thái **thực tế**), tính ra đồ thị phụ thuộc rồi gọi API tạo/sửa/xóa theo đúng thứ tự.
+
+#### 2. State file, Remote State & Locking
+* 🎯 **Dùng để làm gì?** State là "sổ ghi nhớ" Terraform đã tạo những gì; remote state + lock cho phép cả nhóm làm chung mà không dẫm chân nhau.
+* 💡 **Khi nào dùng?** Bắt buộc khi >1 người/CI cùng chạy Terraform. State local chỉ dùng khi học cá nhân.
+* 🏭 **Thực tế sử dụng ra sao?** `backend "s3" { bucket=..., key=..., dynamodb_table="tf-lock", encrypt=true }`; bật versioning cho bucket; chỉ CI/người được phép `apply` mới có quyền ghi.
+* ⚙️ **Hoạt động ra sao?** Trước `apply`, Terraform ghi 1 bản ghi khóa vào DynamoDB; người thứ 2 thấy khóa sẽ phải chờ/báo lỗi → không có chuyện 2 `apply` ghi đè state của nhau. State có thể chứa secret dạng plaintext nên phải mã hóa bucket.
+
+#### 3. Ansible: Playbook, Role & Idempotency
+* 🎯 **Dùng để làm gì?** Tự động cấu hình **bên trong** nhiều máy (cài Docker, copy file, khởi động service) theo kịch bản lặp lại được.
+* 💡 **Khi nào dùng?** Sau khi Terraform tạo xong máy; quản lý cấu hình VM truyền thống. Nếu toàn bộ chạy container trên K8s thì nhu cầu Ansible giảm đi.
+* 🏭 **Thực tế sử dụng ra sao?** `ansible-playbook -i inventory.ini site.yml`; dùng module (`apt`, `service`, `copy`) thay vì `shell` để được idempotent; chia theo `roles/` khi playbook lớn.
+* ⚙️ **Hoạt động ra sao?** Push-based: Ansible SSH vào máy đích (không cần agent), chạy từng *task*. **Idempotent**: module kiểm tra trạng thái hiện tại — đã đúng thì báo `ok` và không làm gì, chỉ `changed` khi cần sửa → chạy lại N lần vẫn cùng kết quả.
+
+#### 4. GitOps (ArgoCD/Flux) & Drift
+* 🎯 **Dùng để làm gì?** Git là *nguồn chân lý duy nhất* cho trạng thái cluster; agent trong cluster tự đồng bộ theo Git — mọi thay đổi có lịch sử, rollback chỉ là `git revert`.
+* 💡 **Khi nào dùng?** Triển khai app lên Kubernetes, nhiều môi trường, cần audit/an toàn (pipeline CI không cần quyền ghi thẳng vào cluster). Hạ tầng cloud nền (VPC, EKS) vẫn do Terraform quản lý — hai công cụ bổ trợ nhau.
+* 🏭 **Thực tế sử dụng ra sao?** CI build image + sửa tag trong repo manifest (Git); ArgoCD thấy khác biệt → `sync` vào cluster; ai `kubectl edit` tay sẽ bị ArgoCD phát hiện (*OutOfSync*) và có thể tự sửa lại.
+* ⚙️ **Hoạt động ra sao?** Agent **pull** (không push từ ngoài), liên tục so sánh "Git khai báo" với "cluster thực tế" rồi `apply` chênh lệch — giống `terraform plan` chạy liên tục. Drift = thực tế lệch khỏi khai báo do sửa tay.
+
+<details>
+<summary>📖 Diễn giải bổ sung & code minh họa</summary>
 
 🟢 *Cơ bản.* **Vì sao cần IaC.** Tạo hạ tầng bằng tay trên Console AWS thì **không lặp lại được chính xác** và không có lịch sử thay đổi. Viết bằng code: review được qua PR như code thường, tạo lại y hệt ở môi trường khác chỉ bằng 1 lệnh.
 
@@ -3116,33 +3971,71 @@ Dev push code (Git) → CI/CD Pipeline (GitHub Actions/GitLab CI)
 - Đọc war story thực tế để hiểu lỗi sản xuất thường xảy ra thế nào; áp dụng văn hóa postmortem blameless đúng cách trong thực tế (không chỉ biết khái niệm).
 - **Chaos Engineering** (game day) — chủ động gây lỗi có kiểm soát để kiểm chứng hệ thống/quy trình thật sự chịu được sự cố, thay vì chỉ tin vào tài liệu "trên giấy".
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* **Rolling update vs Blue-Green vs Canary.** Rolling update: thay dần từng Pod/server cũ bằng bản mới, không downtime, nhưng có khoảnh khắc cả bản cũ và mới cùng chạy song song. Blue-Green: dựng hẳn 1 môi trường mới (Green) chạy song song môi trường cũ (Blue), test xong mới chuyển 100% traffic sang Green — rollback cực nhanh nhưng tốn gấp đôi tài nguyên trong lúc chuyển. Canary: chuyển 1 phần nhỏ traffic (VD 5%) sang bản mới trước, theo dõi lỗi/metrics, ổn thì tăng dần lên 100% — rủi ro thấp nhất nhưng cần hạ tầng/monitoring tốt để tự động hóa.
+#### 1. Zero-Downtime Deployment Strategies: Rolling vs Blue-Green vs Canary
+* 🎯 **Dùng để làm gì?** Cập nhật phiên bản phần mềm mới lên môi trường Production mà không gây gián đoạn dịch vụ (Zero Downtime) và tối thiểu rủi ro sự cố.
+* 💡 **Khi nào dùng?** 
+  - **Rolling Update:** Mặc định cho Web APIs thông thường (Thay thế dần Pod cũ bằng Pod mới).
+  - **Blue-Green:** Khi triển khai nâng cấp Database Schema phức tạp hoặc ứng dụng đòi hỏi khả năng Instant Rollback trong 1 giây.
+  - **Canary:** Khi ra mắt tính năng lớn cho ứng dụng có hàng triệu User, mở dần 5% -> 25% -> 100% traffic để kiểm tra tỉ lệ lỗi thực tế.
+* 🏭 **Thực tế sử dụng ra sao?**
+  ```yaml
+  # Rolling Update trong Kubernetes Manifest
+  spec:
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1  # Tối đa 1 pod cũ ngắt kết nối
+        maxSurge: 1        # Tối đa 1 pod mới được dựng thêm
+  ```
+* ⚙️ **Hoạt động ra sao?** Rolling Update gỡ 1 Pod cũ và thêm 1 Pod mới cho đến khi hoàn tất. Blue-Green duy trì 2 cụm độc lập (Blue = v1, Green = v2) và hoán đổi DNS/Load Balancer target group. Canary dùng Service Mesh (Istio) phân luồng Weighted Traffic (`weight: 5%` sang v2, `weight: 95%` sang v1).
 
-```yaml
-# Rolling update — khai báo ngay trong Deployment, K8s tự thực hiện
-spec:
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1   # tối đa 1 Pod cũ bị gỡ cùng lúc
-      maxSurge: 1         # tối đa 1 Pod mới được thêm vượt số replicas khai báo
-```
+#### 2. Incident Response Workflow: Alerting -> Mitigation -> Resolution
+* 🎯 **Dùng để làm gì?** Phản ứng chuẩn xác, bình tĩnh và nhanh chóng khi sự cố sập hệ thống xảy ra trên Production để cứu dịch vụ về trạng thái hoạt động trong thời gian ngắn nhất.
+* 💡 **Khi nào dùng?** Áp dụng ngay khi PagerDuty / Telegram / Slack nổ chuông cảnh báo P0/P1 Incident.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **Quy trình 4 bước:**
+    1. **Phát hiện & Xác nhận (Detection):** Đọc Golden Signals (Error rate > 5%, Latency spike).
+    2. **Giảm thiểu tác động (Mitigation - QUAN TRỌNG NHẤT):** Rollback phiên bản mới nhất về phiên bản cũ ngay lập tức, tắt Feature Flag, hoặc scale up tài nguyên. KHÔNG ĐƯỢC cố ngồi tìm nguyên nhân gốc (RCA) trong khi dịch vụ vẫn đang sập.
+    3. **Điều tra nguyên nhân gốc (Root Cause Analysis - RCA):** Đọc Log, Trace ID, Git CommitDiff sau khi dịch vụ đã ổn định.
+    4. **Thông báo (Communication):** Cập nhật Status Page công khai cho khách hàng.
+* ⚙️ **Hoạt động ra sao?** On-call Engineer nhận thông báo -> Kích hoạt Incident Command Structure -> Thực hiện lệnh `kubectl rollout undo` hoặc bật Maintenance Mode -> Theo dõi Grafana khôi phục lại 200 OK -> Đóng Incident ticket.
 
-```bash
-# Rollback khi deploy lỗi — luôn phải có sẵn kế hoạch lùi lại
-kubectl rollout undo deployment/backend-api
-kubectl rollout status deployment/backend-api   # theo dõi tiến trình rollout/rollback
-```
+#### 3. Blameless Postmortem & Văn hóa 5 Whys
+* 🎯 **Dùng để làm gì?** Học hỏi từ thất bại sản xuất, nâng cấp quy trình hạ tầng/code để đảm bảo CÙNG MỘT LỖI SẼ KHÔNG BAO GIỜ LẶP LẠI.
+* 💡 **Khi nào dùng?** Thực hiện trong vòng 48h sau khi sự cố P0/P1 đã được khắc phục hoàn toàn.
+* 🏭 **Thực tế sử dụng ra sao?**
+  - **Mô hình 5 Whys (5 Câu hỏi Tại sao):**
+    - Sập DB? -> Vì quá tải connection.
+    - Tại sao quá tải connection? -> Vì API `/search` bị nổ request.
+    - Tại sao API nổ request? -> Vì thiếu Rate Limiting Throttling.
+    - Tại sao thiếu Throttling? -> Vì PR không qua bước Review Security Checklist. -> **Action Item:** Thêm Linter & PR Template bắt buộc Check Rate Limit.
+* ⚙️ **Hoạt động ra sao?** Biên bản Postmortem Blameless tuyệt đối KHÔNG chỉ trích cá nhân "Dev A code dở làm sập". Thay vào đó, tập trung vào **lỗ hổng hệ thống và quy trình** đã cho phép code lỗi lọt qua CI/CD lên Production.
 
-🟡 *Nâng cao.* **Incident response.** Quy trình chuẩn: phát hiện (alert) → giảm thiểu ngay (rollback/scale lên, chưa cần biết nguyên nhân gốc) → tìm nguyên nhân gốc → khắc phục triệt để → viết postmortem.
+#### 4. Chaos Engineering & Diễn tập Game Days
+* 🎯 **Dùng để làm gì?** Chủ động tạo ra các đợt đứt gãy hạ tầng giả lập (Kill random Pods, Inject latency network, sập Redis) để kiểm thử tính chịu lỗi (Resilience) của hệ thống thực tế.
+* 💡 **Khi nào dùng?** Diễn tập định kỳ (Game Day) trên môi trường Staging/Production vào khung giờ thấp điểm.
+* 🏭 **Thực tế sử dụng ra sao?** Sử dụng các công cụ như **Chaos Mesh** hay **LitmusChaos** trong K8s để inject fault.
+* ⚙️ **Hoạt động ra sao?** Chaos Agent phát ngẫu nhiên lệnh kill Pod trong Cluster. Nếu hệ thống thiết kế đúng (có Replicas=3, Health check đúng, Circuit Breaker chuẩn), Load Balancer tự động chuyển traffic sang 2 Pod còn lại và User KHÔNG nhận thấy bất kỳ lỗi nào.
 
-🔴 *Chuyên sâu/Thực chiến.* **Postmortem văn hóa blameless.** Postmortem ghi lại: chuyện gì xảy ra, tác động, nguyên nhân gốc, hành động phòng ngừa — văn hóa quan trọng nhất là **blameless** (không đổ lỗi cá nhân), vì mục tiêu là cải thiện hệ thống/quy trình, không phải tìm người để trách; áp dụng đúng văn hóa này trong thực tế khó hơn hẳn việc chỉ biết khái niệm.
+**Đọc chi tiết:** [`Mastery/Cloud-DevOps-Mastery/04-CICD-Deployment-Strategies`](../Mastery/Cloud-DevOps-Mastery/04-CICD-Deployment-Strategies).
 
-**Chaos Engineering.** Kế hoạch disaster recovery "viết trên giấy" (VD quy trình failover sang region dự phòng) thường chứa giả định chưa từng bị kiểm chứng thật — khi sự cố thật xảy ra mới phát hiện ra 1 bước phụ thuộc (DNS chưa trỏ đúng, IAM Role ở vùng phụ thiếu quyền, dữ liệu chưa đồng bộ kịp) khiến quy trình "5 phút" thực tế mất hàng giờ. Chaos Engineering chủ động mô phỏng sự cố (VD tự kill 1 Pod ngẫu nhiên trong K8s, tự ngắt kết nối 1 service) trong môi trường kiểm soát được, biến mỗi lần diễn tập thành cơ hội tìm ra giả định sai **trước khi** sự cố thật xảy ra — độ tin cậy nằm ở việc kế hoạch đã được kiểm chứng bằng thực hành, không phải chỉ có tài liệu mô tả.
+### 🛠️ Hướng dẫn thực hành từng bước (Bài tập LAB-05):
 
-**Đọc chi tiết:** [`Mastery/Cloud-DevOps-Mastery/04-CICD-Deployment-Strategies`](../Mastery/Cloud-DevOps-Mastery/04-CICD-Deployment-Strategies), [`05-Observability-Incident-Response`](../Mastery/Cloud-DevOps-Mastery/05-Observability-Incident-Response), đọc 2-3 câu chuyện/tối ở [`07-Real-World-War-Stories-Fresher-To-Senior`](../Mastery/Cloud-DevOps-Mastery/07-Real-World-War-Stories-Fresher-To-Senior).
+#### 1. Thực hành LAB-05 — Debug & Fix Race Condition (Transaction Locking):
+- **Giả lập sự cố:** 2 request concurrent cùng giảm tồn kho `inventory = inventory - 1` không dùng Lock -> Tồn kho giảm sai (Lost update).
+- **Khắc phục bằng Pessimistic Locking trong Django (`select_for_update`):**
+  ```python
+  from django.db import transaction
+
+  with transaction.atomic():
+      # Lock row trong Database trong suốt transaction (FOR UPDATE)
+      product = Product.objects.select_for_update().get(id=1)
+      product.inventory -= 1
+      product.save()
+  ```
+- **Verify:** Chạy script gửi 50 concurrent requests đạn đồng thời -> Verify inventory tính chuẩn xác 100%. Dẫn chiếu thực hành: [`03-DevOps-Exercises/Checklist_Bai_Tap.md`](03-DevOps-Exercises/Checklist_Bai_Tap.md).
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -3197,13 +4090,18 @@ kubectl rollout status deployment/backend-api   # theo dõi tiến trình rollou
 
 🔴 **Chuyên sâu / Thực chiến:** Luyện áp dụng khung vào đề bài thật cỡ Middle: URL shortener (Chương 11 mục 11.8), rate limiter (Chương 11 mục 11.9), hệ thống thông báo — luyện nói thành tiếng, không chỉ đọc hiểu.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* Khung trả lời chuẩn: **(1) Clarify** yêu cầu thật kỹ trước khi thiết kế (hỏi lại quy mô, giới hạn, ưu tiên) → **(2) Ước lượng tải** (back-of-envelope: bao nhiêu user, bao nhiêu request/giây, bao nhiêu dữ liệu/ngày) → **(3) Thiết kế high-level** (vẽ các khối chính: API, DB, cache, queue) → **(4) Đi sâu 1-2 thành phần** interviewer quan tâm nhất → **(5) Thảo luận trade-off** (không có thiết kế nào hoàn hảo, quan trọng là biết mình đang đánh đổi gì).
-
-🔴 *Chuyên sâu/Thực chiến.* Khung chỉ có giá trị khi áp dụng được vào đề bài thật dưới áp lực thời gian — luyện nói thành tiếng với đề URL shortener/rate limiter (Chương 11) cho tới khi không còn phải nhớ từng bước, mà tự nhiên đi đúng thứ tự.
-
-**Đọc chi tiết:** [`Mastery/Career-Mastery/02-System-Design-Interview-Playbook`](../Mastery/Career-Mastery/02-System-Design-Interview-Playbook).
+#### 1. Quy trình 5 bước Chinh phục Phỏng vấn System Design (System Design Framework)
+* 🎯 **Dùng để làm gì?** Giúp ứng viên dẫn dắt buổi phỏng vấn thiết kế hệ thống một cách chủ động, bài bản, tránh bẫy vẽ sơ đồ phức tạp quá sớm mà không hiểu rõ bối cảnh.
+* ⏰ **Khi nào sử dụng?** Áp dụng trực tiếp trong vòng phỏng vấn System Design (45-60 phút) cho các vị trí Middle/Senior Backend & DevOps Engineer.
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * **Bước 1 — Clarify Requirements (5 phút):** Làm rõ Functional (tính năng) & Non-Functional (QPS, DAU, Latency, Storage, Consistency).
+  * **Bước 2 — Back-of-the-envelope Estimation (5 phút):** Tính toán dung lượng RAM, Disk, Bandwidth (QPS * KB/request) để chọn kích thước Cluster.
+  * **Bước 3 — High-Level Design (10 phút):** Vẽ sơ đồ tổng quan `Client` ➔ `CDN/DNS` ➔ `API Gateway / Load Balancer` ➔ `App Instances` ➔ `Distributed Cache (Redis)` ➔ `Database (Primary/Replica)`.
+  * **Bước 4 — Deep Dive (15-20 phút):** Đi sâu vào 1-2 điểm nghẽn khó nhất (Data Schema, Sharding Key, Chống Race Condition, Rate Limiter).
+  * **Bước 5 — Identify Bottlenecks & Trade-offs (5 phút):** Chủ động tự chỉ ra điểm yếu của thiết kế (SPOF - Single Point of Failure) và hướng khắc phục.
+* ⚙️ **Cơ chế hoạt động ra sao?** Nhà tuyển dụng không tìm kiếm một "đáp án đúng duy nhất" mà đánh giá tư duy kỹ thuật dựa trên **khả năng phân tích Trade-off** và **bộ câu hỏi Clarifying Questions** mà ứng viên đặt ra.
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -3255,15 +4153,20 @@ kubectl rollout status deployment/backend-api   # theo dõi tiến trình rollou
 
 🟢 **Cơ bản:** Tự hỏi-tự trả lời các câu hỏi lý thuyết (Python, Django/Flask, DB, Docker) theo đúng mức Middle.
 
-🔴 **Chuyên sâu / Thực chiến:** Câu hỏi "vì sao chuyển từ Frappe sang Django/Flask" — chuẩn bị câu trả lời có chiều sâu, dùng chính note DJ-04 đã làm ở Chương 5; đây là câu hỏi riêng cho hồ sơ của bạn, không có sẵn đáp án mẫu nào dùng được.
+🔴 **Chuyên sâu / Thực chiến:** Câu hỏi "Khi nào chọn Django, khi nào chọn Flask/FastAPI" — chuẩn bị câu trả lời có chiều sâu dựa trên quy mô dự án, kiến trúc (Batteries-included vs Microservice), hiệu năng I/O và time-to-market, dùng chính note DJ-04 đã làm ở Chương 5.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* Mục tiêu không phải học thuộc câu trả lời mẫu, mà tập **trả lời ngắn gọn kèm ví dụ thực tế đã làm** — interviewer ở mức Middle thường hỏi tiếp "bạn đã gặp case này chưa, xử lý thế nào" ngay sau câu lý thuyết, trả lời suông không có ví dụ sẽ bị đánh giá là học vẹt.
-
-🔴 *Chuyên sâu/Thực chiến.* Câu hỏi về lý do chuyển stack (Frappe → Django/Flask) không có đáp án mẫu dùng chung được — phải tự xây dựng từ đúng trải nghiệm cá nhân, nên đây luôn là câu khó chuẩn bị nhất dù nghe tưởng đơn giản nhất.
-
-**Đọc chi tiết:** [`Mastery/Backend-Mastery/06-Fresher-To-Senior-Knowledge-And-Interview-Map`](../Mastery/Backend-Mastery/06-Fresher-To-Senior-Knowledge-And-Interview-Map), [`interview_prep/07_Cau_Hoi_Phong_Van.md`](../interview_prep/07_Cau_Hoi_Phong_Van.md), [`Mastery/Career-Mastery/03-Technical-Interview-Strategy-By-Stack`](../Mastery/Career-Mastery/03-Technical-Interview-Strategy-By-Stack).
+#### 1. Phương pháp Trả lời Lý thuyết & So sánh Framework (Django vs Flask vs FastAPI)
+* 🎯 **Dùng để làm gì?** Giúp ứng viên thể hiện tư duy kỹ sư Middle/Senior qua khả năng phân tích Trade-off, lựa chọn đúng công cụ theo quy mô và bối cảnh dự án thay vì học thuộc lòng định nghĩa suông.
+* ⏰ **Khi nào sử dụng?** Áp dụng ngay trong vòng phỏng vấn kỹ thuật (Technical Interview) khi được hỏi các câu hỏi lý thuyết cốt lõi ("Tại sao chọn X thay vì Y", "GIL là gì", "N+1 Problem fix thế nào").
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * **Công thức trả lời chuẩn Senior:** `Định nghĩa ngắn gọn` ➔ `Ví dụ thực tế đã làm trong dự án` ➔ `Trade-off & Giới hạn kỹ thuật`.
+  * **Khi so sánh Framework:**
+    * **Django:** "Batteries-included" — Dùng cho sản phẩm Monolith, E-commerce, ERP cần làm nhanh (Time-to-market), có sẵn ORM, Auth, Admin UI.
+    * **Flask / FastAPI:** "Micro-framework" — Dùng cho Microservices, High-performance Async APIs, AI/ML Serving nhờ khả năng tùy biến cao và tối ưu bộ nhớ.
+* ⚙️ **Cơ chế hoạt động ra sao?**
+  * Nhà tuyển dụng đánh giá ứng viên dựa trên **Rủi ro khi tuyển dụng**: Người trả lời kèm ví dụ thực tế và chỉ ra được điểm yếu của giải pháp chứng tỏ đã trực tiếp chinh chiến Production, không phải học vẹt qua sách vở.
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
@@ -3324,18 +4227,26 @@ kubectl rollout status deployment/backend-api   # theo dõi tiến trình rollou
 
 🔴 **Chuyên sâu / Thực chiến:** Chuẩn bị 2-3 câu chuyện theo mô hình STAR (Situation - Task - Action - Result) — khó nhất vì phải tự rút ra từ kinh nghiệm thật, không có đáp án mẫu.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟡 *Nâng cao.* Project portfolio là bằng chứng cụ thể thay vì chỉ nói "tôi biết Django/K8s" — ghép nhiều kỹ năng đã học thành 1 sản phẩm chạy thật, deploy thật, có README/Runbook chuyên nghiệp (người khác đọc vào là hiểu được chạy thế nào, không cần hỏi lại bạn).
-
-🔴 *Chuyên sâu/Thực chiến.* STAR là khung kể chuyện giúp câu trả lời phỏng vấn có cấu trúc rõ ràng thay vì kể lan man — đặc biệt hữu ích khi kể lại kinh nghiệm thực tế ở công ty hiện tại, không chỉ project tự làm; khó vì phải tự rút ra câu chuyện đúng, khung chỉ giúp sắp xếp lại cho mạch lạc.
-
-**Đọc chi tiết:** [`interview_prep/08_Du_An_Thuc_Te.md`](../interview_prep/08_Du_An_Thuc_Te.md).
+#### 1. Xây dựng Project Portfolio & Kể chuyện Kỹ thuật theo Mô hình STAR
+* 🎯 **Dùng để làm gì?** 
+  * Project Portfolio là bằng chứng sản phẩm thật (Show, don't tell) minh chứng cho kỹ năng làm Backend/DevOps.
+  * Mô hình **STAR** (Situation - Task - Action - Result) giúp cấu trúc câu trả lời phỏng vấn kinh nghiệm thực tế một cách chuyên nghiệp, thuyết phục.
+* ⏰ **Khi nào sử dụng?** Dùng khi viết CV, chuẩn bị GitHub Repository cá nhân và trả lời các câu hỏi phỏng vấn hành vi / kinh nghiệm thực tế (Behavioral / Experience Questions).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * **Portfolio Chuẩn:** Không làm Web Todo App đơn giản. Phải ghép Django REST API (Auth/Business) + Redis (Cache/Limiter) + Celery (Async Task) + Docker/K8s + GitHub Actions CI/CD + Prometheus Logging. Có file `README.md` mô tả Architecture Diagram, API Docs và Runbook cách chạy `docker-compose up`.
+  * **STAR Method:**
+    * **S (Situation):** Bối cảnh sự cố / yêu cầu (VD: API checkout bị châm 3s lúc Peak Traffic).
+    * **T (Task):** Nhiệm vụ của bạn (VD: Giảm Latency xuống dưới 300ms và không làm rớt order).
+    * **A (Action):** Hành động kỹ thuật cụ thể (VD: Dùng `cProfile` phát hiện N+1 query ➔ Thêm `select_related` + Redis Cache-aside).
+    * **R (Result):** Kết quả đo lường được (VD: Latency giảm từ 3.2s xuống 180ms, Throughput tăng 4x).
+* ⚙️ **Cơ chế hoạt động ra sao?** Nhà tuyển dụng đánh giá năng lực giải quyết vấn đề qua con số định lượng (Metrics) ở bước **Result** và các quyết định kiến trúc cụ thể ở bước **Action**.
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
 
-> ⚠️ **Lưu ý quan trọng:** Các dự án dưới đây (eCommerce Migration, Viet Kiosk, MBW Suite, Traditional Medicine Platform) là **ví dụ mẫu từ tài liệu tham khảo trong repo — KHÔNG phải dự án thật của bạn**. Dùng để học **CÁCH trình bày** 1 dự án trong phỏng vấn (kiến trúc, câu hỏi hay gặp, code pattern, khung STAR), không phải để học thuộc nội dung cụ thể rồi nhận là của mình — người phỏng vấn senior sẽ hỏi xoáy sâu chi tiết thật ("con số cụ thể là bao nhiêu?") và lộ ngay nếu không phải trải nghiệm thật. Hãy áp dụng đúng KHUNG này cho dự án thật của chính bạn (Frappe + Vue, hoặc project portfolio tự xây ở Chương 22).
+> ⚠️ **Lưu ý quan trọng:** Các dự án dưới đây (eCommerce Migration, Viet Kiosk, MBW Suite, Traditional Medicine Platform) là **ví dụ mẫu từ tài liệu tham khảo trong repo — KHÔNG phải dự án thật của bạn**. Dùng để học **CÁCH trình bày** 1 dự án trong phỏng vấn (kiến trúc, câu hỏi hay gặp, code pattern, khung STAR), không phải để học thuộc nội dung cụ thể rồi nhận là của mình — người phỏng vấn senior sẽ hỏi xoáy sâu chi tiết thật ("con số cụ thể là bao nhiêu?") và lộ ngay nếu không phải trải nghiệm thật. Hãy áp dụng đúng KHUNG này cho dự án thật của chính bạn (hoặc project portfolio tự xây ở Chương 22).
 >
 > Nguồn: `interview_prep/08_Du_An_Thuc_Te.md`, `interview_prep/07_Cau_Hoi_Phong_Van.md` (Q48-52).
 
@@ -3428,7 +4339,7 @@ def generate_cv(self, candidate_info: dict) -> GeneratedCV:
 ```
 **"Tránh hallucination khi LLM generate CV?"** → Structured output (yêu cầu JSON schema cụ thể); Few-shot prompting; Validation layer (reject nếu sai schema); Human review cho case nhạy cảm; Fallback template-based nếu LLM fail.
 
-**"Làm sao integrate 6+ microservices trong 1 platform?"** → Dùng Frappe Framework làm application server chính (có sẵn authentication/permissions/REST API/real-time); mỗi app con là Frappe app riêng, dùng chung database và authentication; giao tiếp qua event system của Frappe và REST API nội bộ.
+**"Làm sao integrate 6+ microservices trong 1 platform?"** → Dùng API Gateway làm cổng vào duy nhất (xử lý authentication/permissions/routing); các service con giao tiếp qua gRPC hoặc REST API nội bộ, dùng Message Queue (RabbitMQ/Kafka) cho event-driven communication.
 
 **"Làm sao ensure accuracy khi có phần tính toán ngoài (MATLAB MCR)?"** → Unit test với input/output đã biết trước; cross-validation chạy song song bản fallback Python và so sánh; monitoring log chênh lệch nếu vượt ngưỡng; regression test mỗi lần deploy; A/B test với mẫu nhỏ trước khi áp dụng production.
 
@@ -3464,13 +4375,17 @@ R: "Migration hoàn thành trong 8 tiếng, 0 data loss, nền tảng tái sử 
 
 🔴 **Chuyên sâu / Thực chiến:** Mặt bằng lương Middle Backend/DevOps tại Việt Nam, cách thương lượng thật, thời điểm nên/không nên nhận offer.
 
-**Giải thích chi tiết:**
+**Giải thích chi tiết chuyên sâu:**
 
-🟢 *Cơ bản.* Behavioral interview khác hoàn toàn câu hỏi kỹ thuật — hỏi về cách bạn xử lý xung đột, deadline gấp, sai lầm từng mắc phải; nên chuẩn bị trước bằng chính khung STAR ở Chương 22.
-
-🔴 *Chuyên sâu/Thực chiến.* Đàm phán lương: biết mặt bằng thị trường **trước khi** vào phỏng vấn (không để công ty định giá một chiều), và hiểu rằng thời điểm tốt nhất để đàm phán là **sau khi có offer**, không phải trước đó — đây là kỹ năng chỉ luyện được qua thực chiến, không có công thức cố định.
-
-**Đọc chi tiết:** [`Mastery/Career-Mastery/04-Behavioral-And-Salary-Negotiation`](../Mastery/Career-Mastery/04-Behavioral-And-Salary-Negotiation), [`05-Salary-Growth-Playbook`](../Mastery/Career-Mastery/05-Salary-Growth-Playbook).
+#### 1. Chiến lược Đàm phán Lương & Định hình Giá trị Bản thân (Career Growth)
+* 🎯 **Dùng để làm gì?** Tối đa hóa Total Compensation (Lương cứng, Thưởng, Remoteness, Học tập) và chọn đúng thời điểm chuyển việc/thăng tiến để tối ưu hóa sự nghiệp.
+* ⏰ **Khi nào sử dụng?** Khi bắt đầu tìm kiếm cơ hội mới, chuẩn bị đàm phán sau khi nhận Written Offer hoặc trong các đợt Review thăng tiến hàng năm (Performance Review).
+* 🏢 **Thực tế doanh nghiệp dùng như thế nào?**
+  * **Nguyên tắc Đàm phán thực chiến:**
+    1. **Không né tránh nhưng không đưa con số cụ thể trước:** Hỏi ngược lại Range của công ty ("Range ngân sách cho vị trí này là bao nhiêu?").
+    2. **Đòn bẩy mạnh nhất là Multi-Offers:** Đi phỏng vấn 2-3 nơi cùng lúc để có phương án dự phòng thực tế.
+    3. **Định giá theo Rủi ro:** Công ty trả lương theo **chi phí thay thế bạn** và **quy mô thiệt hại khi bạn nghỉ việc**, không phải số giờ bạn ngồi làm việc.
+* ⚙️ **Cơ chế hoạt động ra sao?** Nhà tuyển dụng sẽ luôn chọn mức lương thấp nhất trong khoảng kỳ vọng của bạn. Do đó, mức thấp nhất trong Range bạn đưa ra phải là mức bạn **hoàn toàn hài lòng** nếu nhận offer.
 
 <details>
 <summary>📚 Nội dung đầy đủ từ tài liệu gốc (bấm để mở)</summary>
